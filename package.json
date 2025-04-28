@@ -1,0 +1,23 @@
+{
+  "name": "asocial2-srv",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Daniel Sportes",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "start": "node src-fw/main.js"
+  },
+  "dependencies": {
+    "@google-cloud/logging-winston": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "winston": "^3.17.0"
+  },
+  "engines": {
+    "node": "^22.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3"
+  }
+}
