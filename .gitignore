@@ -1,0 +1,12 @@
+node_modules
+dist
+logs
+cert
+keys.json
+tmp
+emulators/bk
+.yarn
+*.db3
+*.db3-shm
+*.db3-wal
+*.log

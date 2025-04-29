@@ -4,9 +4,11 @@
   "description": "",
   "author": "Daniel Sportes",
   "license": "ISC",
-  "type": "module",
   "scripts": {
-    "start": "node src-fw/main.js"
+    "test": "npx tsx src-fw/index.ts",
+    "gcp-build": "tsc -p .",
+    "build2": "tsc",
+    "build": "webpack"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^6.0.0",
@@ -18,6 +20,13 @@
     "node": "^22.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.3",
+    "@types/winston": "^2.4.4",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1"
   }
 }
