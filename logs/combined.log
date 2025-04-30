@@ -21,3 +21,69 @@
 2025-04-29T17:05:44.029Z info: HTTP listen [8080]
 2025-04-29T17:08:43.645Z info: HTTP listen [8080]
 2025-04-29T17:43:09.393Z info: HTTP listen [8080]
+2025-04-30T13:12:55.143Z info: HTTP listen [8080]
+2025-04-30T13:21:55.260Z info: AppExc: 1002:unknown operation["EchoTexte"]
+2025-04-30T13:26:24.144Z info: HTTP listen [8080]
+2025-04-30T13:28:31.721Z info: AppExc: 1002:unknown operation["EchoTexte"]
+2025-04-30T13:33:28.503Z info: nbOp=1
+2025-04-30T13:33:34.807Z info: HTTP listen [8080]
+2025-04-30T13:34:21.746Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'opName')"]
+2025-04-30T13:38:34.787Z info: nbOp=1
+2025-04-30T13:38:34.802Z info: HTTP listen [8080]
+2025-04-30T13:39:50.483Z info: AppExc: 1002:unknown operation["EchoTexte"]
+2025-04-30T13:43:08.974Z info: nbOp=1
+2025-04-30T13:43:08.990Z info: HTTP listen [8080]
+2025-04-30T13:56:50.527Z info: nbOp=1
+2025-04-30T13:56:50.541Z info: HTTP listen [8080]
+2025-04-30T14:00:39.548Z info: nbOp=1
+2025-04-30T14:00:39.559Z info: HTTP listen [8080]
+2025-04-30T14:05:42.916Z info: nbOp=1
+2025-04-30T14:05:42.925Z info: HTTP listen [8080]
+2025-04-30T14:17:58.327Z info: nbOp=1
+2025-04-30T14:17:58.343Z info: HTTP listen [8080]
+2025-04-30T14:17:58.728Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T14:22:26.515Z info: nbOp=1
+2025-04-30T14:22:26.528Z info: HTTP listen [8080]
+2025-04-30T14:22:57.305Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T14:30:45.243Z info: nbOp=1
+2025-04-30T14:30:45.253Z info: HTTP listen [8080]
+2025-04-30T14:31:04.230Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T14:36:44.756Z info: nbOp=1
+2025-04-30T14:36:44.766Z info: HTTP listen [8080]
+2025-04-30T14:37:04.964Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T14:44:42.368Z info: nbOp=1
+2025-04-30T14:44:42.379Z info: HTTP listen [8080]
+2025-04-30T14:44:54.249Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T15:06:01.756Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T15:09:27.792Z info: nbOp=1
+2025-04-30T15:09:27.804Z info: HTTP listen [8080]
+2025-04-30T15:09:49.613Z info: AppExc: 1010:invalid argument@EchoTexte["text"]
+2025-04-30T15:12:23.877Z info: nbOp=1
+2025-04-30T15:12:23.888Z info: HTTP listen [8080]
+2025-04-30T15:12:46.509Z info: AppExc: 1999:unexpected exception@EchoTexte["KO"]
+2025-04-30T15:21:53.484Z info: nbOp=1
+2025-04-30T15:21:53.499Z info: HTTP listen [8080]
+2025-04-30T15:22:11.224Z info: AppExc: 1999:unexpected exception@EchoTexte["KO"]
+2025-04-30T15:27:03.588Z info: nbOp=1
+2025-04-30T15:27:03.599Z info: HTTP listen [8080]
+2025-04-30T15:27:40.861Z info: AppExc: 1999:unexpected exception@EchoTexte["KO"]
+2025-04-30T15:29:45.035Z info: nbOp=1
+2025-04-30T15:29:45.045Z info: HTTP listen [8080]
+2025-04-30T15:32:24.323Z info: AppExc: 1999:unexpected exception@EchoTexte:["KO"]
+2025-04-30T15:32:37.493Z info: AppExc: 1999:unexpected exception@EchoTexte:["KO"]
+2025-04-30T15:35:17.205Z info: nbOp=1
+2025-04-30T15:35:17.217Z info: HTTP listen [8080]
+2025-04-30T15:35:28.686Z info: AppExc: 1010:invalid argument@EchoTexte:["text"]
+2025-04-30T15:35:40.935Z info: AppExc: 1999:unexpected exception@EchoTexte:["KO"]
+2025-04-30T15:41:46.645Z info: nbOp=1
+2025-04-30T15:41:46.656Z info: HTTP listen [8080]
+2025-04-30T15:43:00.193Z info: nbOp=1
+2025-04-30T15:43:00.203Z info: HTTP listen [8080]
+2025-04-30T15:43:14.188Z info: AppExc: 1010:invalid argument@EchoTexte:["text"]
+2025-04-30T15:43:58.162Z info: nbOp=1
+2025-04-30T15:43:58.172Z info: HTTP listen [8080]
+2025-04-30T15:44:12.832Z error: AppExc: 8010:invalid argument@EchoTexte:["text"]
+2025-04-30T15:57:38.113Z info: nbOp=1
+2025-04-30T15:57:38.125Z info: HTTP listen [8080]
+2025-04-30T15:57:49.537Z error: AppExc: 8010:invalid argument@EchoTexte:["text"]
+2025-04-30T15:57:55.781Z info: Mail sent to:daniel@sportes.fr subject:[a] op:EchoTexte - AppExc: 8010:invalid argument@EchoTexte:["text"]

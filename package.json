@@ -6,12 +6,14 @@
   "license": "ISC",
   "scripts": {
     "test": "npx tsx src-fw/index.ts",
+    "crypt": "npx tsx src-fw/cryptkeys.ts -p \"toto est tres tres beau\"",
     "gcp-build": "tsc -p .",
     "build2": "tsc",
     "build": "webpack"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^6.0.0",
+    "@msgpack/msgpack": "^3.1.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "winston": "^3.17.0"
