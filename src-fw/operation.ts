@@ -46,7 +46,7 @@ export class Operation {
     if (present && type !== 'string'
       || (minlg !== undefined && value.length < minlg) 
       || (maxlg !== undefined && value.length > maxlg)) {
-        throw new AppExc(this, 8010, 'invalid argument', [par])
+        throw new AppExc(this, 1010, 'invalid argument', [par])
       }
     return value
   }
