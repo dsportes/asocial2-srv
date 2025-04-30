@@ -14,6 +14,8 @@ export const config = {
   https: false,
   origins: new Set<string>(/*['http://localhost:8080']*/),
   site: 'a',
+  database: 'sqla',
+  storage: 'fsa',
 
   debugLevel: 2, // 0: aucun, 1: standard: 2: élevé
   adminAlerts: true, // false: simulation true: envoi de mail

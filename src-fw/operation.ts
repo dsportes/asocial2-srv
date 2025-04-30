@@ -19,6 +19,7 @@ export class Operation {
   public args: any
   public params: any
   public today: number
+  public db: any
 
   constructor () { }
 
