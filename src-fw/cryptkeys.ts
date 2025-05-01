@@ -35,7 +35,7 @@ if (!existsSync(pjson)) {
     const buf = readFileSync(pjson)
     const b64 = crypt(key, buf).toString('base64')
     const pmjs = path.resolve('./src-fw/keys.ts')
-    const x = 'export const json64 = \'' + b64 + '\'\n'
+    const x = 'export const json64 = \'' + b64 + '\'\r\n'
     writeFileSync(pmjs, Buffer.from(x, 'utf8'))
     console.log('./src-fw/keys.js written')
   } catch (e) {

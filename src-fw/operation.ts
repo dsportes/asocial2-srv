@@ -1,4 +1,5 @@
 import { AppExc } from './exception'
+import { DbGeneric } from '../src-app/dbConfig'
 
 export const factories = new Map<string, Function>()
 
@@ -12,6 +13,12 @@ export function newOperation (opName: string) {
   return null
 }
 
+export function fakeOperation () {
+  const op = new Operation()
+  op.opName = 'fake'
+  return op
+}
+
 export class Operation {
   public opName: string
   public org: string
@@ -19,7 +26,7 @@ export class Operation {
   public args: any
   public params: any
   public today: number
-  public db: any
+  public db: DbGeneric
 
   constructor () { }
 
@@ -30,16 +37,16 @@ export class Operation {
   }
 
   type (par: string, req: boolean) : [boolean, any, string] { // absent, value, type
-    if (par === undefined) throw new AppExc(this, 8001, 'unknown argument', ['?'])
+    if (par === undefined) throw new AppExc(8001, 'unknown argument', null, ['?'])
     const v = this.args[par]
     if (v === undefined) {
-      if (req) throw new AppExc(this, 3001, 'argument absent', [par])
+      if (req) throw new AppExc(3001, 'argument absent', null, [par])
       return [false, null, '']
     }
     return [true, v, typeof v]
   }
 
-  invalid (par: string) { throw new AppExc(this, 3001, 'invalid argument', [par])}
+  invalid (par: string) { throw new AppExc(3001, 'invalid argument', this, [par])}
 
   stringValue (par: string, req: boolean, minlg?: number, maxlg?: number) : string {
     const [present, value, type] = this.type(par, req)
@@ -47,7 +54,7 @@ export class Operation {
     if (present && type !== 'string'
       || (minlg !== undefined && value.length < minlg) 
       || (maxlg !== undefined && value.length > maxlg)) {
-        throw new AppExc(this, 1010, 'invalid argument', [par])
+        throw new AppExc(1010, 'invalid argument', this, [par])
       }
     return value
   }
@@ -58,7 +65,7 @@ export class Operation {
     if (type !== 'number' || !Number.isInteger(value)
       || (min !== undefined && value < min) 
       || (max !== undefined && value > max)) {
-        throw new AppExc(this, 1010, 'invalid argument', [par])
+        throw new AppExc(1010, 'invalid argument', this, [par])
       }
     return value
   }

@@ -8,12 +8,13 @@ import { existsSync, readFileSync } from 'node:fs'
 import crypto from 'crypto'
 
 import { json64 } from './keys'
-import { Operation, newOperation, getFile, putFile } from './operation'
+import { Operation, newOperation, fakeOperation, getFile, putFile } from './operation'
 import { amj, sleep, getHP } from './util'
 import { AppExc } from './exception'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { nbOp } from './operations'
+import { dbConnexion } from '../src-app/dbConfig'
 
 import { config } from '../src-app/app'
 config.PROD = env.NODE_ENV === 'production' ? true : false
@@ -59,6 +60,13 @@ try {
   loadKeys()
 
   logInfo('nbOp=' + nbOp)
+
+  if (!config.database) 
+    throw new AppExc(1012, 'config.database not found', null)
+  if (!config.dbOptions || !config.dbOptions[config.database])
+    throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
+  if (!config.site || !config.keys['sites'][config.site])
+    throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
 
   const app = express()
   app.use(cors({}))
@@ -133,12 +141,14 @@ try {
       logError(p + ' NOT FOUND')
       exit()
     }
-    server = https.createServer({key, cert}, app).listen(port, () => {
+    server = https.createServer({key, cert}, app).listen(port, async () => {
       logInfo('HTTPS listen [' + config.port + ']')
+      await testDb()
     })
   } else {
-    server = http.createServer(app).listen(port, () => {
+    server = http.createServer(app).listen(port, async () => {
       logInfo('HTTP listen [' + port + ']')
+      await testDb()
     })
   }
 
@@ -150,6 +160,24 @@ try {
 } catch(e) { // exception générale. Ne devrait jamais être levée
   logError('MAIN error: ' + e.message + '\n' + e.stack)
   exit()
+}
+
+async function testDb () {
+  if (config.debugLevel === 2) 
+    try {
+      const op = fakeOperation()
+      await dbConnexion(config.database, config.site, op)
+      const [status, msg] = await op.db.ping()
+      if (status === 0)
+        logInfo(msg)
+      else {
+        logError(msg)
+        exit()
+      }
+    } catch (e) {
+      logError(e)
+      exit()
+    }
 }
 
 /****************************************************************/
@@ -165,7 +193,7 @@ function checkOrigin(req: express.Request) {
   if (!origin || origin === 'null') origin = req.headers['host']
   const [hn, po] = getHP(origin)
   if (o.has(hn) || o.has(hn + ':' + po)) return true
-  throw new AppExc(null, 1001, 'origin not authorized', [origin])
+  throw new AppExc(1001, 'origin not authorized', null, [origin])
 }
 
 let today = 0
@@ -197,16 +225,19 @@ async function doOp (req: express.Request, res: express.Response, body: Buffer) 
       return
     }
     
-    op = newOperation (opName)
-    if (!op) throw new AppExc(op, 1002, 'unknown operation', [opName])
+    op = newOperation(opName)
+    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
     op.today = today
     op.args = decode(body)
     op.params = {}
 
     if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] || op.args.APIVERSION > config.APIVERSIONS[1]))
-      throw new AppExc(op, 1003, 'unsupported API', [config.APIVERSIONS[0], config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
+      throw new AppExc(1003, 'unsupported API', null, [config.APIVERSIONS[0], config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
 
     op.init()
+
+    await dbConnexion(config.database, config.site, op)
+
     await op.run()
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
@@ -219,7 +250,7 @@ async function doOp (req: express.Request, res: express.Response, body: Buffer) 
     if (e instanceof AppExc) {
       b = e.serial()
     } else {
-      const e2 = new AppExc(op, 1999, 'unexpected exception', [e.message], e.stack || '')
+      const e2 = new AppExc(1999, 'unexpected exception', null, [e.message], e.stack || '')
       b = e2.serial()
       st = 401
     }

@@ -17,4 +17,15 @@ class EchoTexte extends Operation {
 }
 factories.set('EchoTexte', () => { return new EchoTexte()})
 
+class PingDB extends Operation {
+  constructor () { super() }
+
+  async run () {
+    const [status, msg] = await this.db.ping()
+    this.result = { status, msg}
+  }
+
+}
+factories.set('PingDB', () => { return new PingDB()})
+
 export const nbOp = factories.size

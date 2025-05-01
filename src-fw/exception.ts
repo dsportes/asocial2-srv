@@ -56,7 +56,7 @@ export class AppExc {
   public stack: string
   public args: string[]
 
-  constructor (op: Operation, code: number, label: string, args?: string[], stack?: string) {
+  constructor (code: number, label: string, op: Operation, args?: string[], stack?: string) {
     this.label = label
     this.code = code
     this.opName = op ? op.opName : ''

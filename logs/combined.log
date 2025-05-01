@@ -87,3 +87,16 @@
 2025-04-30T15:57:38.125Z info: HTTP listen [8080]
 2025-04-30T15:57:49.537Z error: AppExc: 8010:invalid argument@EchoTexte:["text"]
 2025-04-30T15:57:55.781Z info: Mail sent to:daniel@sportes.fr subject:[a] op:EchoTexte - AppExc: 8010:invalid argument@EchoTexte:["text"]
+2025-05-01T09:23:22.334Z info: nbOp=1
+2025-05-01T09:23:22.348Z info: HTTP listen [8080]
+2025-05-01T09:23:22.349Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-01T09:23:30.140Z info: Sqlite ping OK: 2025-05-01T09:19:47.409Z <=> 2025-05-01T09:23:22.373Z
+2025-05-01T09:39:44.894Z info: nbOp=2
+2025-05-01T09:39:44.906Z info: HTTP listen [8080]
+2025-05-01T09:39:44.907Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-01T09:39:44.935Z info: Sqlite ping OK: 2025-05-01T09:23:22.373Z <=> 2025-05-01T09:39:44.935Z
+2025-05-01T09:41:03.705Z info: AppExc: 1002:unknown operation["DbPing"]
+2025-05-01T09:55:22.365Z info: nbOp=2
+2025-05-01T09:55:22.378Z info: HTTP listen [8080]
+2025-05-01T09:55:22.379Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-01T09:55:22.500Z info: Sqlite ping OK: 2025-05-01T09:42:26.666Z <=> 2025-05-01T09:55:22.500Z
