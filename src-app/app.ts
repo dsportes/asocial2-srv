@@ -24,9 +24,9 @@ export const config = {
     sqla: { path: 'sqlite/testa.db3', cryptIds: false },
     sqlb: { path: 'sqlite/testb.db3', cryptIds: true }
   },
-
+  
   stOptions: {
-    fsa: { path: 'storagea', cryptIds: false }
+    fsa: { bucket: 'firestorea', cryptIds: false, credentials: 'storageFS'}
   },
 
   env: {

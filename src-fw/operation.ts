@@ -1,5 +1,5 @@
 import { AppExc } from './exception'
-import { DbGeneric } from '../src-app/dbConfig'
+import { DbGeneric } from '../src-app/appDbSt'
 
 export const factories = new Map<string, Function>()
 

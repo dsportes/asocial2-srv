@@ -5,16 +5,15 @@ import https from 'https'
 import path from 'path'
 import { exit, env } from 'process'
 import { existsSync, readFileSync } from 'node:fs'
-import crypto from 'crypto'
 
 import { json64 } from './keys'
 import { Operation, newOperation, fakeOperation, getFile, putFile } from './operation'
-import { amj, sleep, getHP } from './util'
+import { amj, sleep, getHP, decrypt } from './util'
 import { AppExc } from './exception'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { nbOp } from './operations'
-import { dbConnexion } from '../src-app/dbConfig'
+import { dbConnexion } from '../src-app/appDbSt'
 
 import { config } from '../src-app/app'
 config.PROD = env.NODE_ENV === 'production' ? true : false
@@ -23,19 +22,6 @@ config.GAE = env.GAE_INSTANCE || ''
 for (const n in config.env) env[n] = config.env[n]
 
 import { logDebug, logInfo, logError } from './log'
-
-function getSalt () {
-  const s = new Uint8Array(16)
-  for (let j = 0; j < 16; j++) s[j] = j + 47
-  return Buffer.from(s)
-}
-
-function decrypt (key: Buffer, bin: Buffer) {
-  const decipher = crypto.createDecipheriv('aes-256-cbc', key, getSalt())
-  const b1 = decipher.update(bin)
-  const b2 = decipher.final()
-  return Buffer.concat([b1, b2])
-}
 
 function loadKeys () {
   try {
