@@ -1,11 +1,9 @@
 import { writeFile, readFile } from 'node:fs/promises'
 import { existsSync, unlinkSync, rmSync, readdirSync, mkdirSync } from 'node:fs'
 import path from 'path'
-import { encode, decode } from '@msgpack/msgpack'
 
 import { logInfo, logError } from './log'
 import { AppExc } from './exception'
-import { crypt, decrypt } from './util'
 
 import { StOptions, stConnexionGeneric } from './stProvider'
 import { StGeneric } from '../src-app/appDbSt'
@@ -13,41 +11,24 @@ import { StGeneric } from '../src-app/appDbSt'
 /* FsProvider ********************************************************************/
 export class fsConnexion extends stConnexionGeneric implements StGeneric{
   public rootpath: string
-  public url: string
 
   constructor (options: StOptions) {
     super(options)
-    this.url = options.url
     this.rootpath = path.resolve(options.bucket)
     if (!existsSync(this.rootpath))
       throw new AppExc(1030, 'fs storage path not found', null, [this.rootpath])
-    logInfo('Storage FS - path:[' + this.rootpath) + '] url:[' + this.url + ']'
+    logInfo('Storage FS - path:[' + this.rootpath) + ']'
   }
 
-  encode3 (id1: string, id2: string, id3: string) : string {
-    const b = Buffer.from(encode([id1, id2, id3]))
-    const x = crypt(this.srvkey, b).toString('base64')
-    return x.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
-  }
-
-  decode3 (b64: string) : any { // [id1, id2, id3]
-    const x = decrypt(this.srvkey, Buffer.from(b64, 'base64'))
-    return decode(x)
-  }
-
-  storageUrlGenerique (id1: string, id2: string, id3: string) {
-    return this.url + '/storage/' + this.encode3(id1, id2, id3)
-  }
-
-  async ping () : Promise<string> {
+  async ping () : Promise<[number, string]> {
     try {
       const txt = new Date().toISOString()
       const data = Buffer.from(txt)
       const p = path.resolve(this.rootpath, 'ping.txt')
-      await writeFile(p, Buffer.from(data))
-      return 'File_system ping.txt OK: ' + txt
+      await writeFile(p, data)
+      return [0, 'File-System ping OK: ' + txt]
     } catch (e) {
-      return 'File_system ping.txt KO: ' + e.toString
+      return [1, 'File-System ping KO: ' +e.toString]
     }
   }
 
@@ -73,7 +54,7 @@ export class fsConnexion extends stConnexionGeneric implements StGeneric{
     try {
       const dir = path.resolve(this.rootpath, id1, this.cryptId(id2))
       if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
-      const p = path.resolve(dir, this.cryptId(id2))
+      const p = path.resolve(dir, this.cryptId(id3))
       await writeFile(p, Buffer.from(data))
     } catch (err) {
       logError(err.toString())

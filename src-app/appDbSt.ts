@@ -20,7 +20,7 @@ export async function stConnexion (code: string, site: string) {
 }
 
 export interface StGeneric {
-  ping () : Promise<string> 
+  ping () : Promise<[number, string]> 
   getUrl (id1: string, id2: string, id3: string): string
   putUrl (id1: string, id2: string, id3: string): string
   getFile (id1: string, id2: string, id3:string) : Promise<Buffer>

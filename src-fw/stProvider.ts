@@ -3,16 +3,16 @@ import { env } from 'process'
 import { AppExc } from './exception'
 import { config } from '../src-app/app'
 import { Operation } from './operation'
-import { cryptId, decryptId } from './util'
-
+import { cryptId, decryptId, crypt, decrypt } from './util'
+import { encode, decode } from '@msgpack/msgpack'
 export class StOptions {
   public code: string
   public site: string
   public key: Buffer
   public bucket: string
   public credentials: any
-  public url: string
   public cfg: any // sa ligne dans config
+
   constructor (code:string, site:string) {
     this.cfg = config.stOptions[code]
     if (!this.cfg)
@@ -23,15 +23,11 @@ export class StOptions {
       throw new AppExc(1020, 'config.stOptions bucket not found', null, [code])
     this.bucket = this.cfg.bucket
 
-    if (code.startsWith('fs') && !this.cfg.url)
-      throw new AppExc(1021, 'config.stOptions url not found', null, [code])
-    this.url = this.cfg.url
-
     if (!this.cfg.credentials)
       throw new AppExc(1022, 'config.stOptions credentials not found', null, [code])
-    const cred = config.keys['this.cfg.credentials']
+    const cred = config.keys[this.cfg.credentials]
     if (!cred)
-      throw new AppExc(1023, 'credentials not found', null, [this.cfg.credentials])
+      throw new AppExc(1023, 'keys credentials not found', null, [this.cfg.credentials])
     this.credentials = cred
 
     const k = config.keys['sites'][site]
@@ -67,10 +63,13 @@ export class StConnexion {
 
 export class stConnexionGeneric {
   public key: Buffer
-  public srvkey: Buffer
+  private srvkey: Buffer
+  private srvUrl: string
+
   constructor (options: StOptions) {
     this.key = options.key
-    this.srvkey = Buffer.from(env.SRVKEY)
+    this.srvkey = Buffer.from(env.SRVKEY, 'base64')
+    this.srvUrl = config.srvUrl || 'http://localhost:8080'
   }
 
   cryptId (id: string) {
@@ -79,6 +78,22 @@ export class stConnexionGeneric {
 
   decryptId (id: string) {
     return this.key ? decryptId(this.key, id) : id
+  }
+
+  encode3 (id1: string, id2: string, id3: string) : string {
+    const b = Buffer.from(encode([id1, id2, id3]))
+    const x = crypt(this.srvkey, b).toString('base64')
+    const y = x.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+    return y
+  }
+
+  decode3 (b64: string) : any { // [id1, id2, id3]
+    const x = decrypt(this.srvkey, Buffer.from(b64, 'base64'))
+    return decode(x)
+  }
+
+  storageUrlGenerique (id1: string, id2: string, id3: string) {
+    return this.srvUrl + '/file/' + this.encode3(id1, id2, id3)
   }
 }
 

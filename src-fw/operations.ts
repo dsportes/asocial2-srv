@@ -1,5 +1,8 @@
 import { Operation, factories } from './operation'
 
+
+/* EchoTexte retourne le texte passé en argument (un peu modifié)
+*/
 class EchoTexte extends Operation {
   private text: string
 
@@ -17,6 +20,8 @@ class EchoTexte extends Operation {
 }
 factories.set('EchoTexte', () => { return new EchoTexte()})
 
+/* PingDB effectue un ping de DB et retourne le texte enregistré en DB
+*/
 class PingDB extends Operation {
   constructor () { super() }
 
@@ -27,5 +32,27 @@ class PingDB extends Operation {
 
 }
 factories.set('PingDB', () => { return new PingDB()})
+
+/* GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
+*/
+class GetPutUrl extends Operation {
+  constructor () { super() }
+
+  init () {
+    this.params.id1 = this.stringValue('id1', true)
+    this.params.id2 = this.stringValue('id2', true)
+    this.params.id3 = this.stringValue('id3', true)
+    this.params.isPut = this.boolValue('put', true)
+  }
+
+  async run () {
+    const p = this.params
+    const url = p.isPut ? this.storage.putUrl(p.id1, p.id2, p.id3)
+      : this.storage.getUrl(p.id1, p.id2, p.id3)
+    this.result = { url }
+  }
+
+}
+factories.set('GetPutUrl', () => { return new GetPutUrl()})
 
 export const nbOp = factories.size

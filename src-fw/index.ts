@@ -7,13 +7,15 @@ import { exit, env } from 'process'
 import { existsSync, readFileSync } from 'node:fs'
 
 import { json64 } from './keys'
-import { Operation, newOperation, fakeOperation, getFile, putFile } from './operation'
+import { Operation, newOperation, fakeOperation } from './operation'
 import { amj, sleep, getHP, decrypt } from './util'
 import { AppExc } from './exception'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { nbOp } from './operations'
 import { dbConnexion } from '../src-app/appDbSt'
+import { stConnexion } from './stConfig'
+import { StGeneric } from '../src-app/appDbSt'
 
 import { config } from '../src-app/app'
 config.PROD = env.NODE_ENV === 'production' ? true : false
@@ -45,7 +47,8 @@ try {
 
   loadKeys()
 
-  logInfo('nbOp=' + nbOp)
+  // IL FAUT utiliser nbOp, sinon les opérations ne sont pas importées
+  logInfo('Number of operations: ' + nbOp)
 
   if (!config.database) 
     throw new AppExc(1012, 'config.database not found', null)
@@ -53,6 +56,10 @@ try {
     throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
   if (!config.site || !config.keys['sites'][config.site])
     throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
+
+  if (!config.storage) 
+    throw new AppExc(1012, 'config.storage not found', null)
+  const storage = stConnexion(config.storage, config.site)
 
   const app = express()
   app.use(cors({}))
@@ -73,7 +80,8 @@ try {
 
   app.get('/file/:arg', async (req, res) => {
     try {
-      const bytes = await getFile(req.params.arg)
+      const [id1, id2, id3] = storage.decode3(req.params.arg)
+      const bytes = await storage.getFile(id1, id2, id3)
       if (bytes) res.status(200).type('application/octet-stream').send(bytes)
       else res.status(404).send('File not found')
     } catch (e) {
@@ -88,7 +96,8 @@ try {
         bufs.push(chunk);
       }).on('end', async () => {
         const bytes = Buffer.concat(bufs)
-        await putFile(req.params.arg, bytes)
+        const [id1, id2, id3] = storage.decode3(req.params.arg)
+        await storage.putFile(id1, id2, id3, bytes)
         res.status(200).send('OK')
       })
     } catch (e) {
@@ -105,10 +114,10 @@ try {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         body = Buffer.concat(chunks)
-        await doOp(req, res, body)
+        await doOp(storage, req, res, body)
       })
-    } else
-      await doOp(req, res, req['rawBody'])
+    } else // Cloud functions
+      await doOp(storage, req, res, req['rawBody'])
   })
 
   const port = env.PORT || config.port
@@ -129,12 +138,12 @@ try {
     }
     server = https.createServer({key, cert}, app).listen(port, async () => {
       logInfo('HTTPS listen [' + config.port + ']')
-      await testDb()
+      await testDb(storage)
     })
   } else {
     server = http.createServer(app).listen(port, async () => {
       logInfo('HTTP listen [' + port + ']')
-      await testDb()
+      await testDb(storage)
     })
   }
 
@@ -148,17 +157,28 @@ try {
   exit()
 }
 
-async function testDb () {
+async function testDb (storage: StGeneric) {
   if (config.debugLevel === 2) 
     try {
       const op = fakeOperation()
       await dbConnexion(config.database, config.site, op)
-      const [status, msg] = await op.db.ping()
-      if (status === 0)
-        logInfo(msg)
-      else {
-        logError(msg)
-        exit()
+      {
+        const [status, msg] = await op.db.ping()
+        if (status === 0)
+          logInfo(msg)
+        else {
+          logError(msg)
+          exit()
+        }
+      }
+      {
+        const [status, msg] = await storage.ping()
+        if (status === 0)
+          logInfo(msg)
+        else {
+          logError(msg)
+          exit()
+        }
       }
     } catch (e) {
       logError(e)
@@ -185,7 +205,7 @@ function checkOrigin(req: express.Request) {
 let today = 0
 let todayEpoch = 0
 
-async function doOp (req: express.Request, res: express.Response, body: Buffer) {
+async function doOp (storage, req: express.Request, res: express.Response, body: Buffer) {
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
@@ -213,6 +233,7 @@ async function doOp (req: express.Request, res: express.Response, body: Buffer) 
     
     op = newOperation(opName)
     if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
+    op.storage = storage
     op.today = today
     op.args = decode(body)
     op.params = {}

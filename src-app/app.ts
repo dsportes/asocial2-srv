@@ -16,17 +16,19 @@ export const config = {
   site: 'A',
   database: 'sqla',
   storage: 'fsa',
+  // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
+  srvUrl: 'http://localhost:8080', // '' si défaut 'http://localhost:8080'
 
   debugLevel: 2, // 0: aucun, 1: standard: 2: élevé
   adminAlerts: true, // false: simulation true: envoi de mail
 
   dbOptions: {
-    sqla: { path: 'sqlite/testa.db3', cryptIds: false },
-    sqlb: { path: 'sqlite/testb.db3', cryptIds: true }
+    sqla: { path: 'sqlite/testa.db3', cryptIds: false, credentials: 'sqlite' },
+    sqlb: { path: 'sqlite/testb.db3', cryptIds: true, credentials: 'sqlite' }
   },
   
   stOptions: {
-    fsa: { bucket: 'firestorea', cryptIds: false, credentials: 'storageFS'}
+    fsa: { bucket: 'filestorea', cryptIds: false, credentials: 'storageFS'}
   },
 
   env: {

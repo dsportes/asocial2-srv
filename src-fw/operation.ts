@@ -1,5 +1,5 @@
 import { AppExc } from './exception'
-import { DbGeneric } from '../src-app/appDbSt'
+import { DbGeneric, StGeneric } from '../src-app/appDbSt'
 
 export const factories = new Map<string, Function>()
 
@@ -27,6 +27,7 @@ export class Operation {
   public params: any
   public today: number
   public db: DbGeneric
+  public storage: StGeneric
 
   constructor () { }
 
@@ -70,15 +71,16 @@ export class Operation {
     return value
   }
 
+  boolValue (par: string, req: boolean) : boolean {
+    const [present, value, type] = this.type(par, req)
+    if (!present && !req) return false
+    if (type !== 'boolean')
+      throw new AppExc(1010, 'invalid argument', this, [par])
+    return value
+  }
+
   orgValue (req: boolean) : string {
     return this.stringValue('org', req, 4, 16)
   }
 
-}
-
-export async function getFile (_args) : Promise<Uint8Array<ArrayBufferLike>> {
-  return null
-}
-
-export async function putFile (_args, _bytes) : Promise<void> {
 }
