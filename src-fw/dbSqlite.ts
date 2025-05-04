@@ -1,3 +1,4 @@
+// import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
 import { DbOptions, DbConnexion } from '../src-fw/dbProvider'
@@ -57,14 +58,16 @@ export class SQLiteConnexion extends DbConnexion {
 
   async connect () {
     const options = {
-      verbose: (msg) => {
+      // nativeBinding: require('better-sqlite3/build/Release/better_sqlite3.node'),
+      verbose: (msg: string) => {
         if (config.debugLevel === 2) logDebug(msg)
         this.lastSql.unshift(msg)
         if (this.lastSql.length > 3) this.lastSql.length = 3
       } 
     }
+
     try {
-      this.sql = new Database(this.path, options)
+      this.sql = new Database(this.path, options), 
       this.sql.pragma('journal_mode = WAL')
     } catch (e) {
       throw new AppExc(1024, 'SQLite connexion failed', this.op, [e.message])

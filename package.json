@@ -6,10 +6,12 @@
   "license": "ISC",
   "scripts": {
     "test": "npx tsx src-fw/index.ts",
+    "testdist": "cd ../tmp/srv; node bundle.js",
     "crypt": "npx tsx src-fw/cryptkeys.ts -p \"toto est tres tres beau\"",
     "gcp-build": "tsc -p .",
     "build2": "tsc",
-    "build": "webpack"
+    "build": "webpack",
+    "cpbin": "mkdir -p ../tmp/srv/node_modules/better-sqlite3/build/Release; cp ./node_modules/better-sqlite3/build/Release/better_sqlite3.node ../tmp/srv/node_modules/better-sqlite3/build/Release"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^6.0.0",

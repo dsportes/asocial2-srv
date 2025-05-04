@@ -162,3 +162,239 @@
 2025-05-02T16:38:27.163Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
 2025-05-02T16:38:27.186Z info: Sqlite ping OK: 2025-05-02T16:34:46.875Z <=> 2025-05-02T16:38:27.186Z
 2025-05-02T16:38:27.199Z info: File-System ping OK: 2025-05-02T16:38:27.187Z
+2025-05-04T09:44:10.915Z info: Number of operations: 3
+2025-05-04T09:44:10.920Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T09:44:10.934Z info: HTTP listen [8080]
+2025-05-04T09:44:10.937Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T09:44:10.972Z info: Sqlite ping OK: 2025-05-02T16:38:27.186Z <=> 2025-05-04T09:44:10.967Z
+2025-05-04T09:44:10.996Z info: File-System ping OK: 2025-05-04T09:44:10.973Z
+2025-05-04T09:51:03.590Z info: Number of operations: 3
+2025-05-04T09:51:03.594Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T09:51:03.608Z info: HTTP listen [8080]
+2025-05-04T09:51:03.610Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T09:51:03.620Z info: Sqlite ping OK: 2025-05-04T09:44:10.967Z <=> 2025-05-04T09:51:03.619Z
+2025-05-04T09:51:03.637Z info: File-System ping OK: 2025-05-04T09:51:03.621Z
+2025-05-04T10:00:51.260Z info: Number of operations: 3
+2025-05-04T10:00:51.265Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:00:51.281Z info: HTTP listen [8080]
+2025-05-04T10:00:51.282Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:00:51.288Z info: Sqlite ping OK: 2025-05-04T09:51:03.619Z <=> 2025-05-04T10:00:51.288Z
+2025-05-04T10:00:51.312Z info: File-System ping OK: 2025-05-04T10:00:51.289Z
+2025-05-04T10:07:23.599Z info: Number of operations: 3
+2025-05-04T10:07:23.605Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:07:23.617Z info: HTTP listen [8080]
+2025-05-04T10:07:23.618Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:07:23.624Z info: Sqlite ping OK: 2025-05-04T10:00:51.288Z <=> 2025-05-04T10:07:23.623Z
+2025-05-04T10:07:23.632Z info: File-System ping OK: 2025-05-04T10:07:23.625Z
+2025-05-04T10:20:41.634Z info: Number of operations: 3
+2025-05-04T10:20:41.637Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:20:41.651Z info: HTTP listen [8080]
+2025-05-04T10:20:41.654Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:20:41.660Z info: Sqlite ping OK: 2025-05-04T10:07:23.623Z <=> 2025-05-04T10:20:41.660Z
+2025-05-04T10:20:41.681Z info: File-System ping OK: 2025-05-04T10:20:41.661Z
+2025-05-04T10:29:28.700Z info: Number of operations: 3
+2025-05-04T10:29:28.703Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:29:28.716Z info: HTTP listen [8080]
+2025-05-04T10:29:28.718Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:29:28.724Z info: Sqlite ping OK: 2025-05-04T10:20:41.660Z <=> 2025-05-04T10:29:28.723Z
+2025-05-04T10:29:28.742Z info: File-System ping OK: 2025-05-04T10:29:28.725Z
+2025-05-04T10:32:45.935Z info: Number of operations: 3
+2025-05-04T10:32:45.940Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:32:45.955Z info: HTTP listen [8080]
+2025-05-04T10:32:45.957Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:32:45.962Z info: Sqlite ping OK: 2025-05-04T10:29:28.723Z <=> 2025-05-04T10:32:45.961Z
+2025-05-04T10:32:45.988Z info: File-System ping OK: 2025-05-04T10:32:45.963Z
+2025-05-04T10:38:48.538Z info: Number of operations: 3
+2025-05-04T10:38:54.994Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T10:38:55.009Z info: HTTP listen [8080]
+2025-05-04T10:38:55.011Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T10:38:55.017Z info: Sqlite ping OK: 2025-05-04T10:32:45.961Z <=> 2025-05-04T10:38:55.016Z
+2025-05-04T10:38:55.021Z info: File-System ping OK: 2025-05-04T10:38:55.018Z
+2025-05-04T13:09:57.778Z info: Number of operations: 3
+2025-05-04T13:09:57.781Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T13:09:57.795Z info: HTTP listen [8080]
+2025-05-04T13:09:57.797Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T13:09:57.807Z info: Sqlite ping OK: 2025-05-04T10:38:55.016Z <=> 2025-05-04T13:09:57.805Z
+2025-05-04T13:09:57.810Z info: File-System ping OK: 2025-05-04T13:09:57.807Z
+2025-05-04T13:10:36.907Z info: Number of operations: 3
+2025-05-04T13:10:36.910Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T13:10:36.924Z info: HTTP listen [8080]
+2025-05-04T13:10:36.925Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T13:10:36.934Z info: Sqlite ping OK: 2025-05-04T13:09:57.805Z <=> 2025-05-04T13:10:36.934Z
+2025-05-04T13:10:36.940Z info: File-System ping OK: 2025-05-04T13:10:36.937Z
+2025-05-04T13:40:03.884Z info: Number of operations: 3
+2025-05-04T13:40:03.889Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T13:40:03.904Z info: HTTP listen [8080]
+2025-05-04T13:40:03.905Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T13:40:03.917Z info: Sqlite ping OK: 2025-05-04T13:10:36.934Z <=> 2025-05-04T13:40:03.916Z
+2025-05-04T13:40:03.920Z info: File-System ping OK: 2025-05-04T13:40:03.918Z
+2025-05-04T13:44:52.691Z info: Number of operations: 3
+2025-05-04T13:44:52.693Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T13:44:52.709Z info: HTTP listen [8080]
+2025-05-04T13:44:52.711Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T13:44:52.728Z info: Sqlite ping OK: 2025-05-04T13:40:03.916Z <=> 2025-05-04T13:44:52.727Z
+2025-05-04T13:44:52.734Z info: File-System ping OK: 2025-05-04T13:44:52.729Z
+2025-05-04T13:54:49.151Z info: Number of operations: 3
+2025-05-04T13:54:49.154Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T13:54:49.164Z info: HTTP listen [8080]
+2025-05-04T13:54:49.165Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T13:54:49.197Z info: Sqlite ping OK: 2025-05-04T13:44:52.727Z <=> 2025-05-04T13:54:49.197Z
+2025-05-04T13:54:49.201Z info: File-System ping OK: 2025-05-04T13:54:49.198Z
+2025-05-04T14:04:06.482Z info: Number of operations: 3
+2025-05-04T14:04:42.952Z info: Number of operations: 3
+2025-05-04T14:05:12.985Z info: Number of operations: 3
+2025-05-04T14:05:12.988Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T14:05:13.002Z info: HTTP listen [8080]
+2025-05-04T14:05:13.006Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T14:05:13.014Z info: Sqlite ping OK: 2025-05-04T13:54:49.197Z <=> 2025-05-04T14:05:13.014Z
+2025-05-04T14:05:13.019Z info: File-System ping OK: 2025-05-04T14:05:13.016Z
+2025-05-04T14:09:10.830Z info: Number of operations: 3
+2025-05-04T14:09:10.834Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T14:09:10.850Z info: HTTP listen [8080]
+2025-05-04T14:09:10.855Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T14:09:10.871Z info: Sqlite ping OK: 2025-05-04T14:05:13.014Z <=> 2025-05-04T14:09:10.871Z
+2025-05-04T14:09:10.883Z info: File-System ping OK: 2025-05-04T14:09:10.873Z
+2025-05-04T14:18:44.262Z info: Number of operations: 3
+2025-05-04T14:18:44.265Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T14:18:44.277Z info: HTTP listen [8080]
+2025-05-04T14:18:44.279Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T14:18:44.289Z info: Sqlite ping OK: 2025-05-04T14:09:10.871Z <=> 2025-05-04T14:18:44.288Z
+2025-05-04T14:18:44.292Z info: File-System ping OK: 2025-05-04T14:18:44.290Z
+2025-05-04T15:28:23.460Z info: Number of operations: 3
+2025-05-04T15:28:23.462Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T15:28:23.470Z info: HTTP listen [8080]
+2025-05-04T15:28:23.471Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T15:28:23.488Z info: Sqlite ping OK: 2025-05-04T14:18:44.288Z <=> 2025-05-04T15:28:23.484Z
+2025-05-04T15:28:23.509Z info: File-System ping OK: 2025-05-04T15:28:23.488Z
+2025-05-04T16:18:39.682Z info: Number of operations: 3
+2025-05-04T16:18:39.684Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:18:39.693Z info: HTTP listen [8080]
+2025-05-04T16:18:39.695Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:18:39.707Z info: Sqlite ping OK: 2025-05-04T15:28:23.484Z <=> 2025-05-04T16:18:39.707Z
+2025-05-04T16:18:39.714Z info: File-System ping OK: 2025-05-04T16:18:39.708Z
+2025-05-04T16:22:06.662Z info: Number of operations: 3
+2025-05-04T16:22:06.665Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:22:06.673Z info: HTTP listen [8080]
+2025-05-04T16:22:06.674Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:22:06.681Z info: Sqlite ping OK: 2025-05-04T16:18:39.707Z <=> 2025-05-04T16:22:06.680Z
+2025-05-04T16:22:06.687Z info: File-System ping OK: 2025-05-04T16:22:06.681Z
+2025-05-04T16:40:55.139Z info: Number of operations: 3
+2025-05-04T16:40:55.141Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:40:55.149Z info: HTTP listen [8080]
+2025-05-04T16:40:55.150Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:40:55.155Z info: Sqlite ping OK: 2025-05-04T16:22:06.680Z <=> 2025-05-04T16:40:55.155Z
+2025-05-04T16:40:55.162Z info: File-System ping OK: 2025-05-04T16:40:55.156Z
+2025-05-04T16:50:45.681Z info: Number of operations: 3
+2025-05-04T16:50:45.683Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:50:45.692Z info: HTTP listen [8080]
+2025-05-04T16:50:45.693Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:50:45.712Z info: Sqlite ping OK: 2025-05-04T16:40:55.155Z <=> 2025-05-04T16:50:45.701Z
+2025-05-04T16:50:45.723Z info: File-System ping OK: 2025-05-04T16:50:45.713Z
+2025-05-04T16:51:05.463Z info: Number of operations: 3
+2025-05-04T16:51:05.465Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:51:05.474Z info: HTTP listen [8080]
+2025-05-04T16:51:05.475Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:51:05.483Z info: Sqlite ping OK: 2025-05-04T16:50:45.701Z <=> 2025-05-04T16:51:05.482Z
+2025-05-04T16:51:05.490Z info: File-System ping OK: 2025-05-04T16:51:05.483Z
+2025-05-04T16:54:10.608Z info: Number of operations: 3
+2025-05-04T16:54:10.611Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T16:54:10.619Z info: HTTP listen [8080]
+2025-05-04T16:54:10.620Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T16:54:10.634Z info: Sqlite ping OK: 2025-05-04T16:51:05.482Z <=> 2025-05-04T16:54:10.633Z
+2025-05-04T16:54:10.650Z info: File-System ping OK: 2025-05-04T16:54:10.634Z
+2025-05-04T17:28:26.138Z info: Number of operations: 3
+2025-05-04T17:28:26.140Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T17:28:26.150Z info: HTTP listen [8080]
+2025-05-04T17:28:26.151Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T17:28:26.182Z info: Sqlite ping OK: 2025-05-04T16:54:10.633Z <=> 2025-05-04T17:28:26.178Z
+2025-05-04T17:28:26.200Z info: File-System ping OK: 2025-05-04T17:28:26.182Z
+2025-05-04T17:52:14.859Z info: Number of operations: 3
+2025-05-04T17:52:14.862Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T17:52:14.870Z info: HTTP listen [8080]
+2025-05-04T17:52:14.871Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T17:52:14.905Z info: Sqlite ping OK: 2025-05-04T17:28:26.178Z <=> 2025-05-04T17:52:14.900Z
+2025-05-04T17:52:14.921Z info: File-System ping OK: 2025-05-04T17:52:14.905Z
+2025-05-04T18:10:00.606Z info: Number of operations: 3
+2025-05-04T18:10:00.608Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T18:10:00.616Z info: HTTP listen [8080]
+2025-05-04T18:10:00.617Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T18:10:00.628Z info: Sqlite ping OK: 2025-05-04T17:52:14.900Z <=> 2025-05-04T18:10:00.627Z
+2025-05-04T18:10:00.633Z info: File-System ping OK: 2025-05-04T18:10:00.628Z
+2025-05-04T18:52:58.729Z info: Number of operations: 3
+2025-05-04T18:52:58.731Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T18:52:58.739Z info: HTTP listen [8080]
+2025-05-04T18:52:58.740Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T18:52:58.766Z info: Sqlite ping OK: 2025-05-04T18:10:00.627Z <=> 2025-05-04T18:52:58.764Z
+2025-05-04T18:52:58.771Z info: File-System ping OK: 2025-05-04T18:52:58.766Z
+2025-05-04T18:53:45.433Z info: Number of operations: 3
+2025-05-04T18:53:45.436Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T18:53:45.444Z info: HTTP listen [8080]
+2025-05-04T18:53:45.445Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T18:53:45.455Z info: Sqlite ping OK: 2025-05-04T18:52:58.764Z <=> 2025-05-04T18:53:45.454Z
+2025-05-04T18:53:45.479Z info: File-System ping OK: 2025-05-04T18:53:45.455Z
+2025-05-04T19:04:37.715Z info: Number of operations: 3
+2025-05-04T19:04:37.717Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:04:37.726Z info: HTTP listen [8080]
+2025-05-04T19:04:37.727Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:04:37.735Z info: Sqlite ping OK: 2025-05-04T18:53:45.454Z <=> 2025-05-04T19:04:37.735Z
+2025-05-04T19:04:37.757Z info: File-System ping OK: 2025-05-04T19:04:37.736Z
+2025-05-04T19:05:10.288Z info: Number of operations: 3
+2025-05-04T19:05:10.290Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:05:10.299Z info: HTTP listen [8080]
+2025-05-04T19:05:10.300Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:05:10.307Z info: Sqlite ping OK: 2025-05-04T19:04:37.735Z <=> 2025-05-04T19:05:10.306Z
+2025-05-04T19:05:10.321Z info: File-System ping OK: 2025-05-04T19:05:10.307Z
+2025-05-04T19:16:16.578Z info: Number of operations: 3
+2025-05-04T19:16:16.581Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:16:16.589Z info: HTTP listen [8080]
+2025-05-04T19:16:16.591Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:16:16.597Z info: Sqlite ping OK: 2025-05-04T19:05:10.306Z <=> 2025-05-04T19:16:16.597Z
+2025-05-04T19:16:16.614Z info: File-System ping OK: 2025-05-04T19:16:16.597Z
+2025-05-04T19:21:05.451Z info: Number of operations: 3
+2025-05-04T19:21:05.454Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:21:05.463Z info: HTTP listen [8080]
+2025-05-04T19:21:05.464Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:21:05.478Z info: Sqlite ping OK: 2025-05-04T19:16:16.597Z <=> 2025-05-04T19:21:05.478Z
+2025-05-04T19:21:05.505Z info: File-System ping OK: 2025-05-04T19:21:05.479Z
+2025-05-04T19:24:06.447Z info: Number of operations: 3
+2025-05-04T19:24:06.449Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:24:06.457Z info: HTTP listen [8080]
+2025-05-04T19:24:06.458Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:24:06.465Z info: Sqlite ping OK: 2025-05-04T19:21:05.478Z <=> 2025-05-04T19:24:06.465Z
+2025-05-04T19:24:06.484Z info: File-System ping OK: 2025-05-04T19:24:06.465Z
+2025-05-04T19:31:22.796Z info: Number of operations: 3
+2025-05-04T19:31:22.798Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:31:22.806Z info: HTTP listen [8080]
+2025-05-04T19:31:22.807Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:31:22.854Z info: Sqlite ping OK: 2025-05-04T19:24:06.465Z <=> 2025-05-04T19:31:22.850Z
+2025-05-04T19:31:22.860Z info: File-System ping OK: 2025-05-04T19:31:22.854Z
+2025-05-04T19:44:22.544Z info: Number of operations: 3
+2025-05-04T19:44:22.546Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T19:44:22.554Z info: HTTP listen [8080]
+2025-05-04T19:44:22.555Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T19:44:22.562Z info: Sqlite ping OK: 2025-05-04T19:31:22.850Z <=> 2025-05-04T19:44:22.562Z
+2025-05-04T19:44:22.574Z info: File-System ping OK: 2025-05-04T19:44:22.562Z
+2025-05-04T20:05:14.465Z info: Number of operations: 3
+2025-05-04T20:05:14.468Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T20:05:14.476Z info: HTTP listen [8080]
+2025-05-04T20:05:14.476Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T20:05:14.507Z info: Sqlite ping OK: 2025-05-04T19:44:22.562Z <=> 2025-05-04T20:05:14.505Z
+2025-05-04T20:05:14.512Z info: File-System ping OK: 2025-05-04T20:05:14.507Z
+2025-05-04T20:24:25.404Z info: Number of operations: 3
+2025-05-04T20:24:25.407Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T20:24:25.415Z info: HTTP listen [8080]
+2025-05-04T20:24:25.416Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T20:24:25.423Z info: Sqlite ping OK: 2025-05-04T20:05:14.505Z <=> 2025-05-04T20:24:25.423Z
+2025-05-04T20:24:25.438Z info: File-System ping OK: 2025-05-04T20:24:25.423Z
+2025-05-04T20:30:53.578Z info: Number of operations: 3
+2025-05-04T20:30:53.580Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T20:30:53.588Z info: HTTP listen [8080]
+2025-05-04T20:30:53.589Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T20:30:53.595Z info: Sqlite ping OK: 2025-05-04T20:24:25.423Z <=> 2025-05-04T20:30:53.595Z
+2025-05-04T20:30:53.607Z info: File-System ping OK: 2025-05-04T20:30:53.596Z
+2025-05-04T20:34:48.252Z info: Number of operations: 3
+2025-05-04T20:34:48.255Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-04T20:34:48.262Z info: HTTP listen [8080]
+2025-05-04T20:34:48.263Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-04T20:34:48.271Z info: Sqlite ping OK: 2025-05-04T20:30:53.595Z <=> 2025-05-04T20:34:48.271Z
+2025-05-04T20:34:48.287Z info: File-System ping OK: 2025-05-04T20:34:48.272Z
