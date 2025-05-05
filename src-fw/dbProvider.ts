@@ -1,5 +1,5 @@
 import { AppExc } from './exception'
-import { config } from '../src-app/app'
+import { config } from '../src/app'
 import { Operation } from './operation'
 
 export class DbOptions {

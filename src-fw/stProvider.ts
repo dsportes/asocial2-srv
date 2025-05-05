@@ -1,10 +1,11 @@
 import { env } from 'process'
 
 import { AppExc } from './exception'
-import { config } from '../src-app/app'
+import { config } from '../src/app'
 import { Operation } from './operation'
 import { cryptId, decryptId, crypt, decrypt } from './util'
 import { encode, decode } from '@msgpack/msgpack'
+
 export class StOptions {
   public code: string
   public site: string

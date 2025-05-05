@@ -1,8 +1,13 @@
-import { env } from 'process' // Pour le test
+import { startApp } from '../src-fw/index'
+import { encryptedKeys } from './keys'
+
+import { registerOpApp } from '../src/operations'
+
+import { exit, env } from 'process' // Pour le test
 env.SRVKEY = '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=' // Pour le test. 
 //En prod: $env:SRVKEY = '...'
 
-export const config = {
+const config = {
   BUILD: 'v1.0',
   API: 1,
   APIVERSIONS: [1, 1],
@@ -37,5 +42,13 @@ export const config = {
   },
 
   keys: {}
-
 }
+
+registerOpApp()
+
+startApp(config, encryptedKeys).then(m => {
+  console.log(m)
+}).catch(m => {
+  console.error(m)
+  exit()
+})

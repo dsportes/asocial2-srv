@@ -6,7 +6,7 @@ import { logInfo, logError } from './log'
 import { AppExc } from './exception'
 
 import { StOptions, stConnexionGeneric } from './stProvider'
-import { StGeneric } from '../src-app/appDbSt'
+import { StGeneric } from '../src/appDbSt'
 
 /* FsProvider ********************************************************************/
 export class fsConnexion extends stConnexionGeneric implements StGeneric{

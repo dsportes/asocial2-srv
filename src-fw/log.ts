@@ -1,20 +1,19 @@
 import winston from 'winston'
 import { LoggingWinston } from '@google-cloud/logging-winston'
-import { env } from 'process'
-import { config } from '../src-app/app'
 
-const PROD = env.NODE_ENV === 'production' ? true : false
-const GAE = env.GAE_INSTANCE || ''
+export class Log {
+  private static _logger: winston.Logger;
 
-class Log {
-  private _logger: winston.Logger;
+  public static debug (msg: string) { this._logger.debug(msg) }
+  public static info (msg: string) { this._logger.info(msg) }
+  public static error (msg: string) { this._logger.error(msg) }
 
-  constructor () {
+  constructor (PROD: boolean, GAE: string, logsPath: string) {
     if (GAE) {
       // Imports the Google Cloud client library for Winston
       const loggingWinston = new LoggingWinston()
       // Logs will be written to: "projects/YOUR_PROJECT_ID/logs/winston_log"
-      this._logger = winston.createLogger({
+      Log._logger = winston.createLogger({
         level: 'info',
         transports: [
           new winston.transports.Console(),
@@ -25,12 +24,12 @@ class Log {
     } else {
       // const { format, transports } = require('winston')
       // const { combine, timestamp, label, printf } = format
-      const fne = config.logsPath + '/error.log'
-      const fnc = config.logsPath + '/combined.log'
+      const fne = logsPath + '/error.log'
+      const fnc = logsPath + '/combined.log'
       const myFormat = winston.format.printf(({ level, message, timestamp }) => {
         return `${timestamp} ${level}: ${message}`
       })
-      this._logger = winston.createLogger({
+      Log._logger = winston.createLogger({
         level: 'info',
         format: winston.format.combine(winston.format.timestamp(), myFormat),
         // defaultMeta: { service: 'user-service' },
@@ -43,18 +42,9 @@ class Log {
       })
       // If we're not in production then log to the `console
       if (!PROD)
-        this._logger.add(new winston.transports.Console())
+        Log._logger.add(new winston.transports.Console())
     }
   }
 
-  public debug (msg: string) { this._logger.debug(msg) }
-  public info (msg: string) { this._logger.info(msg) }
-  public error (msg: string) { this._logger.error(msg) }
-
 }
 
-const _log = new Log()
-
-export function logDebug (msg: string) { _log.debug(msg)}
-export function logInfo (msg: string) { _log.info(msg)}
-export function logError (msg: string) { _log.error(msg)}

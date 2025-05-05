@@ -1,5 +1,5 @@
 import { encode } from '@msgpack/msgpack'
-import { config } from '../src-app/app'
+import { config } from '../src/app'
 import { logInfo, logError } from'./log'
 import { Operation } from './operation'
 

@@ -3,52 +3,108 @@ import cors from 'cors'
 import http from 'http'
 import https from 'https'
 import path from 'path'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { parseArgs } from 'node:util'
 import { exit, env } from 'process'
-import { existsSync, readFileSync } from 'node:fs'
 
-import { json64 } from './keys'
+import { crypt, pbkdf2 } from './util'
+
+import { Log as MyLog  } from './log'
+export const Log = MyLog
+
 import { Operation, newOperation, fakeOperation } from './operation'
 import { amj, sleep, getHP, decrypt } from './util'
 import { AppExc } from './exception'
 import { encode, decode } from '@msgpack/msgpack'
 
-import { nbOp } from './operations'
-import { dbConnexion } from '../src-app/appDbSt'
+import { registerOpBase } from '../src-fw/operations'
+
+import { dbConnexion } from '../src/appDbSt'
 import { stConnexion } from './stConfig'
-import { StGeneric } from '../src-app/appDbSt'
+import { StGeneric } from '../src/appDbSt'
 
-import { config } from '../src-app/app'
-config.PROD = env.NODE_ENV === 'production' ? true : false
-config.GAE = env.GAE_INSTANCE || ''
+export interface BaseConfig {
+  BUILD: string, // 'v1.0'
+  API: number, // 1
+  APIVERSIONS: number[], // [1, 1]
+  PROD: boolean,
 
-for (const n in config.env) env[n] = config.env[n]
+  GAE: string, // ''
+  logsPath: string, // './logs'
+  port: number, // 8080
+  https: boolean,
+  origins: Set<string>, // new Set<string>(['http://localhost:8080']),
+  site: string, // 'A'
+  database: string, // 'sqla'
+  storage: string,  // 'fsa'
+  // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
+  srvUrl: string, // '' si défaut 'http://localhost:8080'
 
-import { logDebug, logInfo, logError } from './log'
+  debugLevel: number, // 0: aucun, 1: standard: 2: élevé
+  adminAlerts: boolean, // false: simulation true: envoi de mail
 
-function loadKeys () {
-  try {
-    const keyB64 = env.SRVKEY
-    if (keyB64) {
-      const key = Buffer.from(keyB64, 'base64')
-      const bin = Buffer.from(json64, 'base64')
-      const x = decrypt(key, bin).toString('utf-8')
-      config.keys = JSON.parse(x)
-    } else {
-      logError('env.SRVKeY NOT FOUND')
-      exit()
-    }
-  } catch (e) {
-    logError('./keys.bin or ./keys.json is NOT readable / decipherable: ' + e.toString())
-    exit()
-  }
+  dbOptions: Object,
+  /* {
+    sqla: { path: 'sqlite/testa.db3', cryptIds: false, credentials: 'sqlite' },
+    sqlb: { path: 'sqlite/testb.db3', cryptIds: true, credentials: 'sqlite' }
+  } */
+  
+  stOptions: Object,
+  /* {
+    fsa: { bucket: 'filestorea', cryptIds: false, credentials: 'storageFS'}
+  } */
+
+  env: Object,
+  /* {
+    STORAGE_EMULATOR_HOST: 'http://127.0.0.1:9199', // 'http://' est REQUIS
+    FIRESTORE_EMULATOR_HOST: 'localhost:8085'
+  } */
+
+  keys: Object
 }
 
+const PROD = env.NODE_ENV === 'production' ? true : false
+const GAE = env.GAE_INSTANCE || ''
+
+// @ts-ignore
+export const config: BaseConfig = { PROD, GAE }
+
+export async function startApp (appConfig: BaseConfig, encryptedKeys: string) : Promise<void> {
+  return new Promise((resolve, reject) => {
+    for(const e in appConfig) config[e] = appConfig[e]
+    for(const e in appConfig['env']) env[e] = appConfig.env[e]
+
+    new MyLog(PROD, GAE, config['logsPath'])
+
+    // Chargement des "keys" cryptées dans 
+    try {
+      const keyB64 = env.SRVKEY
+      if (keyB64) {
+        const key = Buffer.from(keyB64, 'base64')
+        const bin = Buffer.from(encryptedKeys, 'base64')
+        const x = decrypt(key, bin).toString('utf-8')
+        config['keys'] = JSON.parse(x)
+      } else {
+        const m = 'env.SRVKeY NOT FOUND'
+        MyLog.error(m)
+        reject(m)
+      }
+    } catch (e) {
+      const m = './keys.bin or ./keys.json is NOT readable / decipherable: ' + e.toString()
+      MyLog.error(m)
+      reject()
+    }
+
+    registerOpBase()
+
+    startSRV(reject)
+
+    resolve()
+  })
+}
+
+async function startSRV (reject: Function) {
 try {
-
-  loadKeys()
-
-  // IL FAUT utiliser nbOp, sinon les opérations ne sont pas importées
-  logInfo('Number of operations: ' + nbOp)
 
   if (!config.database) 
     throw new AppExc(1012, 'config.database not found', null)
@@ -60,6 +116,9 @@ try {
   if (!config.storage) 
     throw new AppExc(1012, 'config.storage not found', null)
   const storage = stConnexion(config.storage, config.site)
+
+  if (config.debugLevel === 2)
+    await testDb(storage)
 
   const app = express()
   app.use(cors({}))
@@ -121,69 +180,50 @@ try {
   })
 
   const port = env.PORT || config.port
-  let server
+  let server : http.Server | https.Server
 
   if (config.https) {
     let p = path.resolve('./cert/fullchain.pem')
     const cert = existsSync(p) ? readFileSync(p) : ''
-    if (!cert) {
-      logError(p + ' NOT FOUND')
-      exit()
-    }
+    if (!cert)
+      throw new AppExc(1015, 'certificate NOT FOUND', null, [p])
     p = path.resolve('./cert/privkey.pem')
     const key = existsSync(p) ? readFileSync(p) : ''
-    if (!key ) {
-      logError(p + ' NOT FOUND')
-      exit()
-    }
+    if (!key ) 
+      throw new AppExc(1015, 'private key NOT FOUND', null, [p])
     server = https.createServer({key, cert}, app).listen(port, async () => {
-      logInfo('HTTPS listen [' + config.port + ']')
-      await testDb(storage)
+      Log.info('HTTPS listen [' + config.port + ']')
     })
   } else {
     server = http.createServer(app).listen(port, async () => {
-      logInfo('HTTP listen [' + port + ']')
-      await testDb(storage)
+      Log.info('HTTP listen [' + port + ']')
     })
   }
 
   if (server)
     server.on('error', (e) => { // les erreurs de création du server ne sont pas des exceptions
-      logError('HTTP/S error: ' + e.message + '\n' + e.stack)
-      exit()
+      Log.error('HTTP/S error: ' + e.message + '\n' + e.stack)
+      throw new AppExc(1016, 'HTTP/S error', null, [e.message])
     })
 } catch(e) { // exception générale. Ne devrait jamais être levée
-  logError('MAIN error: ' + e.message + '\n' + e.stack)
-  exit()
+  Log.error('MAIN error: ' + e.message + '\n' + e.stack)
+  reject('MAIN error: ' + e.message)
+}
 }
 
 async function testDb (storage: StGeneric) {
-  if (config.debugLevel === 2) 
-    try {
-      const op = fakeOperation()
-      await dbConnexion(config.database, config.site, op)
-      {
-        const [status, msg] = await op.db.ping()
-        if (status === 0)
-          logInfo(msg)
-        else {
-          logError(msg)
-          exit()
-        }
-      }
-      {
-        const [status, msg] = await storage.ping()
-        if (status === 0)
-          logInfo(msg)
-        else {
-          logError(msg)
-          exit()
-        }
-      }
-    } catch (e) {
-      logError(e)
-      exit()
-    }
+  const op = fakeOperation()
+  await dbConnexion(config.database, config.site, op)
+  {
+    const [status, msg] = await op.db.ping()
+    if (status === 0) Log.info(msg)
+    else throw new AppExc(1016, 'PING SDatabase FAILED', null, [msg])
+  }
+  {
+    const [status, msg] = await storage.ping()
+    if (status === 0) Log.info(msg)
+    else throw new AppExc(1017, 'PING Storage FAILED', null, [msg])
+  }
 }
 
 /****************************************************************/
@@ -262,5 +302,38 @@ async function doOp (storage, req: express.Request, res: express.Response, body:
       st = 401
     }
     res.status(st).type('application/octet-stream').send(b)
+  }
+}
+
+/*****************************************************
+ * Ligne de commande: node src/crypKeys.ts "toto est tres tres beau"
+ * Transforme le fichier keys.json en un script keys.ts 
+ * exportant l'objet keys.json crypté.
+*/
+export function cryptKeys () {
+  const cmdargs = parseArgs({
+    allowPositionals: false,
+    options: { 
+      pwd: { type: 'string', short: 'p' }
+    }
+  })
+
+  const pwd = cmdargs.values['pwd']
+  const key = pbkdf2(pwd)
+  console.log('key= ' + key.toString('base64'))
+  const pjson = path.resolve('./keys.json')
+  if (!existsSync(pjson)) {
+    console.log('./keys.json NOT FOUND')
+  } else {
+    try {
+      const buf = readFileSync(pjson)
+      const b64 = crypt(key, buf).toString('base64')
+      const pmjs = path.resolve('./src-fw/keys.ts')
+      const x = 'export const json64 = \'' + b64 + '\'' + '\n'
+      writeFileSync(pmjs, Buffer.from(x, 'utf8'))
+      console.log('./src-fw/keys.js written')
+    } catch (e) {
+      console.log('Encryption failed. ' + e.message)
+    }
   }
 }

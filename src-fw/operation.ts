@@ -1,7 +1,13 @@
 import { AppExc } from './exception'
-import { DbGeneric, StGeneric } from '../src-app/appDbSt'
+import { DbGeneric, StGeneric } from '../src/appDbSt'
 
-export const factories = new Map<string, Function>()
+const factories = new Map<string, Function>()
+
+export function registerOp (opName: string, factory: Function) {
+  factories.set(opName, factory)
+}
+
+export function nbOperations () { return factories.size}
 
 export function newOperation (opName: string) {
   const f = factories.get(opName)

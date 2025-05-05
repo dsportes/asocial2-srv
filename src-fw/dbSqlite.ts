@@ -5,7 +5,7 @@ import { DbOptions, DbConnexion } from '../src-fw/dbProvider'
 import { Operation } from '../src-fw/operation'
 import { AppExc } from '../src-fw/exception'
 import { logDebug, logInfo, logError } from '../src-fw/log'
-import { config } from '../src-app/app'
+import { config } from '../src/app'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
