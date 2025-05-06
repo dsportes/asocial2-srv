@@ -8,6 +8,6 @@
     "forceConsistentCasingInFileNames": true
   },
 
-  "include": ["src-fw/**/*", "src/**/*"],
+  "include": ["src/**/*", "src-fw/**/*", "src-dbst/**/*", "src-fs/**/*", "src-sq/**/*", "src-sl/index.ts",],
   "exclude": ["**/*.spec.ts"]
 }

@@ -1,6 +1,6 @@
-import { Operation, registerOp, nbOperations } from '../src-fw/operation'
+import { Operation } from '../src-fw/index'
 
-export function registerOpApp () { return nbOperations() }
+export function registerOpApp () { return Operation.nbOf() }
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)
 */
@@ -19,4 +19,4 @@ class EchoTexte extends Operation {
   }
 
 }
-registerOp('EchoTexte', () => { return new EchoTexte()})
+Operation.register('EchoTexte', () => { return new EchoTexte()})

@@ -1,31 +1,25 @@
-import { AppExc } from './exception'
-import { DbGeneric, StGeneric } from '../src/appDbSt'
-
-const factories = new Map<string, Function>()
-
-export function registerOp (opName: string, factory: Function) {
-  factories.set(opName, factory)
-}
-
-export function nbOperations () { return factories.size}
-
-export function newOperation (opName: string) {
-  const f = factories.get(opName)
-  if (f) {
-    const op = f()
-    op.opName = opName
-    return op
-  } 
-  return null
-}
-
-export function fakeOperation () {
-  const op = new Operation()
-  op.opName = 'fake'
-  return op
-}
+import { AppExc } from './index'
+import { DbGeneric, StGeneric } from '../src-dbst'
 
 export class Operation {
+  private static factories = new Map<string, Function>()
+
+  static nbOf () { 
+    return Operation.factories.size 
+  }
+
+  static fake () { return new Operation(true) }
+
+  static new (opName: string) {
+    const f = Operation.factories.get(opName)
+    return f ? f(opName) : null
+  }
+
+  static register (opName: string, factory: Function) {
+    Operation.factories.set(opName, factory)
+  }
+
+  readonly fake: boolean
   public opName: string
   public org: string
   public result: any
@@ -35,7 +29,7 @@ export class Operation {
   public db: DbGeneric
   public storage: StGeneric
 
-  constructor () { }
+  constructor (fake?: boolean) { this.fake = fake || false }
 
   init () {
   }

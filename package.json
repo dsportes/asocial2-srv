@@ -7,21 +7,15 @@
   "source": "src-fw/index.ts",
   "main": "../tmp/srv/bundle.cjs",
   "targets": {
-    "main": {
-      "includeNodeModules": {
-        "better-sqlite3": false
-      }
-    }
+    "main": { "includeNodeModules": false }
   },
   "scripts": {
-    "test": "npx tsx src-fw/index.ts",
+    "test": "npx tsx src/index.ts",
     "testdist": "cd ../tmp/srv; node bundle.js",
-    "crypt": "npx tsx src-fw/cryptkeys.ts -p \"toto est tres tres beau\"",
+    "crypt": "npx tsx src/cryptkeys.ts -p \"toto est tres tres beau\"",
     "gcp-build": "tsc -p .",
     "build2": "tsc",
-    "build1": "webpack",
-    "build": "parcel build",
-    "cpbin": "mkdir -p ../tmp/srv/node_modules/better-sqlite3/build/Release; cp ./node_modules/better-sqlite3/build/Release/better_sqlite3.node ../tmp/srv/node_modules/better-sqlite3/build/Release"
+    "build": "parcel build"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^6.0.0",

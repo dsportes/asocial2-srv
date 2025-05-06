@@ -3,7 +3,7 @@ dist
 logs
 cert
 keys.json
-src-fw/keys.ts
+src/keys.ts
 tmp
 emulators/bk
 .yarn

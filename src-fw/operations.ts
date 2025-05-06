@@ -1,6 +1,6 @@
-import { Operation, registerOp, nbOperations } from './operation'
+import { Operation } from './operation'
 
-export function registerOpBase () { return nbOperations() }
+export function registerOpBase () { return Operation.nbOf() }
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)
 */
@@ -19,7 +19,7 @@ class EchoTexte extends Operation {
   }
 
 }
-registerOp('EchoTexte', () => { return new EchoTexte()})
+Operation.register('EchoTexte', () => { return new EchoTexte()})
 
 /* PingDB effectue un ping de DB et retourne le texte enregistré en DB
 */
@@ -32,7 +32,7 @@ class PingDB extends Operation {
   }
 
 }
-registerOp('PingDB', () => { return new PingDB()})
+Operation.register('PingDB', () => { return new PingDB()})
 
 /* GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 */
@@ -54,5 +54,5 @@ class GetPutUrl extends Operation {
   }
 
 }
-registerOp('GetPutUrl', () => { return new GetPutUrl()})
+Operation.register('GetPutUrl', () => { return new GetPutUrl()})
 
