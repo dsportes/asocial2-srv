@@ -13,30 +13,33 @@ import { Operation as MyOperation} from './operation'
 import { Util as MyUtil } from './util'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
-import { DbConnexion, StGeneric } from '../src-dbst'
+import { register } from './operations'
 
-import { registerOpBase } from '../src-fw/operations'
+import { StGeneric } from '../src-dbst'
 
 export interface BaseConfig {
+  PROD: boolean,
+  GAE: string, // ''
+  SRVKEY: string, // passée par env var - Clé de décryptage de keys.ts (entre autre)
+  STORAGE_EMULATOR_HOST: string,
+  FIRESTORE_EMULATOR_HOST: string,
+
   BUILD: string, // 'v1.0'
   API: number, // 1
   APIVERSIONS: number[], // [1, 1]
+  debugLevel: number, // 0: aucun, 1: standard: 2: élevé
+  adminAlerts: boolean, // false: simulation true: envoi de mail
 
-  SRVKEY: string, // passée par env var - Clé de décryptage de keys.ts (entre autre)
-  PROD: boolean,
-  GAE: string, // ''
   logsPath: string, // './logs'
   port: number, // 8080
   https: boolean,
   origins: Set<string>, // new Set<string>(['http://localhost:8080']),
+
   site: string, // 'A'
   database: string, // 'sqla'
   storage: string,  // 'fsa'
   // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
   srvUrl: string, // '' si défaut 'http://localhost:8080'
-
-  debugLevel: number, // 0: aucun, 1: standard: 2: élevé
-  adminAlerts: boolean, // false: simulation true: envoi de mail
 
   dbOptions: Object,
   /* {
@@ -49,78 +52,47 @@ export interface BaseConfig {
     fsa: { bucket: 'filestorea', cryptIds: false, credentials: 'storageFS'}
   } */
 
-  env: Object,
-  /* {
-    STORAGE_EMULATOR_HOST: 'http://127.0.0.1:9199', // 'http://' est REQUIS
-    FIRESTORE_EMULATOR_HOST: 'localhost:8085'
-  } */
-
   keys: Object
 }
 
-// @ts-ignore
-export const config: BaseConfig = { 
-  PROD: env.NODE_ENV === 'production' ? true : false,
-  GAE: env.GAE_INSTANCE || ''
-}
+export function checkConfig ( encryptedKeys: string ) {
+  const config = MyOperation.config
+  new MyLog(config.PROD, config.GAE, config['logsPath'])
 
-export async function startApp (
-    appConfig: BaseConfig, 
-    encryptedKeys: string, 
-    dbConnexion: Function, 
-    storageFactory: Function
-  ) : Promise<void> {
-
-  return new Promise(async (resolve, reject) => {
-    for(const e in appConfig) config[e] = appConfig[e]
-    // Forçage local des env var configurées par l'application
-    for(const e in appConfig['env']) env[e] = appConfig.env[e]
-
-    new MyLog(config.PROD, config.GAE, config['logsPath'])
-
-    // Chargement des "keys" cryptées dans config.keys
-    try {
-      if (config.SRVKEY) {
-        const key = Buffer.from(config.SRVKEY, 'base64')
-        const bin = Buffer.from(encryptedKeys, 'base64')
-        const x = MyUtil.decrypt(key, bin).toString('utf-8')
-        config['keys'] = JSON.parse(x)
-      } else {
-        const m = 'env.SRVKeY NOT FOUND'
-        MyLog.error(m)
-        reject(m)
-      }
-    } catch (e) {
-      const m = './keys.bin or ./keys.json is NOT readable / decipherable: ' + e.toString()
-      MyLog.error(m)
-      reject()
+  // Chargement des "keys" cryptées dans config.keys
+  try {
+    if (config.SRVKEY) {
+      const key = Buffer.from(config.SRVKEY, 'base64')
+      const bin = Buffer.from(encryptedKeys, 'base64')
+      const x = MyUtil.decrypt(key, bin).toString('utf-8')
+      config['keys'] = JSON.parse(x)
+    } else {
+      throw new AppExc(1012, 'env.SRVKeY NOT FOUND', null)
     }
+  } catch (e) {
+    const m = './keys.bin or ./keys.json is NOT readable / decipherable: ' + e.toString()
+    throw new AppExc(1012, m, null)
+  }
 
-    registerOpBase()
+  if (!config.database) 
+    throw new AppExc(1012, 'config.database not found', null)
+  if (!config.dbOptions || !config.dbOptions[config.database])
+    throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
+  if (!config.site || !config.keys['sites'][config.site])
+    throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
 
-    if (!config.database) 
-      throw new AppExc(1012, 'config.database not found', null)
-    if (!config.dbOptions || !config.dbOptions[config.database])
-      throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
-    if (!config.site || !config.keys['sites'][config.site])
-      throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
-  
-    if (!config.storage) 
-      throw new AppExc(1012, 'config.storage not found', null)
+  if (!config.storage) 
+    throw new AppExc(1012, 'config.storage not found', null)
 
-    const storage : StGeneric = storageFactory(config.storage, config.site)
-
-    if (config.debugLevel === 2)
-      await testDb(dbConnexion, storage)
-
-    await startSRV(reject, dbConnexion, storage)
-
-    resolve()
-  })
+  register()
 }
 
-async function startSRV (reject: Function, dbConnexion: Function , storage: StGeneric) {
-try {
+export function getExpressApp (
+    dbConnexion: Function, 
+    storage: StGeneric
+  ) : express.Application {
+    
+  const config = MyOperation.config
   const app = express()
   app.use(cors({}))
 
@@ -179,7 +151,11 @@ try {
     } else // Cloud functions
       await doOp(storage, dbConnexion, req, res, req['rawBody'])
   })
+  
+  return app
+}
 
+export function startSRV (config: BaseConfig, app: express.Application) {
   const port = env.PORT || config.port
   let server : http.Server | https.Server
 
@@ -206,48 +182,54 @@ try {
       MyLog.error('HTTP/S error: ' + e.message + '\n' + e.stack)
       throw new AppExc(1016, 'HTTP/S error', null, [e.message])
     })
-} catch(e) { // exception générale. Ne devrait jamais être levée
-  MyLog.error('MAIN error: ' + e.message + '\n' + e.stack)
-  reject('MAIN error: ' + e.message)
-}
 }
 
-async function testDb (dbConnexion: Function, storage: StGeneric, ) {
-  const op = MyOperation.fake()
-  await dbConnexion(config.database, config.site, op)
-  {
-    const [status, msg] = await op.db.ping()
-    if (status === 0) MyLog.info(msg)
-    else throw new AppExc(1016, 'PING SDatabase FAILED', null, [msg])
-  }
-  {
-    const [status, msg] = await storage.ping()
-    if (status === 0) MyLog.info(msg)
-    else throw new AppExc(1017, 'PING Storage FAILED', null, [msg])
-  }
+export async function testDb (
+  dbConnexion: Function, 
+  storage: StGeneric) : Promise<void> {
+  
+  return new Promise(async (resolve, reject) => {
+    const config = MyOperation.config
+    const op = MyOperation.fake()
+    await dbConnexion(config.database, config.site, op)
+    {
+      const [status, msg] = await op.db.ping()
+      if (status === 0) MyLog.info(msg)
+      else reject('PING SDatabase FAILED')
+    }
+    {
+      const [status, msg] = await storage.ping()
+      if (status === 0) MyLog.info(msg)
+      else reject('PING Storage FAILED: ' + msg)
+    }
+    resolve()
+  })
 }
 
 /****************************************************************/
-function checkOrigin(req: express.Request) {
-  const o = config.origins
+function checkOrigin(req: express.Request, origins: Set<string>) {
   let origin = req.headers['origin']
-  if (o.has(origin)) return true
+  if (origins.has(origin)) return true
   if (!origin || origin === 'null') {
     const referer = req.headers['referer']
     if (referer) origin = referer
   }
-  if (o.has(origin)) return true
+  if (origins.has(origin)) return true
   if (!origin || origin === 'null') origin = req.headers['host']
   const [hn, po] = MyUtil.getHP(origin)
-  if (o.has(hn) || o.has(hn + ':' + po)) return true
+  if (origins.has(hn) || origins.has(hn + ':' + po)) return true
   throw new AppExc(1001, 'origin not authorized', null, [origin])
 }
 
 let today = 0
 let todayEpoch = 0
 
-async function doOp (storage: StGeneric, dbConnexion: Function,
-  req: express.Request, res: express.Response, body: Buffer) {
+export async function doOp (
+  storage: StGeneric, 
+  dbConnexion: Function,
+  req: express.Request, 
+  res: express.Response, 
+  body: Buffer) {
   
   const now = Date.now()
   const e = Math.floor(now / 86400000)
@@ -265,7 +247,7 @@ async function doOp (storage: StGeneric, dbConnexion: Function,
       return
     }
 
-    if (config.origins.size) checkOrigin(req)
+    if (MyOperation.config.origins.size) checkOrigin(req, MyOperation.config.origins)
 
     if (opName === 'yoyo'){
       await MyUtil.sleep(1000)
@@ -275,22 +257,31 @@ async function doOp (storage: StGeneric, dbConnexion: Function,
     
     const op = MyOperation.new(opName)
     if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
+    op.opName = opName
     op.storage = storage
     op.today = today
     op.args = decode(body)
     op.params = {}
 
-    if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] || op.args.APIVERSION > config.APIVERSIONS[1]))
-      throw new AppExc(1003, 'unsupported API', null, [config.APIVERSIONS[0], config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
+    if (op.args.APIVERSION && (op.args.APIVERSION < MyOperation.config.APIVERSIONS[0] 
+      || op.args.APIVERSION > MyOperation.config.APIVERSIONS[1]))
+      throw new AppExc(1003, 'unsupported API', null, [MyOperation.config.APIVERSIONS[0], 
+        MyOperation.config.APIVERSIONS[1], op.args.APIVERSION, MyOperation.config.BUILD])
 
+    if (MyOperation.config.debugLevel === 2)
+      MyLog.info(opName + ' started')
     op.init()
 
-    await dbConnexion(config.database, config.site, op)
+    await dbConnexion(MyOperation.config.database, MyOperation.config.site, op)
 
     await op.run()
+    if (MyOperation.config.debugLevel === 2)
+      MyLog.info(opName + ' finished')
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
   } catch(exc) {
+    if (MyOperation.config.debugLevel === 2)
+      MyLog.info(opName + ' terminated on exception')
     // 400: AppExc
     // 401: AppExc inattendue
     const e = exc
@@ -343,7 +334,11 @@ export function cryptKeys () {
 /*****************************************************/
 interface admin_alerts { url: string, pwd: string, to: string }
 
-export async function adminAlert (op: MyOperation, subject: string, text: string) {
+export async function adminAlert (
+    op: MyOperation, 
+    subject: string, 
+    text: string) {
+  const config = MyOperation.config
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
   const s = '[' + config.site + '] '  
@@ -403,7 +398,7 @@ export class AppExc {
     this.stack = stack || ''
     const m = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
     if (code > 3000) MyLog.error(m + this.stack)
-    else { if (config.debugLevel > 0) MyLog.info(m) }
+    else { if (MyOperation.config.debugLevel > 0) MyLog.info(m) }
     if (code > 8000)
       adminAlert(op, m, this.stack)
   }

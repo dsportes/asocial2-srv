@@ -7,9 +7,12 @@
   "source": "src-fw/index.ts",
   "main": "../tmp/srv/bundle.cjs",
   "targets": {
-    "main": { "includeNodeModules": false }
+    "main": {
+      "includeNodeModules": false
+    }
   },
   "scripts": {
+    "start": "npx --node-options=--inspect @google-cloud/functions-framework --target=myFunction",
     "test": "npx tsx src/index.ts",
     "testdist": "cd ../tmp/srv; node bundle.js",
     "crypt": "npx tsx src/cryptkeys.ts -p \"toto est tres tres beau\"",
@@ -18,6 +21,7 @@
     "build": "parcel build"
   },
   "dependencies": {
+    "@google-cloud/functions-framework": "^4.0.0",
     "@google-cloud/logging-winston": "^6.0.0",
     "@msgpack/msgpack": "^3.1.1",
     "better-sqlite3": "^11.9.1",

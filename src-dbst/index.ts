@@ -1,4 +1,4 @@
-import { config, AppExc, Operation, Util } from '../src-fw/index'
+import { AppExc, Operation, Util } from '../src-fw/index'
 import { encode, decode } from '@msgpack/msgpack'
 
 export interface DbGeneric {
@@ -9,23 +9,23 @@ export class DbOptions {
   public code: string
   public site: string
   public key: Buffer
-  public cfg: any // sa ligne dans config
+  public cfg: any // sa ligne dans Operation.config
   public credentials: any
 
   constructor (code:string, site:string) {
-    this.cfg = config.dbOptions[code]
+    this.cfg = Operation.config.dbOptions[code]
     if (!this.cfg)
       throw new AppExc(1020, 'config.dbOptions not found', null, [code])
     this.code = code
 
     if (!this.cfg.credentials)
       throw new AppExc(1022, 'config.stOptions credentials not found', null, [code])
-    const cred = config.keys[this.cfg.credentials]
+    const cred = Operation.config.keys[this.cfg.credentials]
     if (!cred)
       throw new AppExc(1023, 'keys credentials not found', null, [code, this.cfg.credentials])
     this.credentials = cred
 
-    const k = config.keys['sites'][site]
+    const k = Operation.config.keys['sites'][site]
     if (!k)
       throw new AppExc(1021, 'keys.sites not found', null, [site])
     this.site = site
@@ -70,7 +70,7 @@ export class StOptions {
   public cfg: any // sa ligne dans config
 
   constructor (code:string, site:string) {
-    this.cfg = config.stOptions[code]
+    this.cfg = Operation.config.stOptions[code]
     if (!this.cfg)
       throw new AppExc(1020, 'config.stOptions not found', null, [code])
     this.code = code
@@ -81,12 +81,12 @@ export class StOptions {
 
     if (!this.cfg.credentials)
       throw new AppExc(1022, 'config.stOptions credentials not found', null, [code])
-    const cred = config.keys[this.cfg.credentials]
+    const cred = Operation.config.keys[this.cfg.credentials]
     if (!cred)
       throw new AppExc(1023, 'keys credentials not found', null, [this.cfg.credentials])
     this.credentials = cred
 
-    const k = config.keys['sites'][site]
+    const k = Operation.config.keys['sites'][site]
     if (!k)
       throw new AppExc(1024, 'keys.site not found', null, [site])
     this.site = site
@@ -112,8 +112,8 @@ export class StorageGeneric {
 
   constructor (options: StOptions) {
     this.key = options.key
-    this.srvkey = Buffer.from(config.SRVKEY, 'base64')
-    this.srvUrl = config.srvUrl || 'http://localhost:8080'
+    this.srvkey = Buffer.from(Operation.config.SRVKEY, 'base64')
+    this.srvUrl = Operation.config.srvUrl || 'http://localhost:8080'
   }
 
   cryptId (id: string) {

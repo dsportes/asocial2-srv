@@ -2,7 +2,7 @@
 import Database from 'better-sqlite3'
 
 import { DbOptions, DbConnexion } from '../src-dbst/index'
-import { config, Operation, AppExc, Log } from '../src-fw/index'
+import { Operation, AppExc, Log } from '../src-fw/index'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
@@ -55,7 +55,7 @@ export class SQLiteConnexion extends DbConnexion {
     const options = {
       // nativeBinding: require('better-sqlite3/build/Release/better_sqlite3.node'),
       verbose: (msg: string) => {
-        if (config.debugLevel === 2) Log.debug(msg)
+        if (Operation.config.debugLevel === 2) Log.debug(msg)
         this.lastSql.unshift(msg)
         if (this.lastSql.length > 3) this.lastSql.length = 3
       } 

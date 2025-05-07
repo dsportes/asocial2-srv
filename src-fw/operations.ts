@@ -1,12 +1,13 @@
 import { Operation } from './operation'
+import { Log } from './index'
 
-export function registerOpBase () { return Operation.nbOf() }
+export function register () {
+  Log.info(Operation.nbOf() + ' operations registered')
+}
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)
 */
 class EchoTexte extends Operation {
-  private text: string
-
   constructor () { super() }
 
   init () {

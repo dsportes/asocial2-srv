@@ -1,8 +1,10 @@
-import { AppExc } from './index'
+import { AppExc, BaseConfig } from './index'
 import { DbGeneric, StGeneric } from '../src-dbst'
 
 export class Operation {
   private static factories = new Map<string, Function>()
+
+  public static config: BaseConfig
 
   static nbOf () { 
     return Operation.factories.size 
@@ -12,14 +14,15 @@ export class Operation {
 
   static new (opName: string) {
     const f = Operation.factories.get(opName)
-    return f ? f(opName) : null
+    return f ? f() : null
   }
 
   static register (opName: string, factory: Function) {
     Operation.factories.set(opName, factory)
   }
 
-  readonly fake: boolean
+  public fake: boolean
+
   public opName: string
   public org: string
   public result: any
@@ -30,6 +33,8 @@ export class Operation {
   public storage: StGeneric
 
   constructor (fake?: boolean) { this.fake = fake || false }
+
+  get config (): BaseConfig { return Operation.config }
 
   init () {
   }

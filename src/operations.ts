@@ -1,11 +1,12 @@
-import { Operation } from '../src-fw/index'
+import { Operation, BaseConfig } from '../src-fw/index'
 
-export function registerOpApp () { return Operation.nbOf() }
+export function register (config: BaseConfig) {
+  Operation.config = config
+}
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)
 */
-class EchoTexte extends Operation {
-  private text: string
+class EchoTexte2 extends Operation {
 
   constructor () { super() }
 
@@ -19,4 +20,4 @@ class EchoTexte extends Operation {
   }
 
 }
-Operation.register('EchoTexte', () => { return new EchoTexte()})
+Operation.register('EchoTexte2', () => { return new EchoTexte2()})
