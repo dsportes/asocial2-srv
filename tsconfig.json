@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
+    "target": "ES6",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
-    "target": "ES6",
+
     "strict": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
 
-  "include": ["src/**/*", "src-fw/**/*", "src-dbst/**/*", "src-fs/**/*", "src-sq/**/*", "src-sl/index.ts",],
-  "exclude": ["**/*.spec.ts"]
+  "include": ["./src/**/*.ts", "./src-dbst/**/*.ts", "./src-fs/**/*.ts", "./src-fw/**/*.ts", "./src-sl/**/*.ts"],
+  "exclude": ["node_modules"]
 }

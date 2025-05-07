@@ -1,10 +1,11 @@
 /* Pour appel en tant que gcloud function:
 https://cloud.google.com/functions/docs/deploy
 https://blog.stackademic.com/building-a-rest-api-with-cloud-functions-on-google-cloud-platform-using-javascript-ffc570469f75
-const functions = require('@google-cloud/functions-framework')
 import functions from '@google-cloud/functions-framework'
 const gcloudfunction = true
 */
+
+import { HttpFunction } from '@google-cloud/functions-framework'
 
 const gcloudfunction = false
 
@@ -48,8 +49,8 @@ const config: BaseConfig = {
   origins: new Set<string>(/*['http://localhost:8080']*/),
 
   site: 'A',
-  database: 'sqla',
-  storage: 'fsa',
+  database: gcloudfunction ? null : 'sqla',
+  storage: gcloudfunction ? null : 'fsa',
   // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
   srvUrl: 'http://localhost:8080', // '' si défaut 'http://localhost:8080'
 
@@ -67,7 +68,7 @@ const config: BaseConfig = {
 
 register(config)
 checkConfig(encryptedKeys)
-const storage: StGeneric = storageFactory(config.storage, config.site)
+const storage: StGeneric = config.storage ? storageFactory(config.storage, config.site) : null
 
 let app = express.application
 
@@ -100,4 +101,4 @@ try {
   exit()
 }
 
-export const myFunction = app
+export const myFunctionName: HttpFunction = app

@@ -74,15 +74,12 @@ export function checkConfig ( encryptedKeys: string ) {
     throw new AppExc(1012, m, null)
   }
 
-  if (!config.database) 
-    throw new AppExc(1012, 'config.database not found', null)
-  if (!config.dbOptions || !config.dbOptions[config.database])
-    throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
-  if (!config.site || !config.keys['sites'][config.site])
-    throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
-
-  if (!config.storage) 
-    throw new AppExc(1012, 'config.storage not found', null)
+  if (config.database) {
+    if (!config.dbOptions || !config.dbOptions[config.database])
+      throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
+    if (!config.site || !config.keys['sites'][config.site])
+      throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
+  }
 
   register()
 }
@@ -272,7 +269,8 @@ export async function doOp (
       MyLog.info(opName + ' started')
     op.init()
 
-    await dbConnexion(MyOperation.config.database, MyOperation.config.site, op)
+    if (MyOperation.config.database)
+      await dbConnexion(MyOperation.config.database, MyOperation.config.site, op)
 
     await op.run()
     if (MyOperation.config.debugLevel === 2)

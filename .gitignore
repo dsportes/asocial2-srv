@@ -11,3 +11,4 @@ emulators/bk
 *.db3-shm
 *.db3-wal
 *.log
+.parcel-cache

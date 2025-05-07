@@ -4,21 +4,26 @@
   "description": "",
   "author": "Daniel Sportes",
   "license": "ISC",
-  "source": "src-fw/index.ts",
-  "main": "../tmp/srv/bundle.cjs",
+
+  "mainX": "src/index.js",
+
+  "source": "src/index.ts",
+  "main": "dist/bundle.cjs",
   "targets": {
-    "main": {
-      "includeNodeModules": false
-    }
+    "main": { "includeNodeModules": false }
   },
+
   "scripts": {
-    "start": "npx --node-options=--inspect @google-cloud/functions-framework --target=myFunction",
-    "test": "npx tsx src/index.ts",
-    "testdist": "cd ../tmp/srv; node bundle.js",
     "crypt": "npx tsx src/cryptkeys.ts -p \"toto est tres tres beau\"",
-    "gcp-build": "tsc -p .",
-    "build2": "tsc",
-    "build": "parcel build"
+    "testsrv": "npx tsx src/index.ts",
+
+    "builddist": "parcel build",
+    "testdist": "cp dist/* ../tmp/srv; cd ../tmp/srv; node bundle.js",
+
+    "build": "tsc",
+    "deploy": "gcloud functions deploy myFunctionName --gen2 --region=us-east1 --runtime=nodejs20 --trigger-http --allow-unauthenticated",
+    "testcf": "npm run build && npx @google-cloud/functions-framework --target=myFunctionName",
+    "gcp-build": "npm run build"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^4.0.0",
@@ -27,6 +32,7 @@
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "typescript": "^5.8.3",
     "winston": "^3.17.0"
   },
   "engines": {
