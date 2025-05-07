@@ -1,13 +1,11 @@
 /* Pour appel en tant que gcloud function:
-https://cloud.google.com/functions/docs/deploy
-https://blog.stackademic.com/building-a-rest-api-with-cloud-functions-on-google-cloud-platform-using-javascript-ffc570469f75
 import functions from '@google-cloud/functions-framework'
 const gcloudfunction = true
 */
 
-import { HttpFunction } from '@google-cloud/functions-framework'
+// import { HttpFunction } from '@google-cloud/functions-framework'
 
-const gcloudfunction = false
+const gcloudfunction = true
 
 import { exit } from 'process' 
 import { BaseConfig, checkConfig, getExpressApp, startSRV, testDb } from '../src-fw/index'
@@ -32,7 +30,7 @@ if (emulator) {
 
 const config: BaseConfig = {
   PROD: env.NODE_ENV === 'production' ? true : false,
-  GAE: env.GAE_INSTANCE || '',
+  GCLOUDLOGGING: true,
   SRVKEY: env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
   STORAGE_EMULATOR_HOST: env['STORAGE_EMULATOR_HOST'] || '',
   FIRESTORE_EMULATOR_HOST: env['FIRESTORE_EMULATOR_HOST'] || '',
@@ -101,4 +99,4 @@ try {
   exit()
 }
 
-export const myFunctionName: HttpFunction = app
+// export const asocialGCF: HttpFunction = app

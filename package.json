@@ -9,9 +9,7 @@
 
   "source": "src/index.ts",
   "main": "dist/bundle.cjs",
-  "targets": {
-    "main": { "includeNodeModules": false }
-  },
+  "targets": { "main": { "includeNodeModules": false }},
 
   "scripts": {
     "crypt": "npx tsx src/cryptkeys.ts -p \"toto est tres tres beau\"",
@@ -21,8 +19,8 @@
     "testdist": "cp dist/* ../tmp/srv; cd ../tmp/srv; node bundle.js",
 
     "build": "tsc",
-    "deploy": "gcloud functions deploy myFunctionName --gen2 --region=us-east1 --runtime=nodejs20 --trigger-http --allow-unauthenticated",
-    "testcf": "npm run build && npx @google-cloud/functions-framework --target=myFunctionName",
+    "deploycf": "gcloud functions deploy asocialGCF --gen2 --region=europe-west1 --runtime=nodejs22 --trigger-http --allow-unauthenticated",
+    "testcf": "npm run build && npx @google-cloud/functions-framework --target=asocialGCF",
     "gcp-build": "npm run build"
   },
   "dependencies": {

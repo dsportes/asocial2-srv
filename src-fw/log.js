@@ -10,8 +10,8 @@ class Log {
     static debug(msg) { this._logger.debug(msg); }
     static info(msg) { this._logger.info(msg); }
     static error(msg) { this._logger.error(msg); }
-    constructor(PROD, GAE, logsPath) {
-        if (GAE) {
+    constructor(PROD, GCLOUDLOGGING, logsPath) {
+        if (GCLOUDLOGGING) {
             // Imports the Google Cloud client library for Winston
             const loggingWinston = new logging_winston_1.LoggingWinston();
             // Logs will be written to: "projects/YOUR_PROJECT_ID/logs/winston_log"

@@ -1,7 +1,5 @@
 "use strict";
 /* Pour appel en tant que gcloud function:
-https://cloud.google.com/functions/docs/deploy
-https://blog.stackademic.com/building-a-rest-api-with-cloud-functions-on-google-cloud-platform-using-javascript-ffc570469f75
 import functions from '@google-cloud/functions-framework'
 const gcloudfunction = true
 */
@@ -9,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.myFunctionName = void 0;
+exports.asocialGCF = void 0;
 const gcloudfunction = true;
 const process_1 = require("process");
 const index_1 = require("../src-fw/index");
@@ -29,7 +27,7 @@ if (emulator) {
 }
 const config = {
     PROD: process_2.env.NODE_ENV === 'production' ? true : false,
-    GAE: process_2.env.GAE_INSTANCE || '',
+    GCLOUDLOGGING: true,
     SRVKEY: process_2.env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
     STORAGE_EMULATOR_HOST: process_2.env['STORAGE_EMULATOR_HOST'] || '',
     FIRESTORE_EMULATOR_HOST: process_2.env['FIRESTORE_EMULATOR_HOST'] || '',
@@ -93,4 +91,4 @@ catch (e) {
     console.error('SRV error: ' + e.message + '\n' + e.stack);
     (0, process_1.exit)();
 }
-exports.myFunctionName = app;
+exports.asocialGCF = app;

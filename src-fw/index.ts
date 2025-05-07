@@ -19,7 +19,7 @@ import { StGeneric } from '../src-dbst'
 
 export interface BaseConfig {
   PROD: boolean,
-  GAE: string, // ''
+  GCLOUDLOGGING: boolean,
   SRVKEY: string, // passée par env var - Clé de décryptage de keys.ts (entre autre)
   STORAGE_EMULATOR_HOST: string,
   FIRESTORE_EMULATOR_HOST: string,
@@ -57,7 +57,7 @@ export interface BaseConfig {
 
 export function checkConfig ( encryptedKeys: string ) {
   const config = MyOperation.config
-  new MyLog(config.PROD, config.GAE, config['logsPath'])
+  new MyLog(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
 
   // Chargement des "keys" cryptées dans config.keys
   try {

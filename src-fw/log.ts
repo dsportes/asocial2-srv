@@ -8,8 +8,8 @@ export class Log {
   public static info (msg: string) { this._logger.info(msg) }
   public static error (msg: string) { this._logger.error(msg) }
 
-  constructor (PROD: boolean, GAE: string, logsPath: string) {
-    if (GAE) {
+  constructor (PROD: boolean, GCLOUDLOGGING: boolean, logsPath: string) {
+    if (GCLOUDLOGGING) {
       // Imports the Google Cloud client library for Winston
       const loggingWinston = new LoggingWinston()
       // Logs will be written to: "projects/YOUR_PROJECT_ID/logs/winston_log"

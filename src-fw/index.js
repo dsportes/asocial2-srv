@@ -38,7 +38,7 @@ Object.defineProperty(exports, "Util", { enumerable: true, get: function () { re
 const operations_1 = require("./operations");
 function checkConfig(encryptedKeys) {
     const config = operation_1.Operation.config;
-    new log_1.Log(config.PROD, config.GAE, config['logsPath']);
+    new log_1.Log(config.PROD, config.GCLOUDLOGGING, config['logsPath']);
     // Chargement des "keys" cryptées dans config.keys
     try {
         if (config.SRVKEY) {
