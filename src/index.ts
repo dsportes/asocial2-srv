@@ -5,7 +5,7 @@ const gcloudfunction = true
 
 // import { HttpFunction } from '@google-cloud/functions-framework'
 
-const gcloudfunction = true
+const gcloudfunction = false
 
 import { exit } from 'process' 
 import { BaseConfig, checkConfig, getExpressApp, startSRV, testDb } from '../src-fw/index'
@@ -30,7 +30,7 @@ if (emulator) {
 
 const config: BaseConfig = {
   PROD: env.NODE_ENV === 'production' ? true : false,
-  GCLOUDLOGGING: true,
+  GCLOUDLOGGING: gcloudfunction || env['GAE'] ? true : false,
   SRVKEY: env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
   STORAGE_EMULATOR_HOST: env['STORAGE_EMULATOR_HOST'] || '',
   FIRESTORE_EMULATOR_HOST: env['FIRESTORE_EMULATOR_HOST'] || '',
@@ -88,11 +88,11 @@ try {
         exit()  
       })
     } else try {
-      startSRV(config, app)
-    } catch (e) {
-      console.error('SRV error: ' + e.message + '\n' + e.stack)
-      exit()  
-    }
+        startSRV(config, app)
+      } catch (e) {
+        console.error('SRV error: ' + e.message + '\n' + e.stack)
+        exit()  
+      }
   }
 } catch (e) {
   console.error('SRV error: ' + e.message + '\n' + e.stack)

@@ -10,3 +10,19 @@
 2025-05-07T13:51:05.959Z info: EchoTexte started
 2025-05-07T13:51:05.971Z info: EchoTexte finished
 2025-05-07T14:30:30.196Z info: 4 operations registered
+2025-05-07T16:02:11.571Z info: 4 operations registered
+2025-05-07T16:02:11.576Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-07T16:02:11.581Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-07T16:02:11.606Z info: Sqlite ping OK: 2025-05-07T15:55:46.632Z <=> 2025-05-07T16:02:11.605Z
+2025-05-07T16:02:11.617Z info: File-System ping OK: 2025-05-07T16:02:11.606Z
+2025-05-07T16:02:11.625Z info: HTTP listen [8080]
+2025-05-07T16:06:58.061Z info: EchoTexte started
+2025-05-07T16:06:58.078Z info: EchoTexte finished
+2025-05-07T16:07:50.705Z info: 4 operations registered
+2025-05-07T16:07:50.707Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-07T16:07:50.712Z info: SQLite sqla/A DB path= [sqlite/testa.db3]
+2025-05-07T16:07:50.726Z info: Sqlite ping OK: 2025-05-07T16:02:11.605Z <=> 2025-05-07T16:07:50.726Z
+2025-05-07T16:07:50.734Z info: File-System ping OK: 2025-05-07T16:07:50.727Z
+2025-05-07T16:07:50.740Z info: HTTP listen [8080]
+2025-05-07T16:07:53.611Z info: PingDB started
+2025-05-07T16:07:53.626Z info: PingDB finished
