@@ -5,44 +5,59 @@ export interface DbGeneric {
   ping () : Promise<[number, string]> 
 }
 
-export class DbOptions {
+export class DbConnector {
+  private static cache = new Map<string, DbConnector>()
+
+  static get (code: string) : DbConnector {
+    return DbConnector.cache.get(code)
+  }
+
+  static set (code: string, opts: DbConnector) {
+    return DbConnector.cache.set(code, opts)
+  }
+
   public code: string
-  public site: string
+
   public key: Buffer
-  public cfg: any // sa ligne dans Operation.config
+  public cryptIds: boolean
   public credentials: any
+  public cnxClass: any
 
-  constructor (code:string, site:string) {
-    this.cfg = Operation.config.dbOptions[code]
-    if (!this.cfg)
-      throw new AppExc(1020, 'config.dbOptions not found', null, [code])
-    this.code = code
+  constructor (code:string, cryptIds: boolean, credentials: string) {
 
-    if (!this.cfg.credentials)
-      throw new AppExc(1022, 'config.stOptions credentials not found', null, [code])
-    const cred = Operation.config.keys[this.cfg.credentials]
+    if (!credentials)
+      throw new AppExc(1022, 'config.dbConfigs credentials not found', null, [code])
+    const cred = Operation.config.keys[credentials]
     if (!cred)
-      throw new AppExc(1023, 'keys credentials not found', null, [code, this.cfg.credentials])
+      throw new AppExc(1023, 'keys credentials not found', null, [code])
     this.credentials = cred
+    this.cryptIds = cryptIds
+  }
 
-    const k = Operation.config.keys['sites'][site]
-    if (!k)
-      throw new AppExc(1021, 'keys.sites not found', null, [site])
-    this.site = site
-    this.key = this.cfg.cryptIds ? Buffer.from(k, 'base64') : null
+  async getConnexion (site: string, op: Operation) {
+    let key = null
+    if (this.cryptIds) {
+      const k = Operation.config.keys['sites'][site]
+      if (!k) throw new AppExc(1024, 'keys.site not found', null, [site])
+      key = Buffer.from(k, 'base64')
+    }
+    const cnx = new this.cnxClass(this, key)
+    await cnx.connect()
   }
 }
-
-export class DbConnexion {
-  public opts: DbOptions
+export class DbProvider {
+  public opts: DbConnector
   public op: Operation
+  public key: Buffer
 
-  constructor (opts: DbOptions, op: Operation) {
+  constructor (opts: DbConnector, op: Operation, key: Buffer) {
     this.opts = opts
+    this.key = key
     this.op = op
+    op.db = this as DbGeneric
   }
 
-  get key () { return this.opts.key }
+  async ping () : Promise<[number, string]> { return [2, '???']}
 }
 
 /****************************************************************/
@@ -61,59 +76,51 @@ export interface StGeneric {
   listIds (id1: string) : Promise<string[]>
 }
 
-export class StOptions {
+export class StConnector { // Classe abstraite
+  static cache = new Map<string, StConnector>()
+
+  static getStorage (code: string, site: string): StGeneric {
+    const c = StConnector.cache.get(code)
+    if (!c) throw new AppExc(1024, 'Storage connector not found', null, [code])
+    let key = null
+    if (c.cryptIds) {
+      const k = Operation.config.keys['sites'][site]
+      if (!k) throw new AppExc(1024, 'keys.site not found', null, [site])
+      key = Buffer.from(k, 'base64')
+    }
+    return c.factory(this, key) 
+  }
+
   public code: string
-  public site: string
   public key: Buffer
   public bucket: string
+  public cryptIds: boolean
   public credentials: any
-  public cfg: any // sa ligne dans config
+  public srvkey: Buffer
+  public srvUrl: string
+  public factory: Function
 
-  constructor (code:string, site:string) {
-    this.cfg = Operation.config.stOptions[code]
-    if (!this.cfg)
-      throw new AppExc(1020, 'config.stOptions not found', null, [code])
+  constructor (code: string, bucket: string, cryptIds: boolean, credentials: string) {
     this.code = code
-
-    if (!this.cfg.bucket)
-      throw new AppExc(1020, 'config.stOptions bucket not found', null, [code])
-    this.bucket = this.cfg.bucket
-
-    if (!this.cfg.credentials)
-      throw new AppExc(1022, 'config.stOptions credentials not found', null, [code])
-    const cred = Operation.config.keys[this.cfg.credentials]
+    this.bucket = bucket
+    this.cryptIds = cryptIds
+    const cred = Operation.config.keys[credentials]
     if (!cred)
-      throw new AppExc(1023, 'keys credentials not found', null, [this.cfg.credentials])
+      throw new AppExc(1023, 'keys credentials not found', null, [code])
     this.credentials = cred
-
-    const k = Operation.config.keys['sites'][site]
-    if (!k)
-      throw new AppExc(1024, 'keys.site not found', null, [site])
-    this.site = site
-    this.key = this.cfg.cryptIds ? Buffer.from(k, 'base64') : null
+    this.srvkey = Buffer.from(Operation.config.SRVKEY, 'base64')
+    this.srvUrl = Operation.config.srvUrl || 'http://localhost:8080'
+    StConnector.cache.set(code, this)
   }
-}
-
-const optionsCache = new Map<string, StOptions>()
-
-export function getOptions (code: string, site: string) : StOptions{
-  let opts = optionsCache.get(code + '/' + site)
-  if (!opts) {
-    opts = new StOptions(code, site)
-    optionsCache.set(code + '/' + site, opts)
-  }
-  return opts
 }
 
 export class StorageGeneric {
   public key: Buffer
-  private srvkey: Buffer
-  private srvUrl: string
+  private options: StConnector
 
-  constructor (options: StOptions) {
-    this.key = options.key
-    this.srvkey = Buffer.from(Operation.config.SRVKEY, 'base64')
-    this.srvUrl = Operation.config.srvUrl || 'http://localhost:8080'
+  constructor (options: StConnector, key: Buffer) {
+    this.options = options
+    this.key = key
   }
 
   cryptId (id: string) {
@@ -126,18 +133,18 @@ export class StorageGeneric {
 
   encode3 (id1: string, id2: string, id3: string) : string {
     const b = Buffer.from(encode([id1, id2, id3]))
-    const x = Util.crypt(this.srvkey, b).toString('base64')
+    const x = Util.crypt(this.options.srvkey, b).toString('base64')
     const y = x.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
     return y
   }
 
   decode3 (b64: string) : any { // [id1, id2, id3]
-    const x = Util.decrypt(this.srvkey, Buffer.from(b64, 'base64'))
+    const x = Util.decrypt(this.options.srvkey, Buffer.from(b64, 'base64'))
     return decode(x)
   }
 
   storageUrlGenerique (id1: string, id2: string, id3: string) {
-    return this.srvUrl + '/file/' + this.encode3(id1, id2, id3)
+    return this.options.srvUrl + '/file/' + this.encode3(id1, id2, id3)
   }
 }
 

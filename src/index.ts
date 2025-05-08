@@ -8,13 +8,16 @@ const gcloudfunction = true
 const gcloudfunction = false
 
 import { exit } from 'process' 
-import { BaseConfig, checkConfig, getExpressApp, startSRV, testDb } from '../src-fw/index'
+import { BaseConfig, getExpressApp, startSRV, testDb } from '../src-fw/index'
 
-import express from 'express'
 import { encryptedKeys } from './keys'
 import { register } from './operations'
-import { dbConnexion, storageFactory } from './appDbSt'
+// import { dbConnexion, storageFactory } from './appDbSt'
 import { StGeneric } from '../src-dbst'
+
+import { FsConnector } from '../src-fs'
+import { SQLiteConnector} from '../src-sl'
+import { AppSQLiteConnector } from './dbSqlite'
 
 /* En test seulement: simulation du passage de la clé du serveur 
 par variable d'environnement.
@@ -52,26 +55,27 @@ const config: BaseConfig = {
   // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
   srvUrl: 'http://localhost:8080', // '' si défaut 'http://localhost:8080'
 
-  dbOptions: {
-    sqla: { path: 'sqlite/testa.db3', cryptIds: false, credentials: 'sqlite' },
-    sqlb: { path: 'sqlite/testb.db3', cryptIds: true, credentials: 'sqlite' }
-  },
-  
-  stOptions: {
-    fsa: { bucket: 'filestorea', cryptIds: false, credentials: 'storageFS'}
-  },
-
   keys: {}
 }
 
+new SQLiteConnector('sqla', 'sqlite/testa.db3', false, 'sqlite')
+new AppSQLiteConnector('sqlb', 'sqlite/testb.db3', false, 'sqlite')
+new FsConnector('fsa', 'filestorea', false, 'storageFS')
+  
 register(config)
-checkConfig(encryptedKeys)
-const storage: StGeneric = config.storage ? storageFactory(config.storage, config.site) : null
 
-let app = express.application
+export const asocialGCF = getExpressApp(encryptedKeys)
 
-try {
-  app = getExpressApp(dbConnexion, storage)
+if (!gcloudfunction) startSRV(asocialGCF)
+.then(() => {
+  console.log('Server started')
+})
+.catch(m => {
+  console.error(m)
+  exit()
+})
+
+/*
   if (!gcloudfunction) {
     // Lancement d'un serveur (AppEngine ou local)
     if (config.debugLevel === 2) {
@@ -98,5 +102,5 @@ try {
   console.error('SRV error: ' + e.message + '\n' + e.stack)
   exit()
 }
-
+*/
 // export const asocialGCF: HttpFunction = app

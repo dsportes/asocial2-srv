@@ -1,58 +1,42 @@
 // import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
-import { DbOptions, DbConnexion } from '../src-dbst/index'
+import { DbConnector, DbProvider, DbGeneric } from '../src-dbst/index'
 import { Operation, AppExc, Log } from '../src-fw/index'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
 
-export class SQLiteOptions extends DbOptions{
+export class SQLiteConnector extends DbConnector {
   public path: string
-  constructor (code: string, site: string) {
-    super(code, site)
-    const p = this.cfg.path
-    if (!p)
+
+  constructor (code: string, dbpath: string, cryptIds: boolean, credentials: string) {
+    super(code, cryptIds, credentials)
+    if (!dbpath)
       throw new AppExc(1030, 'SQLite path absent', null, [code])
-    this.path = path.resolve(p)
+    this.path = path.resolve(dbpath)
     if (!existsSync(this.path))
-      throw new AppExc(1020, 'SQLite path not found', null, [code, p])
-    Log.info('SQLite ' + code + '/' + site + ' DB path= [' + p + ']')
-
+      throw new AppExc(1020, 'SQLite path not found', null, [code, this.path])
+    Log.info('SQLite ' + code + ' DB path= [' + this.path + ']')
+    this.cnxClass = SQLiteProvider
   }
 }
 
-const optionsCache = new Map<string, SQLiteOptions>()
-
-export function getOptions (code: string, site: string) : SQLiteOptions{
-  let opts = optionsCache.get(code + '/' + site)
-  if (!opts) {
-    opts = new SQLiteOptions(code, site)
-    optionsCache.set(code + '/' + site, opts)
-  }
-  return opts
-}
-
-export async function fwSqlConnexion (code: string, site: string, op: Operation) {
-  const cnx = new SQLiteConnexion(getOptions(code, site), op)
-  await cnx.connect()
-}
-
-export class SQLiteConnexion extends DbConnexion {
+export class SQLiteProvider extends DbProvider implements DbGeneric {
   public path: string
   public lastSql: string[]
   public cachestmt: Object
   public sql: any
   
-  constructor (opts: SQLiteOptions, op: Operation) {
-    super(opts, op)
+  constructor (opts: SQLiteConnector, op: Operation, key: Buffer) {
+    super(opts, op, key)
     this.path = opts.path
     this.lastSql = []
     this.cachestmt = { }
   }
 
   async connect () {
-    const options = {
+    const sqloptions = {
       // nativeBinding: require('better-sqlite3/build/Release/better_sqlite3.node'),
       verbose: (msg: string) => {
         if (Operation.config.debugLevel === 2) Log.debug(msg)
@@ -62,7 +46,7 @@ export class SQLiteConnexion extends DbConnexion {
     }
 
     try {
-      this.sql = new Database(this.path, options), 
+      this.sql = new Database(this.path, sqloptions), 
       this.sql.pragma('journal_mode = WAL')
     } catch (e) {
       throw new AppExc(1024, 'SQLite connexion failed', this.op, [e.message])

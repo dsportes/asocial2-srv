@@ -15,7 +15,7 @@ export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { register } from './operations'
 
-import { StGeneric } from '../src-dbst'
+import { StGeneric, DbConnector, StConnector } from '../src-dbst'
 
 export interface BaseConfig {
   PROD: boolean,
@@ -40,22 +40,10 @@ export interface BaseConfig {
   storage: string,  // 'fsa'
   // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
   srvUrl: string, // '' si défaut 'http://localhost:8080'
-
-  dbOptions: Object,
-  /* {
-    sqla: { path: 'sqlite/testa.db3', cryptIds: false, credentials: 'sqlite' },
-    sqlb: { path: 'sqlite/testb.db3', cryptIds: true, credentials: 'sqlite' }
-  } */
-  
-  stOptions: Object,
-  /* {
-    fsa: { bucket: 'filestorea', cryptIds: false, credentials: 'storageFS'}
-  } */
-
   keys: Object
 }
 
-export function checkConfig ( encryptedKeys: string ) {
+export function getExpressApp (encryptedKeys: string): express.Application {
   const config = MyOperation.config
   new MyLog(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
 
@@ -74,22 +62,16 @@ export function checkConfig ( encryptedKeys: string ) {
     throw new AppExc(1012, m, null)
   }
 
-  if (config.database) {
-    if (!config.dbOptions || !config.dbOptions[config.database])
-      throw new AppExc(1013, 'config.dbOptions not found', null, [config.database])
-    if (!config.site || !config.keys['sites'][config.site])
-      throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
-  }
+  if (!config.site || !config.keys['sites'][config.site])
+    throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
+
+  const dbConnector = config.database ? DbConnector.get(config.database) : null
+  const stOptions = config.storage ? StConnector.getStorage(config.storage, config.site) : null
+
+  const storage =  config.storage ? StConnector.getStorage(config.storage, config.site) : null
 
   register()
-}
 
-export function getExpressApp (
-    dbConnexion: Function, 
-    storage: StGeneric
-  ) : express.Application {
-    
-  const config = MyOperation.config
   const app = express()
   app.use(cors({}))
 
@@ -108,6 +90,10 @@ export function getExpressApp (
   })
 
   app.get('/file/:arg', async (req, res) => {
+    if (!storage) {
+      res.status(404).send('File not found')
+      return
+    }
     try {
       const [id1, id2, id3] = storage.decode3(req.params.arg)
       const bytes = await storage.getFile(id1, id2, id3)
@@ -119,6 +105,10 @@ export function getExpressApp (
   })
 
   app.put('/file/:arg', async (req, res) => {
+    if (!storage) {
+      res.status(404).send('File not uploaded')
+      return
+    }
     try {
       const bufs = [];
       req.on('data', (chunk) => {
@@ -143,42 +133,45 @@ export function getExpressApp (
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         body = Buffer.concat(chunks)
-        await doOp(storage, dbConnexion, req, res, body)
+        await doOp(storage, dbConnector, req, res, body)
       })
     } else // Cloud functions
-      await doOp(storage, dbConnexion, req, res, req['rawBody'])
+      await doOp(storage, dbConnector, req, res, req['rawBody'])
   })
   
   return app
 }
 
-export function startSRV (config: BaseConfig, app: express.Application) {
-  const port = env.PORT || config.port
-  let server : http.Server | https.Server
+export function startSRV (app: express.Application) : Promise<void>{
+  return new Promise((resolve, reject) => {
+    const config = MyOperation.config
+    const port = env.PORT || config.port
+    let server : http.Server | https.Server
 
-  if (config.https) {
-    let p = path.resolve('./cert/fullchain.pem')
-    const cert = existsSync(p) ? readFileSync(p) : ''
-    if (!cert)
-      throw new AppExc(1015, 'certificate NOT FOUND', null, [p])
-    p = path.resolve('./cert/privkey.pem')
-    const key = existsSync(p) ? readFileSync(p) : ''
-    if (!key ) 
-      throw new AppExc(1015, 'private key NOT FOUND', null, [p])
-    server = https.createServer({key, cert}, app).listen(port, async () => {
-      MyLog.info('HTTPS listen [' + config.port + ']')
-    })
-  } else {
-    server = http.createServer(app).listen(port, async () => {
-      MyLog.info('HTTP listen [' + port + ']')
-    })
-  }
+    if (config.https) {
+      let p = path.resolve('./cert/fullchain.pem')
+      const cert = existsSync(p) ? readFileSync(p) : ''
+      if (!cert)
+        throw new AppExc(1015, 'certificate NOT FOUND', null, [p])
+      p = path.resolve('./cert/privkey.pem')
+      const key = existsSync(p) ? readFileSync(p) : ''
+      if (!key ) 
+        throw new AppExc(1015, 'private key NOT FOUND', null, [p])
+      server = https.createServer({key, cert}, app).listen(port, async () => {
+        MyLog.info('HTTPS listen [' + config.port + ']')
+      })
+    } else {
+      server = http.createServer(app).listen(port, async () => {
+        MyLog.info('HTTP listen [' + port + ']')
+      })
+    }
 
-  if (server)
-    server.on('error', (e) => { // les erreurs de création du server ne sont pas des exceptions
-      MyLog.error('HTTP/S error: ' + e.message + '\n' + e.stack)
-      throw new AppExc(1016, 'HTTP/S error', null, [e.message])
-    })
+    if (server)
+      server.on('error', (e) => { // les erreurs de création du server ne sont pas des exceptions
+        MyLog.error('HTTP/S error: ' + e.message + '\n' + e.stack)
+        reject(e.message)
+      })
+  })
 }
 
 export async function testDb (
@@ -223,7 +216,7 @@ let todayEpoch = 0
 
 export async function doOp (
   storage: StGeneric, 
-  dbConnexion: Function,
+  dbConnector: DbConnector,
   req: express.Request, 
   res: express.Response, 
   body: Buffer) {
@@ -270,7 +263,7 @@ export async function doOp (
     op.init()
 
     if (MyOperation.config.database)
-      await dbConnexion(MyOperation.config.database, MyOperation.config.site, op)
+      await dbConnector.getConnexion(MyOperation.config.site, op)
 
     await op.run()
     if (MyOperation.config.debugLevel === 2)

@@ -4,18 +4,28 @@ import path from 'path'
 
 import { AppExc, Log } from '../src-fw/index'
 
-import { StGeneric, StOptions, StorageGeneric } from '../src-dbst'
+import { StGeneric, StConnector, StorageGeneric } from '../src-dbst'
 
 /* FsProvider ********************************************************************/
-export class FsStorage extends StorageGeneric implements StGeneric {
+export class FsConnector extends StConnector {
   public rootpath: string
 
-  constructor (options: StOptions) {
-    super(options)
-    this.rootpath = path.resolve(options.bucket)
+  constructor (code: string, bucket: string, cryptIds: boolean, credentials: string) {
+    super(code, bucket, cryptIds, credentials)
+    this.rootpath = path.resolve(this.bucket)
     if (!existsSync(this.rootpath))
       throw new AppExc(1030, 'fs storage path not found', null, [this.rootpath])
+    this.factory = Storage
     Log.info('Storage FS - path:[' + this.rootpath) + ']'
+  }
+}
+class Storage extends StorageGeneric implements StGeneric {
+
+  private rootpath: string
+  
+  constructor (options: FsConnector, key: Buffer) {
+    super(options, key)
+    this.rootpath = options.rootpath
   }
 
   async ping () : Promise<[number, string]> {
