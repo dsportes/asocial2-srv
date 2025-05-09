@@ -4,20 +4,19 @@
   "description": "",
   "author": "Daniel Sportes",
   "license": "ISC",
-
   "mainX": "src/index.js",
-
   "source": "src/index.ts",
   "main": "dist/bundle.cjs",
-  "targets": { "main": { "includeNodeModules": false }},
-
+  "targets": {
+    "main": {
+      "includeNodeModules": false
+    }
+  },
   "scripts": {
     "crypt": "npx tsx src/cryptkeys.ts -p \"toto est tres tres beau\"",
     "testsrv": "npx tsx src/index.ts",
-
     "builddist": "parcel build",
     "testdist": "cp dist/* ../tmp/srv; cd ../tmp/srv; node bundle.js",
-
     "build": "tsc",
     "deploycf": "gcloud functions deploy asocialGCF --gen2 --region=europe-west1 --runtime=nodejs22 --trigger-http --allow-unauthenticated",
     "testcf": "npm run build && npx @google-cloud/functions-framework --target=asocialGCF",

@@ -1,11 +1,10 @@
+import path from 'path'
+import { existsSync } from 'node:fs'
 // import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
-import { DbConnector, DbProvider, DbGeneric } from '../src-dbst/index'
+import { DbConnector, DbProvider, DbGeneric } from '../src-dbst/dbConnector'
 import { Operation, AppExc, Log } from '../src-fw/index'
-
-import path from 'path'
-import { existsSync } from 'node:fs'
 
 export class SQLiteConnector extends DbConnector {
   public path: string
@@ -18,11 +17,15 @@ export class SQLiteConnector extends DbConnector {
     if (!existsSync(this.path))
       throw new AppExc(1020, 'SQLite path not found', null, [code, this.path])
     Log.info('SQLite ' + code + ' DB path= [' + this.path + ']')
-    this.cnxClass = SQLiteProvider
+    this.factory = SQLiteProvider.newProvider
   }
 }
 
 export class SQLiteProvider extends DbProvider implements DbGeneric {
+  public static newProvider (opts: SQLiteConnector, op: Operation, key: Buffer) {
+    return new SQLiteProvider(opts, op, key)
+  }
+
   public path: string
   public lastSql: string[]
   public cachestmt: Object
@@ -51,8 +54,6 @@ export class SQLiteProvider extends DbProvider implements DbGeneric {
     } catch (e) {
       throw new AppExc(1024, 'SQLite connexion failed', this.op, [e.message])
     }
-    this.op.db = this
-    return this
   }
 
   // Méthode PUBLIQUE de déconnexion, impérative et sans exception

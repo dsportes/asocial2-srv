@@ -2,7 +2,7 @@ import { Operation } from './operation'
 import { Log } from './index'
 
 export function register () {
-  Log.info(Operation.nbOf() + ' operations registered')
+  return Operation.nbOf()
 }
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)

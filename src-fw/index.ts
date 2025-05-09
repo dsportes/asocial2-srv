@@ -5,17 +5,16 @@ import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
-import { env } from 'process'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
+import { register } from './operations'
 import { Util as MyUtil } from './util'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
-import { register } from './operations'
-
-import { StGeneric, DbConnector, StConnector } from '../src-dbst'
+import { DbGeneric, DbConnector } from '../src-dbst/dbConnector'
+import { StGeneric, StConnector } from '../src-dbst/stConnector'
 
 export interface BaseConfig {
   PROD: boolean,
@@ -43,8 +42,14 @@ export interface BaseConfig {
   keys: Object
 }
 
-export function getExpressApp (encryptedKeys: string): express.Application {
-  const config = MyOperation.config
+let dbConnector: DbConnector
+let storage: StGeneric
+let app: express.Application
+let config: BaseConfig
+
+export function init (_config: BaseConfig, encryptedKeys: string) {
+  config = _config
+  MyOperation.config = config
   new MyLog(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
 
   // Chargement des "keys" cryptées dans config.keys
@@ -65,14 +70,16 @@ export function getExpressApp (encryptedKeys: string): express.Application {
   if (!config.site || !config.keys['sites'][config.site])
     throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
 
-  const dbConnector = config.database ? DbConnector.get(config.database) : null
-  const stOptions = config.storage ? StConnector.getStorage(config.storage, config.site) : null
+  const nbOp = register()
+  if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
+}
 
-  const storage =  config.storage ? StConnector.getStorage(config.storage, config.site) : null
+export function getExpressApp (): express.Application {
 
-  register()
+  dbConnector = config.database ? DbConnector.get(config.database) : null
+  storage =  config.storage ? StConnector.getStorage(config.storage, config.site) : null
 
-  const app = express()
+  app = express()
   app.use(cors({}))
 
   // OPTIONS est toujours envoyé pour tester les appels cross origin
@@ -142,11 +149,12 @@ export function getExpressApp (encryptedKeys: string): express.Application {
   return app
 }
 
-export function startSRV (app: express.Application) : Promise<void>{
-  return new Promise((resolve, reject) => {
-    const config = MyOperation.config
-    const port = env.PORT || config.port
+export function startSRV () : Promise<void>{
+  return new Promise(async (resolve, reject) => {
     let server : http.Server | https.Server
+
+    if (config.debugLevel === 2)
+      await testDb()
 
     if (config.https) {
       let p = path.resolve('./cert/fullchain.pem')
@@ -157,12 +165,12 @@ export function startSRV (app: express.Application) : Promise<void>{
       const key = existsSync(p) ? readFileSync(p) : ''
       if (!key ) 
         throw new AppExc(1015, 'private key NOT FOUND', null, [p])
-      server = https.createServer({key, cert}, app).listen(port, async () => {
+      server = https.createServer({key, cert}, app).listen(config.port, async () => {
         MyLog.info('HTTPS listen [' + config.port + ']')
       })
     } else {
-      server = http.createServer(app).listen(port, async () => {
-        MyLog.info('HTTP listen [' + port + ']')
+      server = http.createServer(app).listen(config.port, async () => {
+        MyLog.info('HTTP listen [' + config.port + ']')
       })
     }
 
@@ -171,29 +179,23 @@ export function startSRV (app: express.Application) : Promise<void>{
         MyLog.error('HTTP/S error: ' + e.message + '\n' + e.stack)
         reject(e.message)
       })
+    resolve()
   })
 }
 
-export async function testDb (
-  dbConnexion: Function, 
-  storage: StGeneric) : Promise<void> {
-  
-  return new Promise(async (resolve, reject) => {
-    const config = MyOperation.config
-    const op = MyOperation.fake()
-    await dbConnexion(config.database, config.site, op)
-    {
-      const [status, msg] = await op.db.ping()
-      if (status === 0) MyLog.info(msg)
-      else reject('PING SDatabase FAILED')
-    }
-    {
-      const [status, msg] = await storage.ping()
-      if (status === 0) MyLog.info(msg)
-      else reject('PING Storage FAILED: ' + msg)
-    }
-    resolve()
-  })
+export async function testDb () : Promise<void> {
+  const op = MyOperation.fake()
+  await dbConnector.getConnexion(config.site, op)
+  {
+    const [status, msg] = await op.db.ping()
+    if (status === 0) MyLog.info(msg)
+    else throw new AppExc(1012, 'PING SDatabase FAILED', null, [msg])
+  }
+  {
+    const [status, msg] = await storage.ping()
+    if (status === 0) MyLog.info(msg)
+    else throw new AppExc(1013, 'PING Storage FAILED: ', null, [msg])
+  }
 }
 
 /****************************************************************/
@@ -379,6 +381,7 @@ export class AppExc {
   public org: string
   public stack: string
   public args: string[]
+  public message: string
 
   constructor (code: number, label: string, op: MyOperation, args?: string[], stack?: string) {
     this.label = label
@@ -387,15 +390,17 @@ export class AppExc {
     this.org = op && op.org ? op.org : ''
     this.args = args || []
     this.stack = stack || ''
-    const m = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
-    if (code > 3000) MyLog.error(m + this.stack)
-    else { if (MyOperation.config.debugLevel > 0) MyLog.info(m) }
+    this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
+    if (code > 3000) MyLog.error(this.message)
+    else { if (MyOperation.config.debugLevel > 0) MyLog.debug(this.toString()) }
     if (code > 8000)
-      adminAlert(op, m, this.stack)
+      adminAlert(op, this.message, this.stack)
   }
 
-  serial() { 
+  serial () { 
     return Buffer.from(encode({code: this.code, label: this.label, opName: this.opName,
       org: this.org, stack: this.stack, args: this.args}))
   }
+
+  toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
 }

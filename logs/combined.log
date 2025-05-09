@@ -26,3 +26,23 @@
 2025-05-07T16:07:50.740Z info: HTTP listen [8080]
 2025-05-07T16:07:53.611Z info: PingDB started
 2025-05-07T16:07:53.626Z info: PingDB finished
+2025-05-09T11:07:59.212Z info: 4 operations registered
+2025-05-09T11:07:59.216Z info: 4 App operations registered
+2025-05-09T11:07:59.218Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-09T11:07:59.219Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-09T11:08:21.564Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:09:01.292Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T11:09:01.297Z info: UPDATE singletons SET _data_ = '2025-05-09T11:09:01.293Z', v = 1746788941293.0  WHERE id = '1'
+2025-05-09T11:09:03.787Z info: Sqlite ping OK: 2025-05-04T20:34:48.271Z <=> 2025-05-09T11:09:01.293Z
+2025-05-09T11:09:07.227Z info: File-System ping OK: 2025-05-09T11:09:05.555Z
+2025-05-09T11:09:12.832Z info: HTTP listen [8080]
+2025-05-09T11:10:16.626Z info: 4 operations registered
+2025-05-09T11:10:16.629Z info: 4 App operations registered
+2025-05-09T11:10:16.630Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-09T11:10:16.631Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-09T11:10:20.872Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:10:20.874Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T11:10:20.875Z info: UPDATE singletons SET _data_ = '2025-05-09T11:10:20.875Z', v = 1746789020875.0  WHERE id = '1'
+2025-05-09T11:10:20.876Z info: Sqlite ping OK: 2025-05-09T11:09:01.293Z <=> 2025-05-09T11:10:20.875Z
+2025-05-09T11:10:20.890Z info: File-System ping OK: 2025-05-09T11:10:20.877Z
+2025-05-09T11:10:20.898Z info: HTTP listen [8080]

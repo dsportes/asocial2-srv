@@ -1,7 +1,7 @@
 import { Operation, BaseConfig } from '../src-fw/index'
 
-export function register (config: BaseConfig) {
-  Operation.config = config
+export function register () {
+  return Operation.nbOf()
 }
 
 /* EchoTexte retourne le texte passé en argument (un peu modifié)

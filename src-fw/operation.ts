@@ -1,5 +1,6 @@
 import { AppExc, BaseConfig } from './index'
-import { DbGeneric, StGeneric } from '../src-dbst'
+import { DbGeneric } from '../src-dbst/dbConnector'
+import { StGeneric } from '../src-dbst/stConnector'
 
 export class Operation {
   private static factories = new Map<string, Function>()

@@ -2,11 +2,11 @@ import { writeFile, readFile } from 'node:fs/promises'
 import { existsSync, unlinkSync, rmSync, readdirSync, mkdirSync } from 'node:fs'
 import path from 'path'
 
-import { AppExc, Log } from '../src-fw/index'
+import { AppExc, Log, Operation } from '../src-fw/index'
 
-import { StGeneric, StConnector, StorageGeneric } from '../src-dbst'
+import { StGeneric, StConnector, StorageGeneric } from '../src-dbst/stConnector'
 
-/* FsProvider ********************************************************************/
+/*********************************************************************/
 export class FsConnector extends StConnector {
   public rootpath: string
 
@@ -15,11 +15,15 @@ export class FsConnector extends StConnector {
     this.rootpath = path.resolve(this.bucket)
     if (!existsSync(this.rootpath))
       throw new AppExc(1030, 'fs storage path not found', null, [this.rootpath])
-    this.factory = Storage
+    this.srvUrl = Operation.config.srvUrl
+    this.factory = Storage.newStorage
     Log.info('Storage FS - path:[' + this.rootpath) + ']'
   }
 }
 class Storage extends StorageGeneric implements StGeneric {
+  public static newStorage (options: FsConnector, key: Buffer) {
+    return new Storage(options, key)
+  }
 
   private rootpath: string
   

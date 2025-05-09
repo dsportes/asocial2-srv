@@ -1,4 +1,5 @@
-import { DbGeneric, StGeneric } from '../src-dbst/index'
+import { DbGeneric } from '../src-dbst/dbConnector'
+import { StGeneric } from '../src-dbst/stConnector'
 
 export interface DbApp extends DbGeneric {
   ping () : Promise<[number, string]> 

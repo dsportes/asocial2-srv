@@ -4,7 +4,7 @@ import { LoggingWinston } from '@google-cloud/logging-winston'
 export class Log {
   private static _logger: winston.Logger;
 
-  public static debug (msg: string) { this._logger.debug(msg) }
+  public static debug (msg: string) { this._logger.info(msg) }
   public static info (msg: string) { this._logger.info(msg) }
   public static error (msg: string) { this._logger.error(msg) }
 
