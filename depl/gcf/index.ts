@@ -1,9 +1,7 @@
 import { env, exit } from 'process' 
 // Pour appel en tant que gcloud function
-// import { HttpFunction } from '@google-cloud/functions-framework'
-
-// Si hosté par Google: AppEngine ou gcloud run
-const gcp = false 
+import { HttpFunction } from '@google-cloud/functions-framework'
+const gcp = true
 
 import { encryptedKeys } from './keys'
 
@@ -11,9 +9,9 @@ import { BaseConfig, init, getExpressApp, startSRV, Log } from '../src-fw/index'
 
 import { register } from './operations'
 
-import { FsConnector } from '../src-fs'
+// import { FsConnector } from '../src-fs'
 // import { SQLiteConnector} from '../src-sl'
-import { AppSQLiteConnector } from './dbSqlite'
+// import { AppSQLiteConnector } from './dbSqlite'
 
 const emulator = false
 if (emulator) {
@@ -53,8 +51,8 @@ const nbOp = register()
 if (config.debugLevel > 0)
   Log.debug(nbOp + ' App operations registered')
 
-const x0 = new FsConnector('fsa', 'filestorea', true, 'storageFS')
-const x1 = new AppSQLiteConnector('sqla', 'sqlite/testa.db3', false, 'sqlite')
+// const x0 = new FsConnector('fsa', 'filestorea', true, 'storageFS')
+// const x1 = new AppSQLiteConnector('sqla', 'sqlite/testa.db3', false, 'sqlite')
 // const x2 = new SQLiteConnector('sqlb', 'sqlite/testb.db3', false, 'sqlite')
 
 export const asocialgcf = getExpressApp()

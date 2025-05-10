@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 // import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
-import { DbConnector, DbProvider, DbGeneric } from '../src-dbst/dbConnector'
+import { DbConnector, DbProvider, DbGeneric } from '../src-fw/dbConnector'
 import { Operation, AppExc, Log } from '../src-fw/index'
 
 export class SQLiteConnector extends DbConnector {

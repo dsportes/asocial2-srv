@@ -1,5 +1,5 @@
-import { DbGeneric } from '../src-dbst/dbConnector'
-import { StGeneric } from '../src-dbst/stConnector'
+import { DbGeneric } from '../src-fw/dbConnector'
+import { StGeneric } from '../src-fw/stConnector'
 
 export interface DbApp extends DbGeneric {
   ping () : Promise<[number, string]> 

@@ -4,7 +4,7 @@ import path from 'path'
 
 import { AppExc, Log, Operation } from '../src-fw/index'
 
-import { StGeneric, StConnector, StorageGeneric } from '../src-dbst/stConnector'
+import { StGeneric, StConnector, StorageGeneric } from '../src-fw/stConnector'
 
 /*********************************************************************/
 export class FsConnector extends StConnector {

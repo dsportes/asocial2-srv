@@ -3,8 +3,7 @@ import cors from 'cors'
 import http from 'http'
 import https from 'https'
 import path from 'path'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { parseArgs } from 'node:util'
+import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Log as MyLog  } from './log'
@@ -13,8 +12,8 @@ import { register } from './operations'
 import { Util as MyUtil } from './util'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
-import { DbGeneric, DbConnector } from '../src-dbst/dbConnector'
-import { StGeneric, StConnector } from '../src-dbst/stConnector'
+import { DbGeneric, DbConnector } from './dbConnector'
+import { StGeneric, StConnector } from './stConnector'
 
 export interface BaseConfig {
   PROD: boolean,
@@ -30,7 +29,7 @@ export interface BaseConfig {
   adminAlerts: boolean, // false: simulation true: envoi de mail
 
   logsPath: string, // './logs'
-  port: number, // 8080
+  port: any, // 8080
   https: boolean,
   origins: Set<string>, // new Set<string>(['http://localhost:8080']),
 
@@ -288,39 +287,6 @@ export async function doOp (
       st = 401
     }
     res.status(st).type('application/octet-stream').send(b)
-  }
-}
-
-/*****************************************************
- * Ligne de commande: node src/crypKeys.ts "toto est tres tres beau"
- * Transforme le fichier keys.json en un script keys.ts 
- * exportant l'objet keys.json crypté.
-*/
-export function cryptKeys () {
-  const cmdargs = parseArgs({
-    allowPositionals: false,
-    options: { 
-      pwd: { type: 'string', short: 'p' }
-    }
-  })
-
-  const pwd = cmdargs.values['pwd']
-  const key = MyUtil.pbkdf2(pwd)
-  console.log('key= ' + key.toString('base64'))
-  const pjson = path.resolve('./keys.json')
-  if (!existsSync(pjson)) {
-    console.log('./keys.json NOT FOUND')
-  } else {
-    try {
-      const buf = readFileSync(pjson)
-      const b64 = MyUtil.crypt(key, buf).toString('base64')
-      const pmjs = path.resolve('./src/keys.ts')
-      const x = 'export const encryptedKeys = \'' + b64 + '\'' + '\n'
-      writeFileSync(pmjs, Buffer.from(x, 'utf8'))
-      console.log('./src/keys.js written')
-    } catch (e) {
-      console.log('Encryption failed. ' + e.message)
-    }
   }
 }
 

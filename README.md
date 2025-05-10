@@ -1,4 +1,28 @@
-A propos des gcloud functionss
+# Test OK avec GCF déployée sur asocial2
+
+Le folder `depl/gcf` contient les fichiers ajustés pour ce déploiement:
+- `.gclodignore`
+- `package.json` réduit
+- `index.ts` : configuration de l'application adaptée
+
+Pour déployer:
+- créer le répertoire de déploiement `./tmp/gcf`
+- `./dplgsf.sh`
+  - copie les fichiers nécessaires
+  - créé le fichier `src/keys.js`
+  - effectue un `npm install` (doute sur le fonctionnement de `yarn`)
+  - compilation tsc
+  - suppression des .js
+
+Dans le répertoire de déploiement:
+- `npm run testgcf` : test local
+- `npm run deplgcf` : déploiement sur Google Cloud Run (c'est long)
+
+Les logs sont visible dans la console Google >>> Cloud Run functions >>> asocialgcf >>> onglet 'Logs'.
+
+URL GCF : https://europe-west1-asocial2.cloudfunctions.net/asocialgcf
+
+# A propos des gcloud functionss
 
 https://johnwargo.com/posts/2024/google-cloud-support-notice/
 
@@ -6,44 +30,28 @@ https://cloud.google.com/functions/docs/deploy
 
 https://blog.stackademic.com/building-a-rest-api-with-cloud-functions-on-google-cloud-platform-using-javascript-ffc570469f75
 
-URL GCF: https://europe-west1-asocial-test1.cloudfunctions.net/asocialGCF
-
-
 ## Pour passer en gcloud function:
 - `src/index.ts`
   - décommenter : `import { HttpFunction } from '@google-cloud/functions-framework'`
-  - `const gcloudfunction = true`
-  - A la fin décommenter: `export const asocialGCF: HttpFunction = app`
-  - Dans `config` : `GCLOUDLOGGING: true,`
+  - `const gcp = true`
+  - commenter les imports des _providers_ non utilisés
 - `package.json`:
-
-      "main": "src/index.js",
-      "sourceX": "src/index.ts",
-      "mainX": "dist/bundle.cjs",
-      "targetsX": { "main": { "includeNodeModules": false }},
-
-    yarn add @google-cloud/functions-framework
-
-Test local avant de déployer: `npm run testcf`
-
-Déploiement: `npm run deploycf`
-
-Les logs sont visible dans la console Google >>> Cloud Run functions >>> asocialgcf >>> onglet 'Logs'
+  - enlever les modules inemployés. (les devDependencies ne semblent pas utiles mais n'ont pas gêner).
+  - pas sur que le "main" soit utile.
+ - yarn add @google-cloud/functions-framework : ne serait pas utile en GAE.
 
 ## Pour passer en serveur:
 - `src/index.ts`
   - Commenter : `// import { HttpFunction } from '@google-cloud/functions-framework'`
-  - `const gcloudfunction = false`
-  - A la fin commenter: `// export const asocialGCF: HttpFunction = app`
-  - Dans `config` : `GCLOUDLOGGING: false,`
+  - const gcp = false`
+
 - `package.json`:
 
-      "mainX": "src/index.js",
       "source": "src/index.ts",
       "main": "dist/bundle.cjs",
       "targets": { "main": { "includeNodeModules": false }},
 
-    yarn remove @google-cloud/functions-framework // mais ça ne gêne pas
+`yarn remove @google-cloud/functions-framework` // mais ça ne gêne pas
 
 Test local: `npm run testsrv`
 
@@ -73,4 +81,4 @@ Test local: `npm run testsrv`
     npm run testdist
 
 ### Déploiement GAE
-A tester depuis `./tmp/srv`
+A scripter et tester en s'inspirant de `./tmp/gcf` avec un yaml de déploiement.

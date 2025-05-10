@@ -1,4 +1,4 @@
-import { AppExc, Operation, Util } from '../src-fw/index'
+import { AppExc, Operation, Util } from './index'
 import { encode, decode } from '@msgpack/msgpack'
 
 export interface StGeneric {
@@ -84,5 +84,17 @@ export class StorageGeneric {
   storageUrlGenerique (id1: string, id2: string, id3: string) {
     return this.options.srvUrl ? this.options.srvUrl + '/file/' + this.encode3(id1, id2, id3) : ''
   }
-}
 
+  async ping () : Promise<[number, string]> { return [1, '?'] }
+
+  getUrl (id1: string, id2: string, id3: string): string { return '' }
+  putUrl (id1: string, id2: string, id3: string): string { return '' }
+
+  async getFile (id1: string, id2: string, id3:string) : Promise<Buffer> { return Buffer.from([]) }
+  async putFile (id1: string, id2: string, id3:string, data: Buffer) : Promise<void> {}
+  async delFiles (id1: string, id2: string, lidf: string[]) : Promise<void> {}
+  async delId (id1: string, id2: string) : Promise<void> {}
+  async delOrg (id1: string) : Promise<void> {}
+  async listFiles (id1: string, id2: string) : Promise<string[]> { return []}
+  async listIds (id1: string) : Promise<string[]> { return []}
+}

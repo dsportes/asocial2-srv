@@ -46,3 +46,121 @@
 2025-05-09T11:10:20.876Z info: Sqlite ping OK: 2025-05-09T11:09:01.293Z <=> 2025-05-09T11:10:20.875Z
 2025-05-09T11:10:20.890Z info: File-System ping OK: 2025-05-09T11:10:20.877Z
 2025-05-09T11:10:20.898Z info: HTTP listen [8080]
+2025-05-09T11:48:35.118Z info: 4 operations registered
+2025-05-09T11:48:35.122Z info: 4 App operations registered
+2025-05-09T11:48:35.123Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-09T11:48:35.124Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-09T11:48:35.143Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:48:35.146Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T11:48:35.147Z info: UPDATE singletons SET _data_ = '2025-05-09T11:48:35.147Z', v = 1746791315147.0  WHERE id = '1'
+2025-05-09T11:48:35.150Z info: Sqlite ping OK: 2025-05-09T11:10:20.875Z <=> 2025-05-09T11:48:35.147Z
+2025-05-09T11:48:35.186Z info: File-System ping OK: 2025-05-09T11:48:35.151Z
+2025-05-09T11:48:35.196Z info: HTTP listen [8080]
+2025-05-09T11:51:24.031Z info: EchoTexte started
+2025-05-09T11:51:24.033Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:51:24.034Z info: EchoTexte finished
+2025-05-09T11:54:36.379Z info: EchoTexte started
+2025-05-09T11:54:36.382Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:54:36.383Z info: EchoTexte finished
+2025-05-09T11:55:47.348Z info: PingDB started
+2025-05-09T11:55:47.351Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:55:50.900Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T11:55:50.905Z info: UPDATE singletons SET _data_ = '2025-05-09T11:55:50.905Z', v = 1746791750905.0  WHERE id = '1'
+2025-05-09T11:56:01.780Z info: PingDB finished
+2025-05-09T11:56:29.007Z info: GetPutUrl started
+2025-05-09T11:56:29.008Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:56:29.010Z info: GetPutUrl finished
+2025-05-09T11:56:37.789Z info: GetPutUrl started
+2025-05-09T11:56:37.791Z info: PRAGMA journal_mode = WAL
+2025-05-09T11:56:37.793Z info: GetPutUrl finished
+2025-05-09T13:09:45.330Z info: 4 operations registered
+2025-05-09T13:09:45.333Z info: 4 App operations registered
+2025-05-09T13:09:45.334Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-09T13:09:45.335Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-09T13:09:45.371Z info: PRAGMA journal_mode = WAL
+2025-05-09T13:09:45.373Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T13:09:45.376Z info: UPDATE singletons SET _data_ = '2025-05-09T13:09:45.374Z', v = 1746796185374.0  WHERE id = '1'
+2025-05-09T13:09:45.377Z info: Sqlite ping OK: 2025-05-09T11:55:50.905Z <=> 2025-05-09T13:09:45.374Z
+2025-05-09T13:09:45.400Z info: File-System ping OK: 2025-05-09T13:09:45.378Z
+2025-05-09T13:09:45.405Z info: HTTP listen [8080]
+2025-05-09T13:09:57.650Z info: PingDB started
+2025-05-09T13:09:57.659Z info: PRAGMA journal_mode = WAL
+2025-05-09T13:11:45.101Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T13:11:45.102Z info: UPDATE singletons SET _data_ = '2025-05-09T13:11:45.102Z', v = 1746796305102.0  WHERE id = '1'
+2025-05-09T13:11:45.104Z info: PingDB finished
+2025-05-09T13:13:52.825Z info: PingDB started
+2025-05-09T13:13:52.840Z info: PRAGMA journal_mode = WAL
+2025-05-09T13:14:40.105Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T13:14:40.106Z info: UPDATE singletons SET _data_ = '2025-05-09T13:14:40.106Z', v = 1746796480106.0  WHERE id = '1'
+2025-05-09T13:14:40.108Z info: PingDB finished
+2025-05-09T13:17:24.265Z info: PingDB started
+2025-05-09T13:17:24.268Z info: PRAGMA journal_mode = WAL
+2025-05-09T13:19:56.248Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T13:19:56.250Z info: UPDATE singletons SET _data_ = '2025-05-09T13:19:56.250Z', v = 1746796796250.0  WHERE id = '1'
+2025-05-09T13:19:56.251Z info: PingDB finished
+2025-05-09T13:20:39.267Z info: PingDB started
+2025-05-09T15:49:53.109Z info: 4 operations registered
+2025-05-09T15:49:53.116Z info: 4 App operations registered
+2025-05-09T15:49:53.117Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-09T15:49:53.122Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-09T15:49:53.181Z info: PRAGMA journal_mode = WAL
+2025-05-09T15:49:53.186Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T15:49:53.192Z info: UPDATE singletons SET _data_ = '2025-05-09T15:49:53.192Z', v = 1746805793192.0  WHERE id = '1'
+2025-05-09T15:49:53.194Z info: Sqlite ping OK: 2025-05-09T13:19:56.250Z <=> 2025-05-09T15:49:53.192Z
+2025-05-09T15:49:53.227Z info: File-System ping OK: 2025-05-09T15:49:53.195Z
+2025-05-09T15:49:53.240Z info: HTTP listen [8080]
+2025-05-09T15:50:22.337Z info: PingDB started
+2025-05-09T15:50:22.339Z info: PRAGMA journal_mode = WAL
+2025-05-09T15:52:29.691Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T15:52:29.697Z info: UPDATE singletons SET _data_ = '2025-05-09T15:52:29.696Z', v = 1746805949696.0  WHERE id = '1'
+2025-05-09T15:52:29.699Z info: PingDB finished
+2025-05-09T16:17:51.375Z info: PingDB started
+2025-05-09T16:17:51.398Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:18:46.650Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:18:46.655Z info: UPDATE singletons SET _data_ = '2025-05-09T16:18:46.655Z', v = 1746807526655.0  WHERE id = '1'
+2025-05-09T16:18:46.657Z info: PingDB finished
+2025-05-09T16:24:52.736Z info: PingDB started
+2025-05-09T16:24:52.742Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:25:59.704Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:25:59.707Z info: UPDATE singletons SET _data_ = '2025-05-09T16:25:59.706Z', v = 1746807959706.0  WHERE id = '1'
+2025-05-09T16:25:59.708Z info: PingDB finished
+2025-05-09T16:37:21.256Z info: PingDB started
+2025-05-09T16:37:21.271Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:37:21.273Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:37:21.280Z info: UPDATE singletons SET _data_ = '2025-05-09T16:37:21.280Z', v = 1746808641280.0  WHERE id = '1'
+2025-05-09T16:37:21.282Z info: PingDB finished
+2025-05-09T16:37:38.324Z info: PingDB started
+2025-05-09T16:37:38.327Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:45:15.076Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:45:15.088Z info: UPDATE singletons SET _data_ = '2025-05-09T16:45:15.087Z', v = 1746809115087.0  WHERE id = '1'
+2025-05-09T16:45:15.089Z info: PingDB finished
+2025-05-09T16:45:28.704Z info: PingDB started
+2025-05-09T16:45:28.707Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:49:46.094Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:49:46.102Z info: UPDATE singletons SET _data_ = '2025-05-09T16:49:46.101Z', v = 1746809386101.0  WHERE id = '1'
+2025-05-09T16:49:46.104Z info: PingDB finished
+2025-05-09T16:50:07.211Z info: PingDB started
+2025-05-09T16:50:07.219Z info: PRAGMA journal_mode = WAL
+2025-05-09T16:52:34.669Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T16:52:34.675Z info: UPDATE singletons SET _data_ = '2025-05-09T16:52:34.673Z', v = 1746809554673.0  WHERE id = '1'
+2025-05-09T16:52:34.676Z info: PingDB finished
+2025-05-09T16:52:43.229Z info: PingDB started
+2025-05-09T16:52:43.235Z info: PRAGMA journal_mode = WAL
+2025-05-09T17:17:51.175Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T17:17:51.197Z info: UPDATE singletons SET _data_ = '2025-05-09T17:17:51.191Z', v = 1746811071191.0  WHERE id = '1'
+2025-05-09T17:17:51.199Z info: PingDB finished
+2025-05-09T17:17:59.563Z info: PingDB started
+2025-05-09T17:17:59.576Z info: PRAGMA journal_mode = WAL
+2025-05-09T17:19:17.936Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T17:19:17.961Z info: UPDATE singletons SET _data_ = '2025-05-09T17:19:17.954Z', v = 1746811157954.0  WHERE id = '1'
+2025-05-09T17:19:17.978Z info: PingDB finished
+2025-05-09T17:19:40.965Z info: PingDB started
+2025-05-09T17:19:40.969Z info: PRAGMA journal_mode = WAL
+2025-05-09T17:19:58.692Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T17:19:58.701Z info: UPDATE singletons SET _data_ = '2025-05-09T17:19:58.698Z', v = 1746811198698.0  WHERE id = '1'
+2025-05-09T17:19:58.703Z info: PingDB finished
+2025-05-09T17:23:10.130Z info: PingDB started
+2025-05-09T17:23:10.153Z info: PRAGMA journal_mode = WAL
+2025-05-09T18:17:05.665Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-09T18:17:05.682Z info: UPDATE singletons SET _data_ = '2025-05-09T18:17:05.681Z', v = 1746814625681.0  WHERE id = '1'
+2025-05-09T18:17:05.684Z info: PingDB finished

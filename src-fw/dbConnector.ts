@@ -1,4 +1,4 @@
-import { AppExc, Operation, Util } from '../src-fw/index'
+import { AppExc, Operation, Util } from './index'
 import { encode, decode } from '@msgpack/msgpack'
 
 export interface DbGeneric {
