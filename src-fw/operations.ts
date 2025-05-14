@@ -16,7 +16,7 @@ class EchoTexte extends Operation {
   }
 
   async run () {
-    this.result = { echo: 'echo >>> ' + this.params.text + ' [' + this.today + ']'}
+    this.result = { echo: '>>>' + this.params.text + '<<< [' + new Date(this.now).toISOString() + ']'}
   }
 
 }

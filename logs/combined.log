@@ -164,3 +164,80 @@
 2025-05-09T18:17:05.665Z info: SELECT _data_ FROM singletons WHERE id = '1'
 2025-05-09T18:17:05.682Z info: UPDATE singletons SET _data_ = '2025-05-09T18:17:05.681Z', v = 1746814625681.0  WHERE id = '1'
 2025-05-09T18:17:05.684Z info: PingDB finished
+2025-05-14T08:20:04.968Z info: 4 operations registered
+2025-05-14T08:20:04.971Z info: 4 App operations registered
+2025-05-14T08:20:04.972Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-14T08:20:04.973Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-14T08:21:39.089Z info: 4 operations registered
+2025-05-14T08:21:39.092Z info: 4 App operations registered
+2025-05-14T08:21:39.093Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-14T08:21:39.094Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-14T08:21:39.158Z info: PRAGMA journal_mode = WAL
+2025-05-14T08:21:39.159Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-14T08:21:39.160Z info: UPDATE singletons SET _data_ = '2025-05-14T08:21:39.160Z', v = 1747210899160.0  WHERE id = '1'
+2025-05-14T08:21:39.161Z info: Sqlite ping OK: 2025-05-07T16:07:53.626Z <=> 2025-05-14T08:21:39.160Z
+2025-05-14T08:21:39.171Z info: File-System ping OK: 2025-05-14T08:21:39.161Z
+2025-05-14T08:21:39.179Z info: HTTP listen [8080]
+2025-05-14T08:26:28.174Z info: 4 operations registered
+2025-05-14T08:26:28.177Z info: 4 App operations registered
+2025-05-14T08:26:28.178Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-14T08:26:28.179Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-14T08:26:28.191Z info: PRAGMA journal_mode = WAL
+2025-05-14T08:26:28.192Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-14T08:26:28.193Z info: UPDATE singletons SET _data_ = '2025-05-14T08:26:28.193Z', v = 1747211188193.0  WHERE id = '1'
+2025-05-14T08:26:28.194Z info: Sqlite ping OK: 2025-05-14T08:21:39.160Z <=> 2025-05-14T08:26:28.193Z
+2025-05-14T08:26:28.204Z info: File-System ping OK: 2025-05-14T08:26:28.194Z
+2025-05-14T08:26:28.216Z info: HTTP listen [8080]
+2025-05-14T08:28:37.303Z info: 4 operations registered
+2025-05-14T08:28:37.306Z info: 4 App operations registered
+2025-05-14T08:28:37.307Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-14T08:28:37.308Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-14T08:28:44.523Z info: PRAGMA journal_mode = WAL
+2025-05-14T08:28:44.525Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-14T08:28:44.526Z info: UPDATE singletons SET _data_ = '2025-05-14T08:28:44.525Z', v = 1747211324525.0  WHERE id = '1'
+2025-05-14T08:28:44.526Z info: Sqlite ping OK: 2025-05-14T08:26:28.193Z <=> 2025-05-14T08:28:44.525Z
+2025-05-14T08:28:44.536Z info: File-System ping OK: 2025-05-14T08:28:44.527Z
+2025-05-14T08:28:44.542Z info: HTTP listen [8080]
+2025-05-14T08:34:44.179Z info: EchoTexte started
+2025-05-14T08:36:15.806Z info: PRAGMA journal_mode = WAL
+2025-05-14T08:36:15.807Z info: EchoTexte finished
+2025-05-14T08:38:03.179Z info: EchoTexte started
+2025-05-14T08:38:33.377Z info: PRAGMA journal_mode = WAL
+2025-05-14T08:38:33.379Z info: EchoTexte finished
+2025-05-14T09:05:07.240Z info: EchoTexte started
+2025-05-14T09:05:07.243Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:05:26.859Z info: EchoTexte finished
+2025-05-14T09:08:50.997Z info: EchoTexte started
+2025-05-14T09:09:07.397Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:09:07.398Z info: EchoTexte finished
+2025-05-14T09:13:10.434Z info: EchoTexte started
+2025-05-14T09:13:25.678Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:13:25.679Z info: EchoTexte finished
+2025-05-14T09:14:25.642Z info: 4 operations registered
+2025-05-14T09:14:25.645Z info: 4 App operations registered
+2025-05-14T09:14:25.646Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-14T09:14:25.646Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-14T09:14:25.657Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:14:25.659Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-14T09:14:25.660Z info: UPDATE singletons SET _data_ = '2025-05-14T09:14:25.660Z', v = 1747214065660.0  WHERE id = '1'
+2025-05-14T09:14:25.661Z info: Sqlite ping OK: 2025-05-14T08:28:44.525Z <=> 2025-05-14T09:14:25.660Z
+2025-05-14T09:14:25.669Z info: File-System ping OK: 2025-05-14T09:14:25.662Z
+2025-05-14T09:14:25.676Z info: HTTP listen [8080]
+2025-05-14T09:26:30.849Z info: EchoTexte started
+2025-05-14T09:26:36.440Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:26:36.441Z info: EchoTexte finished
+2025-05-14T09:27:13.563Z info: EchoTexte started
+2025-05-14T09:27:18.081Z info: AppExc: 1010:invalid argument@EchoTexte:["text"]
+2025-05-14T09:27:18.082Z info: EchoTexte terminated on exception
+2025-05-14T09:41:18.599Z info: EchoTexte started
+2025-05-14T09:41:21.407Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:41:21.408Z info: EchoTexte finished
+2025-05-14T09:45:00.240Z info: EchoTexte started
+2025-05-14T09:45:00.242Z info: AppExc: 1010:invalid argument@EchoTexte:["text"]
+2025-05-14T09:45:00.242Z info: EchoTexte terminated on exception
+2025-05-14T09:50:16.023Z info: EchoTexte started
+2025-05-14T09:50:16.026Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:50:16.027Z info: EchoTexte finished
+2025-05-14T09:50:48.762Z info: EchoTexte started
+2025-05-14T09:50:48.765Z info: PRAGMA journal_mode = WAL
+2025-05-14T09:50:48.766Z info: EchoTexte finished

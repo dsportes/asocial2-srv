@@ -59,7 +59,6 @@ const x1 = new AppSQLiteConnector('sqla', 'sqlite/testa.db3', false, 'sqlite')
 
 export const asocialgcf = getExpressApp()
 
-/*
 if (!gcp) startSRV()
 .then(() => {
   console.log('Server started')
@@ -68,4 +67,3 @@ if (!gcp) startSRV()
   console.error(e.toString())
   exit()
 })
-*/

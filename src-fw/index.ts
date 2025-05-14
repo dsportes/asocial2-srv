@@ -250,6 +250,7 @@ export async function doOp (
     if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
     op.opName = opName
     op.storage = storage
+    op.now = now
     op.today = today
     op.args = decode(body)
     op.params = {}

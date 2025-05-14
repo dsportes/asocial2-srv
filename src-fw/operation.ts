@@ -29,6 +29,7 @@ export class Operation {
   public result: any
   public args: any
   public params: any
+  public now: number
   public today: number
   public db: DbGeneric
   public storage: StGeneric
