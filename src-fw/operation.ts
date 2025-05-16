@@ -1,11 +1,21 @@
 import { AppExc, BaseConfig } from './index'
 import { DbGeneric } from './dbConnector'
 import { StGeneric } from './stConnector'
+import { Util } from './util'
 
 export class Operation {
   private static factories = new Map<string, Function>()
 
   public static config: BaseConfig
+
+  public static tokenHash = new Map<string, string>()
+  public static hashToken = new Map<string, string>()
+
+  public static setToken(token: string) {
+    const hash = Util.shortHash(token)
+    Operation.tokenHash.set(token, hash)
+    Operation.hashToken.set(hash, token)
+  }
 
   static nbOf () { 
     return Operation.factories.size 
@@ -91,3 +101,21 @@ export class Operation {
   }
 
 }
+
+// import { initializeApp } from 'firebase-admin/app'
+// const app = initializeApp()
+
+// var admin = require("firebase-admin");
+
+/*
+import admin from 'firebase-admin'
+import { getMessaging } from 'firebase/messaging'
+
+const serviceAccount = Operation.config.keys['adminSDK-service-account']
+// var serviceAccount = require("path/to/serviceAccountKey.json");
+
+const app = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+})
+const messaging = getMessaging(app)
+*/

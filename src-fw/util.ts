@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import { sha224 } from 'js-sha256'
 
 export class Util {
 static amj (epoch?: number) : number {
@@ -60,5 +61,7 @@ static decryptId (key: Buffer, id64: string) : string {
 static pbkdf2(pwd: string) : Buffer {
   return crypto.pbkdf2Sync(Buffer.from(pwd, 'utf-8'), Util.getSalt(), 10000, 32, 'sha256')
 }
+
+static shortHash (s: string) { return sha224(s).substring(0, 16) }
 
 }

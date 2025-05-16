@@ -1,3 +1,4 @@
+import { env } from 'process' 
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
@@ -6,13 +7,16 @@ import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
+import admin from 'firebase-admin'
+import { getMessaging } from 'firebase-admin/messaging'
+
 import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
 import { register } from './operations'
 import { Util as MyUtil } from './util'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
-import { DbGeneric, DbConnector } from './dbConnector'
+import { DbConnector } from './dbConnector'
 import { StGeneric, StConnector } from './stConnector'
 
 export interface BaseConfig {
@@ -38,7 +42,10 @@ export interface BaseConfig {
   storage: string,  // 'fsa'
   // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
   srvUrl: string, // '' si défaut 'http://localhost:8080'
-  keys: Object
+  keys: Object,
+
+  firebase?: any,
+  messaging?: any
 }
 
 let dbConnector: DbConnector
@@ -71,6 +78,11 @@ export function init (_config: BaseConfig, encryptedKeys: string) {
 
   const nbOp = register()
   if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
+
+  const fcmsa = config.keys['adminSDK-service-account']
+  config.firebase = admin.apps.length ? admin.app() : admin.initializeApp({ credential: admin.credential.cert(fcmsa) })
+  config.messaging = getMessaging(config.firebase)
+  console.log('FCM OK')
 }
 
 export function getExpressApp (): express.Application {

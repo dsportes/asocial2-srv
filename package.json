@@ -6,7 +6,11 @@
   "license": "ISC",
   "source": "src/index.ts",
   "main": "dist/bundle.cjs",
-  "targets": { "main": { "includeNodeModules": false } },
+  "targets": {
+    "main": {
+      "includeNodeModules": false
+    }
+  },
   "scripts": {
     "crypt": "npx tsx src-fw/cryptkeys.ts -i ./keys.json -o src/keys.ts -p \"toto est tres tres beau\"",
     "testsrv": "npx tsx src/index.ts",
@@ -20,6 +24,9 @@
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "firebase": "^11.7.3",
+    "firebase-admin": "^13.4.0",
+    "js-sha256": "^0.11.0",
     "typescript": "^5.8.3",
     "winston": "^3.17.0"
   },
