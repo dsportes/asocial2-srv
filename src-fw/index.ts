@@ -92,6 +92,7 @@ export function getExpressApp (): express.Application {
 
   app = express()
   app.use(cors({}))
+  app.use(express.json())
 
   // OPTIONS est toujours envoyé pour tester les appels cross origin
   app.use('/', (req, res, next) => {
@@ -139,6 +140,29 @@ export function getExpressApp (): express.Application {
       })
     } catch (e) {
       res.status(404).send('File not uploaded')
+    }
+  })
+
+  app.post("/send-notification", async (req, res) => {
+    try {
+      const { token, title, body } = req.body   
+      const message = {
+        notification: {
+          title,
+          body,
+        },
+        token
+      }
+      try {
+        await config.messaging.send(message)
+        res.status(200).json({ success: true, message: "Notification sent!" })
+        console.log('Sent : ', JSON.stringify(message))
+      } catch (e) {
+        res.status(200).json({ success: false, message: e.toString() })
+      }
+    } catch (error) {
+      console.error("Error sending notification:", error)
+      res.status(500).json({ success: false, error: error.message })
     }
   })
 

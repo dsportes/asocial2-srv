@@ -151,12 +151,13 @@ class TestMessage extends Operation {
         title: 'Portugal vs. Denmark',
         'body': 'great match!'
       },
-      data: { score: '850', time: '2:45' },
+      // data: { score: '850', time: '2:45' },
       token: this.params.longtoken
     }
     try {
       const resp = await Operation.config.messaging.send(message)
       console.log('Successfully sent message:', resp)
+      this.result = { message }
     } catch (e) {
       console.log('Error sending message:', e)
     }

@@ -323,3 +323,218 @@
 2025-05-16T16:35:08.531Z info: TestMessage started
 2025-05-16T16:35:08.534Z info: PRAGMA journal_mode = WAL
 2025-05-16T16:35:08.683Z info: TestMessage finished
+2025-05-17T08:39:59.593Z info: 10 operations registered
+2025-05-17T08:40:00.596Z info: 10 App operations registered
+2025-05-17T08:40:00.597Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T08:40:00.598Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T08:40:00.832Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:40:00.835Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T08:40:00.836Z info: UPDATE singletons SET _data_ = '2025-05-17T08:40:00.836Z', v = 1747471200836.0  WHERE id = '1'
+2025-05-17T08:40:00.837Z info: Sqlite ping OK: 2025-05-16T16:33:53.352Z <=> 2025-05-17T08:40:00.836Z
+2025-05-17T08:40:00.850Z info: File-System ping OK: 2025-05-17T08:40:00.838Z
+2025-05-17T08:40:00.868Z info: HTTP listen [8080]
+2025-05-17T08:40:34.145Z info: RegisterToken started
+2025-05-17T08:40:34.155Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:40:34.156Z info: RegisterToken finished
+2025-05-17T08:45:01.890Z info: 10 operations registered
+2025-05-17T08:45:01.970Z info: 10 App operations registered
+2025-05-17T08:45:01.971Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T08:45:01.972Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T08:45:01.993Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:45:01.995Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T08:45:01.996Z info: UPDATE singletons SET _data_ = '2025-05-17T08:45:01.996Z', v = 1747471501996.0  WHERE id = '1'
+2025-05-17T08:45:01.997Z info: Sqlite ping OK: 2025-05-17T08:40:00.836Z <=> 2025-05-17T08:45:01.996Z
+2025-05-17T08:45:02.004Z info: File-System ping OK: 2025-05-17T08:45:01.998Z
+2025-05-17T08:45:02.012Z info: HTTP listen [8080]
+2025-05-17T08:46:49.292Z info: RegisterToken started
+2025-05-17T08:46:49.308Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:46:49.310Z info: RegisterToken finished
+2025-05-17T08:48:10.881Z info: RegisterToken started
+2025-05-17T08:48:10.883Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:48:10.884Z info: RegisterToken finished
+2025-05-17T08:50:20.468Z info: RegisterToken started
+2025-05-17T08:50:20.470Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:50:20.471Z info: RegisterToken finished
+2025-05-17T08:50:22.730Z info: RegisterToken started
+2025-05-17T08:50:22.732Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:50:22.733Z info: RegisterToken finished
+2025-05-17T08:54:07.683Z info: 10 operations registered
+2025-05-17T08:54:07.768Z info: 10 App operations registered
+2025-05-17T08:54:07.769Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T08:54:07.769Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T08:54:07.791Z info: PRAGMA journal_mode = WAL
+2025-05-17T08:54:07.793Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T08:54:07.794Z info: UPDATE singletons SET _data_ = '2025-05-17T08:54:07.793Z', v = 1747472047793.0  WHERE id = '1'
+2025-05-17T08:54:07.795Z info: Sqlite ping OK: 2025-05-17T08:45:01.996Z <=> 2025-05-17T08:54:07.793Z
+2025-05-17T08:54:07.802Z info: File-System ping OK: 2025-05-17T08:54:07.795Z
+2025-05-17T08:54:07.810Z info: HTTP listen [8080]
+2025-05-17T09:03:43.898Z info: RegisterToken started
+2025-05-17T09:03:43.918Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:03:43.919Z info: RegisterToken finished
+2025-05-17T09:03:52.291Z info: RegisterToken started
+2025-05-17T09:03:52.293Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:03:52.294Z info: RegisterToken finished
+2025-05-17T09:07:21.303Z info: 10 operations registered
+2025-05-17T09:07:21.382Z info: 10 App operations registered
+2025-05-17T09:07:21.383Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T09:07:21.384Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T09:07:21.434Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:07:21.436Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T09:07:21.437Z info: UPDATE singletons SET _data_ = '2025-05-17T09:07:21.437Z', v = 1747472841437.0  WHERE id = '1'
+2025-05-17T09:07:21.438Z info: Sqlite ping OK: 2025-05-17T08:54:07.793Z <=> 2025-05-17T09:07:21.437Z
+2025-05-17T09:07:21.445Z info: File-System ping OK: 2025-05-17T09:07:21.438Z
+2025-05-17T09:07:21.453Z info: HTTP listen [8080]
+2025-05-17T09:15:21.278Z info: RegisterToken started
+2025-05-17T09:15:21.296Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:15:21.298Z info: RegisterToken finished
+2025-05-17T09:15:34.011Z info: RegisterToken started
+2025-05-17T09:15:34.014Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:15:34.016Z info: RegisterToken finished
+2025-05-17T09:15:41.636Z info: TestMessage started
+2025-05-17T09:15:41.640Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:15:41.810Z info: TestMessage finished
+2025-05-17T09:17:21.694Z info: 10 operations registered
+2025-05-17T09:17:21.778Z info: 10 App operations registered
+2025-05-17T09:17:21.778Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T09:17:21.779Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T09:17:21.803Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:17:21.804Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T09:17:21.805Z info: UPDATE singletons SET _data_ = '2025-05-17T09:17:21.805Z', v = 1747473441805.0  WHERE id = '1'
+2025-05-17T09:17:21.806Z info: Sqlite ping OK: 2025-05-17T09:07:21.437Z <=> 2025-05-17T09:17:21.805Z
+2025-05-17T09:17:21.816Z info: File-System ping OK: 2025-05-17T09:17:21.807Z
+2025-05-17T09:17:21.823Z info: HTTP listen [8080]
+2025-05-17T09:17:28.617Z info: TestMessage started
+2025-05-17T09:17:28.633Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:17:28.978Z info: TestMessage finished
+2025-05-17T09:17:41.847Z info: TestMessage started
+2025-05-17T09:17:41.850Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:17:41.997Z info: TestMessage finished
+2025-05-17T09:43:14.850Z info: RegisterToken started
+2025-05-17T09:43:14.856Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:43:14.858Z info: RegisterToken finished
+2025-05-17T09:43:23.790Z info: TestMessage started
+2025-05-17T09:43:23.793Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:43:23.892Z info: TestMessage finished
+2025-05-17T09:50:50.360Z info: RegisterToken started
+2025-05-17T09:50:50.363Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:50:50.367Z info: RegisterToken finished
+2025-05-17T09:50:56.586Z info: RegisterToken started
+2025-05-17T09:50:56.596Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:50:56.597Z info: RegisterToken finished
+2025-05-17T09:51:03.808Z info: TestMessage started
+2025-05-17T09:51:03.811Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:51:03.918Z info: TestMessage finished
+2025-05-17T09:52:50.409Z info: 10 operations registered
+2025-05-17T09:52:50.514Z info: 10 App operations registered
+2025-05-17T09:52:50.515Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T09:52:50.516Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T09:52:50.548Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:52:50.549Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T09:52:50.550Z info: UPDATE singletons SET _data_ = '2025-05-17T09:52:50.550Z', v = 1747475570550.0  WHERE id = '1'
+2025-05-17T09:52:50.551Z info: Sqlite ping OK: 2025-05-17T09:17:21.805Z <=> 2025-05-17T09:52:50.550Z
+2025-05-17T09:52:50.561Z info: File-System ping OK: 2025-05-17T09:52:50.551Z
+2025-05-17T09:52:50.570Z info: HTTP listen [8080]
+2025-05-17T09:56:08.794Z info: RegisterToken started
+2025-05-17T09:56:08.807Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:56:08.808Z info: RegisterToken finished
+2025-05-17T09:56:16.717Z info: TestMessage started
+2025-05-17T09:56:16.720Z info: PRAGMA journal_mode = WAL
+2025-05-17T09:56:17.011Z info: TestMessage finished
+2025-05-17T10:08:37.247Z info: RegisterToken started
+2025-05-17T10:08:37.250Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:08:37.251Z info: RegisterToken finished
+2025-05-17T10:09:04.873Z info: TestMessage started
+2025-05-17T10:09:04.876Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:09:05.005Z info: TestMessage finished
+2025-05-17T10:14:21.872Z info: TestMessage started
+2025-05-17T10:14:21.874Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:14:21.973Z info: TestMessage finished
+2025-05-17T10:18:08.191Z info: RegisterToken started
+2025-05-17T10:18:08.208Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:18:08.210Z info: RegisterToken finished
+2025-05-17T10:18:22.039Z info: RegisterToken started
+2025-05-17T10:18:22.048Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:18:22.053Z info: RegisterToken finished
+2025-05-17T10:18:36.246Z info: RegisterToken started
+2025-05-17T10:18:36.253Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:18:36.254Z info: RegisterToken finished
+2025-05-17T10:18:41.262Z info: TestMessage started
+2025-05-17T10:18:41.266Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:18:41.337Z info: TestMessage finished
+2025-05-17T10:18:43.540Z info: TestMessage started
+2025-05-17T10:18:43.542Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:18:43.631Z info: TestMessage finished
+2025-05-17T10:19:02.908Z info: TestMessage started
+2025-05-17T10:19:02.911Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:19:03.014Z info: TestMessage finished
+2025-05-17T10:50:57.240Z info: 10 operations registered
+2025-05-17T10:50:57.888Z info: 10 App operations registered
+2025-05-17T10:50:57.889Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T10:50:57.889Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T10:50:57.940Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:50:57.941Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T10:50:57.941Z info: UPDATE singletons SET _data_ = '2025-05-17T10:50:57.941Z', v = 1747479057941.0  WHERE id = '1'
+2025-05-17T10:50:57.942Z info: Sqlite ping OK: 2025-05-17T09:52:50.550Z <=> 2025-05-17T10:50:57.941Z
+2025-05-17T10:50:57.947Z info: File-System ping OK: 2025-05-17T10:50:57.942Z
+2025-05-17T10:50:57.952Z info: HTTP listen [8080]
+2025-05-17T10:51:02.539Z info: TestMessage started
+2025-05-17T10:51:02.550Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:51:02.790Z info: TestMessage finished
+2025-05-17T10:51:13.623Z info: TestMessage started
+2025-05-17T10:51:13.625Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:51:13.772Z info: TestMessage finished
+2025-05-17T10:51:15.708Z info: TestMessage started
+2025-05-17T10:51:15.710Z info: PRAGMA journal_mode = WAL
+2025-05-17T10:51:15.783Z info: TestMessage finished
+2025-05-17T10:58:04.744Z info: TestMessage started
+2025-05-17T10:58:04.745Z info: AppExc: 1010:invalid argument@TestMessage:["token"]
+2025-05-17T10:58:04.746Z info: TestMessage terminated on exception
+2025-05-17T14:04:46.345Z info: 10 operations registered
+2025-05-17T14:04:47.026Z info: 10 App operations registered
+2025-05-17T14:04:47.027Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-05-17T14:04:47.027Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-05-17T14:04:47.099Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:04:47.100Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-17T14:04:47.101Z info: UPDATE singletons SET _data_ = '2025-05-17T14:04:47.101Z', v = 1747490687101.0  WHERE id = '1'
+2025-05-17T14:04:47.101Z info: Sqlite ping OK: 2025-05-17T10:50:57.941Z <=> 2025-05-17T14:04:47.101Z
+2025-05-17T14:04:47.107Z info: File-System ping OK: 2025-05-17T14:04:47.102Z
+2025-05-17T14:04:47.114Z info: HTTP listen [8080]
+2025-05-17T14:06:17.302Z info: RegisterToken started
+2025-05-17T14:06:17.326Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:06:17.329Z info: RegisterToken finished
+2025-05-17T14:06:31.956Z info: TestMessage started
+2025-05-17T14:06:31.958Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:06:32.319Z info: TestMessage finished
+2025-05-17T14:06:57.296Z info: TestMessage started
+2025-05-17T14:06:57.297Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:06:57.373Z info: TestMessage finished
+2025-05-17T14:15:27.162Z info: RegisterToken started
+2025-05-17T14:15:27.164Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:15:27.165Z info: RegisterToken finished
+2025-05-17T14:15:43.986Z info: TestMessage started
+2025-05-17T14:15:43.989Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:15:44.126Z info: TestMessage finished
+2025-05-17T14:22:23.897Z info: RegisterToken started
+2025-05-17T14:22:23.900Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:22:23.901Z info: RegisterToken finished
+2025-05-17T14:22:30.903Z info: RegisterToken started
+2025-05-17T14:22:30.927Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:22:30.928Z info: RegisterToken finished
+2025-05-17T14:22:35.022Z info: TestMessage started
+2025-05-17T14:22:35.025Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:22:35.101Z info: TestMessage finished
+2025-05-17T14:22:39.516Z info: TestMessage started
+2025-05-17T14:22:39.519Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:22:39.596Z info: TestMessage finished
+2025-05-17T14:25:19.826Z info: RegisterToken started
+2025-05-17T14:25:19.827Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:25:19.828Z info: RegisterToken finished
+2025-05-17T14:32:40.772Z info: RegisterToken started
+2025-05-17T14:32:40.796Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:32:40.797Z info: RegisterToken finished
+2025-05-17T14:33:05.918Z info: RegisterToken started
+2025-05-17T14:33:05.920Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:33:05.920Z info: RegisterToken finished
+2025-05-17T14:33:19.686Z info: TestMessage started
+2025-05-17T14:33:19.688Z info: PRAGMA journal_mode = WAL
+2025-05-17T14:33:19.800Z info: TestMessage finished
