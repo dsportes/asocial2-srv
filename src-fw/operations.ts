@@ -141,35 +141,35 @@ class TestMessage extends Operation {
 
   init () {
     this.params.longtoken = this.stringValue('token', true)
+    this.params.appurl = this.stringValue('appurl', false)
+    this.params.notifme = this.boolValue('notifme', false)
     Operation.setToken(this.params.longtoken)
     console.log(Operation.tokenHash.get(this.params.longtoken))
   }
 
   async run () {
-    /*
-    const message = {
-      notification: {
-        title: 'Portugal vs. Denmark',
-        'body': 'great match!'
-      },
-      // data: { score: '850', time: '2:45' },
-      token: this.params.longtoken
-    }
-      */
     const message = {
       notification: {
         title: 'Hello',
         body: 'Depuis serveur'
       },
-      data: { url: 'http://localhost:8085/'},
+      data: { 
+        url: this.params.appurl || '',
+        notifme: ''
+      },
       token: this.params.longtoken
     }
+    if (this.params.appurl) {
+      // @ts-ignore
+      message.webpush = { fcm_options: { link: this.params.appurl } }
+    }
+    if (this.params.notifme) message.data.notifme = 'Y'
     try {
       const resp = await Operation.config.messaging.send(message)
       console.log('Successfully sent message:', resp)
       this.result = { message }
     } catch (e) {
-      console.log('Error sending message:', e)
+      console.log('TOKEN NON ENREGISTRE :', e)
     }
   }
 
