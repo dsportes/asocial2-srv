@@ -146,12 +146,22 @@ class TestMessage extends Operation {
   }
 
   async run () {
+    /*
     const message = {
       notification: {
         title: 'Portugal vs. Denmark',
         'body': 'great match!'
       },
       // data: { score: '850', time: '2:45' },
+      token: this.params.longtoken
+    }
+      */
+    const message = {
+      notification: {
+        title: 'Hello',
+        body: 'Depuis serveur'
+      },
+      data: { url: 'http://localhost:8085/'},
       token: this.params.longtoken
     }
     try {
