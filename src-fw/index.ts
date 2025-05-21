@@ -8,7 +8,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
 import admin from 'firebase-admin'
-import { getMessaging } from 'firebase-admin/messaging'
+import webpush from 'web-push'
 
 import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
@@ -79,10 +79,7 @@ export function init (_config: BaseConfig, encryptedKeys: string) {
   const nbOp = register()
   if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
 
-  const fcmsa = config.keys['adminSDK-service-account']
-  config.firebase = admin.apps.length ? admin.app() : admin.initializeApp({ credential: admin.credential.cert(fcmsa) })
-  config.messaging = getMessaging(config.firebase)
-  console.log('FCM OK')
+  webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 }
 
 export function getExpressApp (): express.Application {

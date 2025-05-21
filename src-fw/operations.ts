@@ -2,6 +2,7 @@ import { Operation } from './operation'
 import { Item } from './items'
 import { Util } from './util'
 import { Log } from './index'
+import { WebPush } from './push'
 
 export function register () {
   return Operation.nbOf()
@@ -60,16 +61,16 @@ class GetPutUrl extends Operation {
 Operation.register('GetPutUrl', () => { return new GetPutUrl()})
 
 /* RegisterToken enregistre un token et son hash */
-class RegisterToken extends Operation {
+class RegisterSubscription extends Operation {
   constructor () { super() }
 
   init () {
-    const token = this.stringValue('token', true)
-    Operation.setToken(token)
+    const subJSON = this.stringValue('subJSON', true)
+    WebPush.setSubscription(subJSON)
   }
 
 }
-Operation.register('RegisterToken', () => { return new RegisterToken()})
+Operation.register('RegisterSubscription', () => { return new RegisterSubscription()})
 
 /* SetAndListen enregistre un item ******************************************
 S'il n'existait pas lui affecte la valeur value
@@ -140,11 +141,9 @@ class TestMessage extends Operation {
   constructor () { super() }
 
   init () {
-    this.params.longtoken = this.stringValue('token', true)
+    this.params.hashSub = this.stringValue('hashSub', true)
     this.params.appurl = this.stringValue('appurl', false)
     this.params.notifme = this.boolValue('notifme', false)
-    Operation.setToken(this.params.longtoken)
-    console.log(Operation.tokenHash.get(this.params.longtoken))
   }
 
   async run () {
@@ -156,17 +155,12 @@ class TestMessage extends Operation {
       data: { 
         url: this.params.appurl || '',
         notifme: ''
-      },
-      token: this.params.longtoken
-    }
-    if (this.params.appurl) {
-      // @ts-ignore
-      message.webpush = { fcm_options: { link: this.params.appurl } }
+      }
     }
     if (this.params.notifme) message.data.notifme = 'Y'
     try {
-      const resp = await Operation.config.messaging.send(message)
-      console.log('Successfully sent message:', resp)
+      await WebPush.sendNotification(this.params.hashSub, message)
+      console.log('Successfully sent message:')
       this.result = { message }
     } catch (e) {
       console.log('TOKEN NON ENREGISTRE :', e)

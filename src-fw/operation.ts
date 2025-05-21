@@ -8,15 +8,6 @@ export class Operation {
 
   public static config: BaseConfig
 
-  public static tokenHash = new Map<string, string>()
-  public static hashToken = new Map<string, string>()
-
-  public static setToken(token: string) {
-    const hash = Util.shortHash(token)
-    Operation.tokenHash.set(token, hash)
-    Operation.hashToken.set(hash, token)
-  }
-
   static nbOf () { 
     return Operation.factories.size 
   }
