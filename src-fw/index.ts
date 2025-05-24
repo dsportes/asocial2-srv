@@ -7,13 +7,13 @@ import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
-import admin from 'firebase-admin'
+// import admin from 'firebase-admin'
 import webpush from 'web-push'
 
 import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
 import { register } from './operations'
-import { Util as MyUtil } from './util'
+import { Util as MyUtil, testECDH } from './util'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
@@ -80,6 +80,7 @@ export function init (_config: BaseConfig, encryptedKeys: string) {
   if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
 
   webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
+
 }
 
 export function getExpressApp (): express.Application {
@@ -216,6 +217,7 @@ export function startSRV () : Promise<void>{
 }
 
 export async function testDb () : Promise<void> {
+  await testECDH()
   const op = MyOperation.fake()
   await dbConnector.getConnexion(config.site, op)
   {

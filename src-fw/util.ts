@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { sha224, sha256 } from 'js-sha256'
 import { encode, decode } from '@msgpack/msgpack'
+const { subtle } = globalThis.crypto
 
 export class Util {
 static amj (epoch?: number) : number {
@@ -26,8 +27,8 @@ static getHP (url: string) : [string, number] {
 }
 
 private static buildSalt () {
-  const s = new Uint8Array(16)
-  for (let j = 0; j < 16; j++) s[j] = j + 47
+  const s = new Uint8Array(12)
+  for (let j = 0; j < 12; j++) s[j] = j + 47
   return Buffer.from(s)
 }
 
@@ -99,4 +100,86 @@ static shortHash (s: string) { return sha224(s).substring(0, 16) }
 
 static longHash (s: string) { return sha256(s) }
 
+}
+
+export class Crypt {
+
+  static buildSalt () {
+    const s = new Uint8Array(16)
+    for (let j = 0; j < 16; j++) s[j] = j + 47
+    return s
+  }
+
+  static salt = Crypt.buildSalt()
+
+  static async crypterSrv (cle: Buffer, buf: Buffer) : Promise<Buffer> {
+    try {
+      // const x0 = new Uint8Array(1).fill(n)
+      const key = await subtle.importKey('raw', cle, 'AES-CBC', false, ['encrypt'])
+      return Buffer.from(await subtle.encrypt({ name: 'AES-CBC', iv: Crypt.salt }, key, buf))
+    } catch (e) {
+      return null
+    }
+  }
+
+  static async decrypterSrv (cle: Buffer, buf: Buffer) : Promise<Buffer> {
+    try {
+      const key = await subtle.importKey('raw', cle, 'AES-CBC', false, ['decrypt'])
+      return Buffer.from(await subtle.decrypt({ name: 'AES-CBC', iv: Crypt.salt }, key, buf))
+    } catch (e) {
+      return null
+    }
+  }
+}
+
+export class ECDH {
+  static format = 'raw'
+  static alg = { name: 'ECDH', namedCurve: 'P-521' }
+
+  pair: any
+  pub: Buffer
+
+  constructor () {
+  }
+
+  async initKeyPair () {
+    this.pair = await subtle.generateKey(ECDH.alg, true, ['deriveKey'])
+    this.pub = Buffer.from(await subtle.exportKey('raw', this.pair.publicKey))
+    return this
+  }
+
+  async getAESKey (importedPubKey: Buffer): Promise<Buffer> {
+    const imp = await subtle.importKey('raw', importedPubKey, ECDH.alg, true, [])
+    const k = await subtle.deriveKey(
+      { name: 'ECDH', public: imp },
+      this.pair.privateKey,
+      { name: 'AES-CBC', length: 256 },
+      true,
+      ['encrypt', 'decrypt']
+    )
+    return Buffer.from(await subtle.exportKey('raw', k))
+  }
+}
+
+export async function testECDH () {
+  // Dans app
+  const appPair = await new ECDH().initKeyPair()
+  const appPub = appPair.pub
+  console.log(appPub.toString('base64'))
+
+  // Dans srv
+  const srvPair = await new ECDH().initKeyPair()
+  const srvPub = await srvPair.pub
+  console.log(srvPub.toString('base64'))
+
+  const aesSrv = await srvPair.getAESKey(appPub)
+  const buf = Buffer.from('toto est tres beau')
+  const x1 = await Crypt.crypterSrv(aesSrv, buf)
+
+  // Dans app
+  const aesApp = await appPair.getAESKey(srvPub)
+  const buf2 = Buffer.from(await Crypt.decrypterSrv(aesApp, x1))
+  const buf3 = Util.decrypt(aesApp, x1)
+  console.log(buf2.toString('utf-8'))
+  console.log(buf3.toString('utf-8'))
 }
