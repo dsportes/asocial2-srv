@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "crypt": "npx tsx src-fw/cryptkeys.ts -i ./keys.json -o src/keys.ts -p \"toto est tres tres beau\"",
+    "crypt": "npx tsx src-fw/cryptKeys.ts -i ./keys.json -o src/keys.ts -p \"toto est tres tres beau\"",
     "testsrv": "npx tsx src/index.ts",
     "builddist": "parcel build",
     "testdist": "cp dist/* ../tmp/srv; cd ../tmp/srv; node bundle.js"

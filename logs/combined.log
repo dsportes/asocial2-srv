@@ -1254,3 +1254,46 @@
 2025-05-21T17:47:31.263Z info: TestMessage started
 2025-05-21T17:47:31.265Z info: PRAGMA journal_mode = WAL
 2025-05-21T17:47:38.168Z info: TestMessage finished
+2025-05-24T08:04:49.473Z info: 10 operations registered
+2025-05-24T08:04:49.476Z info: 10 App operations registered
+2025-05-24T08:04:49.477Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-24T08:04:49.478Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-24T08:04:49.508Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:04:49.512Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-24T08:04:49.513Z info: UPDATE singletons SET _data_ = '2025-05-24T08:04:49.513Z', v = 1748073889513.0  WHERE id = '1'
+2025-05-24T08:04:49.514Z info: Sqlite ping OK: 2025-05-24T07:58:33.492Z <=> 2025-05-24T08:04:49.513Z
+2025-05-24T08:04:49.531Z info: File-System ping OK: 2025-05-24T08:04:49.518Z
+2025-05-24T08:04:49.538Z info: HTTP listen [8080]
+2025-05-24T08:25:14.354Z info: RegisterSubscription started
+2025-05-24T08:25:14.358Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:25:14.359Z info: RegisterSubscription finished
+2025-05-24T08:25:23.805Z info: TestMessage started
+2025-05-24T08:25:23.809Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:25:28.346Z info: TestMessage finished
+2025-05-24T08:26:03.927Z info: TestMessage started
+2025-05-24T08:26:03.930Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:26:16.484Z info: TestMessage finished
+2025-05-24T08:29:45.475Z info: RegisterSubscription started
+2025-05-24T08:29:45.477Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:29:45.478Z info: RegisterSubscription finished
+2025-05-24T08:29:50.451Z info: TestMessage started
+2025-05-24T08:29:50.457Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:29:55.050Z info: TestMessage finished
+2025-05-24T08:32:11.057Z info: RegisterSubscription started
+2025-05-24T08:32:11.062Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:32:11.063Z info: RegisterSubscription finished
+2025-05-24T08:32:14.040Z info: TestMessage started
+2025-05-24T08:32:14.043Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:32:17.591Z info: TestMessage finished
+2025-05-24T08:34:38.627Z info: RegisterSubscription started
+2025-05-24T08:34:38.629Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:34:38.630Z info: RegisterSubscription finished
+2025-05-24T08:34:42.184Z info: TestMessage started
+2025-05-24T08:34:42.185Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:34:46.155Z info: TestMessage finished
+2025-05-24T08:43:18.962Z info: RegisterSubscription started
+2025-05-24T08:43:18.964Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:43:18.964Z info: RegisterSubscription finished
+2025-05-24T08:43:21.069Z info: TestMessage started
+2025-05-24T08:43:21.074Z info: PRAGMA journal_mode = WAL
+2025-05-24T08:43:33.797Z info: TestMessage finished
