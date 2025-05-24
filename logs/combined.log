@@ -1136,3 +1136,13 @@
 2025-05-19T16:52:42.568Z info: RegisterToken started
 2025-05-19T16:52:42.571Z info: PRAGMA journal_mode = WAL
 2025-05-19T16:52:42.573Z info: RegisterToken finished
+2025-05-24T07:58:33.323Z info: 10 operations registered
+2025-05-24T07:58:33.445Z info: 10 App operations registered
+2025-05-24T07:58:33.446Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-24T07:58:33.447Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-24T07:58:33.489Z info: PRAGMA journal_mode = WAL
+2025-05-24T07:58:33.491Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-24T07:58:33.493Z info: UPDATE singletons SET _data_ = '2025-05-24T07:58:33.492Z', v = 1748073513492.0  WHERE id = '1'
+2025-05-24T07:58:33.495Z info: Sqlite ping OK: 2025-05-09T18:17:05.681Z <=> 2025-05-24T07:58:33.492Z
+2025-05-24T07:58:33.514Z info: File-System ping OK: 2025-05-24T07:58:33.495Z
+2025-05-24T07:58:33.520Z info: HTTP listen [8080]
