@@ -1329,3 +1329,285 @@
 2025-05-24T17:19:10.784Z info: Sqlite ping OK: 2025-05-24T16:40:03.586Z <=> 2025-05-24T17:19:10.781Z
 2025-05-24T17:19:10.790Z info: File-System ping OK: 2025-05-24T17:19:10.785Z
 2025-05-24T17:19:10.801Z info: HTTP listen [8080]
+2025-05-25T09:05:15.394Z info: 10 operations registered
+2025-05-25T09:05:15.398Z info: 10 App operations registered
+2025-05-25T09:05:15.399Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:05:15.400Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:07:07.048Z info: 10 operations registered
+2025-05-25T09:07:07.054Z info: 10 App operations registered
+2025-05-25T09:07:07.056Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:07:07.057Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:09:30.304Z info: 10 operations registered
+2025-05-25T09:09:30.309Z info: 10 App operations registered
+2025-05-25T09:09:30.310Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:09:30.311Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:11:13.774Z info: 10 operations registered
+2025-05-25T09:11:13.785Z info: 10 App operations registered
+2025-05-25T09:11:13.790Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:11:13.795Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:11:42.086Z info: PRAGMA journal_mode = WAL
+2025-05-25T09:11:42.088Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T09:11:42.091Z info: UPDATE singletons SET _data_ = '2025-05-25T09:11:42.089Z', v = 1748164302089.0  WHERE id = '1'
+2025-05-25T09:11:42.092Z info: Sqlite ping OK: 2025-05-24T17:19:10.781Z <=> 2025-05-25T09:11:42.089Z
+2025-05-25T09:11:42.106Z info: File-System ping OK: 2025-05-25T09:11:42.093Z
+2025-05-25T09:11:42.116Z info: HTTP listen [8080]
+2025-05-25T09:24:08.439Z info: 10 operations registered
+2025-05-25T09:24:08.444Z info: 10 App operations registered
+2025-05-25T09:24:08.446Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:24:08.447Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:24:08.575Z info: PRAGMA journal_mode = WAL
+2025-05-25T09:24:08.577Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T09:24:08.578Z info: UPDATE singletons SET _data_ = '2025-05-25T09:24:08.578Z', v = 1748165048578.0  WHERE id = '1'
+2025-05-25T09:24:08.579Z info: Sqlite ping OK: 2025-05-25T09:11:42.089Z <=> 2025-05-25T09:24:08.578Z
+2025-05-25T09:24:08.583Z info: File-System ping OK: 2025-05-25T09:24:08.580Z
+2025-05-25T09:24:08.593Z info: HTTP listen [8080]
+2025-05-25T09:31:44.343Z info: 10 operations registered
+2025-05-25T09:31:44.347Z info: 10 App operations registered
+2025-05-25T09:31:44.348Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:31:44.350Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:38:21.973Z info: 10 operations registered
+2025-05-25T09:38:21.978Z info: 10 App operations registered
+2025-05-25T09:38:21.981Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:38:21.984Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:43:33.888Z info: 10 operations registered
+2025-05-25T09:43:33.893Z info: 10 App operations registered
+2025-05-25T09:43:33.895Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:43:33.896Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:44:59.808Z info: 10 operations registered
+2025-05-25T09:44:59.812Z info: 10 App operations registered
+2025-05-25T09:44:59.814Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:44:59.816Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T09:57:28.480Z info: 10 operations registered
+2025-05-25T09:57:28.485Z info: 10 App operations registered
+2025-05-25T09:57:28.487Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T09:57:28.488Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:04:01.879Z info: 10 operations registered
+2025-05-25T10:04:01.884Z info: 10 App operations registered
+2025-05-25T10:04:01.886Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:04:01.888Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:11:29.979Z info: 10 operations registered
+2025-05-25T10:11:29.984Z info: 10 App operations registered
+2025-05-25T10:11:29.986Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:11:29.987Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:17:27.124Z info: 10 operations registered
+2025-05-25T10:17:27.129Z info: 10 App operations registered
+2025-05-25T10:17:27.131Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:17:27.132Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:21:57.851Z info: 10 operations registered
+2025-05-25T10:21:57.856Z info: 10 App operations registered
+2025-05-25T10:21:57.858Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:21:57.859Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:24:40.378Z info: 10 operations registered
+2025-05-25T10:24:40.384Z info: 10 App operations registered
+2025-05-25T10:24:40.385Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:24:40.386Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:28:39.061Z info: 10 operations registered
+2025-05-25T10:28:39.067Z info: 10 App operations registered
+2025-05-25T10:28:39.069Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:28:39.071Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:29:44.296Z info: 10 operations registered
+2025-05-25T10:29:44.300Z info: 10 App operations registered
+2025-05-25T10:29:44.302Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:29:44.304Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:35:11.690Z info: 10 operations registered
+2025-05-25T10:35:11.694Z info: 10 App operations registered
+2025-05-25T10:35:11.696Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:35:11.697Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T10:42:22.903Z info: 10 operations registered
+2025-05-25T10:42:22.910Z info: 10 App operations registered
+2025-05-25T10:42:22.913Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T10:42:22.915Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T11:23:25.944Z info: 10 operations registered
+2025-05-25T11:23:25.950Z info: 10 App operations registered
+2025-05-25T11:23:25.952Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T11:23:25.953Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T11:30:17.416Z info: 10 operations registered
+2025-05-25T11:30:17.425Z info: 10 App operations registered
+2025-05-25T11:30:17.427Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T11:30:17.429Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T11:46:10.400Z info: 10 operations registered
+2025-05-25T11:46:10.405Z info: 10 App operations registered
+2025-05-25T11:46:10.407Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T11:46:10.408Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T11:50:13.445Z info: 10 operations registered
+2025-05-25T11:50:13.451Z info: 10 App operations registered
+2025-05-25T11:50:13.453Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T11:50:13.454Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T11:50:54.041Z info: PRAGMA journal_mode = WAL
+2025-05-25T11:50:54.043Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T11:50:54.045Z info: UPDATE singletons SET _data_ = '2025-05-25T11:50:54.044Z', v = 1748173854044.0  WHERE id = '1'
+2025-05-25T11:50:54.046Z info: Sqlite ping OK: 2025-05-25T09:24:08.578Z <=> 2025-05-25T11:50:54.044Z
+2025-05-25T11:50:54.051Z info: File-System ping OK: 2025-05-25T11:50:54.047Z
+2025-05-25T11:50:54.062Z info: HTTP listen [8080]
+2025-05-25T12:07:25.240Z info: 10 operations registered
+2025-05-25T12:07:25.245Z info: 10 App operations registered
+2025-05-25T12:07:25.247Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:07:25.248Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:09:18.300Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:09:18.301Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:09:18.302Z info: UPDATE singletons SET _data_ = '2025-05-25T12:09:18.302Z', v = 1748174958302.0  WHERE id = '1'
+2025-05-25T12:09:18.303Z info: Sqlite ping OK: 2025-05-25T11:50:54.044Z <=> 2025-05-25T12:09:18.302Z
+2025-05-25T12:09:18.307Z info: File-System ping OK: 2025-05-25T12:09:18.304Z
+2025-05-25T12:09:18.316Z info: HTTP listen [8080]
+2025-05-25T12:11:54.565Z info: 10 operations registered
+2025-05-25T12:11:54.571Z info: 10 App operations registered
+2025-05-25T12:11:54.573Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:11:54.575Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:13:23.610Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:13:23.612Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:13:23.613Z info: UPDATE singletons SET _data_ = '2025-05-25T12:13:23.613Z', v = 1748175203613.0  WHERE id = '1'
+2025-05-25T12:13:23.614Z info: Sqlite ping OK: 2025-05-25T12:09:18.302Z <=> 2025-05-25T12:13:23.613Z
+2025-05-25T12:13:23.619Z info: File-System ping OK: 2025-05-25T12:13:23.615Z
+2025-05-25T12:13:23.630Z info: HTTP listen [8080]
+2025-05-25T12:15:33.395Z info: 10 operations registered
+2025-05-25T12:15:33.400Z info: 10 App operations registered
+2025-05-25T12:15:33.402Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:15:33.403Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:16:11.540Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:16:11.542Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:16:11.543Z info: UPDATE singletons SET _data_ = '2025-05-25T12:16:11.543Z', v = 1748175371543.0  WHERE id = '1'
+2025-05-25T12:16:11.544Z info: Sqlite ping OK: 2025-05-25T12:13:23.613Z <=> 2025-05-25T12:16:11.543Z
+2025-05-25T12:16:11.556Z info: File-System ping OK: 2025-05-25T12:16:11.545Z
+2025-05-25T12:16:11.570Z info: HTTP listen [8080]
+2025-05-25T12:17:17.201Z info: 10 operations registered
+2025-05-25T12:17:17.206Z info: 10 App operations registered
+2025-05-25T12:17:17.207Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:17:17.209Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:21:11.317Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:21:11.319Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:21:11.320Z info: UPDATE singletons SET _data_ = '2025-05-25T12:21:11.320Z', v = 1748175671320.0  WHERE id = '1'
+2025-05-25T12:21:11.321Z info: Sqlite ping OK: 2025-05-25T12:16:11.543Z <=> 2025-05-25T12:21:11.320Z
+2025-05-25T12:21:11.332Z info: File-System ping OK: 2025-05-25T12:21:11.322Z
+2025-05-25T12:21:11.344Z info: HTTP listen [8080]
+2025-05-25T12:21:26.168Z info: 10 operations registered
+2025-05-25T12:21:26.174Z info: 10 App operations registered
+2025-05-25T12:21:26.175Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:21:26.176Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:21:37.248Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:21:37.249Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:21:37.250Z info: UPDATE singletons SET _data_ = '2025-05-25T12:21:37.250Z', v = 1748175697250.0  WHERE id = '1'
+2025-05-25T12:21:37.251Z info: Sqlite ping OK: 2025-05-25T12:21:11.320Z <=> 2025-05-25T12:21:37.250Z
+2025-05-25T12:21:37.252Z info: File-System ping OK: 2025-05-25T12:21:37.251Z
+2025-05-25T12:21:37.258Z info: HTTP listen [8080]
+2025-05-25T12:54:54.455Z info: 10 operations registered
+2025-05-25T12:54:54.459Z info: 10 App operations registered
+2025-05-25T12:54:54.461Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T12:54:54.462Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T12:55:15.492Z info: PRAGMA journal_mode = WAL
+2025-05-25T12:55:15.495Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T12:55:15.496Z info: UPDATE singletons SET _data_ = '2025-05-25T12:55:15.496Z', v = 1748177715496.0  WHERE id = '1'
+2025-05-25T12:55:15.497Z info: Sqlite ping OK: 2025-05-25T12:21:37.250Z <=> 2025-05-25T12:55:15.496Z
+2025-05-25T12:55:15.500Z info: File-System ping OK: 2025-05-25T12:55:15.498Z
+2025-05-25T12:55:15.506Z info: HTTP listen [8080]
+2025-05-25T13:00:38.421Z info: 10 operations registered
+2025-05-25T13:00:38.428Z info: 10 App operations registered
+2025-05-25T13:00:38.430Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T13:00:38.432Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T13:00:38.578Z info: PRAGMA journal_mode = WAL
+2025-05-25T13:00:38.580Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T13:00:38.580Z info: UPDATE singletons SET _data_ = '2025-05-25T13:00:38.580Z', v = 1748178038580.0  WHERE id = '1'
+2025-05-25T13:00:38.581Z info: Sqlite ping OK: 2025-05-25T12:55:15.496Z <=> 2025-05-25T13:00:38.580Z
+2025-05-25T13:00:38.584Z info: File-System ping OK: 2025-05-25T13:00:38.582Z
+2025-05-25T13:00:38.592Z info: HTTP listen [8080]
+2025-05-25T14:33:27.530Z info: 10 operations registered
+2025-05-25T14:33:27.533Z info: 10 App operations registered
+2025-05-25T14:33:27.534Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T14:33:27.535Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T14:34:42.814Z info: 10 operations registered
+2025-05-25T14:34:42.817Z info: 10 App operations registered
+2025-05-25T14:34:42.818Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T14:34:42.819Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T14:34:42.908Z info: PRAGMA journal_mode = WAL
+2025-05-25T14:34:42.909Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T14:34:42.912Z info: UPDATE singletons SET _data_ = '2025-05-25T14:34:42.910Z', v = 1748183682910.0  WHERE id = '1'
+2025-05-25T14:34:42.913Z info: Sqlite ping OK: 2025-05-25T13:00:38.580Z <=> 2025-05-25T14:34:42.910Z
+2025-05-25T14:34:42.915Z info: File-System ping OK: 2025-05-25T14:34:42.913Z
+2025-05-25T14:34:42.922Z info: HTTP listen [8080]
+2025-05-25T15:03:21.091Z info: 10 operations registered
+2025-05-25T15:03:21.096Z info: 10 App operations registered
+2025-05-25T15:03:21.097Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T15:03:21.098Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T15:03:43.384Z info: PRAGMA journal_mode = WAL
+2025-05-25T15:03:43.386Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T15:03:43.388Z info: UPDATE singletons SET _data_ = '2025-05-25T15:03:43.387Z', v = 1748185423387.0  WHERE id = '1'
+2025-05-25T15:03:43.389Z info: Sqlite ping OK: 2025-05-25T14:34:42.910Z <=> 2025-05-25T15:03:43.387Z
+2025-05-25T15:03:43.393Z info: File-System ping OK: 2025-05-25T15:03:43.390Z
+2025-05-25T15:03:43.400Z info: HTTP listen [8080]
+2025-05-25T15:21:05.547Z info: 10 operations registered
+2025-05-25T15:21:05.552Z info: 10 App operations registered
+2025-05-25T15:21:05.553Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T15:21:05.555Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T15:21:05.716Z info: PRAGMA journal_mode = WAL
+2025-05-25T15:21:05.719Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T15:21:05.722Z info: UPDATE singletons SET _data_ = '2025-05-25T15:21:05.720Z', v = 1748186465720.0  WHERE id = '1'
+2025-05-25T15:21:05.723Z info: Sqlite ping OK: 2025-05-25T15:03:43.387Z <=> 2025-05-25T15:21:05.720Z
+2025-05-25T15:21:05.726Z info: File-System ping OK: 2025-05-25T15:21:05.724Z
+2025-05-25T15:21:05.733Z info: HTTP listen [8080]
+2025-05-25T17:04:20.719Z info: 10 operations registered
+2025-05-25T17:04:20.724Z info: 10 App operations registered
+2025-05-25T17:04:20.726Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:04:20.727Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:07:48.993Z info: 10 operations registered
+2025-05-25T17:07:48.998Z info: 10 App operations registered
+2025-05-25T17:07:48.999Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:07:49.000Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:11:42.866Z info: 10 operations registered
+2025-05-25T17:11:42.871Z info: 10 App operations registered
+2025-05-25T17:11:42.873Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:11:42.874Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:14:52.836Z info: 10 operations registered
+2025-05-25T17:14:52.841Z info: 10 App operations registered
+2025-05-25T17:14:52.842Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:14:52.843Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:18:06.089Z info: 10 operations registered
+2025-05-25T17:18:06.094Z info: 10 App operations registered
+2025-05-25T17:18:06.096Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:18:06.097Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:22:57.905Z info: 10 operations registered
+2025-05-25T17:22:57.910Z info: 10 App operations registered
+2025-05-25T17:22:57.911Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:22:57.913Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:23:17.136Z info: PRAGMA journal_mode = WAL
+2025-05-25T17:23:17.137Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T17:23:17.138Z info: UPDATE singletons SET _data_ = '2025-05-25T17:23:17.138Z', v = 1748193797138.0  WHERE id = '1'
+2025-05-25T17:23:17.139Z info: Sqlite ping OK: 2025-05-25T15:21:05.720Z <=> 2025-05-25T17:23:17.138Z
+2025-05-25T17:23:17.149Z info: File-System ping OK: 2025-05-25T17:23:17.140Z
+2025-05-25T17:23:17.167Z info: HTTP listen [8080]
+2025-05-25T17:36:53.106Z info: 10 operations registered
+2025-05-25T17:36:53.111Z info: 10 App operations registered
+2025-05-25T17:36:53.113Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:36:53.116Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:39:38.462Z info: 10 operations registered
+2025-05-25T17:39:38.469Z info: 10 App operations registered
+2025-05-25T17:39:38.478Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:39:38.481Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:39:48.193Z info: PRAGMA journal_mode = WAL
+2025-05-25T17:39:48.195Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T17:39:48.196Z info: UPDATE singletons SET _data_ = '2025-05-25T17:39:48.196Z', v = 1748194788196.0  WHERE id = '1'
+2025-05-25T17:39:48.198Z info: Sqlite ping OK: 2025-05-25T17:23:17.138Z <=> 2025-05-25T17:39:48.196Z
+2025-05-25T17:39:48.207Z info: File-System ping OK: 2025-05-25T17:39:48.199Z
+2025-05-25T17:39:48.217Z info: HTTP listen [8080]
+2025-05-25T17:41:57.212Z info: 10 operations registered
+2025-05-25T17:41:57.216Z info: 10 App operations registered
+2025-05-25T17:41:57.217Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:41:57.218Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:44:34.864Z info: 10 operations registered
+2025-05-25T17:44:34.869Z info: 10 App operations registered
+2025-05-25T17:44:34.870Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:44:34.871Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:45:00.983Z info: PRAGMA journal_mode = WAL
+2025-05-25T17:45:00.984Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T17:45:00.985Z info: UPDATE singletons SET _data_ = '2025-05-25T17:45:00.985Z', v = 1748195100985.0  WHERE id = '1'
+2025-05-25T17:45:00.986Z info: Sqlite ping OK: 2025-05-25T17:39:48.196Z <=> 2025-05-25T17:45:00.985Z
+2025-05-25T17:45:00.996Z info: File-System ping OK: 2025-05-25T17:45:00.987Z
+2025-05-25T17:45:01.012Z info: HTTP listen [8080]
+2025-05-25T17:49:56.823Z info: 10 operations registered
+2025-05-25T17:49:56.828Z info: 10 App operations registered
+2025-05-25T17:49:56.829Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-05-25T17:49:56.831Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-05-25T17:49:56.933Z info: PRAGMA journal_mode = WAL
+2025-05-25T17:49:56.935Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-05-25T17:49:56.936Z info: UPDATE singletons SET _data_ = '2025-05-25T17:49:56.935Z', v = 1748195396935.0  WHERE id = '1'
+2025-05-25T17:49:56.936Z info: Sqlite ping OK: 2025-05-25T17:45:00.985Z <=> 2025-05-25T17:49:56.935Z
+2025-05-25T17:49:56.939Z info: File-System ping OK: 2025-05-25T17:49:56.937Z
+2025-05-25T17:49:56.949Z info: HTTP listen [8080]

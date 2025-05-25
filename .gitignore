@@ -4,6 +4,7 @@ logs
 cert
 keys.json
 src/keys.ts
+src-fw/vector.ts
 tmp
 emulators/bk
 .yarn

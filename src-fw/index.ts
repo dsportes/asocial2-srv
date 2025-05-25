@@ -13,7 +13,8 @@ import webpush from 'web-push'
 import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
 import { register } from './operations'
-import { Util as MyUtil, testECDH } from './util'
+import { Util as MyUtil } from './util'
+import { Crypt, testECDH, testSH } from './crypt'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
@@ -61,9 +62,9 @@ export function init (_config: BaseConfig, encryptedKeys: string) {
   // Chargement des "keys" cryptées dans config.keys
   try {
     if (config.SRVKEY) {
-      const key = Buffer.from(config.SRVKEY, 'base64')
+      const key = Buffer.from(MyUtil.b64ToU8(config.SRVKEY))
       const bin = Buffer.from(encryptedKeys, 'base64')
-      const x = MyUtil.decrypt(key, bin).toString('utf-8')
+      const x = Crypt.decrypt(key, bin).toString('utf-8')
       config['keys'] = JSON.parse(x)
     } else {
       throw new AppExc(1012, 'env.SRVKeY NOT FOUND', null)
@@ -217,7 +218,8 @@ export function startSRV () : Promise<void>{
 }
 
 export async function testDb () : Promise<void> {
-  await testECDH()
+  // await testECDH()
+  await testSH()
   const op = MyOperation.fake()
   await dbConnector.getConnexion(config.site, op)
   {

@@ -24,7 +24,8 @@ if (emulator) {
 const config: BaseConfig = {
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
-  SRVKEY: env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
+  // SRVKEY: env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
+  SRVKEY: env.SRVKEY || '1VufBG9nkdQr0wTIhAdhFo1kOWpMNHBxVhIOIspg2tI',
   STORAGE_EMULATOR_HOST: env['STORAGE_EMULATOR_HOST'] || '',
   FIRESTORE_EMULATOR_HOST: env['FIRESTORE_EMULATOR_HOST'] || '',
 

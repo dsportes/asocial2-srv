@@ -2,6 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
 import path from 'path'
 import { Util } from './util'
+import { Crypt } from './crypt'
 
 /*****************************************************
  * Ligne de commande: node src/crypKeys.ts "toto est tres tres beau"
@@ -21,17 +22,18 @@ export function cryptKeys () {
   const inf = cmdargs.values['in']
   const outf = cmdargs.values['out']
 
-  const key = Util.pbkdf2(pwd)
-  console.log('key= ' + key.toString('base64'))
+  const key = Crypt.syncStrongHash(pwd, pwd)
+  console.log('key= ' + key)
+  const k = Util.b64ToU8(key)
   const pjson = path.resolve(inf)
   if (!existsSync(pjson)) {
     console.log(pjson + ' NOT FOUND')
   } else {
     try {
       const buf = readFileSync(pjson)
-      const b1 = Util.crypt(key, buf)
+      const b1 = Crypt.crypt(Buffer.from(k), buf)
       const b64 = b1.toString('base64')
-      const b2 = Util.decrypt(key, b1)
+      // const b2 = Crypt.decrypt(key, b1)
       const pmjs = path.resolve(outf)
       const x = 'export const encryptedKeys = \'' + b64 + '\'' + '\n'
       writeFileSync(pmjs, Buffer.from(x, 'utf8'))
