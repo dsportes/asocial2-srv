@@ -1,4 +1,5 @@
-import { AppExc, Operation, Util } from './index'
+import { AppExc, Operation } from './index'
+import { Crypt } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
 
 export interface StGeneric {
@@ -62,22 +63,22 @@ export class StorageGeneric {
   }
 
   cryptId (id: string) {
-    return this.siteKey ? Util.cryptId(this.siteKey, id) : id
+    return this.siteKey ? Crypt.cryptId(this.siteKey, id) : id
   }
 
   decryptId (id: string) {
-    return this.siteKey ? Util.decryptId(this.siteKey, id) : id
+    return this.siteKey ? Crypt.decryptId(this.siteKey, id) : id
   }
 
   encode3 (id1: string, id2: string, id3: string) : string {
     const b = Buffer.from(encode([id1, id2, id3]))
-    const x = Util.crypt(this.options.srvKey, b).toString('base64')
+    const x = Crypt.crypt(this.options.srvKey, b).toString('base64')
     const y = x.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
     return y
   }
 
   decode3 (b64: string) : any { // [id1, id2, id3]
-    const x = Util.decrypt(this.options.srvKey, Buffer.from(b64, 'base64'))
+    const x = Crypt.decrypt(this.options.srvKey, Buffer.from(b64, 'base64'))
     return decode(x)
   }
 

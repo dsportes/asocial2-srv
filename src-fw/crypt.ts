@@ -9,10 +9,44 @@ const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
-/* Problème de comptabilité entre subtle.crypt et crypto.createCipheriv
+/* 
+AES-GCM
+Problème de comptabilité entre subtle.crypt et crypto.createCipheriv
 - subtle.crypt : met un authTag dans les 16 derniers bytes du buffer.
 - crypto.createCipheriv : ne les met pas et les délivre à part.
 Dans le second cas on le rajoute dans le buffer pour être utilisable par subtle.decrypt.
+Il n'y a pas d'option standard, inclusion ou non les implémentations semblent partagées.
+
+Réduire la taille du authTag: théoriquement possible avec quelques tailles possibles 
+mais certaines implémentations forcent 128bits. De facto on n'échappe pas à ces 16 octets.
+Réduire fictivement la taille de iv de 12 bytes, par exemple à 6 répétés 2 fois.
+Mais ça augmente le risque d'utiliser le même iv pour le même texte à crypter ce
+qui est considérer comme une faiblesse.
+
+cryptId et decryptId
+Le résultat crypté est le même pour une même valeur à l'entrée.
+On est tenté de l'utiliser pour crypter une ID clé d'accès à un contenu (en général persistent).
+Mais ça impose d'avoir un iv dérivé d'un hash de l'ID: le résultat crypté 
+est fragilisé par la présence en clair de quelques bytes du hash ce qui facilite
+la vie d'un hacker.
+L'utilisation de "vector" est discutable pour calculer le iv. Ca complique la 
+vie d'un hacker qui ne l'a pas. Est-ce déterminant ?
+Plus généralement c'est l'usage de cryptId qui est à considérer:
+- si c'est juste pour qu'une clé d'accès à des données ne fasse pas apparaître
+l'ID en clair mais qu'on n'utilise pas la valeur cryptée por retrouver l'ID d'origine,
+un hash fait mieux l'affaire.
+- dans quels cas aurait-on besoin de réobtenir l'ID d'origine depuis son cryptgae
+ET l'obligation d'avoir le même cryptage pour une même clé ?
+"vector.ts" est généré (une fois par serveur) par genVector.ts
+
+Cryptage asymétrique
+L'obtention d'une paire de clés publique / privée par ECDH aboutit toujours à 
+générer une clé AES-GCM de 256bits, qui elle va gérer le contenu réel et non limité en taille.
+- les clés sont plus courtes qu'en RSA (surtout la clé publique).
+- la clé publique ne peut être exportée qu'en JWK ce qui malheureusement en fait un texte long.
+- on ne peut pas crypter directement un contenu court, qui en RSA fait toujours au moins
+256 bytes (ce qui n'est pas si court). En revanche, la clé publique est courte et
+on peut crypter des contenus courts en AES pour moins de 256 bytes.
 */
 export class Crypt {
   /*
@@ -86,6 +120,10 @@ export class Crypt {
     }
   }
 
+  /* Obtention d'une couple de clés publique / privée:
+  - la clé publique est courte.
+  - la clé privée est longue (encodée en binaire depuis un JWT.)
+  */
   static async getKeyPair () : Promise<Uint8Array[]> {
     const p = await crypto.subtle.generateKey(Crypt.alg, true, ['deriveKey'])
     return [
@@ -94,6 +132,11 @@ export class Crypt {
     ]
   }
 
+  /* Obtention de la clé AES-GCM 256 depuis un couple publique (Emilie), privée (Julie).
+  Pour un couple donné, retourne toujours la même clé AES.
+  Pour le couple inversé (publique(Julie), privée (Emilie)), 
+  retourne aussi la même clé AES (c'est le but !).
+  */
   static async getAESKey (pubKey: Uint8Array, myPrivKey: Uint8Array): Promise<Uint8Array> {
     const pub = await crypto.subtle.importKey('raw', pubKey, Crypt.alg, true, [])
     const priv = await crypto.subtle.importKey('jwk', decode(myPrivKey), Crypt.alg, true, ['deriveKey'])
@@ -103,7 +146,10 @@ export class Crypt {
     return new Uint8Array(await crypto.subtle.exportKey('raw', k))
   }
 
-  // async avec Web Crypto 
+  /* Hash PBKFD2 d'une "pass phrase" en deux morceaux (équivelent à login / password).
+  Le "login" sert à générer le salt qui est utilisé pour hasher l'ensemble s1 + s2.
+  Deux versins: une async universelle et une sync seulement sous node.
+  */
   static async strongHash (s1: string, s2: string) : Promise<string> {
     const x = s1.length >= padding.length ? s1 : s1 + padding.substring(0, padding.length - s1.length)
     const y = s2.length >= padding.length ? s2 : s2 + padding.substring(0, padding.length - s2.length)
@@ -121,7 +167,7 @@ export class Crypt {
     return Util.u8ToB64(res, true)
   }
 
-  // sync avec node
+  /* Version sync avec node */
   static syncStrongHash (s1: string, s2: string) : string {
     const x = s1.length >= padding.length ? s1 : s1 + padding.substring(0, padding.length - s1.length)
     const y = s2.length >= padding.length ? s2 : s2 + padding.substring(0, padding.length - s2.length)
@@ -192,6 +238,8 @@ export async function testECDH () {
 
   const aesSrv = await Crypt.getAESKey(appPub, srvPair[1])
   console.log('aesSrv: ', Util.u8ToB64(aesSrv))
+  const aesSrv2 = await Crypt.getAESKey(appPub, srvPair[1])
+  console.log('aesSrv again: ', Util.u8ToB64(aesSrv2))
   const x1 = await Crypt.crypterSrv(aesSrv, encoder.encode('toto est tres beau'))
   const x1b = Crypt.crypt(Buffer.from(aesSrv), Buffer.from(encoder.encode('toto est tres beau')))
 
