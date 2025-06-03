@@ -9,6 +9,8 @@ const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
+const p2 = [1, 0, 0, 0, 0, 0]; for (let i = 1; i < 6; i++) p2[i] = p2[i - 1] * 256
+
 /* 
 AES-GCM
 Problème de comptabilité entre subtle.crypt et crypto.createCipheriv
@@ -208,6 +210,19 @@ export class Crypt {
     return x.toString('utf8')
   }
 
+  static sha32 (x: any) {
+    return crypto.createHash('sha256').update(Buffer.from(x)).digest().toString('base64url')
+  }
+
+  static sha12 (x: any) {
+    return crypto.createHash('sha256').update(Buffer.from(x)).digest().subarray(3, 15).toString('base64url')
+  }
+
+  static shaInt (x: any) {
+    const u8 = new Uint8Array(crypto.createHash('sha256').update(Buffer.from(x)).digest())
+    let r = 0; for (let i = 3, j = 0; j < 6; i++, j++) r += (p2[j] * u8[i])
+    return r
+  }
 }
 
 export async function testSH () {
@@ -223,6 +238,11 @@ export async function testSH () {
   console.log('crypted id: ', c2)
   const id2 = Crypt.decryptId(key, c2)
   console.log('decrypted id: ', id2)
+
+  const x = 'toto est tres tres beau'
+  console.log(Crypt.sha32(x))
+  console.log(Crypt.sha12(x))
+  console.log(Crypt.shaInt(x))
 }
 
 export async function testECDH () {

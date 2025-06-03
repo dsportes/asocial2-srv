@@ -219,7 +219,7 @@ export function startSRV () : Promise<void>{
 
 export async function testDb () : Promise<void> {
   // await testECDH()
-  // await testSH()
+  await testSH()
   const op = MyOperation.fake()
   await dbConnector.getConnexion(config.site, op)
   {

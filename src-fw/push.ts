@@ -1,7 +1,9 @@
 import webpush from 'web-push'
 import { Log } from './index'
 import { Util } from './util'
-import { encode, decode } from '@msgpack/msgpack'
+import { Crypt } from './crypt'
+
+//import { encode, decode } from '@msgpack/msgpack'
 
 /*
 const vapidKeys = webpush.generateVAPIDKeys()
@@ -13,7 +15,7 @@ export class WebPush {
 
   public static setSubscription(subJSON: string) {
     const sub = JSON.parse(subJSON) as webpush.PushSubscription
-    const hash = Util.shortHash(sub.endpoint)
+    const hash = Crypt.sha12(sub.endpoint)
     WebPush.subs.set(hash, sub)
   }
 
