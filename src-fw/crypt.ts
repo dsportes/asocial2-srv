@@ -226,6 +226,8 @@ export class Crypt {
 }
 
 export async function testSH () {
+  const x = 'toto est tres tres beau'
+  /*
   console.log(await Crypt.strongHash('pierre', 'legrand'))
   console.log( Crypt.syncStrongHash('pierre', 'legrand'))
   const key = Buffer.from(Util.b64ToU8(Operation.config.SRVKEY))
@@ -239,10 +241,14 @@ export async function testSH () {
   const id2 = Crypt.decryptId(key, c2)
   console.log('decrypted id: ', id2)
 
-  const x = 'toto est tres tres beau'
   console.log(Crypt.sha32(x))
   console.log(Crypt.sha12(x))
   console.log(Crypt.shaInt(x))
+  */
+  const t = Date.now()
+  for (let i= 0; i< 100000; i++) Crypt.sha32(x)
+  const n = Date.now() - t
+  console.log('sha32 : ', n)
 }
 
 export async function testECDH () {

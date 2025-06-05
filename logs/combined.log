@@ -1654,3 +1654,29 @@
 2025-06-03T15:38:10.674Z info: Sqlite ping OK: 2025-06-03T15:28:48.101Z <=> 2025-06-03T15:38:10.673Z
 2025-06-03T15:38:10.676Z info: File-System ping OK: 2025-06-03T15:38:10.675Z
 2025-06-03T15:38:10.682Z info: HTTP listen [8080]
+2025-06-05T09:17:38.438Z info: 10 operations registered
+2025-06-05T09:17:38.441Z info: 10 App operations registered
+2025-06-05T09:17:38.441Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-06-05T09:17:38.441Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-06-05T09:17:38.562Z info: PRAGMA journal_mode = WAL
+2025-06-05T09:17:38.563Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-06-05T09:17:38.563Z info: UPDATE singletons SET _data_ = '2025-06-05T09:17:38.563Z', v = 1749115058563.0  WHERE id = '1'
+2025-06-05T09:17:38.564Z info: Sqlite ping OK: 2025-06-03T15:38:10.673Z <=> 2025-06-05T09:17:38.563Z
+2025-06-05T09:17:38.565Z info: File-System ping OK: 2025-06-05T09:17:38.564Z
+2025-06-05T09:17:38.569Z info: HTTP listen [8080]
+2025-06-05T09:18:02.045Z info: RegisterSubscription started
+2025-06-05T09:18:02.056Z info: PRAGMA journal_mode = WAL
+2025-06-05T09:18:02.057Z info: RegisterSubscription finished
+2025-06-05T09:18:06.828Z info: TestMessage started
+2025-06-05T09:18:06.830Z info: PRAGMA journal_mode = WAL
+2025-06-05T09:18:06.953Z info: TestMessage finished
+2025-06-05T09:45:31.284Z info: 10 operations registered
+2025-06-05T09:45:31.287Z info: 10 App operations registered
+2025-06-05T09:45:31.288Z info: Storage FS - path:[D:\git\asocial2-srv\filestorea
+2025-06-05T09:45:31.288Z info: SQLite sqla DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-06-05T09:45:31.309Z info: PRAGMA journal_mode = WAL
+2025-06-05T09:45:31.310Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-06-05T09:45:31.311Z info: UPDATE singletons SET _data_ = '2025-06-05T09:45:31.311Z', v = 1749116731311.0  WHERE id = '1'
+2025-06-05T09:45:31.312Z info: Sqlite ping OK: 2025-06-05T09:17:38.563Z <=> 2025-06-05T09:45:31.311Z
+2025-06-05T09:45:31.317Z info: File-System ping OK: 2025-06-05T09:45:31.312Z
+2025-06-05T09:45:31.324Z info: HTTP listen [8080]
