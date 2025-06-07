@@ -1680,3 +1680,16 @@
 2025-06-05T09:45:31.312Z info: Sqlite ping OK: 2025-06-05T09:17:38.563Z <=> 2025-06-05T09:45:31.311Z
 2025-06-05T09:45:31.317Z info: File-System ping OK: 2025-06-05T09:45:31.312Z
 2025-06-05T09:45:31.324Z info: HTTP listen [8080]
+2025-06-07T13:33:50.827Z info: 10 operations registered
+2025-06-07T13:33:50.833Z info: 10 App operations registered
+2025-06-07T13:33:50.837Z info: Storage FS - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-06-07T13:33:50.839Z info: SQLite sqla DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-06-07T13:33:50.881Z info: PRAGMA journal_mode = WAL
+2025-06-07T13:33:50.883Z info: SELECT _data_ FROM singletons WHERE id = '1'
+2025-06-07T13:33:50.886Z info: UPDATE singletons SET _data_ = '2025-06-07T13:33:50.884Z', v = 1749303230884.0  WHERE id = '1'
+2025-06-07T13:33:50.888Z info: Sqlite ping OK: 2025-05-26T07:52:49.787Z <=> 2025-06-07T13:33:50.884Z
+2025-06-07T13:33:50.912Z info: File-System ping OK: 2025-06-07T13:33:50.890Z
+2025-06-07T13:33:50.918Z info: HTTP listen [8080]
+2025-06-07T13:33:57.163Z info: RegisterSubscription started
+2025-06-07T13:33:57.166Z info: PRAGMA journal_mode = WAL
+2025-06-07T13:33:57.168Z info: RegisterSubscription finished
