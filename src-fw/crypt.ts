@@ -49,6 +49,13 @@ générer une clé AES-GCM de 256bits, qui elle va gérer le contenu réel et no
 - on ne peut pas crypter directement un contenu court, qui en RSA fait toujours au moins
 256 bytes (ce qui n'est pas si court). En revanche, la clé publique est courte et
 on peut crypter des contenus courts en AES pour moins de 256 bytes.
+
+Sign/Verif asymétrique
+L'algorithme à employer est ECDSA (différent de ECDH) qui génère une paire de clés
+différentes. 
+En pratique la clé privée n'est JAMAIS dans un serveur:
+- la signature est toujours côté client,
+- la vérification est toujours côté serveur.
 */
 export class Crypt {
   /*
@@ -85,6 +92,8 @@ export class Crypt {
   }
 
   static alg = { name: 'ECDH', namedCurve: 'P-521' }
+  static ecdsa = { name: 'ECDSA', namedCurve: 'P-521' }
+  static ecdsaSV = { name: 'ECDSA', hash: 'SHA-256' }
 
   /* 
   Le authTag est généré sans laisser le choix 
@@ -134,6 +143,14 @@ export class Crypt {
     ]
   }
 
+  static async getSVKeyPair () : Promise<Uint8Array[]> {
+    const p = await crypto.subtle.generateKey(Crypt.ecdsa, true, ['sign', 'verify'])
+    return [
+      new Uint8Array(await crypto.subtle.exportKey('raw', p.publicKey)),
+      new Uint8Array(encode(await crypto.subtle.exportKey('jwk', p.privateKey)))
+    ]
+  }
+
   /* Obtention de la clé AES-GCM 256 depuis un couple publique (Emilie), privée (Julie).
   Pour un couple donné, retourne toujours la même clé AES.
   Pour le couple inversé (publique(Julie), privée (Emilie)), 
@@ -146,6 +163,16 @@ export class Crypt {
       { name: 'ECDH', public: pub }, priv, { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']
     )
     return new Uint8Array(await crypto.subtle.exportKey('raw', k))
+  }
+
+  static async sign (privKey: Uint8Array, data: Uint8Array) : Promise<Uint8Array> {
+    const priv = await crypto.subtle.importKey('jwk', decode(privKey), Crypt.ecdsa, false, ['sign'])
+    return new Uint8Array(await crypto.subtle.sign(Crypt.ecdsaSV, priv, data))
+  }
+
+  static async verify (pubKey: Uint8Array, signature: Uint8Array, data: Uint8Array) : Promise<boolean> {
+    const pub = await crypto.subtle.importKey('raw', pubKey, Crypt.ecdsa, true, ['verify'])
+    return await crypto.subtle.verify(Crypt.ecdsaSV, pub, signature, data)
   }
 
   /* Hash PBKFD2 d'une "pass phrase" en deux morceaux (équivelent à login / password).
@@ -252,12 +279,24 @@ export async function testSH () {
 }
 
 export async function testECDH () {
+  const x = new TextEncoder().encode('toto est tres tres beau')
+  const xx = new TextEncoder().encode('toto est tres tres beaux')
+
   // Dans app
   const appPair = await Crypt.getKeyPair()
   const appPub = appPair[0]
   console.log(Util.u8ToB64(appPub), Util.u8ToB64(appPair[1]))
 
+  const appSVPair = await Crypt.getSVKeyPair()
+  const appSVPub = appSVPair[0]
+  const sign = await Crypt.sign(appSVPair[1], x)
+
   // Dans srv
+  const verif1 = await Crypt.verify(appSVPub, sign, x)
+  console.log('verif1 = ', verif1)
+  const verif2 = await Crypt.verify(appSVPub, sign, xx)
+  console.log('verif2 = ', verif2)
+
   const srvPair = await Crypt.getKeyPair()
   const srvPub = srvPair[0]
   console.log(Util.u8ToB64(srvPub), Util.u8ToB64(srvPair[1]))
