@@ -1,40 +1,23 @@
 import { AppExc, Operation, Util } from './index'
 import { encode, decode } from '@msgpack/msgpack'
 
-export interface DbGeneric {
-  ping () : Promise<[number, string]> 
-}
-
 export class DbConnector {
-  private static cache = new Map<string, DbConnector>()
 
-  public static get (code) { return DbConnector.cache.get(code) }
-
-  public code: string
   public key: Buffer
-  public cryptIds: boolean
   public credentials: any
   public factory: Function
 
-  constructor (code:string, cryptIds: boolean, credentials: string) {
+  constructor (credentials: Object, cryptKey: string) {
     if (!credentials)
-      throw new AppExc(1022, 'config.dbConfigs credentials not found', null, [code])
-    const cred = Operation.config.keys[credentials]
-    if (!cred)
-      throw new AppExc(1023, 'keys credentials not found', null, [code])
-    this.credentials = cred
-    this.cryptIds = cryptIds
-    DbConnector.cache.set(code, this)
+      throw new AppExc(1022, 'DbConnector : credentials not found', null)
+    if (!cryptKey) 
+      throw new AppExc(1024, 'DbConnector : crypt key ', null)
+    this.key = Buffer.from(cryptKey, 'base64')
+    this.credentials = credentials
   }
 
-  async getConnexion (site: string, op: Operation) {
-    let key = null
-    if (this.cryptIds) {
-      const k = Operation.config.keys['sites'][site]
-      if (!k) throw new AppExc(1024, 'keys.site not found', null, [site])
-      key = Buffer.from(k, 'base64')
-    }
-    const cnx = this.factory(this, key)
+  async getConnexion (op: Operation) {
+    const cnx = this.factory(this)
     await cnx.connect()
     op.db = cnx
     return cnx
@@ -42,13 +25,13 @@ export class DbConnector {
 }
 
 export class DbProvider {
-  public opts: DbConnector
+  public connector: DbConnector
   public op: Operation
   public key: Buffer
 
-  constructor (opts: DbConnector, op: Operation, key: Buffer) {
-    this.opts = opts
-    this.key = key
+  constructor (connector: DbConnector, op: Operation) {
+    this.connector = connector
+    this.key = this.connector.key
     this.op = op
   }
 

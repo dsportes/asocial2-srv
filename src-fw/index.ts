@@ -1,4 +1,3 @@
-import { env } from 'process' 
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
@@ -14,16 +13,18 @@ import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
 import { register } from './operations'
 import { Util as MyUtil } from './util'
-import { Crypt, testECDH, testSH } from './crypt'
+import { testECDH, testSH } from './crypt'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
-import { StGeneric, StConnector } from './stConnector'
+import { IStGeneric } from './iStGeneric'
 
 export interface BaseConfig {
   PROD: boolean,
   GCLOUDLOGGING: boolean,
+
   SRVKEY: string, // passée par env var - Clé de décryptage de keys.ts (entre autre)
+  keys: Object,
   STORAGE_EMULATOR_HOST: string,
   FIRESTORE_EMULATOR_HOST: string,
 
@@ -38,44 +39,19 @@ export interface BaseConfig {
   https: boolean,
   origins: Set<string>, // new Set<string>(['http://localhost:8080']),
 
-  site: string, // 'A'
-  database: string, // 'sqla'
-  storage: string,  // 'fsa'
-  // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
-  srvUrl: string, // '' si défaut 'http://localhost:8080'
-  keys: Object,
+  // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
+  srvUrl: string,
+
+  dbConnector: DbConnector, 
+  storage: IStGeneric,
 
   firebase?: any,
   messaging?: any
 }
 
-let dbConnector: DbConnector
-let storage: StGeneric
-let app: express.Application
-let config: BaseConfig
-
-export function init (_config: BaseConfig, encryptedKeys: string) {
-  config = _config
+export function init (config: BaseConfig) {
   MyOperation.config = config
   new MyLog(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
-
-  // Chargement des "keys" cryptées dans config.keys
-  try {
-    if (config.SRVKEY) {
-      const key = Buffer.from(MyUtil.b64ToU8(config.SRVKEY))
-      const bin = Buffer.from(encryptedKeys, 'base64')
-      const x = Crypt.decrypt(key, bin).toString('utf-8')
-      config['keys'] = JSON.parse(x)
-    } else {
-      throw new AppExc(1012, 'env.SRVKeY NOT FOUND', null)
-    }
-  } catch (e) {
-    const m = './keys.bin or ./keys.json is NOT readable / decipherable: ' + e.toString()
-    throw new AppExc(1012, m, null)
-  }
-
-  if (!config.site || !config.keys['sites'][config.site])
-    throw new AppExc(1014, 'config.site not found or no key', null, [config.site || '?'])
 
   const nbOp = register()
   if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
@@ -85,11 +61,8 @@ export function init (_config: BaseConfig, encryptedKeys: string) {
 }
 
 export function getExpressApp (): express.Application {
-
-  dbConnector = config.database ? DbConnector.get(config.database) : null
-  storage =  config.storage ? StConnector.getStorage(config.storage, config.site) : null
-
-  app = express()
+  const config = MyOperation.config
+  const app = express()
   app.use(cors({}))
   app.use(express.json())
 
@@ -108,13 +81,13 @@ export function getExpressApp (): express.Application {
   })
 
   app.get('/file/:arg', async (req, res) => {
-    if (!storage) {
+    if (!config.storage) {
       res.status(404).send('File not found')
       return
     }
     try {
-      const [id1, id2, id3] = storage.decode3(req.params.arg)
-      const bytes = await storage.getFile(id1, id2, id3)
+      const [id1, id2, id3] = config.storage.decode3(req.params.arg)
+      const bytes = await config.storage.getFile(id1, id2, id3)
       if (bytes) res.status(200).type('application/octet-stream').send(bytes)
       else res.status(404).send('File not found')
     } catch (e) {
@@ -123,7 +96,7 @@ export function getExpressApp (): express.Application {
   })
 
   app.put('/file/:arg', async (req, res) => {
-    if (!storage) {
+    if (!config.GCLOUDLOGGING) {
       res.status(404).send('File not uploaded')
       return
     }
@@ -133,8 +106,8 @@ export function getExpressApp (): express.Application {
         bufs.push(chunk);
       }).on('end', async () => {
         const bytes = Buffer.concat(bufs)
-        const [id1, id2, id3] = storage.decode3(req.params.arg)
-        await storage.putFile(id1, id2, id3, bytes)
+        const [id1, id2, id3] = config.storage.decode3(req.params.arg)
+        await config.storage.putFile(id1, id2, id3, bytes)
         res.status(200).send('OK')
       })
     } catch (e) {
@@ -174,17 +147,18 @@ export function getExpressApp (): express.Application {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         body = Buffer.concat(chunks)
-        await doOp(storage, dbConnector, req, res, body)
+        await doOp(config.storage, config.dbConnector, req, res, body)
       })
     } else // Cloud functions
-      await doOp(storage, dbConnector, req, res, req['rawBody'])
+      await doOp(config.storage, config.dbConnector, req, res, req['rawBody'])
   })
   
   return app
 }
 
-export function startSRV () : Promise<void>{
+export function startSRV (app : any) : Promise<void>{
   return new Promise(async (resolve, reject) => {
+    const config = MyOperation.config
     let server : http.Server | https.Server
 
     if (config.debugLevel === 2)
@@ -218,17 +192,18 @@ export function startSRV () : Promise<void>{
 }
 
 export async function testDb () : Promise<void> {
+  const config = MyOperation.config
   await testECDH()
   // await testSH()
   const op = MyOperation.fake()
-  await dbConnector.getConnexion(config.site, op)
+  await config.dbConnector.getConnexion(op)
   {
     const [status, msg] = await op.db.ping()
     if (status === 0) MyLog.info(msg)
     else throw new AppExc(1012, 'PING SDatabase FAILED', null, [msg])
   }
   {
-    const [status, msg] = await storage.ping()
+    const [status, msg] = await config.storage.ping()
     if (status === 0) MyLog.info(msg)
     else throw new AppExc(1013, 'PING Storage FAILED: ', null, [msg])
   }
@@ -253,7 +228,7 @@ let today = 0
 let todayEpoch = 0
 
 export async function doOp (
-  storage: StGeneric, 
+  storage: IStGeneric, 
   dbConnector: DbConnector,
   req: express.Request, 
   res: express.Response, 
@@ -301,8 +276,8 @@ export async function doOp (
       MyLog.info(opName + ' started')
     op.init()
 
-    if (MyOperation.config.database)
-      await dbConnector.getConnexion(MyOperation.config.site, op)
+    if (dbConnector)
+      await dbConnector.getConnexion(op)
 
     await op.run()
     if (MyOperation.config.debugLevel === 2)
@@ -338,7 +313,7 @@ export async function adminAlert (
   const config = MyOperation.config
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
-  const s = '[' + config.site + '] '  
+  const s = '[' + config.srvUrl + '] '  
     + (op && op.org ? 'org:' + op.org + ' - ' : '') 
     + (op ? 'op:' + op.opName + ' - ' : '') 
     + subject

@@ -6,14 +6,15 @@ import { env, exit } from 'process'
 const gcp = false 
 
 import { encryptedKeys } from './keys'
-
+import { Util } from '../src-fw/util'
+import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, init, getExpressApp, startSRV, Log } from '../src-fw/index'
-
 import { register } from './operations'
 
-import { FsConnector } from '../src-fs'
-// import { SQLiteConnector} from '../src-sl'
-import { AppSQLiteConnector } from './dbSqlite'
+import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
+
+// import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
+import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
 
 const emulator = false
 if (emulator) {
@@ -21,11 +22,25 @@ if (emulator) {
   env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
 }
 
+const SRVKEY = env.SRVKEY || '1VufBG9nkdQr0wTIhAdhFo1kOWpMNHBxVhIOIspg2tI'
+
+let keys : any
+// Chargement des "keys" cryptées dans config.keys
+try {
+    const key = Buffer.from(Util.b64ToU8(SRVKEY))
+    const bin = Buffer.from(encryptedKeys, 'base64')
+    keys = JSON.parse(Crypt.decrypt(key, bin).toString('utf-8'))
+} catch (e) {
+  console.error('encryptedkeys : failed to decrypt', e.toString())
+  exit()
+}
+
 const config: BaseConfig = {
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
-  // SRVKEY: env.SRVKEY || '1NjTfoejVNYqWuMKd3NpufaJDT1HQsnlBhRtF9orfug=',
-  SRVKEY: env.SRVKEY || '1VufBG9nkdQr0wTIhAdhFo1kOWpMNHBxVhIOIspg2tI',
+
+  SRVKEY: SRVKEY,
+  keys: keys,
   STORAGE_EMULATOR_HOST: env['STORAGE_EMULATOR_HOST'] || '',
   FIRESTORE_EMULATOR_HOST: env['FIRESTORE_EMULATOR_HOST'] || '',
 
@@ -40,27 +55,25 @@ const config: BaseConfig = {
   https: false,
   origins: new Set<string>(/*['http://localhost:8080']*/),
 
-  site: 'A',
-  database: gcp ? null : 'sqla',
-  storage: gcp ? null : 'fsa',
-  // Uitlisé seulement par les storage: File-System et GC en mode EMULATOR
-  srvUrl: 'http://localhost:8080', // '' si défaut 'http://localhost:8080'
+  // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
+  srvUrl: 'http://localhost:8080',
 
-  keys: {}
+  // bucket, credentials, cryptKey
+  dbConnector: new AppSQLiteConnector(keys['sqlite_a'], keys['sites_A']),
+
+  // bucket, credentials
+  storage: new FilesystemStorage(keys['storage_a'])
 }
 
-init(config, encryptedKeys)
+init(config)
 const nbOp = register()
 if (config.debugLevel > 0)
   Log.debug(nbOp + ' App operations registered')
 
-const x0 = new FsConnector('fsa', 'filestorea', true, 'storageFS')
-const x1 = new AppSQLiteConnector('sqla', 'sqlite/testa.db3', false, 'sqlite')
-// const x2 = new SQLiteConnector('sqlb', 'sqlite/testb.db3', false, 'sqlite')
-
 export const asocialgcf = getExpressApp()
 
-if (!gcp) startSRV()
+// Commenter si appel en gloud functions
+if (!gcp) startSRV(asocialgcf)
 .then(() => {
   console.log('Server started')
 })

@@ -5,7 +5,7 @@ import { Util } from './util'
 import { Crypt } from './crypt'
 
 /*****************************************************
- * Ligne de commande: node src/crypKeys.ts "toto est tres tres beau"
+ * Ligne de commande: npx tsx src-fw/cryptKeys.ts -i ./keys.json -o src/keys.ts -p "toto est tres tres beau"
  * Transforme le fichier keys.json en un script keys.ts 
  * exportant l'objet keys.json crypté.
 */

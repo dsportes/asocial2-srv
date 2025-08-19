@@ -1,15 +1,17 @@
-import { Util } from './util'
-// @ts-ignore
 import { encode, decode } from '@msgpack/msgpack'
 import crypto from 'crypto'
-import { vector } from './vector'
-import { Operation } from './operation'
 
 const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
 const p2 = [1, 0, 0, 0, 0, 0]; for (let i = 1; i < 6; i++) p2[i] = p2[i - 1] * 256
+
+function u8ToB64 (u8: Uint8Array, url?: boolean) : string {
+  if (!u8) return ''
+  const s = Buffer.from(u8).toString('base64')
+  return !url ? s : s.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+}
 
 /* 
 AES-GCM
@@ -24,22 +26,6 @@ mais certaines implémentations forcent 128bits. De facto on n'échappe pas à c
 Réduire fictivement la taille de iv de 12 bytes, par exemple à 6 répétés 2 fois.
 Mais ça augmente le risque d'utiliser le même iv pour le même texte à crypter ce
 qui est considérer comme une faiblesse.
-
-cryptId et decryptId
-Le résultat crypté est le même pour une même valeur à l'entrée.
-On est tenté de l'utiliser pour crypter une ID clé d'accès à un contenu (en général persistent).
-Mais ça impose d'avoir un iv dérivé d'un hash de l'ID: le résultat crypté 
-est fragilisé par la présence en clair de quelques bytes du hash ce qui facilite
-la vie d'un hacker.
-L'utilisation de "vector" est discutable pour calculer le iv. Ca complique la 
-vie d'un hacker qui ne l'a pas. Est-ce déterminant ?
-Plus généralement c'est l'usage de cryptId qui est à considérer:
-- si c'est juste pour qu'une clé d'accès à des données ne fasse pas apparaître
-l'ID en clair mais qu'on n'utilise pas la valeur cryptée por retrouver l'ID d'origine,
-un hash fait mieux l'affaire.
-- dans quels cas aurait-on besoin de réobtenir l'ID d'origine depuis son cryptgae
-ET l'obligation d'avoir le même cryptage pour une même clé ?
-"vector.ts" est généré (une fois par serveur) par genVector.ts
 
 Cryptage asymétrique
 L'obtention d'une paire de clés publique / privée par ECDH aboutit toujours à 
@@ -193,7 +179,7 @@ export class Crypt {
       ['encrypt', 'decrypt']
     )
     const res = new Uint8Array(await crypto.subtle.exportKey('raw', key))
-    return Util.u8ToB64(res, true)
+    return u8ToB64(res, true)
   }
 
   /* Version sync avec node */
@@ -204,45 +190,15 @@ export class Crypt {
     // const h1 = new Uint8Array(await crypto.subtle.digest("SHA-256", encoder.encode(x)))
     const salt = h1.subarray(0, 16)
     const k = crypto.pbkdf2Sync(Buffer.from(x + '@@@' + y, 'utf-8'), salt, 20000, 32, 'sha256')
-    return Util.u8ToB64(k, true)
-  }
-
-  static cryptId (key: Buffer, id: string) : string {
-    const buf = encoder.encode(id)
-    const h1 = crypto.createHash('sha256').update(buf).digest()
-    const vx = h1.subarray(13, 16)
-    const v = []
-    for (let i = 0; i < 3; i++) v[i] = vector.subarray(vx[i], vx[i] + 4)
-    const iv = Buffer.concat(v)
-    const cipher = crypto.createCipheriv('aes-256-gcm', key, iv, { authTagLength: 16 })
-    const b1 = cipher.update(buf)
-    const b2 = cipher.final()
-    const authTag = cipher.getAuthTag()
-    // console.log('crypt authTag  ', authTag)
-    const res = Buffer.concat([iv, b1, b2, authTag])
-    return Util.u8ToB64(res, true)
-  }
-
-  static decryptId (key: Buffer, id64: string) : string {
-    const buf = Buffer.from(Util.b64ToU8(id64))
-    const iv = buf.subarray(0, 12)
-    const enc = buf.subarray(12, buf.byteLength - 16)
-    const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
-    const authTag = buf.subarray(buf.byteLength - 16)
-    // console.log('decrypt authTag ', Buffer.from(authTag).toString('hex'))
-    decipher.setAuthTag(authTag)
-    const b1 = decipher.update(Buffer.from(enc))
-    const b2 = decipher.final()
-    const x = Buffer.concat([b1, b2])
-    return x.toString('utf8')
+    return u8ToB64(k, true)
   }
 
   static sha32 (x: any) {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().toString('base64url')
   }
 
-  static sha12 (x: any) {
-    return crypto.createHash('sha256').update(Buffer.from(x)).digest().subarray(3, 15).toString('base64url')
+  static sha16 (x: any) {
+    return crypto.createHash('sha256').update(Buffer.from(x)).digest().subarray(3, 18).toString('base64url')
   }
 
   static shaInt (x: any) {
@@ -257,19 +213,8 @@ export async function testSH () {
   /*
   console.log(await Crypt.strongHash('pierre', 'legrand'))
   console.log( Crypt.syncStrongHash('pierre', 'legrand'))
-  const key = Buffer.from(Util.b64ToU8(Operation.config.SRVKEY))
-  const c1 = Crypt.cryptId(key, 'iddetoto')
-  console.log('crypted id: ', c1)
-  const id = Crypt.decryptId(key, c1)
-  console.log('decrypted id: ', id)
-
-  const c2 = Crypt.cryptId(key, 'iddetoto')
-  console.log('crypted id: ', c2)
-  const id2 = Crypt.decryptId(key, c2)
-  console.log('decrypted id: ', id2)
-
   console.log(Crypt.sha32(x))
-  console.log(Crypt.sha12(x))
+  console.log(Crypt.sha16(x))
   console.log(Crypt.shaInt(x))
   */
   const t = Date.now()
@@ -285,7 +230,7 @@ export async function testECDH () {
   // Dans app
   const appPair = await Crypt.getKeyPair()
   const appPub = appPair[0]
-  console.log(Util.u8ToB64(appPub), Util.u8ToB64(appPair[1]))
+  console.log(u8ToB64(appPub), u8ToB64(appPair[1]))
 
   const appSVPair = await Crypt.getSVKeyPair()
   const appSVPub = appSVPair[0]
@@ -299,18 +244,18 @@ export async function testECDH () {
 
   const srvPair = await Crypt.getKeyPair()
   const srvPub = srvPair[0]
-  console.log(Util.u8ToB64(srvPub), Util.u8ToB64(srvPair[1]))
+  console.log(u8ToB64(srvPub), u8ToB64(srvPair[1]))
 
   const aesSrv = await Crypt.getAESKey(appPub, srvPair[1])
-  console.log('aesSrv: ', Util.u8ToB64(aesSrv))
+  console.log('aesSrv: ', u8ToB64(aesSrv))
   const aesSrv2 = await Crypt.getAESKey(appPub, srvPair[1])
-  console.log('aesSrv again: ', Util.u8ToB64(aesSrv2))
+  console.log('aesSrv again: ', u8ToB64(aesSrv2))
   const x1 = await Crypt.crypterSrv(aesSrv, encoder.encode('toto est tres beau'))
   const x1b = Crypt.crypt(Buffer.from(aesSrv), Buffer.from(encoder.encode('toto est tres beau')))
 
   // Dans app
   const aesApp = await Crypt.getAESKey(srvPub, appPair[1])
-  console.log('aesApp: ', Util.u8ToB64(aesApp))
+  console.log('aesApp: ', u8ToB64(aesApp))
   const x3 = await Crypt.decrypterSrv(aesApp, x1)
   console.log('x3:', decoder.decode(x3))
   const x4 = Crypt.decrypt(Buffer.from(aesApp), Buffer.from(x1b))

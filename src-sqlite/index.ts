@@ -3,27 +3,29 @@ import { existsSync } from 'node:fs'
 // import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
-import { DbConnector, DbProvider, DbGeneric } from '../src-fw/dbConnector'
+import { DbConnector, DbProvider } from '../src-fw/dbConnector'
+import { IDbGeneric } from '../src-fw/iDbGeneric'
 import { Operation, AppExc, Log } from '../src-fw/index'
 
 export class SQLiteConnector extends DbConnector {
   public path: string
 
-  constructor (code: string, dbpath: string, cryptIds: boolean, credentials: string) {
-    super(code, cryptIds, credentials)
-    if (!dbpath)
-      throw new AppExc(1030, 'SQLite path absent', null, [code])
-    this.path = path.resolve(dbpath)
+  constructor (credentials: string, cryptKey: string) {
+    super(credentials, cryptKey)
+    const path = credentials['path']
+    if (!path)
+      throw new AppExc(1030, 'SQLite path absent', null)
+    this.path = path.resolve(path)
     if (!existsSync(this.path))
-      throw new AppExc(1020, 'SQLite path not found', null, [code, this.path])
-    Log.info('SQLite ' + code + ' DB path= [' + this.path + ']')
+      throw new AppExc(1020, 'SQLite path not found', null, [this.path])
+    Log.info('SQLite ' + ' DB path= [' + this.path + ']')
     this.factory = SQLiteProvider.newProvider
   }
 }
 
-export class SQLiteProvider extends DbProvider implements DbGeneric {
-  public static newProvider (opts: SQLiteConnector, op: Operation, key: Buffer) {
-    return new SQLiteProvider(opts, op, key)
+export class SQLiteProvider extends DbProvider implements IDbGeneric {
+  public static newProvider (connector: SQLiteConnector, op: Operation) {
+    return new SQLiteProvider(connector, op)
   }
 
   public path: string
@@ -31,9 +33,9 @@ export class SQLiteProvider extends DbProvider implements DbGeneric {
   public cachestmt: Object
   public sql: any
   
-  constructor (opts: SQLiteConnector, op: Operation, key: Buffer) {
-    super(opts, op, key)
-    this.path = opts.path
+  constructor (connector: SQLiteConnector, op: Operation) {
+    super(connector, op)
+    this.path = connector.path
     this.lastSql = []
     this.cachestmt = { }
   }

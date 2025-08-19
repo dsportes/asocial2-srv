@@ -1,6 +1,6 @@
 import { AppExc, BaseConfig } from './index'
-import { DbGeneric } from './dbConnector'
-import { StGeneric } from './stConnector'
+import { IDbGeneric } from './iDbGeneric'
+import { IStGeneric } from './iStGeneric'
 import { Util } from './util'
 
 export class Operation {
@@ -32,8 +32,8 @@ export class Operation {
   public params: any
   public now: number
   public today: number
-  public db: DbGeneric
-  public storage: StGeneric
+  public db: IDbGeneric
+  public storage: IStGeneric
 
   constructor (fake?: boolean) { this.fake = fake || false }
 
