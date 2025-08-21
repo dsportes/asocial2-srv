@@ -225,36 +225,18 @@ listOrgsIdx(p1, comp, val, fn?) : dataSer[] - T
 - val : valeur de comparaison (string, number).
 - fn
 
-## Accès _fil_
-
-listDThreads(org, cl, v?, fn?) : dataSer[]
-- org : code de l'organisation.
-- cl : classe du _fil_.
-- v : ne retourne que les data de version postérieure à v si v est présent et non 0.
-- fn
-
-getDThread(org, cl, pk, v?) : dataSer
-- org : code de l'organisation.
-- cl : classe du _fil_.
-- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
-
-setDThread(data) - T
-- insère (s'il vient d'être créé) ou met à jour le document du _fil_ représenté par son data.
-
-insertDThread(data) - I
-- insère le document du _fil_ dans le cadre d'un import.
-
 ## Accès _document_
 
-listDocs(org, cl, v?, fn?)
+listDocs(org, cl, v?, fn?) : dataSer[]
 - org : code de l'organisation.
-- cl : classe du document.
+- cl : classe du document / fil ou `Task`.
 - v : ne retourne que les data de version postérieure à v si v est présent et non 0.
 - fn
 
 getDoc(org, cl, pk, v?)
 - org : code de l'organisation.
 - cl : classe du _document_.
+- pk : base64 du sha16 de l'encodage de pk.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 
 setDoc(data)
@@ -262,6 +244,10 @@ setDoc(data)
 
 insertDoc(data) - I
 - insère le document représenté par son data.
+
+## Accès _fil_
+
+Méthodes de l'accès document où `cl` est la classe du fil.
 
 ## Sélection des documents par clés secondaires
 
@@ -290,15 +276,15 @@ purgeOrg(org, z) - A/I
 - org : code de l'organisation
 - z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
 
-purgeDoc(org, cl, pk) - A ?????????????
+purgeDoc(org, cl, pk) - A
 - org : code de l'organisation.
-- cl : classe du document ou du _fil_.
+- cl : classe du document / fil / `Task`.
 - pk : clé primaire du document.
 
 purgeDocs(org, cl, z) - A/I
 - org : code de l'organisation.
-- cl : classe du document ou du _fil_.
-- z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
+- cl : classe du document / fil / `Task`.
+- z : si présente et non 0, ne purge que les documents dont le `z` est antérieure (administration) sinon import hors transaction.
 
 purgeZombis() - A
 
@@ -320,10 +306,41 @@ Le `path` d'un fichier d'une organisation en storage est de la forme `folderId/f
 - ses propriétés sont `org, path, p`. La clé primaire est `org, path`.
 
 setFTP(org, path, p)
+- inscription d'un nouveau _path à purger_
 
 purgeFTP(org, path)
+- purge d'un _path à purger_
 
-purgeAllFTP(org, p)
+listeFTP(p, fn)
+- liste les _paths à purger_ de date inférieure àu égale à p.
+- fn : cette fonction reçoit en argument (org, path, p) pour chaque path répondant à la sélection. 
+
+purgeAllFTP(p)
 - si p est absent ou 0, purge sans tenir compte de la date de purge, sinon uniquement ceux de date antérieure.
 
 ## Gestion des tâches
+Une tâche différée est représentée par une instance d'une classe héritant de `Task` (héritant de Document) ayant les propriétés suivantes:
+- `_class` : `Task`.
+- `_org` : code l'organisation.
+- `v`: date-heure de création.
+- `pk` : cible du traitement, array donnant la classe du traitement à exécuter et les identifiants de la cible du traitement.
+- `nb`: une tâche peut être _itérative_ pour épuiser une liste. nb est le nombre d'itérations restant à effectuées.
+- `exc`: code de l'exception rencontrée lors du dernier traitement.
+- `endTime`: date-heure de fin.
+
+Le traitement à exécuter est spécifique de chaque sous-classe de `Task` (premier terme de `pk`).
+
+**NOSQL**
+- le path d'une tâche est `Orgs/org/Task/pk`
+  - `org` : code de l'organisation.
+  - `pk`: encodage en base64 du sha16 de la sérialisation de la propriété `pk` de l'objet.
+- `pk v data`: comme pour un document (il n'y a jamais de `z`). 
+
+**SQL**
+- table portant le nom `Task`.
+- colonnes: `org, pk, v, data`
+
+**Méthode spécifique**
+
+nextTask(time) : dataSer
+- retourne le _data_ de la tâche de plus petit v supérieure à time.

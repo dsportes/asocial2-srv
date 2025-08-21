@@ -44,7 +44,7 @@ En pratique la clé privée n'est JAMAIS dans un serveur:
 - la vérification est toujours côté serveur.
 */
 export class Crypt {
-  /*
+  /* NODE
   cipher ne met PAS le authTag dans le buffer encodé
   MAIS le délivre à part.
   Il est explicitement ajouté à la fin du buffer pour 
@@ -60,7 +60,7 @@ export class Crypt {
     return Buffer.concat([iv, b1, b2, authTag])
   }
   
-  /*
+  /* NODE
   Le authTag se trouve dans les 16 derniers bytes.
   On l'extrait et on decipher le texte SANS le authTag
   MAIS en lui donnant explicitement par setAuthTag
@@ -81,7 +81,7 @@ export class Crypt {
   static ecdsa = { name: 'ECDSA', namedCurve: 'P-521' }
   static ecdsaSV = { name: 'ECDSA', hash: 'SHA-256' }
 
-  /* 
+  /* CRYPTO.SUBTLE
   Le authTag est généré sans laisser le choix 
   ET placé d'office DANS les 16 derniers bytes de enc
   */
@@ -100,7 +100,7 @@ export class Crypt {
     }
   }
 
-  /*
+  /* CRYPTO.SUBTLE
   On peut retrouver le authTag mis par l'encryption dans les 16 derniers bytes.
   */
   static async decrypterSrv (cle: Uint8Array, buf: Uint8Array) : Promise<Uint8Array> {
@@ -210,13 +210,16 @@ export class Crypt {
 
 export async function testSH () {
   const x = 'toto est tres tres beau'
-  /*
+  console.log(Crypt.sha32(x))
+  console.log(Crypt.sha16(x))
+  console.log(Crypt.shaInt(x))
+  
   console.log(await Crypt.strongHash('pierre', 'legrand'))
   console.log( Crypt.syncStrongHash('pierre', 'legrand'))
   console.log(Crypt.sha32(x))
   console.log(Crypt.sha16(x))
   console.log(Crypt.shaInt(x))
-  */
+  
   const t = Date.now()
   for (let i= 0; i< 100000; i++) Crypt.sha32(x)
   const n = Date.now() - t
