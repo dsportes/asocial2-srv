@@ -1,5 +1,5 @@
 # Document : row / data / classe
-## Classes spéciales `Hdr Org`
+## Classes spéciales `Hdr Org Ftp`
 `Hdr` est une class singleton représentant l'état global du _service_:
 - elle ne peut être mise à jour que par une opération de niveau _administration_.
 - sa _clé primaire_ par convention vaut '1'.
@@ -101,18 +101,48 @@ L'export / import peut ne concerner qu'une classe de document avec les objectifs
 
 ## Fils de document: classe `DThread` (héritant de `Document`)
 Vis à vis du stockage en base de données, ces documents ayant certaines restrictions:
-- ils ont une clé primaire `pk` mais aucune clés secondaires ni propriétés indexées.
+- ils ont une clé primaire `pk` mais aucune clé secondaire ni propriété indexée.
 - le nom de la table (SQL) ou classe de document (NOSQL) support n'est PAS `DThread` mais le nom `DT...` figurant dans l'objet / data.
 
 Chaque instance représente un _fil de documents_.
 
-**Propriété d'un fil:**
+#### Propriété d'un fil
 - `_class`: c'est le nom de la classe du **Fil** commençant arbitrairement par `DT`. 
 - `pk` : c'est un array de strings donnant la clé primaire du fil.
-- `versions` est une map avec une entrée pour chaque classe de document donnant le dernier numéro de version, soit _du_ document si c'est un singleton, soit du document de la collection _le plus récemment mis à jour_.
-- `cleandate` : c'est la date du dernier nettoyage des suppressions.
+- `v` : version du fil.
+- `z` : jour de suppression du fil.
+- `versions` est une map avec une entrée pour chaque classe de document donnant `[nb, vmax]`,
+  - `nb`: le nombre de documents **existants** (non _zombi_),
+  - `vmax`: le numéro de version du document de la collection _le plus récemment créé / mis à jour / supprimé_ .
 
 La classe `DThread` est _finale_ (pas de sous-classe).
+
+#### Règles de gestion
+Un fil est créé par la création du premier document devant y être attaché de par sa classe et ses propriétés de sa clé secondaire correspondant au fil.
+- il est ensuite mis à jour à chaque création / mise à jour / suppression d'un document lui étant rattaché ou devant lui être rattaché (en cas de création).
+- il devient _zombi_ quand le nombre total de documents _existant_ rattachés est nul. Il sera _purgé_ quelques mois plus tard (si non recréé d'ici là) quand sa synchronisation incrémentale sera transformée en synchronisation intégrale
+
+A la création / mise à jour / suppression d'un document de classe C, récupération des fils auxquels le document est attaché. 
+- La nouvelle `v` du document est calculée comme le maximum des `v` des fils trouvés + 1.
+
+**Création** : pour chaque fil auquel le document doit être attaché:
+- s'il n'existe pas, créer le fil avec,
+  - l'élément `versions.C` mis à `[1, v]`
+  - les autres éléments `versions.x` sont initialisés à `[0, 0]`
+  - si le fil avait une propriété `z`, elle est supprimée (cas de _renaissance_ d'un fil qui était _zombi_).
+- s'il existe dans l'élément `versions.C`, le nombre de documents est incrémenté et la version est mise à `v`.
+- la nouvelle `v` du fil est mis à la nouvelle `v` du document.
+
+**Mise à jour** : pour chaque fil auquel le document est attaché:
+- dans l'élément `versions.C` le nombre de documents `nb` est inchangé et la version `vmax` est mise à `v`.
+- la nouvelle `v` du fil est mis à la nouvelle `v` du document.
+
+**Suppression** : pour chaque fil auquel le document est attaché:
+- dans l'élément `versions.C`,
+  - si le nombre de documents `nb` est > 1, il est décrémenté de 1 et la version `vmax` est mise à `v`.
+  - sinon l'élément est mis `[0, 0]`
+- la nouvelle `v` du fil est mis à la nouvelle `v` du document.
+- si tous les éléments de `versions.X` ont un nombre de documents `nb` à 0, le fil devient _zombi_: sa propriété `z` est mis à la date du jour.
 
 # Provider _Firestore_
 ## Paths
@@ -124,9 +154,9 @@ Le path des autres classes, par exemple `Avatar`, sont `Org/demo/Avatar/kYc..`, 
 - `demo` est l'organisation,
 - `kYc...` est le `pk` de l'avatar.
 
-Pour un _fil de documents_ `fil1` le path est `Org/demo/DTfil1/kYc..`.
+Pour un _fil de documents_ `Fil1` le path est `Org/demo/$Fil1/kYc..`.
 
-**Toutes** les propriétés des _rows_ sauf `data` sont normalement indexées, toutefois les propriétés indexées marquées `G` doivent être déclarées :
+**Toutes** les propriétés des _rows_ sauf `data` sont indexées basiquement, toutefois les propriétés indexées marquées `G` doivent être déclarées :
 
     "queryScope": "COLLECTION_GROUP"
     (au lieu de "COLLECTION" pour les autres)
@@ -155,12 +185,15 @@ Chaque classe de _document_ et de _fil_ doit avoir une déclaration spécifique 
 # API d'accès primaire générique
 Chaque fonction peut être invoquée ou non au sein d'une transaction:
 - T : _toujours_ dans une transaction,
-- !T : _jamais_ dans une transaction,
+- E : utilisé exclusivement en export, _jamais_ dans une transaction,
+- I : utilisé exclusivement en import, _jamais_ dans une transaction,
 - sinon accepte les deux cas.
 
 Les fonctions A exigent une transaction en mode _administration_.
 
 `dataSer` : binaire d'un _data_ sérialisé (désérialisable par `decode()`)
+
+Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fonction fn anonyme qui reçoit en argument chaque _data_ et la traite. Cette facilité permet d'éviter d'accumuler des listes longues quand la _data_ peut être transformée / traitée une par une.
 
 ## Accès `Hdr`
 
@@ -174,39 +207,41 @@ setHdr(data) - A
 
 listOrgs(v?, fn?) : dataSer[] - A
 - v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
-- fn : si elle est donnée, fn est une fonction qui reçoit en argument chaque data et la traite plutôt que d'accumuler les data dans l'array résultat.
+- fn
 
 getOrg(org, v) : dataSer
+- org : code l'organisation.
 - v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
 
-setOrg(data)
-- insère (s'il vient d'être créé) ou met à jour le document de l'organisation représenté par son data.
+setOrg(data) - T
+- insère s'il vient d'être créé sinon met à jour le document de l'organisation représenté par son data.
 
-insertOrg(data) - !TA (import seulement)
-- insère le document de l'organisation dans le cadre d'un import.
+insertOrg(data) - I
+- force l'insertion du document de l'organisation représenté par son data.
 
 listOrgsIdx(p1, comp, val, fn?) : dataSer[] - T
-- p1 : nom de propriété du row indexée. Si le type de p1 est hash, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
-- comp : comparateur LT LE EQ GE GT IN. Les opérateurs ne sont pas tous autorisés en fonction du type de p1 (hash: EQ, list: IN).
+- p1 : nom de propriété du row indexée. Si le type de p1 est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
+- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs n'étant pas tous autorisés en fonction du type de p1, comp est forcé dans les cas suivants: `hash: EQ`, `list: IN`
 - val : valeur de comparaison (string, number).
+- fn
 
 ## Accès _fil_
 
-listDThreads(org, cl, v?, fn?) : dataSer[] 
+listDThreads(org, cl, v?, fn?) : dataSer[]
 - org : code de l'organisation.
 - cl : classe du _fil_.
 - v : ne retourne que les data de version postérieure à v si v est présent et non 0.
 - fn
 
-getDThread(org, cl, pk, v) : dataSer
+getDThread(org, cl, pk, v?) : dataSer
 - org : code de l'organisation.
 - cl : classe du _fil_.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 
-setDThread(data)
+setDThread(data) - T
 - insère (s'il vient d'être créé) ou met à jour le document du _fil_ représenté par son data.
 
-insertDThread(data) - !TA (import seulement)
+insertDThread(data) - I
 - insère le document du _fil_ dans le cadre d'un import.
 
 ## Accès _document_
@@ -217,7 +252,7 @@ listDocs(org, cl, v?, fn?)
 - v : ne retourne que les data de version postérieure à v si v est présent et non 0.
 - fn
 
-getDoc(org, cl, pk, v)
+getDoc(org, cl, pk, v?)
 - org : code de l'organisation.
 - cl : classe du _document_.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
@@ -225,43 +260,70 @@ getDoc(org, cl, pk, v)
 setDoc(data)
 - insère (s'il vient d'être créé) ou met à jour le document représenté par son data.
 
-insertDoc(data) - !TA (import seulement)
-- insère le document dans le cadre d'un import.
+insertDoc(data) - I
+- insère le document représenté par son data.
 
 ## Sélection des documents par clés secondaires
 
-listDocsSk(org, cl, sk, val, fn?)
+listDocsSk(org, cl, sk, val, v?, fn?) - T
 - org : code de l'organisation
 - cl : classe du document.
 - sk : code de la clé secondaire à utiliser.
 - val : valeur de filtre de cette clé. string représentant son hash.
+- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 - fn
 
 ## Sélection des documents par propriétés indexées
 
-listDocsIdx(org, cl, p1, comp, val, fn?)
+listDocsIdx(org, cl, p1, comp, val, v?, fn?)
 - org : code de l'organisation
 - cl : classe du document.
 - p1 : code de la propriété de filtrage à utiliser.
 - comp : comparateur LT LE EQ GE GT IN. Les opérateurs ne sont pas tous autorisés en fonction du type de p1 (hash: EQ, list: IN).
 - val : valeur de comparaison (string, number).
+- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
+- fn
 
 ## Purges
 
-purgeOrg(org) - !T
+purgeOrg(org, z) - A/I
 - org : code de l'organisation
+- z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
 
-purgeDoc(org, cl, pk) 
+purgeDoc(org, cl, pk) - A ?????????????
 - org : code de l'organisation.
 - cl : classe du document ou du _fil_.
 - pk : clé primaire du document.
 
-purgeDocs(org, cl) - !T
+purgeDocs(org, cl, z) - A/I
 - org : code de l'organisation.
 - cl : classe du document ou du _fil_.
+- z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
 
 purgeZombis() - A
 
-## _storage paths_ en sursis
+# Autres _tables_ / _Classes de documents_
 
-## TODO : toDelete task
+## Fichiers à purger
+Des fichiers stockés en _storage_ peuvent être marqués _à purger_ jusqu'à un jour donné: au delà de ce jour, ils peuvent être purgés du storage.
+
+Le `path` d'un fichier d'une organisation en storage est de la forme `folderId/fid` :
+- `folderId` est facultatif et son string peut contenir des /.
+- `fid` est un string totalement identifiant en lui-même.
+
+**NOSQL**
+- le path d'un document est `Orgs/org/FTP/path`
+- sa propriété unique (et indexée) est `p`, date du jour de purge.
+
+**SQL**
+- la table a pour nom FTP.
+- ses propriétés sont `org, path, p`. La clé primaire est `org, path`.
+
+setFTP(org, path, p)
+
+purgeFTP(org, path)
+
+purgeAllFTP(org, p)
+- si p est absent ou 0, purge sans tenir compte de la date de purge, sinon uniquement ceux de date antérieure.
+
+## Gestion des tâches
