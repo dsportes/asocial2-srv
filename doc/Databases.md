@@ -15,7 +15,7 @@ _data_ est un objet ayant toujours les propriétés suivantes:
   - certaines sélections pour les tâches d'administration peuvent retourner des documents issus de plusieurs organisations: on retrouve ainsi l'organisation de chaque document.
   - normalement aucun traitement applicatif pur (sauf administration) n'a à traiter l'organisation d'un document.
 - `_v` : entier. Numéro de version. Pour un objet créé et jamais inséré _v vaut 0 ce qui permet de savoir en SQL s'il faut effectuer un insert ou un update.
-- `_zombi` : entier. Numéro de jour sous la forme 20250820 de suppression logique du document. Si absent le document existe.
+- `_z` : entier. Numéro de jour sous la forme 20250820 de suppression logique du document. Si absent le document existe.
 - `gr ac livr ...` : propriétés string de la _clé primaire_ du document.
   - remarque: les _clés secondaires_ sont aussi composées exclusivement de celles-ci. 
 
@@ -47,22 +47,22 @@ Ces méthodes d'instances de documents retourne l'objet data depuis une instance
 C'est un objet représentant le document stocké en DB.
 
 Ses propriétés systématiques sont:
-- `pk` : string. clé primaire.
-  - pour les documents de classe `Org`, `pk` est le code de l'organisation.
-  - pour les documents de classe `Hdr` qui sont des singletons, `pk` est absent.
-  - pour les autres classes, `pk` est l'encodage en base 64 URL du sha16 de la sérialisation de l'array `[gr, ac, livr, ...]` propriétés formant la clé primaire.
+- `k0` : string. clé primaire.
+  - pour les documents de classe `Org`, `k0` est le code de l'organisation.
+  - pour les documents de classe `Hdr` qui sont des singletons, `k0` est absent.
+  - pour les autres classes, `k0` est l'encodage en base 64 URL du sha16 de la sérialisation de l'array `[gr, ac, livr, ...]` propriétés formant la clé primaire.
 - `v` : entier. version du document.
 - `z` : entier ou absent. Valeur de zombi pour un document supprimé.
 - `data` : binaire, jamais indexée. Sérialisation cryptée du _data_ du document.
 
 Ses autres propriétés sont indexées.
 
-### Clé secondaires: sk1 sk2 sk3 ...
+### Clé secondaires: k1 k2 k3 ...
 Il peut ne pas y en avoir.
 
 Ce sont des strings. Si la clé secondaire #2 est formée des propriétés `gr, livr` `sk2` est l'encodage en base 64 URL du sha16 de la sérialisation de l'array `[gr, livr]`.
 
-### Propriétés indexées: i1 i2 i3 ...
+### Propriétés indexées: i0 i1 i2 ...
 - Il peut ne pas y en avoir.
 - Chacune correspond à UNE propriété applicative.
 - Chacun peut être déclarée G / O:
@@ -101,14 +101,14 @@ L'export / import peut ne concerner qu'une classe de document avec les objectifs
 
 ## Fils de document: classe `DThread` (héritant de `Document`)
 Vis à vis du stockage en base de données, ces documents ayant certaines restrictions:
-- ils ont une clé primaire `pk` mais aucune clé secondaire ni propriété indexée.
-- le nom de la table (SQL) ou classe de document (NOSQL) support n'est PAS `DThread` mais le nom `DT...` figurant dans l'objet / data.
+- ils ont une clé primaire `k0` mais aucune clé secondaire ni propriété indexée.
+- le nom de la table (SQL) ou classe de document (NOSQL) support n'est PAS `DThread` mais la propriété `_class` nom figurant dans l'objet / data.
 
 Chaque instance représente un _fil de documents_.
 
 #### Propriété d'un fil
 - `_class`: c'est le nom de la classe du **Fil** commençant arbitrairement par `DT`. 
-- `pk` : c'est un array de strings donnant la clé primaire du fil.
+- `k0` : c'est un array de strings donnant la clé primaire du fil.
 - `v` : version du fil.
 - `z` : jour de suppression du fil.
 - `versions` est une map avec une entrée pour chaque classe de document donnant `[nb, vmax]`,
@@ -152,9 +152,9 @@ Le path d'un document `Org` est `Org/demo`.
 
 Le path des autres classes, par exemple `Avatar`, sont `Org/demo/Avatar/kYc..`, des sous-documents de l'organisation.
 - `demo` est l'organisation,
-- `kYc...` est le `pk` de l'avatar.
+- `kYc...` est le `k0` de l'avatar.
 
-Pour un _fil de documents_ `Fil1` le path est `Org/demo/$Fil1/kYc..`.
+Pour un _fil de documents_ `Fil1` le path est `Org/demo/Fil1/kYc..`.
 
 **Toutes** les propriétés des _rows_ sauf `data` sont indexées basiquement, toutefois les propriétés indexées marquées `G` doivent être déclarées :
 
@@ -163,7 +163,7 @@ Pour un _fil de documents_ `Fil1` le path est `Org/demo/$Fil1/kYc..`.
 
 C'est aussi le cas pour la propriété `z` pour pouvoir _purger_ les vieux zombis.
 
-Chaque classe de _document_ et de _fil_ doit avoir une déclaration spécifique qui permette de la filtrer sur son égalité de `pk` ET sa version avec `>`:
+Chaque classe de _document_ (sauf `Hdr Task`) et de _fil_ doit avoir une déclaration spécifique qui permette de la filtrer sur son égalité de `k0` ET sa version avec `>`:
 
     {
     "indexes": [
@@ -172,7 +172,7 @@ Chaque classe de _document_ et de _fil_ doit avoir une déclaration spécifique 
         "queryScope": "COLLECTION",
         "fields": [
           {
-            "fieldPath": "pk",
+            "fieldPath": "k0",
             "order": "ASCENDING"
           },
           {
@@ -219,8 +219,8 @@ setOrg(data) - T
 insertOrg(data) - I
 - force l'insertion du document de l'organisation représenté par son data.
 
-listOrgsIdx(p1, comp, val, fn?) : dataSer[] - T
-- p1 : nom de propriété du row indexée. Si le type de p1 est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
+listOrgsIdx(idx, comp, val, fn?) : dataSer[] - T
+- idx : index 0..N de la propriété du row indexée. Si le type de cet index est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
 - comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs n'étant pas tous autorisés en fonction du type de p1, comp est forcé dans les cas suivants: `hash: EQ`, `list: IN`
 - val : valeur de comparaison (string, number).
 - fn
@@ -236,13 +236,13 @@ listDocs(org, cl, v?, fn?) : dataSer[]
 getDoc(org, cl, pk, v?)
 - org : code de l'organisation.
 - cl : classe du _document_.
-- pk : base64 du sha16 de l'encodage de pk.
+- pk : base64 du sha16 de l'encodage de la clé primaire.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 
-setDoc(data)
-- insère (s'il vient d'être créé) ou met à jour le document représenté par son data.
+setDoc(row)
+- insère (s'il vient d'être créé) ou met à jour le document représenté par son row obtenu depuis son data.
 
-insertDoc(data) - I
+insertDoc(row) - I
 - insère le document représenté par son data.
 
 ## Accès _fil_
@@ -251,21 +251,21 @@ Méthodes de l'accès document où `cl` est la classe du fil.
 
 ## Sélection des documents par clés secondaires
 
-listDocsSk(org, cl, sk, val, v?, fn?) - T
+listDocsSk(org, cl, ik, val, v?, fn?) - T
 - org : code de l'organisation
 - cl : classe du document.
-- sk : code de la clé secondaire à utiliser.
+- ik : index 1..N de la clé secondaire à utiliser.
 - val : valeur de filtre de cette clé. string représentant son hash.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 - fn
 
 ## Sélection des documents par propriétés indexées
 
-listDocsIdx(org, cl, p1, comp, val, v?, fn?)
+listDocsIdx(org, cl, ix, comp, val, v?, fn?)
 - org : code de l'organisation
 - cl : classe du document.
-- p1 : code de la propriété de filtrage à utiliser.
-- comp : comparateur LT LE EQ GE GT IN. Les opérateurs ne sont pas tous autorisés en fonction du type de p1 (hash: EQ, list: IN).
+- ix : index 0..N de la propriété de filtrage à utiliser.
+- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs ne sont pas tous autorisés en fonction du type de ix (hash: EQ, list: IN).
 - val : valeur de comparaison (string, number).
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 - fn
@@ -322,23 +322,25 @@ purgeAllFTP(p)
 Une tâche différée est représentée par une instance d'une classe héritant de `Task` (héritant de Document) ayant les propriétés suivantes:
 - `_class` : `Task`.
 - `_org` : code l'organisation.
-- `v`: date-heure de création.
-- `pk` : cible du traitement, array donnant la classe du traitement à exécuter et les identifiants de la cible du traitement.
+- `starTime`: date-heure de création. Cette propriété est l'index 0 (`i0` du row), de type string / global. 
+- `process` : classe de traitement de la tâche (sous-classe de `Task`).
+- `pk` : array des identifiants de la cible du traitement.
 - `nb`: une tâche peut être _itérative_ pour épuiser une liste. nb est le nombre d'itérations restant à effectuées.
 - `exc`: code de l'exception rencontrée lors du dernier traitement.
 - `endTime`: date-heure de fin.
 
-Le traitement à exécuter est spécifique de chaque sous-classe de `Task` (premier terme de `pk`).
+La propriété `k0` du row correspondant est le base64 du sha16 de l'array `processPk`.
+
+`'startTime endTime`' ont une forme string `AAAAMMJJhhmmssmmm` ce qui les rend comprables par relation d'ordre et plus lisible.
 
 **NOSQL**
 - le path d'une tâche est `Orgs/org/Task/pk`
-  - `org` : code de l'organisation.
-  - `pk`: encodage en base64 du sha16 de la sérialisation de la propriété `pk` de l'objet.
-- `pk v data`: comme pour un document (il n'y a jamais de `z`). 
+- les propriétés sont `org k0, i0, data`.
+- il n'y a ni `v` ni `z`. 
 
 **SQL**
 - table portant le nom `Task`.
-- colonnes: `org, pk, v, data`
+- colonnes: `org, k0, i0, data`
 
 **Méthode spécifique**
 

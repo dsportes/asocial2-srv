@@ -11,7 +11,7 @@ import { Util } from '../../src-fw/util'
 import { Crypt } from '../../src-fw/crypt'
 
 import { BaseConfig, init, getExpressApp, startSRV, Log } from '../../src-fw/index'
-
+import { docSchema } from '../../src/docschema'
 import { register } from '../../src/operations'
 
 import { FilesystemStorage } from '../../src-filesystem' // pas d'extension spécifique de App
@@ -32,7 +32,7 @@ let keys : any
 try {
     const key = Buffer.from(Util.b64ToU8(SRVKEY))
     const bin = Buffer.from(encryptedKeys, 'base64')
-    const x = Crypt.decrypt(key, bin).toString('utf-8')
+    const x = Crypt.syncDecrypt(key, bin).toString('utf-8')
     keys = JSON.parse(x)
 } catch (e) {
   console.error('encryptedkeys : failed to decrypt', e.toString())
@@ -62,11 +62,13 @@ const config: BaseConfig = {
   // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
   srvUrl: 'http://localhost:8080',
 
-  // bucket, credentials, cryptKey
+  // credentials, cryptKey
   dbConnector: new AppSQLiteConnector(keys['sqlite_a'], keys['sites_A']),
 
-  // bucket, credentials
-  storage: new FilesystemStorage(keys['storage_a'])
+  // credentials
+  storage: new FilesystemStorage(keys['storage_a']),
+
+  docSchema: docSchema
 }
 
 init(config)

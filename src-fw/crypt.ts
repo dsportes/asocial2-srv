@@ -50,7 +50,7 @@ export class Crypt {
   Il est explicitement ajouté à la fin du buffer pour 
   être compatible avec subtle.decrypt qui l'attend là (par défaut et sans choix)
   */
-  static crypt (key: Buffer, buf: Buffer) {
+  static syncCrypt (key: Uint8Array, buf: Uint8Array) {
     const iv = crypto.randomBytes(12)
     const cipher = crypto.createCipheriv('aes-256-gcm', key, iv, { authTagLength: 16 })
     const b1 = cipher.update(buf)
@@ -65,7 +65,7 @@ export class Crypt {
   On l'extrait et on decipher le texte SANS le authTag
   MAIS en lui donnant explicitement par setAuthTag
   */
-  static decrypt (key: Buffer, buf: Buffer) {
+  static syncDecrypt (key: Uint8Array, buf: Uint8Array) {
     const iv = buf.subarray(0, 12)
     const enc = buf.subarray(12, buf.byteLength - 16)
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
@@ -85,7 +85,7 @@ export class Crypt {
   Le authTag est généré sans laisser le choix 
   ET placé d'office DANS les 16 derniers bytes de enc
   */
-  static async crypterSrv (cle: Uint8Array, buf: Uint8Array) : Promise<Uint8Array> {
+  static async crypt (cle: Uint8Array, buf: Uint8Array) : Promise<Uint8Array> {
     try {
       const iv = crypto.randomBytes(12)
       const key = await crypto.subtle.importKey('raw', cle, 'AES-GCM', false, ['encrypt'])
@@ -93,7 +93,7 @@ export class Crypt {
         { name: 'AES-GCM', iv, tagLength: 128 }, key, buf))
       const x = Buffer.concat([iv, enc])
       // const authTag = buf.subarray(buf.byteLength - 16)
-      // console.log('crypterSrv authTag ', Buffer.from(authTag).toString('hex'))
+      // console.log('crypt authTag ', Buffer.from(authTag).toString('hex'))
       return x
     } catch (e) {
       return null
@@ -103,13 +103,13 @@ export class Crypt {
   /* CRYPTO.SUBTLE
   On peut retrouver le authTag mis par l'encryption dans les 16 derniers bytes.
   */
-  static async decrypterSrv (cle: Uint8Array, buf: Uint8Array) : Promise<Uint8Array> {
+  static async decrypt (cle: Uint8Array, buf: Uint8Array) : Promise<Uint8Array> {
     try {
       const key = await crypto.subtle.importKey('raw', cle, 'AES-GCM', false, ['decrypt'])
       const iv = buf.subarray(0, 12)
       const enc = buf.subarray(12)
       // const authTag = Buffer.from(buf.subarray(buf.byteLength - 16))
-      // console.log('decrypterSrv authTag ', Buffer.from(authTag).toString('hex'))
+      // console.log('decrypt authTag ', Buffer.from(authTag).toString('hex'))
       return new Uint8Array(await crypto.subtle.decrypt(
         { name: 'AES-GCM', iv, tagLength: 128 }, key, enc))
     } catch (e) {
@@ -193,15 +193,15 @@ export class Crypt {
     return u8ToB64(k, true)
   }
 
-  static sha32 (x: any) {
+  static sha32 (x: any) : string {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().toString('base64url')
   }
 
-  static sha16 (x: any) {
+  static sha16 (x: any) : string {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().subarray(3, 18).toString('base64url')
   }
 
-  static shaInt (x: any) {
+  static shaInt (x: any) : number {
     const u8 = new Uint8Array(crypto.createHash('sha256').update(Buffer.from(x)).digest())
     let r = 0; for (let i = 3, j = 0; j < 6; i++, j++) r += (p2[j] * u8[i])
     return r
@@ -253,18 +253,18 @@ export async function testECDH () {
   console.log('aesSrv: ', u8ToB64(aesSrv))
   const aesSrv2 = await Crypt.getAESKey(appPub, srvPair[1])
   console.log('aesSrv again: ', u8ToB64(aesSrv2))
-  const x1 = await Crypt.crypterSrv(aesSrv, encoder.encode('toto est tres beau'))
-  const x1b = Crypt.crypt(Buffer.from(aesSrv), Buffer.from(encoder.encode('toto est tres beau')))
+  const x1 = await Crypt.crypt(aesSrv, encoder.encode('toto est tres beau'))
+  const x1b = Crypt.syncCrypt(Buffer.from(aesSrv), Buffer.from(encoder.encode('toto est tres beau')))
 
   // Dans app
   const aesApp = await Crypt.getAESKey(srvPub, appPair[1])
   console.log('aesApp: ', u8ToB64(aesApp))
-  const x3 = await Crypt.decrypterSrv(aesApp, x1)
+  const x3 = await Crypt.decrypt(aesApp, x1)
   console.log('x3:', decoder.decode(x3))
-  const x4 = Crypt.decrypt(Buffer.from(aesApp), Buffer.from(x1b))
+  const x4 = Crypt.syncDecrypt(Buffer.from(aesApp), Buffer.from(x1b))
   console.log('x4:', decoder.decode(x4))
-  const x5 = Crypt.decrypt(Buffer.from(aesApp), Buffer.from(x1))
+  const x5 = Crypt.syncDecrypt(Buffer.from(aesApp), Buffer.from(x1))
   console.log('x5: ', decoder.decode(x5))
-  const x6 = await Crypt.decrypterSrv(aesApp, Buffer.from(x1b))
+  const x6 = await Crypt.decrypt(aesApp, Buffer.from(x1b))
   console.log('x6: ', decoder.decode(x6))
 }

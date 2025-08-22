@@ -5,8 +5,6 @@ import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
-
-// import admin from 'firebase-admin'
 import webpush from 'web-push'
 
 import { Log as MyLog  } from './log'
@@ -14,6 +12,7 @@ import { Operation as MyOperation} from './operation'
 import { register } from './operations'
 import { Util as MyUtil } from './util'
 import { testECDH, testSH } from './crypt'
+import { DocSchema } from './doctypes'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
@@ -44,8 +43,8 @@ export interface BaseConfig {
 
   dbConnector: DbConnector, 
   storage: IStGeneric,
+  docSchema: DocSchema,
 
-  firebase?: any,
   messaging?: any
 }
 

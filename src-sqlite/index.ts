@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 // import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
 
-import { DbConnector, DbProvider } from '../src-fw/dbConnector'
+import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric } from '../src-fw/iDbGeneric'
 import { Operation, AppExc, Log } from '../src-fw/index'
 
@@ -23,7 +23,7 @@ export class SQLiteConnector extends DbConnector {
   }
 }
 
-export class SQLiteProvider extends DbProvider implements IDbGeneric {
+export class SQLiteProvider extends DbConnexion implements IDbGeneric {
   public static newProvider (connector: SQLiteConnector, op: Operation) {
     return new SQLiteProvider(connector, op)
   }

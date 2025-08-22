@@ -31,9 +31,9 @@ export function cryptKeys () {
   } else {
     try {
       const buf = readFileSync(pjson)
-      const b1 = Crypt.crypt(Buffer.from(k), buf)
+      const b1 = Crypt.syncCrypt(Buffer.from(k), buf)
       const b64 = b1.toString('base64')
-      // const b2 = Crypt.decrypt(key, b1)
+      // const b2 = Crypt.syncDecrypt(key, b1)
       const pmjs = path.resolve(outf)
       const x = 'export const encryptedKeys = \'' + b64 + '\'' + '\n'
       writeFileSync(pmjs, Buffer.from(x, 'utf8'))
