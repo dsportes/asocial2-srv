@@ -1,0 +1,21 @@
+{
+  "indexes": [
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "Hdr",
+      "fieldPath": "id",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "Hdr",
+      "fieldPath": "v",
+      "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }]
+    },
+    {
+      "collectionGroup": "Hdr",
+      "fieldPath": "data",
+      "indexes": []
+    }
+  ]
+}

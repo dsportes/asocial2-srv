@@ -1,18 +1,24 @@
-CREATE TABLE IF NOT EXISTS "singletons" (
+CREATE TABLE IF NOT EXISTS "Hdr" (
   "id" TEXT,
   "v" INTEGER,
-  "_data_"	BLOB,
+  "data"	BLOB,
   PRIMARY KEY("id")
 );
 
-CREATE TABLE IF NOT EXISTS "taches" (
-  "op" INTEGER,
+CREATE TABLE IF NOT EXISTS "Org" (
   "org" TEXT,
-  "id" TEXT,
-  "dh" INTEGER,
-  "exc"	TEXT,
-  "dhf" INTEGER,
-  "nb" INTEGER,
-  PRIMARY KEY("op", "org", "id")
+  "k0" TEXT,
+  "v" INTEGER,
+  "z" INTEGER,
+  "data"	BLOB,
+  PRIMARY KEY("k0")
 );
-CREATE INDEX IF NOT EXISTS "taches_dh" ON "taches" ( "dh" );
+
+CREATE TABLE IF NOT EXISTS "Task" (
+  "org" TEXT,
+  "k0" TEXT,
+  "i0" INTEGER,
+  "data"	BLOB,
+  PRIMARY KEY("org", "k0")
+);
+CREATE INDEX IF NOT EXISTS "Task_i0" ON "Task" ( "i0" );

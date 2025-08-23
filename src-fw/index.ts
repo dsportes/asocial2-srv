@@ -11,12 +11,15 @@ import { Log as MyLog  } from './log'
 import { Operation as MyOperation} from './operation'
 import { register } from './operations'
 import { Util as MyUtil } from './util'
-import { testECDH, testSH } from './crypt'
+
 import { DocSchema } from './doctypes'
 export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
+
+export type dbChoice = [string, DbConnector]
+export type stChoice = [string, IStGeneric]
 
 export interface BaseConfig {
   PROD: boolean,
@@ -41,8 +44,8 @@ export interface BaseConfig {
   // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
   srvUrl: string,
 
-  dbConnector: DbConnector, 
-  storage: IStGeneric,
+  databases: dbChoice[], 
+  storages: stChoice[],
   docSchema: DocSchema,
 
   messaging?: any
@@ -80,13 +83,14 @@ export function getExpressApp (): express.Application {
   })
 
   app.get('/file/:arg', async (req, res) => {
-    if (!config.storage) {
+    const st = config.storages[0][1]
+    if (!st) {
       res.status(404).send('File not found')
       return
     }
     try {
-      const [id1, id2, id3] = config.storage.decode3(req.params.arg)
-      const bytes = await config.storage.getFile(id1, id2, id3)
+      const [id1, id2, id3] = st.decode3(req.params.arg)
+      const bytes = await st.getFile(id1, id2, id3)
       if (bytes) res.status(200).type('application/octet-stream').send(bytes)
       else res.status(404).send('File not found')
     } catch (e) {
@@ -95,6 +99,7 @@ export function getExpressApp (): express.Application {
   })
 
   app.put('/file/:arg', async (req, res) => {
+    const st = config.storages[0][1]
     if (!config.GCLOUDLOGGING) {
       res.status(404).send('File not uploaded')
       return
@@ -105,8 +110,8 @@ export function getExpressApp (): express.Application {
         bufs.push(chunk);
       }).on('end', async () => {
         const bytes = Buffer.concat(bufs)
-        const [id1, id2, id3] = config.storage.decode3(req.params.arg)
-        await config.storage.putFile(id1, id2, id3, bytes)
+        const [id1, id2, id3] = st.decode3(req.params.arg)
+        await st.putFile(id1, id2, id3, bytes)
         res.status(200).send('OK')
       })
     } catch (e) {
@@ -139,6 +144,9 @@ export function getExpressApp (): express.Application {
 
   //**** appels des opérations ****
   app.use('/op/:operation', async (req, res) => {
+    const storage = config.storages[0][1]
+    const dbConnector = config.databases[0][1]
+
     let body
     if (!req['rawBody']) {
       let chunks = [];
@@ -146,10 +154,10 @@ export function getExpressApp (): express.Application {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         body = Buffer.concat(chunks)
-        await doOp(config.storage, config.dbConnector, req, res, body)
+        await doOp(storage, dbConnector, req, res, body)
       })
     } else // Cloud functions
-      await doOp(config.storage, config.dbConnector, req, res, req['rawBody'])
+      await doOp(storage, dbConnector, req, res, req['rawBody'])
   })
   
   return app
@@ -159,9 +167,6 @@ export function startSRV (app : any) : Promise<void>{
   return new Promise(async (resolve, reject) => {
     const config = MyOperation.config
     let server : http.Server | https.Server
-
-    if (config.debugLevel === 2)
-      await testDb()
 
     if (config.https) {
       let p = path.resolve('./cert/fullchain.pem')
@@ -188,24 +193,6 @@ export function startSRV (app : any) : Promise<void>{
       })
     resolve()
   })
-}
-
-export async function testDb () : Promise<void> {
-  const config = MyOperation.config
-  await testECDH()
-  // await testSH()
-  const op = MyOperation.fake()
-  await config.dbConnector.getConnexion(op)
-  {
-    const [status, msg] = await op.db.ping()
-    if (status === 0) MyLog.info(msg)
-    else throw new AppExc(1012, 'PING SDatabase FAILED', null, [msg])
-  }
-  {
-    const [status, msg] = await config.storage.ping()
-    if (status === 0) MyLog.info(msg)
-    else throw new AppExc(1013, 'PING Storage FAILED: ', null, [msg])
-  }
 }
 
 /****************************************************************/

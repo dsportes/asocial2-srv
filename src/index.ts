@@ -11,13 +11,15 @@ import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, init, getExpressApp, startSRV, Log } from '../src-fw/index'
 import { docSchema } from './docschema'
 import { register } from './operations'
+import { Tools } from '../src-fw/tools'
 
 import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
 
 // import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
 import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
+import { AppFirestoreConnector } from './firestore' // extension spécifique de App
 
-const emulator = false
+const emulator = true
 if (emulator) {
   env['STORAGE_EMULATOR_HOST'] = 'http://127.0.0.1:9199', // 'http://' est REQUIS
   env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
@@ -59,33 +61,50 @@ const config: BaseConfig = {
   // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
   srvUrl: 'http://localhost:8080',
 
-  // credentials, cryptKey
-  dbConnector: new AppSQLiteConnector(keys['sqlite_a'], keys['sites_A']),
-
-  // credentials
-  storage: new FilesystemStorage(keys['storage_a']),
-
-  docSchema: docSchema
+  databases: null,
+  storages: null,
+  docSchema: null
 }
+
+init(config)
+
+config.databases = [
+  ['firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']),],
+  ['sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']),],
+]
+
+config.storages = [
+  ['storage_a', new FilesystemStorage(keys['storage_a'])],
+  // ['storage_b', new FilesystemStorage(keys['storage_b'])],
+]
+
+config.docSchema = docSchema
 
 if (docSchema.errors) {
   console.error(docSchema.errors.join('\n'))
   exit()
 }
 
-init(config)
 const nbOp = register()
 if (config.debugLevel > 0)
   Log.debug(nbOp + ' App operations registered')
 
 export const asocialgcf = getExpressApp()
 
-// Commenter si appel en gloud functions
-if (!gcp) startSRV(asocialgcf)
-.then(() => {
-  console.log('Server started')
-})
-.catch(e => {
-  console.error(e.toString())
-  exit()
-})
+if (process.argv.length > 2) {
+  setTimeout(async () => {
+    const [n, s] = await (new Tools(config)).run()
+    if (!n) console.log(s); else console.error(s)
+    exit()
+  }, 50)
+} else {
+  // Commenter si appel en gloud functions
+  if (!gcp) startSRV(asocialgcf)
+  .then(() => {
+    console.log('Server started')
+  })
+  .catch(e => {
+    console.error(e.toString())
+    exit()
+  })
+}

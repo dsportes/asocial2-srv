@@ -1,31 +1,32 @@
-import path from 'path'
-import { existsSync } from 'node:fs'
-// import { Database } from './loadreq.js'
 import Database from 'better-sqlite3'
+// import { Database } from './loadreq.js'
 
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric } from '../src-fw/iDbGeneric'
 import { Operation, AppExc, Log } from '../src-fw/index'
+
+import path from 'path'
+import { existsSync } from 'node:fs'
 
 export class SQLiteConnector extends DbConnector {
   public path: string
 
   constructor (credentials: string, cryptKey: string) {
     super(credentials, cryptKey)
-    const path = credentials['path']
-    if (!path)
+    const p = credentials['path']
+    if (!p)
       throw new AppExc(1030, 'SQLite path absent', null)
-    this.path = path.resolve(path)
+    this.path = path.resolve(p)
     if (!existsSync(this.path))
       throw new AppExc(1020, 'SQLite path not found', null, [this.path])
     Log.info('SQLite ' + ' DB path= [' + this.path + ']')
-    this.factory = SQLiteProvider.newProvider
+    this.factory = SQLiteConnexion.newConnexion
   }
 }
 
-export class SQLiteProvider extends DbConnexion implements IDbGeneric {
-  public static newProvider (connector: SQLiteConnector, op: Operation) {
-    return new SQLiteProvider(connector, op)
+export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
+  public static newConnexion (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
+    return new SQLiteConnexion(connector, op, cryptKey)
   }
 
   public path: string
@@ -33,8 +34,8 @@ export class SQLiteProvider extends DbConnexion implements IDbGeneric {
   public cachestmt: Object
   public sql: any
   
-  constructor (connector: SQLiteConnector, op: Operation) {
-    super(connector, op)
+  constructor (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
+    super(connector, op, cryptKey)
     this.path = connector.path
     this.lastSql = []
     this.cachestmt = { }
@@ -71,22 +72,21 @@ export class SQLiteProvider extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
-  // Méthode PUBLIQUE de test: retour comme doTransaction [0 / 1 / 2, detail]
   async ping () : Promise<[number, string]> {
     try {
-      const stmt = this.sql.prepare('SELECT _data_ FROM singletons WHERE id = \'1\'')
+      const stmt = this.sql.prepare('SELECT data FROM Hdr WHERE id = \'ping\'')
       const t = stmt.get()
       const d = new Date()
       const v = d.getTime()
-      const _data_ = d.toISOString()
+      const data = d.toISOString()
       if (t) {
-        const stu = this.sql.prepare('UPDATE singletons SET _data_ = @_data_, v = @v  WHERE id = \'1\'')
-        stu.run({ v, _data_ })
+        const stu = this.sql.prepare('UPDATE Hdr SET data = @_data_, v = @v  WHERE id = \'ping\'')
+        stu.run({ v, data })
       } else {
-        const sti = this.sql.prepare('INSERT INTO singletons (id, v, _data_) VALUES (\'1\', @v, @_data_)')
-        sti.run({ v, _data_ })
+        const sti = this.sql.prepare('INSERT INTO Hdr (id, v, data) VALUES (\'ping\', @v, @data)')
+        sti.run({ v, data })
       }
-      const m = 'Sqlite ping OK: ' + (t && t._data_ ? t._data_ : '?') + ' <=> ' + _data_
+      const m = 'Sqlite ping OK: ' + (t && t.data ? t.data : '?') + ' <=> ' + data
       return [0, m]
     } catch (e) {
       return this.trap(e)

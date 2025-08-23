@@ -2,19 +2,19 @@
 
 import { /* AppExc, Log, */ Operation } from '../src-fw/index'
 
-import { SQLiteProvider, SQLiteConnector } from '../src-sqlite'
+import { SQLiteConnexion, SQLiteConnector } from '../src-sqlite'
 import { IDbApp } from './iDbapp'
 
 export class AppSQLiteConnector extends SQLiteConnector {
   constructor (credentials: string, cryptKey: string) {
     super(credentials, cryptKey)
-    this.factory = AppSQLiteProvider.newProvider
+    this.factory = AppSQLiteConnexion.newConnexion
   }
 }
 
-export class AppSQLiteProvider extends SQLiteProvider implements IDbApp {
-  public static newProvider (connector: AppSQLiteConnector, op: Operation) {
-    return new AppSQLiteProvider(connector, op)
+export class AppSQLiteConnexion extends SQLiteConnexion implements IDbApp {
+  public static newConnexion (connector: AppSQLiteConnector, op: Operation) {
+    return new AppSQLiteConnexion(connector, op)
   }
   constructor (connector: AppSQLiteConnector, op: Operation) {
     super(connector, op)

@@ -1703,3 +1703,56 @@
 2025-07-15T10:08:19.011Z info: Sqlite ping OK: 2025-06-07T13:33:50.884Z <=> 2025-07-15T10:08:19.009Z
 2025-07-15T10:08:19.014Z info: File-System ping OK: 2025-07-15T10:08:19.012Z
 2025-07-15T10:08:19.024Z info: HTTP listen [8080]
+2025-08-23T16:18:03.365Z info: 10 operations registered
+2025-08-23T16:18:03.379Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:18:03.380Z info: Firestore connector
+2025-08-23T16:18:03.389Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:18:10.856Z info: 10 App operations registered
+2025-08-23T16:22:28.829Z info: 10 operations registered
+2025-08-23T16:22:28.834Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:22:28.836Z info: Firestore connector
+2025-08-23T16:22:28.837Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:22:47.727Z info: 10 App operations registered
+2025-08-23T16:24:37.326Z info: 10 operations registered
+2025-08-23T16:24:37.330Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:24:37.331Z info: Firestore connector
+2025-08-23T16:24:37.332Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:24:37.332Z info: 10 App operations registered
+2025-08-23T16:26:11.870Z info: 10 operations registered
+2025-08-23T16:26:11.875Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:26:11.876Z info: Firestore connector
+2025-08-23T16:26:11.876Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:26:11.877Z info: 10 App operations registered
+2025-08-23T16:27:09.441Z info: 10 operations registered
+2025-08-23T16:27:09.445Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:27:09.446Z info: Firestore connector
+2025-08-23T16:27:09.447Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:27:09.447Z info: 10 App operations registered
+2025-08-23T16:49:52.571Z info: 10 operations registered
+2025-08-23T16:49:52.575Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:49:52.575Z info: Firestore connector
+2025-08-23T16:49:52.576Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:49:52.577Z info: 10 App operations registered
+2025-08-23T16:49:52.668Z info: PRAGMA journal_mode = WAL
+2025-08-23T16:50:41.203Z info: 10 operations registered
+2025-08-23T16:50:41.208Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T16:50:41.209Z info: Firestore connector
+2025-08-23T16:50:41.211Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T16:50:41.212Z info: 10 App operations registered
+2025-08-23T16:50:41.290Z info: PRAGMA journal_mode = WAL
+2025-08-23T16:50:45.625Z info: SELECT data FROM Hdr WHERE id = 'ping'
+2025-08-23T16:50:49.233Z info: INSERT INTO Hdr (id, v, data) VALUES ('ping', 1755967846453.0, '2025-08-23T16:50:46.453Z')
+2025-08-23T16:50:53.325Z info: Sqlite ping OK: ? <=> 2025-08-23T16:50:46.453Z
+2025-08-23T16:50:53.338Z info: File-System ping OK: 2025-08-23T16:50:53.326Z
+2025-08-23T17:17:29.516Z info: 10 operations registered
+2025-08-23T17:17:29.519Z info: Firestore connector
+2025-08-23T17:17:29.520Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T17:17:29.521Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T17:17:29.522Z info: 10 App operations registered
+2025-08-23T17:20:55.082Z info: 10 operations registered
+2025-08-23T17:21:33.073Z info: Firestore connector
+2025-08-23T17:21:33.075Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-23T17:21:33.076Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-23T17:21:33.077Z info: 10 App operations registered
+2025-08-23T17:21:58.442Z info: Firestore ping OK: ? <=> 2025-08-23T17:21:46.961Z
+2025-08-23T17:21:58.445Z info: File-System ping OK: 2025-08-23T17:21:58.443Z

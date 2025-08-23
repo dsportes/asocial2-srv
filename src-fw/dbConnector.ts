@@ -18,8 +18,8 @@ export class DbConnector {
     this.credentials = credentials
   }
 
-  async getConnexion (op: Operation) {
-    const cnx = this.factory(this)
+  async getConnexion (op: Operation, cryptKey?: string) {
+    const cnx = this.factory(this, cryptKey)
     await cnx.connect()
     op.db = cnx
     return cnx
@@ -32,9 +32,9 @@ export class DbConnexion {
   public key: Buffer
   public docSchema : DocSchema
 
-  constructor (connector: DbConnector, op: Operation) {
+  constructor (connector: DbConnector, op: Operation, cryptKey?: string) {
     this.connector = connector
-    this.key = this.connector.key
+    this.key = !cryptKey ? this.connector.key : Buffer.from(cryptKey, 'base64')
     this.op = op
     this.docSchema = Operation.config.docSchema
   }

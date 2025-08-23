@@ -146,8 +146,8 @@ A la création / mise à jour / suppression d'un document de classe C, récupér
 
 # Provider _Firestore_
 ## Paths
-Le path du singleton `Hdr` est `Hdr/1`.
-
+Le path du singleton `Hdr` est `Hdr/hdr`.
+Le path du singleton `Ping` est `Hdr/ping`.
 Le path d'un document `Org` est `Org/demo`.
 
 Le path des autres classes, par exemple `Avatar`, sont `Org/demo/Avatar/kYc..`, des sous-documents de l'organisation.

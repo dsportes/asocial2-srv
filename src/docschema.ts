@@ -25,38 +25,38 @@ const DocTypes = {
 
 const ThTypes = {
   // commande d'un groupe gc à un groupement gp pour une livraison livr
-  CMDGC: new ThType('CMDGC', ['gc', 'gp', 'livr'], 
+  $CMDGC: new ThType('$CMDGC', ['gc', 'gp', 'livr'], 
     new Map([[DocTypes.BCG, 0], [DocTypes.CART, 1], [DocTypes.BCC, 1]])),
 
   // commandes d'un consommateur gc co pour une livraison livr (tous groupements confondus)
-  BCC: new ThType('BCC', ['gc', 'co', 'livr'],
+  $BCC: new ThType('$BCC', ['gc', 'co', 'livr'],
     new Map([[DocTypes.BCC, 2]])),
   
   // commandes d'un groupe gc à un groupement gp
-  CMDOV: new ThType('CMDOV', ['gc', 'gp'],
+  $CMDOV: new ThType('$CMDOV', ['gc', 'gp'],
     new Map([[DocTypes.BCG, 1]])),
 
   // calendrier des livraisons d'un groupement gp
-  CALGP: new ThType('CALGP', ['gp'],
+  $CALGP: new ThType('$CALGP', ['gp'],
     new Map([[DocTypes.CALG, 0], [DocTypes.LIVRG, 1], [DocTypes.CHL, 1]])),
   
   // commandes à un groupement gp pour une livraison livr
-  CMDGP: new ThType('CMDGP', ['gp', 'livr'],
+  $CMDGP: new ThType('$CMDGP', ['gp', 'livr'],
     new Map([[DocTypes.CHD, 1], [DocTypes.BCG, 2], [DocTypes.CART, 3]])),
 
   // répertoire général des groupes et groupements
-  RG: new ThType('RG', [], new Map([[DocTypes.RG, -1]])),
+  $RG: new ThType('$RG', [], new Map([[DocTypes.RG, -1]])),
 
   // fiche d'un groupe gc, ses consommateurs, son chat 
-  RGC: new ThType('RGC', ['gc'],
+  $RGC: new ThType('$RGC', ['gc'],
     new Map([[DocTypes.RC, 0], [DocTypes.CHCO, 0], [DocTypes.FGC, 0], [DocTypes.FCO, 1]])),
 
   // fiche du consommateur gc co
-  FCO: new ThType('FCO', ['gc', 'co'],
+  $FCO: new ThType('$FCO', ['gc', 'co'],
     new Map([[DocTypes.FCO, 0]])),
   
   // Chat point de livraison
-  CHD: new ThType('CHD', ['gp', 'gc'],
+  $CHD: new ThType('$CHD', ['gp', 'gc'],
     new Map([[DocTypes.CHD, 2]])),
   
 }

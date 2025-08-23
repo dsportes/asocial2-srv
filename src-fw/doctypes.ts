@@ -20,6 +20,8 @@ const regvar = /^[a-z][a-zA-Z0-9]*$/
 export function isVarName (n: string) { return regvar.test(n)}
 const regdoc = /^[A-Z][a-zA-Z_$0-9]*$/
 export function isDocName (n: string) { return regdoc.test(n)}
+const regth = /^\$[A-Z][a-zA-Z_$0-9]*$/
+export function isThName (n: string) { return regth.test(n)}
 
 /* Un type de document est défini par:
 - son nom: nom de la classe qui l'implémente
@@ -106,7 +108,7 @@ export class ThType {
   get isSingleton () { return this.key.length === 0 }
 
   checks () : string {
-    if (!isDocName(this.name)) return 'invalid doc name: ' + this.name
+    if (!isThName(this.name)) return 'invalid doc thread name: ' + this.name
     const pks = new Set()
     for(let i = 0; i < this.key.length; i++) {
       const p = this.key[i]
@@ -137,19 +139,21 @@ export class DocSchema {
   private readonly thTypes : Object
   readonly errors : string[]
   readonly docNames : Set<string>
-  readonly thNames : Set<string>
 
   constructor(docTypes: Object, thTypes: Object) {
+    this.docNames = new Set()
     const t = []
     for (const [k, v] of Object.entries(docTypes)) {
+      if (this.docNames.has(v.name)) t.push('duplicate name [' + v.name + ']')
       if (k !== v.name) t.push('names mismatch [' + k + ' / ' + v.name + ']')
       if (v.err) t.push(v.err)
       this.docNames.add(v.name)
     }
     for (const [k, v] of Object.entries(thTypes)) { 
+      if (this.docNames.has(v.name)) t.push('duplicate name [' + v.name + ']')
       if (k !== v.name)t.push('names mismatch [' + k + ' / ' + v.name + ']')
       if (v.err) t.push(v.err)
-      this.thNames.add(v.name)
+      this.docNames.add(v.name)
     }
     if (t.length === 0) {
       this.docTypes = docTypes
