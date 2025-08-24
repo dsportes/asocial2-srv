@@ -80,4 +80,29 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
   }
 
+  async getDoc (org: string, cl: string, pk: string, v?: number) { return null }
+  async insertDoc (row: Object) {}
+  async updateDoc (row: Object) {}
+  async deleteDoc (org: string, cl: string, pk: string) {}
+  async listDocs (org: string, cl: string, v?: number, fn? : Function) { return [] }
+  async listDocsSk (org: string, cl: string, ik: number, val: string, v?: number, fn? : Function) { return [] }
+  async listDocsIdx (org: string, cl: string, ix: number, comp: string, val: any, v?: number, fn? : Function) { return [] }
+  async getHdr (v? : number) { return null }
+  async insertHdr (row: Object) {}
+  async updateHdr (row: Object) {}
+  async getOrg (org: string, v?: number) { return null }
+  async insetOrg (row: Object) {}
+  async updateOrg (row: Object) {}
+  async listOrgs (v?: number, fn? : Function) { return [] }  
+  async listOrgsIdx (ix: number, comp: string, val: any, v?: number, fn? : Function) { return []}
+  async purgeAllDocs (org: string, cl: string) {}
+  async purgeOrg (org: string, z?: number) {}
+  async purgeOrgs (org: string, z: number) {}
+  async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any) {}
+  async setFTP (org: string, path: string, dp: number) {}
+  async purgeFTP (org: string, path: string) {}
+  async listFTP (dp : number, fn: Function) {}
+  async purgeAllFTP (dp : number) {}
+  async nextTask (time: string) { return null }
+
 }

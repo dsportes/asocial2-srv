@@ -183,113 +183,39 @@ Chaque classe de _document_ (sauf `Hdr Task`) et de _fil_ doit avoir une déclar
       },
 
 # API d'accès primaire générique
-Chaque fonction peut être invoquée ou non au sein d'une transaction:
-- T : _toujours_ dans une transaction,
-- E : utilisé exclusivement en export, _jamais_ dans une transaction,
-- I : utilisé exclusivement en import, _jamais_ dans une transaction,
-- sinon accepte les deux cas.
-
-Les fonctions A exigent une transaction en mode _administration_.
-
-`dataSer` : binaire d'un _data_ sérialisé (désérialisable par `decode()`)
 
 Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fonction fn anonyme qui reçoit en argument chaque _data_ et la traite. Cette facilité permet d'éviter d'accumuler des listes longues quand la _data_ peut être transformée / traitée une par une.
 
-ping()
-- insère / met à jour une trace de ping dans Hdr/ping
-
 ## Accès aux documents / fils / tasks
 
-getDoc(org, cl, pk, v?)
-- org : code de l'organisation.
-- cl : classe du _document_.
-- pk : base64 du sha16 de l'encodage de la clé primaire.
-- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
-
-insertDoc(row)
-- insère le document représenté par son data.
-
-updateDoc(row)
-- insère (s'il vient d'être créé) ou met à jour le document représenté par son row obtenu depuis son data.
-
-deleteDoc(org, cl, pk)
-- org : code de l'organisation.
-- cl : classe du document / fil / `Task`.
-- pk : clé primaire du document.
-
-listDocs(org, cl, v?, fn?) : dataSer[]
-- org : code de l'organisation.
-- cl : classe du document / fil ou `Task`.
-- v : ne retourne que les data de version postérieure à v si v est présent et non 0.
-- fn
-
-listDocsSk(org, cl, ik, val, v?, fn?) - T
-- org : code de l'organisation
-- cl : classe du document.
-- ik : index 1..N de la clé secondaire à utiliser.
-- val : valeur de filtre de cette clé. string représentant son hash.
-- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
-- fn
-
-listDocsIdx(org, cl, ix, comp, val, v?, fn?)
-- org : code de l'organisation
-- cl : classe du document.
-- ix : index 0..N de la propriété de filtrage à utiliser.
-- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs ne sont pas tous autorisés en fonction du type de ix (hash: EQ, list: IN).
-- val : valeur de comparaison (string, number).
-- v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
-- fn
+    async getDoc (org: string, cl: string, pk: string, v?: number) { return null }
+    async insertDoc (row: Object) {}
+    async updateDoc (row: Object) {}
+    async deleteDoc (org: string, cl: string, pk: string) {}
+    async listDocs (org: string, cl: string, v?: number, fn? : Function) { return [] }
+    async listDocsSk (org: string, cl: string, ik: number, val: string, v?: number, fn? : Function) { return [] }
+    async listDocsIdx (org: string, cl: string, ix: number, comp: string, val: any, v?: number, fn? : Function) { return [] }
 
 ## Accès `Hdr`
 
-getHdr(v) : dataSer
-- v : ne retourne la data que si elle est postérieure à v.
-
-setHdr(data) - A
-- data : construit le row associé et l'enregistre.
+    async getHdr (v? : number) { return null }
+    async insertHdr (row: Object) {}
+    async updateHdr (row: Object) {}
 
 ## Accès `Org`
 
-listOrgs(v?, fn?) : dataSer[]
-- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
-- fn
-
-listOrgsIdx(idx, comp, val, fn?) : dataSer[] - T
-- idx : index 0..N de la propriété du row indexée. Si le type de cet index est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
-- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs n'étant pas tous autorisés en fonction du type de p1, comp est forcé dans les cas suivants: `hash: EQ`, `list: IN`
-- val : valeur de comparaison (string, number).
-- fn
-
-/*
-getOrg(org, v) : dataSer
-- org : code l'organisation.
-- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
-
-setOrg(data) - T
-- insère s'il vient d'être créé sinon met à jour le document de l'organisation représenté par son data.
-
-insertOrg(data) - I
-- force l'insertion du document de l'organisation représenté par son data.
-*/
+    async getOrg (org: string, v?: number) { return null }
+    async insetOrg (row: Object) {}
+    async updateOrg (row: Object) {}
+    async listOrgs (v?: number, fn? : Function) { return [] }  
+    async listOrgsIdx (ix: number, comp: string, val: any, v?: number, fn? : Function) { return []}
 
 ## Purges hors transaction
 
-purgeAll(org, cl)
-- purge tous les documents de la classe indiquée - Import
-- org : code de l'organisation
-- cl : classe du document / fil / `Task`.
-
-purgeOrg(org, z)
-- org : code de l'organisation
-- z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
-
-purgeDocs(org, cl, ix, val)
-- purge les documents invalidés par _dlv_ ou _zombi_
-- org : code de l'organisation.
-- cl : classe du document / fil / `Task`.
-- ix : index de filtrage. Par convention -1 filtre les zombis.
-- val : purge les documents dont la propriété ix est inférieure à val 
-- z : si présente et non 0, ne purge que les documents dont le `z` est antérieure (administration) sinon import hors transaction.
+    async purgeAllDocs (org: string, cl: string) {}
+    async purgeOrg (org: string, z?: number) {}
+    async purgeOrgs (org: string, z: number) {}
+    async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any) {}
 
 # Autres _tables_ / _Classes de documents_
 
@@ -308,18 +234,10 @@ Le `path` d'un fichier d'une organisation en storage est de la forme `folderId/f
 - la table a pour nom FTP.
 - ses propriétés sont `org, path, p`. La clé primaire est `org, path`.
 
-setFTP(org, path, p) - Hors transaction
-- inscription d'un nouveau _path à purger_
-
-purgeFTP(org, path) - Hors transaction
-- purge d'un _path à purger_
-
-listeFTP(p, fn) - Hors transaction
-- liste les _paths à purger_ de date inférieure àu égale à p.
-- fn : cette fonction reçoit en argument (org, path, p) pour chaque path répondant à la sélection. 
-
-purgeAllFTP(p)
-- si p est absent ou 0, purge sans tenir compte de la date de purge, sinon uniquement ceux de date antérieure.
+    async setFTP (org: string, path: string, dp: number) {}
+    async purgeFTP (org: string, path: string) {}
+    async listFTP (dp : number, fn: Function) {}
+    async purgeAllFTP (dp : number) {}
 
 ## Gestion des tâches
 Une tâche différée est représentée par une instance d'une classe héritant de `Task` (héritant de Document) ayant les propriétés suivantes:
@@ -347,5 +265,5 @@ La propriété `k0` du row correspondant est le base64 du sha16 de l'array `proc
 
 **Méthode spécifique**
 
-nextTask(time) : dataSer
-- retourne le _data_ de la tâche de plus petit v supérieure à time.
+    async nextTask (time: string) { return null }
+
