@@ -33,6 +33,7 @@ export class Operation {
   public now: number
   public today: number
   public db: IDbGeneric
+  public transaction: any
   public storage: IStGeneric
 
   constructor (fake?: boolean) { this.fake = fake || false }
@@ -43,6 +44,9 @@ export class Operation {
   }
 
   async run (): Promise<void> {
+  }
+
+  async transac (): Promise<void> {
   }
 
   type (par: string, req: boolean) : [boolean, any, string] { // absent, value, type

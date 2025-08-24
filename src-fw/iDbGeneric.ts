@@ -2,4 +2,5 @@
 
 export interface IDbGeneric {
   ping () : Promise<[number, string]> 
+  doTransaction () : Promise<[number, string]> 
 }

@@ -39,6 +39,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     this.path = connector.path
     this.lastSql = []
     this.cachestmt = { }
+    this.transaction = null
   }
 
   async connect () {
@@ -93,4 +94,28 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     }
   }
   
+  async doTransaction () : Promise<[number, string]> {
+    try {
+      this.transaction = true
+      this.sql.prepare('BEGIN').run()
+      await this.op.transac()
+      this.sql.prepare('COMMIT').run()
+      this.transaction = false
+      return [0, '']
+    } catch (e) {
+      try { this.sql.prepare('ROLLBACK').run() } catch (e2) { /* */ }
+      this.transaction = false
+      return this.trap(e)
+    }
+  }
+
+  _stmt (code: string, sql: string) {
+    let s = this.cachestmt[code]
+    if (!s) {
+      if (!sql) return null
+      s = this.sql.prepare(sql)
+      this.cachestmt[code] = s
+    }
+    return s
+  }
 }

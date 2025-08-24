@@ -31,6 +31,7 @@ export class DbConnexion {
   public op: Operation
   public key: Buffer
   public docSchema : DocSchema
+  public transaction: any
 
   constructor (connector: DbConnector, op: Operation, cryptKey?: string) {
     this.connector = connector

@@ -195,43 +195,10 @@ Les fonctions A exigent une transaction en mode _administration_.
 
 Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fonction fn anonyme qui reçoit en argument chaque _data_ et la traite. Cette facilité permet d'éviter d'accumuler des listes longues quand la _data_ peut être transformée / traitée une par une.
 
-## Accès `Hdr`
+ping()
+- insère / met à jour une trace de ping dans Hdr/ping
 
-getHdr(v) : dataSer
-- v : ne retourne la data que si elle est postérieure à v.
-
-setHdr(data) - A
-- data : construit le row associé et l'enregistre.
-
-## Accès `Org`
-
-listOrgs(v?, fn?) : dataSer[] - A
-- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
-- fn
-
-getOrg(org, v) : dataSer
-- org : code l'organisation.
-- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
-
-setOrg(data) - T
-- insère s'il vient d'être créé sinon met à jour le document de l'organisation représenté par son data.
-
-insertOrg(data) - I
-- force l'insertion du document de l'organisation représenté par son data.
-
-listOrgsIdx(idx, comp, val, fn?) : dataSer[] - T
-- idx : index 0..N de la propriété du row indexée. Si le type de cet index est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
-- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs n'étant pas tous autorisés en fonction du type de p1, comp est forcé dans les cas suivants: `hash: EQ`, `list: IN`
-- val : valeur de comparaison (string, number).
-- fn
-
-## Accès _document_
-
-listDocs(org, cl, v?, fn?) : dataSer[]
-- org : code de l'organisation.
-- cl : classe du document / fil ou `Task`.
-- v : ne retourne que les data de version postérieure à v si v est présent et non 0.
-- fn
+## Accès aux documents / fils / tasks
 
 getDoc(org, cl, pk, v?)
 - org : code de l'organisation.
@@ -239,17 +206,22 @@ getDoc(org, cl, pk, v?)
 - pk : base64 du sha16 de l'encodage de la clé primaire.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 
-setDoc(row)
-- insère (s'il vient d'être créé) ou met à jour le document représenté par son row obtenu depuis son data.
-
-insertDoc(row) - I
+insertDoc(row)
 - insère le document représenté par son data.
 
-## Accès _fil_
+updateDoc(row)
+- insère (s'il vient d'être créé) ou met à jour le document représenté par son row obtenu depuis son data.
 
-Méthodes de l'accès document où `cl` est la classe du fil.
+deleteDoc(org, cl, pk)
+- org : code de l'organisation.
+- cl : classe du document / fil / `Task`.
+- pk : clé primaire du document.
 
-## Sélection des documents par clés secondaires
+listDocs(org, cl, v?, fn?) : dataSer[]
+- org : code de l'organisation.
+- cl : classe du document / fil ou `Task`.
+- v : ne retourne que les data de version postérieure à v si v est présent et non 0.
+- fn
 
 listDocsSk(org, cl, ik, val, v?, fn?) - T
 - org : code de l'organisation
@@ -258,8 +230,6 @@ listDocsSk(org, cl, ik, val, v?, fn?) - T
 - val : valeur de filtre de cette clé. string représentant son hash.
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 - fn
-
-## Sélection des documents par propriétés indexées
 
 listDocsIdx(org, cl, ix, comp, val, v?, fn?)
 - org : code de l'organisation
@@ -270,23 +240,56 @@ listDocsIdx(org, cl, ix, comp, val, v?, fn?)
 - v : si présent et non 0, ne retourne le data que si sa version est supérieure à v.
 - fn
 
-## Purges
+## Accès `Hdr`
 
-purgeOrg(org, z) - A/I
+getHdr(v) : dataSer
+- v : ne retourne la data que si elle est postérieure à v.
+
+setHdr(data) - A
+- data : construit le row associé et l'enregistre.
+
+## Accès `Org`
+
+listOrgs(v?, fn?) : dataSer[]
+- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
+- fn
+
+listOrgsIdx(idx, comp, val, fn?) : dataSer[] - T
+- idx : index 0..N de la propriété du row indexée. Si le type de cet index est `hash`, c'est le sha16 de la valeur de la propriété applicative qui est comparée.
+- comp : comparateur `LT LE EQ GE GT IN`. Les opérateurs n'étant pas tous autorisés en fonction du type de p1, comp est forcé dans les cas suivants: `hash: EQ`, `list: IN`
+- val : valeur de comparaison (string, number).
+- fn
+
+/*
+getOrg(org, v) : dataSer
+- org : code l'organisation.
+- v : ne retourne la data que si elle est postérieure à v ou que v est absent ou 0.
+
+setOrg(data) - T
+- insère s'il vient d'être créé sinon met à jour le document de l'organisation représenté par son data.
+
+insertOrg(data) - I
+- force l'insertion du document de l'organisation représenté par son data.
+*/
+
+## Purges hors transaction
+
+purgeAll(org, cl)
+- purge tous les documents de la classe indiquée - Import
+- org : code de l'organisation
+- cl : classe du document / fil / `Task`.
+
+purgeOrg(org, z)
 - org : code de l'organisation
 - z : si présente et non 0, ne purge que les documents dont le Z est antérieure (administration) sinon import hors transaction.
 
-purgeDoc(org, cl, pk) - A
+purgeDocs(org, cl, ix, val)
+- purge les documents invalidés par _dlv_ ou _zombi_
 - org : code de l'organisation.
 - cl : classe du document / fil / `Task`.
-- pk : clé primaire du document.
-
-purgeDocs(org, cl, z) - A/I
-- org : code de l'organisation.
-- cl : classe du document / fil / `Task`.
+- ix : index de filtrage. Par convention -1 filtre les zombis.
+- val : purge les documents dont la propriété ix est inférieure à val 
 - z : si présente et non 0, ne purge que les documents dont le `z` est antérieure (administration) sinon import hors transaction.
-
-purgeZombis() - A
 
 # Autres _tables_ / _Classes de documents_
 
@@ -305,13 +308,13 @@ Le `path` d'un fichier d'une organisation en storage est de la forme `folderId/f
 - la table a pour nom FTP.
 - ses propriétés sont `org, path, p`. La clé primaire est `org, path`.
 
-setFTP(org, path, p)
+setFTP(org, path, p) - Hors transaction
 - inscription d'un nouveau _path à purger_
 
-purgeFTP(org, path)
+purgeFTP(org, path) - Hors transaction
 - purge d'un _path à purger_
 
-listeFTP(p, fn)
+listeFTP(p, fn) - Hors transaction
 - liste les _paths à purger_ de date inférieure àu égale à p.
 - fn : cette fonction reçoit en argument (org, path, p) pour chaque path répondant à la sélection. 
 

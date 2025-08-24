@@ -66,4 +66,18 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
   }
   
+  async doTransaction () : Promise<[number, string]> {
+    try {
+      await this.fs.runTransaction(async (transaction) => {
+        this.transaction = transaction
+        await this.op.transac()
+      })
+      this.transaction = null
+      return [0, '']
+    } catch (e) {
+      this.transaction = null
+      return this.trap(e)
+    }
+  }
+
 }
