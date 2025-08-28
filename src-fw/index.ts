@@ -7,13 +7,12 @@ import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 import webpush from 'web-push'
 
-import { Log as MyLog  } from './log'
-import { Operation as MyOperation} from './operation'
+import { Log } from './log'
+import { Operation } from './operation'
 import { register } from './operations'
-import { Util as MyUtil } from './util'
+import { Util } from './util'
 
 import { DocSchema } from './doctypes'
-export { MyOperation as Operation, MyLog as Log, MyUtil as Util }
 
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
@@ -47,23 +46,24 @@ export interface BaseConfig {
   databases: dbChoice[], 
   storages: stChoice[],
   docSchema: DocSchema,
+  factory: Function,
 
   messaging?: any
 }
 
 export function init (config: BaseConfig) {
-  MyOperation.config = config
-  new MyLog(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
+  Operation.config = config
+  new Log(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
 
   const nbOp = register()
-  if (config.debugLevel > 0) MyLog.debug(nbOp + ' operations registered')
+  if (config.debugLevel > 0) Log.debug(nbOp + ' operations registered')
 
   webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 
 }
 
 export function getExpressApp (): express.Application {
-  const config = MyOperation.config
+  const config = Operation.config
   const app = express()
   app.use(cors({}))
   app.use(express.json())
@@ -165,7 +165,7 @@ export function getExpressApp (): express.Application {
 
 export function startSRV (app : any) : Promise<void>{
   return new Promise(async (resolve, reject) => {
-    const config = MyOperation.config
+    const config = Operation.config
     let server : http.Server | https.Server
 
     if (config.https) {
@@ -178,17 +178,17 @@ export function startSRV (app : any) : Promise<void>{
       if (!key ) 
         throw new AppExc(1015, 'private key NOT FOUND', null, [p])
       server = https.createServer({key, cert}, app).listen(config.port, async () => {
-        MyLog.info('HTTPS listen [' + config.port + ']')
+        Log.info('HTTPS listen [' + config.port + ']')
       })
     } else {
       server = http.createServer(app).listen(config.port, async () => {
-        MyLog.info('HTTP listen [' + config.port + ']')
+        Log.info('HTTP listen [' + config.port + ']')
       })
     }
 
     if (server)
       server.on('error', (e) => { // les erreurs de création du server ne sont pas des exceptions
-        MyLog.error('HTTP/S error: ' + e.message + '\n' + e.stack)
+        Log.error('HTTP/S error: ' + e.message + '\n' + e.stack)
         reject(e.message)
       })
     resolve()
@@ -205,7 +205,7 @@ function checkOrigin(req: express.Request, origins: Set<string>) {
   }
   if (origins.has(origin)) return true
   if (!origin || origin === 'null') origin = req.headers['host']
-  const [hn, po] = MyUtil.getHP(origin)
+  const [hn, po] = Util.getHP(origin)
   if (origins.has(hn) || origins.has(hn + ':' + po)) return true
   throw new AppExc(1001, 'origin not authorized', null, [origin])
 }
@@ -220,32 +220,34 @@ export async function doOp (
   res: express.Response, 
   body: Buffer) {
   
+  const config = Operation.config
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
     todayEpoch = Math.floor(now / 86400000)
-    today = MyUtil.amj(now)
+    today = Util.amj(now)
   }
 
   const opName = req.params.operation
 
   try {
     if (opName === 'yo'){
-      await MyUtil.sleep(1000)
+      await Util.sleep(1000)
       res.status(200).type('text/plain').send('yo ' + new Date().toISOString())
       return
     }
 
-    if (MyOperation.config.origins.size) checkOrigin(req, MyOperation.config.origins)
+    if (config.origins.size) checkOrigin(req, config.origins)
 
     if (opName === 'yoyo'){
-      await MyUtil.sleep(1000)
+      await Util.sleep(1000)
       res.status(200).type('text/plain').send('yoyo ' + new Date().toISOString())
       return
     }
     
-    const op = MyOperation.new(opName)
-    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
+    const f = Operation.factories.get(opName)
+    if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
+    const op = f(opName)
     op.opName = opName
     op.storage = storage
     op.now = now
@@ -253,26 +255,26 @@ export async function doOp (
     op.args = decode(body)
     op.params = {}
 
-    if (op.args.APIVERSION && (op.args.APIVERSION < MyOperation.config.APIVERSIONS[0] 
-      || op.args.APIVERSION > MyOperation.config.APIVERSIONS[1]))
-      throw new AppExc(1003, 'unsupported API', null, [MyOperation.config.APIVERSIONS[0], 
-        MyOperation.config.APIVERSIONS[1], op.args.APIVERSION, MyOperation.config.BUILD])
+    if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] 
+      || op.args.APIVERSION > config.APIVERSIONS[1]))
+      throw new AppExc(1003, 'unsupported API', null, [config.APIVERSIONS[0], 
+        config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
 
-    if (MyOperation.config.debugLevel === 2)
-      MyLog.info(opName + ' started')
+    if (config.debugLevel === 2)
+      Log.info(opName + ' started')
     op.init()
 
     if (dbConnector)
       await dbConnector.getConnexion(op)
 
     await op.run()
-    if (MyOperation.config.debugLevel === 2)
-      MyLog.info(opName + ' finished')
+    if (config.debugLevel === 2)
+      Log.info(opName + ' finished')
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
   } catch(exc) {
-    if (MyOperation.config.debugLevel === 2)
-      MyLog.info(opName + ' terminated on exception')
+    if (config.debugLevel === 2)
+      Log.info(opName + ' terminated on exception')
     // 400: AppExc
     // 401: AppExc inattendue
     const e = exc
@@ -293,17 +295,17 @@ export async function doOp (
 interface admin_alerts { url: string, pwd: string, to: string }
 
 export async function adminAlert (
-    op: MyOperation, 
+    op: Operation, 
     subject: string, 
     text: string) {
-  const config = MyOperation.config
+  const config = Operation.config
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
   const s = '[' + config.srvUrl + '] '  
     + (op && op.org ? 'org:' + op.org + ' - ' : '') 
     + (op ? 'op:' + op.opName + ' - ' : '') 
     + subject
-  MyLog.info('Mail sent to:' + al.to + ' subject:' + s + (text ? '\n' + text : ''))
+  Log.info('Mail sent to:' + al.to + ' subject:' + s + (text ? '\n' + text : ''))
 
   if (!config.adminAlerts) return
 
@@ -324,9 +326,9 @@ export async function adminAlert (
     })
     const t = await response.text()
     if (!t.startsWith('OK'))
-      MyLog.error('Send mail error: [' + al.url + '] -  ' + t)
+      Log.error('Send mail error: [' + al.url + '] -  ' + t)
   } catch (e) {
-    MyLog.error('Send mail exception: [' + al.url + '] -  ' + e.toString())
+    Log.error('Send mail exception: [' + al.url + '] -  ' + e.toString())
   }
 }
 
@@ -348,7 +350,7 @@ export class AppExc {
   public args: string[]
   public message: string
 
-  constructor (code: number, label: string, op: MyOperation, args?: string[], stack?: string) {
+  constructor (code: number, label: string, op: Operation, args?: string[], stack?: string) {
     this.label = label
     this.code = code
     this.opName = op ? op.opName : ''
@@ -356,8 +358,8 @@ export class AppExc {
     this.args = args || []
     this.stack = stack || ''
     this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
-    if (code > 3000) MyLog.error(this.message)
-    else { if (MyOperation.config.debugLevel > 0) MyLog.debug(this.toString()) }
+    if (code > 3000) Log.error(this.message)
+    else { if (Operation.config.debugLevel > 0) Log.debug(this.toString()) }
     if (code > 8000)
       adminAlert(op, this.message, this.stack)
   }

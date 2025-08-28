@@ -8,8 +8,10 @@ const gcp = false
 import { encryptedKeys } from './keys'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
-import { BaseConfig, init, getExpressApp, startSRV, Log } from '../src-fw/index'
+import { BaseConfig, init, getExpressApp, startSRV } from '../src-fw/index'
+import { Log } from '../src-fw/log'
 import { docSchema } from './docschema'
+import { factory } from './factories'
 import { register } from './operations'
 import { Tools } from '../src-fw/tools'
 
@@ -63,7 +65,8 @@ const config: BaseConfig = {
 
   databases: null,
   storages: null,
-  docSchema: null
+  docSchema: null,
+  factory: factory 
 }
 
 init(config)

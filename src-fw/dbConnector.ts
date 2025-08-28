@@ -1,4 +1,5 @@
-import { AppExc, Operation, Util } from './index'
+import { AppExc } from './index'
+import { Operation } from '../src-fw/operation'
 import { DocSchema, idxType } from './doctypes'
 import { encode, decode } from '@msgpack/msgpack'
 import { Crypt } from './crypt'

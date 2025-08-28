@@ -1,7 +1,7 @@
 import { Operation } from './operation'
 import { Item } from './items'
 import { Util } from './util'
-import { Log } from './index'
+import { Log } from './log'
 import { WebPush } from './push'
 
 export function register () {

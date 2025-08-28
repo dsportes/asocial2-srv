@@ -167,6 +167,17 @@ export class DocSchema {
     return this.docTypes[name]
   }
 
+  getListProps (name: string) : number[] {
+    const l = []
+    const dt = this.getDoc(name)
+    if (dt) {
+      dt.indexes.forEach((t, i) => {
+        if (t[1] === idxType.LIST) l.push(i)
+      })
+    }
+    return l
+  }
+
   getTh (name: string) : ThType {
     return this.thTypes[name]
   }

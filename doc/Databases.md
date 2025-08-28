@@ -75,6 +75,17 @@ Ce sont des strings. Si la clé secondaire #2 est formée des propriétés `gr, 
 
 > Les propriétés _applicatives_, sauf `v z` et celles indexées et de type non `hash`, ne sont pas lisibles directement dans la base, même par son hébergeur: les clés primaires et secondaires sont des _hash_ et _data_ est cryptée. Il faut la clé de cryptage du site gérée confidentiellement par _l'administrateur technique_ pour en prendre connaissance.
 
+#### Index de liste de valeurs
+Les propriétés indexées peuvent être de type `list`, avoir un array de valeurs. La sélection peut se faire avec l'opérateur `IN` et rechercher les documents dont la valeur `myval1` est dans la liste des valeurs de leur propriété `i2`.
+
+Les index _de liste_ ne sont pas implémentés nativement dans toutes les base de données.
+
+Pour chaque propriété de type `list`, `i2` par exemple, le format _row_ va disposer de 2 valeurs:
+- `i2` : la liste des valeurs du document à insérer / mettre à jour.
+- `_i2` : la liste des valeurs actuelles.
+
+De cette manière il est ainsi possible de gérer une table annexe permettant de gérer les sélections par l'opérateur `IN`.
+
 ### Méthode Document.toRow(data): objet
 Cette méthode utilise le schéma des documents pour savoir générer les propriétés `pk ski ii` depuis les valeurs des propriétés applicatives constitutives trouvées dans data:
 - elle retourne l'objet row correspondant au data.
@@ -205,7 +216,7 @@ Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fon
 ## Accès `Org`
 
     async getOrg (org: string, v?: number) { return null }
-    async insetOrg (row: Object) {}
+    async insertOrg (row: Object) {}
     async updateOrg (row: Object) {}
     async listOrgs (v?: number, fn? : Function) { return [] }  
     async listOrgsIdx (ix: number, comp: string, val: any, v?: number, fn? : Function) { return []}
@@ -215,7 +226,7 @@ Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fon
     async purgeAllDocs (org: string, cl: string) {}
     async purgeOrg (org: string, z?: number) {}
     async purgeOrgs (org: string, z: number) {}
-    async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any) {}
+    async purgeDlvDocs (org: string, cl: string, ix: number, comp: string, val: any, lsp?: string[]) {}
 
 # Autres _tables_ / _Classes de documents_
 

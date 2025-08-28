@@ -3,7 +3,9 @@ import Database from 'better-sqlite3'
 
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric } from '../src-fw/iDbGeneric'
-import { Operation, AppExc, Log } from '../src-fw/index'
+import { AppExc } from '../src-fw/index'
+import { Log } from '../src-fw/log'
+import { Operation } from '../src-fw/operation'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
@@ -132,14 +134,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async insertHdr (row: Object) {}
   async updateHdr (row: Object) {}
   async getOrg (org: string, v?: number) { return null }
-  async insetOrg (row: Object) {}
+  async insertOrg (row: Object) {}
   async updateOrg (row: Object) {}
   async listOrgs (v?: number, fn? : Function) { return [] }  
   async listOrgsIdx (ix: number, comp: string, val: any, v?: number, fn? : Function) { return []}
   async purgeAllDocs (org: string, cl: string) {}
   async purgeOrg (org: string, z?: number) {}
   async purgeOrgs (org: string, z: number) {}
-  async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any) {}
+  async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any, lstp?: number[]) {}
   async setFTP (org: string, path: string, dp: number) {}
   async purgeFTP (org: string, path: string) {}
   async listFTP (dp : number, fn: Function) {}

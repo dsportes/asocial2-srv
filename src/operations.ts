@@ -1,12 +1,21 @@
-import { Operation, BaseConfig } from '../src-fw/index'
+// import { BaseConfig } from '../src-fw/index'
+import { Operation } from '../src-fw/operation'
 
 export function register () {
   return Operation.nbOf()
 }
 
+
+/* Classe abstraite surchargeant la classe Operation générique
+pour certaines méthodes ayant une implémentation spécifique.
+*/
+export class AppOperation extends Operation {
+
+}
+
 /* EchoTexte retourne le texte passé en argument (un peu modifié)
 */
-class EchoTexte2 extends Operation {
+class EchoTexte2 extends AppOperation {
 
   constructor () { super() }
 

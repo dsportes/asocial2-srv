@@ -115,7 +115,7 @@ export interface IDbGeneric {
 
   /* Insère une nouvelle organisation par son "row"
   */
-  insetOrg (row: Object) : Promise<void>
+  insertOrg (row: Object) : Promise<void>
 
   /* Met à jour une organisation existante par son "row"
   */
@@ -168,8 +168,9 @@ export interface IDbGeneric {
   - val : à comparer. Selon le type de l'index:
     - string / int / float : valeur de la propriété string / number / number
     - number pour les zombis z.
+  - lstp: liste des index des propriétés de type list de la classe du document.
   */
-  purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any) : Promise<void>
+  purgeDlvDocs (org: string, cl: string, ix: number, comp: string, val: any, lstp?: number[]) : Promise<void>
 
   /* FTP : Files To Purge - HORS TRANSACTION ******************************/
   /* Déclaration d'un FTP

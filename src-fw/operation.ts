@@ -4,7 +4,7 @@ import { IStGeneric } from './iStGeneric'
 import { Util } from './util'
 
 export class Operation {
-  private static factories = new Map<string, Function>()
+  public static factories = new Map<string, Function>()
 
   public static config: BaseConfig
 
@@ -44,6 +44,7 @@ export class Operation {
   }
 
   async run (): Promise<void> {
+    const authenticator = Operation.config.factory('Authenticator', this)
   }
 
   async transac (): Promise<void> {
@@ -93,6 +94,16 @@ export class Operation {
 
   orgValue (req: boolean) : string {
     return this.stringValue('org', req, 4, 16)
+  }
+
+}
+
+/* Authenticator générique ********************************/
+export class Authenticator {
+  op: Operation
+
+  constructor (op: Operation) {
+    this.op = op
   }
 
 }
