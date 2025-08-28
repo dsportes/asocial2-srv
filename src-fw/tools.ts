@@ -1,5 +1,6 @@
 import { BaseConfig } from './index'
-import { AppExc, Log } from './index'
+import { AppExc } from './index'
+import { Log } from './log'
 import { Operation } from './operation'
 import { testECDH, testSH } from './crypt'
 
@@ -120,7 +121,7 @@ export class Tools {
   }
 
    async test1 () : Promise<void> {
-    await testECDH()
+    // await testECDH()
     await testSH()
   }
 

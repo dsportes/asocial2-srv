@@ -2,6 +2,7 @@ import { AppExc, BaseConfig } from './index'
 import { IDbGeneric } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { Util } from './util'
+import { Crypt } from './crypt'
 
 export class Operation {
   public static factories = new Map<string, Function>()
@@ -127,9 +128,16 @@ export class AuthRecord {
   }
 
   async process () {
+    const hck = Operation.config.keys['hckeys']
     if (this.tokens && this.tokens.length) for (const token of this.tokens) {
-      const fn = this['mt' + token['type']]
-      if (fn) await fn.apply(this, [token])
+      const k = hck[token['type']]
+      if (k) {
+        const h = Crypt.sha32(token['value'])
+        if (h === k) this.auths.add(token['type'])
+      } else {
+        const fn = this['mt' + token['type']]
+        if (fn) await fn.apply(this, [token])
+      }
     }
     this.op.result['auths'] = Array.from(this.auths).join(' / ')
     return this

@@ -1870,3 +1870,37 @@ TypeError: Cannot set properties of undefined (setting 'auth')
 2025-08-28T13:53:08.387Z info: TestAuth started
 2025-08-28T13:53:08.399Z info: PRAGMA journal_mode = WAL
 2025-08-28T13:53:08.403Z info: TestAuth finished
+2025-08-28T16:50:47.325Z info: 11 operations registered
+2025-08-28T16:50:47.329Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T16:50:47.331Z info: Firestore connector
+2025-08-28T16:50:47.332Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T16:50:47.333Z info: 11 App operations registered
+2025-08-28T17:06:56.145Z info: 11 operations registered
+2025-08-28T17:06:56.149Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T17:06:56.149Z info: Firestore connector
+2025-08-28T17:06:56.150Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T17:06:56.151Z info: 11 App operations registered
+2025-08-28T17:06:56.165Z info: HTTP listen [8080]
+2025-08-28T17:07:27.904Z info: TestAuth started
+2025-08-28T17:10:10.169Z info: 11 operations registered
+2025-08-28T17:10:10.172Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T17:10:10.173Z info: Firestore connector
+2025-08-28T17:10:10.174Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T17:10:10.175Z info: 11 App operations registered
+2025-08-28T17:10:10.193Z info: HTTP listen [8080]
+2025-08-28T17:22:44.267Z info: 11 operations registered
+2025-08-28T17:22:44.272Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T17:22:44.274Z info: Firestore connector
+2025-08-28T17:22:44.275Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T17:22:44.276Z info: 11 App operations registered
+2025-08-28T17:22:44.294Z info: HTTP listen [8080]
+2025-08-28T17:23:04.411Z info: TestAuth started
+2025-08-28T17:26:07.778Z info: 11 operations registered
+2025-08-28T17:26:07.781Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T17:26:07.782Z info: Firestore connector
+2025-08-28T17:26:07.783Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T17:26:07.783Z info: 11 App operations registered
+2025-08-28T17:26:07.799Z info: HTTP listen [8080]
+2025-08-28T17:26:11.622Z info: TestAuth started
+2025-08-28T17:26:11.630Z info: PRAGMA journal_mode = WAL
+2025-08-28T17:26:29.835Z info: TestAuth finished

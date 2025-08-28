@@ -11,7 +11,7 @@ import { Crypt } from './crypt'
 */
 export function cryptKeys () {
   const cmdargs = parseArgs({
-    allowPositionals: false,
+    allowPositionals: true,
     options: { 
       pwd: { type: 'string', short: 'p' },
       in: { type: 'string', short: 'i' },
