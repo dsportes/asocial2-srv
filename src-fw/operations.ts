@@ -25,6 +25,22 @@ class EchoTexte extends Operation {
 }
 Operation.register('EchoTexte', () => { return new EchoTexte()})
 
+/* EchoTexte retourne le texte passé en argument (un peu modifié)
+*/
+class TestAuth extends Operation {
+  constructor () { super() }
+
+  init () {
+  }
+
+  async run () {
+    await super.run()
+    await this.setAuths()
+  }
+
+}
+Operation.register('TestAuth', () => { return new TestAuth()})
+
 /* PingDB effectue un ping de DB et retourne le texte enregistré en DB
 */
 class PingDB extends Operation {

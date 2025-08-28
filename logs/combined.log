@@ -1756,3 +1756,117 @@
 2025-08-23T17:21:33.077Z info: 10 App operations registered
 2025-08-23T17:21:58.442Z info: Firestore ping OK: ? <=> 2025-08-23T17:21:46.961Z
 2025-08-23T17:21:58.445Z info: File-System ping OK: 2025-08-23T17:21:58.443Z
+2025-08-28T13:07:57.131Z info: 11 operations registered
+2025-08-28T13:07:57.134Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:07:57.135Z info: Firestore connector
+2025-08-28T13:07:57.136Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:07:57.137Z info: 11 App operations registered
+2025-08-28T13:07:57.150Z info: HTTP listen [8080]
+2025-08-28T13:17:35.198Z info: AppExc: 1002:unknown operation["testAuth"]
+2025-08-28T13:17:35.201Z info: testAuth terminated on exception
+2025-08-28T13:18:27.741Z info: TestAuth started
+2025-08-28T13:18:27.748Z error: AppExc: 3001:argument absent["text"]
+2025-08-28T13:18:27.761Z info: TestAuth terminated on exception
+2025-08-28T13:20:17.869Z info: 11 operations registered
+2025-08-28T13:20:17.873Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:20:17.874Z info: Firestore connector
+2025-08-28T13:20:17.874Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:20:17.875Z info: 11 App operations registered
+2025-08-28T13:20:17.890Z info: HTTP listen [8080]
+2025-08-28T13:20:22.705Z info: TestAuth started
+2025-08-28T13:20:22.759Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:22:02.397Z info: TestAuth terminated on exception
+2025-08-28T13:22:02.399Z info: AppExc: 1999:unexpected exception["Cannot read properties of undefined (reading 'auths')"]
+TypeError: Cannot read properties of undefined (reading 'auths')
+    at mtADMIN (/home/daniel/git/asocial2-srv/src-fw/operation.ts:136:34)
+    at AppAuthenticator.process (/home/daniel/git/asocial2-srv/src-fw/operation.ts:131:21)
+    at TestAuth.setAuths (/home/daniel/git/asocial2-srv/src-fw/operation.ts:52:35)
+    at TestAuth.run (/home/daniel/git/asocial2-srv/src-fw/operations.ts:37:16)
+    at doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:270:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:157:9)
+2025-08-28T13:26:27.125Z info: 11 operations registered
+2025-08-28T13:26:27.129Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:26:27.131Z info: Firestore connector
+2025-08-28T13:26:27.132Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:26:27.133Z info: 11 App operations registered
+2025-08-28T13:26:27.151Z info: HTTP listen [8080]
+2025-08-28T13:26:36.340Z info: TestAuth started
+2025-08-28T13:27:44.579Z info: 11 operations registered
+2025-08-28T13:27:44.583Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:27:44.584Z info: Firestore connector
+2025-08-28T13:27:44.585Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:27:44.586Z info: 11 App operations registered
+2025-08-28T13:27:44.599Z info: HTTP listen [8080]
+2025-08-28T13:27:53.844Z info: TestAuth started
+2025-08-28T13:27:53.857Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:27:55.685Z info: TestAuth terminated on exception
+2025-08-28T13:27:55.686Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'auth')"]
+TypeError: Cannot set properties of undefined (setting 'auth')
+    at TestAuth.setAuths (/home/daniel/git/asocial2-srv/src-fw/operation.ts:53:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async TestAuth.run (/home/daniel/git/asocial2-srv/src-fw/operations.ts:37:5)
+    at async doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:270:5)
+    at async IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:157:9)
+2025-08-28T13:30:14.041Z info: 11 operations registered
+2025-08-28T13:30:14.057Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:30:14.059Z info: Firestore connector
+2025-08-28T13:30:14.063Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:30:14.064Z info: 11 App operations registered
+2025-08-28T13:30:14.103Z info: HTTP listen [8080]
+2025-08-28T13:30:16.097Z info: TestAuth started
+2025-08-28T13:30:16.108Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:31:32.579Z info: TestAuth terminated on exception
+2025-08-28T13:31:32.582Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'auth')"]
+TypeError: Cannot set properties of undefined (setting 'auth')
+    at TestAuth.setAuths (/home/daniel/git/asocial2-srv/src-fw/operation.ts:53:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async TestAuth.run (/home/daniel/git/asocial2-srv/src-fw/operations.ts:37:5)
+    at async doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:270:5)
+    at async IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:157:9)
+2025-08-28T13:33:44.415Z info: 11 operations registered
+2025-08-28T13:33:44.420Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:33:44.421Z info: Firestore connector
+2025-08-28T13:33:44.422Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:33:44.423Z info: 11 App operations registered
+2025-08-28T13:33:44.447Z info: HTTP listen [8080]
+2025-08-28T13:33:48.189Z info: TestAuth started
+2025-08-28T13:33:48.209Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:34:17.414Z info: TestAuth terminated on exception
+2025-08-28T13:34:17.415Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'auth')"]
+TypeError: Cannot set properties of undefined (setting 'auth')
+    at TestAuth.setAuths (/home/daniel/git/asocial2-srv/src-fw/operation.ts:53:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async TestAuth.run (/home/daniel/git/asocial2-srv/src-fw/operations.ts:37:5)
+    at async doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:270:5)
+    at async IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:157:9)
+2025-08-28T13:35:18.304Z info: 11 operations registered
+2025-08-28T13:35:18.308Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:35:18.309Z info: Firestore connector
+2025-08-28T13:35:18.310Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:35:18.311Z info: 11 App operations registered
+2025-08-28T13:35:18.329Z info: HTTP listen [8080]
+2025-08-28T13:35:36.978Z info: TestAuth started
+2025-08-28T13:35:36.993Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:35:38.567Z info: TestAuth finished
+2025-08-28T13:39:32.992Z info: 11 operations registered
+2025-08-28T13:39:32.995Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:39:32.997Z info: Firestore connector
+2025-08-28T13:39:32.998Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:39:33.000Z info: 11 App operations registered
+2025-08-28T13:39:33.017Z info: HTTP listen [8080]
+2025-08-28T13:39:33.476Z info: TestAuth started
+2025-08-28T13:39:33.485Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:40:10.685Z info: TestAuth finished
+2025-08-28T13:41:34.620Z info: TestAuth started
+2025-08-28T13:41:34.623Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:42:13.632Z info: TestAuth finished
+2025-08-28T13:53:06.207Z info: 11 operations registered
+2025-08-28T13:53:06.213Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-28T13:53:06.215Z info: Firestore connector
+2025-08-28T13:53:06.216Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-28T13:53:06.218Z info: 11 App operations registered
+2025-08-28T13:53:06.236Z info: HTTP listen [8080]
+2025-08-28T13:53:08.387Z info: TestAuth started
+2025-08-28T13:53:08.399Z info: PRAGMA journal_mode = WAL
+2025-08-28T13:53:08.403Z info: TestAuth finished

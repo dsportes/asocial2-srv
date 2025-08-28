@@ -35,6 +35,7 @@ export class Operation {
   public db: IDbGeneric
   public transaction: any
   public storage: IStGeneric
+  public authRecord : AuthRecord
 
   constructor (fake?: boolean) { this.fake = fake || false }
 
@@ -44,7 +45,13 @@ export class Operation {
   }
 
   async run (): Promise<void> {
-    const authenticator = Operation.config.factory('Authenticator', this)
+    this.result = {}
+  }
+
+  async setAuths (): Promise<void> {
+    const auth = Operation.config.factory('AuthRecord', this)
+    auth.process()
+    console.log(this.authRecord.time)
   }
 
   async transac (): Promise<void> {
@@ -95,15 +102,41 @@ export class Operation {
   orgValue (req: boolean) : string {
     return this.stringValue('org', req, 4, 16)
   }
-
 }
 
+
 /* Authenticator générique ********************************/
-export class Authenticator {
+export class AuthRecord {
   op: Operation
+  devAppToken: string
+  time: number
+  tokens: Object[]
+
+  auths: Set<string>
 
   constructor (op: Operation) {
     this.op = op
+    this.op['authRecord'] = this
+    this.auths = new Set()
+    const ar = op.args['authRecord']
+    if (ar) {
+      this.devAppToken = ar.devAppToken
+      this.time = ar.time
+      this.tokens = ar.tokens
+    }
+  }
+
+  async process () {
+    if (this.tokens && this.tokens.length) for (const token of this.tokens) {
+      const fn = this['mt' + token['type']]
+      if (fn) await fn.apply(this, [token])
+    }
+    this.op.result['auths'] = Array.from(this.auths).join(' / ')
+    return this
+  }
+
+  async mtADMIN (token: Object) {
+    if (token['val'] === 'ok') this.auths.add('ADMIN')
   }
 
 }

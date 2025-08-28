@@ -1,14 +1,16 @@
-import { Operation, Authenticator } from '../src-fw/operation'
+import { Operation, AuthRecord } from '../src-fw/operation'
 
 export function factory (name: string, arg: any) {
   switch (name) {
-  case 'Authenticator' : return new AppAuthenticator(arg)
+  case 'AuthRecord' : return new AppAuthRecord(arg)
   }
 }
 
-export class AppAuthenticator extends Authenticator {
+export class AppAuthRecord extends AuthRecord {
 
-  constructor (op: Operation) {
-    super(op)
+  constructor (op: Operation) { super(op) }
+
+  async mtTEST1 (token: Object) {
+    if (token['toto'] === 'titi') this.auths.add('TOTO')
   }
 }
