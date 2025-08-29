@@ -1904,3 +1904,132 @@ TypeError: Cannot set properties of undefined (setting 'auth')
 2025-08-28T17:26:11.622Z info: TestAuth started
 2025-08-28T17:26:11.630Z info: PRAGMA journal_mode = WAL
 2025-08-28T17:26:29.835Z info: TestAuth finished
+2025-08-29T14:19:12.343Z info: 7 operations registered
+2025-08-29T14:19:12.352Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T14:19:12.353Z info: Firestore connector
+2025-08-29T14:19:12.355Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T14:19:12.356Z info: 7 App operations registered
+2025-08-29T14:19:12.383Z info: HTTP listen [8080]
+2025-08-29T14:34:19.368Z info: TestAuth terminated on exception
+2025-08-29T14:34:19.395Z info: AppExc: 1999:unexpected exception["Invalid time value"]
+RangeError: Invalid time value
+    at Date.toISOString (<anonymous>)
+    at new Operation (/home/daniel/git/asocial2-srv/src-fw/operation.ts:47:57)
+    at new TestAuth (/home/daniel/git/asocial2-srv/src-fw/operations.ts:34:20)
+    at <anonymous> (/home/daniel/git/asocial2-srv/src-fw/operations.ts:42:47)
+    at doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:251:16)
+    at IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:158:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-08-29T14:35:42.279Z info: TestAuth terminated on exception
+2025-08-29T14:35:42.281Z info: AppExc: 1999:unexpected exception["Invalid time value"]
+RangeError: Invalid time value
+    at Date.toISOString (<anonymous>)
+    at new Operation (/home/daniel/git/asocial2-srv/src-fw/operation.ts:47:57)
+    at new TestAuth (/home/daniel/git/asocial2-srv/src-fw/operations.ts:34:20)
+    at <anonymous> (/home/daniel/git/asocial2-srv/src-fw/operations.ts:42:47)
+    at doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:251:16)
+    at IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:158:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-08-29T14:39:02.975Z info: 7 operations registered
+2025-08-29T14:39:02.978Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T14:39:02.979Z info: Firestore connector
+2025-08-29T14:39:02.980Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T14:39:02.981Z info: 7 App operations registered
+2025-08-29T14:39:02.996Z info: HTTP listen [8080]
+2025-08-29T14:40:08.465Z info: TestAuth terminated on exception
+2025-08-29T14:40:08.468Z info: AppExc: 1999:unexpected exception["Invalid time value"]
+RangeError: Invalid time value
+    at Date.toISOString (<anonymous>)
+    at new Operation (/home/daniel/git/asocial2-srv/src-fw/operation.ts:46:57)
+    at new TestAuth (/home/daniel/git/asocial2-srv/src-fw/operations.ts:34:20)
+    at <anonymous> (/home/daniel/git/asocial2-srv/src-fw/operations.ts:42:47)
+    at doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:251:16)
+    at IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:158:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-08-29T14:41:46.482Z info: 7 operations registered
+2025-08-29T14:41:46.486Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T14:41:46.487Z info: Firestore connector
+2025-08-29T14:41:46.488Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T14:41:46.488Z info: 7 App operations registered
+2025-08-29T14:41:46.502Z info: HTTP listen [8080]
+2025-08-29T14:42:51.804Z info: TestAuth terminated on exception
+2025-08-29T14:42:51.806Z info: AppExc: 1999:unexpected exception["Invalid time value"]
+RangeError: Invalid time value
+    at Date.toISOString (<anonymous>)
+    at new Operation (/home/daniel/git/asocial2-srv/src-fw/operation.ts:46:57)
+    at new TestAuth (/home/daniel/git/asocial2-srv/src-fw/operations.ts:34:20)
+    at <anonymous> (/home/daniel/git/asocial2-srv/src-fw/operations.ts:42:47)
+    at doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:251:16)
+    at IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:158:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-08-29T14:47:31.051Z info: 7 operations registered
+2025-08-29T14:47:31.054Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T14:47:31.055Z info: Firestore connector
+2025-08-29T14:47:31.056Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T14:47:31.057Z info: 7 App operations registered
+2025-08-29T14:47:31.069Z info: HTTP listen [8080]
+2025-08-29T14:47:49.851Z info: TestAuth : 2025-08-29T14:47:39.349Z
+2025-08-29T14:48:17.436Z info: PRAGMA journal_mode = WAL
+2025-08-29T14:48:20.460Z info: BEGIN
+2025-08-29T14:48:20.465Z info: ROLLBACK
+2025-08-29T14:48:30.624Z error: TestAuth : 2025-08-29T14:47:39.349Z : TypeError: Cannot read properties of undefined (reading 'transac')
+2025-08-29T14:48:30.626Z info: TestAuth terminated on exception
+2025-08-29T14:48:30.627Z info: AppExc: 1999:unexpected exception["Cannot read properties of undefined (reading 'transac')"]
+TypeError: Cannot read properties of undefined (reading 'transac')
+    at AppSQLiteConnexion.doTransaction (/home/daniel/git/asocial2-srv/src-sqlite/index.ts:105:21)
+    at TestAuth.run (/home/daniel/git/asocial2-srv/src-fw/operation.ts:101:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async doOp (/home/daniel/git/asocial2-srv/src-fw/index.ts:266:5)
+    at async IncomingMessage.<anonymous> (/home/daniel/git/asocial2-srv/src-fw/index.ts:158:9)
+2025-08-29T15:00:16.221Z info: TestAuth : 2025-08-29T15:00:16.220Z
+2025-08-29T15:05:41.265Z info: 7 operations registered
+2025-08-29T15:05:41.268Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T15:05:41.269Z info: Firestore connector
+2025-08-29T15:05:41.270Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T15:05:41.270Z info: 7 App operations registered
+2025-08-29T15:05:41.286Z info: HTTP listen [8080]
+2025-08-29T15:05:50.394Z info: TestAuth : 2025-08-29T15:05:50.386Z
+2025-08-29T15:08:54.040Z info: 7 operations registered
+2025-08-29T15:08:54.045Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T15:08:54.047Z info: Firestore connector
+2025-08-29T15:08:54.048Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T15:08:54.049Z info: 7 App operations registered
+2025-08-29T15:08:54.068Z info: HTTP listen [8080]
+2025-08-29T15:08:56.079Z info: TestAuth : 2025-08-29T15:08:56.074Z
+2025-08-29T15:09:15.643Z info: PRAGMA journal_mode = WAL
+2025-08-29T15:10:08.596Z info: BEGIN
+2025-08-29T15:10:59.469Z info: auths : 1756480136042 - ADMIN TOTO
+2025-08-29T15:11:32.597Z info: COMMIT
+2025-08-29T15:12:00.006Z info: TestAuth finished
+2025-08-29T15:14:28.922Z info: 7 operations registered
+2025-08-29T15:14:28.926Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T15:14:28.927Z info: Firestore connector
+2025-08-29T15:14:28.928Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T15:14:28.928Z info: 7 App operations registered
+2025-08-29T15:14:28.944Z info: HTTP listen [8080]
+2025-08-29T15:14:47.231Z info: TestAuth : 2025-08-29T15:14:47.226Z
+2025-08-29T15:14:52.172Z info: PRAGMA journal_mode = WAL
+2025-08-29T15:15:14.355Z info: BEGIN
+2025-08-29T15:16:00.748Z info: auths : 1756480487194 - ADMIN TOTO
+2025-08-29T15:16:11.492Z info: COMMIT
+2025-08-29T15:16:19.569Z info: TestAuth finished
+2025-08-29T15:19:15.236Z info: 7 operations registered
+2025-08-29T15:19:15.239Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-29T15:19:15.240Z info: Firestore connector
+2025-08-29T15:19:15.241Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-29T15:19:15.242Z info: 7 App operations registered
+2025-08-29T15:19:15.256Z info: HTTP listen [8080]
+2025-08-29T15:19:18.048Z info: TestAuth : 2025-08-29T15:19:18.041Z
+2025-08-29T15:19:18.062Z info: PRAGMA journal_mode = WAL
+2025-08-29T15:19:18.064Z info: BEGIN
+2025-08-29T15:19:35.097Z info: auths : 1756480758001 - ADMIN TOTO
+2025-08-29T15:19:40.241Z info: COMMIT
+2025-08-29T15:19:47.906Z info: TestAuth finished

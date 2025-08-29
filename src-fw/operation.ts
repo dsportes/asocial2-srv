@@ -1,6 +1,9 @@
 import { AppExc, BaseConfig } from './index'
+import { Log } from './log'
+import { DbConnector } from './dbConnector'
 import { IDbGeneric } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
+import { Document } from './document'
 import { Util } from './util'
 import { Crypt } from './crypt'
 
@@ -13,8 +16,6 @@ export class Operation {
     return Operation.factories.size 
   }
 
-  static fake () { return new Operation(true) }
-
   static new (opName: string) {
     const f = Operation.factories.get(opName)
     return f ? f() : null
@@ -24,39 +25,181 @@ export class Operation {
     Operation.factories.set(opName, factory)
   }
 
-  public fake: boolean
-
   public opName: string
   public org: string
   public result: any
-  public args: any
-  public params: any
+  public args: any // arguments bruts de l'opération
   public now: number
   public today: number
-  public db: IDbGeneric
-  public transaction: any
+  public msSlow : number
+
   public storage: IStGeneric
+  public dbConnector: DbConnector
   public authRecord : AuthRecord
+  public db: IDbGeneric
 
-  constructor (fake?: boolean) { this.fake = fake || false }
+  public cache : Cache
 
-  get config (): BaseConfig { return Operation.config }
+  constructor () {  }
 
-  init () {
+  assertKO (src: string, code: number, args: string[]) {
+    const x = args && args.length ? JSON.stringify(args) : ''
+    const msg = `ASSERT : ${src} - ${x} - ${code}`
+    const t = new Date().toISOString()
+    Log.error(msg)
+    if (args) args.unshift(src)
+    return new AppExc(code, 'ASSERT', this, args)
   }
 
-  async run (): Promise<void> {
-    this.result = {}
+  trace (src: string, id: string, info: string, err: boolean) {
+    const msg = `${src} - ${id} - ${info}`
+    if (err) Log.error(msg); else Log.info(msg)
+    return msg
+  }
+
+  init () {
+    this.result = { time: this.now, srvBUILD: Operation.config.BUILD }
+    this.msSlow = 0
+    if (Operation.config.debugLevel > 1) 
+      Log.info(this.opName + ' : ' + new Date(this.now).toISOString())
+  }
+
+  async phase2 (args: any) {
+  }
+
+  async phase3 (args: any) {
+  }
+
+  /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
+  setRes(prop: string, val: any) { this.result[prop] = val; return val }
+
+  /* AJOUTE la valeur en fin de la propriété Array 'prop' du résultat (et la retourne)*/
+  addRes(prop: string, val) {
+    let l = this.result[prop]; if (!l) { l = []; this.result[prop] = l }
+    l.push(val)
+    return val
+  }
+
+  async transac (): Promise<void> {
+    this.cache = new Cache(this)
+    await this.setAuths()
+    await this.phase2(this.args)
+    await this.cache.commit()
+  }
+
+  async run () : Promise<void>{
+    try {
+      if (this.phase2) for (let retry = 0; retry < 3; retry++) {
+        if (retry) {
+          this.now = Date.now()
+          this.today = Util.amj(this.now)
+        }
+        this.msSlow = 0
+        this.result = { time: this.now, srvBUILD: Operation.config.BUILD }
+        await this.dbConnector.getConnexion(this)
+        this.cache = new Cache(this)
+
+        const [st, detail] = await this.db.doTransaction() // Fait un appel à transac
+
+        if (st === 0) {
+          // transcation OK et commitée
+          this.cache.postCommit()
+          break 
+        }
+
+        if (st === 2) {
+          this.trace ('Op.run.phase2', 'DB error', detail, true)
+          throw new AppExc(11, 'DB error', this, [detail]) // DB error
+        }
+
+        // st === 1 - DB lock / contention
+        if (retry === 2) {
+          this.trace ('Op.run.phase2', 'DB lock', detail, true)
+          throw new AppExc(10, 'DB lock', this, [detail])
+        }
+
+        this.db.disconnect()
+        await Util.sleep(10000)
+      }
+
+      if (this.phase3) {
+        if (!this.db)
+          await this.dbConnector.getConnexion(this)
+        await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
+      }
+
+      /*
+      if (this.phase2) {
+        if (this.subJSON) { // de Sync exclusivement
+          if (this.subJSON.startsWith('???')) {
+            if (config.mondebug) config.logger.error('subJSON=' + this.subJSON)
+            } else {
+              await genLogin(this.org, this.sessionId, this.subJSON, this.nhb, this.id, 
+                this.compte.perimetre, this.compte.vpe)
+            }
+        }
+        
+        if (this.gd.trLog._maj) {
+          this.gd.trLog.fermer()
+          if (!this.estAdmin) { // sessions ADMIN ne reçoivent jamais de synchro
+            const sc = this.gd.trLog.court // sc: { vcpt, vesp, vadq, lag }
+            if (sc) this.setRes('trlog', sc)
+          }
+          
+          const sl = this.gd.trLog.serialLong
+          if (sl) {
+            const sid = this.SYS ? null : (this.sessionId || null)
+            this.nhb = await genNotif(this.org, sid, sl)
+          }
+        }
+        if (this.nhb !== undefined && this.nhb !== -1) 
+          this.setRes('nhb', { sessionId: this.sessionId, nhb: this.nhb, op: this.nomop })
+
+        if (this.compta) {
+          const c = this.compta.compteurs
+          const adq = {
+            dh: this.dh,
+            v: this.compta.v,
+            flags: this.flags,
+            dlv: this.compta.dlv,
+            nl: this.nl, 
+            ne: this.ne,
+            vd: this.vd, 
+            vm: this.vm,
+            qv: { ...c.qv }
+          }
+          this.setRes('adq', adq)
+        }
+      }
+      */
+
+      /*
+      if (this.aTaches) 
+        Taches.prochTache(this.dbp, this.storage)
+      */
+      
+      await this.db.disconnect()
+
+      if (this.msSlow) await Util.sleep(this.msSlow)
+      
+      return this.result
+    } catch (e) {
+      if (this.db) await this.db.disconnect()
+      if (Operation.config.debugLevel > 1) 
+        Log.error(this.opName + ' : ' + new Date(this.now).toISOString() + ' : ' + e.toString())
+      throw e
+    }
   }
 
   async setAuths (): Promise<void> {
     const auth = Operation.config.factory('AuthRecord', this)
-    auth.process()
-    console.log(this.authRecord.time)
+    await auth.process()
+    this.setRes('auths', auth.listAuths)
+    if (Operation.config.debugLevel > 1)
+      Log.info('auths : ' + this.authRecord.time + ' - ' + this.authRecord.listAuths)
   }
 
-  async transac (): Promise<void> {
-  }
+  // Contrôle des types d'arguments
 
   type (par: string, req: boolean) : [boolean, any, string] { // absent, value, type
     if (par === undefined) throw new AppExc(8001, 'unknown argument', null, ['?'])
@@ -127,6 +270,10 @@ export class AuthRecord {
     }
   }
 
+  get listAuths () : string {
+    return Array.from(this.auths).join(' ')
+  }
+
   async process () {
     const hck = Operation.config.keys['hckeys']
     if (this.tokens && this.tokens.length) for (const token of this.tokens) {
@@ -139,7 +286,6 @@ export class AuthRecord {
         if (fn) await fn.apply(this, [token])
       }
     }
-    this.op.result['auths'] = Array.from(this.auths).join(' / ')
     return this
   }
 
@@ -148,6 +294,194 @@ export class AuthRecord {
   }
 
 }
+
+type cacheItem = {
+  lru: number // last recent use
+  time: number // time lecture
+  v: number // version du document
+  z?: number // zombi du document
+  data: Uint8Array // data sérialisé du document
+}
+
+export class Cache {
+
+  // Cache locale à l'opération
+  op: Operation
+  db : IDbGeneric
+  conso : number[]
+  toInsert : Object []
+  toUpdate : Object []  
+  toDelete : Object []
+  hdr : Document
+  orgs : Map<string, Document>
+  docs : Map<string, Document>
+
+  static MAX_CACHE_SIZE = 1000
+  static LAZY_MS = 1000
+
+  // Cache globale
+  static map : Map<string, cacheItem> = new Map()
+
+  /* Obtient le data (sérialisé du row de la cache ou va le chercher en base.
+  Si le row actuellement en cache est le plus récent on a évité une lecture effective
+   (ça s'est limité à un filtre sur index).
+  Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
+  certes la transaction peut échouer, mais au pire on a lu une version plus récente.
+  */
+  static async getData(op: Operation, clazz: string, org: string, pk: string, lazy?: boolean) {
+    const now = Date.now()
+    const h = clazz === 'Hdr'
+    const o = clazz == 'Org'
+    const k = clazz + '/' + (h ? '' : (org + '/' + (o ? '' : pk)))
+    const item = Cache.map.get(k)
+    if (item && lazy && (o || h) && (now - item.time < Cache.LAZY_MS)) {
+      item.lru = now
+      return item.data
+    }
+
+    if (item) { // item trouvé en cache
+      // lecture pour recherche d'un éventuel plus récent
+      let row : any
+      if (h) row = await op.db.getHdr(item.v)
+      else {
+        if (o) row = await op.db.getOrg(org, item.v)
+        else row = await op.db.getDoc(org, clazz, pk, item.v)
+      }
+      const v = row['v']
+      const z = row['z']
+      if (row && v > item.v) { // celui lu est plus récent
+        item.data = op.db.rowToDataBin(row)
+        item.v = v
+        if (z) item.z = z
+      }
+      item.lru = now
+      return item.data
+    }
+
+    // Pas trouvé en cache - recherche en base
+    let row : any
+    if (h) row = await op.db.getHdr()
+    else {
+      if (o) row = await op.db.getOrg(org)
+      else row = await op.db.getDoc(org, clazz, pk)
+    }
+    if (row) { // trouvé en base, mis en cache
+      const data = op.db.rowToDataBin(row)
+      const item : cacheItem = { 
+        lru: now, 
+        time: now, 
+        v: row['v'], 
+        data
+      }
+      const z = row['z']
+      if (z) item.z = z
+      Cache.map.set(k, item)
+      return data
+    }
+
+    // Pas trouvé en base
+    return null
+  }
+
+  // Après commit, mise à jour de la cache avec les nouveaux rows
+  updateCache () {
+    const now = Date.now()
+    const rows = []
+    this.toInsert.forEach(row => { rows.push(row)})
+    this.toUpdate.forEach(row => { rows.push(row)}) 
+    for(const row of rows) {
+      const clazz = row['clazz']
+      const h = clazz === 'Hdr'
+      const o = clazz == 'Org'
+      const v = row['v']
+      const z = row['z']
+      const k = clazz + '/' + (h ? '' : (row['org'] + '/' + (o ? '' : row['k0'])))
+      const item = Cache.map.get(k)
+      if (item) { // remplacement éventuel
+        if (v > item.v) {
+          item.v = v
+          item.data = row['data']
+          if (z) item.z = z
+          item.lru = now
+          item.time = now
+        }
+      } else { // insertion d'un nouveau
+        const item : cacheItem = {
+          v: v,
+          data: row['data'],
+          lru: now,
+          time: now,
+        }
+        if (z) item.z = z
+        Cache.map.set(k, item)
+      }
+    }
+
+    for(const row of this.toDelete) {
+      const clazz = row['clazz']
+      const h = clazz === 'Hdr'
+      const o = clazz == 'Org'
+      const v = row['v']
+      const z = row['z']
+      const k = clazz + '/' + (h ? '' : (row['org'] + '/' + (o ? '' : row['k0'])))
+      Cache.map.delete(k)
+    }
+
+    if (Cache.map.size > Cache.MAX_CACHE_SIZE) Cache._purge()
+  }
+
+  static _purge () {
+    const t = []
+    Cache.map.forEach((value, key) => { t.push({ lru: value.lru, k: key }) } )
+    t.sort((a, b) => { return a.lru < b.lru ? -1 : (a.lru > b.lru ? 1 : 0) })
+    for (let i = 0; i < Cache.MAX_CACHE_SIZE / 2; i++) {
+      const k = t[i].k
+      Cache.map.delete(k)
+    }
+  }
+
+  constructor (operation: Operation) {
+    this.op = operation
+    this.db = this.op.db
+    this.toInsert = []
+    this.toUpdate = []
+    this.toDelete = []
+    this.hdr = null
+    this.orgs = new Map<string, Document>()
+    this.docs = new Map<string, Document>()
+    this.conso = [0, 0, 0, 0]
+  }
+
+  async commit() {
+    if (this.toInsert.length)
+      for (const row of this.toInsert) await this.db.insertDoc(row)
+    if (this.toUpdate.length)
+      for (const row of this.toUpdate) await this.db.updateDoc(row)
+    if (this.toDelete.length)
+      for (const row of this.toDelete) 
+        await this.db.deleteDoc(row['org'], row['cl'], row['pk'])
+    // préparer le Trlog
+  }
+
+  postCommit () {
+    // Maj de la cache globale
+    this.updateCache()
+  }
+
+  async getHdr () : Promise<Document> {
+    return null
+  }
+
+  async getOrg (org: string) : Promise<Document> {
+    return null
+  }
+
+  async getDoc (clazz: string, pk: string[]) : Promise<Document> {
+    return null
+  }
+
+  // etc. TODO
+} 
 
 // import { initializeApp } from 'firebase-admin/app'
 // const app = initializeApp()

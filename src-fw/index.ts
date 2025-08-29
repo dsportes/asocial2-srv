@@ -47,6 +47,7 @@ export interface BaseConfig {
   storages: stChoice[],
   docSchema: DocSchema,
   factory: Function,
+  documentClasses: Object
 
   messaging?: any
 }
@@ -247,25 +248,20 @@ export async function doOp (
     
     const f = Operation.factories.get(opName)
     if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
-    const op = f(opName)
+    const op = f()
     op.opName = opName
     op.storage = storage
+    op.dbConnector = dbConnector
     op.now = now
     op.today = today
     op.args = decode(body)
-    op.params = {}
 
     if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] 
       || op.args.APIVERSION > config.APIVERSIONS[1]))
       throw new AppExc(1003, 'unsupported API', null, [config.APIVERSIONS[0], 
         config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
 
-    if (config.debugLevel === 2)
-      Log.info(opName + ' started')
     op.init()
-
-    if (dbConnector)
-      await dbConnector.getConnexion(op)
 
     await op.run()
     if (config.debugLevel === 2)

@@ -104,14 +104,14 @@ export class Tools {
     }
   }
 
-
   async pings () : Promise<void> {
-    const op = Operation.fake()
+    const op = new Operation()
+    op.opName = 'Fake'
     await this.config.databases[0][1].getConnexion(op)
     {
       const [status, msg] = await op.db.ping()
       if (status === 0) Log.info(msg)
-      else throw new AppExc(1012, 'PING SDatabase FAILED', null, [msg])
+      else throw new AppExc(1012, 'PING Database FAILED', null, [msg])
     }
     {
       const [status, msg] = await this.config.storages[0][1].ping()

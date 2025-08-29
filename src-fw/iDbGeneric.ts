@@ -1,3 +1,4 @@
+import { DbConnector } from './dbConnector'
 /* Interface des services d'accès génériques à la DB */
 
 export interface IDbGeneric {
@@ -7,6 +8,10 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
+  dataToRow (data: Object) : Object
+  dataToZombiRow (data: Object) : Object
+  rowToDataObj (row: Object) : Object 
+  rowToDataBin (row: Object) : Uint8Array
 
   /* Inscription d'une trace dans le singleton Hdr/ping 
   Retour 'normaux':
