@@ -1,21 +1,33 @@
 # Document : row / data / classe
+## Hash de strings
+sha32)s) : encodage en base 64 URL du SHA 256 du string s.
+
+sha16(s) : le SHA 256 (32 bytes) est tronqué des bytes 3 à 19, puis encodé en base 64 URL.
+
+## Documents _SYNC_ et _NOSYNC_
+Les documents synchronisables peuvent être cités dans des _fils_ et supportent des souscriptions directes à leurs changements.
+- la **suppression** d'un document _SYNC_ s'effectue en le transformant en _zombi_: c'est une suppression logique dont la trace en base subsiste un certain temps afin que les bases synchronisées externes aient la possibilité d'être informées de leur _suppression_.
+
+Les documents NON synchronisables ne peuvent PAS être cités dans des _fils_ et ne supportent PAS des souscriptions directes à leurs changements.
+- la **suppression** d'un document _NOSYNC_ est traitée une purge physique effective (_delete_ classique).
+
 ## Classes spéciales `Hdr Org Ftp`
 `Hdr` est une class singleton représentant l'état global du _service_:
 - elle ne peut être mise à jour que par une opération de niveau _administration_.
 - sa _clé primaire_ par convention vaut '1'.
 - l'instance n'a ni clés secondaires ni propriétés indexées autres celles de base.
 
-`Org` est la classe dont chaque instance représente une _organisation_, son statut, etc.
+`Org` est la classe dont chaque instance représente une organisation_, son statut, etc.
 - sa _clé primaire_ est par convention le code de l'organisation.
 
 ## Format _data_
 _data_ est un objet ayant toujours les propriétés suivantes:
-- `_class` : string donnant la classe du document, commençant par une majuscule comme `Avatar`.
-- `_org` : string donnant le code de l'organisation. Ce code est inscrit au moment de l'écriture d'un document dans la DB, (pour un objet créé et jamais inséré il est absent).
+- `clazz` : string donnant la classe du document, commençant par une majuscule comme `Avatar`.
+- `org` : string donnant le code de l'organisation. Ce code est inscrit au moment de l'écriture d'un document dans la DB, (pour un objet créé et jamais inséré il est absent).
   - certaines sélections pour les tâches d'administration peuvent retourner des documents issus de plusieurs organisations: on retrouve ainsi l'organisation de chaque document.
   - normalement aucun traitement applicatif pur (sauf administration) n'a à traiter l'organisation d'un document.
-- `_v` : entier. Numéro de version. Pour un objet créé et jamais inséré _v vaut 0 ce qui permet de savoir en SQL s'il faut effectuer un insert ou un update.
-- `_z` : entier. Numéro de jour sous la forme 20250820 de suppression logique du document. Si absent le document existe.
+- `v` : entier. Numéro de version. Pour un objet créé et jamais inséré v vaut 0 ce qui permet de savoir en SQL s'il faut effectuer un insert ou un update.
+- `z` : entier. Numéro de jour sous la forme 20250820 de suppression logique du document. Si absent le document existe.
 - `gr ac livr ...` : propriétés string de la _clé primaire_ du document.
   - remarque: les _clés secondaires_ sont aussi composées exclusivement de celles-ci. 
 
@@ -30,17 +42,17 @@ Autres propriétés applicatives:
 Un objet data peut être _sérialisé / désérialisé_ par `encode / decode` de `@msgpack/msgpack`.
 - pour devenir la propriété `data` d'un _row_, la sérialisation est cryptée par la clé du site.
 
-## Format _classe_
+## Format _Document_
 Une classe de document hérite de la class générique `Document`.
 
 ### `Document.compile(data: object) : Document`
-Cette opération retourne une instance de la classe de document indiquée dans `data._class`:
+Cette opération retourne une instance de la classe de document indiquée dans `data.clazz`:
 - la compilation générique crée une instance ayant une propriété pour chacun de celles trouvées dans data.
 - les méthodes `doc.compile()` d'instance de documents effectuent un post-traitement applicatif retournant cette instance, par défaut aucun traitement.
 
 ### `doc.toData(opt?: objet) : object`
-Ces méthodes d'instances de documents retourne l'objet data depuis une instance de classe:
-- la méthode générique héritée retranscrit une propriété dans data pour chaque propriété de l'instance dont le nom ne commence pas par _ plus les propriétés `_class _org _v _zombi`. Elle n’interprète pas l'objet d'options `opt`.
+Ces méthodes d'instances de documents retourne l'objet _data_ depuis une instance de classe:
+- la méthode générique héritée retranscrit une propriété dans data pour chaque propriété de l'instance dont le nom ne commence pas par _ plus les propriétés `clazz org v zombi`. Elle n’interprète pas l'objet d'options `opt`.
 - les méthodes de chaque classe de document, interprètent l'argument `opt` si présent et peuvent ou non invoquer `super.toData()`.
 
 ## Format _row_
@@ -57,21 +69,24 @@ Ses propriétés systématiques sont:
 
 Ses autres propriétés sont indexées.
 
-### Clé secondaires: k1 k2 k3 ...
+### Clés secondaires: k1 k2 k3 ...
 Il peut ne pas y en avoir.
 
-Ce sont des strings. Si la clé secondaire #2 est formée des propriétés `gr, livr` `sk2` est l'encodage en base 64 URL du sha16 de la sérialisation de l'array `[gr, livr]`.
+Ce sont des strings. Si la clé secondaire #2 est formée des propriétés `gr, livr` `sk2` est le sha16 de `gr/livr`.
 
 ### Propriétés indexées: i0 i1 i2 ...
 - Il peut ne pas y en avoir.
 - Chacune correspond à UNE propriété applicative.
-- Chacun peut être déclarée G / O:
+- Chacun peut être déclarée G ou O:
   - G : l'index à une portée _globale_ de toutes les organisations. Ce sont des propriétés utilisables uniquement dans les opérations d'administration.
   - O (par défaut) : l'index n'a une portée QUE sur l'organisation spécifiée.
 - Elles ont les types possibles:
-  - `hash` : encodage en base 64 URL du sha16 de la propriété string applicative. Le seul filtrage possible est sur égalité.
+  - `uniq` : sha16 de la propriété string applicative. Le seul filtrage possible est sur égalité.
+  - `hash` : sha16 de la propriété string applicative. Le seul filtrage possible est sur égalité.
   - `string int float` : c'est la propriété telle quelle qui permet les filtrages d'égalité et d'ordre.
   - `list` : la propriété est un array de string et le seul filtrage possible est `in`.
+
+**Une propriété _unique_** impose qu'il n'y ait jamais deux documents ayant cette même valeur.
 
 > Les propriétés _applicatives_, sauf `v z` et celles indexées et de type non `hash`, ne sont pas lisibles directement dans la base, même par son hébergeur: les clés primaires et secondaires sont des _hash_ et _data_ est cryptée. Il faut la clé de cryptage du site gérée confidentiellement par _l'administrateur technique_ pour en prendre connaissance.
 
@@ -113,12 +128,12 @@ L'export / import peut ne concerner qu'une classe de document avec les objectifs
 ## Fils de document: classe `DThread` (héritant de `Document`)
 Vis à vis du stockage en base de données, ces documents ayant certaines restrictions:
 - ils ont une clé primaire `k0` mais aucune clé secondaire ni propriété indexée.
-- le nom de la table (SQL) ou classe de document (NOSQL) support n'est PAS `DThread` mais la propriété `_class` nom figurant dans l'objet / data.
+- le nom de la table (SQL) ou classe de document (NOSQL) support n'est PAS `DThread` mais la propriété `clazz` nom figurant dans l'objet / data.
 
 Chaque instance représente un _fil de documents_.
 
 #### Propriété d'un fil
-- `_class`: c'est le nom de la classe du **Fil** commençant arbitrairement par `DT`. 
+- `clazz`: c'est le nom de la classe du **Fil** commençant arbitrairement par `DT`. 
 - `k0` : c'est un array de strings donnant la clé primaire du fil.
 - `v` : version du fil.
 - `z` : jour de suppression du fil.
@@ -193,6 +208,20 @@ Chaque classe de _document_ (sauf `Hdr Task`) et de _fil_ doit avoir une déclar
         ]
       },
 
+## Création / mise à jour
+Les _créations_ **exigent** que le document n'existe pas: emploi de la méthode `dr.create()`.
+
+Les _mises à jour_ partent d'un document qui a été lu, donc verrouillé dans la transaction, et est opéré par `dr.update()`.
+
+## Gestion des index _unique_
+Pour chaque valeur possible `uk` (un sha16), un document `locks` est créé, avec un path dépendant si la propriété est globale ou non:
+- `locks/uk` : portée globale.
+- `org/demo/locks/uk` : portée locale d'une organisation.
+
+Lock n'a qu'une propriété owner (string) qui est la la clé complète du document référençant cette valeur: `[demo, cl1, pk]`.
+
+Ces propriétés ne sont SONT PAS INDEXÉES, l'accès se fait par une méthode spécifique lisant _locks_.
+
 # API d'accès primaire générique
 
 Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fonction fn anonyme qui reçoit en argument chaque _data_ et la traite. Cette facilité permet d'éviter d'accumuler des listes longues quand la _data_ peut être transformée / traitée une par une.
@@ -228,7 +257,7 @@ Les accès retournant une _liste_ peuvent avoir comme dernier paramètre une fon
     async purgeOrgs (org: string, z: number) {}
     async purgeDlvDocs (org: string, cl: string, ix: number, comp: string, val: any, lsp?: string[]) {}
 
-# Autres _tables_ / _Classes de documents_
+# Autres _tables_ / clazzes de documents_
 
 ## Fichiers à purger
 Des fichiers stockés en _storage_ peuvent être marqués _à purger_ jusqu'à un jour donné: au delà de ce jour, ils peuvent être purgés du storage.
@@ -252,8 +281,8 @@ Le `path` d'un fichier d'une organisation en storage est de la forme `folderId/f
 
 ## Gestion des tâches
 Une tâche différée est représentée par une instance d'une classe héritant de `Task` (héritant de Document) ayant les propriétés suivantes:
-- `_class` : `Task`.
-- `_org` : code l'organisation.
+- `clazz` : `Task`.
+- `org` : code l'organisation.
 - `starTime`: date-heure de création. Cette propriété est l'index 0 (`i0` du row), de type string / global. 
 - `process` : classe de traitement de la tâche (sous-classe de `Task`).
 - `pk` : array des identifiants de la cible du traitement.
