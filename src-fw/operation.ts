@@ -3,9 +3,10 @@ import { Log } from './log'
 import { DbConnector } from './dbConnector'
 import { IDbGeneric } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
-import { Document } from './document'
+import { Document, DocRef, DocData } from './document'
 import { Util } from './util'
 import { Crypt } from './crypt'
+import { encode, decode } from '@msgpack/msgpack'
 
 export class Operation {
   public static factories = new Map<string, Function>()
@@ -468,15 +469,41 @@ export class Cache {
     this.updateCache()
   }
 
-  async getHdr () : Promise<Document> {
-    return null
+  //   static async getData(op: Operation, clazz: string, org: string, pk: string, lazy?: boolean) {
+
+  toDoc (dataSer: Uint8Array) : Document {
+    if (!dataSer) return null
+    const data1 = decode(dataSer) as DocData
+    const [data, b] = Document.mutate(data1)
+    const doc = Document.newDoc(data.clazz, data.release)  
+    return doc.populate(data).compile()
   }
 
-  async getOrg (org: string) : Promise<Document> {
-    return null
+  async getHdr (lazy?: boolean) : Promise<Document> {
+    const dataSer = await Cache.getData(this.op, 'Hdr', '', '', lazy)
+    return this.toDoc(dataSer)
   }
 
-  async getDoc (clazz: string, pk: string[]) : Promise<Document> {
+  async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
+    const dataSer = await Cache.getData(this.op, 'Org', org, '', lazy)
+    if (!dataSer) {
+      if (assert) this.op.assertKO(assert, 25, ['Org', org])
+        return null
+    }
+    return this.toDoc(dataSer)
+  }
+
+  async getDoc (clazz: string, pk: string[], assert?: string) : Promise<Document> {
+    const k0 = pk.join('/')
+    const dataSer = await Cache.getData(this.op, clazz, this.op.org, k0)
+    if (!dataSer) {
+      if (assert) this.op.assertKO(assert, 26, [clazz, this.op.org, k0])
+        return null
+    }
+    return this.toDoc(dataSer)
+  }
+
+  async delDoc (ref: DocRef) : Promise<void> {
     return null
   }
 

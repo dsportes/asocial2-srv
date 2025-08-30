@@ -132,5 +132,7 @@ export class DbConnexion {
     return Crypt.syncDecrypt(this.key, row['data'])
   }
 
+  
+
   async ping () : Promise<[number, string]> { return [2, '???']}
 }
