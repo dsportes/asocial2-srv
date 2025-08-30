@@ -471,7 +471,7 @@ export class Cache {
 
   //   static async getData(op: Operation, clazz: string, org: string, pk: string, lazy?: boolean) {
 
-  toDoc (dataSer: Uint8Array) : Document {
+  docFromDataSer (dataSer: Uint8Array) : Document {
     if (!dataSer) return null
     const data1 = decode(dataSer) as DocData
     const [data, b] = Document.mutate(data1)
@@ -480,34 +480,56 @@ export class Cache {
   }
 
   async getHdr (lazy?: boolean) : Promise<Document> {
+    let doc = this.hdr
+    if (doc) return doc
     const dataSer = await Cache.getData(this.op, 'Hdr', '', '', lazy)
-    return this.toDoc(dataSer)
+    doc = this.docFromDataSer(dataSer)
+    if (!lazy) this.hdr = doc
+    return doc
   }
 
   async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
+    let doc = this.orgs.get(org)
+    if (doc) return doc
     const dataSer = await Cache.getData(this.op, 'Org', org, '', lazy)
     if (!dataSer) {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
-        return null
+      return null
     }
-    return this.toDoc(dataSer)
+    doc = this.docFromDataSer(dataSer)
+    if (!lazy) this.orgs.set(org, doc)
+    return doc
+  }
+
+  cacheKey (clazz: string, pk) : string[] {
+    const k0 = pk.join('/')
+    const org = this.op.org
+    return [org + '/' + clazz + '/' + k0, k0, org]
   }
 
   async getDoc (clazz: string, pk: string[], assert?: string) : Promise<Document> {
-    const k0 = pk.join('/')
-    const dataSer = await Cache.getData(this.op, clazz, this.op.org, k0)
+    const [ck, k0, org] = this.cacheKey(clazz, pk)
+    let doc = this.docs.get(ck)
+    if (doc) return doc
+    const dataSer = await Cache.getData(this.op, clazz, org, k0)
     if (!dataSer) {
-      if (assert) this.op.assertKO(assert, 26, [clazz, this.op.org, k0])
+      if (assert) this.op.assertKO(assert, 26, [clazz, org, k0])
         return null
     }
-    return this.toDoc(dataSer)
+    doc = this.docFromDataSer(dataSer)
+    this.orgs.set(ck, doc)
+    return doc
   }
 
   async delDoc (ref: DocRef) : Promise<void> {
     return null
   }
 
-  // etc. TODO
+  /*
+  addDoc (doc: Document) {
+    const [ck, k0, org] = this.cacheKey(doc.clazz, pk)
+  }
+  */
 } 
 
 // import { initializeApp } from 'firebase-admin/app'
