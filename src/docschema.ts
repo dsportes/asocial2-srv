@@ -1,8 +1,8 @@
-import { idxType, DocType, ThType, DocSchema } from '../src-fw/doctypes'
+import { idxType, DocType, DocTypeNosync, ThType, DocSchema } from '../src-fw/doctypes'
 
 const DocTypes = {
   Org: new DocType('Org'),
-  Task: new DocType('Task', [['processPk']], [['startTime', idxType.STRING, true]]),
+  Task: new DocTypeNosync('Task', [['process', 'pk']], [['startTime', idxType.STRING, true]]),
   RG: new DocType('RG'),
   RC: new DocType('RC', [['gc']]),
   RP: new DocType('RP', [['gp']]),

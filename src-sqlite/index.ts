@@ -2,7 +2,8 @@ import Database from 'better-sqlite3'
 // import { Database } from './loadreq.js'
 
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric } from '../src-fw/iDbGeneric'
+import { IDbGeneric, comparator } from '../src-fw/iDbGeneric'
+import { DocPattern } from '../src-fw/document'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
@@ -123,13 +124,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return s
   }
 
-  async getDoc (org: string, cl: string, pk: string, v?: number) { return null }
+  async getDoc (pattern: DocPattern, v?: number) : Promise<Uint8Array> { return null }
   async insertDoc (row: Object) {}
   async updateDoc (row: Object) {}
-  async deleteDoc (org: string, cl: string, pk: string) {}
-  async listDocs (org: string, cl: string, v?: number, fn? : Function) { return [] }
-  async listDocsSk (org: string, cl: string, ik: number, val: string, v?: number, fn? : Function) { return [] }
-  async listDocsIdx (org: string, cl: string, ix: number, comp: string, val: any, v?: number, fn? : Function) { return [] }
+  async deleteDoc (pattern: DocPattern) {}
+  async listDocs (pattern: DocPattern, v?: number, fn? : Function) { return [] }
+  async listDocsSk (pattern: DocPattern, ik: number, v?: number, fn? : Function) { return [] }
+  async listDocsIdx (pattern: DocPattern, ix: number, comp: comparator, v?: number, fn? : Function) { return [] }
   async getHdr (v? : number) { return null }
   async insertHdr (row: Object) {}
   async updateHdr (row: Object) {}
@@ -137,11 +138,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async insertOrg (row: Object) {}
   async updateOrg (row: Object) {}
   async listOrgs (v?: number, fn? : Function) { return [] }  
-  async listOrgsIdx (ix: number, comp: string, val: any, v?: number, fn? : Function) { return []}
-  async purgeAllDocs (org: string, cl: string) {}
+  async listOrgsIdx (ix: number, comp: comparator, val: any, v?: number, fn? : Function) { return []}
+  async purgeAllDocs (pattern: DocPattern) {}
   async purgeOrg (org: string, z?: number) {}
   async purgeOrgs (org: string, z: number) {}
-  async purgeDlvDocs (org: string, cl: string, ix, comp: string, val: any, lstp?: number[]) {}
+  async purgeDlvDocs (pattern: DocPattern, ix, comp: comparator) {}
   async setFTP (org: string, path: string, dp: number) {}
   async purgeFTP (org: string, path: string) {}
   async listFTP (dp : number, fn: Function) {}

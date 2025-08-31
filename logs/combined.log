@@ -2033,3 +2033,27 @@ TypeError: Cannot read properties of undefined (reading 'transac')
 2025-08-29T15:19:35.097Z info: auths : 1756480758001 - ADMIN TOTO
 2025-08-29T15:19:40.241Z info: COMMIT
 2025-08-29T15:19:47.906Z info: TestAuth finished
+2025-08-31T13:01:15.391Z info: 7 operations registered
+2025-08-31T13:01:15.394Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-31T13:01:15.395Z info: Firestore connector
+2025-08-31T13:01:15.396Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-31T13:01:15.396Z info: 7 App operations registered
+2025-08-31T13:01:15.413Z info: HTTP listen [8080]
+2025-08-31T13:02:16.199Z info: 7 operations registered
+2025-08-31T13:02:16.202Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-31T13:02:16.203Z info: Firestore connector
+2025-08-31T13:02:16.204Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-31T13:03:22.006Z info: 7 App operations registered
+2025-08-31T13:03:22.020Z info: HTTP listen [8080]
+2025-08-31T13:05:40.383Z info: 7 operations registered
+2025-08-31T13:05:40.386Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-31T13:05:40.387Z info: Firestore connector
+2025-08-31T13:05:40.388Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-31T13:05:40.389Z info: 7 App operations registered
+2025-08-31T13:05:40.402Z info: HTTP listen [8080]
+2025-08-31T13:06:03.531Z info: 7 operations registered
+2025-08-31T13:06:03.534Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-08-31T13:06:03.535Z info: Firestore connector
+2025-08-31T13:06:03.536Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-08-31T13:06:26.114Z info: 7 App operations registered
+2025-08-31T13:06:26.133Z info: HTTP listen [8080]

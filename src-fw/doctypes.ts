@@ -35,12 +35,16 @@ export function isThName (n: string) { return regth.test(n)}
 */
 export class DocType {
 
+  nosync : boolean
   readonly name: string
   readonly keys : props[]
   readonly indexes: idx[]
+  dthreads : Set<ThType> // type des "fils" auxquel le type de document est rattaché
   readonly err: string
 
   constructor (name: string, keys?: props[], indexes?: idx[]) {
+    this.nosync = false
+    this.dthreads = new Set()
     this.name = name
     this.keys = keys && keys.length ? keys : []
     this.indexes = indexes && indexes.length ? indexes : []
@@ -74,6 +78,13 @@ export class DocType {
       if (ps0.has(name))
         return 'index property [' + name +'] cannot bue in primary key : ' + this.name
     }
+  }
+}
+
+export class DocTypeNosync extends DocType {
+  constructor (name: string, keys?: props[], indexes?: idx[]) {
+    super(name, keys, indexes)
+    this.nosync = true
   }
 }
 
@@ -160,6 +171,13 @@ export class DocSchema {
       this.thTypes = thTypes
     } else {
       this.errors = t
+      return
+    }
+
+    for (const [k, v] of Object.entries(thTypes)) {
+      for(const [dt] of v.docTypes) {
+        dt.dthreads.add(v.name)
+      }
     }
   }
 

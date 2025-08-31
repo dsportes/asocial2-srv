@@ -1,10 +1,5 @@
 import { Operation } from './operation'
-
-export type DocRef = {
-  org: string,
-  clazz: string,
-  pk: string
-}
+import { DocType } from './doctypes'
 
 export enum DocChange { NONE, UPD, NEW, DEL }
 
@@ -15,6 +10,11 @@ export type DocData = {
   org?: string, // code de l'organisation
   v?: number, // version
   z?: number, // jour de zombi
+}
+
+export type DocPattern = {
+  org: string,
+  clazz: string
 }
 
 export class Document {
@@ -48,6 +48,7 @@ export class Document {
     return cl ? cl.release : 0
   }
 
+  _status?: DocChange
   clazz: string
   v: number
   z: number
@@ -65,5 +66,17 @@ export class Document {
   }
 
   compile () { return this }
+
+  get docType () : DocType {
+    return Operation.config.docSchema.getDoc(this.clazz)
+  }
+
+  get pattern () : DocPattern {
+    const dt = this.docType
+    const pat = { clazz: this.clazz } as DocPattern
+    if (this['org']) pat.org = this['org']
+    dt.keys[0].forEach(p => { pat[p] = this[p] || '' })
+    return pat
+  }
 
 }

@@ -3,7 +3,7 @@ import { Log } from './log'
 import { DbConnector } from './dbConnector'
 import { IDbGeneric } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
-import { Document, DocRef, DocData } from './document'
+import { Document, DocPattern, DocData, DocChange } from './document'
 import { Util } from './util'
 import { Crypt } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
@@ -304,6 +304,27 @@ type cacheItem = {
   data: Uint8Array // data sérialisé du document
 }
 
+/* 
+Chaque opération dispose d'un cache des instances de "Document":
+- soit qu'elle veut verrouiller pour mise à jour ou des truction,
+- soit qu'elle a créé et qui sera inséré dans la base.
+En fin de phase 2, un "commit" de ce cache est lancé afin de mettre
+à jour la base de données par les documents créés / mis à jour / supprimés
+et pour ceux synchronisables avec création / mise à jour / suppression des "fils"
+auxquels ils sont rattachés.
+
+Le cache est peuplé:
+- depuis lecture de la base : getHdr, getOrg, getDoc
+- depuis un "Document" nouveau : addDoc
+- depuis un "dataSer" récupéré d'une liste de sélection
+  et compilé en "Document" : addDataSer
+Ces méthodes retourn en "Document":
+- soit celui qui était déjà en cache (get...),
+- soit celui ajouté (add...)
+
+Un cache "global" de "dataSer" réduit le nombre d'accès en base
+quand la document y figure (sa version est néanmoins vérifiée par accès à l'index).
+*/
 export class Cache {
 
   // Cache locale à l'opération
@@ -323,17 +344,19 @@ export class Cache {
   // Cache globale
   static map : Map<string, cacheItem> = new Map()
 
-  /* Obtient le data (sérialisé du row de la cache ou va le chercher en base.
+  /* Obtient le dataSer (sérialisé) du row de la cache ou va le chercher en base.
   Si le row actuellement en cache est le plus récent on a évité une lecture effective
    (ça s'est limité à un filtre sur index).
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
-  certes la transaction peut échouer, mais au pire on a lu une version plus récente.
+  Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
-  static async getData(op: Operation, clazz: string, org: string, pk: string, lazy?: boolean) {
+  static async getData(op: Operation, pattern: DocPattern, lazy?: boolean) {
     const now = Date.now()
+    const clazz = pattern.clazz
     const h = clazz === 'Hdr'
     const o = clazz == 'Org'
-    const k = clazz + '/' + (h ? '' : (org + '/' + (o ? '' : pk)))
+    const k0 = op.db.kiFromPattern('k0', pattern) as string
+    const k = clazz + '/' + (h ? '' : (pattern.org + '/' + (o ? '' : k0)))
     const item = Cache.map.get(k)
     if (item && lazy && (o || h) && (now - item.time < Cache.LAZY_MS)) {
       item.lru = now
@@ -345,8 +368,8 @@ export class Cache {
       let row : any
       if (h) row = await op.db.getHdr(item.v)
       else {
-        if (o) row = await op.db.getOrg(org, item.v)
-        else row = await op.db.getDoc(org, clazz, pk, item.v)
+        if (o) row = await op.db.getOrg(pattern.org, item.v)
+        else row = await op.db.getDoc(pattern , item.v)
       }
       const v = row['v']
       const z = row['z']
@@ -363,8 +386,8 @@ export class Cache {
     let row : any
     if (h) row = await op.db.getHdr()
     else {
-      if (o) row = await op.db.getOrg(org)
-      else row = await op.db.getDoc(org, clazz, pk)
+      if (o) row = await op.db.getOrg(pattern.org)
+      else row = await op.db.getDoc(pattern)
     }
     if (row) { // trouvé en base, mis en cache
       const data = op.db.rowToDataBin(row)
@@ -384,7 +407,7 @@ export class Cache {
     return null
   }
 
-  // Après commit, mise à jour de la cache avec les nouveaux rows
+  // Après commit, mise à jour du cache avec les nouveaux rows
   updateCache () {
     const now = Date.now()
     const rows = []
@@ -453,24 +476,30 @@ export class Cache {
     this.conso = [0, 0, 0, 0]
   }
 
+  /* Effectue les écritures en base
+  et constitue la liste des notifications à pousser par web-push
+  aux sessions abonnées.
+  */
   async commit() {
+    // TODO
     if (this.toInsert.length)
       for (const row of this.toInsert) await this.db.insertDoc(row)
     if (this.toUpdate.length)
       for (const row of this.toUpdate) await this.db.updateDoc(row)
     if (this.toDelete.length)
       for (const row of this.toDelete) 
-        await this.db.deleteDoc(row['org'], row['cl'], row['pk'])
+        await this.db.deleteDoc(row as DocPattern)
     // préparer le Trlog
   }
 
+  // Après commit effectif, complète et compresse le cache global
   postCommit () {
-    // Maj de la cache globale
     this.updateCache()
   }
 
-  //   static async getData(op: Operation, clazz: string, org: string, pk: string, lazy?: boolean) {
-
+  /* Contruit une instance de "Document" depuis un dataSer
+  soit issu de lecture DB, soit fourni par l'application.
+  */
   docFromDataSer (dataSer: Uint8Array) : Document {
     if (!dataSer) return null
     const data1 = decode(dataSer) as DocData
@@ -479,19 +508,21 @@ export class Cache {
     return doc.populate(data).compile()
   }
 
+  // Retourne ou it le Hdr
   async getHdr (lazy?: boolean) : Promise<Document> {
     let doc = this.hdr
     if (doc) return doc
-    const dataSer = await Cache.getData(this.op, 'Hdr', '', '', lazy)
+    const dataSer = await Cache.getData(this.op, { clazz: 'Hdr', org: ''}, lazy)
     doc = this.docFromDataSer(dataSer)
     if (!lazy) this.hdr = doc
     return doc
   }
 
+  // Retourne ou lit le Org cité
   async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
     let doc = this.orgs.get(org)
     if (doc) return doc
-    const dataSer = await Cache.getData(this.op, 'Org', org, '', lazy)
+    const dataSer = await Cache.getData(this.op, { clazz: 'Hdr', org }, lazy)
     if (!dataSer) {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
       return null
@@ -501,35 +532,94 @@ export class Cache {
     return doc
   }
 
-  cacheKey (clazz: string, pk) : string[] {
-    const k0 = pk.join('/')
-    const org = this.op.org
-    return [org + '/' + clazz + '/' + k0, k0, org]
-  }
-
-  async getDoc (clazz: string, pk: string[], assert?: string) : Promise<Document> {
-    const [ck, k0, org] = this.cacheKey(clazz, pk)
-    let doc = this.docs.get(ck)
+  /* Retourne ou lit de la base le "document" dont le pattern
+  (clazz, org, propriétés identifiantes de k0} est donné.
+  */
+  async getDoc (pattern: DocPattern, assert?: string) : Promise<Document> {
+    let doc = this._getD(pattern)
     if (doc) return doc
-    const dataSer = await Cache.getData(this.op, clazz, org, k0)
+    const dataSer = await Cache.getData(this.op, pattern)
     if (!dataSer) {
-      if (assert) this.op.assertKO(assert, 26, [clazz, org, k0])
-        return null
+      if (assert) this.op.assertKO(assert, 26, this.db.idFromPattern(pattern))
+      return null
     }
     doc = this.docFromDataSer(dataSer)
-    this.orgs.set(ck, doc)
+    this._setD(doc)
     return doc
   }
 
-  async delDoc (ref: DocRef) : Promise<void> {
-    return null
+    // Privé : construit la clé dans le cache d'un document
+  _cacheKey (pattern: DocPattern) : string {
+    const k0 = this.op.db.kiFromPattern('k0', pattern)
+    return pattern.org + '/' + pattern.clazz +
+      (pattern.clazz === 'Org' ? '' : ('/' + k0))
   }
 
-  /*
-  addDoc (doc: Document) {
-    const [ck, k0, org] = this.cacheKey(doc.clazz, pk)
+  _getD (pattern: DocPattern) : Document {
+    if (pattern.clazz === 'Hdr') return this.hdr
+    const ck = this._cacheKey(pattern)
+    if (pattern.clazz === 'Org') return this.orgs.get(ck)
+    return this.docs.get(ck)
   }
+
+  _setD (doc: Document) {
+    if (doc.clazz === 'Hdr') this.hdr = doc
+    else {
+      const ck = this._cacheKey(doc.pattern)
+      if (doc.clazz === 'Org') this.orgs.set(ck, doc)
+      else this.docs.set(ck, doc)
+    }
+  }
+
+  _delD (doc: Document) {
+    if (doc.clazz === 'Hdr') this.hdr = null
+    else {
+      const ck = this._cacheKey(doc.pattern)
+      if (doc.clazz === 'Org') this.orgs.delete(ck)
+      else this.docs.delete(ck)
+    }
+  }
+
+  /* Ajoute un document construit par l'application (en général un NEW)
+  Si le document était déjà en cache, le retourne.
+  Sinon inscrit le nouveau et le retourne.
   */
+  addDoc (doc: Document) : Document {
+    const d = this._getD(doc.pattern)
+    if (d) return d
+    this._setD(doc)
+    return doc
+  }
+
+  /* Comme AddDoc avec un dataSer en argument plutôt qu'un document.
+  */
+  addDataSer (dataSer: Uint8Array ) : Document {
+    return this.addDoc(this.docFromDataSer(dataSer)) 
+  }
+
+  /* Marque le document identifié par son pattern à supprimer:
+  - si c'est un document synchronisable, le mettra à jour en "zombi"
+  - sinon l'inscrit pour suppression effective.
+  - si le document est déjà en cache avec status NEW, il est retiré (ne sera pas créé)
+  -i le document n'est pas en cache, il y créé avec status DEL.
+  */
+  async delDoc (pattern: DocPattern) : Promise<void> {
+    let d = this._getD(pattern)
+    if (d) {
+      const dst = d._status 
+      if (dst === DocChange.NEW) this._delD(d)
+      else {
+        d._status = DocChange.DEL
+        this._setD(d)
+      }
+    } else {
+      d = Document.newDoc(pattern.clazz)
+      d = Document.compile(d, pattern)
+      d._status = DocChange.DEL
+      this._setD(d)
+    }
+  }
+
 } 
 
 // import { initializeApp } from 'firebase-admin/app'
