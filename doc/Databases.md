@@ -1,6 +1,6 @@
 # Document : row / data / classe
 ## Hash de strings
-sha32)s) : encodage en base 64 URL du SHA 256 du string s.
+sha32(s) : encodage en base 64 URL du SHA 256 du string s.
 
 sha16(s) : le SHA 256 (32 bytes) est tronqué des bytes 3 à 19, puis encodé en base 64 URL.
 
