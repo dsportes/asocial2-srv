@@ -10,11 +10,25 @@ LIST: string[]
 export enum idxType { HASH, STRING, INTEGER, FLOAT, LIST }
 
 /* Index d'un document : 
-- nom de sa proprité
 - type d'index
 - true si l'index est global (trans organisation)
 */
-export type idx = [ string, idxType, boolean ]
+export type idx = {
+  type: idxType, 
+  global?: boolean
+}
+
+export type docHeader = {
+  name: string,
+  sync: boolean,
+  pk: props
+}
+
+export type collection = {
+  key: props,
+  mutable: boolean,
+  list?: boolean 
+}
 
 const regvar = /^[a-z][a-zA-Z0-9]*$/
 export function isVarName (n: string) { return regvar.test(n)}
@@ -42,7 +56,11 @@ export class DocType {
   dthreads : Set<ThType> // type des "fils" auxquel le type de document est rattaché
   readonly err: string
 
-  constructor (name: string, keys?: props[], indexes?: idx[]) {
+  constructor (
+    h: docHeader, 
+    cols: Map<string, collection>, 
+    indexes: Map<string, idx>) {
+
     this.nosync = false
     this.dthreads = new Set()
     this.name = name
@@ -151,7 +169,7 @@ export class DocSchema {
   readonly errors : string[]
   readonly docNames : Set<string>
 
-  constructor(docTypes: Object, thTypes: Object) {
+  constructor(docTypes: DocType[]) {
     this.docNames = new Set()
     const t = []
     for (const [k, v] of Object.entries(docTypes)) {
