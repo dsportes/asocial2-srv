@@ -21,7 +21,7 @@ new DocType(
 new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
-      ['sujet', { key: ['sujet'], mutable: true }],
+      ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],
       ['auteurs', { key: ['autid'], mutable: true, list: true }]
   ]), // collections
   null // index
