@@ -2057,3 +2057,23 @@ TypeError: Cannot read properties of undefined (reading 'transac')
 2025-08-31T13:06:03.536Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
 2025-08-31T13:06:26.114Z info: 7 App operations registered
 2025-08-31T13:06:26.133Z info: HTTP listen [8080]
+2025-09-09T10:21:02.586Z info: 7 operations registered
+2025-09-09T10:21:12.159Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-09T10:21:12.160Z info: Firestore connector
+2025-09-09T10:21:12.162Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-09T10:21:12.163Z info: 7 App operations registered
+2025-09-09T10:21:12.178Z info: HTTP listen [8080]
+2025-09-09T10:24:21.086Z info: 7 operations registered
+2025-09-09T10:25:54.231Z info: 7 classes de document
+2025-09-09T10:25:54.234Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-09T10:25:54.235Z info: Firestore connector
+2025-09-09T10:25:54.237Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-09T10:25:54.239Z info: 7 App operations registered
+2025-09-09T10:25:54.256Z info: HTTP listen [8080]
+2025-09-09T10:29:50.443Z info: 7 operations registered
+2025-09-09T10:29:50.446Z info: 7 document classes
+2025-09-09T10:29:50.447Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-09T10:29:50.447Z info: Firestore connector
+2025-09-09T10:29:50.448Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-09T10:29:50.448Z info: 7 App operations registered
+2025-09-09T10:29:50.457Z info: HTTP listen [8080]

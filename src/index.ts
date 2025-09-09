@@ -10,7 +10,8 @@ import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, init, getExpressApp, startSRV } from '../src-fw/index'
 import { Log } from '../src-fw/log'
-import { docSchema } from './docschema'
+import { docTypeErrors } from './docschema'
+import { DocType } from '../src-fw/doctypes'
 import { factory } from './factories'
 import { documentClasses } from './documents'
 import { register } from './operations'
@@ -66,12 +67,17 @@ const config: BaseConfig = {
 
   databases: null,
   storages: null,
-  docSchema: null,
   factory: factory,
   documentClasses: documentClasses 
 }
 
 init(config)
+
+if (docTypeErrors.length) {
+  Log.error(docTypeErrors.join('\n'))
+  exit()
+}
+Log.info(DocType.docTypes.size + ' document classes')
 
 config.databases = [
   ['sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']),],
@@ -82,13 +88,6 @@ config.storages = [
   ['storage_a', new FilesystemStorage(keys['storage_a'])],
   // ['storage_b', new FilesystemStorage(keys['storage_b'])],
 ]
-
-config.docSchema = docSchema
-
-if (docSchema.errors) {
-  console.error(docSchema.errors.join('\n'))
-  exit()
-}
 
 const nbOp = register()
 if (config.debugLevel > 0)

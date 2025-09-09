@@ -12,8 +12,6 @@ import { Operation } from './operation'
 import { register } from './operations'
 import { Util } from './util'
 
-import { DocSchema } from './doctypes'
-
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
@@ -45,7 +43,6 @@ export interface BaseConfig {
 
   databases: dbChoice[], 
   storages: stChoice[],
-  docSchema: DocSchema,
   factory: Function,
   documentClasses: Object
 

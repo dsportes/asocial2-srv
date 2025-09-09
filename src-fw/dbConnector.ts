@@ -1,7 +1,7 @@
 import { AppExc } from './index'
 import { Operation } from './operation'
 import { DocPattern } from './document'
-import { DocSchema, idxType, DocType } from './doctypes'
+import { DocType } from './doctypes'
 import { encode, decode } from '@msgpack/msgpack'
 import { Crypt } from './crypt'
 import { IDbGeneric } from './iDbGeneric'
@@ -33,14 +33,12 @@ export class DbConnexion {
   public connector: DbConnector
   public op: Operation
   public key: Buffer
-  public docSchema : DocSchema
   public transaction: any
 
   constructor (connector: DbConnector, op: Operation, cryptKey?: string) {
     this.connector = connector
     this.key = !cryptKey ? this.connector.key : Buffer.from(cryptKey, 'base64')
     this.op = op
-    this.docSchema = Operation.config.docSchema
   }
 
   // Retourne le sha16 d'un array de strings
@@ -50,11 +48,12 @@ export class DbConnexion {
   selon la liste des propriétés composant cette clé / index et son type
   */
   kiFromPattern (pname: string, data: DocPattern) {
+    /*
     if (pname === 'k0') {
       if (data.clazz === 'Hdr') return '1'
       if (data.clazz === 'Org') return data.org
     }
-    const dt = this.docSchema.getDoc(data.clazz)
+    const dt = DocType.get(data.clazz)
     const idx = parseInt(pname.charAt(1))
     const isK = pname.charAt(0) === 'k'
     if (isK) {
@@ -68,21 +67,25 @@ export class DbConnexion {
       const val = data[np]
       return type === idxType.HASH ? this.h16(val) : val
     }
+      */
     return ''
   }
 
   idFromPattern (data: DocPattern) : string[]{
+    /*
     if (data.clazz === 'Hdr') return ['hdr']
     if (data.clazz === 'Org') return ['Org', data.org]
-    const dt = this.docSchema.getDoc(data.clazz)
+    const dt = DocType.get(data.clazz)
     const x : string[] = ['data.clazz', data.org]
     dt.keys[0].forEach(p => { x.push(data[p] || '') })
     return x
+    */
+    return []
   }
 
   _dtRow (data: Object) : [DocType, Object] {
     const cl = data['clazz']
-    const dt = this.docSchema.getDoc(cl)
+    const dt = DocType.get(cl)
     const v = data['v']
     const z = data['z']
     const row : Object = { clazz: cl }
@@ -95,6 +98,7 @@ export class DbConnexion {
   dataToRow (data: Object) {
     const [dt, row] =  this._dtRow (data)
 
+    /*
     // propriétés k0, k1 ...
     for(let i = 0; i < dt.keys.length; i++)
       row['k' + i] = this.kiFromPattern('k' + i, data as DocPattern)
@@ -102,7 +106,7 @@ export class DbConnexion {
     // propriétés i0, i1 ...
     for(let i = 0; i < dt.indexes.length; i++)
       row['i' + i] = this.kiFromPattern('i' + i, data as DocPattern)
-
+    */
     // data 'complet'
     row['data'] = Crypt.syncCrypt(this.key, encode(data))
 
@@ -119,7 +123,7 @@ export class DbConnexion {
 
     // data 'réduit' aux pPropriétés de k0 
     const d = {}
-    dt.keys[0].forEach(p => { d[p] = data[p] })
+    // dt.keys[0].forEach(p => { d[p] = data[p] })
     row['data'] = Crypt.syncCrypt(this.key, encode(d))
 
     return row

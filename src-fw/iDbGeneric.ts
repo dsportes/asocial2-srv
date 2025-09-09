@@ -1,7 +1,6 @@
 import { DocPattern } from './document'
 import { DbConnector } from './dbConnector'
 import { Operation } from './operation'
-import { DocSchema } from './doctypes'
 
 /* Interface des services d'accès génériques à la DB */
 
@@ -11,7 +10,6 @@ export interface IDbGeneric {
   connector: DbConnector
   op: Operation
   key: Buffer
-  docSchema : DocSchema
 
   kiFromPattern (pname: string, data: DocPattern) : any
   idFromPattern (data: DocPattern) : string[]
