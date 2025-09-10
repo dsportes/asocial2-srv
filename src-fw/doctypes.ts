@@ -4,18 +4,29 @@ export type props = string[]
 
 /* Type d'index :
 HASH : string, base64 du sha16(string[])
+STRING : string
 INTEGER : int 32 bits
+FOLAT : double
 LIST: string[]
 */
-export enum idxType { HASH, STRING, INTEGER, FLOAT, LIST }
+export enum propType { STRING, INTEGER, FLOAT, UNIQUE, LIST, HASH }
 
-/* Index d'un document : 
+/* Usage d'un index
+SIMPLE : index simple, dans une organisation
+GLOBAL : index global, toutes organisations
+COL : collection (notifiable / synchronisable)
+IMUTCOL : collection sur une propriété constante du document 
+*/
+export enum idxUse { SIMPLE, GLOBAL, COL, IMUTCOL }
+
+/* Index: 
 - type d'index
 - true si l'index est global (trans organisation)
 */
 export type idx = {
-  type: idxType, 
-  global?: boolean
+  type: propType,
+  use: idxUse, 
+  key?: props
 }
 
 export type docHeader = {
