@@ -2,13 +2,14 @@ import { env, exit } from 'process'
 // Pour appel en tant que gcloud function
 // import { HttpFunction } from '@google-cloud/functions-framework'
 
-// Si hosté par Google: AppEngine ou gcloud run
+// gcp = true SI hosté par Google: AppEngine ou gcloud run
 const gcp = false 
 
 import { encryptedKeys } from './keys'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
-import { BaseConfig, init, getExpressApp, startSRV } from '../src-fw/index'
+import { BaseConfig, setConfig, config } from '../src-fw/config'
+import { init, getExpressApp, startSRV } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { docTypeErrors } from './docschema'
 import { DocType } from '../src-fw/doctypes'
@@ -42,7 +43,7 @@ try {
   exit()
 }
 
-const config: BaseConfig = {
+setConfig ({
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
 
@@ -67,11 +68,15 @@ const config: BaseConfig = {
 
   databases: null,
   storages: null,
+  dbConnectors: {
+    sqlite: AppSQLiteConnector,
+    firestore: AppFirestoreConnector,
+  },
   factory: factory,
   documentClasses: documentClasses 
-}
+} as BaseConfig )
 
-init(config)
+init()
 
 if (docTypeErrors.length) {
   Log.error(docTypeErrors.join('\n'))
@@ -97,7 +102,7 @@ export const asocialgcf = getExpressApp()
 
 if (process.argv.length > 2) {
   setTimeout(async () => {
-    const [n, s] = await (new Tools(config)).run()
+    const [n, s] = await (new Tools()).run()
     if (!n) console.log(s); else console.error(s)
     exit()
   }, 50)

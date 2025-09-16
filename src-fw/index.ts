@@ -8,6 +8,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import webpush from 'web-push'
 
 import { Log } from './log'
+import { config } from './config'
 import { Operation } from './operation'
 import { register } from './operations'
 import { Util } from './util'
@@ -15,53 +16,16 @@ import { Util } from './util'
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
-export type dbChoice = [string, DbConnector]
-export type stChoice = [string, IStGeneric]
-
-export interface BaseConfig {
-  PROD: boolean,
-  GCLOUDLOGGING: boolean,
-
-  SRVKEY: string, // passée par env var - Clé de décryptage de keys.ts (entre autre)
-  keys: Object,
-  STORAGE_EMULATOR_HOST: string,
-  FIRESTORE_EMULATOR_HOST: string,
-
-  BUILD: string, // 'v1.0'
-  API: number, // 1
-  APIVERSIONS: number[], // [1, 1]
-  debugLevel: number, // 0: aucun, 1: standard: 2: élevé
-  adminAlerts: boolean, // false: simulation true: envoi de mail
-
-  logsPath: string, // './logs'
-  port: any, // 8080
-  https: boolean,
-  origins: Set<string>, // new Set<string>(['http://localhost:8080']),
-
-  // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
-  srvUrl: string,
-
-  databases: dbChoice[], 
-  storages: stChoice[],
-  factory: Function,
-  documentClasses: Object
-
-  messaging?: any
-}
-
-export function init (config: BaseConfig) {
-  Operation.config = config
+export function init () {
   new Log(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
 
   const nbOp = register()
   if (config.debugLevel > 0) Log.debug(nbOp + ' operations registered')
 
   webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
-
 }
 
 export function getExpressApp (): express.Application {
-  const config = Operation.config
   const app = express()
   app.use(cors({}))
   app.use(express.json())
@@ -163,7 +127,6 @@ export function getExpressApp (): express.Application {
 
 export function startSRV (app : any) : Promise<void>{
   return new Promise(async (resolve, reject) => {
-    const config = Operation.config
     let server : http.Server | https.Server
 
     if (config.https) {
@@ -218,7 +181,6 @@ export async function doOp (
   res: express.Response, 
   body: Buffer) {
   
-  const config = Operation.config
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
@@ -291,7 +253,7 @@ export async function adminAlert (
     op: Operation, 
     subject: string, 
     text: string) {
-  const config = Operation.config
+
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
   const s = '[' + config.srvUrl + '] '  
@@ -352,7 +314,7 @@ export class AppExc {
     this.stack = stack || ''
     this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
     if (code > 3000) Log.error(this.message)
-    else { if (Operation.config.debugLevel > 0) Log.debug(this.toString()) }
+    else { if (config.debugLevel > 0) Log.debug(this.toString()) }
     if (code > 8000)
       adminAlert(op, this.message, this.stack)
   }

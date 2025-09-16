@@ -1,8 +1,9 @@
-import { BaseConfig } from './index'
+import { config } from './config'
 import { AppExc } from './index'
 import { Log } from './log'
 import { Operation } from './operation'
 import { testECDH, testSH } from './crypt'
+import { DocType } from '../src-fw/doctypes'
 
 import { parseArgs } from 'node:util'
 import { stdin, stdout } from 'node:process'
@@ -11,9 +12,10 @@ import path from 'path'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { decode } from '@msgpack/msgpack'
 
+// import { SQLiteConnector } from '../src-sqlite'
+// import { FirestoreConnector } from '../src-firestore'
+
 /***************************************************************** */
-
-
 
 export class Tools {
   static prompt (q) {
@@ -27,13 +29,11 @@ export class Tools {
     })
   }
 
-  config: BaseConfig
   args: any
   tool: string
   simu: boolean
 
-  constructor (config: BaseConfig) {
-    this.config = config
+  constructor () {
     this.args = parseArgs({
       allowPositionals: true,
       options: {
@@ -59,6 +59,18 @@ export class Tools {
         }
         case 'test1' : {
           await this.test1()
+          break
+        }
+        case 'schemaSqlite' : {
+          await this.schemaSqlite()
+          break
+        }
+        case 'schemaFirestore' : {
+          await this.schemaFirestore()
+          break
+        }
+        case 'schemaPG' : {
+          await this.schemaPG()
           break
         }
         /*
@@ -107,14 +119,14 @@ export class Tools {
   async pings () : Promise<void> {
     const op = new Operation()
     op.opName = 'Fake'
-    await this.config.databases[0][1].getConnexion(op)
+    await config.databases[0][1].getConnexion(op)
     {
       const [status, msg] = await op.db.ping()
       if (status === 0) Log.info(msg)
       else throw new AppExc(1012, 'PING Database FAILED', null, [msg])
     }
     {
-      const [status, msg] = await this.config.storages[0][1].ping()
+      const [status, msg] = await config.storages[0][1].ping()
       if (status === 0) Log.info(msg)
       else throw new AppExc(1013, 'PING Storage FAILED: ', null, [msg])
     }
@@ -125,4 +137,21 @@ export class Tools {
     await testSH()
   }
 
+  async schemaFirestore () : Promise<void> {
+    const cl = config.dbConnectors['firestore']
+    if (cl) await cl.genSchema()
+    else Log.error('Firestore connector undeclared')
+  }
+
+  async schemaSqlite () : Promise<void> {
+    const cl = config.dbConnectors['sqlite']
+    if (cl) await cl.genSchema()
+    else Log.error('SQLite connector undeclared')
+  }
+
+  async schemaPG () : Promise<void> {
+    const cl = config.dbConnectors['postgres']
+    if (cl) await cl.genSchema()
+    else Log.error('Postgres connector undeclared')
+  }
 }

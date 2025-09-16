@@ -1,4 +1,4 @@
-import { idxType, collection, idx, DocType } from '../src-fw/doctypes'
+import { propType, collection, idx, DocType } from '../src-fw/doctypes'
 
 new DocType(
   { name: 'Hdr', sync: false, pk: [] }, //header
@@ -15,22 +15,28 @@ new DocType(
 new DocType(
   { name: 'Task', sync: false, pk: ['process', 'pk'] }, //header
   null, // collections
-  new Map<string, idx>([['startTime',  { type: idxType.STRING, global: true }]]) // index 
+  new Map<string, idx>([
+    ['startTime',  { type: propType.STRING }]
+  ]) // index 
 )
 
 new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
-      ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],
-      ['auteurs', { key: ['autid'], mutable: true, list: true }]
+    ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],
+    ['auteurs', { key: ['autid'], mutable: true, list: true }]
   ]), // collections
-  null // index
+  new Map<string, idx>([
+    ['volume',  { type: propType.FLOAT, global: true }]
+  ]) // index 
 )
 
 new DocType(
   { name: 'Auteur', sync: true, pk: ['autid'] }, //header
   null, // collections
-  new Map<string, idx>([['nom',  { type: idxType.STRING }]])
+  new Map<string, idx>([
+    ['nom',  { type: propType.STRING }]
+  ])
 )
 
 new DocType(
@@ -38,13 +44,17 @@ new DocType(
   new Map<string, collection>([ 
     ['participants', { key: ['autid'], mutable: true, list: true }]
   ]), // collections
-  new Map<string, idx>([['time', {type: idxType.INTEGER} ]])
+  new Map<string, idx>([
+    ['time', {type: propType.INTEGER} ]
+  ])
 )
 
 new DocType(
   { name: 'Sujet', sync: true, pk: ['sujet'] }, //header
   null, // collections
-  new Map<string, idx>([['titre', {type: idxType.INTEGER} ]])
+  new Map<string, idx>([
+    ['titre', {type: propType.INTEGER} ]
+  ])
 )
 
 export const docTypeErrors = DocType.errors

@@ -1,4 +1,5 @@
-import { AppExc, BaseConfig } from './index'
+import { AppExc } from './index'
+import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
 import { IDbGeneric } from './iDbGeneric'
@@ -10,8 +11,6 @@ import { encode, decode } from '@msgpack/msgpack'
 
 export class Operation {
   public static factories = new Map<string, Function>()
-
-  public static config: BaseConfig
 
   static nbOf () { 
     return Operation.factories.size 
@@ -59,9 +58,9 @@ export class Operation {
   }
 
   init () {
-    this.result = { time: this.now, srvBUILD: Operation.config.BUILD }
+    this.result = { time: this.now, srvBUILD: config.BUILD }
     this.msSlow = 0
-    if (Operation.config.debugLevel > 1) 
+    if (config.debugLevel > 1) 
       Log.info(this.opName + ' : ' + new Date(this.now).toISOString())
   }
 
@@ -96,7 +95,7 @@ export class Operation {
           this.today = Util.amj(this.now)
         }
         this.msSlow = 0
-        this.result = { time: this.now, srvBUILD: Operation.config.BUILD }
+        this.result = { time: this.now, srvBUILD: config.BUILD }
         await this.dbConnector.getConnexion(this)
         this.cache = new Cache(this)
 
@@ -186,17 +185,17 @@ export class Operation {
       return this.result
     } catch (e) {
       if (this.db) await this.db.disconnect()
-      if (Operation.config.debugLevel > 1) 
+      if (config.debugLevel > 1) 
         Log.error(this.opName + ' : ' + new Date(this.now).toISOString() + ' : ' + e.toString())
       throw e
     }
   }
 
   async setAuths (): Promise<void> {
-    const auth = Operation.config.factory('AuthRecord', this)
+    const auth = config.factory('AuthRecord', this)
     await auth.process()
     this.setRes('auths', auth.listAuths)
-    if (Operation.config.debugLevel > 1)
+    if (config.debugLevel > 1)
       Log.info('auths : ' + this.authRecord.time + ' - ' + this.authRecord.listAuths)
   }
 
@@ -276,7 +275,7 @@ export class AuthRecord {
   }
 
   async process () {
-    const hck = Operation.config.keys['hckeys']
+    const hck = config.keys['hckeys']
     if (this.tokens && this.tokens.length) for (const token of this.tokens) {
       const k = hck[token['type']]
       if (k) {
@@ -631,7 +630,7 @@ export class Cache {
 import admin from 'firebase-admin'
 import { getMessaging } from 'firebase/messaging'
 
-const serviceAccount = Operation.config.keys['adminSDK-service-account']
+const serviceAccount = config.keys['adminSDK-service-account']
 // var serviceAccount = require("path/to/serviceAccountKey.json");
 
 const app = admin.initializeApp({

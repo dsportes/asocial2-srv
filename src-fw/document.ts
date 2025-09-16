@@ -1,5 +1,6 @@
 import { Operation } from './operation'
 import { DocType } from './doctypes'
+import { config } from './config'
 
 export enum DocChange { NONE, UPD, NEW, DEL }
 
@@ -21,12 +22,12 @@ export class Document {
   static release = 0
 
   static mutate (data: DocData, options?: Object) : [DocData, boolean] {
-    const fn = Operation.config.documentClasses['MUTATE']
+    const fn = config.documentClasses['MUTATE']
     return fn(data, options)
   }
 
   static newDoc (clazz: string, release?: number) : Document {
-    const cl = Operation.config.documentClasses[clazz]
+    const cl = config.documentClasses[clazz]
     if (!cl) return null
     const doc = new cl()
     doc.clazz = clazz
@@ -44,7 +45,7 @@ export class Document {
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = Operation.config.documentClasses[this.clazz]
+    const cl = config.documentClasses[this.clazz]
     return cl ? cl.release : 0
   }
 
@@ -68,14 +69,14 @@ export class Document {
   compile () { return this }
 
   get docType () : DocType {
-    return Operation.config.docSchema.getDoc(this.clazz)
+    return DocType.get(this.clazz)
   }
 
   get pattern () : DocPattern {
     const dt = this.docType
     const pat = { clazz: this.clazz } as DocPattern
     if (this['org']) pat.org = this['org']
-    dt.keys[0].forEach(p => { pat[p] = this[p] || '' })
+    dt.pk.forEach(p => { pat[p] = this[p] || '' })
     return pat
   }
 

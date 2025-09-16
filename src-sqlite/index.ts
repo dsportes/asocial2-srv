@@ -1,8 +1,9 @@
 import Database from 'better-sqlite3'
 // import { Database } from './loadreq.js'
 
+import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, comparator } from '../src-fw/iDbGeneric'
+import { IDbGeneric, filter, expList, expListQ, row, rowQ, updType, pkv } from '../src-fw/iDbGeneric'
 import { DocPattern } from '../src-fw/document'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -24,6 +25,9 @@ export class SQLiteConnector extends DbConnector {
       throw new AppExc(1020, 'SQLite path not found', null, [this.path])
     Log.info('SQLite ' + ' DB path= [' + this.path + ']')
     this.factory = SQLiteConnexion.newConnexion
+  }
+
+  static async genSchema () {
   }
 }
 
@@ -51,7 +55,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const sqloptions = {
       // nativeBinding: require('better-sqlite3/build/Release/better_sqlite3.node'),
       verbose: (msg: string) => {
-        if (Operation.config.debugLevel === 2) Log.debug(msg)
+        if (config.debugLevel === 2) Log.debug(msg)
         this.lastSql.unshift(msg)
         if (this.lastSql.length > 3) this.lastSql.length = 3
       } 
@@ -124,13 +128,65 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return s
   }
 
+  async exportRows (org: string, clazz: string, mark: string, limit: number) : Promise<expList> {
+    return null
+  }
+
+  async purgeRows (org: string, clazz: string, limit: number) : Promise<boolean> {
+    return true
+  }
+
+  async importRows (org: string, clazz: string, rows: row[]) : Promise<void> {
+  }
+
+  async exportRowsQ (org: string, clazz: string, colName: string, mark: string, limit: number) 
+    : Promise<expListQ> { 
+      return null
+  }
+
+  async purgeRowsQ (org: string, clazz: string, colName: string, limit: number) : Promise<boolean> {
+    return true
+  }
+
+  async importRowsQ (org: string, clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
+  }
+
+  async writeRow (ut: updType, org: string, clazz: string, row: row) : Promise<void> {
+  }
+
+  async deleteDoc (org: string, clazz: string, pk: string) : Promise<void> {
+  }
+
+  async writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : Promise<void> {
+  }
+
+  async allRows (org: string, clazz: string, v: number) : Promise<Object[]> {
+    return null
+  }
+
+  async oneRow (org: string, clazz: string, pk: string, v: number) : Promise<row | null> {
+    return null
+  }
+
+  async getColl(org: string, clazz: string, 
+    colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
+    return null
+  }
+
+  async selectDocs(org: string, clazz: string, colName: string, filter: filter, col: any, 
+    order: string, limit: number, fn: Function) : Promise<void> {
+  }
+
+  async selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
+    order: string, limit: number, fn: Function)  : Promise<void> {
+  }
+
   async getDoc (pattern: DocPattern, v?: number) : Promise<Uint8Array> { return null }
   async insertDoc (row: Object) {}
   async updateDoc (row: Object) {}
-  async deleteDoc (pattern: DocPattern) {}
   async listDocs (pattern: DocPattern, v?: number, fn? : Function) { return [] }
   async listDocsSk (pattern: DocPattern, ik: number, v?: number, fn? : Function) { return [] }
-  async listDocsIdx (pattern: DocPattern, ix: number, comp: comparator, v?: number, fn? : Function) { return [] }
+  async listDocsIdx (pattern: DocPattern, ix: number, comp: filter, v?: number, fn? : Function) { return [] }
   async getHdr (v? : number) { return null }
   async insertHdr (row: Object) {}
   async updateHdr (row: Object) {}
@@ -138,11 +194,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async insertOrg (row: Object) {}
   async updateOrg (row: Object) {}
   async listOrgs (v?: number, fn? : Function) { return [] }  
-  async listOrgsIdx (ix: number, comp: comparator, val: any, v?: number, fn? : Function) { return []}
+  async listOrgsIdx (ix: number, comp: filter, val: any, v?: number, fn? : Function) { return []}
   async purgeAllDocs (pattern: DocPattern) {}
   async purgeOrg (org: string, z?: number) {}
   async purgeOrgs (org: string, z: number) {}
-  async purgeDlvDocs (pattern: DocPattern, ix, comp: comparator) {}
+  async purgeDlvDocs (pattern: DocPattern, ix, comp: filter) {}
   async setFTP (org: string, path: string, dp: number) {}
   async purgeFTP (org: string, path: string) {}
   async listFTP (dp : number, fn: Function) {}

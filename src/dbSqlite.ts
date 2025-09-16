@@ -7,6 +7,8 @@ import { SQLiteConnexion, SQLiteConnector } from '../src-sqlite'
 import { IDbApp } from './iDbapp'
 
 export class AppSQLiteConnector extends SQLiteConnector {
+  static async genSchema () { await SQLiteConnector.genSchema() }
+
   constructor (credentials: string, cryptKey: string) {
     super(credentials, cryptKey)
     this.factory = AppSQLiteConnexion.newConnexion
@@ -26,4 +28,5 @@ export class AppSQLiteConnexion extends SQLiteConnexion implements IDbApp {
   fakeForTest () : Promise<[number, string]> {
     return null
   }
+  
 }

@@ -9,7 +9,7 @@ INTEGER : int 32 bits
 FOLAT : double
 LIST: string[]
 */
-export enum propType { STRING, INTEGER, FLOAT, UNIQUE, LIST, HASH }
+export enum propType { STRING, INTEGER, FLOAT, LIST, HASH }
 
 /* Usage d'un index
 SIMPLE : index simple, dans une organisation
@@ -25,7 +25,7 @@ export enum idxUse { SIMPLE, GLOBAL, COL, IMUTCOL }
 */
 export type idx = {
   type: propType,
-  use: idxUse, 
+  global?: boolean,
   key?: props
 }
 

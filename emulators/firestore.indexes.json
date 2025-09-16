@@ -1,21 +1,65 @@
 {
-  "indexes": [
-  ],
-  "fieldOverrides": [
-    {
-      "collectionGroup": "Hdr",
-      "fieldPath": "id",
-      "indexes": []
-    },
-    {
-      "collectionGroup": "Hdr",
-      "fieldPath": "v",
-      "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }]
-    },
-    {
-      "collectionGroup": "Hdr",
-      "fieldPath": "data",
-      "indexes": []
-    }
-  ]
+"indexes": [],
+"fieldOverrides": [
+
+{ "collectionGroup": "Hdr", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Hdr", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Hdr", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Hdr", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Hdr", "fieldPath": "data", "indexes": [] },
+
+{ "collectionGroup": "Org", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Org", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Org", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Org", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Org", "fieldPath": "data", "indexes": [] },
+
+{ "collectionGroup": "Task", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Task", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Task", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Task", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Task", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Task", "fieldPath": "startTime", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+
+{ "collectionGroup": "Article", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Article", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Article", "fieldPath": "sujet", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "auteurs", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "volume", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION_GROUP" }] },
+{ "collectionGroup": "Article@sujet", "fieldPath": "col", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article@sujet", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article@sujet", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Article@auteurs", "fieldPath": "col", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article@auteurs", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article@auteurs", "fieldPath": "ttl", "indexes": [] },
+
+{ "collectionGroup": "Auteur", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Auteur", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Auteur", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Auteur", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Auteur", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Auteur", "fieldPath": "nom", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+
+{ "collectionGroup": "Chat", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Chat", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Chat", "fieldPath": "participants", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat", "fieldPath": "time", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat@participants", "fieldPath": "col", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat@participants", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat@participants", "fieldPath": "ttl", "indexes": [] },
+
+{ "collectionGroup": "Sujet", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Sujet", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Sujet", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Sujet", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Sujet", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Sujet", "fieldPath": "titre", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] }
+
+]
 }
