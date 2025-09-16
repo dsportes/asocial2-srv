@@ -37,7 +37,7 @@ export type row = {
   maxLife?: number, // time de fin de vie programmée par l'application (précision en minutes)
   ttl?: any, // DB seulement - TTL pour purge automatique par la DB
   deleted?: boolean, // APP seulement - document supprimé
-  data: string,
+  data: Uint8Array | Object,
   [index: string]:any
 }
 
@@ -45,9 +45,6 @@ export interface IDbGeneric {
   connector: DbConnector
   op: Operation
   key: Buffer
-
-  kiFromPattern (pname: string, data: DocPattern) : any
-  idFromPattern (data: DocPattern) : string[]
 
   /* Connexion à la DB */
   connect () : Promise<void>

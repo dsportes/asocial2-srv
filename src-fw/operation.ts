@@ -2,8 +2,9 @@ import { AppExc } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
-import { IDbGeneric } from './iDbGeneric'
+import { IDbGeneric, row } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
+import { DocType } from './doctypes'
 import { Document, DocPattern, DocData, DocChange } from './document'
 import { Util } from './util'
 import { Crypt } from './crypt'
@@ -37,6 +38,9 @@ export class Operation {
   public dbConnector: DbConnector
   public authRecord : AuthRecord
   public db: IDbGeneric
+
+  rowToSet : row[]
+  rowToDel : row[]
 
   public cache : Cache
 
@@ -298,9 +302,7 @@ export class AuthRecord {
 type cacheItem = {
   lru: number // last recent use
   time: number // time lecture
-  v: number // version du document
-  z?: number // zombi du document
-  data: Uint8Array // data sérialisé du document
+  row: row
 }
 
 /* 
@@ -309,11 +311,9 @@ Chaque opération dispose d'un cache des instances de "Document":
 - soit qu'elle a créé et qui sera inséré dans la base.
 En fin de phase 2, un "commit" de ce cache est lancé afin de mettre
 à jour la base de données par les documents créés / mis à jour / supprimés
-et pour ceux synchronisables avec création / mise à jour / suppression des "fils"
-auxquels ils sont rattachés.
 
 Le cache est peuplé:
-- depuis lecture de la base : getHdr, getOrg, getDoc
+- depuis lecture de la base : oneRow
 - depuis un "Document" nouveau : addDoc
 - depuis un "dataSer" récupéré d'une liste de sélection
   et compilé en "Document" : addDataSer
@@ -330,11 +330,6 @@ export class Cache {
   op: Operation
   db : IDbGeneric
   conso : number[]
-  toInsert : Object []
-  toUpdate : Object []  
-  toDelete : Object []
-  hdr : Document
-  orgs : Map<string, Document>
   docs : Map<string, Document>
 
   static MAX_CACHE_SIZE = 1000
@@ -349,65 +344,53 @@ export class Cache {
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
-  static async getData(op: Operation, pattern: DocPattern, lazy?: boolean) {
+  static async getData(op: Operation, org: string, clazz: string, src: Object, lazy?: boolean)
+    : Promise<row> {
     const now = Date.now()
-    const clazz = pattern.clazz
     const h = clazz === 'Hdr'
     const o = clazz == 'Org'
-    const k0 = op.db.kiFromPattern('k0', pattern) as string
-    const k = clazz + '/' + (h ? '' : (pattern.org + '/' + (o ? '' : k0)))
+    const pk = DocType.getPk(clazz, src)
+    const k = clazz + '/' + org + '/' + pk
     const item = Cache.map.get(k)
-    if (item && lazy && (o || h) && (now - item.time < Cache.LAZY_MS)) {
+    if (item && lazy && (now - item.time < Cache.LAZY_MS)) {
       item.lru = now
-      return item.data
+      return item.row
     }
 
     if (item) { // item trouvé en cache
       // lecture pour recherche d'un éventuel plus récent
-      let row : any
-      if (h) row = await op.db.getHdr(item.v)
-      else {
-        if (o) row = await op.db.getOrg(pattern.org, item.v)
-        else row = await op.db.getDoc(pattern , item.v)
-      }
-      const v = row['v']
-      const z = row['z']
-      if (row && v > item.v) { // celui lu est plus récent
-        item.data = op.db.rowToDataBin(row)
-        item.v = v
-        if (z) item.z = z
+      const row = await op.db.oneRow (org, clazz, pk, item.row.v)
+      if (row && row.v > item.row.v) { // celui lu est plus récent
+        item.row.data = op.db.rowToDataBin(row)
       }
       item.lru = now
-      return item.data
+      return item.row
     }
 
     // Pas trouvé en cache - recherche en base
-    let row : any
-    if (h) row = await op.db.getHdr()
-    else {
-      if (o) row = await op.db.getOrg(pattern.org)
-      else row = await op.db.getDoc(pattern)
-    }
+    const row = await op.db.oneRow (org, clazz, pk, item.row.v)
     if (row) { // trouvé en base, mis en cache
-      const data = op.db.rowToDataBin(row)
-      const item : cacheItem = { 
-        lru: now, 
-        time: now, 
-        v: row['v'], 
-        data
-      }
-      const z = row['z']
-      if (z) item.z = z
+      row.data = op.db.rowToDataBin(row)
+      const item : cacheItem = { lru: now, time: now, row } 
       Cache.map.set(k, item)
-      return data
+      return row
     }
 
     // Pas trouvé en base
     return null
   }
 
+  updateCache (op: Operation) {
+    for (const row of op.rowToSet) {
+      const pk = DocType.getPk(row.clazz, row.data)
+      const k = row.clazz + '/' + row.org + '/' + pk
+      const item = Cache.map.get(k)
+
+    }
+  }
+
   // Après commit, mise à jour du cache avec les nouveaux rows
-  updateCache () {
+  updateCache2 () {
     const now = Date.now()
     const rows = []
     this.toInsert.forEach(row => { rows.push(row)})
@@ -466,11 +449,6 @@ export class Cache {
   constructor (operation: Operation) {
     this.op = operation
     this.db = this.op.db
-    this.toInsert = []
-    this.toUpdate = []
-    this.toDelete = []
-    this.hdr = null
-    this.orgs = new Map<string, Document>()
     this.docs = new Map<string, Document>()
     this.conso = [0, 0, 0, 0]
   }

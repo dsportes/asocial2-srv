@@ -1,3 +1,4 @@
+import { Crypt } from './crypt'
 
 // Liste ordonnnée de noms de propriétés identifiantes
 export type props = string[]
@@ -58,6 +59,47 @@ export class DocType {
 
   static get (n: string) : DocType {
     return DocType.docTypes.get(n)
+  }
+
+  /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
+  static getPk (clazz: string, src: Object) : string {
+    const dt = DocType.get(clazz)
+    const x = []
+    if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
+    return Crypt.sha16(x.join('/'))
+  }
+
+  /* Retourne la valeur d'un idx name d'une "source" ayant les propriétés citées */
+  static getIdx (clazz: string, name: string, src: Object) : any {
+    const dt = DocType.get(clazz)
+    const x = []
+    if (!dt || !src) return null
+    const c = dt.hasColls ? dt.colls.get(name) : null
+    if (c) {
+      if (c.list) {
+        const x = []
+        const p = src[name] as string[]
+        if (p) p.forEach(v => { if (v) x.push(Crypt.sha16(v))})
+        return x
+      }
+      const x = []
+      c.key.forEach(p => { x.push(src[p] || '') })
+      return Crypt.sha16(x.join('/'))
+    }
+    const i = dt.hasIndexes ? dt.indexes.get(name) : null
+    if (!i) return null
+    const v = src[name]
+    switch (i.type) {
+      case propType.STRING : { return v || '' }
+      case propType.INTEGER : { return v || 0 }
+      case propType.FLOAT : { return v || 0 }
+      case propType.HASH : { return Crypt.sha16(v || '') }
+      case propType.LIST : {         
+        const x = []
+        if (v as string[]) (v as string[]).forEach(t => { if (t) x.push(Crypt.sha16(t))})
+        return x
+      }
+    }
   }
 
   readonly n: number

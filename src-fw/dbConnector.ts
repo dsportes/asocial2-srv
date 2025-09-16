@@ -44,45 +44,6 @@ export class DbConnexion {
   // Retourne le sha16 d'un array de strings
   h16 (k : string[]) : string { return Crypt.sha16(encode(k)) }
 
-  /* Valeur de la clé ou de l'index 'pname' : k0, k1 ... i0, i1 ... dans le 'data'
-  selon la liste des propriétés composant cette clé / index et son type
-  */
-  kiFromPattern (pname: string, data: DocPattern) {
-    /*
-    if (pname === 'k0') {
-      if (data.clazz === 'Hdr') return '1'
-      if (data.clazz === 'Org') return data.org
-    }
-    const dt = DocType.get(data.clazz)
-    const idx = parseInt(pname.charAt(1))
-    const isK = pname.charAt(0) === 'k'
-    if (isK) {
-      const x : any[] = []
-      if (idx < dt.keys.length)
-        dt.keys[idx].forEach(p => { x.push(data[p] || '') })
-      return this.h16(x)
-    }
-    if (idx < dt.keys.length) {
-      const [np, type, b] = dt.indexes[idx]
-      const val = data[np]
-      return type === idxType.HASH ? this.h16(val) : val
-    }
-      */
-    return ''
-  }
-
-  idFromPattern (data: DocPattern) : string[]{
-    /*
-    if (data.clazz === 'Hdr') return ['hdr']
-    if (data.clazz === 'Org') return ['Org', data.org]
-    const dt = DocType.get(data.clazz)
-    const x : string[] = ['data.clazz', data.org]
-    dt.keys[0].forEach(p => { x.push(data[p] || '') })
-    return x
-    */
-    return []
-  }
-
   _dtRow (data: Object) : [DocType, Object] {
     const cl = data['clazz']
     const dt = DocType.get(cl)
@@ -119,12 +80,12 @@ export class DbConnexion {
     const [dt, row] =  this._dtRow (data)
 
     // Propriété k0
-    row['k0'] = this.kiFromPattern('k0', data as DocPattern)
+    // row['k0'] = this.kiFromPattern('k0', data as DocPattern)
 
     // data 'réduit' aux pPropriétés de k0 
     const d = {}
     // dt.keys[0].forEach(p => { d[p] = data[p] })
-    row['data'] = Crypt.syncCrypt(this.key, encode(d))
+    // row['data'] = Crypt.syncCrypt(this.key, encode(d))
 
     return row
   }
@@ -136,7 +97,7 @@ export class DbConnexion {
   }
 
   // Retourne le "data", décrypté mais sérialisé depuis un "row"
-  rowToDataBin (row: Object) {
+  rowToDataBin (row: Object) : Uint8Array {
     return Crypt.syncDecrypt(this.key, row['data'])
   }
 
