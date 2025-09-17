@@ -13,11 +13,6 @@ export type DocData = {
   z?: number, // jour de zombi
 }
 
-export type DocPattern = {
-  org: string,
-  clazz: string
-}
-
 export class Document {
   static release = 0
 
@@ -30,7 +25,7 @@ export class Document {
     const cl = config.documentClasses[clazz]
     if (!cl) return null
     const doc = new cl()
-    doc.clazz = clazz
+    doc._clazz = clazz
     doc.release = release || cl.release
     return doc
   }
@@ -45,14 +40,14 @@ export class Document {
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = config.documentClasses[this.clazz]
+    const cl = config.documentClasses[this._clazz]
     return cl ? cl.release : 0
   }
 
-  _status?: DocChange
-  clazz: string
+  _change?: DocChange
+  _clazz: string
+  _org: string
   v: number
-  z: number
   release: number // numéro de release de la structure de l'objet
 
   get hasLastRelease () : boolean {
@@ -69,15 +64,7 @@ export class Document {
   compile () { return this }
 
   get docType () : DocType {
-    return DocType.get(this.clazz)
-  }
-
-  get pattern () : DocPattern {
-    const dt = this.docType
-    const pat = { clazz: this.clazz } as DocPattern
-    if (this['org']) pat.org = this['org']
-    dt.pk.forEach(p => { pat[p] = this[p] || '' })
-    return pat
+    return DocType.get(this._clazz)
   }
 
 }

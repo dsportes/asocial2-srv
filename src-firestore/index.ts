@@ -2,7 +2,7 @@
 import { FieldPath, DocumentReference, Firestore, Query, QuerySnapshot, 
   Timestamp, Transaction, WhereFilterOp, OrderByDirection } from '@google-cloud/firestore'
 
-  import { writeFileSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import path from 'path'
 
 import { DocType } from '../src-fw/doctypes'
@@ -13,6 +13,7 @@ import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
+import { Crypt } from '../src-fw/crypt'
 
 const schemaPath = './emulators/firestore.indexes.json'
 
@@ -189,33 +190,37 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
   }
 
-  /* Transforme un row DB en row APP
+  /* Transforme un row APP en row DB
   - calcul du TTL éventuel
   - supprime deleted
   - convertit maxLife en minutes
+  - crypt data, sauf si nocrypt
   Retourne le row : v maxLife? ttl?
   */
-  rowToDB (row: row) : row {
-    if (!row.deleted && !row.maxLife) return row
-    if (row.deleted){
-      if (row.maxLife) delete row.maxLife
-      delete row.deleted
-      row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
-      return row
+  rowToDB (row: row, nocrypt?: boolean) : row {
+    if (row.deleted || row.maxLife) {
+      if (row.deleted){
+        if (row.maxLife) delete row.maxLife
+        delete row.deleted
+        row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
+      } else {
+        if (row.maxLife) {
+          if (row.maxLife > this.op.now) {
+            row.ttl = new Timestamp(Math.floor(row.maxLife / 1000) + zombiLapse, 0)
+            delete row.maxLife
+          }
+          row.maxLife = Math.floor(row.maxLife / 1440000) // en minutes (integer 32)
+        }
+      }
     }
-    if (!row.maxLife) return row
-    if (row.maxLife > this.op.now) {
-      row.ttl = new Timestamp(Math.floor(row.maxLife / 1000) + zombiLapse, 0)
-      delete row.maxLife
-      return row
-    }
-    row.maxLife = Math.floor(row.maxLife / 1440000) // en minutes (integer 32)
+    if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
     return row
   }
 
   /* Transforme un row DB en row APP
   - calcul de deleted 
   - convertit maxLife en ms
+  - decrypte row.data
   Retourne le row (v, maxLife?, deleted?): si date de purge (ttl) dépassée retourne null
   */
   rowToAPP (row: row) : row | null{
@@ -224,6 +229,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (row.ttl.seconds * 1000 < this.op.now) return null
     if (!row.maxLife) { row.deleted = true; return row }
     if (row.maxLife < this.op.now) { delete row.maxLife; row.deleted = true }
+    row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
 
@@ -247,7 +253,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   mark: dont les pk sont > pk
   limit: nombre max de rows lus
   Retourne:
-    rows : la liste des rows
+    rows : la liste des rows - les row.data SONT cryptés
     eox: true si le nombre de rows exportés n'a pas atteint la limite
     lastMark: dernière pk lue
   ATTENTION !!! mark ne doit pas être '' (mettre '0' pour commencer)
@@ -283,11 +289,12 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return eop
   }
 
-  /* Import (insert / création) les rows
+  /* Import (insert / création) les rows : 
+  - les row.data DOIVENT être cryptés par l'appelant
   */
   async importRows (org: string, clazz: string, rows: row[]) : Promise<void> {
     for(const row of rows) {
-      const r = this.rowToDB(row)
+      const r = this.rowToDB(row, true)
       const dr = this.docRef(org, clazz, r.pk)
       await dr.create(r)
     }

@@ -37,7 +37,7 @@ export type row = {
   maxLife?: number, // time de fin de vie programmée par l'application (précision en minutes)
   ttl?: any, // DB seulement - TTL pour purge automatique par la DB
   deleted?: boolean, // APP seulement - document supprimé
-  data: Uint8Array | Object,
+  data: Uint8Array,
   [index: string]:any
 }
 

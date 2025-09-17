@@ -325,7 +325,7 @@ export class Cache {
   op: Operation
   db : IDbGeneric
   conso : number[]
-  docs : Map<string, Document>
+  docs : Map<string, DocDescr>
 
   static MAX_CACHE_SIZE = 1000
   static LAZY_MS = 1000
@@ -343,7 +343,7 @@ export class Cache {
     : Promise<DocDescr> {
     const now = Date.now()
     const pk = DocType.getPk(clazz, src)
-    const k = clazz + '/' + org + '/' + pk
+    const k = org + '/' + clazz + '/' + pk
     const item = Cache.map.get(k)
     if (item && lazy && (now - item.time < Cache.LAZY_MS)) {
       item.lru = now
@@ -407,17 +407,17 @@ export class Cache {
   constructor (operation: Operation) {
     this.op = operation
     this.db = this.op.db
-    this.docs = new Map<string, Document>()
+    this.docs = new Map<string, DocDescr>()
   }
 
-  /* Effectue les écritures en base
+  /* Effectue les écritures en base depuis la liste des documents ayant changé
   - constitue la liste op.updates pour notification aux sessions abonnées.
   */
   async commit() {
     // TODO
   }
 
-  /* Contruit une instance de "Document" depuis un dataSer
+  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
   soit issu de lecture DB, soit fourni par l'application.
   */
   docFromDataSer (dataSer: Uint8Array) : Document {
@@ -428,51 +428,48 @@ export class Cache {
     return doc.populate(data).compile()
   }
 
-  // Retourne ou it le Hdr
+  // Retourne ou lit le Hdr
   async getHdr (lazy?: boolean) : Promise<Document> {
-    let doc = this.hdr
-    if (doc) return doc
-    const dataSer = await Cache.getData(this.op, { clazz: 'Hdr', org: ''}, lazy)
-    doc = this.docFromDataSer(dataSer)
-    if (!lazy) this.hdr = doc
-    return doc
+    const k = 'ROOT/Hdr/1'
+    let dd = this.docs.get(k)
+    if (dd) return dd.doc
+    dd = await Cache.getData(this.op, 'ROOT', 'Hdr', null, lazy)
+    if (!dd) return null
+    dd.doc = this.docFromDataSer(dd.before.data)
+    if (!lazy) this.docs.set(k, dd)
+    return dd.doc
   }
 
   // Retourne ou lit le Org cité
   async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
-    let doc = this.orgs.get(org)
-    if (doc) return doc
-    const dataSer = await Cache.getData(this.op, { clazz: 'Hdr', org }, lazy)
-    if (!dataSer) {
+    const k = org + 'Org/' + org
+    let dd = this.docs.get(k)
+    if (dd) return dd.doc
+    dd = await Cache.getData(this.op, org, 'Org', { org: org }, lazy)
+    if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
       return null
     }
-    doc = this.docFromDataSer(dataSer)
-    if (!lazy) this.orgs.set(org, doc)
-    return doc
+    dd.doc = this.docFromDataSer(dd.before.data)
+    if (!lazy) this.docs.set(k, dd)
+    return dd.doc
   }
 
   /* Retourne ou lit de la base le "document" dont le pattern
   (clazz, org, propriétés identifiantes de k0} est donné.
   */
-  async getDoc (pattern: DocPattern, assert?: string) : Promise<Document> {
-    let doc = this._getD(pattern)
-    if (doc) return doc
-    const dataSer = await Cache.getData(this.op, pattern)
-    if (!dataSer) {
-      if (assert) this.op.assertKO(assert, 26, this.db.idFromPattern(pattern))
+  async getDoc (org: string, clazz: string, src, assert?: string) : Promise<Document> {
+    const pk = DocType.getPk(clazz, src)
+    const k = org + '/' + clazz + '/' + pk
+    let dd = this.docs.get(k)
+    if (dd) return dd.doc
+    dd = await Cache.getData(this.op, org, clazz, src)
+    if (!dd) {
+      if (assert) this.op.assertKO(assert, 25, [clazz, DocType.getPk(clazz, src, false)])
       return null
     }
-    doc = this.docFromDataSer(dataSer)
-    this._setD(doc)
-    return doc
-  }
-
-    // Privé : construit la clé dans le cache d'un document
-  _cacheKey (pattern: DocPattern) : string {
-    const k0 = this.op.db.kiFromPattern('k0', pattern)
-    return pattern.org + '/' + pattern.clazz +
-      (pattern.clazz === 'Org' ? '' : ('/' + k0))
+    dd.doc = this.docFromDataSer(dd.before.data)
+    return dd.doc
   }
 
   _getD (pattern: DocPattern) : Document {
@@ -504,7 +501,7 @@ export class Cache {
   Si le document était déjà en cache, le retourne.
   Sinon inscrit le nouveau et le retourne.
   */
-  addDoc (doc: Document) : Document {
+  addDoc (org: string, doc: Document) : Document {
     const d = this._getD(doc.pattern)
     if (d) return d
     this._setD(doc)
