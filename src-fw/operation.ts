@@ -5,7 +5,7 @@ import { DbConnector } from './dbConnector'
 import { IDbGeneric, row } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
-import { Document, DocPattern, DocData, DocChange } from './document'
+import { Document, DocChange } from './document'
 import { Notification, notif } from './notif'
 import { Util } from './util'
 import { Crypt } from './crypt'
@@ -29,12 +29,33 @@ export class DocDescr {
   doc?: Document
   before?: row
   after?: row
+  row?: row
   
   constructor (org: string, clazz: string, pk: string, before: row) {
     this.org = org; this.clazz = clazz; this.pk = pk; this.before = before
   }
 
   get key () { return this.clazz + '/' + this.org + '/' + this.pk }
+
+  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
+  soit issu de lecture DB, soit fourni par l'application.
+  */
+  setDoc () : void {
+    const d = decode(this.row.data)
+    const [data, b] = Document.mutate(this.clazz, d)
+    this.doc = Document.newDoc(this.org, this.clazz)  
+    this.doc.populate(data).compile()
+    // calcul before depuis data
+  }
+
+  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
+  soit issu de lecture DB, soit fourni par l'application.
+  */
+  newDoc (initVals : Object) : void {
+    this.doc = Document.newDoc(this.org, this.clazz)  
+    this.doc.populate(this.before.data).compile()
+  }
+
 }
 
 export class Operation {
@@ -420,11 +441,11 @@ export class Cache {
   /* Contruit une instance de "Document" depuis un data décrypté sérialisé
   soit issu de lecture DB, soit fourni par l'application.
   */
-  docFromDataSer (dataSer: Uint8Array) : Document {
+  docFromDataSer (org: string, clazz: string, dataSer: Uint8Array) : Document {
     if (!dataSer) return null
-    const data1 = decode(dataSer) as DocData
-    const [data, b] = Document.mutate(data1)
-    const doc = Document.newDoc(data.clazz, data.release)  
+    const data1 = decode(dataSer) as Object
+    const [data, b] = Document.mutate(clazz, data1)
+    const doc = Document.newDoc(org, clazz)  
     return doc.populate(data).compile()
   }
 
@@ -435,7 +456,7 @@ export class Cache {
     if (dd) return dd.doc
     dd = await Cache.getData(this.op, 'ROOT', 'Hdr', null, lazy)
     if (!dd) return null
-    dd.doc = this.docFromDataSer(dd.before.data)
+    dd.doc = this.docFromDataSer('ROOT', 'Hdr', dd.before.data)
     if (!lazy) this.docs.set(k, dd)
     return dd.doc
   }

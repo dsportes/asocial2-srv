@@ -5,6 +5,7 @@ import { config } from './config'
 export enum DocChange { NONE, UPD, NEW, DEL }
 
 export type DocData = {
+
   _status?: DocChange,
   release?: number, // numéro de release de la structure
   clazz: string, // classe
@@ -14,19 +15,33 @@ export type DocData = {
 }
 
 export class Document {
-  static release = 0
+  _clazz: string
+  _change?: DocChange
+  _org: string
+  v: number
+  release: number // numéro de release de la structure de l'objet
 
-  static mutate (data: DocData, options?: Object) : [DocData, boolean] {
-    const fn = config.documentClasses['MUTATE']
-    return fn(data, options)
+  /* Mute un data en fonction de sa release et d'éventuelles options
+  Met à jour, supprime ajoute les prpropriétés requises dans la
+  dernière version en fonction de sa release actuell.
+  Retourne couple du data (ancien ou celui muté) 
+  et de l'indicateur de mutation (false si inchangé)
+  */
+  static mutate (clazz: string, data: any, options?: Object) : [any, boolean] {
+    const cl = config.documentClasses[clazz]
+    if (!cl) return [data, false]
+    const f = cl.mutateCl
+    return f ? f(data, options) : [data, false]
   }
 
-  static newDoc (clazz: string, release?: number) : Document {
+  static newDoc (clazz: string, org: string) : Document {
     const cl = config.documentClasses[clazz]
     if (!cl) return null
     const doc = new cl()
     doc._clazz = clazz
-    doc.release = release || cl.release
+    doc._org = org
+    doc.release = cl.release
+    doc.v = 0
     return doc
   }
 
@@ -43,12 +58,6 @@ export class Document {
     const cl = config.documentClasses[this._clazz]
     return cl ? cl.release : 0
   }
-
-  _change?: DocChange
-  _clazz: string
-  _org: string
-  v: number
-  release: number // numéro de release de la structure de l'objet
 
   get hasLastRelease () : boolean {
     return this.release === this.classRelease

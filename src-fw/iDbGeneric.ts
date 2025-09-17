@@ -1,4 +1,3 @@
-import { DocPattern } from './document'
 import { DbConnector } from './dbConnector'
 import { Operation } from './operation'
 
