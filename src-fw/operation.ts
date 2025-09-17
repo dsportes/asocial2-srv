@@ -6,9 +6,36 @@ import { IDbGeneric, row } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocPattern, DocData, DocChange } from './document'
+import { Notification, notif } from './notif'
 import { Util } from './util'
 import { Crypt } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
+
+type conso = {
+  ndr: number, // nombre de documents lus
+  ndw: number, // nombre de documents écrits
+  vdr: number, // volume de documents lus
+  vdw: number, // volume de documents écrits
+  nfr: number, // nombre de fichiers lus
+  nfw: number, // nombre de fichiers écrits
+  vfr: number, // volume de fichiers lus
+  vfw: number, // volume de fichiers écrits
+}
+
+export class DocDescr {
+  org: string
+  clazz: string
+  pk: string
+  doc?: Document
+  before?: row
+  after?: row
+  
+  constructor (org: string, clazz: string, pk: string, before: row) {
+    this.org = org; this.clazz = clazz; this.pk = pk; this.before = before
+  }
+
+  get key () { return this.clazz + '/' + this.org + '/' + this.pk }
+}
 
 export class Operation {
   public static factories = new Map<string, Function>()
@@ -39,8 +66,8 @@ export class Operation {
   public authRecord : AuthRecord
   public db: IDbGeneric
 
-  rowToSet : row[]
-  rowToDel : row[]
+  public conso : conso
+  public updates : DocDescr[]
 
   public cache : Cache
 
@@ -85,7 +112,6 @@ export class Operation {
   }
 
   async transac (): Promise<void> {
-    this.cache = new Cache(this)
     await this.setAuths()
     await this.phase2(this.args)
     await this.cache.commit()
@@ -96,18 +122,25 @@ export class Operation {
       if (this.phase2) for (let retry = 0; retry < 3; retry++) {
         if (retry) {
           this.now = Date.now()
-          this.today = Util.amj(this.now)
+          this.today = Math.floor(this.now / 86400000)
         }
         this.msSlow = 0
+        this.updates = []
+        this.cache = new Cache(this)
+        this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
         this.result = { time: this.now, srvBUILD: config.BUILD }
         await this.dbConnector.getConnexion(this)
-        this.cache = new Cache(this)
 
         const [st, detail] = await this.db.doTransaction() // Fait un appel à transac
 
         if (st === 0) {
-          // transcation OK et commitée
-          this.cache.postCommit()
+          for(let i = 0; i < this.updates.length; i++) {
+            const upd = this.updates[i]
+            Cache.updateCache(this, upd)
+            delete upd.doc
+            this.updates[i] = upd
+          }
+          Cache._purge()
           break 
         }
 
@@ -132,50 +165,12 @@ export class Operation {
         await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
       }
 
-      /*
-      if (this.phase2) {
-        if (this.subJSON) { // de Sync exclusivement
-          if (this.subJSON.startsWith('???')) {
-            if (config.mondebug) config.logger.error('subJSON=' + this.subJSON)
-            } else {
-              await genLogin(this.org, this.sessionId, this.subJSON, this.nhb, this.id, 
-                this.compte.perimetre, this.compte.vpe)
-            }
-        }
-        
-        if (this.gd.trLog._maj) {
-          this.gd.trLog.fermer()
-          if (!this.estAdmin) { // sessions ADMIN ne reçoivent jamais de synchro
-            const sc = this.gd.trLog.court // sc: { vcpt, vesp, vadq, lag }
-            if (sc) this.setRes('trlog', sc)
-          }
-          
-          const sl = this.gd.trLog.serialLong
-          if (sl) {
-            const sid = this.SYS ? null : (this.sessionId || null)
-            this.nhb = await genNotif(this.org, sid, sl)
-          }
-        }
-        if (this.nhb !== undefined && this.nhb !== -1) 
-          this.setRes('nhb', { sessionId: this.sessionId, nhb: this.nhb, op: this.nomop })
-
-        if (this.compta) {
-          const c = this.compta.compteurs
-          const adq = {
-            dh: this.dh,
-            v: this.compta.v,
-            flags: this.flags,
-            dlv: this.compta.dlv,
-            nl: this.nl, 
-            ne: this.ne,
-            vd: this.vd, 
-            vm: this.vm,
-            qv: { ...c.qv }
-          }
-          this.setRes('adq', adq)
-        }
+      if (this.updates.length) {
+        const notifs = await Notification.updates(this, this.updates)
+        if (notifs.length) this.setRes('notifs', notifs)
       }
-      */
+
+      this.setRes('conso', this.conso)
 
       /*
       if (this.aTaches) 
@@ -345,16 +340,14 @@ export class Cache {
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
   static async getData(op: Operation, org: string, clazz: string, src: Object, lazy?: boolean)
-    : Promise<row> {
+    : Promise<DocDescr> {
     const now = Date.now()
-    const h = clazz === 'Hdr'
-    const o = clazz == 'Org'
     const pk = DocType.getPk(clazz, src)
     const k = clazz + '/' + org + '/' + pk
     const item = Cache.map.get(k)
     if (item && lazy && (now - item.time < Cache.LAZY_MS)) {
       item.lru = now
-      return item.row
+      return new DocDescr(org, clazz, pk, item.row)
     }
 
     if (item) { // item trouvé en cache
@@ -364,7 +357,7 @@ export class Cache {
         item.row.data = op.db.rowToDataBin(row)
       }
       item.lru = now
-      return item.row
+      return new DocDescr(org, clazz, pk, item.row)
     }
 
     // Pas trouvé en cache - recherche en base
@@ -373,76 +366,41 @@ export class Cache {
       row.data = op.db.rowToDataBin(row)
       const item : cacheItem = { lru: now, time: now, row } 
       Cache.map.set(k, item)
-      return row
+      return new DocDescr(org, clazz, pk, row)
     }
 
     // Pas trouvé en base
     return null
   }
 
-  updateCache (op: Operation) {
-    for (const row of op.rowToSet) {
-      const pk = DocType.getPk(row.clazz, row.data)
-      const k = row.clazz + '/' + row.org + '/' + pk
-      const item = Cache.map.get(k)
-
+  static updateCache (op: Operation, rd: DocDescr) {
+    const k = rd.key
+    let item = Cache.map.get(k)
+    if (!rd.after) { // suppression
+      if (item) Cache.map.delete(k)
+      return
     }
-  }
-
-  // Après commit, mise à jour du cache avec les nouveaux rows
-  updateCache2 () {
-    const now = Date.now()
-    const rows = []
-    this.toInsert.forEach(row => { rows.push(row)})
-    this.toUpdate.forEach(row => { rows.push(row)}) 
-    for(const row of rows) {
-      const clazz = row['clazz']
-      const h = clazz === 'Hdr'
-      const o = clazz == 'Org'
-      const v = row['v']
-      const z = row['z']
-      const k = clazz + '/' + (h ? '' : (row['org'] + '/' + (o ? '' : row['k0'])))
-      const item = Cache.map.get(k)
-      if (item) { // remplacement éventuel
-        if (v > item.v) {
-          item.v = v
-          item.data = row['data']
-          if (z) item.z = z
-          item.lru = now
-          item.time = now
-        }
-      } else { // insertion d'un nouveau
-        const item : cacheItem = {
-          v: v,
-          data: row['data'],
-          lru: now,
-          time: now,
-        }
-        if (z) item.z = z
-        Cache.map.set(k, item)
+    if (item) { // remplacement éventuel
+      if (rd.after.v > item.row.v) {
+        item.row = rd.after
+        item.lru = op.now
+        item.time = op.now
       }
+    } else { // insertion d'un nouveau
+      item = { lru: op.now, time: op.now, row: rd.after }
     }
-
-    for(const row of this.toDelete) {
-      const clazz = row['clazz']
-      const h = clazz === 'Hdr'
-      const o = clazz == 'Org'
-      const v = row['v']
-      const z = row['z']
-      const k = clazz + '/' + (h ? '' : (row['org'] + '/' + (o ? '' : row['k0'])))
-      Cache.map.delete(k)
-    }
-
-    if (Cache.map.size > Cache.MAX_CACHE_SIZE) Cache._purge()
+    Cache.map.set(k, item)
   }
 
   static _purge () {
-    const t = []
-    Cache.map.forEach((value, key) => { t.push({ lru: value.lru, k: key }) } )
-    t.sort((a, b) => { return a.lru < b.lru ? -1 : (a.lru > b.lru ? 1 : 0) })
-    for (let i = 0; i < Cache.MAX_CACHE_SIZE / 2; i++) {
-      const k = t[i].k
-      Cache.map.delete(k)
+    if (Cache.map.size > Cache.MAX_CACHE_SIZE) {
+      const t = []
+      Cache.map.forEach((value, key) => { t.push({ lru: value.lru, k: key }) } )
+      t.sort((a, b) => { return a.lru < b.lru ? -1 : (a.lru > b.lru ? 1 : 0) })
+      for (let i = 0; i < Cache.MAX_CACHE_SIZE / 2; i++) {
+        const k = t[i].k
+        Cache.map.delete(k)
+      }
     }
   }
 
@@ -450,28 +408,13 @@ export class Cache {
     this.op = operation
     this.db = this.op.db
     this.docs = new Map<string, Document>()
-    this.conso = [0, 0, 0, 0]
   }
 
   /* Effectue les écritures en base
-  et constitue la liste des notifications à pousser par web-push
-  aux sessions abonnées.
+  - constitue la liste op.updates pour notification aux sessions abonnées.
   */
   async commit() {
     // TODO
-    if (this.toInsert.length)
-      for (const row of this.toInsert) await this.db.insertDoc(row)
-    if (this.toUpdate.length)
-      for (const row of this.toUpdate) await this.db.updateDoc(row)
-    if (this.toDelete.length)
-      for (const row of this.toDelete) 
-        await this.db.deleteDoc(row as DocPattern)
-    // préparer le Trlog
-  }
-
-  // Après commit effectif, complète et compresse le cache global
-  postCommit () {
-    this.updateCache()
   }
 
   /* Contruit une instance de "Document" depuis un dataSer
