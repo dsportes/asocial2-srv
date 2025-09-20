@@ -5,7 +5,7 @@ import { DbConnector } from './dbConnector'
 import { IDbGeneric, row } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
-import { Document, DocChange } from './document'
+import { Document, DocStatus } from './document'
 import { Notification, notif } from './notif'
 import { Util } from './util'
 import { Crypt } from './crypt'
@@ -26,34 +26,27 @@ export class DocDescr {
   org: string
   clazz: string
   pk: string
-  doc?: Document
-  before?: row
-  after?: row
+  // En cache globale: détention sous forme row (data décrypté mais sérialisé)
   row?: row
-  
-  constructor (org: string, clazz: string, pk: string, before: row) {
-    this.org = org; this.clazz = clazz; this.pk = pk; this.before = before
+  // En chache d'une opération: détention d'un Document (pas d'un row)
+  doc?: Document
+
+  constructor (org: string, clazz: string, pk: string, row: row) {
+    this.org = org; this.clazz = clazz; this.pk = pk
+    if (row) this.row = row
   }
 
-  get key () { return this.clazz + '/' + this.org + '/' + this.pk }
+  static key (org: string, clazz: string, pk: string) { 
+    return clazz + '/' + org + '/' + pk 
+  }
 
-  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
-  soit issu de lecture DB, soit fourni par l'application.
+  /* Contruit une instance de "Document" depuis le row issu de lecture DB
+  Retourne le document compilé
   */
-  setDoc () : void {
+  init () : void {
     const d = decode(this.row.data)
     const [data, b] = Document.mutate(this.clazz, d)
-    this.doc = Document.newDoc(this.org, this.clazz)  
-    this.doc.populate(data).compile()
-    // calcul before depuis data
-  }
-
-  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
-  soit issu de lecture DB, soit fourni par l'application.
-  */
-  newDoc (initVals : Object) : void {
-    this.doc = Document.newDoc(this.org, this.clazz)  
-    this.doc.populate(this.before.data).compile()
+    this.doc = Document.newDoc(this.org, this.clazz, DocStatus.NONE, data) 
   }
 
 }
@@ -364,7 +357,7 @@ export class Cache {
     : Promise<DocDescr> {
     const now = Date.now()
     const pk = DocType.getPk(clazz, src)
-    const k = org + '/' + clazz + '/' + pk
+    const k = DocDescr.key(org, clazz, pk)
     const item = Cache.map.get(k)
     if (item && lazy && (now - item.time < Cache.LAZY_MS)) {
       item.lru = now
@@ -394,21 +387,21 @@ export class Cache {
     return null
   }
 
-  static updateCache (op: Operation, rd: DocDescr) {
-    const k = rd.key
+  static updateCache (op: Operation, dd: DocDescr, del?: boolean) {
+    const k = DocDescr.key(dd.org, dd.clazz, dd.pk)
     let item = Cache.map.get(k)
-    if (!rd.after) { // suppression
+    if (del) { // suppression
       if (item) Cache.map.delete(k)
       return
     }
     if (item) { // remplacement éventuel
-      if (rd.after.v > item.row.v) {
-        item.row = rd.after
+      if (dd.row.v > item.row.v) {
+        item.row = dd.row
         item.lru = op.now
         item.time = op.now
       }
     } else { // insertion d'un nouveau
-      item = { lru: op.now, time: op.now, row: rd.after }
+      item = { lru: op.now, time: op.now, row: dd.row }
     }
     Cache.map.set(k, item)
   }
@@ -431,37 +424,19 @@ export class Cache {
     this.docs = new Map<string, DocDescr>()
   }
 
-  /* Effectue les écritures en base depuis la liste des documents ayant changé
-  - constitue la liste op.updates pour notification aux sessions abonnées.
-  */
-  async commit() {
-    // TODO
-  }
-
-  /* Contruit une instance de "Document" depuis un data décrypté sérialisé
-  soit issu de lecture DB, soit fourni par l'application.
-  */
-  docFromDataSer (org: string, clazz: string, dataSer: Uint8Array) : Document {
-    if (!dataSer) return null
-    const data1 = decode(dataSer) as Object
-    const [data, b] = Document.mutate(clazz, data1)
-    const doc = Document.newDoc(org, clazz)  
-    return doc.populate(data).compile()
-  }
-
-  // Retourne ou lit le Hdr
+  // Retourne ou lit le Document Hdr
   async getHdr (lazy?: boolean) : Promise<Document> {
     const k = 'ROOT/Hdr/1'
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = await Cache.getData(this.op, 'ROOT', 'Hdr', null, lazy)
     if (!dd) return null
-    dd.doc = this.docFromDataSer('ROOT', 'Hdr', dd.before.data)
+    dd.init()
     if (!lazy) this.docs.set(k, dd)
     return dd.doc
   }
 
-  // Retourne ou lit le Org cité
+  // Retourne ou lit le Document Org cité
   async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
     const k = org + 'Org/' + org
     let dd = this.docs.get(k)
@@ -471,17 +446,17 @@ export class Cache {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
       return null
     }
-    dd.doc = this.docFromDataSer(dd.before.data)
+    dd.init()
     if (!lazy) this.docs.set(k, dd)
     return dd.doc
   }
 
-  /* Retourne ou lit de la base le "document" dont le pattern
-  (clazz, org, propriétés identifiantes de k0} est donné.
+  /* Retourne ou lit de la base le Document cité par src:
+  - src : objet contenant les proipriétés de la pk
   */
-  async getDoc (org: string, clazz: string, src, assert?: string) : Promise<Document> {
+  async getDoc (org: string, clazz: string, src: Object, assert?: string) : Promise<Document> {
     const pk = DocType.getPk(clazz, src)
-    const k = org + '/' + clazz + '/' + pk
+    const k = DocDescr.key(org, clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = await Cache.getData(this.op, org, clazz, src)
@@ -489,75 +464,61 @@ export class Cache {
       if (assert) this.op.assertKO(assert, 25, [clazz, DocType.getPk(clazz, src, false)])
       return null
     }
-    dd.doc = this.docFromDataSer(dd.before.data)
+    dd.init()
     return dd.doc
   }
 
-  _getD (pattern: DocPattern) : Document {
-    if (pattern.clazz === 'Hdr') return this.hdr
-    const ck = this._cacheKey(pattern)
-    if (pattern.clazz === 'Org') return this.orgs.get(ck)
-    return this.docs.get(ck)
-  }
-
-  _setD (doc: Document) {
-    if (doc.clazz === 'Hdr') this.hdr = doc
-    else {
-      const ck = this._cacheKey(doc.pattern)
-      if (doc.clazz === 'Org') this.orgs.set(ck, doc)
-      else this.docs.set(ck, doc)
-    }
-  }
-
-  _delD (doc: Document) {
-    if (doc.clazz === 'Hdr') this.hdr = null
-    else {
-      const ck = this._cacheKey(doc.pattern)
-      if (doc.clazz === 'Org') this.orgs.delete(ck)
-      else this.docs.delete(ck)
-    }
-  }
-
-  /* Ajoute un document construit par l'application (en général un NEW)
-  Si le document était déjà en cache, le retourne.
-  Sinon inscrit le nouveau et le retourne.
+  /* Met en cache un row issu de la lecture en mode "report" de la DB.
+  Si le document était déjà présent et plus récent, il est CONSERVE.
+  Retourne le document.
   */
-  addDoc (org: string, doc: Document) : Document {
-    const d = this._getD(doc.pattern)
-    if (d) return d
-    this._setD(doc)
-    return doc
+  putRow (row: row) : Document {
+    const k = DocDescr.key(row.org, row.clazz, row.pk)
+    let dd = this.docs.get(k)
+    if (dd) return dd.doc
+    dd = new DocDescr(row.org, row.clazz, row.pk, row)
+    dd.init()
+    this.docs.set(k, dd)
+    return dd.doc
   }
 
-  /* Comme AddDoc avec un dataSer en argument plutôt qu'un document.
+  /* Met en cache un NOUVEAU document (création) depuis un objet source.
+  Toutefois SI le document était déjà présent et plus récent, il est CONSERVE.
+  Retourne le document.
   */
-  addDataSer (dataSer: Uint8Array ) : Document {
-    return this.addDoc(this.docFromDataSer(dataSer)) 
+  newDoc (org: string, clazz: string, src: Object) : Document {
+    const pk = DocType.getPk(clazz, src)
+    const k = DocDescr.key(org, clazz, pk)
+    let dd = this.docs.get(k)
+    if (dd) return dd.doc
+    dd = new DocDescr(org, clazz, pk, null)
+    dd.doc = Document.newDoc(org, clazz, DocStatus.NEW, src)  
+    this.docs.set(k, dd)
+    return dd.doc
   }
 
-  /* Marque le document identifié par son pattern à supprimer:
+  /* Marque le document identifié par sa pk 
+  IL DOIT avoir été lu auparavent !
   - si c'est un document synchronisable, le mettra à jour en "zombi"
   - sinon l'inscrit pour suppression effective.
-  - si le document est déjà en cache avec status NEW, il est retiré (ne sera pas créé)
-  -i le document n'est pas en cache, il y créé avec status DEL.
+  - si le document a status NEW, il est retiré (ne sera pas créé).
+  - sinon son status est à DEL.
   */
-  async delDoc (pattern: DocPattern) : Promise<void> {
-    let d = this._getD(pattern)
-    if (d) {
-      const dst = d._status 
-      if (dst === DocChange.NEW) this._delD(d)
-      else {
-        d._status = DocChange.DEL
-        this._setD(d)
-      }
-    } else {
-      d = Document.newDoc(pattern.clazz)
-      d = Document.compile(d, pattern)
-      d._status = DocChange.DEL
-      this._setD(d)
+  delDoc (org: string, clazz: string, pk: string) {
+    const k = DocDescr.key(org, clazz, pk)
+    let dd = this.docs.get(k)
+    if (dd) {
+      if (dd.doc._status === DocStatus.NEW) this.docs.delete(k)
+      else dd.doc._status = DocStatus.DEL
     }
   }
 
+  /* Effectue les écritures en base depuis la liste des documents ayant changé
+  - constitue la liste op.updates pour notification aux sessions abonnées.
+  */
+  async commit() {
+    // TODO
+  }
 } 
 
 // import { initializeApp } from 'firebase-admin/app'

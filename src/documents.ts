@@ -1,4 +1,4 @@
-import { Document, DocData } from '../src-fw/document'
+import { Document } from '../src-fw/document'
 
 class Hdr extends Document {
   static release = 1
