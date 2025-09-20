@@ -2,7 +2,7 @@ import { AppExc } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
-import { IDbGeneric, row } from './iDbGeneric'
+import { IDbGeneric, row, rowQ, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
@@ -37,7 +37,7 @@ export class DocDescr {
   }
 
   static key (org: string, clazz: string, pk: string) { 
-    return clazz + '/' + org + '/' + pk 
+    return org + '/' + clazz + '/' + pk 
   }
 
   /* Contruit une instance de "Document" depuis le row issu de lecture DB
@@ -82,6 +82,8 @@ export class Operation {
 
   public conso : conso
   public updates : DocDescr[]
+  public impactedSubs : ImpactedSubs
+  public hasTasks : boolean
 
   public cache : Cache
 
@@ -140,6 +142,7 @@ export class Operation {
         }
         this.msSlow = 0
         this.updates = []
+        this.hasTasks = false
         this.cache = new Cache(this)
         this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
         this.result = { time: this.now, srvBUILD: config.BUILD }
@@ -179,17 +182,14 @@ export class Operation {
         await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
       }
 
-      if (this.updates.length) {
-        const notifs = await Notification.updates(this, this.updates)
+      if (this.impactedSubs.all.size) {
+        const notifs = await Notification.updates(this)
         if (notifs.length) this.setRes('notifs', notifs)
       }
 
       this.setRes('conso', this.conso)
 
-      /*
-      if (this.aTaches) 
-        Taches.prochTache(this.dbp, this.storage)
-      */
+      // if (this.hasTasks) Taches.prochTache(this.db, this.storage)
       
       await this.db.disconnect()
 
@@ -367,9 +367,8 @@ export class Cache {
     if (item) { // item trouvé en cache
       // lecture pour recherche d'un éventuel plus récent
       const row = await op.db.oneRow (org, clazz, pk, item.row.v)
-      if (row && row.v > item.row.v) { // celui lu est plus récent
-        item.row.data = op.db.rowToDataBin(row)
-      }
+      if (row && row.v > item.row.v) // celui lu est plus récent
+        item.row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       item.lru = now
       return new DocDescr(org, clazz, pk, item.row)
     }
@@ -377,7 +376,7 @@ export class Cache {
     // Pas trouvé en cache - recherche en base
     const row = await op.db.oneRow (org, clazz, pk, item.row.v)
     if (row) { // trouvé en base, mis en cache
-      row.data = op.db.rowToDataBin(row)
+      row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       const item : cacheItem = { lru: now, time: now, row } 
       Cache.map.set(k, item)
       return new DocDescr(org, clazz, pk, row)
@@ -387,10 +386,10 @@ export class Cache {
     return null
   }
 
-  static updateCache (op: Operation, dd: DocDescr, del?: boolean) {
+  static updateCache (op: Operation, dd: DocDescr) {
     const k = DocDescr.key(dd.org, dd.clazz, dd.pk)
     let item = Cache.map.get(k)
-    if (del) { // suppression
+    if (dd.doc._status === DocStatus.DEL) { // suppression
       if (item) Cache.map.delete(k)
       return
     }
@@ -517,9 +516,105 @@ export class Cache {
   - constitue la liste op.updates pour notification aux sessions abonnées.
   */
   async commit() {
-    // TODO
+    this.op.impactedSubs = new ImpactedSubs()
+    this.op.updates = []
+    for (const [k, dd] of this.docs) {
+      if (dd.doc._status === DocStatus.NONE) continue
+      this.op.updates.push(dd)
+      const doc = dd.doc
+      let row : row
+      const is = this.op.impactedSubs.getEntry(dd.org, dd.clazz, dd.pk)
+      if (doc._status === DocStatus.UPD) {
+        row = doc.toRow(this.op.now, this.db.key)
+        await this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
+      } else if (doc._status === DocStatus.NEW) {
+        row = doc.toRow(this.op.now, this.db.key)
+        await this.db.writeRow(updType.CREATE, dd.org, dd.clazz, row)
+      } else {
+        if (doc.docType.sync) {
+          doc.toZombiRow(this.op.now, this.db.key)
+        } else await this.db.deleteDoc(dd.org, dd.clazz, dd.pk)
+      }
+      if (doc.docType.sync) await this.manageRowQ(dd, doc, row, is)
+    }
+    await this.db.commit()
+  }
+
+  async manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
+    for (const [n, collection] of doc.docType.colls) {
+      if (doc._status === DocStatus.DEL) {
+        // Tous le ou les termes "before" quittent le document
+        const b = doc._before[n]
+        is.setColl(n, b)
+        if (collection.list) for (const x of b) {
+          await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+        } else {
+          is.setColl(n, b)
+          await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+        }
+      } else {
+        const b = doc._before[n]
+        const a = doc.collValue(n)
+        is.setColl(n, a)
+        is.setColl(n, b)
+        if (doc._status === DocStatus.UPD) {
+          // Tous le ou les termes "before" 
+          // qui y étaient AVANT et ne le sont plus MAINTENANT
+          // quittent le document
+          if (collection.list) {
+            const bs : Set<string> = new Set(b)
+            const as = new Set(a)
+            for (const x of bs) {
+              if (!as.has(x))
+                await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+            }
+          } else if (a !== b) 
+            await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+        }
+      }
+    }
   }
 } 
+
+export class ImpactedSubs {
+  all : Map<string, ImpactedSub>
+
+  constructor () {
+    this.all = new Map()
+  }
+
+  getEntry (org: string, clazz: string, pk: string) : ImpactedSub {
+    const k = DocDescr.key(org, clazz, pk)
+    let is = this.all.get(k)
+    if (!is) {
+      is = new ImpactedSub(org, clazz, pk)
+      this.all.set(k, is)
+    }
+    return is
+  }
+}
+
+export class ImpactedSub {
+
+  org: string
+  clazz: string
+  pk: string
+  colls: Map<string, Set<string>>
+
+  constructor (org: string, clazz: string, pk: string) {
+    this.org = org; this.clazz = clazz, this.pk = pk
+    this.colls = new Map()
+  }
+
+  setColl (name: string, vals: string[]) {
+    let c = this.colls.get(name)
+    if (!c) {
+      c = new Set()
+      this.colls.set(name, c)
+    }
+    for (const s of vals) c.add(s)
+  }
+}
 
 // import { initializeApp } from 'firebase-admin/app'
 // const app = initializeApp()

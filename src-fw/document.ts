@@ -1,13 +1,22 @@
-import { Operation } from './operation'
 import { DocType } from './doctypes'
+import { row } from './iDbGeneric'
 import { config } from './config'
+import { encode } from '@msgpack/msgpack'
+import { Crypt } from './crypt'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
+
+export type changedColl = {
+  n: string, // nom de la collection
+  a: string, // valeur actuelle
+  b: string // valeur avant
+}
 
 export class Document {
   _clazz: string
   _org: string
   _status?: DocStatus
+  _before?: Object
   v: number
   release: number // numéro de release de la structure de l'objet
 
@@ -39,7 +48,9 @@ export class Document {
       if (m) data = d
     }
     for (const [key, value] of Object.entries(data)) this[key] = value
-    return doc.compile()
+    if (doc.compile) doc.compile()
+    if (!DocStatus.NONE) doc._before = doc.docType.extractColls(doc)
+    return doc
   }
 
   // Numéro de release de la structure de la classe
@@ -52,9 +63,49 @@ export class Document {
     return this.release === this.classRelease
   }
 
-  get docType () : DocType {
-    return DocType.get(this._clazz)
+  get docType () : DocType { return DocType.get(this._clazz) }
+
+  get pk () : string { return this.docType.pkValue(this)}
+
+  collValue (name: string) : string[] { return this.docType.getColl(this, name)}
+
+  idxValue (name: string) : any { return this.docType.getIdx(this, name)}
+  
+  // Construit un "row" pour DB depuis un document
+  toRow (now: number, key: Uint8Array) {
+    const d = {}
+    for (const k of Object.keys(this))
+      if (k.charAt[0] !== '_') d[k] = this[k]
+    d['v'] = now
+    const row: row = {
+      clazz: this._clazz,
+      v: now,
+      pk: this.pk,
+      data: Crypt.syncCrypt(key, encode(d))
+    }
+    const dt = this.docType
+    for (const [n, c] of dt.colls) row[n] = c.list ? this.collValue(n) : this.collValue(n)[0]
+    for (const [n, ] of dt.indexes) row[n] = this.idxValue(n)
+    return row
   }
 
-  compile () { return this }
+  /* Construit un "row" pour DB depuis un "data" ZOMBI de document
+  { v, deleted, propriétés de pk }
+   */
+  toZombiRow (now: number, key: Uint8Array) {
+    const dt = this.docType
+    const d = { v : now, deleted: true }
+    dt.pk.forEach(p => { const v = this[p] ; if (v) d[p] = v })
+    const row: row = {
+      clazz: this._clazz,
+      v: now,
+      pk: this.pk,
+      deleted: true,
+      data: Crypt.syncCrypt(key, encode(d))
+    }
+    return row
+  }
+
+  // Absrtract : compile () { }
+
 }

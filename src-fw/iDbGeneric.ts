@@ -51,11 +51,6 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
-  dataToRow (data: Object) : Object
-  dataToZombiRow (data: Object) : Object
-  rowToDataObj (row: Object) : Object 
-  rowToDataBin (row: Object) : Uint8Array
-
   /* Inscription d'une trace dans le singleton Hdr/ping 
   Retour 'normaux':
   - [0, m] : ping OK. m message inscrit dans DB
@@ -73,6 +68,8 @@ export interface IDbGeneric {
   Les autres exceptions ne sont pas trappées et sortent en exception (pas en retour 'normal')
   */
   doTransaction () : Promise<[number, string]> 
+
+  commit () : Promise<void>
 
   /* Exportation des rows n'ayant pas dépassé leur TTL
   mark: dont les pk sont > pk

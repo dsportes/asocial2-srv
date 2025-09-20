@@ -71,24 +71,33 @@ export class DocType {
     return nohash ? p : Crypt.sha16(p)
   }
 
-  /* Retourne la valeur d'un idx name d'une "source" ayant les propriétés citées */
-  static getIdx (clazz: string, name: string, src: Object) : any {
-    const dt = DocType.get(clazz)
+  /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
+  pkValue (src: Object, nohash?: boolean) : string {
+    if (!this.pk.length) return '1'
     const x = []
-    if (!dt || !src) return null
-    const c = dt.hasColls ? dt.colls.get(name) : null
-    if (c) {
-      if (c.list) {
-        const x = []
-        const p = src[name] as string[]
-        if (p) p.forEach(v => { if (v) x.push(Crypt.sha16(v))})
-        return x
-      }
+    if (src) this.pk.forEach(p => { x.push(src[p] || '') })
+    const p = x.join('/')
+    return nohash ? p : Crypt.sha16(p)
+  }
+
+  /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */
+  getColl (src: Object, name: string) : string[] {
+    const c = this.hasColls ? this.colls.get(name) : null
+    if (!c) return null
+    if (c.list) {
       const x = []
-      c.key.forEach(p => { x.push(src[p] || '') })
-      return Crypt.sha16(x.join('/'))
+      const p = src[name] as string[]
+      if (p) p.forEach(v => { if (v) x.push(Crypt.sha16(v))})
+      return x
     }
-    const i = dt.hasIndexes ? dt.indexes.get(name) : null
+    const x = []
+    c.key.forEach(p => { x.push(src[p] || '') })
+    return [Crypt.sha16(x.join('/'))]
+  }
+
+  /* Retourne la valeur d'un idx name d'une "source" ayant les propriétés citées */
+  getIdx (src: Object, name: string) : any {
+    const i = this.hasIndexes ? this.indexes.get(name) : null
     if (!i) return null
     const v = src[name]
     switch (i.type) {
@@ -102,6 +111,15 @@ export class DocType {
         return x
       }
     }
+  }
+
+  extractColls (src: Object) : Object {
+    const t = {}
+    if (this.hasColls) this.colls.forEach((v, k) => {
+      const x = this.getColl(src, k)
+      if (x) t[k] = x
+    })
+    return t
   }
 
   readonly n: number
@@ -144,7 +162,11 @@ export class DocType {
       if (DocType.docTypes.has(this.name)) { this.er('duplicate DocType', this.name); return this }
       DocType.docTypes.set(this.name, this)
     } else return this
-    if (!this.isProps(h.pk)) return this
+    if (!h.pk || !h.pk.length) this.pk = []
+    else {
+      if (!this.isProps(h.pk)) return this
+      this.pk = h.pk
+    }
     this.sync = h.sync || false
 
     if (colls && colls.size) {
