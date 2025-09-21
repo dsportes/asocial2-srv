@@ -3,6 +3,7 @@ import { row } from './iDbGeneric'
 import { config } from './config'
 import { encode } from '@msgpack/msgpack'
 import { Crypt } from './crypt'
+import { Operation } from './operation'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 
@@ -33,6 +34,70 @@ export class Document {
     return f ? f(data, options) : [data, false]
   }
 
+  // Numéro de release de la structure de la classe
+  get classRelease() : number {
+    const cl = config.documentClasses[this._clazz]
+    return cl ? cl.release : 0
+  }
+
+  // true si le Document est de la dernière release
+  get hasLastRelease () : boolean {
+    return this.release === this.classRelease
+  }
+
+  // Descriptif DocType du document
+  get docType () : DocType { return DocType.get(this._clazz) }
+
+  // Retourne la VALEUR HASH de pk (séparation par / PUIS hash)
+  get pk () : string { return this.docType.pkValue(this)}
+
+  // Retourne la VALEUR NON HACHEE de pk (séparation par /)
+  get pkNH () : string { return this.docType.pkValue(this)}
+
+  /* Retourne la VALEUR de la propriété "collection" nommée name:
+  C'est un STRING[] des valeurs hachées.
+  Quand la propriété de collection N'EST PAS une liste, sa valeur est [0]
+  */
+  collValue (name: string) : string[] { return this.docType.getColl(this, name)}
+
+  /* Retourne la VALEUR la propriété d'index nommée name:
+  Selon le type de cette propriété c'est:
+  - string : pour les type STRING HASH
+  - number : pour les types INTEGER FLOAT
+  - string[] : pour le type LIST
+  */
+  idxValue (name: string) : any { return this.docType.getIdx(this, name)}
+
+  /* Invoqué après lecture de DB, désérialisation du data et création
+  du Document associé. Traitement éventuel, pour génération de propriétés
+  d'aide / techniques faciltant les consultations / mises à jour applicatives.
+  FACULTATIF: compile () { }
+  */
+
+  /* Invoqué avant sérialisation du Document en "data" pour écriture en DB.
+  Reconstitution éventuelle de propriétés, synthèses, etc.
+  */
+  decompile (op: Operation, org: string, clazz: string) : void { }
+
+  /* Invoqué pour sérialisation un Document à destination de l'application terminale.
+  Passe dans le "résultat" de l'opération.
+  A défaut de surcharge applicative:
+  - transmet org et clazz et 
+  - toutes les propriétés du document dont le nom ne commencent pas par _
+  */
+  serialForApp (op: Operation, org: string, clazz: string) : Uint8Array { 
+    const d = { org, clazz }
+    for (const k of Object.keys(this)) if (k.charAt[0] !== '_') d[k] = this[k]
+    return encode(d)
+  }
+
+  /* Méthodes INTERNES au FW ***************************************************/
+
+  /* Création de l'instance de "Document" depuis des valeurs initiales de propriétés,
+  - row lu de la DB
+  - propriétés de création.
+  Retourne le Document.
+  */
   static newDoc (clazz: string, org: string, status: DocStatus, initVals: Object) : Document {
     const cl = config.documentClasses[clazz]
     if (!cl) return null
@@ -53,25 +118,9 @@ export class Document {
     return doc
   }
 
-  // Numéro de release de la structure de la classe
-  get classRelease() : number {
-    const cl = config.documentClasses[this._clazz]
-    return cl ? cl.release : 0
-  }
-
-  get hasLastRelease () : boolean {
-    return this.release === this.classRelease
-  }
-
-  get docType () : DocType { return DocType.get(this._clazz) }
-
-  get pk () : string { return this.docType.pkValue(this)}
-
-  collValue (name: string) : string[] { return this.docType.getColl(this, name)}
-
-  idxValue (name: string) : any { return this.docType.getIdx(this, name)}
-  
-  // Construit un "row" pour DB depuis un document
+  /* Construit un "row" pour DB depuis un document
+  decompile() a été invoqué juste avant.
+  */
   toRow (now: number, key: Uint8Array) {
     const d = {}
     for (const k of Object.keys(this))
@@ -91,7 +140,7 @@ export class Document {
 
   /* Construit un "row" pour DB depuis un "data" ZOMBI de document
   { v, deleted, propriétés de pk }
-   */
+  */
   toZombiRow (now: number, key: Uint8Array) {
     const dt = this.docType
     const d = { v : now, deleted: true }
@@ -105,7 +154,5 @@ export class Document {
     }
     return row
   }
-
-  // Absrtract : compile () { }
 
 }

@@ -170,12 +170,14 @@ export interface IDbGeneric {
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.
+  fn reçoit en arguments (data) : data du row décrypté MAIS sérialisé
   */
   selectDocs(org: string, clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void>
   
   /* Sélectionne les documents et les transmet à la fonction de traitement
-  Toutes organisations confondues
+  Toutes organisations confondues.
+  fn reçoit en arguments (org, data) : data du row décrypté MAIS sérialisé
   */
   selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function)  : Promise<void>

@@ -21,6 +21,14 @@ new DocType(
 )
 
 new DocType(
+  { name: 'SubsItem', sync: false, pk: ['sessionId', 'hdef'] }, //header
+  null, // collections
+  new Map<string, idx>([
+    ['hdef',  { type: propType.STRING }]
+  ]) // index 
+)
+
+new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
     ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],

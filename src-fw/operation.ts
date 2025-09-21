@@ -525,9 +525,11 @@ export class Cache {
       let row : row
       const is = this.op.impactedSubs.getEntry(dd.org, dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
+        doc.decompile(this.op, dd.org, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
         await this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
+        doc.decompile(this.op, dd.org, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
         await this.db.writeRow(updType.CREATE, dd.org, dd.clazz, row)
       } else {
