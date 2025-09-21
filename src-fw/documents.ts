@@ -2,27 +2,44 @@ import { Document, DocStatus } from './document'
 import { Crypt } from './crypt'
 import { filter, IDbGeneric } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
+import { Operation } from './operation'
 
 export class Task extends Document {
   static release = 0
 
 }
 
-/* Un document Subs décrit la souscription d'une session:
-- wpToken : le token de la session.
-- sessionId : sha16 de wpToken clé primaire
+/* 
+- sessionId : shaS de subJSON clé primaire
+- subJSON : token web-push
 - v : version
 - defs : une map `{ hdef: [def, msg] }`
   - def: sa définition.
   - msg: est un message facultatif.
   - hdef: hash de def
 */
+export type subscription = {
+  sessionId: string
+  subJSON: string
+  defs: Object
+}
+
+/* Un document Subs décrit la souscription d'une session:
+*/
 export class Subs extends Document {
   static release = 0
 
-  static newSubs (wpToken: string, sessionId: string, defs: Object) : Document {
-    const initVals = { v: 0, wpToken, sessionId, defs }
-    return Document.newDoc('Subs', '', DocStatus.NEW, initVals)
+  sessionId: string
+  subJSON: string
+  defs: Object
+
+  static newSubs (op: Operation, subs: subscription) : Document {
+    const initVals = { 
+      subJSON: subs.subJSON,
+      sessionId: subs.sessionId,
+      defs: subs.defs
+    }
+    return op.cache.newDoc('', 'Subs', initVals)
   }
   
 }
@@ -57,10 +74,16 @@ export class SubsItem extends Document {
   sessionId : string
   hdef : string // INDEXE - hash de def
 
-  constructor (sessionId: string, def: string) {
+  constructor () {
     super()
-    this.sessionId = sessionId
-    this.hdef = Crypt.sha16(def)
+  }
+
+  static newSubsItem (op: Operation, sessionId: string, def: string) : Document {
+    const initVals = {
+      sessionId: sessionId,
+      hdef: Crypt.shaS(def)
+    }
+    return op.cache.newDoc('', 'SubsItem', initVals)
   }
 
   static defFromStruct (s: defStruct) {
@@ -93,7 +116,7 @@ export class SubsItem extends Document {
     selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
       order: string, limit: number, fn: Function)  : Promise<void>
     */
-    const hdef = Crypt.sha16(def)
+    const hdef = Crypt.shaS(def)
     const sids : string[] = []
     db.selectDocsGlobal('SubsItem', 'hdef', filter.EQ, hdef, '', 0, 
       (org: string, data: Uint8Array) => {
@@ -101,6 +124,16 @@ export class SubsItem extends Document {
         sids.push(d['sessionId'])
       })
     return sids
+  }
+
+  static async deleteSessionId (db: IDbGeneric, sessionId: string) : Promise<void> {
+    // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
+    db.selectDocsGlobal('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+      async (org: string, data: Uint8Array) => {
+        const d = decode(data)
+        const pk = Crypt.shaS(sessionId + '/' + d['hdef'])
+        await db.deleteDoc('', 'SubsItem', pk)
+      })
   }
 
   /*
@@ -129,7 +162,7 @@ export class SubsItem extends Document {
     this.clazz = clazz
     this.val = pkVal || colName ? ( pkVal || colName) : ''
     this.name = colName || ''
-    this.hdef = Crypt.sha16(this.def)
+    this.hdef = Crypt.shaS(this.def)
   }
 
   get def () {

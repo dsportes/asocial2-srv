@@ -226,6 +226,14 @@ export class Operation {
 
   invalid (par: string) { throw new AppExc(3001, 'invalid argument', this, [par])}
 
+  objectValue (par: string, req: boolean) : Object {
+    const [present, value, type] = this.type(par, req)
+    if (!present && !req) return ''
+    if (present && type !== 'object')
+      throw new AppExc(1010, 'invalid argument', this, [par])
+    return value
+  }
+
   stringValue (par: string, req: boolean, minlg?: number, maxlg?: number) : string {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return ''

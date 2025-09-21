@@ -4,7 +4,7 @@ import { Crypt } from './crypt'
 export type props = string[]
 
 /* Type d'index :
-HASH : string, base64 du sha16(string[])
+HASH : string, base64 du shaS(string[])
 STRING : string
 INTEGER : int 32 bits
 FOLAT : double
@@ -68,7 +68,7 @@ export class DocType {
     const x = []
     if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
-    return nohash ? p : Crypt.sha16(p)
+    return nohash ? p : Crypt.shaS(p)
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
@@ -77,7 +77,7 @@ export class DocType {
     const x = []
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
-    return nohash ? p : Crypt.sha16(p)
+    return nohash ? p : Crypt.shaS(p)
   }
 
   /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */
@@ -87,12 +87,12 @@ export class DocType {
     if (c.list) {
       const x = []
       const p = src[name] as string[]
-      if (p) p.forEach(v => { if (v) x.push(Crypt.sha16(v))})
+      if (p) p.forEach(v => { if (v) x.push(Crypt.shaS(v))})
       return x
     }
     const x = []
     c.key.forEach(p => { x.push(src[p] || '') })
-    return [Crypt.sha16(x.join('/'))]
+    return [Crypt.shaS(x.join('/'))]
   }
 
   /* Retourne la valeur d'un idx name d'une "source" ayant les propriétés citées */
@@ -104,10 +104,10 @@ export class DocType {
       case propType.STRING : { return v || '' }
       case propType.INTEGER : { return v || 0 }
       case propType.FLOAT : { return v || 0 }
-      case propType.HASH : { return Crypt.sha16(v || '') }
+      case propType.HASH : { return Crypt.shaS(v || '') }
       case propType.LIST : {         
         const x = []
-        if (v as string[]) (v as string[]).forEach(t => { if (t) x.push(Crypt.sha16(t))})
+        if (v as string[]) (v as string[]).forEach(t => { if (t) x.push(Crypt.shaS(t))})
         return x
       }
     }

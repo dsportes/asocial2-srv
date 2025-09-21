@@ -3,6 +3,9 @@ import { Item } from './items'
 import { Util } from './util'
 import { Log } from './log'
 import { WebPush } from './push'
+import { Crypt } from './crypt'
+import { Subs, subscription, SubsItem } from './documents'
+import { DocStatus } from './document'
 
 export function register () {
   return Operation.nbOf()
@@ -81,6 +84,119 @@ class GetPutUrl extends Operation {
 }
 Operation.register('GetPutUrl', () => { return new GetPutUrl()})
 
+// TODO gestion des TTL
+/* CreateSubscription enregistre la sousciption d'une session *************************
+Supprime la précédente auparavant
+Créé une nouvelle
+*/
+class CreateSubscription extends Operation {
+  constructor () { super() }
+
+  _subs : subscription
+
+  init () {
+    super.init()
+    this._subs = this.objectValue('subs', true) as subscription
+  }
+
+  async phase2 () {
+    await SubsItem.deleteSessionId(this.db, this._subs.sessionId)
+    const subs = Subs.newSubs(this, this._subs) as Subs
+    for (const hdef in subs.defs) {
+      const [def, msg] = subs.defs[hdef]
+      SubsItem.newSubsItem(this, this._subs.sessionId, def)
+    }
+  }
+
+  phase3 : null
+
+}
+Operation.register('CreateSubscription', () => { return new CreateSubscription()})
+
+/* DeleteSubscription supprime la souscription de sessionId *****************************
+et tous ses items
+*/
+class DeleteSubscription extends Operation {
+  constructor () { super() }
+
+  _sessionId : string
+
+  init () {
+    super.init()
+    this._sessionId = this.stringValue('sessionId', true)
+  }
+
+  async phase2 () {
+    const pk = Crypt.shaS(this._sessionId)
+    await this.db.deleteDoc('', 'Subs', pk)
+  }
+
+  phase3 : null
+
+}
+Operation.register('DeleteSubscription', () => { return new DeleteSubscription()})
+
+/* UpdateSubscription met à jour la souscription de sessionId ********************************
+et la créé si elle ne l'était pas
+Ses items antérieurs non repris dans l'actuelle sont supprimés.
+Les items sont tous réinscrits pour gestion du ttl
+*/
+class UpdateSubscription extends Operation {
+  constructor () { super() }
+
+  _subs :  subscription
+
+  init () {
+    this._subs = this.objectValue('subs', true) as subscription
+  }
+
+  async phase2 () {
+    let subs = await this.cache.getDoc('', 'Subs', { sessionId: this._subs.sessionId}) as Subs
+    if (!subs) {
+      await SubsItem.deleteSessionId(this.db, this._subs.sessionId)
+      subs = Subs.newSubs(this, this._subs) as Subs
+      for (const hdef in subs.defs) {
+        const [def, msg] = subs.defs[hdef]
+        SubsItem.newSubsItem(this, this._subs.sessionId, def)
+      }
+    } else {
+      // la souscription existait : mise à jour
+      const defsBefore : Set<string> = new Set()
+      for (const hdef in subs.defs) defsBefore.add(hdef)
+      const defsAfter : Set<string> = new Set()
+      for (const hdef in this._subs.defs) defsAfter.add(hdef)
+      for (const hdef of defsBefore) {
+      // Suppression des items qui ne sont plus dans la nouvelle souscription
+        if (!defsAfter.has(hdef)) {
+          const pk = Crypt.shaS(this._subs.sessionId + '/' + hdef)
+          await this.db.deleteDoc('', 'SubsItem', pk)
+        }
+      }
+      // Maj de la souscription
+      subs._status = DocStatus.UPD
+      subs.defs = this._subs.defs
+      // Set de ses items
+      for (const hdef of defsAfter) {
+        const src = { sessionId: this._subs.sessionId, hdef }
+        if (!defsBefore.has(hdef)) {
+          // nouvel item : création
+          this.cache.newDoc('', 'SubsItem', src)
+        } else {
+          // item existant : update pour changer le ttl
+          const item = await this.cache.getDoc('', 'SubsItem', src) as SubsItem
+          item._status = DocStatus.UPD
+        }
+      }
+
+    }
+  }
+
+  phase3 : null
+
+}
+Operation.register('UpdateSubscription', () => { return new UpdateSubscription()})
+
+
 // RegisterToken enregistre un token et son hash
 class RegisterSubscription extends Operation {
   constructor () { super() }
@@ -88,7 +204,7 @@ class RegisterSubscription extends Operation {
   init () {
     super.init()
     const subJSON = this.stringValue('subJSON', true)
-    WebPush.setSubscription(subJSON)
+    // WebPush.setSubscription(subJSON)
   }
   phase2 : null
   phase3 : null

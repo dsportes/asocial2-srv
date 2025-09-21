@@ -24,7 +24,8 @@ new DocType(
   { name: 'SubsItem', sync: false, pk: ['sessionId', 'hdef'] }, //header
   null, // collections
   new Map<string, idx>([
-    ['hdef',  { type: propType.STRING }]
+    ['hdef',  { type: propType.STRING }],
+    ['sessionId',  { type: propType.STRING }]
   ]) // index 
 )
 

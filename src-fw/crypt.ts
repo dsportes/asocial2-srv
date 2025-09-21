@@ -225,7 +225,7 @@ export class Crypt {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().toString('base64url')
   }
 
-  static sha16 (x: any) : string {
+  static shaS (x: any) : string {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().subarray(3, 18).toString('base64url')
   }
 
@@ -239,13 +239,13 @@ export class Crypt {
 export async function testSH () {
   const x = 'toto est tres tres beau'
   console.log(Crypt.sha32(x))
-  console.log(Crypt.sha16(x))
+  console.log(Crypt.shaS(x))
   console.log(Crypt.shaInt(x))
   
   console.log(await Crypt.strongHash('pierre', 'legrand', '$/@'))
   console.log(Crypt.syncStrongHash('pierre', 'legrand', '$/@'))
   console.log(Crypt.sha32(x))
-  console.log(Crypt.sha16(x))
+  console.log(Crypt.shaS(x))
   console.log(Crypt.shaInt(x))
   
   const t = Date.now()
