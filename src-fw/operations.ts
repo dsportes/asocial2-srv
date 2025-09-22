@@ -4,6 +4,7 @@ import { Util } from './util'
 import { Log } from './log'
 import { WebPush } from './push'
 import { Crypt } from './crypt'
+import { config } from './config'
 import { Subs, subscription, SubsItem } from './documents'
 import { DocStatus } from './document'
 
@@ -84,7 +85,6 @@ class GetPutUrl extends Operation {
 }
 Operation.register('GetPutUrl', () => { return new GetPutUrl()})
 
-// TODO gestion des TTL
 /* CreateSubscription enregistre la sousciption d'une session *************************
 Supprime la précédente auparavant
 Créé une nouvelle
@@ -128,7 +128,7 @@ class DeleteSubscription extends Operation {
 
   async phase2 () {
     const pk = Crypt.shaS(this._sessionId)
-    await this.db.deleteDoc('', 'Subs', pk)
+    this.db.deleteRow('', 'Subs', pk)
   }
 
   phase3 : null
@@ -137,9 +137,9 @@ class DeleteSubscription extends Operation {
 Operation.register('DeleteSubscription', () => { return new DeleteSubscription()})
 
 /* UpdateSubscription met à jour la souscription de sessionId ********************************
-et la créé si elle ne l'était pas
+et la créé si elle ne l'était pas.
 Ses items antérieurs non repris dans l'actuelle sont supprimés.
-Les items sont tous réinscrits pour gestion du ttl
+Les items déjà existants sont réinscrits si leur maxLife est trop courte
 */
 class UpdateSubscription extends Operation {
   constructor () { super() }
@@ -147,6 +147,7 @@ class UpdateSubscription extends Operation {
   _subs :  subscription
 
   init () {
+    super.init()
     this._subs = this.objectValue('subs', true) as subscription
   }
 
@@ -161,6 +162,7 @@ class UpdateSubscription extends Operation {
       }
     } else {
       // la souscription existait : mise à jour
+      const maxLifeMin = Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[1]
       const defsBefore : Set<string> = new Set()
       for (const hdef in subs.defs) defsBefore.add(hdef)
       const defsAfter : Set<string> = new Set()
@@ -169,7 +171,7 @@ class UpdateSubscription extends Operation {
       // Suppression des items qui ne sont plus dans la nouvelle souscription
         if (!defsAfter.has(hdef)) {
           const pk = Crypt.shaS(this._subs.sessionId + '/' + hdef)
-          await this.db.deleteDoc('', 'SubsItem', pk)
+          this.db.deleteRow('', 'SubsItem', pk)
         }
       }
       // Maj de la souscription
@@ -182,9 +184,12 @@ class UpdateSubscription extends Operation {
           // nouvel item : création
           this.cache.newDoc('', 'SubsItem', src)
         } else {
-          // item existant : update pour changer le ttl
+          // item existant : update pour changer le maxLife
           const item = await this.cache.getDoc('', 'SubsItem', src) as SubsItem
-          item._status = DocStatus.UPD
+          if (item.maxLife < maxLifeMin) {
+            item.maxLife = this.SUBSMAXLIFE
+            item._status = DocStatus.UPD
+          }
         }
       }
 

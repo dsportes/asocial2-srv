@@ -33,7 +33,7 @@ export type rowQ = {
 export type row = {
   pk: string, // primary key (hash)
   v: number, // version: time de la dernière opération de création / maj / suppression
-  maxLife?: number, // time de fin de vie programmée par l'application (précision en minutes)
+  maxLife?: number, // time de fin de vie programmée par l'application (EPOCH en MINUTES)
   ttl?: any, // DB seulement - TTL pour purge automatique par la DB
   deleted?: boolean, // APP seulement - document supprimé
   data: Uint8Array,
@@ -101,7 +101,7 @@ export interface IDbGeneric {
   exportRowsQ (org: string, clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ>
 
-    /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
+  /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
   */
   purgeRowsQ (org: string, clazz: string, colName: string, limit: number) : Promise<boolean>
 
@@ -114,11 +114,11 @@ export interface IDbGeneric {
   - org: code l'organisation - 'demo'
   - row: row
   */
-  writeRow (ut: updType, org: string, clazz: string, row: row) : Promise<void> 
+  writeRow (ut: updType, org: string, clazz: string, row: row) : void
 
   /* Supprime (réellement) un document 
   */
-  deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
+  deleteRow (org: string, clazz: string, pk: string) : void
 
   /* Inscrit le rowQ déclarant que le document clazz/pk ne fait plus
   partie de la collection clazz/col à partir de v.
@@ -129,7 +129,7 @@ export interface IDbGeneric {
   Path: Org/demo/Article@auteurs/a5@Hugo
   row DB: { v, col, ttl }
   */
-  writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : Promise<void>
+  writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : void
 
   /* Retourne tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
@@ -144,7 +144,7 @@ export interface IDbGeneric {
   */
   oneRow (org: string, clazz: string, pk: string, v: number) : Promise<row | null>
 
-    /* Retourne la sous-collection 'clazz/colName/col' (par exemple: Article/auteurs/Zola)
+  /* Retourne la sous-collection 'clazz/colName/col' (par exemple: Article/auteurs/Zola)
   sous la forme de deux listes:
   - une liste D des documents de la classe clazz,
   - une liste Q des couples (pk, v) des documents ayant quitté la sous-collection.

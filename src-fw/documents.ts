@@ -3,6 +3,7 @@ import { Crypt } from './crypt'
 import { filter, IDbGeneric } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 import { Operation } from './operation'
+import { config } from './config'
 
 export class Task extends Document {
   static release = 0
@@ -32,25 +33,18 @@ export class Subs extends Document {
   sessionId: string
   subJSON: string
   defs: Object
+  maxLife: number
 
   static newSubs (op: Operation, subs: subscription) : Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
-      defs: subs.defs
+      defs: subs.defs,
+      maxLife : op.SUBSMAXLIFE
     }
     return op.cache.newDoc('', 'Subs', initVals)
   }
   
-}
-
-export type defStruct = {
-  type: number // 0 1 2
-  org: string
-  clazz: string
-  colName: string // nom de la colonne
-  colVal: string // valeur de colonne name
-  pkVal: string // valeur de la pk
 }
 
 /* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
@@ -73,39 +67,35 @@ export class SubsItem extends Document {
 
   sessionId : string
   hdef : string // INDEXE - hash de def
+  maxLife : number
 
   constructor () {
     super()
   }
 
+  static hdef (def: string[]) {
+    return Crypt.shaS(def.join('/'))
+  }
+
+  static hdef0 (org: string, clazz: string) : string {
+    return Crypt.shaS(org + '/' + clazz)
+  }
+
+  static hdef1 (org: string, clazz: string, pk: string) : string {
+    return Crypt.shaS(org + '/' + clazz + '/' + pk)
+  }
+
+  static hdef2 (org: string, clazz: string, colName: string, val: string) : string {
+    return Crypt.shaS(org + '/' + clazz + '/' + colName + '/' + val)
+  }
+
   static newSubsItem (op: Operation, sessionId: string, def: string) : Document {
     const initVals = {
       sessionId: sessionId,
-      hdef: Crypt.shaS(def)
+      hdef: Crypt.shaS(def),
+      maxLife : op.SUBSMAXLIFE
     }
     return op.cache.newDoc('', 'SubsItem', initVals)
-  }
-
-  static defFromStruct (s: defStruct) {
-    let x = s.org + '/' + s.clazz
-    if (s.type) {
-      if (s.type === 1) x += '/' + s.pkVal
-      else x += '/' + s.colName + '/' + s.colVal
-    }
-    return x
-  }
-
-  static defToStruct (def: string) : defStruct {
-    const as : string[] = def.split('/')
-    const org = as[0]
-    const clazz = as[1]
-    let colName = '' // nom de la colonne
-    let colVal = '' // valeur de colonne name
-    let pkVal = '' // valeur de la pk
-    const type = as.length - 2
-    if (type === 1) pkVal = as[2]
-    else if (type === 2) { colName = as[2]; colVal = as[3] }
-    return { type, org, clazz, pkVal, colName, colVal }
   }
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
@@ -132,46 +122,8 @@ export class SubsItem extends Document {
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['hdef'])
-        await db.deleteDoc('', 'SubsItem', pk)
+        db.deleteRow('', 'SubsItem', pk)
       })
   }
-
-  /*
-  sessionId : string
-  org: string
-  clazz: string
-  val : string // valeur de la pk ou de la colonne name
-  name : string // nom de la colonne
-  hdef : string // INDEXE - hash de def
-
-  get type () { return this.name ? 2 : (this.val ? 1 : 0) }
-
-  static declare (sessionId: string, def: string) {
-    const as : string[] = def.split('/')
-    switch (as.length) {
-      case 2 : return new SubsItem(sessionId, as[0], as[1], '', '')
-      case 3 : return new SubsItem(sessionId, as[0], as[1], as[2], '')
-      case 4 : return new SubsItem(sessionId, as[0], as[1], as[2], as[3])
-    }
-  }
-
-  constructor (sessionId: string, org: string, clazz: string, pkVal?: string, colName?: string, colVal?: string) {
-    super()
-    this.sessionId = sessionId
-    this.org = org
-    this.clazz = clazz
-    this.val = pkVal || colName ? ( pkVal || colName) : ''
-    this.name = colName || ''
-    this.hdef = Crypt.shaS(this.def)
-  }
-
-  get def () {
-    switch (this.type) {
-      case 0 : return this.org + '/' + this.clazz
-      case 1 : return this.org + '/' + this.clazz + '/' + this.val
-      case 0 : return this.org + '/' + this.clazz + '/' + this.name+ '/' + this.val
-    }
-  }
-  */
 
 }

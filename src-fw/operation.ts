@@ -46,7 +46,7 @@ export class DocDescr {
   init () : void {
     const d = decode(this.row.data)
     const [data, b] = Document.mutate(this.clazz, d)
-    this.doc = Document.newDoc(this.org, this.clazz, DocStatus.NONE, data) 
+    this.doc = Document.newDoc(this.org, this.clazz, DocStatus.NONE, data)
   }
 
 }
@@ -89,6 +89,8 @@ export class Operation {
 
   constructor () {  }
 
+  get SUBSMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[0] }
+
   assertKO (src: string, code: number, args: string[]) {
     const x = args && args.length ? JSON.stringify(args) : ''
     const msg = `ASSERT : ${src} - ${x} - ${code}`
@@ -130,7 +132,8 @@ export class Operation {
   async transac (): Promise<void> {
     await this.setAuths()
     await this.phase2(this.args)
-    await this.cache.commit()
+    this.cache.commit()
+    await this.db.commit()
   }
 
   async run () : Promise<void>{
@@ -355,13 +358,13 @@ export class Cache {
   // Cache globale
   static map : Map<string, cacheItem> = new Map()
 
-  /* Obtient le dataSer (sérialisé) du row de la cache ou va le chercher en base.
+  /* Retourne le row  déjà en cache ou va le chercher en base et l'inscrit en cache.
   Si le row actuellement en cache est le plus récent on a évité une lecture effective
    (ça s'est limité à un filtre sur index).
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
-  static async getData(op: Operation, org: string, clazz: string, src: Object, lazy?: boolean)
+  static async getRow(op: Operation, org: string, clazz: string, src: Object, lazy?: boolean)
     : Promise<DocDescr> {
     const now = Date.now()
     const pk = DocType.getPk(clazz, src)
@@ -436,7 +439,7 @@ export class Cache {
     const k = 'ROOT/Hdr/1'
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getData(this.op, 'ROOT', 'Hdr', null, lazy)
+    dd = await Cache.getRow(this.op, 'ROOT', 'Hdr', null, lazy)
     if (!dd) return null
     dd.init()
     if (!lazy) this.docs.set(k, dd)
@@ -448,7 +451,7 @@ export class Cache {
     const k = org + 'Org/' + org
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getData(this.op, org, 'Org', { org: org }, lazy)
+    dd = await Cache.getRow(this.op, org, 'Org', { org: org }, lazy)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
       return null
@@ -466,7 +469,7 @@ export class Cache {
     const k = DocDescr.key(org, clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getData(this.op, org, clazz, src)
+    dd = await Cache.getRow(this.op, org, clazz, src)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, [clazz, DocType.getPk(clazz, src, false)])
       return null
@@ -520,10 +523,10 @@ export class Cache {
     }
   }
 
-  /* Effectue les écritures en base depuis la liste des documents ayant changé
+  /* Prépare les écritures en base depuis la liste des documents ayant changé
   - constitue la liste op.updates pour notification aux sessions abonnées.
   */
-  async commit() {
+  commit () {
     this.op.impactedSubs = new ImpactedSubs()
     this.op.updates = []
     for (const [k, dd] of this.docs) {
@@ -535,32 +538,33 @@ export class Cache {
       if (doc._status === DocStatus.UPD) {
         doc.decompile(this.op, dd.org, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
-        await this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
+        this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
         doc.decompile(this.op, dd.org, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
-        await this.db.writeRow(updType.CREATE, dd.org, dd.clazz, row)
-      } else {
+        this.db.writeRow(updType.CREATE, dd.org, dd.clazz, row)
+      } else { // DocStatus.DEL
         if (doc.docType.sync) {
-          doc.toZombiRow(this.op.now, this.db.key)
-        } else await this.db.deleteDoc(dd.org, dd.clazz, dd.pk)
+          row = doc.toZombiRow(this.op.now, this.db.key)
+          this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
+        }
+        else this.db.deleteRow(dd.org, dd.clazz, dd.pk)
       }
-      if (doc.docType.sync) await this.manageRowQ(dd, doc, row, is)
+      if (doc.docType.sync) this.manageRowQ(dd, doc, row, is)
     }
-    await this.db.commit()
   }
 
-  async manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
+  manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
     for (const [n, collection] of doc.docType.colls) {
       if (doc._status === DocStatus.DEL) {
         // Tous le ou les termes "before" quittent le document
         const b = doc._before[n]
         is.setColl(n, b)
         if (collection.list) for (const x of b) {
-          await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+          this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
         } else {
           is.setColl(n, b)
-          await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+          this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
         }
       } else {
         const b = doc._before[n]
@@ -576,10 +580,10 @@ export class Cache {
             const as = new Set(a)
             for (const x of bs) {
               if (!as.has(x))
-                await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+                this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
             }
           } else if (a !== b) 
-            await this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+            this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
         }
       }
     }

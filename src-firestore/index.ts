@@ -190,28 +190,16 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Transforme un row APP en row DB
-  - calcul du TTL éventuel
-  - supprime deleted
-  - convertit maxLife en minutes
+  - calcul du TTL éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
-  Retourne le row : v maxLife? ttl?
+  Retourne le row
   */
   rowToDB (row: row, nocrypt?: boolean) : row {
-    if (row.deleted || row.maxLife) {
-      if (row.deleted){
-        if (row.maxLife) delete row.maxLife
-        delete row.deleted
-        row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
-      } else {
-        if (row.maxLife) {
-          if (row.maxLife > this.op.now) {
-            row.ttl = new Timestamp(Math.floor(row.maxLife / 1000) + zombiLapse, 0)
-            delete row.maxLife
-          }
-          row.maxLife = Math.floor(row.maxLife / 1440000) // en minutes (integer 32)
-        }
-      }
-    }
+    if (row.deleted) row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
+    else if (row.maxLife && (row.maxLife > this.op.now))
+      row.ttl = new Timestamp(Math.floor(row.maxLife * 60), 0)
+    delete row.deleted
+    delete row.maxLife
     if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
     return row
   }
@@ -222,13 +210,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   - decrypte row.data
   Retourne le row (v, maxLife?, deleted?): si date de purge (ttl) dépassée retourne null
   */
-  rowToAPP (row: row) : row | null{
-    if (row.maxLife) row.maxLife = row.maxLife * 1440000
-    if (!row.ttl) return row
+  rowToAPP (row: row, nodecrypt?: boolean) : row | null{
     if (row.ttl.seconds * 1000 < this.op.now) return null
-    if (!row.maxLife) { row.deleted = true; return row }
-    if (row.maxLife < this.op.now) { delete row.maxLife; row.deleted = true }
-    row.data = Crypt.syncDecrypt(this.key, row.data)
+    if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
 
@@ -252,7 +236,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   mark: dont les pk sont > pk
   limit: nombre max de rows lus
   Retourne:
-    rows : la liste des rows - les row.data SONT cryptés
+    rows : la liste des rows - les row.data SONT CRYPTES
     eox: true si le nombre de rows exportés n'a pas atteint la limite
     lastMark: dernière pk lue
   ATTENTION !!! mark ne doit pas être '' (mettre '0' pour commencer)
@@ -268,7 +252,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (!qs.empty) for (let doc of qs.docs) {
       n++
       lastMark = doc.id
-      const row = this.rowToAPP(doc.data() as row)
+      const row = this.rowToAPP(doc.data() as row, true)
       if (row) rows.push(row)
     }
     return { rows, eox: n < limit, lastMark} 
@@ -364,13 +348,13 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   - org: code l'organisation - 'demo'
   - row: row
   */
-  async writeRow (ut: updType, org: string, clazz: string, row: row) : Promise<void> {
+  writeRow (ut: updType, org: string, clazz: string, row: row) : void {
     this.setUpd(ut, this.docRef(org, clazz, row.pk), this.rowToDB(row))
   }
 
   /* Supprime (réellement) un document 
   */
-  async deleteDoc (org: string, clazz: string, pk: string) : Promise<void> {
+  deleteRow (org: string, clazz: string, pk: string) : void {
     this.setDel(this.docRef(org, clazz, pk))
   }
 
@@ -383,7 +367,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   Path: Org/demo/Article@auteurs/a5@Hugo
   row DB: { v, col, ttl }
   */
-  async writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : Promise<void> {
+  writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : void {
     const r : rowQ = { 
       col: row.col, 
       v: row.v,

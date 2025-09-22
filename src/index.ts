@@ -43,7 +43,8 @@ try {
   exit()
 }
 
-setConfig ({
+setConfig(
+  {
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
 
@@ -73,8 +74,9 @@ setConfig ({
     firestore: AppFirestoreConnector,
   },
   factory: factory,
-  documentClasses: documentClasses 
-} as BaseConfig )
+  documentClasses: documentClasses ,
+  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60]
+  } as BaseConfig)
 
 init()
 

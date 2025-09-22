@@ -132,13 +132,14 @@ export class Document {
       pk: this.pk,
       data: Crypt.syncCrypt(key, encode(d))
     }
+    const ml = this['maxLife']; if (ml) row.maxLife = ml
     const dt = this.docType
     for (const [n, c] of dt.colls) row[n] = c.list ? this.collValue(n) : this.collValue(n)[0]
     for (const [n, ] of dt.indexes) row[n] = this.idxValue(n)
     return row
   }
 
-  /* Construit un "row" pour DB depuis un "data" ZOMBI de document
+  /* Construit un "row minimal" pour DB depuis un "data" ZOMBI de document
   { v, deleted, propriétés de pk }
   */
   toZombiRow (now: number, key: Uint8Array) {
