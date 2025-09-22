@@ -101,14 +101,13 @@ export class SubsItem extends Document {
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
   (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
-  static async getSessionIds (db: IDbGeneric, def: string) : Promise<string[]> {
+  static async getSessionIds (op: Operation, hdef: string) : Promise<string[]> {
     /*
     selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
       order: string, limit: number, fn: Function)  : Promise<void>
     */
-    const hdef = Crypt.shaS(def)
     const sids : string[] = []
-    db.selectDocsGlobal('SubsItem', 'hdef', filter.EQ, hdef, '', 0, 
+    op.db.selectDocsGlobal('SubsItem', 'hdef', filter.EQ, hdef, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -116,13 +115,13 @@ export class SubsItem extends Document {
     return sids
   }
 
-  static async deleteSessionId (db: IDbGeneric, sessionId: string) : Promise<void> {
+  static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    db.selectDocsGlobal('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    op.db.selectDocsGlobal('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['hdef'])
-        db.deleteRow('', 'SubsItem', pk)
+        op.db.deleteRow('', 'SubsItem', pk)
       })
   }
 

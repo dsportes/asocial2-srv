@@ -6,7 +6,7 @@ import { IDbGeneric, row, rowQ, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
-import { Notification, notif } from './notif'
+import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
@@ -68,6 +68,7 @@ export class Operation {
   }
 
   public opName: string
+  public sessionId: string
   public org: string
   public result: any
   public args: any // arguments bruts de l'opération
@@ -107,6 +108,7 @@ export class Operation {
   }
 
   init () {
+    this.sessionId = this.args['sessionId']
     this.result = { time: this.now, srvBUILD: config.BUILD }
     this.msSlow = 0
     if (config.debugLevel > 1) 
@@ -186,8 +188,12 @@ export class Operation {
       }
 
       if (this.impactedSubs.all.size) {
-        const notifs = await Notification.updates(this)
-        if (notifs.length) this.setRes('notifs', notifs)
+        const publisher = new Publisher(this)
+        for(const [,is] of this.impactedSubs.all) await publisher.publish(is)
+        // notifs : { href1: false, href2: msg ...}
+        const notifs = publisher.getSessionNotifs()
+        if (notifs) this.setRes('notifs', notifs)
+        setTimeout(async () => { await publisher.sendNotifications() }, 1)
       }
 
       this.setRes('conso', this.conso)
@@ -364,13 +370,13 @@ export class Cache {
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
-  static async getRow(op: Operation, org: string, clazz: string, src: Object, lazy?: boolean)
+  static async getRow(op: Operation, org: string, clazz: string, src: Object, lazy?: number)
     : Promise<DocDescr> {
     const now = Date.now()
     const pk = DocType.getPk(clazz, src)
     const k = DocDescr.key(org, clazz, pk)
     const item = Cache.map.get(k)
-    if (item && lazy && (now - item.time < Cache.LAZY_MS)) {
+    if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
       item.lru = now
       return new DocDescr(org, clazz, pk, item.row)
     }
@@ -439,7 +445,7 @@ export class Cache {
     const k = 'ROOT/Hdr/1'
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, 'ROOT', 'Hdr', null, lazy)
+    dd = await Cache.getRow(this.op, 'ROOT', 'Hdr', null, 1)
     if (!dd) return null
     dd.init()
     if (!lazy) this.docs.set(k, dd)
@@ -451,7 +457,7 @@ export class Cache {
     const k = org + 'Org/' + org
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, org, 'Org', { org: org }, lazy)
+    dd = await Cache.getRow(this.op, org, 'Org', { org: org }, 1)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', org])
       return null
@@ -612,8 +618,8 @@ export class ImpactedSub {
 
   org: string
   clazz: string
-  pk: string
-  colls: Map<string, Set<string>>
+  pk: string // du document 
+  colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
 
   constructor (org: string, clazz: string, pk: string) {
     this.org = org; this.clazz = clazz, this.pk = pk
