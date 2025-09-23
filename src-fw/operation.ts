@@ -488,11 +488,11 @@ export class Cache {
   Si le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  putRow (row: row) : Document {
-    const k = DocDescr.key(row.org, row.clazz, row.pk)
+  putRow (org: string, clazz: string, row: row) : Document {
+    const k = DocDescr.key(org, clazz, row.pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = new DocDescr(row.org, row.clazz, row.pk, row)
+    dd = new DocDescr(org, clazz, row.pk, row)
     dd.init()
     this.docs.set(k, dd)
     return dd.doc

@@ -18,8 +18,10 @@ export class Document {
   _org: string
   _status?: DocStatus
   _before?: Object
+  _deleted?: boolean
   v: number
   release: number // numéro de release de la structure de l'objet
+  maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
 
   /* Mute un data en fonction de sa release et d'éventuelles options
   Met à jour, supprime ajoute les prpropriétés requises dans la
@@ -53,6 +55,16 @@ export class Document {
 
   // Retourne la VALEUR NON HACHEE de pk (séparation par /)
   get pkNH () : string { return this.docType.pkValue(this)}
+
+  // Retourne true si le document n'est pas _zombi_ et n'a pas dépassé sa maxLife
+  isAlive (now: number) : boolean {
+    if (this._deleted) return false
+    return !this.maxLife || (this.maxLife * 60000 > now)
+  }
+
+  get isZombi () : boolean {
+    return this._deleted || this._status === DocStatus.DEL
+  }
 
   /* Retourne la VALEUR de la propriété "collection" nommée name:
   C'est un STRING[] des valeurs hachées.
@@ -98,7 +110,7 @@ export class Document {
   - propriétés de création.
   Retourne le Document.
   */
-  static newDoc (clazz: string, org: string, status: DocStatus, initVals: Object) : Document {
+  static newDoc (org: string, clazz: string, status: DocStatus, initVals: Object) : Document {
     const cl = config.documentClasses[clazz]
     if (!cl) return null
     const doc = new cl()
@@ -127,7 +139,6 @@ export class Document {
       if (k.charAt[0] !== '_') d[k] = this[k]
     d['v'] = now
     const row: row = {
-      clazz: this._clazz,
       v: now,
       pk: this.pk,
       data: Crypt.syncCrypt(key, encode(d))
@@ -144,10 +155,9 @@ export class Document {
   */
   toZombiRow (now: number, key: Uint8Array) {
     const dt = this.docType
-    const d = { v : now, deleted: true }
+    const d = { v : now, _deleted: true }
     dt.pk.forEach(p => { const v = this[p] ; if (v) d[p] = v })
     const row: row = {
-      clazz: this._clazz,
       v: now,
       pk: this.pk,
       deleted: true,

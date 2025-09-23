@@ -204,11 +204,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return row
   }
 
-  /* Transforme un row DB en row APP
-  - calcul de deleted 
-  - convertit maxLife en ms
+  /* Transforme un row DB en row APP et le retourne:
+  - SAUF si son ttl dépassé
   - decrypte row.data
-  Retourne le row (v, maxLife?, deleted?): si date de purge (ttl) dépassée retourne null
   */
   rowToAPP (row: row, nodecrypt?: boolean) : row | null{
     if (row.ttl.seconds * 1000 < this.op.now) return null
@@ -378,7 +376,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Retourne tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
-  - sinon: ceux mis à jour ou supprimés postérieueremt à v.
+  - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
   */
   async allRows (org: string, clazz: string, v: number) : Promise<Object[]>{
     const rows: row[] = []
