@@ -40,6 +40,13 @@ export type row = {
   [index: string]:any
 }
 
+export type srvStatus = {
+  now: number,
+  st: number,
+  at: number,
+  txt: string
+}
+
 export interface IDbGeneric {
   connector: DbConnector
   op: Operation
@@ -56,9 +63,8 @@ export interface IDbGeneric {
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
   */
-  getSrvStatus () :  Promise<[number, number, string]>
-
-  setSrvStatus (st: number, at: number, txt: string) :  Promise<void>
+  getSrvStatus () :  Promise<srvStatus>
+  setSrvStatus (st: number, txt: string) :  Promise<srvStatus>
 
   /* Exécute dans une transaction la méthode async transac() de l'opération.
   Retour 'normaux':

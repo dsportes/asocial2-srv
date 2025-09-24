@@ -2,7 +2,7 @@ import { AppExc } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
-import { IDbGeneric, row, rowQ, updType } from './iDbGeneric'
+import { IDbGeneric, row, srvStatus, rowQ, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
@@ -218,7 +218,7 @@ export class Operation {
     await auth.process()
     this.setRes('auths', auth.listAuths)
     if (config.debugLevel > 1)
-      Log.info('auths : ' + this.authRecord.time + ' - ' + this.authRecord.listAuths)
+      Log.info('auths : ' + (this.authRecord.time || 0) + ' - ' + this.authRecord.listAuths)
   }
 
   // Contrôle des types d'arguments
@@ -316,7 +316,7 @@ export class AuthRecord {
   }
 
   get listAuths () : string {
-    return Array.from(this.op.auths).join(' ')
+    return this.op.auths ? Array.from(this.op.auths).join(' ') : '?'
   }
 
   async process () : Promise<void>{
@@ -383,6 +383,7 @@ export class Cache {
 
   // Cache globale
   static map : Map<string, cacheItem> = new Map()
+  static srvStatus : srvStatus = null
 
   /* Retourne le row  déjà en cache ou va le chercher en base et l'inscrit en cache.
   Si le row actuellement en cache est le plus récent on a évité une lecture effective
@@ -423,6 +424,14 @@ export class Cache {
     return null
   }
 
+  /* SrvStatus : lazy
+  */
+  static async getSrvStatus (op: Operation, lazy?: number) {
+    if (!Cache.srvStatus || !lazy || ((op.now - Cache.srvStatus.now) > (lazy * Cache.LAZY_MS)))
+      Cache.srvStatus = await op.db.getSrvStatus() 
+    return Cache.srvStatus
+  }
+
   static updateCache (op: Operation, dd: DocDescr) {
     const k = DocDescr.key(dd.org, dd.clazz, dd.pk)
     let item = Cache.map.get(k)
@@ -458,18 +467,6 @@ export class Cache {
     this.op = operation
     this.db = this.op.db
     this.docs = new Map<string, DocDescr>()
-  }
-
-  // Retourne ou lit le Document Hdr
-  async getHdr (lazy?: boolean) : Promise<Document> {
-    const k = 'ROOT/Hdr/1'
-    let dd = this.docs.get(k)
-    if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, 'ROOT', 'Hdr', null, 1)
-    if (!dd) return null
-    dd.init()
-    if (!lazy) this.docs.set(k, dd)
-    return dd.doc
   }
 
   // Retourne ou lit le Document Org cité

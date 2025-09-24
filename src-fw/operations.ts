@@ -1,4 +1,4 @@
-import { Operation } from './operation'
+import { Operation, Cache } from './operation'
 import { AppExc } from './index'
 import { Util } from './util'
 import { Log } from './log'
@@ -52,8 +52,8 @@ class GetSrvStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
-    const [st, at, txt] = await this.db.getSrvStatus()
-    this.setRes('srvStatus', { st, at, txt})
+    const srvStatus = await Cache.getSrvStatus(this)
+    this.setRes('srvStatus', srvStatus)
   }
 
   phase3 : null
@@ -73,14 +73,15 @@ class SetSrvStatus extends Operation {
 
   init () {
     super.init()
-    this._st = this.intValue('st', true, 0, 1)
+    this._st = this.intValue('st', true, 0, 2)
     this._txt = this.stringValue('txt', true)
   }
 
   async phase2 () {
     if (!this.auths.has('ADMIN'))
       throw new AppExc(1010, 'ADMIN required', this, ['SetSrvStatus'])
-    await this.db.setSrvStatus(this._st, this.now, this._txt)
+    Cache.srvStatus = await this.db.setSrvStatus(this._st, this._txt)
+    this.setRes('srvStatus', Cache.srvStatus)
   }
 
   phase3 : null

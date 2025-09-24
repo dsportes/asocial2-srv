@@ -7,7 +7,7 @@ import path from 'path'
 
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, filter, row, rowQ, zombiLapse, expList, expListQ, updType, pkv } from '../src-fw/iDbGeneric'
+import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, expList, expListQ, updType, pkv } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -136,7 +136,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
-  async getSrvStatus () :  Promise<[number, number, string]> {
+  async getSrvStatus () :  Promise<srvStatus> {
     let st = 0
     let at = 0
     let txt = '(none)'
@@ -147,12 +147,13 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
       at = ds.get('at')
       txt = ds.get('txt')
     }
-    return [st, at, txt]
+    return { now: this.op.now, st, at, txt }
   }
 
-  async setSrvStatus (st: number, at: number, txt: string) :  Promise<void> {
+  async setSrvStatus (st: number, txt: string) :  Promise<srvStatus> {
     const dr = this.fs.doc('Status/1')
-    await dr.set({ st, at, txt})
+    await dr.set({ st, at: this.op.now, txt})
+    return { now: this.op.now, st, at: this.op.now, txt}
   }
 
   setUpd (type: updType, dr: DocumentReference, row: row | rowQ ) {

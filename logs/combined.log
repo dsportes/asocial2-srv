@@ -2248,3 +2248,120 @@ TypeError: Cannot read properties of undefined (reading 'transac')
 2025-09-24T10:23:09.540Z info: GetSrvStatus : 2025-09-24T10:23:09.539Z
 2025-09-24T10:23:09.552Z info: auths : undefined - 
 2025-09-24T10:23:15.823Z info: GetSrvStatus finished
+2025-09-24T10:25:00.251Z info: 9 operations registered
+2025-09-24T10:25:00.258Z info: 7 document classes
+2025-09-24T10:25:00.259Z info: Firestore connector
+2025-09-24T10:25:00.260Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:25:00.260Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:25:00.261Z info: 9 App operations registered
+2025-09-24T10:25:00.271Z info: HTTP listen [8080]
+2025-09-24T10:25:03.486Z info: GetSrvStatus : 2025-09-24T10:25:03.484Z
+2025-09-24T10:25:03.509Z info: auths : undefined - 
+2025-09-24T10:25:09.507Z info: GetSrvStatus finished
+2025-09-24T10:29:22.484Z info: GetSrvStatus : 2025-09-24T10:29:22.483Z
+2025-09-24T10:29:22.495Z info: auths : undefined - 
+2025-09-24T10:29:28.626Z info: GetSrvStatus finished
+2025-09-24T10:30:43.480Z info: GetSrvStatus : 2025-09-24T10:30:43.479Z
+2025-09-24T10:30:43.492Z info: auths : undefined - 
+2025-09-24T10:30:43.555Z info: GetSrvStatus finished
+2025-09-24T16:29:00.757Z info: 9 operations registered
+2025-09-24T16:29:00.759Z info: 7 document classes
+2025-09-24T16:29:00.760Z info: Firestore connector
+2025-09-24T16:29:00.761Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T16:29:00.761Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T16:29:00.762Z info: 9 App operations registered
+2025-09-24T16:29:00.772Z info: HTTP listen [8080]
+2025-09-24T16:32:28.332Z info: GetSrvStatus : 2025-09-24T16:32:28.330Z
+2025-09-24T16:32:28.355Z info: auths : undefined - 
+2025-09-24T16:32:29.378Z info: GetSrvStatus finished
+2025-09-24T16:36:38.072Z info: SetSrvStatus : 2025-09-24T16:36:31.005Z
+2025-09-24T16:36:38.074Z info: AppExc: 1010:invalid argument@SetSrvStatus:["st"]
+2025-09-24T16:36:38.075Z info: SetSrvStatus terminated on exception
+2025-09-24T16:46:49.632Z info: SetSrvStatus : 2025-09-24T16:46:20.063Z
+2025-09-24T16:46:50.514Z info: AppExc: 1010:invalid argument@SetSrvStatus:["st"]
+2025-09-24T16:47:20.908Z info: SetSrvStatus terminated on exception
+2025-09-24T16:50:37.857Z info: 9 operations registered
+2025-09-24T16:50:37.860Z info: 7 document classes
+2025-09-24T16:50:37.861Z info: Firestore connector
+2025-09-24T16:50:37.862Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T16:50:37.862Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T16:50:37.863Z info: 9 App operations registered
+2025-09-24T16:50:37.875Z info: HTTP listen [8080]
+2025-09-24T16:54:51.129Z info: GetSrvStatus : 2025-09-24T16:54:51.128Z
+2025-09-24T16:54:51.157Z info: auths : undefined - 
+2025-09-24T16:54:51.410Z info: GetSrvStatus finished
+2025-09-24T16:57:15.995Z info: GetSrvStatus : 2025-09-24T16:57:15.994Z
+2025-09-24T16:58:15.830Z info: auths : undefined - 
+2025-09-24T16:58:15.884Z info: GetSrvStatus finished
+2025-09-24T17:00:09.384Z info: 9 operations registered
+2025-09-24T17:00:09.388Z info: 7 document classes
+2025-09-24T17:00:09.388Z info: Firestore connector
+2025-09-24T17:00:09.389Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T17:00:09.389Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T17:00:09.390Z info: 9 App operations registered
+2025-09-24T17:00:09.401Z info: HTTP listen [8080]
+2025-09-24T17:00:17.697Z info: GetSrvStatus : 2025-09-24T17:00:17.695Z
+2025-09-24T17:01:12.644Z info: auths : undefined - 
+2025-09-24T17:01:12.883Z info: GetSrvStatus finished
+2025-09-24T17:02:58.733Z info: 9 operations registered
+2025-09-24T17:02:58.736Z info: 7 document classes
+2025-09-24T17:02:58.737Z info: Firestore connector
+2025-09-24T17:02:58.737Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T17:02:58.738Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T17:02:58.739Z info: 9 App operations registered
+2025-09-24T17:02:58.748Z info: HTTP listen [8080]
+2025-09-24T17:07:35.570Z info: SetSrvStatus : 2025-09-24T17:07:26.101Z
+2025-09-24T17:09:55.175Z info: AppExc: 1010:invalid argument@SetSrvStatus:["st"]
+2025-09-24T17:09:55.177Z info: SetSrvStatus terminated on exception
+2025-09-24T17:15:16.105Z info: SetSrvStatus : 2025-09-24T17:14:08.307Z
+2025-09-24T17:19:11.766Z info: auths : 1758733978616 - ADMIN
+2025-09-24T17:19:49.986Z info: SetSrvStatus finished
+2025-09-24T17:21:03.110Z info: GetSrvStatus : 2025-09-24T17:20:57.702Z
+2025-09-24T17:21:16.072Z info: auths : 0 - 
+2025-09-24T17:21:16.276Z info: GetSrvStatus finished
+2025-09-24T17:21:39.837Z info: GetSrvStatus : 2025-09-24T17:21:39.837Z
+2025-09-24T17:21:39.841Z info: auths : 0 - 
+2025-09-24T17:21:39.880Z info: GetSrvStatus finished
+2025-09-24T17:22:46.659Z info: GetSrvStatus : 2025-09-24T17:22:46.659Z
+2025-09-24T17:22:46.665Z info: auths : 0 - 
+2025-09-24T17:22:46.705Z info: GetSrvStatus finished
+2025-09-24T17:24:30.615Z info: GetSrvStatus : 2025-09-24T17:24:30.615Z
+2025-09-24T17:24:30.621Z info: auths : 0 - 
+2025-09-24T17:24:30.663Z info: GetSrvStatus finished
+2025-09-24T17:26:17.392Z info: 9 operations registered
+2025-09-24T17:26:17.395Z info: 7 document classes
+2025-09-24T17:26:17.396Z info: Firestore connector
+2025-09-24T17:26:17.397Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T17:26:17.397Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T17:26:17.398Z info: 9 App operations registered
+2025-09-24T17:26:17.408Z info: HTTP listen [8080]
+2025-09-24T17:30:29.280Z info: SetSrvStatus : 2025-09-24T17:30:24.160Z
+2025-09-24T17:30:39.432Z info: auths : 1758735017989 - ADMIN
+2025-09-24T17:30:39.692Z info: SetSrvStatus finished
+2025-09-24T17:35:36.780Z info: SetSrvStatus : 2025-09-24T17:35:36.780Z
+2025-09-24T17:35:36.797Z info: auths : 1758735324882 - ADMIN
+2025-09-24T17:35:36.858Z info: SetSrvStatus finished
+2025-09-24T17:35:52.265Z info: SetSrvStatus : 2025-09-24T17:35:52.265Z
+2025-09-24T17:35:52.271Z info: auths : 1758735347015 - ADMIN
+2025-09-24T17:35:52.358Z info: SetSrvStatus finished
+2025-09-24T17:36:11.199Z info: SetSrvStatus : 2025-09-24T17:36:11.199Z
+2025-09-24T17:36:11.205Z info: auths : 1758735371193 - ADMIN
+2025-09-24T17:36:11.248Z info: SetSrvStatus finished
+2025-09-24T17:36:13.941Z info: SetSrvStatus : 2025-09-24T17:36:13.941Z
+2025-09-24T17:36:13.948Z info: auths : 1758735373937 - ADMIN
+2025-09-24T17:36:13.988Z info: SetSrvStatus finished
+2025-09-24T17:36:16.254Z info: SetSrvStatus : 2025-09-24T17:36:16.254Z
+2025-09-24T17:36:16.272Z info: auths : 1758735376249 - ADMIN
+2025-09-24T17:36:16.303Z info: SetSrvStatus finished
+2025-09-24T17:37:33.576Z info: SetSrvStatus : 2025-09-24T17:37:33.575Z
+2025-09-24T17:37:33.580Z info: auths : 1758735453567 - ADMIN
+2025-09-24T17:37:33.628Z info: SetSrvStatus finished
+2025-09-24T17:37:35.520Z info: SetSrvStatus : 2025-09-24T17:37:35.520Z
+2025-09-24T17:37:35.525Z info: auths : 1758735455517 - ADMIN
+2025-09-24T17:37:35.560Z info: SetSrvStatus finished
+2025-09-24T17:37:37.417Z info: SetSrvStatus : 2025-09-24T17:37:37.417Z
+2025-09-24T17:37:37.423Z info: auths : 1758735457413 - ADMIN
+2025-09-24T17:37:37.467Z info: SetSrvStatus finished
+2025-09-24T17:37:40.421Z info: SetSrvStatus : 2025-09-24T17:37:40.420Z
+2025-09-24T17:37:40.428Z info: auths : 1758735460415 - ADMIN
+2025-09-24T17:37:40.467Z info: SetSrvStatus finished
