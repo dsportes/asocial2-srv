@@ -68,7 +68,6 @@ export class Operation {
   }
 
   public opName: string
-  public sessionId: string
   public org: string
   public result: any
   public args: any // arguments bruts de l'opération
@@ -79,6 +78,8 @@ export class Operation {
   public storage: IStGeneric
   public dbConnector: DbConnector
   public authRecord : AuthRecord
+  public auths: Set<string> // Set des codes des autorisations accordées
+  public sessionId: string
   public db: IDbGeneric
 
   public conso : conso
@@ -108,8 +109,7 @@ export class Operation {
   }
 
   init () {
-    this.sessionId = this.args['sessionId']
-    this.result = { time: this.now, srvBUILD: config.BUILD }
+    this.result = { now: this.now, srvBUILD: config.BUILD }
     this.msSlow = 0
     if (config.debugLevel > 1) 
       Log.info(this.opName + ' : ' + new Date(this.now).toISOString())
@@ -150,7 +150,7 @@ export class Operation {
         this.hasTasks = false
         this.cache = new Cache(this)
         this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
-        this.result = { time: this.now, srvBUILD: config.BUILD }
+        this.result = { now: this.now, srvBUILD: config.BUILD }
         await this.dbConnector.getConnexion(this)
 
         const [st, detail] = await this.db.doTransaction() // Fait un appel à transac
@@ -279,49 +279,69 @@ export class Operation {
 }
 
 
-/* Authenticator générique ********************************/
+/* Authenticator générique *******************************
+  "authRecord" est un argument de l'opération
+  authRecord: {
+    sessionId : 'azerty',
+    devAppToken : 'bof', // fac
+    time: Date.now(),
+    tokens : [
+      { type: 'ADMIN', value: 'oKqMNB...'},
+      { type: 'TEST1', toto: 'titi'},
+      { type: 'TEST2', toto: 'titi'},
+    ]
+  }
+  Si "type" est une des entrées de "hckeys" dans config:
+    - c'est une clé d'accès pré-enregistrée par son sha
+  Sinon pour une entrée 'TEST1' il existe une méthode async 'mtTEST1'
+  qui prend en argument l'objet { type: 'TEST2', toto: 'titi'}
+  et ajoute à auths le code de l'autorisation si elle est accordée 
+*/
 export class AuthRecord {
   op: Operation
-  devAppToken: string
-  time: number
-  tokens: Object[]
-
-  auths: Set<string>
+  devAppToken: string // token identifiant l'exécution de l'application
+  time: number // date-heure du authRecord dans l'application
+  tokens: Object[] // liste des tokens
 
   constructor (op: Operation) {
     this.op = op
-    this.op['authRecord'] = this
-    this.auths = new Set()
+    this.op.authRecord = this
     const ar = op.args['authRecord']
     if (ar) {
-      this.devAppToken = ar.devAppToken
+      this.devAppToken = ar.devAppToken || ''
+      this.op.sessionId = ar.sessionId
       this.time = ar.time
       this.tokens = ar.tokens
     }
   }
 
   get listAuths () : string {
-    return Array.from(this.auths).join(' ')
+    return Array.from(this.op.auths).join(' ')
   }
 
-  async process () {
+  async process () : Promise<void>{
+    const auths : Set<string> = new Set()// Set des codes d'autorisation accordés
     const hck = config.keys['hckeys']
     if (this.tokens && this.tokens.length) for (const token of this.tokens) {
       const k = hck[token['type']]
       if (k) {
+        // Autorisation cryptée en config
         const h = Crypt.sha32(token['value'])
-        if (h === k) this.auths.add(token['type'])
+        if (h === k) auths.add(token['type'])
       } else {
+        // Autorisation calculée
         const fn = this['mt' + token['type']]
-        if (fn) await fn.apply(this, [token])
+        if (fn) await fn.apply(this, [token, auths])
       }
     }
-    return this
+    this.op.auths = auths
   }
 
-  async mtADMIN (token: Object) {
-    if (token['val'] === 'ok') this.auths.add('ADMIN')
+  /* Exemple de fonction d'autorisation
+  async mtTEST1 (token: Object, auths: Set<string> ) {
+    if (token['toto'] === 'titi') auths.add('TOTO')
   }
+  */
 
 }
 

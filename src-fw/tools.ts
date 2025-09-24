@@ -53,8 +53,8 @@ export class Tools {
       this.log('======================================================')
       // this.cfg = {}
       switch (this.tool) {
-        case 'pings' : {
-          await this.pings()
+        case 'srvStatus' : {
+          await this.srvStatus()
           break
         }
         case 'test1' : {
@@ -106,7 +106,7 @@ export class Tools {
         }
         */
         default : {
-          throw 'Premier argument attendu: pings test1 export-db export-st vapid. Trouvé [' + this.tool + ']'
+          throw 'Premier argument attendu: srvStatus test1 export-db export-st vapid. Trouvé [' + this.tool + ']'
         }
       }
       return [0, this.tool + ' OK']
@@ -116,14 +116,14 @@ export class Tools {
     }
   }
 
-  async pings () : Promise<void> {
+  async srvStatus () : Promise<void> {
     const op = new Operation()
     op.opName = 'Fake'
     await config.databases[0][1].getConnexion(op)
     {
-      const [status, msg] = await op.db.ping()
-      if (status === 0) Log.info(msg)
-      else throw new AppExc(1012, 'PING Database FAILED', null, [msg])
+      const [st, at, txt] = await op.db.getSrvStatus()
+      const atS = at ? new Date(at).toISOString() : '?'
+      Log.info('st:' + st + ' at:' + atS + ' info:' + txt)
     }
     {
       const [status, msg] = await config.storages[0][1].ping()

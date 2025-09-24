@@ -40,6 +40,4 @@ export class DbConnexion {
     this.op = op
   }
 
-  // Toujours surchargé
-  async ping () : Promise<[number, string]> { return [2, '???']}
 }

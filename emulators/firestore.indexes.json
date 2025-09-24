@@ -1,12 +1,9 @@
 {
 "indexes": [],
 "fieldOverrides": [
-
-{ "collectionGroup": "Hdr", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
-{ "collectionGroup": "Hdr", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
-{ "collectionGroup": "Hdr", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
-{ "collectionGroup": "Hdr", "fieldPath": "ttl", "indexes": [] },
-{ "collectionGroup": "Hdr", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "Status", "fieldPath": "st", "indexes": [] },
+{ "collectionGroup": "Status", "fieldPath": "at", "indexes": [] },
+{ "collectionGroup": "Status", "fieldPath": "txt", "indexes": [] },
 
 { "collectionGroup": "Org", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Org", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
@@ -20,6 +17,14 @@
 { "collectionGroup": "Task", "fieldPath": "ttl", "indexes": [] },
 { "collectionGroup": "Task", "fieldPath": "data", "indexes": [] },
 { "collectionGroup": "Task", "fieldPath": "startTime", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+
+{ "collectionGroup": "SubsItem", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "SubsItem", "fieldPath": "data", "indexes": [] },
+{ "collectionGroup": "SubsItem", "fieldPath": "hdef", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "sessionId", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 
 { "collectionGroup": "Article", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Article", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },

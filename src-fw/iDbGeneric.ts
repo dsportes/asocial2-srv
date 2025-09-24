@@ -51,14 +51,14 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
-  /* Inscription d'une trace dans le singleton Hdr/ping 
-  Retour 'normaux':
-  - [0, m] : ping OK. m message inscrit dans DB
-  - [1, s] : s: libellé de l'exception "Saturation DB" de la base de donnée
-  - [2, s] : s: libellé d'une autre exception de la base de donnée
-  Les autres exceptions ne sont pas trappées et sortent en exception (pas en retour 'normal')
+  /* Retourne le status du service: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
   */
-  ping () : Promise<[number, string]> 
+  getSrvStatus () :  Promise<[number, number, string]>
+
+  setSrvStatus (st: number, at: number, txt: string) :  Promise<void>
 
   /* Exécute dans une transaction la méthode async transac() de l'opération.
   Retour 'normaux':

@@ -4,7 +4,6 @@ import Database from 'better-sqlite3'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, filter, expList, expListQ, row, rowQ, updType, pkv } from '../src-fw/iDbGeneric'
-import { DocPattern } from '../src-fw/document'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
@@ -82,26 +81,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
-  async ping () : Promise<[number, string]> {
-    try {
-      const stmt = this.sql.prepare('SELECT data FROM Hdr WHERE id = \'ping\'')
-      const t = stmt.get()
-      const d = new Date()
-      const v = d.getTime()
-      const data = d.toISOString()
-      if (t) {
-        const stu = this.sql.prepare('UPDATE Hdr SET data = @_data_, v = @v  WHERE id = \'ping\'')
-        stu.run({ v, data })
-      } else {
-        const sti = this.sql.prepare('INSERT INTO Hdr (id, v, data) VALUES (\'ping\', @v, @data)')
-        sti.run({ v, data })
-      }
-      const m = 'Sqlite ping OK: ' + (t && t.data ? t.data : '?') + ' <=> ' + data
-      return [0, m]
-    } catch (e) {
-      return this.trap(e)
-    }
+  async getSrvStatus () :  Promise<[number, number, string]> {
+    return [0, 0, '']
   }
+
+  async setSrvStatus (st: number, at: number, txt: string) :  Promise<void> {}
   
   async doTransaction () : Promise<[number, string]> {
     try {
@@ -117,6 +101,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       return this.trap(e)
     }
   }
+
+  async commit () : Promise<void> {}
 
   _stmt (code: string, sql: string) {
     let s = this.cachestmt[code]
@@ -154,7 +140,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async writeRow (ut: updType, org: string, clazz: string, row: row) : Promise<void> {
   }
 
-  async deleteDoc (org: string, clazz: string, pk: string) : Promise<void> {
+  async deleteRow (org: string, clazz: string, pk: string) : Promise<void> {
   }
 
   async writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : Promise<void> {
@@ -181,6 +167,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     order: string, limit: number, fn: Function)  : Promise<void> {
   }
 
+  /*
   async getDoc (pattern: DocPattern, v?: number) : Promise<Uint8Array> { return null }
   async insertDoc (row: Object) {}
   async updateDoc (row: Object) {}
@@ -204,5 +191,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async listFTP (dp : number, fn: Function) {}
   async purgeAllFTP (dp : number) {}
   async nextTask (time: string) { return null }
+*/
 
 }

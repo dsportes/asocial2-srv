@@ -2131,3 +2131,120 @@ TypeError: Cannot read properties of undefined (reading 'transac')
 2025-09-16T12:28:26.442Z info: Firestore connector
 2025-09-16T12:28:26.443Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2025-09-16T12:28:26.444Z info: 7 App operations registered
+2025-09-24T09:43:37.229Z info: 8 operations registered
+2025-09-24T09:43:37.232Z info: 8 document classes
+2025-09-24T09:43:37.233Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:43:37.234Z info: Firestore connector
+2025-09-24T09:43:37.234Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:43:37.235Z info: 8 App operations registered
+2025-09-24T09:44:25.430Z info: 8 operations registered
+2025-09-24T09:44:25.434Z info: 8 document classes
+2025-09-24T09:44:25.434Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:44:25.435Z info: Firestore connector
+2025-09-24T09:44:25.435Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:44:25.436Z info: 8 App operations registered
+2025-09-24T09:45:46.755Z info: 8 operations registered
+2025-09-24T09:45:46.759Z info: 7 document classes
+2025-09-24T09:45:46.759Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:45:46.760Z info: Firestore connector
+2025-09-24T09:45:46.760Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:45:46.761Z info: 8 App operations registered
+2025-09-24T09:49:17.789Z info: 8 operations registered
+2025-09-24T09:49:17.792Z info: 7 document classes
+2025-09-24T09:49:17.793Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:49:17.793Z info: Firestore connector
+2025-09-24T09:49:17.794Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:49:17.794Z info: 8 App operations registered
+2025-09-24T09:49:32.210Z info: PRAGMA journal_mode = WAL
+2025-09-24T09:50:24.090Z info: st:0 at:0 info:
+2025-09-24T09:50:24.095Z info: File-System ping OK: 2025-09-24T09:50:24.092Z
+2025-09-24T09:52:10.739Z info: 8 operations registered
+2025-09-24T09:52:10.743Z info: 7 document classes
+2025-09-24T09:52:10.743Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:52:10.744Z info: Firestore connector
+2025-09-24T09:52:10.744Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:52:10.745Z info: 8 App operations registered
+2025-09-24T09:52:15.579Z info: PRAGMA journal_mode = WAL
+2025-09-24T09:52:19.027Z info: st:0 at:0 info:
+2025-09-24T09:52:19.032Z info: File-System ping OK: 2025-09-24T09:52:19.028Z
+2025-09-24T09:53:13.345Z info: 8 operations registered
+2025-09-24T09:53:13.348Z info: 7 document classes
+2025-09-24T09:53:13.348Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:53:13.349Z info: Firestore connector
+2025-09-24T09:53:13.349Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:53:13.350Z info: 8 App operations registered
+2025-09-24T09:53:16.111Z info: PRAGMA journal_mode = WAL
+2025-09-24T09:53:16.849Z info: st:0 at:0 info:
+2025-09-24T09:53:16.853Z info: File-System ping OK: 2025-09-24T09:53:16.850Z
+2025-09-24T09:54:04.530Z info: 8 operations registered
+2025-09-24T09:54:04.533Z info: 7 document classes
+2025-09-24T09:54:04.533Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:54:04.534Z info: Firestore connector
+2025-09-24T09:54:04.534Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:54:04.535Z info: 8 App operations registered
+2025-09-24T09:54:07.522Z info: PRAGMA journal_mode = WAL
+2025-09-24T09:55:57.372Z info: st:0 at:0 info:
+2025-09-24T09:55:57.378Z info: File-System ping OK: 2025-09-24T09:55:57.374Z
+2025-09-24T09:56:09.500Z info: 8 operations registered
+2025-09-24T09:56:09.503Z info: 7 document classes
+2025-09-24T09:56:09.504Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T09:56:09.504Z info: Firestore connector
+2025-09-24T09:56:09.505Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T09:56:09.505Z info: 8 App operations registered
+2025-09-24T09:56:12.079Z info: PRAGMA journal_mode = WAL
+2025-09-24T09:56:13.883Z info: st:0 at:0 info:
+2025-09-24T09:56:13.887Z info: File-System ping OK: 2025-09-24T09:56:13.885Z
+2025-09-24T10:09:46.298Z info: 8 operations registered
+2025-09-24T10:09:46.301Z info: 7 document classes
+2025-09-24T10:09:46.302Z info: Firestore connector
+2025-09-24T10:09:46.302Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:09:46.303Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:09:46.303Z info: 8 App operations registered
+2025-09-24T10:10:03.516Z info: st:0 at:0 info:(none)
+2025-09-24T10:10:03.523Z info: File-System ping OK: 2025-09-24T10:10:03.518Z
+2025-09-24T10:12:12.919Z info: 8 operations registered
+2025-09-24T10:12:12.921Z info: 7 document classes
+2025-09-24T10:12:12.922Z info: Firestore connector
+2025-09-24T10:12:12.923Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:12:12.923Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:12:12.924Z info: 8 App operations registered
+2025-09-24T10:12:31.210Z info: st:0 at:0 info:(none)
+2025-09-24T10:12:31.217Z info: File-System ping OK: 2025-09-24T10:12:31.211Z
+2025-09-24T10:13:54.332Z info: 8 operations registered
+2025-09-24T10:13:54.335Z info: 7 document classes
+2025-09-24T10:13:54.336Z info: Firestore connector
+2025-09-24T10:13:54.336Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:13:54.337Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:13:54.337Z info: 8 App operations registered
+2025-09-24T10:14:13.456Z info: st:1 at:1000 info:Info ...
+2025-09-24T10:14:13.464Z info: File-System ping OK: 2025-09-24T10:14:13.457Z
+2025-09-24T10:16:11.739Z info: 8 operations registered
+2025-09-24T10:16:11.742Z info: 7 document classes
+2025-09-24T10:16:11.743Z info: Firestore connector
+2025-09-24T10:16:11.744Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:16:11.744Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:16:11.745Z info: 8 App operations registered
+2025-09-24T10:16:17.377Z info: st:1 at:1970-01-01T00:00:01.000Z info:Info ...
+2025-09-24T10:16:17.387Z info: File-System ping OK: 2025-09-24T10:16:17.378Z
+2025-09-24T10:18:27.179Z info: 8 operations registered
+2025-09-24T10:18:27.182Z info: 7 document classes
+2025-09-24T10:18:27.183Z info: Firestore connector
+2025-09-24T10:18:27.183Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:18:27.184Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:18:27.184Z info: 8 App operations registered
+2025-09-24T10:18:27.192Z info: HTTP listen [8080]
+2025-09-24T10:19:53.210Z info: AppExc: 1002:unknown operation["GetSrvStatus"]
+2025-09-24T10:19:53.212Z info: GetSrvStatus terminated on exception
+2025-09-24T10:21:42.192Z info: 9 operations registered
+2025-09-24T10:21:42.229Z info: 7 document classes
+2025-09-24T10:21:42.262Z info: Firestore connector
+2025-09-24T10:21:42.268Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-09-24T10:21:42.270Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-09-24T10:21:42.272Z info: 9 App operations registered
+2025-09-24T10:21:42.288Z info: HTTP listen [8080]
+2025-09-24T10:21:55.629Z info: GetSrvStatus : 2025-09-24T10:21:55.626Z
+2025-09-24T10:21:55.647Z info: auths : undefined - 
+2025-09-24T10:22:05.591Z info: GetSrvStatus finished
+2025-09-24T10:23:09.540Z info: GetSrvStatus : 2025-09-24T10:23:09.539Z
+2025-09-24T10:23:09.552Z info: auths : undefined - 
+2025-09-24T10:23:15.823Z info: GetSrvStatus finished

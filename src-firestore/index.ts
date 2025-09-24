@@ -16,12 +16,12 @@ import { Crypt } from '../src-fw/crypt'
 
 const schemaPath = './emulators/firestore.indexes.json'
 
-let cl = ''
-let prop = ''
-
 const t1 = `{
 "indexes": [],
-"fieldOverrides": [`
+"fieldOverrides": [
+{ "collectionGroup": "Status", "fieldPath": "st", "indexes": [] },
+{ "collectionGroup": "Status", "fieldPath": "at", "indexes": [] },
+{ "collectionGroup": "Status", "fieldPath": "txt", "indexes": [] },`
 
 function t2 (cl: string, virg: boolean) {
 const x = `{ "collectionGroup": "${cl}", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
@@ -62,6 +62,7 @@ export class FirestoreConnector extends DbConnector {
   }
 
   static async genSchema () {
+    let cl = ''
     const l = []
     l.push(t1)
     let nbcl = DocType.docTypes.size
@@ -135,20 +136,23 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
-  async ping () : Promise<[number, string]> {
-    try {
-      let t = '?'
-      const dr = this.fs.doc('ROOT/ping')
-      const ds = await dr.get()
-      if (ds.exists) t = ds.get('data')
-      const v = Date.now()
-      const d = new Date(v)
-      const data = d.toISOString()
-      await dr.set({ id: 1, v, data })
-      return [0, 'Firestore ping OK: ' + (t || '?') + ' <=> ' + data]
-    } catch (e) {
-      return this.trap(e)
+  async getSrvStatus () :  Promise<[number, number, string]> {
+    let st = 0
+    let at = 0
+    let txt = '(none)'
+    const dr = this.fs.doc('Status/1')
+    const ds = await dr.get()
+    if (ds.exists) {
+      st = ds.get('st')
+      at = ds.get('at')
+      txt = ds.get('txt')
     }
+    return [st, at, txt]
+  }
+
+  async setSrvStatus (st: number, at: number, txt: string) :  Promise<void> {
+    const dr = this.fs.doc('Status/1')
+    await dr.set({ st, at, txt})
   }
 
   setUpd (type: updType, dr: DocumentReference, row: row | rowQ ) {

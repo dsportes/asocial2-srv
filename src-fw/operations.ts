@@ -1,4 +1,5 @@
 import { Operation } from './operation'
+import { AppExc } from './index'
 import { Util } from './util'
 import { Log } from './log'
 import { Crypt } from './crypt'
@@ -32,7 +33,7 @@ class EchoTexte extends Operation {
 }
 Operation.register('EchoTexte', () => { return new EchoTexte()})
 
-// Test d'une phase 2 limitée à setAuths()
+// Test d'une phase 2 limitée à setAuths() *************************************
 class TestAuth extends Operation {
   constructor () { super() }
 
@@ -42,18 +43,49 @@ class TestAuth extends Operation {
 }
 Operation.register('TestAuth', () => { return new TestAuth()})
 
-// PingDB effectue un ping de DB et retourne le texte enregistré en DB
-class PingDB extends Operation {
+/* GetSrvStatus retourne le status du service: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+*/
+class GetSrvStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
-    const [status, msg] = await this.db.ping()
-    this.setRes('ping', '' + status + ' ' + msg)
+    const [st, at, txt] = await this.db.getSrvStatus()
+    this.setRes('srvStatus', { st, at, txt})
   }
 
   phase3 : null
 }
-Operation.register('PingDB', () => { return new PingDB()})
+Operation.register('GetSrvStatus', () => { return new GetSrvStatus()})
+
+/* SetSrvStatus fixe le status du service: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  txt: texte explicatif éventuel de l'administrateur
+  ADMINISTRATEUR
+*/
+class SetSrvStatus extends Operation {
+  constructor () { super() }
+
+  _st: number
+  _txt: string
+
+  init () {
+    super.init()
+    this._st = this.intValue('st', true, 0, 1)
+    this._txt = this.stringValue('txt', true)
+  }
+
+  async phase2 () {
+    if (!this.auths.has('ADMIN'))
+      throw new AppExc(1010, 'ADMIN required', this, ['SetSrvStatus'])
+    await this.db.setSrvStatus(this._st, this.now, this._txt)
+  }
+
+  phase3 : null
+}
+Operation.register('SetSrvStatus', () => { return new SetSrvStatus()})
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {

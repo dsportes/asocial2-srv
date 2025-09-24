@@ -10,7 +10,7 @@ export class AppAuthRecord extends AuthRecord {
 
   constructor (op: Operation) { super(op) }
 
-  async mtTEST1 (token: Object) {
-    if (token['toto'] === 'titi') this.auths.add('TOTO')
+  async mtTEST1 (token: Object, auths: Set<string> ) {
+    if (token['toto'] === 'titi') auths.add('TOTO')
   }
 }

@@ -1,12 +1,6 @@
 import { propType, collection, idx, DocType } from '../src-fw/doctypes'
 
 new DocType(
-  { name: 'Hdr', sync: false, pk: [] }, //header
-  null, // collections
-  null // index
-)
-
-new DocType(
   { name: 'Org', sync: true, pk: ['org'] }, //header
   null, // collections
   null
