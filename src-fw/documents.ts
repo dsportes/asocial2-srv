@@ -13,15 +13,18 @@ export class Task extends Document {
 /* 
 - sessionId : shaS de subJSON clé primaire
 - subJSON : token web-push
+- url : url de l'application à ouvrir par le terminal sur web-push
+- title : titre des notifications web-push
 - v : version
-- defs : une map `{ hdef: [def, msg] }`
+- defs : une map `{ def: msg ... }`
   - def: sa définition.
-  - msg: est un message facultatif.
-  - hdef: hash de def
+  - msg: est un message ou ''
 */
 export type subscription = {
   sessionId: string
   subJSON: string
+  url: string
+  title: string
   defs: Object
 }
 
@@ -33,14 +36,18 @@ export class Subs extends Document {
   sessionId: string
   subJSON: string
   defs: Object
+  url: string
+  title: string
   maxLife: number
 
-  static newSubs (op: Operation, subs: subscription) : Document {
+  static newSubs (op: Operation, subs: subscription, maxLife: number) : Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
+      url: subs.url,
+      title: subs.title,
       defs: subs.defs,
-      maxLife : op.SUBSMAXLIFE
+      maxLife : maxLife
     }
     return op.cache.newDoc('', 'Subs', initVals)
   }
@@ -57,8 +64,8 @@ et peut avoir trois formes:
 
 La définition def d'un SubsItem est le string:
 - type 0: org/clazz
-- type 1: org/clazz/pkVal
-- type 2: org/clazz/colName/colVal
+- type 1: org/clazz/pkVal (c'est un shaC)
+- type 2: org/clazz/colName/colVal (c'est un shaC)
 hdef est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
@@ -66,34 +73,30 @@ export class SubsItem extends Document {
   static release = 0
 
   sessionId : string
-  hdef : string // INDEXE - hash de def
+  def : string // INDEXE
   maxLife : number
 
   constructor () {
     super()
   }
 
-  static hdef (def: string[]) {
-    return Crypt.shaS(def.join('/'))
+  static def0 (org: string, clazz: string) : string {
+    return org + '/' + clazz
   }
 
-  static hdef0 (org: string, clazz: string) : string {
-    return Crypt.shaS(org + '/' + clazz)
+  static def1 (org: string, clazz: string, pk: string) : string {
+    return org + '/' + clazz + '/' + pk
   }
 
-  static hdef1 (org: string, clazz: string, pk: string) : string {
-    return Crypt.shaS(org + '/' + clazz + '/' + pk)
+  static def2 (org: string, clazz: string, colName: string, val: string) : string {
+    return org + '/' + clazz + '/' + colName + '/' + val
   }
 
-  static hdef2 (org: string, clazz: string, colName: string, val: string) : string {
-    return Crypt.shaS(org + '/' + clazz + '/' + colName + '/' + val)
-  }
-
-  static newSubsItem (op: Operation, sessionId: string, def: string) : Document {
+  static newSubsItem (op: Operation, sessionId: string, def: string, maxLife: number) : Document {
     const initVals = {
       sessionId: sessionId,
-      hdef: Crypt.shaS(def),
-      maxLife : op.SUBSMAXLIFE
+      def: def,
+      maxLife : maxLife
     }
     return op.cache.newDoc('', 'SubsItem', initVals)
   }
@@ -101,13 +104,13 @@ export class SubsItem extends Document {
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
   (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
-  static async getSessionIds (op: Operation, hdef: string) : Promise<string[]> {
+  static async getSessionIds (op: Operation, def: string) : Promise<string[]> {
     /*
     selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    op.db.selectDocsGlobal('SubsItem', 'hdef', filter.EQ, hdef, '', 0, 
+    op.db.selectDocsGlobal('SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -120,7 +123,7 @@ export class SubsItem extends Document {
     op.db.selectDocsGlobal('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
-        const pk = Crypt.shaS(sessionId + '/' + d['hdef'])
+        const pk = Crypt.shaS(sessionId + '/' + d['def'])
         op.db.deleteRow('', 'SubsItem', pk)
       })
   }

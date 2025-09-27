@@ -1,7 +1,6 @@
 import webpush from 'web-push'
 import { Log } from './log'
 import { Util } from './util'
-import { Crypt } from './crypt'
 import { Operation, Cache, ImpactedSub } from './operation'
 import { SubsItem } from './documents'
 
@@ -14,6 +13,8 @@ console.log(vapidKeys.publicKey, vapidKeys.privateKey)
 
 type notif = {
   sub: webpush.PushSubscription
+  url: string
+  title: string
   defs: Map<string, string> // key: hdef, value: msg ou ''
 }
 
@@ -31,12 +32,35 @@ export class Publisher {
     this.sessionId = op.sessionId
   }
 
-  getSessionNotifs () : Object{
-    const sntf = this.toNotif.get(this.sessionId)
-    if (!sntf) return null
-    const m = {}
-    for (const [msg, hdef] of sntf.defs) m[hdef] = msg || false
-    return m
+  buildMessage (notif: notif) : Object {
+    /* UN message par session:
+    Pas envoyé à la session en cours qui recevra l'info
+    en retour d'opération */
+    const lines : string[] = []
+    const defs : string[] = []
+    for(const [def, s] of notif.defs) {
+      if (s) lines.push(s)
+      defs.push(def)
+    }
+    /* buf : objet "message" sérialisé en base6
+    const message = {
+      title: 'Hello', 
+      body: 'Depuis serveur',
+      url: 'http...'
+      defs: [a/v/c c/d/e ...]
+    }
+    */
+    return {
+      title: notif.title, 
+      body: lines.join('\n'),
+      url: notif.url,
+      defs: defs.join(' ')
+    }
+  }
+
+  getSessionNotifs () : Object {
+    const notif = this.toNotif.get(this.sessionId)
+    return !notif ? null : this.buildMessage(notif)
   }
 
   /*
@@ -48,29 +72,29 @@ export class Publisher {
   */
   async publish (is: ImpactedSub) {
     // Souscriptions à la collection des documents
-    let hdef = SubsItem.hdef0(is.org, is.clazz)
-    await this.doSids(hdef)
+    let def = SubsItem.def0(is.org, is.clazz)
+    await this.doSids(def)
 
     // Souscriptions au document
-    hdef = SubsItem.hdef1(is.org, is.clazz, is.pk)
-    await this.doSids(hdef)
+    def = SubsItem.def1(is.org, is.clazz, is.pk)
+    await this.doSids(def)
 
     // Souscriptions aux sous-collections
-    for(const [coll, values] of is.colls) {
-      for (const value of values) {
-        hdef = SubsItem.hdef2(is.org, is.clazz, coll, value)
-        await this.doSids(hdef)
+    for(const [colName, values] of is.colls) {
+      for (const val of values) {
+        def = SubsItem.def2(is.org, is.clazz, colName, val)
+        await this.doSids(def)
       }
     }
   }
 
-  async doSids (hdef: string) : Promise<void> {
-    const sids = await SubsItem.getSessionIds(this.op, hdef)
-    if (sids.length) for(const sid of sids) await this.setHdef(sid, hdef)
+  async doSids (def: string) : Promise<void> {
+    const sids = await SubsItem.getSessionIds(this.op, def)
+    if (sids.length) for(const sid of sids) await this.setDef(sid, def)
   }
 
   // Inscription d'une def à publier par sessionId
-  async setHdef (sessionId: string, hdef: string) {
+  async setDef (sessionId: string, def: string) {
     let tn = this.toNotif.get(sessionId)
     if (!tn) {
       const rowSubs = await Cache.getRow(this.op, '', 'Subs', { sessionId }, 2)
@@ -78,11 +102,13 @@ export class Publisher {
       const data = decode(rowSubs.row.data)
       tn = {
         sub: JSON.parse(data['subJSON']) as webpush.PushSubscription,
+        url: data['url'],
+        title: data['title'],
         defs: new Map()
       }
-      const x = data['defs'][hdef] // [def, msg]
+      const x = data['defs'][def] // [def, msg]
       if (!x) return
-      tn.defs[hdef] = x[1] || ''
+      tn.defs[def] = x[1] || ''
       this.toNotif.set(sessionId, tn)
     }
   }
@@ -90,33 +116,13 @@ export class Publisher {
   async sendNotifications() {
     for(const [sessionId, notif] of this.toNotif) {
       if (sessionId !== this.sessionId)
-        try {
-          const b = Util.objToB64('toto')
-          await webpush.sendNotification(notif.sub, b, { TTL: 0 })
-        } catch (error) {
-          Log.error('sendNotification: ' + error.toString())
-        }
-    }
-  }
-
-  async phase3 (_sub, _appurl, _notifme) {
-    const message = {
-      notification: {
-        title: 'Hello',
-        body: 'Depuis serveur'
-      },
-      data: { 
-        url: _appurl || '',
-        notifme: ''
+      try {
+        const message = this.buildMessage(notif)
+        const buf = Util.objToB64(message)
+        await webpush.sendNotification(notif.sub, buf, { TTL: 0 })
+      } catch (error) {
+        Log.error('sendNotification: ' + error.toString())
       }
-    }
-    if (_notifme) message.data.notifme = 'Y'
-    try {
-      const b = Util.objToB64(message)
-      await webpush.sendNotification(_sub, b, { TTL: 0 })
-      Log.info('Successfully sent message: ' + JSON.stringify(message))
-    } catch (e) {
-      Log.error('TOKEN NOT REGISTERED :' + e)
     }
   }
 

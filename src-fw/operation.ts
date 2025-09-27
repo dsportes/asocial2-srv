@@ -91,7 +91,8 @@ export class Operation {
 
   constructor () {  }
 
-  get SUBSMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[0] }
+  get SUBSSHORTMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[0] }
+  get SUBSLONGMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[1] }
 
   assertKO (src: string, code: number, args: string[]) {
     const x = args && args.length ? JSON.stringify(args) : ''
@@ -190,9 +191,9 @@ export class Operation {
       if (this.impactedSubs.all.size) {
         const publisher = new Publisher(this)
         for(const [,is] of this.impactedSubs.all) await publisher.publish(is)
-        // notifs : { href1: false, href2: msg ...}
-        const notifs = publisher.getSessionNotifs()
-        if (notifs) this.setRes('notifs', notifs)
+        // notification : { title body url defs: 'def1 def2 ...' }
+        const notification = publisher.getSessionNotifs()
+        if (notification) this.setRes('notification', notification)
         setTimeout(async () => { await publisher.sendNotifications() }, 1)
       }
 
@@ -251,6 +252,14 @@ export class Operation {
       || (maxlg !== undefined && value.length > maxlg)) {
         throw new AppExc(1010, 'invalid argument', this, [par])
       }
+    return value
+  }
+
+  stringArrayValue (par: string, req: boolean) : string[] {
+    const [present, value, type] = this.type(par, req)
+    if (!present && !req) return []
+    if (present && type !== 'array')
+      throw new AppExc(1010, 'invalid argument', this, [par])
     return value
   }
 
