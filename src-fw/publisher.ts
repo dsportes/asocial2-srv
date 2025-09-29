@@ -70,7 +70,7 @@ export class Publisher {
     pk: string // du document 
     colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
   */
-  async publish (is: ImpactedSub) {
+  async publish (op: Operation, is: ImpactedSub) {
     // Souscriptions à la collection des documents
     let def = SubsItem.def0(is.org, is.clazz)
     await this.doSids(def)

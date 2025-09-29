@@ -51,6 +51,7 @@ export interface IDbGeneric {
   connector: DbConnector
   op: Operation
   key: Buffer
+  org: string
 
   /* Connexion à la DB */
   connect () : Promise<void>
@@ -86,15 +87,15 @@ export interface IDbGeneric {
     lastMark: dernière pk lue
   ATTENTION !!! mark ne doit pas être '' (mettre '0' pour commencer)
   */
-  exportRows (org: string, clazz: string, mark: string, limit: number) : Promise<expList>
+  exportRows (clazz: string, mark: string, limit: number) : Promise<expList>
 
   /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
   */
-  purgeRows (org: string, clazz: string, limit: number) : Promise<boolean>
+  purgeRows (clazz: string, limit: number) : Promise<boolean>
 
   /* Import (insert / création) les rows
   */
-  importRows (org: string, clazz: string, rows: row[]) : Promise<void>
+  importRows (clazz: string, rows: row[]) : Promise<void>
 
   /* Exportation des rows n'ayant pas dépassé leur TTL
   mark: dont les id sont > mark
@@ -104,27 +105,27 @@ export interface IDbGeneric {
     eox: true si le nombre de rows exportés n'a pas atteint la limite
     mark: dernière pk@col lue
   */
-  exportRowsQ (org: string, clazz: string, colName: string, mark: string, limit: number) 
+  exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ>
 
   /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
   */
-  purgeRowsQ (org: string, clazz: string, colName: string, limit: number) : Promise<boolean>
+  purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean>
 
   /* Import (insert / création) les rowQ
   */
-  importRowsQ (org: string, clazz: string, colName: string, rows: rowQ[]) : Promise<void>
+  importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void>
 
   /* Inscrit (SET CREATE UPDATE) un row:
   - clazz: classe du document - 'Article'
   - org: code l'organisation - 'demo'
   - row: row
   */
-  writeRow (ut: updType, org: string, clazz: string, row: row) : void
+  writeRow (ut: updType, clazz: string, row: row) : void
 
   /* Supprime (réellement) un document 
   */
-  deleteRow (org: string, clazz: string, pk: string) : void
+  deleteRow (clazz: string, pk: string) : void
 
   /* Inscrit le rowQ déclarant que le document clazz/pk ne fait plus
   partie de la collection clazz/col à partir de v.
@@ -135,20 +136,20 @@ export interface IDbGeneric {
   Path: Org/demo/Article@auteurs/a5@Hugo
   row DB: { v, col, ttl }
   */
-  writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : void
+  writeRowQ (clazz: string, colName: string, row: rowQ) : void
 
   /* Retourne tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou supprimés postérieueremt à v.
   */
-  allRows (org: string, clazz: string, v: number) : Promise<Object[]>
+  allRows (clazz: string, v: number) : Promise<Object[]>
 
   /* Retourne le row de classe fixée ayant la pk fixée:
   - si v absent: ne retourne pas le row s'il est supprimé
   - si v présent ne retourne le row QUE s'il a été mis à jour ou supprimé après v.
     si supprimé , le data l'indique.
   */
-  oneRow (org: string, clazz: string, pk: string, v: number) : Promise<row | null>
+  oneRow (clazz: string, pk: string, v: number) : Promise<row | null>
 
   /* Retourne la sous-collection 'clazz/colName/col' (par exemple: Article/auteurs/Zola)
   sous la forme de deux listes:
@@ -171,18 +172,18 @@ export interface IDbGeneric {
 
   isList: true si la propriété 'auteurs' est une liste.
   */
-  getColl(org: string, clazz: string, 
+  getColl(clazz: string, 
     colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]>
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.
   fn reçoit en arguments (data) : data du row décrypté MAIS sérialisé
   */
-  selectDocs(org: string, clazz: string, colName: string, filter: filter, col: any, 
+  selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void>
   
   /* Sélectionne les documents et les transmet à la fonction de traitement
-  Toutes organisations confondues.
+  Toutes organisations confondues: RESERVE aux opérations d'ADMINISTRATION
   fn reçoit en arguments (org, data) : data du row décrypté MAIS sérialisé
   */
   selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 

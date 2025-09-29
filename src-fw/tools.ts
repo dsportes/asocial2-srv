@@ -121,7 +121,7 @@ export class Tools {
     op.opName = 'Fake'
     await config.databases[0][1].getConnexion(op)
     {
-      const [st, at, txt] = await op.db.getSrvStatus()
+      const {st, at, txt} = await op.db.getSrvStatus()
       const atS = at ? new Date(at).toISOString() : '?'
       Log.info('st:' + st + ' at:' + atS + ' info:' + txt)
     }

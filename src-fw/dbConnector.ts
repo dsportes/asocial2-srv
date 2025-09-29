@@ -20,8 +20,9 @@ export class DbConnector {
     this.credentials = credentials
   }
 
-  async getConnexion (op: Operation, cryptKey?: string) {
+  async getConnexion (op: Operation, org?: string, cryptKey?: string) {
     const cnx = this.factory(this, op, cryptKey) as IDbGeneric
+    cnx.org = org || op.org 
     await cnx.connect()
     op.db = cnx
     return cnx
@@ -32,6 +33,7 @@ export class DbConnexion {
   public connector: DbConnector
   public op: Operation
   public key: Buffer
+  public org: string
   public transaction: any
 
   constructor (connector: DbConnector, op: Operation, cryptKey?: string) {

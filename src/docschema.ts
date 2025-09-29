@@ -10,16 +10,24 @@ new DocType(
   { name: 'Task', sync: false, pk: ['process', 'pk'] }, //header
   null, // collections
   new Map<string, idx>([
-    ['startTime',  { type: propType.STRING }]
+    ['startTime',  { type: propType.STRING, global: true }]
   ]) // index 
 )
 
 new DocType(
-  { name: 'SubsItem', sync: false, pk: ['sessionId', 'hdef'] }, //header
+  { name: 'Subs', sync: false, pk: ['sessionId'] }, //header
   null, // collections
   new Map<string, idx>([
-    ['hdef',  { type: propType.STRING }],
-    ['sessionId',  { type: propType.STRING }]
+    ['sessionId',  { type: propType.STRING, global: true }]
+  ]) // index  
+)
+
+new DocType(
+  { name: 'SubsItem', sync: false, pk: ['sessionId', 'def'] }, //header
+  null, // collections
+  new Map<string, idx>([
+    ['def',  { type: propType.STRING }],
+    ['sessionId',  { type: propType.STRING, global: true }]
   ]) // index 
 )
 

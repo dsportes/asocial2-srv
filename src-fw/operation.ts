@@ -23,7 +23,6 @@ type conso = {
 }
 
 export class DocDescr {
-  org: string
   clazz: string
   pk: string
   // En cache globale: détention sous forme row (data décrypté mais sérialisé)
@@ -31,13 +30,13 @@ export class DocDescr {
   // En chache d'une opération: détention d'un Document (pas d'un row)
   doc?: Document
 
-  constructor (org: string, clazz: string, pk: string, row: row) {
-    this.org = org; this.clazz = clazz; this.pk = pk
+  constructor (clazz: string, pk: string, row: row) {
+    this.clazz = clazz; this.pk = pk
     if (row) this.row = row
   }
 
-  static key (org: string, clazz: string, pk: string) { 
-    return org + '/' + clazz + '/' + pk 
+  static key (clazz: string, pk: string) { 
+    return clazz + '/' + pk 
   }
 
   /* Contruit une instance de "Document" depuis le row issu de lecture DB
@@ -46,7 +45,7 @@ export class DocDescr {
   init () : void {
     const d = decode(this.row.data)
     const [data, b] = Document.mutate(this.clazz, d)
-    this.doc = Document.newDoc(this.org, this.clazz, DocStatus.NONE, data)
+    this.doc = Document.newDoc(this.clazz, DocStatus.NONE, data)
   }
 
 }
@@ -163,7 +162,7 @@ export class Operation {
             delete upd.doc
             this.updates[i] = upd
           }
-          Cache._purge()
+          Cache._purge(this)
           break 
         }
 
@@ -190,7 +189,7 @@ export class Operation {
 
       if (this.impactedSubs.all.size) {
         const publisher = new Publisher(this)
-        for(const [,is] of this.impactedSubs.all) await publisher.publish(is)
+        for(const [,is] of this.impactedSubs.all) await publisher.publish(this, is)
         // notification : { title body url defs: 'def1 def2 ...' }
         const notification = publisher.getSessionNotifs()
         if (notification) this.setRes('notification', notification)
@@ -286,7 +285,6 @@ export class Operation {
     return this.stringValue('org', req, 4, 16)
   }
 }
-
 
 /* Authenticator générique *******************************
   "authRecord" est un argument de l'opération
@@ -391,8 +389,17 @@ export class Cache {
   static LAZY_MS = 1000
 
   // Cache globale
-  static map : Map<string, cacheItem> = new Map()
+  static globCache : Map<string, Map<string, cacheItem>> = new Map()
   static srvStatus : srvStatus = null
+
+  static orgCache(op: Operation) : Map<string, cacheItem> {
+    let oc = Cache.globCache.get(op.org)
+    if (!oc) {
+      oc = new Map<string, cacheItem>()
+      Cache.globCache.set(op.org, oc)
+    }
+    return oc
+  }
 
   /* Retourne le row  déjà en cache ou va le chercher en base et l'inscrit en cache.
   Si le row actuellement en cache est le plus récent on a évité une lecture effective
@@ -400,33 +407,34 @@ export class Cache {
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
   */
-  static async getRow(op: Operation, org: string, clazz: string, src: Object, lazy?: number)
+  static async getRow(op: Operation, clazz: string, src: Object, lazy?: number)
     : Promise<DocDescr> {
+    const oc = Cache.orgCache(op)
     const now = Date.now()
     const pk = DocType.getPk(clazz, src)
-    const k = DocDescr.key(org, clazz, pk)
-    const item = Cache.map.get(k)
+    const k = DocDescr.key(clazz, pk)
+    const item = oc.get(k)
     if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
       item.lru = now
-      return new DocDescr(org, clazz, pk, item.row)
+      return new DocDescr(clazz, pk, item.row)
     }
 
     if (item) { // item trouvé en cache
       // lecture pour recherche d'un éventuel plus récent
-      const row = await op.db.oneRow (org, clazz, pk, item.row.v)
+      const row = await op.db.oneRow(clazz, pk, item.row.v)
       if (row && row.v > item.row.v) // celui lu est plus récent
         item.row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       item.lru = now
-      return new DocDescr(org, clazz, pk, item.row)
+      return new DocDescr(clazz, pk, item.row)
     }
 
     // Pas trouvé en cache - recherche en base
-    const row = await op.db.oneRow (org, clazz, pk, item.row.v)
+    const row = await op.db.oneRow(clazz, pk, item.row.v)
     if (row) { // trouvé en base, mis en cache
       row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       const item : cacheItem = { lru: now, time: now, row } 
-      Cache.map.set(k, item)
-      return new DocDescr(org, clazz, pk, row)
+      oc.set(k, item)
+      return new DocDescr(clazz, pk, row)
     }
 
     // Pas trouvé en base
@@ -442,10 +450,11 @@ export class Cache {
   }
 
   static updateCache (op: Operation, dd: DocDescr) {
-    const k = DocDescr.key(dd.org, dd.clazz, dd.pk)
-    let item = Cache.map.get(k)
+    const oc = Cache.orgCache(op)
+    const k = DocDescr.key(dd.clazz, dd.pk)
+    let item = oc.get(k)
     if (dd.doc._status === DocStatus.DEL) { // suppression
-      if (item) Cache.map.delete(k)
+      if (item) oc.delete(k)
       return
     }
     if (item) { // remplacement éventuel
@@ -457,17 +466,18 @@ export class Cache {
     } else { // insertion d'un nouveau
       item = { lru: op.now, time: op.now, row: dd.row }
     }
-    Cache.map.set(k, item)
+    oc.set(k, item)
   }
 
-  static _purge () {
-    if (Cache.map.size > Cache.MAX_CACHE_SIZE) {
+  static _purge (op: Operation) {
+    const oc = Cache.orgCache(op)
+    if (oc.size > Cache.MAX_CACHE_SIZE) {
       const t = []
-      Cache.map.forEach((value, key) => { t.push({ lru: value.lru, k: key }) } )
+      oc.forEach((value, key) => { t.push({ lru: value.lru, k: key }) } )
       t.sort((a, b) => { return a.lru < b.lru ? -1 : (a.lru > b.lru ? 1 : 0) })
       for (let i = 0; i < Cache.MAX_CACHE_SIZE / 2; i++) {
         const k = t[i].k
-        Cache.map.delete(k)
+        oc.delete(k)
       }
     }
   }
@@ -479,13 +489,13 @@ export class Cache {
   }
 
   // Retourne ou lit le Document Org cité
-  async getOrg (org: string, assert?: string, lazy?: boolean) : Promise<Document> {
-    const k = org + 'Org/' + org
+  async getOrg (assert?: string, lazy?: boolean) : Promise<Document> {
+    const k = 'Org/' + this.op.org
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, org, 'Org', { org: org }, 1)
+    dd = await Cache.getRow(this.op, 'Org', { org: this.op.org }, 1)
     if (!dd) {
-      if (assert) this.op.assertKO(assert, 25, ['Org', org])
+      if (assert) this.op.assertKO(assert, 25, ['Org', this.op.org])
       return null
     }
     dd.init()
@@ -496,12 +506,12 @@ export class Cache {
   /* Retourne ou lit de la base le Document cité par src:
   - src : objet contenant les proipriétés de la pk
   */
-  async getDoc (org: string, clazz: string, src: Object, assert?: string) : Promise<Document> {
+  async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document> {
     const pk = DocType.getPk(clazz, src)
-    const k = DocDescr.key(org, clazz, pk)
+    const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, org, clazz, src)
+    dd = await Cache.getRow(this.op, clazz, src)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, [clazz, DocType.getPk(clazz, src, false)])
       return null
@@ -514,11 +524,11 @@ export class Cache {
   Si le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  putRow (org: string, clazz: string, row: row) : Document {
-    const k = DocDescr.key(org, clazz, row.pk)
+  putRow (clazz: string, row: row) : Document {
+    const k = DocDescr.key(clazz, row.pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = new DocDescr(org, clazz, row.pk, row)
+    dd = new DocDescr(clazz, row.pk, row)
     dd.init()
     this.docs.set(k, dd)
     return dd.doc
@@ -528,13 +538,13 @@ export class Cache {
   Toutefois SI le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  newDoc (org: string, clazz: string, src: Object) : Document {
+  newDoc (clazz: string, src: Object) : Document {
     const pk = DocType.getPk(clazz, src)
-    const k = DocDescr.key(org, clazz, pk)
+    const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = new DocDescr(org, clazz, pk, null)
-    dd.doc = Document.newDoc(org, clazz, DocStatus.NEW, src)  
+    dd = new DocDescr(clazz, pk, null)
+    dd.doc = Document.newDoc(clazz, DocStatus.NEW, src)  
     this.docs.set(k, dd)
     return dd.doc
   }
@@ -546,8 +556,8 @@ export class Cache {
   - si le document a status NEW, il est retiré (ne sera pas créé).
   - sinon son status est à DEL.
   */
-  delDoc (org: string, clazz: string, pk: string) {
-    const k = DocDescr.key(org, clazz, pk)
+  delDoc (clazz: string, pk: string) {
+    const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) {
       if (dd.doc._status === DocStatus.NEW) this.docs.delete(k)
@@ -566,21 +576,21 @@ export class Cache {
       this.op.updates.push(dd)
       const doc = dd.doc
       let row : row
-      const is = this.op.impactedSubs.getEntry(dd.org, dd.clazz, dd.pk)
+      const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
-        doc.decompile(this.op, dd.org, dd.clazz)
+        doc.decompile(this.op, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
-        this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
+        this.db.writeRow(updType.UPDATE, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
-        doc.decompile(this.op, dd.org, dd.clazz)
+        doc.decompile(this.op, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
-        this.db.writeRow(updType.CREATE, dd.org, dd.clazz, row)
+        this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL
         if (doc.docType.sync) {
           row = doc.toZombiRow(this.op.now, this.db.key)
-          this.db.writeRow(updType.UPDATE, dd.org, dd.clazz, row)
+          this.db.writeRow(updType.UPDATE, dd.clazz, row)
         }
-        else this.db.deleteRow(dd.org, dd.clazz, dd.pk)
+        else this.db.deleteRow(dd.clazz, dd.pk)
       }
       if (doc.docType.sync) this.manageRowQ(dd, doc, row, is)
     }
@@ -593,10 +603,10 @@ export class Cache {
         const b = doc._before[n]
         is.setColl(n, b)
         if (collection.list) for (const x of b) {
-          this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+          this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: x })
         } else {
           is.setColl(n, b)
-          this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+          this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: b })
         }
       } else {
         const b = doc._before[n]
@@ -612,10 +622,10 @@ export class Cache {
             const as = new Set(a)
             for (const x of bs) {
               if (!as.has(x))
-                this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: x })
+                this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: x })
             }
           } else if (a !== b) 
-            this.db.writeRowQ(dd.org, dd.clazz, n, { v: row.v,  col: b })
+            this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: b })
         }
       }
     }
@@ -629,11 +639,11 @@ export class ImpactedSubs {
     this.all = new Map()
   }
 
-  getEntry (org: string, clazz: string, pk: string) : ImpactedSub {
-    const k = DocDescr.key(org, clazz, pk)
+  getEntry (clazz: string, pk: string) : ImpactedSub {
+    const k = DocDescr.key(clazz, pk)
     let is = this.all.get(k)
     if (!is) {
-      is = new ImpactedSub(org, clazz, pk)
+      is = new ImpactedSub(clazz, pk)
       this.all.set(k, is)
     }
     return is
@@ -642,13 +652,12 @@ export class ImpactedSubs {
 
 export class ImpactedSub {
 
-  org: string
   clazz: string
   pk: string // du document 
   colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
 
-  constructor (org: string, clazz: string, pk: string) {
-    this.org = org; this.clazz = clazz, this.pk = pk
+  constructor (clazz: string, pk: string) {
+    this.clazz = clazz, this.pk = pk
     this.colls = new Map()
   }
 

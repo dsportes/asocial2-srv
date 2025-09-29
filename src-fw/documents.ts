@@ -49,7 +49,7 @@ export class Subs extends Document {
       defs: subs.defs,
       maxLife : maxLife
     }
-    return op.cache.newDoc('', 'Subs', initVals)
+    return op.cache.newDoc('Subs', initVals)
   }
   
 }
@@ -98,7 +98,7 @@ export class SubsItem extends Document {
       def: def,
       maxLife : maxLife
     }
-    return op.cache.newDoc('', 'SubsItem', initVals)
+    return op.cache.newDoc('SubsItem', initVals)
   }
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
@@ -124,7 +124,7 @@ export class SubsItem extends Document {
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
-        op.db.deleteRow('', 'SubsItem', pk)
+        op.db.deleteRow('SubsItem', pk)
       })
   }
 

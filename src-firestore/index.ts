@@ -24,17 +24,18 @@ const t1 = `{
 { "collectionGroup": "Status", "fieldPath": "txt", "indexes": [] },`
 
 function t2 (cl: string, virg: boolean) {
-const x = `{ "collectionGroup": "${cl}", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+  const x = `{ "collectionGroup": "${cl}", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "${cl}", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "${cl}", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "${cl}", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "${cl}", "fieldPath": "ttl", "indexes": [] },
 { "collectionGroup": "${cl}", "fieldPath": "data", "indexes": [] }` 
-return x + (virg ? ',' : '')
+  return x + (virg ? ',' : '')
 }
 
 function t3 (cl: string, prop: string, virg: boolean) { 
-const x = `{ "collectionGroup": "${cl}", "fieldPath": "${prop}", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] }` 
-return x + (virg ? ',' : '')
+  const x = `{ "collectionGroup": "${cl}", "fieldPath": "${prop}", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] }` 
+  return x + (virg ? ',' : '')
 }
 
 function t4 (cl: string, prop: string, virg: boolean) { 
@@ -166,6 +167,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   async commit () {
     for (const u of this.updates) {
+      u.row['org'] = this.org
       if (!u.type) { 
         if (this.transaction) this.transaction.delete(u.dr); else await u.dr.delete()
       } else if (u.type === updType.CREATE) {
@@ -219,20 +221,20 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return row
   }
 
-  docRef (org: string, clazz: string, pk: string) {
-    return this.fs.doc((org ? 'Org/'+ org + '/' : '') + clazz + '/' + pk)
+  docRef (clazz: string, pk: string) {
+    return this.fs.doc('Org/' + this.org + '/' + clazz + '/' + pk)
   }
 
-  docRefQ (org: string, clazz: string, colName: string, pk: string, col: string) {
-    return this.fs.doc('Org/'+ org + '/' + clazz + '@' + colName + '/' + pk + '@' + col)
+  docRefQ (clazz: string, colName: string, pk: string, col: string) {
+    return this.fs.doc('Org/' + this.org + '/' + clazz + '@' + colName + '/' + pk + '@' + col)
   }
 
-  colRef (org: string, clazz: string) {
-    return this.fs.collection((org ? 'Org/'+ org + '/' : '') + clazz)
+  colRef (clazz: string) {
+    return this.fs.collection('Org/'+ this.org + '/' + clazz)
   }
 
-  colRefQ (org: string, clazz: string, colName: string) {
-    return this.fs.collection('Org/'+ org + '/' + clazz + '@' + colName)
+  colRefQ (clazz: string, colName: string) {
+    return this.fs.collection('Org/' + this.org + '/' + clazz + '@' + colName)
   }
 
   /* Exportation des rows n'ayant pas dépassé leur TTL
@@ -244,11 +246,11 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     lastMark: dernière pk lue
   ATTENTION !!! mark ne doit pas être '' (mettre '0' pour commencer)
   */
-  async exportRows (org: string, clazz: string, mark: string, limit: number) : Promise<expList> {
+  async exportRows (clazz: string, mark: string, limit: number) : Promise<expList> {
     let n = 0
     let lastMark = ''
     const rows: row[] = []
-    const cr = this.colRef(org, clazz)
+    const cr = this.colRef(clazz)
     const fp = FieldPath.documentId()
     const q: Query = cr.where(fp, '>', mark).orderBy(fp).limit(limit)
     const qs: QuerySnapshot = await q.get()
@@ -263,10 +265,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
   */
-  async purgeRows (org: string, clazz: string, limit: number) : Promise<boolean> {
+  async purgeRows (clazz: string, limit: number) : Promise<boolean> {
     let n = 0
-    const cr = this.colRef(org, clazz)
-    const fp = FieldPath.documentId()
+    const cr = this.colRef(clazz)
+    /* const fp = */ FieldPath.documentId()
     const q: Query = cr.limit(limit)
     const qs: QuerySnapshot = await q.get()
     const eop = qs.docs.length < limit
@@ -278,10 +280,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   /* Import (insert / création) les rows : 
   - les row.data DOIVENT être cryptés par l'appelant
   */
-  async importRows (org: string, clazz: string, rows: row[]) : Promise<void> {
+  async importRows (clazz: string, rows: row[]) : Promise<void> {
     for(const row of rows) {
       const r = this.rowToDB(row, true)
-      const dr = this.docRef(org, clazz, r.pk)
+      const dr = this.docRef(clazz, r.pk)
       await dr.create(r)
     }
   }
@@ -294,12 +296,12 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     eox: true si le nombre de rows exportés n'a pas atteint la limite
     mark: dernière pk@col lue
   */
-  async exportRowsQ (org: string, clazz: string, colName: string, mark: string, limit: number) 
+  async exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ> {
     let n = 0
     let lastMark = ''
     const rows: rowQ[] = []
-    const cq = this.colRefQ(org, clazz, colName)
+    const cq = this.colRefQ(clazz, colName)
     const fp = FieldPath.documentId()
     const q: Query = cq.where(fp, '>', mark).orderBy(fp).limit(limit)
 
@@ -320,10 +322,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
   */
-  async purgeRowsQ (org: string, clazz: string, colName: string, limit: number) : Promise<boolean> {
+  async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
     let n = 0
-    const cq = this.colRefQ(org, clazz, colName)
-    const fp = FieldPath.documentId()
+    const cq = this.colRefQ(clazz, colName)
+    /* const fp = */ FieldPath.documentId()
     const q: Query = cq.limit(limit)
     const qs: QuerySnapshot = await q.get()
     const eop = qs.docs.length < limit
@@ -334,9 +336,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Import (insert / création) les rowQ
   */
-  async importRowsQ (org: string, clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
+  async importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
     for(const row of rows) {
-      const dr = this.docRefQ(org, clazz, colName, row.pk || '', row.col)
+      const dr = this.docRefQ(clazz, colName, row.pk || '', row.col)
       const r : rowQ = { 
         col: row.col, 
         v: row.v,
@@ -348,17 +350,16 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Inscrit (SET CREATE UPDATE) un row:
   - clazz: classe du document - 'Article'
-  - org: code l'organisation - 'demo'
   - row: row
   */
-  writeRow (ut: updType, org: string, clazz: string, row: row) : void {
-    this.setUpd(ut, this.docRef(org, clazz, row.pk), this.rowToDB(row))
+  writeRow (ut: updType, clazz: string, row: row) : void {
+    this.setUpd(ut, this.docRef(clazz, row.pk), this.rowToDB(row))
   }
 
   /* Supprime (réellement) un document 
   */
-  deleteRow (org: string, clazz: string, pk: string) : void {
-    this.setDel(this.docRef(org, clazz, pk))
+  deleteRow (clazz: string, pk: string) : void {
+    this.setDel(this.docRef(clazz, pk))
   }
 
   /* Inscrit le rowQ déclarant que le document clazz/pk ne fait plus
@@ -370,22 +371,22 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   Path: Org/demo/Article@auteurs/a5@Hugo
   row DB: { v, col, ttl }
   */
-  writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : void {
+  writeRowQ (clazz: string, colName: string, row: rowQ) : void {
     const r : rowQ = { 
       col: row.col, 
       v: row.v,
       ttl: new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
     }
-    this.setUpd(updType.SET, this.docRefQ(org, clazz, colName, row.pk || '', row.col), r)
+    this.setUpd(updType.SET, this.docRefQ(clazz, colName, row.pk || '', row.col), r)
   }
 
   /* Retourne tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
   */
-  async allRows (org: string, clazz: string, v: number) : Promise<Object[]>{
+  async allRows (clazz: string, v: number) : Promise<Object[]>{
     const rows: row[] = []
-    const cr = this.colRef(org, clazz)
+    const cr = this.colRef(clazz)
     const q: Query = !v ? cr : cr.where('v', '>', v)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
@@ -400,8 +401,8 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   - si v présent ne retourne le row QUE s'il a été mis à jour ou supprimé après v.
     si supprimé , le data l'indique.
   */
-  async oneRow (org: string, clazz: string, pk: string, v: number) : Promise<row | null> {
-    const cr = this.colRef(org, clazz)
+  async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
+    const cr = this.colRef(clazz)
     const q: Query = !v ? cr.where('pk', '==', pk) : cr.where('pk', '==', pk).where('v', '>', v)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (qs.empty) return null
@@ -430,13 +431,13 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   isList: true si la propriété 'auteurs' est une liste.
   */
-  async getColl(org: string, clazz: string, 
+  async getColl(clazz: string, 
     colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
     
     const rows: row[] = []
     const lpkv: pkv[] = []
-    const crd = this.colRef(org, clazz)
-    const crq = this.colRefQ(org, clazz, colName)
+    const crd = this.colRef(clazz)
+    const crq = this.colRefQ(clazz, colName)
     const comp = isList ? 'array-contains' : '=='
 
     let q: Query
@@ -469,10 +470,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.
   */
-  async selectDocs(org: string, clazz: string, colName: string, filter: filter, col: any, 
+  async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
     
-    let q: Query = this.colRef(org, clazz).where(colName, opFilter[filter] as WhereFilterOp, col)
+    let q: Query = this.colRef(clazz).where(colName, opFilter[filter] as WhereFilterOp, col)
     if (order) q = q.orderBy(order)
     if (limit) q = q.limit(limit)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()

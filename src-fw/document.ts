@@ -15,7 +15,6 @@ export type changedColl = {
 
 export class Document {
   _clazz: string
-  _org: string
   _status?: DocStatus
   _before?: Object
   _deleted?: boolean
@@ -89,7 +88,7 @@ export class Document {
   /* Invoqué avant sérialisation du Document en "data" pour écriture en DB.
   Reconstitution éventuelle de propriétés, synthèses, etc.
   */
-  decompile (op: Operation, org: string, clazz: string) : void { }
+  decompile (op: Operation, clazz: string) : void { }
 
   /* Invoqué pour sérialisation un Document à destination de l'application terminale.
   Passe dans le "résultat" de l'opération.
@@ -97,8 +96,8 @@ export class Document {
   - transmet org et clazz et 
   - toutes les propriétés du document dont le nom ne commencent pas par _
   */
-  serialForApp (op: Operation, org: string, clazz: string) : Uint8Array { 
-    const d = { org, clazz }
+  serialForApp (op: Operation, clazz: string) : Uint8Array { 
+    const d = { clazz }
     for (const k of Object.keys(this)) if (k.charAt[0] !== '_') d[k] = this[k]
     return encode(d)
   }
@@ -110,12 +109,11 @@ export class Document {
   - propriétés de création.
   Retourne le Document.
   */
-  static newDoc (org: string, clazz: string, status: DocStatus, initVals: Object) : Document {
+  static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
     const cl = config.documentClasses[clazz]
     if (!cl) return null
     const doc = new cl()
     doc._clazz = clazz
-    doc._org = org
     doc._status = status
     doc.release = cl.release
     doc.v = 0
