@@ -72,19 +72,15 @@ export class Publisher {
   */
   async publish (op: Operation, is: ImpactedSub) {
     // Souscriptions à la collection des documents
-    let def = SubsItem.def0(is.org, is.clazz)
-    await this.doSids(def)
+    await this.doSids(SubsItem.def0(is.clazz))
 
     // Souscriptions au document
-    def = SubsItem.def1(is.org, is.clazz, is.pk)
-    await this.doSids(def)
+    await this.doSids(SubsItem.def1(is.clazz, is.pk))
 
     // Souscriptions aux sous-collections
     for(const [colName, values] of is.colls) {
-      for (const val of values) {
-        def = SubsItem.def2(is.org, is.clazz, colName, val)
-        await this.doSids(def)
-      }
+      for (const val of values) 
+        await this.doSids(SubsItem.def2(is.clazz, colName, val))
     }
   }
 
@@ -97,7 +93,7 @@ export class Publisher {
   async setDef (sessionId: string, def: string) {
     let tn = this.toNotif.get(sessionId)
     if (!tn) {
-      const rowSubs = await Cache.getRow(this.op, '', 'Subs', { sessionId }, 2)
+      const rowSubs = await Cache.getRow(this.op, 'Subs', { sessionId }, 2)
       if (!rowSubs) return
       const data = decode(rowSubs.row.data)
       tn = {

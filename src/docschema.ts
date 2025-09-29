@@ -17,17 +17,14 @@ new DocType(
 new DocType(
   { name: 'Subs', sync: false, pk: ['sessionId'] }, //header
   null, // collections
-  new Map<string, idx>([
-    ['sessionId',  { type: propType.STRING, global: true }]
-  ]) // index  
+  null // index  
 )
 
 new DocType(
   { name: 'SubsItem', sync: false, pk: ['sessionId', 'def'] }, //header
   null, // collections
   new Map<string, idx>([
-    ['def',  { type: propType.STRING }],
-    ['sessionId',  { type: propType.STRING, global: true }]
+    ['def',  { type: propType.STRING }]
   ]) // index 
 )
 

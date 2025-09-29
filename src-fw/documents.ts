@@ -80,16 +80,16 @@ export class SubsItem extends Document {
     super()
   }
 
-  static def0 (org: string, clazz: string) : string {
-    return org + '/' + clazz
+  static def0 (clazz: string) : string {
+    return clazz
   }
 
-  static def1 (org: string, clazz: string, pk: string) : string {
-    return org + '/' + clazz + '/' + pk
+  static def1 (clazz: string, pk: string) : string {
+    return clazz + '/' + pk
   }
 
-  static def2 (org: string, clazz: string, colName: string, val: string) : string {
-    return org + '/' + clazz + '/' + colName + '/' + val
+  static def2 (clazz: string, colName: string, val: string) : string {
+    return clazz + '/' + colName + '/' + val
   }
 
   static newSubsItem (op: Operation, sessionId: string, def: string, maxLife: number) : Document {
@@ -110,7 +110,7 @@ export class SubsItem extends Document {
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    op.db.selectDocsGlobal('SubsItem', 'def', filter.EQ, def, '', 0, 
+    op.db.selectDocs('SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -120,7 +120,7 @@ export class SubsItem extends Document {
 
   static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    op.db.selectDocsGlobal('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    op.db.selectDocs('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])

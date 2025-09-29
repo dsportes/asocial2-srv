@@ -161,8 +161,8 @@ class DeleteSubscription extends Operation {
   }
 
   async phase2 () {
-    const pk = Crypt.shaS(this._sessionId)
-    this.db.deleteRow('', 'Subs', pk)
+    this.db.deleteRow('Subs', this._sessionId)
+    await SubsItem.deleteSessionId(this, this._sessionId)
   }
 
   phase3 : null
@@ -193,7 +193,7 @@ class UpdateSubscription extends Operation {
   }
 
   async phase2 () {
-    let subs = await this.cache.getDoc('', 'Subs', { sessionId: this._subs.sessionId}) as Subs
+    let subs = await this.cache.getDoc('Subs', { sessionId: this._subs.sessionId}) as Subs
     if (!subs) {
       await SubsItem.deleteSessionId(this, this._subs.sessionId)
       subs = Subs.newSubs(this, this._subs, this._life) as Subs
@@ -211,7 +211,7 @@ class UpdateSubscription extends Operation {
       // Suppression des items qui ne sont plus dans la nouvelle souscription
         if (!defsAfter.has(def)) {
           const pk = Crypt.shaS(this._subs.sessionId + '/' + def)
-          this.db.deleteRow('', 'SubsItem', pk)
+          this.db.deleteRow('SubsItem', pk)
         }
       }
       // Maj de la souscription
@@ -223,10 +223,10 @@ class UpdateSubscription extends Operation {
         const src = { sessionId: this._subs.sessionId, def }
         if (!defsBefore.has(def)) {
           // nouvel item : création
-          this.cache.newDoc('', 'SubsItem', src)
+          this.cache.newDoc('SubsItem', src)
         } else {
           // item existant : update pour changer le maxLife
-          const item = await this.cache.getDoc('', 'SubsItem', src) as SubsItem
+          const item = await this.cache.getDoc('SubsItem', src) as SubsItem
           if (item.maxLife < this._lifeMin) {
             item.maxLife = this._life
             item._status = DocStatus.UPD
@@ -261,7 +261,7 @@ class AdjustSubscription extends Operation {
   }
 
   async phase2 () {
-    const subs = await this.cache.getDoc('', 'Subs', { sessionId: this._sessionId}) as Subs
+    const subs = await this.cache.getDoc('Subs', { sessionId: this._sessionId}) as Subs
     if (!subs) 
       throw new AppExc(1025, 'Unknown session', this, [this._sessionId])
     for (const def in this._defs) {
@@ -269,13 +269,13 @@ class AdjustSubscription extends Operation {
       const v = this._defs[def]
       if (v === false) {
         delete subs.defs[def]
-        await this.cache.getDoc('', 'SubsItem', src) as SubsItem
-        this.cache.delDoc('', 'SubsItem', Crypt.shaS(this._sessionId + '/' + def))
+        await this.cache.getDoc('SubsItem', src) as SubsItem
+        this.cache.delDoc('SubsItem', Crypt.shaS(this._sessionId + '/' + def))
       } else if (typeof v === 'string') {
         subs.defs[def] = v
-        let subsItem = await this.cache.getDoc('', 'SubsItem', src) as SubsItem
+        let subsItem = await this.cache.getDoc('SubsItem', src) as SubsItem
         if (!subsItem) {
-          subsItem = this.cache.newDoc('', 'SubsItem', src) as SubsItem
+          subsItem = this.cache.newDoc('SubsItem', src) as SubsItem
           subsItem._status = DocStatus.NEW
         } else { 
           subsItem.def = def

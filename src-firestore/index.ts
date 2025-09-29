@@ -222,7 +222,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   docRef (clazz: string, pk: string) {
-    return this.fs.doc('Org/' + this.org + '/' + clazz + '/' + pk)
+    return this.fs.doc('Org/' + this.org + (clazz === 'Org' ? '' : '/' + clazz + '/' + pk))
   }
 
   docRefQ (clazz: string, colName: string, pk: string, col: string) {
