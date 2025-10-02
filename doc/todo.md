@@ -1,3 +1,5 @@
+GetLock : hors transation.
+
 Non régression de v pour un document à gérer.
 
 Sous-collection sur propriétés immuables: ne pas gérer de rowQ.

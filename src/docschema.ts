@@ -7,7 +7,7 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Task', sync: false, pk: ['process', 'pk'] }, //header
+  { name: 'Task', sync: false, pk: ['process', 'target'] }, //header
   null, // collections
   new Map<string, idx>([
     ['startTime',  { type: propType.STRING, global: true }]
