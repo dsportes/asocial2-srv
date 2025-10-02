@@ -652,7 +652,7 @@ export class ImpactedSubs {
 
 export class ImpactedSub {
 
-  clazz: string
+  clazz: string // du document
   pk: string // du document 
   colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
 

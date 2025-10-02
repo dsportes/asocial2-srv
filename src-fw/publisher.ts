@@ -13,8 +13,6 @@ console.log(vapidKeys.publicKey, vapidKeys.privateKey)
 
 type notif = {
   sub: webpush.PushSubscription
-  url: string
-  title: string
   defs: Map<string, string> // key: hdef, value: msg ou ''
 }
 
@@ -51,9 +49,8 @@ export class Publisher {
     }
     */
     return {
-      title: notif.title, 
+      org: this.op.org, 
       body: lines.join('\n'),
-      url: notif.url,
       defs: defs.join(' ')
     }
   }
@@ -65,8 +62,7 @@ export class Publisher {
 
   /*
   ImpactedSub:
-    org: string
-    clazz: string
+    clazz: string // du document
     pk: string // du document 
     colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
   */
@@ -98,8 +94,6 @@ export class Publisher {
       const data = decode(rowSubs.row.data)
       tn = {
         sub: JSON.parse(data['subJSON']) as webpush.PushSubscription,
-        url: data['url'],
-        title: data['title'],
         defs: new Map()
       }
       const x = data['defs'][def] // [def, msg]
