@@ -13,6 +13,8 @@ console.log(vapidKeys.publicKey, vapidKeys.privateKey)
 
 type notif = {
   sub: webpush.PushSubscription
+  title: string
+  url: string
   defs: Map<string, string> // key: hdef, value: msg ou ''
 }
 
@@ -42,14 +44,17 @@ export class Publisher {
     }
     /* buf : objet "message" sérialisé en base6
     const message = {
-      title: 'Hello', 
-      body: 'Depuis serveur',
+      org: 'demo'
+      title: 'myApp - demo', 
+      body: 'Chat reçu',
       url: 'http...'
       defs: [a/v/c c/d/e ...]
     }
     */
     return {
-      org: this.op.org, 
+      org: this.op.org,
+      title: notif.title,
+      url: notif.url,
       body: lines.join('\n'),
       defs: defs.join(' ')
     }
@@ -91,8 +96,10 @@ export class Publisher {
     if (!tn) {
       const rowSubs = await Cache.getRow(this.op, 'Subs', { sessionId }, 2)
       if (!rowSubs) return
-      const data = decode(rowSubs.row.data)
+      const data = decode(rowSubs.row.data) as notif
       tn = {
+        url: data.url,
+        title: data.title,
         sub: JSON.parse(data['subJSON']) as webpush.PushSubscription,
         defs: new Map()
       }

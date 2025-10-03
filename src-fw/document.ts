@@ -85,11 +85,6 @@ export class Document {
   FACULTATIF: compile () { }
   */
 
-  /* Invoqué avant sérialisation du Document en "data" pour écriture en DB.
-  Reconstitution éventuelle de propriétés, synthèses, etc.
-  */
-  decompile (op: Operation, clazz: string) : void { }
-
   /* Invoqué pour sérialisation un Document à destination de l'application terminale.
   Passe dans le "résultat" de l'opération.
   A défaut de surcharge applicative:
@@ -129,7 +124,6 @@ export class Document {
   }
 
   /* Construit un "row" pour DB depuis un document
-  decompile() a été invoqué juste avant.
   */
   toRow (now: number, key: Uint8Array) {
     const d = {}
