@@ -2365,3 +2365,182 @@ TypeError: Cannot read properties of undefined (reading 'transac')
 2025-09-24T17:37:40.421Z info: SetSrvStatus : 2025-09-24T17:37:40.420Z
 2025-09-24T17:37:40.428Z info: auths : 1758735460415 - ADMIN
 2025-09-24T17:37:40.467Z info: SetSrvStatus finished
+2025-10-04T11:52:08.631Z info: 10 operations registered
+2025-10-04T11:54:16.463Z info: 10 operations registered
+2025-10-04T11:54:16.468Z info: 8 document classes
+2025-10-04T11:54:16.469Z info: Firestore connector
+2025-10-04T11:54:16.470Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T11:54:16.471Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T11:54:16.472Z info: 10 App operations registered
+2025-10-04T11:59:22.914Z info: 10 operations registered
+2025-10-04T11:59:22.917Z info: 8 document classes
+2025-10-04T11:59:22.918Z info: Firestore connector
+2025-10-04T11:59:22.919Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T11:59:22.919Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T11:59:22.920Z info: 10 App operations registered
+2025-10-04T12:00:51.330Z info: 10 operations registered
+2025-10-04T12:00:51.333Z info: 8 document classes
+2025-10-04T12:00:51.334Z info: Firestore connector
+2025-10-04T12:00:51.334Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:00:51.335Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:00:51.335Z info: 10 App operations registered
+2025-10-04T12:05:11.767Z info: 10 operations registered
+2025-10-04T12:05:11.770Z info: 8 document classes
+2025-10-04T12:05:11.771Z info: Firestore connector
+2025-10-04T12:05:11.772Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:05:11.772Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:05:11.773Z info: 10 App operations registered
+2025-10-04T12:07:41.077Z info: 10 operations registered
+2025-10-04T12:07:41.080Z info: 8 document classes
+2025-10-04T12:07:41.080Z info: Firestore connector
+2025-10-04T12:07:41.081Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:07:41.082Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:07:41.082Z info: 10 App operations registered
+2025-10-04T12:09:29.239Z info: 10 operations registered
+2025-10-04T12:09:29.242Z info: 8 document classes
+2025-10-04T12:09:29.243Z info: Firestore connector
+2025-10-04T12:09:29.244Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:09:29.244Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:09:29.245Z info: 10 App operations registered
+2025-10-04T12:10:12.341Z info: 10 operations registered
+2025-10-04T12:10:12.344Z info: 8 document classes
+2025-10-04T12:10:12.345Z info: Firestore connector
+2025-10-04T12:10:12.345Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:10:12.346Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:10:12.347Z info: 10 App operations registered
+2025-10-04T12:10:38.559Z info: 10 operations registered
+2025-10-04T12:10:38.562Z info: 8 document classes
+2025-10-04T12:10:38.563Z info: Firestore connector
+2025-10-04T12:10:38.563Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:10:38.564Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:10:38.565Z info: 10 App operations registered
+2025-10-04T12:16:00.535Z info: 10 operations registered
+2025-10-04T12:16:00.539Z info: 8 document classes
+2025-10-04T12:16:00.539Z info: Firestore connector
+2025-10-04T12:16:00.540Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:16:00.541Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:16:00.541Z info: 10 App operations registered
+2025-10-04T12:16:38.643Z info: 10 operations registered
+2025-10-04T12:16:38.646Z info: 8 document classes
+2025-10-04T12:16:38.647Z info: Firestore connector
+2025-10-04T12:16:38.647Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:16:38.648Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:16:38.649Z info: 10 App operations registered
+2025-10-04T12:18:35.184Z info: 10 operations registered
+2025-10-04T12:18:35.187Z info: 8 document classes
+2025-10-04T12:18:35.188Z info: Firestore connector
+2025-10-04T12:18:35.189Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:18:35.189Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:18:35.190Z info: 10 App operations registered
+2025-10-04T12:50:09.358Z info: 10 operations registered
+2025-10-04T12:50:09.361Z info: 8 document classes
+2025-10-04T12:50:09.362Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:50:09.362Z info: Firestore connector
+2025-10-04T12:50:09.363Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:50:09.363Z info: 10 App operations registered
+2025-10-04T12:50:09.374Z info: HTTP listen [8080]
+2025-10-04T12:53:37.025Z info: GetSrvStatus : 2025-10-04T12:53:37.023Z
+2025-10-04T12:53:37.181Z info: PRAGMA journal_mode = WAL
+2025-10-04T12:53:37.185Z info: BEGIN
+2025-10-04T12:53:37.186Z info: auths : 0 - 
+2025-10-04T12:53:37.187Z info: SELECT * FROM STATUS WHERE pk = '1'
+2025-10-04T12:53:37.198Z info: ROLLBACK
+2025-10-04T12:53:37.199Z error: GetSrvStatus : 2025-10-04T12:53:37.023Z : TypeError: Cannot set properties of undefined (setting 'now')
+2025-10-04T12:53:37.200Z info: GetSrvStatus terminated on exception
+2025-10-04T12:53:37.208Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'now')"]
+TypeError: Cannot set properties of undefined (setting 'now')
+    at AppSQLiteConnexion.getSrvStatus (D:\git\asocial2-srv\src-sqlite\index.ts:176:9)
+    at Function.getSrvStatus (D:\git\asocial2-srv\src-fw\operation.ts:448:37)
+    at GetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:55:35)
+    at GetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:136:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:190:7)
+    at async GetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:156:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:225:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:9)
+2025-10-04T12:54:15.390Z info: GetSrvStatus : 2025-10-04T12:54:15.390Z
+2025-10-04T12:54:15.393Z info: PRAGMA journal_mode = WAL
+2025-10-04T12:54:15.394Z info: BEGIN
+2025-10-04T12:54:15.395Z info: auths : 0 - 
+2025-10-04T12:54:40.734Z info: SELECT * FROM STATUS WHERE pk = '1'
+2025-10-04T12:56:05.860Z info: ROLLBACK
+2025-10-04T12:56:05.864Z error: GetSrvStatus : 2025-10-04T12:54:15.390Z : TypeError: Cannot set properties of undefined (setting 'now')
+2025-10-04T12:56:05.866Z info: GetSrvStatus terminated on exception
+2025-10-04T12:56:05.868Z info: AppExc: 1999:unexpected exception["Cannot set properties of undefined (setting 'now')"]
+TypeError: Cannot set properties of undefined (setting 'now')
+    at AppSQLiteConnexion.getSrvStatus (D:\git\asocial2-srv\src-sqlite\index.ts:176:9)
+    at Function.getSrvStatus (D:\git\asocial2-srv\src-fw\operation.ts:448:37)
+    at GetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:55:35)
+    at GetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:136:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:190:7)
+    at async GetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:156:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:225:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:9)
+2025-10-04T12:58:21.732Z info: 10 operations registered
+2025-10-04T12:58:21.735Z info: 8 document classes
+2025-10-04T12:58:21.736Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T12:58:21.736Z info: Firestore connector
+2025-10-04T12:58:21.737Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T12:58:21.737Z info: 10 App operations registered
+2025-10-04T12:58:21.748Z info: HTTP listen [8080]
+2025-10-04T12:58:26.455Z info: GetSrvStatus : 2025-10-04T12:58:26.453Z
+2025-10-04T12:58:26.469Z info: PRAGMA journal_mode = WAL
+2025-10-04T12:58:26.471Z info: BEGIN
+2025-10-04T12:58:26.472Z info: auths : 0 - 
+2025-10-04T12:58:26.473Z info: SELECT * FROM STATUS WHERE pk = '1'
+2025-10-04T12:58:26.474Z info: COMMIT
+2025-10-04T12:58:26.477Z info: GetSrvStatus finished
+2025-10-04T12:58:52.877Z info: SetSrvStatus : 2025-10-04T12:58:52.875Z
+2025-10-04T12:58:52.880Z info: PRAGMA journal_mode = WAL
+2025-10-04T12:58:52.881Z info: BEGIN
+2025-10-04T12:58:52.882Z info: auths : 1759582732877 - ADMIN
+2025-10-04T12:58:58.191Z info: ROLLBACK
+2025-10-04T12:58:58.205Z error: Op.run.phase2 - DB error - SQLITE_ERROR
+ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint
+SqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint
+    at Database.prepare (D:\git\asocial2-srv\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at AppSQLiteConnexion.setSrvStatus (D:\git\asocial2-srv\src-sqlite\index.ts:184:27)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:83:37)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:136:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:193:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:156:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:225:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:9)
+ROLLBACK
+BEGIN
+PRAGMA journal_mode = WAL
+2025-10-04T12:58:58.208Z info: AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\nSqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSrvStatus (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:184:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:83:37)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:136:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:193:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:156:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:225:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:119:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2025-10-04T12:59:26.317Z error: SetSrvStatus : 2025-10-04T12:58:52.875Z : AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\nSqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSrvStatus (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:184:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:83:37)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:136:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:193:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:156:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:225:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:119:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2025-10-04T12:59:26.319Z info: SetSrvStatus terminated on exception
+2025-10-04T13:02:11.200Z info: 10 operations registered
+2025-10-04T13:02:11.203Z info: 8 document classes
+2025-10-04T13:02:11.204Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-04T13:02:11.205Z info: Firestore connector
+2025-10-04T13:02:11.205Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-04T13:02:11.206Z info: 10 App operations registered
+2025-10-04T13:02:11.215Z info: HTTP listen [8080]
+2025-10-04T13:02:18.086Z info: SetSrvStatus : 2025-10-04T13:02:18.084Z
+2025-10-04T13:02:18.094Z info: PRAGMA journal_mode = WAL
+2025-10-04T13:02:18.096Z info: BEGIN
+2025-10-04T13:02:18.097Z info: auths : 1759582938065 - ADMIN
+2025-10-04T13:02:21.730Z info: ROLLBACK
+2025-10-04T13:02:21.743Z error: Op.run.phase2 - DB error - SQLITE_ERROR
+ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint
+SqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint
+    at Database.prepare (D:\git\asocial2-srv\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at AppSQLiteConnexion.setSrvStatus (D:\git\asocial2-srv\src-sqlite\index.ts:184:27)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:83:37)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:136:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:193:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:156:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:225:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:9)
+ROLLBACK
+BEGIN
+PRAGMA journal_mode = WAL
+2025-10-04T13:02:21.745Z info: AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\nSqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSrvStatus (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:184:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:83:37)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:136:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:193:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:156:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:225:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:119:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2025-10-04T13:02:55.032Z error: SetSrvStatus : 2025-10-04T13:02:18.084Z : AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\nSqliteError: ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSrvStatus (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:184:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:83:37)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:136:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:193:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:156:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:225:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:119:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2025-10-04T13:02:55.034Z info: SetSrvStatus terminated on exception

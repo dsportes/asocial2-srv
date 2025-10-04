@@ -578,11 +578,9 @@ export class Cache {
       let row : row
       const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
-        doc.decompile(this.op, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
         this.db.writeRow(updType.UPDATE, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
-        doc.decompile(this.op, dd.clazz)
         row = doc.toRow(this.op.now, this.db.key)
         this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL

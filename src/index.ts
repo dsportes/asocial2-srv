@@ -87,8 +87,8 @@ if (docTypeErrors.length) {
 Log.info(DocType.docTypes.size + ' document classes')
 
 config.databases = [
-  ['firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']),],
   ['sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']),],
+  ['firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']),],
 ]
 
 config.storages = [

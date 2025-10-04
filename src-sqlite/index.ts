@@ -3,13 +3,73 @@ import Database from 'better-sqlite3'
 
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, filter, expList, expListQ, row, rowQ, updType, pkv } from '../src-fw/iDbGeneric'
+import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType, pkv } from '../src-fw/iDbGeneric'
+import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
+import { Crypt } from '../src-fw/crypt'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
+
+const schemaPath = './sqlite/schema.sql'
+const schemaPathd = './sqlite/delete.sql'
+
+const t1 = `CREATE TABLE IF NOT EXISTS "STATUS" (
+  "pk" TEXT,
+  "at" INTEGER,
+  "st" INTEGER,
+  "txt"	TEXT,
+PRIMARY KEY("pk"));
+`
+
+const t3 = `\t"data" BLOB,
+PRIMARY KEY("org, pk"));` 
+
+function t2 (cl: string) {
+  const x = `CREATE TABLE IF NOT EXISTS "${cl}" (
+  "org" TEXT,
+  "pk" TEXT,
+  "v" INTEGER,
+  "ttl" INTEGER,` 
+  return x
+}
+
+function t4 (prop: string, type: string) {
+  const x = `\t"${prop}" ${type},` 
+  return x
+}
+
+function t5 (cl: string, n: string) {
+  const x = `CREATE INDEX IF NOT EXISTS "${cl}_${n}" ON "${cl}" ( "${n}" );` 
+  return x
+}
+
+function t5w (cl: string, n: string) {
+  const x = `CREATE INDEX IF NOT EXISTS "${cl}_${n}" ON "${cl}" ( "${n}" ) WHERE "${n}" > 0;` 
+  return x
+}
+
+function t6 (cl: string, n: string) {
+  const x = `
+CREATE TABLE IF NOT EXISTS "${cl}@${n}" (
+  "org" TEXT,
+  "pk" TEXT,
+  "v" INTEGER,
+  "col" INTEGER,
+  "ttl" INTEGER,
+PRIMARY KEY("org, pk"));
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_org" ON "${cl}" ( "org" );
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_v" ON "${cl}" ( "v" );
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_col" ON "${cl}" ( "col" );
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_ttl" ON "${cl}" ( "ttl" )  WHERE "ttl" > 0;
+`
+  return x
+}
+
+const sqlTypes = [ 'TEXT', 'INTEGER', 'REAL', 'TEXT', 'TEXT' ]
 
 export class SQLiteConnector extends DbConnector {
   public path: string
@@ -27,6 +87,40 @@ export class SQLiteConnector extends DbConnector {
   }
 
   static async genSchema () {
+    const l = []
+    l.push(t1)
+    for (const [,dt] of DocType.docTypes) {
+      l.push('')
+      const cl = dt.name.toUpperCase()
+
+      l.push(t2(cl))
+      if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t4(n, 'TEXT'))
+      if (dt.hasIndexes) for (const [n, x] of dt.indexes) l.push(t4(n, sqlTypes[x.type]))
+      l.push(t3)
+      l.push(t5(cl, 'org'))
+      l.push(t5(cl, 'v'))
+      l.push(t5w(cl, 'ttl'))
+      if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t5(cl, n))
+      if (dt.hasIndexes) for (const [n, x] of dt.indexes) l.push(t5(cl, n))
+
+      if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t6(cl, n))
+    }
+    const t = l.join('\n')
+    writeFileSync(path.resolve(schemaPath), Buffer.from(t, 'utf8'))
+    console.log(schemaPath + ' written') 
+
+    l.length = 0
+    for (const [,dt] of DocType.docTypes) {
+      l.push('')
+      const cl = dt.name.toUpperCase()
+      l.push('DELETE FROM ' + cl + ';')
+      if (dt.hasColls) for (const [n, x] of dt.colls) 
+        l.push('DELETE FROM ' + cl + '@' + n + ';')
+    }
+    const td = l.join('\n')
+    writeFileSync(path.resolve(schemaPathd), Buffer.from(td, 'utf8'))
+    console.log(schemaPathd + ' written') 
+
   }
 }
 
@@ -35,16 +129,27 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
 
+  static dbCols = new Map<string, string[]>()
   public path: string
   public lastSql: string[]
-  public cachestmt: Object
   public sql: any
   
+  columns (clazz: string) : string[] {
+    let x = SQLiteConnexion.dbCols.get(clazz)
+    if (!x) {
+      const x = ['org', 'v', 'pk', 'ttl', 'data']
+      const dt = DocType.get(clazz)
+      if (dt.hasColls) for (const [n, ] of dt.colls) x.push(n)
+      if (dt.hasIndexes) for (const [n, ] of dt.indexes) x.push(n)
+      SQLiteConnexion.dbCols.set(clazz, x)
+    }
+    return x
+  }
+
   constructor (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
     super(connector, op, cryptKey)
     this.path = connector.path
     this.lastSql = []
-    this.cachestmt = { }
     this.transaction = null
   }
 
@@ -81,11 +186,21 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
-  async getSrvStatus () :  Promise<[number, number, string]> {
-    return [0, 0, '']
+  async getSrvStatus () :  Promise<srvStatus> {
+    const stmt = this.sql.prepare('SELECT * FROM STATUS WHERE pk = \'1\'')
+    const res = stmt.get()
+    if (res) {
+      res.now = this.op.now
+      return res
+    }
+    return { now: this.op.now, st: 0, at: 0, txt: '(none)' }
   }
 
-  async setSrvStatus (st: number, at: number, txt: string) :  Promise<void> {}
+  async setSrvStatus (st: number, txt: string) :  Promise<srvStatus> {
+    const stmt = this.sql.prepare('INSERT INTO STATUS (st, at, txt, pk) VALUES (@st, @at, @txt, \'1\') ON CONFLICT (pk) DO UPDATE SET st = excluded.st, at = excluded.at, txt = excluded.txt')
+    stmt.run({ st, at: this.op.now, txt })
+    return { now: this.op.now, st, at: this.op.now, txt }
+  }
   
   async doTransaction () : Promise<[number, string]> {
     try {
@@ -104,93 +219,112 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async commit () : Promise<void> {}
 
-  _stmt (code: string, sql: string) {
-    let s = this.cachestmt[code]
-    if (!s) {
-      if (!sql) return null
-      s = this.sql.prepare(sql)
-      this.cachestmt[code] = s
+  /* Transforme un row DB en row APP et le retourne:
+  - SAUF si son ttl dépassé
+  - decrypte row.data
+  */
+  rowToAPP (row: row, nodecrypt?: boolean) : row | null{
+    if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
+    return row
+  }
+
+  /* Transforme un row APP en row DB
+  - calcul du TTL éventuel selon deleted et maxLife / now
+  - crypt data, sauf si nocrypt
+  Retourne le row
+  */
+  rowToDB (row: row, nocrypt?: boolean) : row {
+    if (row.deleted) row.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
+    else if (row.maxLife && (row.maxLife > this.op.now))
+      row.ttl = row.maxLife
+    delete row.deleted
+    delete row.maxLife
+    if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
+    return row
+  }
+
+  async exportRows (clazz: string, mark: string, limit: number) : Promise<expList> {
+    const org = this.op.org
+    let n = 0
+    let lastMark = ''
+    const rows: row[] = []
+    const ttl = Math.floor(this.op.now / 60000)
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
+     ' WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
+    const docs = stmt.all({ org, mark, ttl, limit }) as row[]
+    for (let doc of docs) {
+      n++
+      lastMark = doc.pk
+      const row = this.rowToAPP(doc as row, true)
+      if (row) rows.push(row)
     }
-    return s
+    return { rows, eox: n < limit, lastMark} 
   }
 
-  async exportRows (org: string, clazz: string, mark: string, limit: number) : Promise<expList> {
-    return null
+  /* Purge limit documents - Retourne true si la limite n'a pas été atteinte (fini)
+  En SQL la purge est sans limite.
+  */
+  async purgeRows (clazz: string, limit: number) : Promise<boolean> {
+    const org = this.op.org
+    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + ' WHERE org = @org;')
+    stmt.run({ org })
+    return false
   }
 
-  async purgeRows (org: string, clazz: string, limit: number) : Promise<boolean> {
-    return true
+  async importRows (clazz: string, rows: row[]) : Promise<void> {
+    const cols = this.columns(clazz)
+    const lx = []; cols.forEach(c => { lx.push('@' + c)})
+    const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
+      ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
+    for(const row of rows) {
+      const r = this.rowToDB(row, true)
+      const obj = { org: this.op.org }
+      if (r.ttl) obj['ttl'] = r.ttl
+      cols.forEach(c => { obj[c] = r[c] })
+      stmt.run(obj)
+    }
   }
 
-  async importRows (org: string, clazz: string, rows: row[]) : Promise<void> {
-  }
-
-  async exportRowsQ (org: string, clazz: string, colName: string, mark: string, limit: number) 
+  async exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ> { 
       return null
   }
 
-  async purgeRowsQ (org: string, clazz: string, colName: string, limit: number) : Promise<boolean> {
+  async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
     return true
   }
 
-  async importRowsQ (org: string, clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
+  async importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
   }
 
-  async writeRow (ut: updType, org: string, clazz: string, row: row) : Promise<void> {
+  async writeRow (ut: updType, clazz: string, row: row) : Promise<void> {
   }
 
-  async deleteRow (org: string, clazz: string, pk: string) : Promise<void> {
+  async deleteRow (clazz: string, pk: string) : Promise<void> {
   }
 
-  async writeRowQ (org: string, clazz: string, colName: string, row: rowQ) : Promise<void> {
+  async writeRowQ (clazz: string, colName: string, row: rowQ) : Promise<void> {
   }
 
-  async allRows (org: string, clazz: string, v: number) : Promise<Object[]> {
+  async allRows (clazz: string, v: number) : Promise<Object[]> {
     return null
   }
 
-  async oneRow (org: string, clazz: string, pk: string, v: number) : Promise<row | null> {
+  async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
     return null
   }
 
-  async getColl(org: string, clazz: string, 
+  async getColl(clazz: string, 
     colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
     return null
   }
 
-  async selectDocs(org: string, clazz: string, colName: string, filter: filter, col: any, 
+  async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
   }
 
   async selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function)  : Promise<void> {
   }
-
-  /*
-  async getDoc (pattern: DocPattern, v?: number) : Promise<Uint8Array> { return null }
-  async insertDoc (row: Object) {}
-  async updateDoc (row: Object) {}
-  async listDocs (pattern: DocPattern, v?: number, fn? : Function) { return [] }
-  async listDocsSk (pattern: DocPattern, ik: number, v?: number, fn? : Function) { return [] }
-  async listDocsIdx (pattern: DocPattern, ix: number, comp: filter, v?: number, fn? : Function) { return [] }
-  async getHdr (v? : number) { return null }
-  async insertHdr (row: Object) {}
-  async updateHdr (row: Object) {}
-  async getOrg (org: string, v?: number) { return null }
-  async insertOrg (row: Object) {}
-  async updateOrg (row: Object) {}
-  async listOrgs (v?: number, fn? : Function) { return [] }  
-  async listOrgsIdx (ix: number, comp: filter, val: any, v?: number, fn? : Function) { return []}
-  async purgeAllDocs (pattern: DocPattern) {}
-  async purgeOrg (org: string, z?: number) {}
-  async purgeOrgs (org: string, z: number) {}
-  async purgeDlvDocs (pattern: DocPattern, ix, comp: filter) {}
-  async setFTP (org: string, path: string, dp: number) {}
-  async purgeFTP (org: string, path: string) {}
-  async listFTP (dp : number, fn: Function) {}
-  async purgeAllFTP (dp : number) {}
-  async nextTask (time: string) { return null }
-*/
 
 }
