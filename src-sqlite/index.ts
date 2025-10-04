@@ -272,26 +272,81 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async importRows (clazz: string, rows: row[]) : Promise<void> {
+    for(const row of rows) await this.insRow(clazz, row)
+  }
+
+  async insRow (clazz: string, row: row) : Promise<void> {
     const cols = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
-    for(const row of rows) {
-      const r = this.rowToDB(row, true)
-      const obj = { org: this.op.org }
-      if (r.ttl) obj['ttl'] = r.ttl
-      cols.forEach(c => { obj[c] = r[c] })
-      stmt.run(obj)
-    }
+    const r = this.rowToDB(row, true)
+    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    cols.forEach(c => { obj[c] = r[c] })
+    stmt.run(obj)
+  }
+
+  async updRow (clazz: string, row: row) : Promise<void> {
+    const cols = this.columns(clazz)
+    const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
+    const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
+      lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
+    const r = this.rowToDB(row, true)
+    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    cols.forEach(c => { obj[c] = r[c] })
+    stmt.run(obj)
+  }
+
+  async setRow (clazz: string, row: row) : Promise<void> {
+    const cols = this.columns(clazz)
+    const lx = []; cols.forEach(c => { lx.push('@' + c)})
+    const ly = []; cols.forEach(c => { 
+      if (c !== 'pk' && c !== 'org')
+      ly.push(c + ' = excluded.' + c)
+    })
+    const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
+      ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
+      ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
+    const r = this.rowToDB(row, true)
+    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    cols.forEach(c => { obj[c] = r[c] })
+    stmt.run(obj)
+  }
+
+  async delRow (clazz: string, row: row) : Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + 
+    ' WHERE org = @org AND pk = @pk;')
+    const r = this.rowToDB(row, true)
+    const obj = { org: this.op.org, pk: row.pk }
+    stmt.run(obj)
   }
 
   async exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ> { 
-      return null
+    const org = this.op.org
+    let n = 0
+    let lastMark = ''
+    const rows: rowQ[] = []
+    const ttl = Math.floor(this.op.now / 60000)
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() + '@' + colName +
+     ' WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
+    const docs = stmt.all({ org, mark, ttl, limit }) as row[]
+    for (let doc of docs) {
+      n++
+      lastMark = doc.pk
+      const v = doc.get('v')
+        const col = doc.get('col')
+        const pk = doc.id.substring(0, doc.id.indexOf('@'))
+        rows.push({ pk: doc.pk, col: doc.col, v: v.col })
+    }
+    return { rows, eox: n < limit, lastMark} 
   }
 
   async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
-    return true
+    const org = this.op.org
+    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + '@' + colName + ' WHERE org = @org;')
+    stmt.run({ org })
+    return false
   }
 
   async importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
