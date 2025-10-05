@@ -255,7 +255,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const rows: row[] = []
     const cr = this.colRef(clazz)
     const fp = FieldPath.documentId()
-    const q: Query = cr.where(fp, '>', mark).orderBy(fp).limit(limit)
+    const q: Query = cr.where(fp, '>', mark || '1').orderBy(fp).limit(limit)
     const qs: QuerySnapshot = await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
       n++
@@ -306,7 +306,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const rows: rowQ[] = []
     const cq = this.colRefQ(clazz, colName)
     const fp = FieldPath.documentId()
-    const q: Query = cq.where(fp, '>', mark).orderBy(fp).limit(limit)
+    const q: Query = cq.where(fp, '>', mark || '1').orderBy(fp).limit(limit)
 
     const qs: QuerySnapshot = await q.get()
     if (!qs.empty) for (let doc of qs.docs) {

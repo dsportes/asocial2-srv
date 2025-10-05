@@ -16,7 +16,7 @@ export interface BaseConfig {
   BUILD: string // 'v1.0'
   API: number // 1
   APIVERSIONS: number[] // [1, 1]
-  debugLevel: number // 0: aucun, 1: standard: 2: élevé
+  debugLevel: number // 0: aucun, 1: standard: 2: élevé 3: détail DB
   adminAlerts: boolean // false: simulation true: envoi de mail
 
   logsPath: string // './logs'

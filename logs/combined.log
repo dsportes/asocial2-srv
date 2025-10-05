@@ -2565,3 +2565,124 @@ PRAGMA journal_mode = WAL
 2025-10-04T13:06:36.721Z info: INSERT INTO STATUS (st, at, txt, pk) VALUES (2.0, 1759583192474.0, 'info 2', '1') ON CONFLICT (pk) DO UPDATE SET st = excluded.st, at = excluded.at, txt = excluded.txt
 2025-10-04T13:06:38.038Z info: COMMIT
 2025-10-04T13:06:38.040Z info: SetSrvStatus finished
+2025-10-05T12:40:19.406Z info: 10 operations registered
+2025-10-05T12:40:19.409Z info: 8 document classes
+2025-10-05T12:40:19.409Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T12:40:19.410Z info: Firestore connector
+2025-10-05T12:40:19.410Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T12:40:19.411Z info: 10 App operations registered
+2025-10-05T12:46:31.772Z info: 10 operations registered
+2025-10-05T12:46:31.775Z info: 8 document classes
+2025-10-05T12:46:31.776Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T12:46:31.777Z info: Firestore connector
+2025-10-05T12:46:31.777Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T12:46:31.778Z info: 10 App operations registered
+2025-10-05T12:47:25.917Z info: 10 operations registered
+2025-10-05T12:47:25.920Z info: 8 document classes
+2025-10-05T12:47:25.920Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T12:47:25.921Z info: Firestore connector
+2025-10-05T12:47:25.922Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T12:47:25.922Z info: 10 App operations registered
+2025-10-05T15:54:49.105Z info: 10 operations registered
+2025-10-05T15:54:49.108Z info: 8 document classes
+2025-10-05T15:54:49.109Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T15:54:49.110Z info: Firestore connector
+2025-10-05T15:54:49.110Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T15:54:49.111Z info: 10 App operations registered
+2025-10-05T15:55:37.548Z info: 10 operations registered
+2025-10-05T15:55:37.552Z info: 8 document classes
+2025-10-05T15:55:37.553Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T15:55:37.553Z info: Firestore connector
+2025-10-05T15:55:37.554Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T15:55:37.555Z info: 10 App operations registered
+2025-10-05T15:57:13.020Z info: 10 operations registered
+2025-10-05T15:57:13.023Z info: 8 document classes
+2025-10-05T15:57:13.027Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T15:57:13.028Z info: Firestore connector
+2025-10-05T15:57:13.029Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T15:57:13.030Z info: 10 App operations registered
+2025-10-05T15:58:18.648Z info: 10 operations registered
+2025-10-05T15:58:18.651Z info: 8 document classes
+2025-10-05T15:58:18.651Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T15:58:18.652Z info: Firestore connector
+2025-10-05T15:58:18.652Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T15:58:18.653Z info: 10 App operations registered
+2025-10-05T16:00:33.596Z info: 10 operations registered
+2025-10-05T16:00:33.599Z info: 8 document classes
+2025-10-05T16:00:33.600Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:00:33.600Z info: Firestore connector
+2025-10-05T16:00:33.601Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:00:33.601Z info: 10 App operations registered
+2025-10-05T16:01:41.140Z info: 10 operations registered
+2025-10-05T16:01:41.143Z info: 8 document classes
+2025-10-05T16:01:41.144Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:01:41.144Z info: Firestore connector
+2025-10-05T16:01:41.145Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:01:41.146Z info: 10 App operations registered
+2025-10-05T16:02:28.995Z info: 10 operations registered
+2025-10-05T16:02:28.998Z info: 8 document classes
+2025-10-05T16:02:28.999Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:02:29.000Z info: Firestore connector
+2025-10-05T16:02:29.000Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:02:29.001Z info: 10 App operations registered
+2025-10-05T16:02:39.253Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:03:12.311Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:03:52.365Z info: 10 operations registered
+2025-10-05T16:03:52.368Z info: 8 document classes
+2025-10-05T16:03:52.369Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:03:52.369Z info: Firestore connector
+2025-10-05T16:03:52.370Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:03:52.371Z info: 10 App operations registered
+2025-10-05T16:04:00.570Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:04:00.572Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:04:22.993Z info: SELECT * FROM ORG WHERE org = 'demo' AND pk = '1';
+2025-10-05T16:08:02.288Z info: 10 operations registered
+2025-10-05T16:08:02.291Z info: 8 document classes
+2025-10-05T16:08:02.292Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:08:02.293Z info: Firestore connector
+2025-10-05T16:08:02.293Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:08:02.294Z info: 10 App operations registered
+2025-10-05T16:08:02.377Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:08:02.380Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:08:09.390Z info: SELECT * FROM ORG WHERE org = 'demo' AND pk = '1';
+2025-10-05T16:12:19.036Z info: 10 operations registered
+2025-10-05T16:12:19.039Z info: 8 document classes
+2025-10-05T16:12:19.040Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:12:19.040Z info: Firestore connector
+2025-10-05T16:12:19.041Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:12:19.041Z info: 10 App operations registered
+2025-10-05T16:12:19.125Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:12:19.129Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:12:24.259Z info: SELECT * FROM ORG WHERE org = 'demo' AND pk = '1';
+2025-10-05T16:17:08.428Z info: 10 operations registered
+2025-10-05T16:17:08.431Z info: 8 document classes
+2025-10-05T16:17:08.432Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:17:08.433Z info: Firestore connector
+2025-10-05T16:17:08.434Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:17:08.435Z info: 10 App operations registered
+2025-10-05T16:17:08.514Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:17:08.518Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:17:13.915Z info: SELECT * FROM ORG WHERE org = 'demo' AND pk = '1';
+2025-10-05T16:23:15.653Z info: 10 operations registered
+2025-10-05T16:23:15.657Z info: 8 document classes
+2025-10-05T16:23:15.657Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:23:15.658Z info: Firestore connector
+2025-10-05T16:23:15.658Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:23:15.659Z info: 10 App operations registered
+2025-10-05T16:23:23.395Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:23:28.113Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:24:01.818Z info: 10 operations registered
+2025-10-05T16:24:01.821Z info: 8 document classes
+2025-10-05T16:24:01.822Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:24:01.822Z info: Firestore connector
+2025-10-05T16:24:01.823Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:24:01.823Z info: 10 App operations registered
+2025-10-05T16:24:05.707Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:24:06.486Z info: PRAGMA journal_mode = WAL
+2025-10-05T16:24:18.024Z info: SELECT * FROM ORG WHERE org = 'demo' AND pk = '1';
+2025-10-05T16:27:19.482Z info: 10 operations registered
+2025-10-05T16:27:19.485Z info: 8 document classes
+2025-10-05T16:27:19.486Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-05T16:27:19.486Z info: Firestore connector
+2025-10-05T16:27:19.487Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-05T16:27:19.488Z info: 10 App operations registered

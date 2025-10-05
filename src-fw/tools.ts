@@ -12,26 +12,27 @@ import path from 'path'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { decode } from '@msgpack/msgpack'
 
+import { DbConnector } from './dbConnector'
+import { IDbGeneric } from './iDbGeneric'
 // import { SQLiteConnector } from '../src-sqlite'
 // import { FirestoreConnector } from '../src-firestore'
 
 /***************************************************************** */
 
+type eltCnx = {
+  name: string
+  dbc: DbConnector
+}
+
 export class Tools {
-  static prompt (q) {
-    return new Promise((resolve) => {
-      const opt = { input: stdin, output: stdout }
-      const readline = createInterface(opt)
-      readline.question(q, rep => {
-        readline.close()
-        resolve(rep)
-      })
-    })
-  }
 
   args: any
   tool: string
   simu: boolean
+  connectors: Map<string, eltCnx>
+  op: Operation
+  cnxIn: IDbGeneric
+  cnxOut: IDbGeneric
 
   constructor () {
     this.args = parseArgs({
@@ -46,7 +47,20 @@ export class Tools {
     this.simu = this.args.values.simulation
   }
 
+  log2 (l: string) { stdout.write('\r' + l.padEnd(40, ' ')) }
+
   log (l: string) { stdout.write(l + '\n') }
+
+  prompt (q: string) {
+    return new Promise((resolve) => {
+      const opt = { input: stdin, output: stdout }
+      const readline = createInterface(opt)
+      readline.question(q, rep => {
+        readline.close()
+        resolve(rep)
+      })
+    })
+  }
 
   async run () {
     try {
@@ -73,13 +87,16 @@ export class Tools {
           await this.schemaPG()
           break
         }
-        /*
         case 'export-db' : {
-          await this.setCfgDb('in')
-          await this.setCfgDb('out')
+          this.op = new Operation()
+          this.op.now = Date.now()
+          this.getDbs()
+          this.cnxIn = await this.setCfgDb('in')
+          this.cnxOut = await this.setCfgDb('out')
           await this.exportDb()
           break
         }
+        /*
         case 'export-st' : {
           await this.setCfgSt('in')
           await this.setCfgSt('out')
@@ -116,12 +133,107 @@ export class Tools {
     }
   }
 
+  getDbs() {
+    this.connectors = new Map<string, eltCnx>()
+    const names = []
+    for (const e of config.databases) {
+      names.push(e[0])
+      this.connectors.set(e[0], { name: e[0], dbc: e[1]})
+    }
+    console.log('Avalable providers: ' + names.join(' '))
+  }
+
+  async setCfgDb (io: string) {
+    let org: string
+    let site: string
+    let cryptKey: string
+    let eltCnx: eltCnx
+    
+    const arg = this.args.values[io]
+    if (!arg) throw 'Argument --' + io + ' non trouvé'
+    const x = arg.split(' ')
+
+    if (x.length !== 3)
+      throw 'Argument --' + io + ' : Syntax error. Expected: org1,sqlite_a,A + ( org,provider,site)'
+
+    org = x[0]
+    if (!org || org.length < 4)
+      throw 'Argument --' + io + ' : Expected: org,provider,site : org [' + org + ']: less than 4 chars'
+
+    site = x[2]
+    cryptKey = config.keys['sites'][site]
+    if (!cryptKey)
+      throw 'Argument --' + io + ' : Expected: org,provider,site . site [' + site + '] not declared'
+
+    eltCnx = this.connectors.get(x[1])
+    if (!eltCnx)
+      throw 'Argument --' + io + ' : Expected: org,provider,site : provider [' + x[1] + '] not declared'
+
+    const cnx = eltCnx.dbc.getConnexion(this.op, org, cryptKey)
+    console.log('DB' + io + ': ' + eltCnx.name + ' connected. org:' + org + ' site:' + site)
+    return cnx
+  }
+
+  async exportDb () {
+    const st = Date.now()
+    let nbr = 0
+    let nbrq = 0
+    const resp = await this.prompt('Export / Import DB\nValider (o/N) ?')
+    if (resp !== 'o' && resp !== 'O') throw 'Exécution interrompue.'
+
+    const rorg = await this.cnxIn.oneRow('Org', '1', 0)
+    if (rorg) {
+      await this.cnxOut.importRows('Org', [rorg])
+      this.log('Org OK.')
+    } else this.log('Org : not found.')
+
+    for(const [clazz, dt] of DocType.docTypes) {
+      if (clazz === 'Org') continue
+
+      this.log2('Class ' + clazz)
+      let mark = '1'
+      let n = 0
+      let fin = false
+      while (!fin) {
+        const {rows, eox, lastMark} = await this.cnxIn.exportRows(clazz, mark, 10)
+        if (rows.length) {
+          n += rows.length
+          if (!this.simu) await this.cnxOut.importRows(clazz, rows)
+        }
+        fin = eox
+        mark = lastMark
+        this.log2('Class ' + clazz + ' - exported rows:' + n)
+      }
+      this.log('')
+      nbr += n
+      if (dt.hasColls) for(const [colName, ] of dt.colls) {
+        this.log2('Class ' + clazz + '@' + colName)
+        let mark = '1'
+        let n = 0
+        let fin = false
+        while (!fin) {
+          const {rows, eox, lastMark} = await this.cnxIn.exportRowsQ(clazz, colName, mark, 10)
+          if (rows.length) {
+            n += rows.length
+            if (!this.simu) await this.cnxOut.importRowsQ(clazz, colName, rows)
+          }
+          fin = eox
+          mark = lastMark
+          this.log2('Class ' + clazz + '@' + colName + ' - exported rows:' + n)
+        }
+        nbrq += n
+      }
+    }
+    const t = Date.now() - st
+    this.log('\n============== Export / import completed in ' + t + 'ms - ' + nbr + ' rows - ' + nbrq + ' rowsQ')
+  }
+
   async srvStatus () : Promise<void> {
-    const op = new Operation()
-    op.opName = 'Fake'
-    await config.databases[0][1].getConnexion(op)
+    this.op = new Operation()
+    this.op.opName = 'Fake'
+    await config.databases[0][1].getConnexion(this.op)
     {
-      const {st, at, txt} = await op.db.getSrvStatus()
+      const {st, at, txt} = await this.op.db.getSrvStatus()
       const atS = at ? new Date(at).toISOString() : '?'
       Log.info('st:' + st + ' at:' + atS + ' info:' + txt)
     }

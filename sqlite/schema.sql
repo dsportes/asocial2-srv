@@ -3,50 +3,59 @@ CREATE TABLE IF NOT EXISTS "STATUS" (
   "at" INTEGER,
   "st" INTEGER,
   "txt"	TEXT,
-PRIMARY KEY("pk"));
+PRIMARY KEY(pk));
 
 
 CREATE TABLE IF NOT EXISTS "ORG" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "ORG_org" ON "ORG" ( "org" );
 CREATE INDEX IF NOT EXISTS "ORG_v" ON "ORG" ( "v" );
 CREATE INDEX IF NOT EXISTS "ORG_ttl" ON "ORG" ( "ttl" ) WHERE "ttl" > 0;
 
 CREATE TABLE IF NOT EXISTS "TASK" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"startTime" TEXT,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "TASK_org" ON "TASK" ( "org" );
 CREATE INDEX IF NOT EXISTS "TASK_v" ON "TASK" ( "v" );
 CREATE INDEX IF NOT EXISTS "TASK_ttl" ON "TASK" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "TASK_startTime" ON "TASK" ( "startTime" );
 
 CREATE TABLE IF NOT EXISTS "SUBS" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "SUBS_org" ON "SUBS" ( "org" );
 CREATE INDEX IF NOT EXISTS "SUBS_v" ON "SUBS" ( "v" );
 CREATE INDEX IF NOT EXISTS "SUBS_ttl" ON "SUBS" ( "ttl" ) WHERE "ttl" > 0;
 
 CREATE TABLE IF NOT EXISTS "SUBSITEM" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"def" TEXT,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "SUBSITEM_org" ON "SUBSITEM" ( "org" );
 CREATE INDEX IF NOT EXISTS "SUBSITEM_v" ON "SUBSITEM" ( "v" );
 CREATE INDEX IF NOT EXISTS "SUBSITEM_ttl" ON "SUBSITEM" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "SUBSITEM_def" ON "SUBSITEM" ( "def" );
 
 CREATE TABLE IF NOT EXISTS "ARTICLE" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
@@ -54,7 +63,8 @@ CREATE TABLE IF NOT EXISTS "ARTICLE" (
 	"auteurs" TEXT,
 	"volume" REAL,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "ARTICLE_org" ON "ARTICLE" ( "org" );
 CREATE INDEX IF NOT EXISTS "ARTICLE_v" ON "ARTICLE" ( "v" );
 CREATE INDEX IF NOT EXISTS "ARTICLE_ttl" ON "ARTICLE" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "ARTICLE_sujet" ON "ARTICLE" ( "sujet" );
@@ -62,69 +72,81 @@ CREATE INDEX IF NOT EXISTS "ARTICLE_auteurs" ON "ARTICLE" ( "auteurs" );
 CREATE INDEX IF NOT EXISTS "ARTICLE_volume" ON "ARTICLE" ( "volume" );
 
 CREATE TABLE IF NOT EXISTS "ARTICLE@sujet" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
-  "col" INTEGER,
+  "col" TEXT,
   "ttl" INTEGER,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "ARTICLE@sujet_org" ON "ARTICLE" ( "org" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@sujet_v" ON "ARTICLE" ( "v" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@sujet_col" ON "ARTICLE" ( "col" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@sujet_ttl" ON "ARTICLE" ( "ttl" )  WHERE "ttl" > 0;
 
 
 CREATE TABLE IF NOT EXISTS "ARTICLE@auteurs" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
-  "col" INTEGER,
+  "col" TEXT,
   "ttl" INTEGER,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "ARTICLE@auteurs_org" ON "ARTICLE" ( "org" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@auteurs_v" ON "ARTICLE" ( "v" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@auteurs_col" ON "ARTICLE" ( "col" );
 CREATE INDEX IF NOT EXISTS "ARTICLE@auteurs_ttl" ON "ARTICLE" ( "ttl" )  WHERE "ttl" > 0;
 
 
 CREATE TABLE IF NOT EXISTS "AUTEUR" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"nom" TEXT,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "AUTEUR_org" ON "AUTEUR" ( "org" );
 CREATE INDEX IF NOT EXISTS "AUTEUR_v" ON "AUTEUR" ( "v" );
 CREATE INDEX IF NOT EXISTS "AUTEUR_ttl" ON "AUTEUR" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "AUTEUR_nom" ON "AUTEUR" ( "nom" );
 
 CREATE TABLE IF NOT EXISTS "CHAT" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"participants" TEXT,
 	"time" INTEGER,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "CHAT_org" ON "CHAT" ( "org" );
 CREATE INDEX IF NOT EXISTS "CHAT_v" ON "CHAT" ( "v" );
 CREATE INDEX IF NOT EXISTS "CHAT_ttl" ON "CHAT" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "CHAT_participants" ON "CHAT" ( "participants" );
 CREATE INDEX IF NOT EXISTS "CHAT_time" ON "CHAT" ( "time" );
 
 CREATE TABLE IF NOT EXISTS "CHAT@participants" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
-  "col" INTEGER,
+  "col" TEXT,
   "ttl" INTEGER,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "CHAT@participants_org" ON "CHAT" ( "org" );
 CREATE INDEX IF NOT EXISTS "CHAT@participants_v" ON "CHAT" ( "v" );
 CREATE INDEX IF NOT EXISTS "CHAT@participants_col" ON "CHAT" ( "col" );
 CREATE INDEX IF NOT EXISTS "CHAT@participants_ttl" ON "CHAT" ( "ttl" )  WHERE "ttl" > 0;
 
 
 CREATE TABLE IF NOT EXISTS "SUJET" (
+  "org" TEXT,
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,
 	"titre" INTEGER,
 	"data" BLOB,
-PRIMARY KEY("pk"));
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "SUJET_org" ON "SUJET" ( "org" );
 CREATE INDEX IF NOT EXISTS "SUJET_v" ON "SUJET" ( "v" );
 CREATE INDEX IF NOT EXISTS "SUJET_ttl" ON "SUJET" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "SUJET_titre" ON "SUJET" ( "titre" );

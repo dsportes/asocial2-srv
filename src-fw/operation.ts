@@ -493,7 +493,7 @@ export class Cache {
     const k = 'Org/' + this.op.org
     let dd = this.docs.get(k)
     if (dd) return dd.doc
-    dd = await Cache.getRow(this.op, 'Org', { org: this.op.org }, 1)
+    dd = await Cache.getRow(this.op, 'Org', null, 1)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', this.op.org])
       return null

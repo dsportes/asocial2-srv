@@ -63,7 +63,7 @@ export class DocType {
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
   static getPk (clazz: string, src: Object, nohash?: boolean) : string {
-    if (!src) return '1'
+    if (clazz === 'Org') return '1'
     const dt = DocType.get(clazz)
     const x = []
     if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })

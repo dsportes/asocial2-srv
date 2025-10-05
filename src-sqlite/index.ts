@@ -22,11 +22,11 @@ const t1 = `CREATE TABLE IF NOT EXISTS "STATUS" (
   "at" INTEGER,
   "st" INTEGER,
   "txt"	TEXT,
-PRIMARY KEY("pk"));
+PRIMARY KEY(pk));
 `
 
 const t3 = `\t"data" BLOB,
-PRIMARY KEY("org, pk"));` 
+PRIMARY KEY(org, pk));` 
 
 function t2 (cl: string) {
   const x = `CREATE TABLE IF NOT EXISTS "${cl}" (
@@ -56,11 +56,11 @@ function t6 (cl: string, n: string) {
   const x = `
 CREATE TABLE IF NOT EXISTS "${cl}@${n}" (
   "org" TEXT,
-  "pk": TEXT,
+  "pk" TEXT,
   "v" INTEGER,
   "col" TEXT,
   "ttl" INTEGER,
-PRIMARY KEY("org, pk"));
+PRIMARY KEY(org, pk));
 CREATE INDEX IF NOT EXISTS "${cl}@${n}_org" ON "${cl}" ( "org" );
 CREATE INDEX IF NOT EXISTS "${cl}@${n}_v" ON "${cl}" ( "v" );
 CREATE INDEX IF NOT EXISTS "${cl}@${n}_col" ON "${cl}" ( "col" );
@@ -124,6 +124,8 @@ export class SQLiteConnector extends DbConnector {
   }
 }
 
+const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN1', 'IN2']
+
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   public static newConnexion (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
     return new SQLiteConnexion(connector, op, cryptKey)
@@ -167,7 +169,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const sqloptions = {
       // nativeBinding: require('better-sqlite3/build/Release/better_sqlite3.node'),
       verbose: (msg: string) => {
-        if (config.debugLevel === 2) Log.debug(msg)
+        if (config.debugLevel > 2) Log.debug(msg)
         this.lastSql.unshift(msg)
         if (this.lastSql.length > 3) this.lastSql.length = 3
       } 
@@ -258,14 +260,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async exportRows (clazz: string, mark: string, limit: number) : Promise<expList> {
-    const org = this.op.org
     let n = 0
     let lastMark = ''
+    if (!mark) mark = '1'
     const rows: row[] = []
     const ttl = Math.floor(this.op.now / 60000)
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
      ' WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
-    const docs = stmt.all({ org, mark, ttl, limit }) as row[]
+    const docs = stmt.all({ org: this.org, mark, ttl, limit }) as row[]
     for (let doc of docs) {
       n++
       lastMark = doc.pk
@@ -279,9 +281,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   En SQL la purge est sans limite.
   */
   async purgeRows (clazz: string, limit: number) : Promise<boolean> {
-    const org = this.op.org
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + ' WHERE org = @org;')
-    stmt.run({ org })
+    stmt.run({ org: this.org })
     return false
   }
 
@@ -295,7 +296,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
     const r = this.rowToDB(row, true)
-    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
   }
@@ -306,7 +307,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
       lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
     const r = this.rowToDB(row, true)
-    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
   }
@@ -321,7 +322,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
     const r = this.rowToDB(row, true)
-    const obj = { org: this.op.org, ttl: r.ttl || 0 }
+    const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
   }
@@ -330,20 +331,20 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + 
     ' WHERE org = @org AND pk = @pk;')
     const r = this.rowToDB(row, true)
-    const obj = { org: this.op.org, pk: row.pk }
+    const obj = { org: this.org, pk: row.pk }
     stmt.run(obj)
   }
 
   async exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ> { 
-    const org = this.op.org
     let n = 0
     let lastMark = ''
+    if (!mark) mark = '1'
     const rows: rowQ[] = []
     const ttl = Math.floor(this.op.now / 60000)
-    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() + '@' + colName +
-     ' WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
-    const docs = stmt.all({ org, mark, ttl, limit }) as rowQ[]
+    const stmt = this.sql.prepare('SELECT * FROM "' + clazz.toUpperCase() + '@' + colName +
+     '" WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
+    const docs = stmt.all({ org: this.org, mark, ttl, limit }) as rowQ[]
     for (let doc of docs) {
       n++
       lastMark = doc.pk
@@ -354,9 +355,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   /* En SQL on ignore limit : tous les rows sont purgés en un statement */
   async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
-    const org = this.op.org
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + '@' + colName + ' WHERE org = @org ;')
-    stmt.run({ org })
+    stmt.run({ org: this.org })
     return false
   }
 
@@ -376,16 +376,16 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async deleteRow (clazz: string, pk: string) : Promise<void> {
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() +
      ' WHERE org = @org AND pk = @pk;')
-    stmt.run({ org: this.op.org, pk })
+    stmt.run({ org: this.org, pk })
   }
 
   async writeRowQ (clazz: string, colName: string, row: rowQ) : Promise<void> {
-    const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + '@' + colName +
-      ' (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
+    const stmt = this.sql.prepare('INSERT INTO "' + clazz.toUpperCase() + '@' + colName +
+      '" (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
       'v = excluded.v, col = excluded.col, ttl = excluded.ttl;')
     const r = { ...row }
-    r['org'] = this.op.org
+    r['org'] = this.org
     r.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
     stmt.run(r)
   }
@@ -397,9 +397,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async allRows (clazz: string, v: number) : Promise<Object[]> {
     const rows: row[] = []
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
-      ' WHERE org = @org ' + 
-      (!v ? ';' : ' AND v > @v ;'))
-    const docs = stmt.all({org: this.op.org, v : v || 0})
+      ' WHERE org = @org ' + (!v ? ';' : ' AND v > @v ;'))
+    const docs = stmt.all({org: this.org, v : v || 0})
     for (let doc of docs) {
       const row = this.rowToAPP(doc as row)
       if (row && (v || !row.deleted)) rows.push(row)
@@ -409,24 +408,79 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
-      ' WHERE org = @org AND pk = @pk' + 
-      (!v ? ';' : ' AND v > @v ;'))
-    const doc = stmt.get({org: this.op.org, v : v || 0, pk })
+      ' WHERE org = @org AND pk = @pk' + (!v ? ';' : ' AND v > @v ;'))
+    const doc = stmt.get({org: this.org, v : v || 0, pk })
+    if (!doc) return null
     const row = this.rowToAPP(doc as row)
     return !row || (!v && row.deleted) ? null : row
   }
 
   async getColl(clazz: string, 
     colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
-    return null
+    const rows: row[] = []
+    const lpkv: pkv[] = []
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
+      + ' WHERE org = @org AND ' 
+      + (isList ? ('instr(' + colName + ', @col') : ('colName = @col') )
+      + (!v ? ';' : ' AND v > @v ;'))
+    const docs = stmt.all({org: this.org, v : v || 0, col })
+    for (let doc of docs) {
+      const row = this.rowToAPP(doc as row)
+      if (row && (v || !row.deleted)) rows.push(row)
+    }
+
+    if (v) {
+      const ttl = Math.round(this.op.now / 60000)
+      const stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
+        + ' WHERE org = @org AND colName = @col AND v > @v AND ttl > @ttl;')
+      const docs = stmt.all({org: this.org, v : v || 0, col, ttl })
+      for (let doc of docs) lpkv.push([doc.pk, doc.v])
+    }
+    return [rows, lpkv]
+  }
+
+  compOp (colName: string, filter: filter, col: any) {
+    const comp = opFilter[filter]
+    if (!comp.startsWith('IN')) return colName + ' ' + comp + ' @col'
+    const cols = col instanceof Array ? col : [col]
+    if (!cols.length) return ''
+    const x = []
+    for(const v of cols) x.push(' instr(' + colName + ', ' + v + ') > 0 ')
+    if (x.length )
+    return x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) '
+  }
+  
+  orderBy (order: string) {
+    if (!order) return ''
+    return order.startsWith('-') ? ' ORDER BY ' + order.substring(1) + ' DESC ' :
+      ' ORDER BY ' + order + ' ASC '
   }
 
   async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
+      + ' WHERE org = @org AND ' + this.compOp(colName, filter, col)
+      + this.orderBy(order)
+      + (limit ? ' LIMIT ' + limit : '') + ';')
+    const docs = stmt.all({org: this.org, col })
+    for (let doc of docs) {
+      const row = this.rowToAPP(doc as row)
+      fn(row)
+    }
   }
 
   async selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function)  : Promise<void> {
+    const comp = opFilter[filter]
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
+      + ' WHERE ' + this.compOp(colName, filter, col)
+      + this.orderBy(order)
+      + (limit ? ' LIMIT ' + limit : '') + ';')
+    const docs = stmt.all({org: this.org, col })
+    for (let doc of docs) {
+      const row = this.rowToAPP(doc as row)
+      fn(doc.org, row)
+    }
   }
 
 }
