@@ -212,11 +212,11 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Transforme un row DB en row APP et le retourne:
-  - SAUF si son ttl dépassé
+  - SAUF si son ttl existe et est dépassé
   - decrypte row.data
   */
   rowToAPP (row: row, nodecrypt?: boolean) : row | null{
-    if (row.ttl.seconds * 1000 < this.op.now) return null
+    if (row.ttl && (row.ttl.seconds * 1000 < this.op.now)) return null
     if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
@@ -225,6 +225,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return this.fs.doc('Org/' + this.org + (clazz === 'Org' ? '' : '/' + clazz + '/' + pk))
   }
 
+  /* Path: Org/demo/Article@auteurs/a5@Hugo
+  'Hugo' a quitté la propriété 'auteurs' du document 'a5' de classe 'Article'
+  */
   docRefQ (clazz: string, colName: string, pk: string, col: string) {
     return this.fs.doc('Org/' + this.org + '/' + clazz + '@' + colName + '/' + pk + '@' + col)
   }
@@ -313,6 +316,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
       if (ttl.seconds * 1000 > this.op.now) {
         const v = doc.get('v')
         const col = doc.get('col')
+        // pk : pk du document ayant quitté
         const pk = doc.id.substring(0, doc.id.indexOf('@'))
         rows.push({pk, col, v})
       }
@@ -342,7 +346,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
       const r : rowQ = { 
         col: row.col, 
         v: row.v,
-        ttl:  new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
+        ttl: new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
       }
       await dr.create(r)
     }
@@ -366,9 +370,11 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   partie de la collection clazz/col à partir de v.
   - clazz: classe du document - 'Article'
   - org: code l'organisation - 'demo'
-  - colName: nom de la propriété de sous-collection 
+  - colName: nom de la propriété de sous-collection - 'auteurs'
+  - pk: identifiant du document "quitté"
   - row APP: { v, col, pk }
   Path: Org/demo/Article@auteurs/a5@Hugo
+  Hugo a quitté la propriété auteurs du document a5 de classe Article 
   row DB: { v, col, ttl }
   */
   writeRowQ (clazz: string, colName: string, row: rowQ) : void {

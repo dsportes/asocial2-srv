@@ -56,9 +56,9 @@ function t6 (cl: string, n: string) {
   const x = `
 CREATE TABLE IF NOT EXISTS "${cl}@${n}" (
   "org" TEXT,
-  "pk" TEXT,
+  "pk": TEXT,
   "v" INTEGER,
-  "col" INTEGER,
+  "col" TEXT,
   "ttl" INTEGER,
 PRIMARY KEY("org, pk"));
 CREATE INDEX IF NOT EXISTS "${cl}@${n}_org" ON "${cl}" ( "org" );
@@ -129,21 +129,29 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
 
-  static dbCols = new Map<string, string[]>()
+  static dbCols = new Map<string, string[][]>()
   public path: string
   public lastSql: string[]
   public sql: any
   
-  columns (clazz: string) : string[] {
-    let x = SQLiteConnexion.dbCols.get(clazz)
-    if (!x) {
-      const x = ['org', 'v', 'pk', 'ttl', 'data']
+  columns (clazz: string) : string[][] {
+    let e = SQLiteConnexion.dbCols.get(clazz)
+    if (!e) {
+      const lc = ['org', 'v', 'pk', 'ttl', 'data']
+      const ll = []
       const dt = DocType.get(clazz)
-      if (dt.hasColls) for (const [n, ] of dt.colls) x.push(n)
-      if (dt.hasIndexes) for (const [n, ] of dt.indexes) x.push(n)
-      SQLiteConnexion.dbCols.set(clazz, x)
+      if (dt.hasColls) for (const [n, x] of dt.colls) {
+        lc.push(n)
+        if (x.list) ll.push(n)
+      }
+      if (dt.hasIndexes) for (const [n, x] of dt.indexes) {
+        lc.push(n)
+        if (x.type === propType.LIST) ll.push(n)
+      }
+      e = [lc, ll]
+      SQLiteConnexion.dbCols.set(clazz, e)
     }
-    return x
+    return e
   }
 
   constructor (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
@@ -220,10 +228,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async commit () : Promise<void> {}
 
   /* Transforme un row DB en row APP et le retourne:
-  - SAUF si son ttl dépassé
   - decrypte row.data
   */
   rowToAPP (row: row, nodecrypt?: boolean) : row | null{
+    if (row.ttl && (row.ttl.seconds * 1000 < this.op.now)) return null
     if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
@@ -231,14 +239,20 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   /* Transforme un row APP en row DB
   - calcul du TTL éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
+  - les propriétés "list" sont sérialisées '$a..$b...' pour recherche te texte
   Retourne le row
   */
   rowToDB (row: row, nocrypt?: boolean) : row {
+    const [, ll] = this.columns(row.clazz)
     if (row.deleted) row.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
     else if (row.maxLife && (row.maxLife > this.op.now))
       row.ttl = row.maxLife
     delete row.deleted
     delete row.maxLife
+    ll.forEach(p => {
+      const a = row[p]
+      row[p] = a && a.length ? ('$' + a.join('$')) : ''
+    })
     if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
     return row
   }
@@ -276,7 +290,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async insRow (clazz: string, row: row) : Promise<void> {
-    const cols = this.columns(clazz)
+    const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
@@ -287,7 +301,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async updRow (clazz: string, row: row) : Promise<void> {
-    const cols = this.columns(clazz)
+    const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
       lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
@@ -298,11 +312,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async setRow (clazz: string, row: row) : Promise<void> {
-    const cols = this.columns(clazz)
+    const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const ly = []; cols.forEach(c => { 
-      if (c !== 'pk' && c !== 'org')
-      ly.push(c + ' = excluded.' + c)
+      if (c !== 'pk' && c !== 'org') ly.push(c + ' = excluded.' + c)
     })
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
@@ -330,43 +343,77 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const ttl = Math.floor(this.op.now / 60000)
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() + '@' + colName +
      ' WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
-    const docs = stmt.all({ org, mark, ttl, limit }) as row[]
+    const docs = stmt.all({ org, mark, ttl, limit }) as rowQ[]
     for (let doc of docs) {
       n++
       lastMark = doc.pk
-      const v = doc.get('v')
-        const col = doc.get('col')
-        const pk = doc.id.substring(0, doc.id.indexOf('@'))
-        rows.push({ pk: doc.pk, col: doc.col, v: v.col })
+      rows.push({ pk: doc.pk, col: doc.col, v: doc.v })
     }
     return { rows, eox: n < limit, lastMark} 
   }
 
+  /* En SQL on ignore limit : tous les rows sont purgés en un statement */
   async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
     const org = this.op.org
-    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + '@' + colName + ' WHERE org = @org;')
+    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + '@' + colName + ' WHERE org = @org ;')
     stmt.run({ org })
     return false
   }
 
   async importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
+    for(const row of rows)
+      await this.writeRowQ (clazz, colName, row)
   }
 
   async writeRow (ut: updType, clazz: string, row: row) : Promise<void> {
+    switch (ut) {
+      case updType.CREATE : { this.insRow(clazz, row); return }
+      case updType.UPDATE : { this.updRow(clazz, row); return }
+      case updType.SET : { this.setRow(clazz, row); return }
+    }
   }
 
   async deleteRow (clazz: string, pk: string) : Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() +
+     ' WHERE org = @org AND pk = @pk;')
+    stmt.run({ org: this.op.org, pk })
   }
 
   async writeRowQ (clazz: string, colName: string, row: rowQ) : Promise<void> {
+    const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + '@' + colName +
+      ' (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
+      ' ON CONFLICT (org, pk) DO UPDATE SET ' +
+      'v = excluded.v, col = excluded.col, ttl = excluded.ttl;')
+    const r = { ...row }
+    r['org'] = this.op.org
+    r.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
+    stmt.run(r)
   }
 
+  /* Retourne tous les rows de la classe indiquée:
+  - si v = 0: tous ceux existant réellement à l'instant t.
+  - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
+  */
   async allRows (clazz: string, v: number) : Promise<Object[]> {
-    return null
+    const rows: row[] = []
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
+      ' WHERE org = @org ' + 
+      (!v ? ';' : ' AND v > @v ;'))
+    const docs = stmt.all({org: this.op.org, v : v || 0})
+    for (let doc of docs) {
+      const row = this.rowToAPP(doc as row)
+      if (row && (v || !row.deleted)) rows.push(row)
+    }
+    return rows
   }
 
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
-    return null
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
+      ' WHERE org = @org AND pk = @pk' + 
+      (!v ? ';' : ' AND v > @v ;'))
+    const doc = stmt.get({org: this.op.org, v : v || 0, pk })
+    const row = this.rowToAPP(doc as row)
+    return !row || (!v && row.deleted) ? null : row
   }
 
   async getColl(clazz: string, 
