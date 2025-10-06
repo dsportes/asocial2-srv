@@ -390,20 +390,21 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run(r)
   }
 
-  /* Retourne tous les rows de la classe indiquée:
+  /* Retourne les data sérialisés de tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
   */
-  async allRows (clazz: string, v: number) : Promise<Object[]> {
-    const rows: row[] = []
+  async allRowsData (clazz: string, v: number) : Promise<Uint8Array[]> {
+    const datas: Uint8Array[] = []
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
       ' WHERE org = @org ' + (!v ? ';' : ' AND v > @v ;'))
     const docs = stmt.all({org: this.org, v : v || 0})
     for (let doc of docs) {
       const row = this.rowToAPP(doc as row)
-      if (row && (v || !row.deleted)) rows.push(row)
+      if (row && (v || !row.deleted))
+        datas.push(row.data)
     }
-    return rows
+    return datas
   }
 
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
@@ -415,9 +416,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return !row || (!v && row.deleted) ? null : row
   }
 
-  async getColl(clazz: string, 
-    colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
-    const rows: row[] = []
+  async getColl(clazz: string, colName: string, col: string, isList: boolean, v: number) 
+    : Promise<[Uint8Array[], pkv[]]> {
+    const datas: Uint8Array[] = []
     const lpkv: pkv[] = []
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
       + ' WHERE org = @org AND ' 
@@ -426,7 +427,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const docs = stmt.all({org: this.org, v : v || 0, col })
     for (let doc of docs) {
       const row = this.rowToAPP(doc as row)
-      if (row && (v || !row.deleted)) rows.push(row)
+      if (row && (v || !row.deleted)) datas.push(row.data)
     }
 
     if (v) {
@@ -436,7 +437,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       const docs = stmt.all({org: this.org, v : v || 0, col, ttl })
       for (let doc of docs) lpkv.push([doc.pk, doc.v])
     }
-    return [rows, lpkv]
+    return [datas, lpkv]
   }
 
   compOp (colName: string, filter: filter, col: any) {

@@ -109,6 +109,7 @@ export class Operation {
   }
 
   init () {
+    this.org = this.args['org']
     this.result = { now: this.now, srvBUILD: config.BUILD }
     this.msSlow = 0
     if (config.debugLevel > 1) 
@@ -306,7 +307,8 @@ export class Operation {
 */
 export class AuthRecord {
   op: Operation
-  devAppToken: string // token identifiant l'exécution de l'application
+  sessionId: string
+  // devAppToken: string // token identifiant l'exécution de l'application
   time: number // date-heure du authRecord dans l'application
   tokens: Object[] // liste des tokens
 
@@ -315,8 +317,9 @@ export class AuthRecord {
     this.op.authRecord = this
     const ar = op.args['authRecord']
     if (ar) {
-      this.devAppToken = ar.devAppToken || ''
+      // this.devAppToken = ar.devAppToken || ''
       this.op.sessionId = ar.sessionId
+      this.sessionId = ar.sessionId
       this.time = ar.time
       this.tokens = ar.tokens
     }

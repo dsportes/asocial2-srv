@@ -386,20 +386,21 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     this.setUpd(updType.SET, this.docRefQ(clazz, colName, row.pk || '', row.col), r)
   }
 
-  /* Retourne tous les rows de la classe indiquée:
+  /* Retourne les data sérialisés de tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
   */
-  async allRows (clazz: string, v: number) : Promise<Object[]>{
-    const rows: row[] = []
+  async allRowsData (clazz: string, v: number) : Promise<Uint8Array[]>{
+    const datas: Uint8Array[] = []
     const cr = this.colRef(clazz)
     const q: Query = !v ? cr : cr.where('v', '>', v)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
       const row = this.rowToAPP(doc.data() as row)
-      if (row && (v || !row.deleted)) rows.push(row)
+      if (row && (v || !row.deleted)) 
+        datas.push(row.data)
     }
-    return rows
+    return datas
   }
 
   /* Retourne le row de classe fixée ayant la pk fixée:
@@ -437,10 +438,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   isList: true si la propriété 'auteurs' est une liste.
   */
-  async getColl(clazz: string, 
-    colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]> {
+  async getColl(clazz: string, colName: string, col: string, isList: boolean, v: number) 
+    : Promise<[Uint8Array[], pkv[]]> {
     
-    const rows: row[] = []
+    const datas: Uint8Array[] = []
     const lpkv: pkv[] = []
     const crd = this.colRef(clazz)
     const crq = this.colRefQ(clazz, colName)
@@ -455,7 +456,8 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
       const row = this.rowToAPP(doc.data() as row)
-      if (row && (v || !row.deleted)) rows.push(row)
+      if (row && (v || !row.deleted)) 
+        datas.push(row.data)
     }
 
     if (v) {
@@ -470,7 +472,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
         }
       }
     }
-    return [rows, lpkv]
+    return [datas, lpkv]
   }
 
   /* Sélectionne les documents et les transmet à la fonction de traitement

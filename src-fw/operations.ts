@@ -1,3 +1,4 @@
+import { encode, decode } from '@msgpack/msgpack'
 import { Operation, Cache } from './operation'
 import { AppExc } from './index'
 import { Util } from './util'
@@ -6,6 +7,7 @@ import { Crypt } from './crypt'
 import { config } from './config'
 import { Subs, subscription, SubsItem } from './documents'
 import { DocStatus } from './document'
+import { DocType } from './doctypes'
 
 export function register () {
   return Operation.nbOf()
@@ -179,7 +181,7 @@ Les items déjà existants sont réinscrits si leur maxLife est trop courte
 class UpdateSubscription extends Operation {
   constructor () { super() }
 
-  _subs :  subscription
+  _subs : subscription
   _life: number
   _lifeMin: number
 
@@ -292,3 +294,70 @@ class AdjustSubscription extends Operation {
 
 }
 Operation.register('AdjustSubscription', () => { return new AdjustSubscription()})
+
+/* Sync : synchronise les abonnements cités *************************
+- defs: { def1: t1, def2: t2 ... }
+Retourne pour chaque 'def' les documents/rowQ nouveaux depuis t.
+Si t est 0, retourne les documents sans filtre de version.
+Retour: { def0: [data], def1: data, def2: [data[], pkv] ... }
+- data: Uint8Array
+- pkv: object donnant pour chaque pk sa version la plus récente ayant quiité la collection
+*/
+class Sync extends Operation {
+  constructor () { super() }
+
+  _defs : Object
+
+  init () {
+    super.init()
+    this._defs = this.objectValue('defs', true)
+  }
+
+  async phase2 () {
+    for (const def in this._defs) {
+      const v = this._defs[def]
+      const item = def.split('/')
+      // 0: subs classe 1: subs document 2:subs coll
+      const type = item.length - 1
+      switch (type) {
+        case 0 : { await this.sync0(def, v, item[0]); break }
+        case 1 : { await this.sync1(def, v, item[0], item[1]); break }
+        case 0 : { await this.sync2(def, v, item[0], item[1], item[2]); break }
+      }
+    }
+  }
+
+  async sync0 (def: string, v: number, clazz: string) : Promise<void> {
+    const datas = await this.db.allRowsData(clazz, v)
+    this.addRes(def, datas)
+  }
+
+  async sync1 (def: string, v: number, clazz: string, pk: string) : Promise<void> {
+    const row = await this.db.oneRow(clazz, pk, v)
+    this.addRes(def, row ? row.data : null)
+  }
+
+  async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
+    const dt = DocType.get(clazz)
+    if (!dt || !dt.hasColls) {
+      this.addRes(def, {})
+      return
+    }
+    const x = dt.colls.get(colName)
+    if (!x) {
+      this.addRes(def, {})
+      return
+    }
+    const [datas, lpkv] = await this.db.getColl(clazz, colName, col, x.list, v)
+    const pkv = {} // version la plus récente pour chaque pk
+    for(const [pk, v] of lpkv) {
+      const vx = pkv[pk]
+      if (vx === undefined || v > vx) pkv[pk] = v
+    }
+    this.addRes(def, [datas, pkv])
+  }
+
+  phase3 : null
+
+}
+Operation.register('Sync', () => { return new Sync()})

@@ -142,7 +142,7 @@ export interface IDbGeneric {
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou supprimés postérieueremt à v.
   */
-  allRows (clazz: string, v: number) : Promise<Object[]>
+  allRowsData (clazz: string, v: number) : Promise<Uint8Array[]>
 
   /* Retourne le row de classe fixée ayant la pk fixée:
   - si v absent: ne retourne pas le row s'il est supprimé
@@ -173,7 +173,7 @@ export interface IDbGeneric {
   isList: true si la propriété 'auteurs' est une liste.
   */
   getColl(clazz: string, 
-    colName: string, col: string, isList: boolean, v: number) : Promise<[row[], pkv[]]>
+    colName: string, col: string, isList: boolean, v: number) : Promise<[Uint8Array[], pkv[]]>
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.
