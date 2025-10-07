@@ -13,8 +13,8 @@ export function register () {
   return Operation.nbOf()
 }
 
-// EchoTexte retourne le texte passé en argument (un peu modifié)
-class EchoTexte extends Operation {
+// EchoText retourne le texte passé en argument (un peu modifié)
+class EchoText extends Operation {
   constructor () { super() }
 
   _text: string
@@ -33,7 +33,7 @@ class EchoTexte extends Operation {
   }
 
 }
-Operation.register('EchoTexte', () => { return new EchoTexte()})
+Operation.register('EchoText', () => { return new EchoText()})
 
 // Test d'une phase 2 limitée à setAuths() *************************************
 class TestAuth extends Operation {

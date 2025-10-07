@@ -292,8 +292,8 @@ export async function adminAlert (
   2000: erreurs fonctionnelles APP
   3000: asserions FW
   4000: asserions APP
-  8000: asserions FW - transmises à l'administrateur
-  9000: asserions APP - transmises à l'administrateur
+  5000: asserions FW - transmises à l'administrateur
+  6000: asserions APP - transmises à l'administrateur
 */
 
 export class AppExc {
@@ -315,7 +315,7 @@ export class AppExc {
     this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
     if (code > 3000) Log.error(this.message)
     else { if (config.debugLevel > 0) Log.debug(this.toString()) }
-    if (code > 8000)
+    if (code > 5000)
       adminAlert(op, this.message, this.stack)
   }
 

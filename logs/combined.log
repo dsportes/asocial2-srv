@@ -2686,3 +2686,225 @@ PRAGMA journal_mode = WAL
 2025-10-05T16:27:19.486Z info: Firestore connector
 2025-10-05T16:27:19.487Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2025-10-05T16:27:19.488Z info: 10 App operations registered
+2025-10-07T09:47:59.417Z info: 11 operations registered
+2025-10-07T09:47:59.421Z info: 8 document classes
+2025-10-07T09:47:59.423Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-07T09:47:59.423Z info: Firestore connector
+2025-10-07T09:47:59.424Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-07T09:47:59.425Z info: 11 App operations registered
+2025-10-07T09:47:59.434Z info: HTTP listen [8080]
+2025-10-07T09:49:21.677Z info: AppExc: 1002:unknown operation["Echo"]
+2025-10-07T09:49:21.679Z info: Echo terminated on exception
+2025-10-07T09:51:04.592Z info: 11 operations registered
+2025-10-07T09:51:04.595Z info: 8 document classes
+2025-10-07T09:51:04.596Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-07T09:51:04.597Z info: Firestore connector
+2025-10-07T09:51:04.597Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-07T09:51:04.598Z info: 11 App operations registered
+2025-10-07T09:51:04.611Z info: HTTP listen [8080]
+2025-10-07T09:57:52.869Z info: EchoText : 2025-10-07T09:57:47.552Z
+2025-10-07T09:57:52.872Z info: EchoText finished
+2025-10-07T09:58:59.392Z info: GetSrvStatus : 2025-10-07T09:58:59.392Z
+2025-10-07T09:58:59.558Z info: auths : 0 - 
+2025-10-07T09:58:59.560Z info: GetSrvStatus finished
+2025-10-07T10:02:11.696Z info: GetSrvStatus : 2025-10-07T10:02:11.695Z
+2025-10-07T10:02:11.705Z info: auths : 0 - 
+2025-10-07T10:03:48.087Z info: GetSrvStatus finished
+2025-10-07T10:07:17.802Z info: GetSrvStatus : 2025-10-07T10:07:17.802Z
+2025-10-07T10:07:17.807Z info: auths : 0 - 
+2025-10-07T10:07:17.810Z info: GetSrvStatus finished
+2025-10-07T10:10:10.676Z info: SetSrvStatus : 2025-10-07T10:10:10.675Z
+2025-10-07T10:10:10.680Z info: auths : 1759831805137 - ADMIN
+2025-10-07T10:10:10.690Z info: SetSrvStatus finished
+2025-10-07T10:10:18.296Z info: GetSrvStatus : 2025-10-07T10:10:18.296Z
+2025-10-07T10:10:18.300Z info: auths : 0 - 
+2025-10-07T10:10:18.303Z info: GetSrvStatus finished
+2025-10-07T10:10:21.188Z info: GetSrvStatus : 2025-10-07T10:10:21.188Z
+2025-10-07T10:10:21.192Z info: auths : 0 - 
+2025-10-07T10:10:21.194Z info: GetSrvStatus finished
+2025-10-07T10:10:22.386Z info: GetSrvStatus : 2025-10-07T10:10:22.386Z
+2025-10-07T10:10:22.391Z info: auths : 0 - 
+2025-10-07T10:10:22.394Z info: GetSrvStatus finished
+2025-10-07T10:10:30.351Z info: SetSrvStatus : 2025-10-07T10:10:30.350Z
+2025-10-07T10:10:30.356Z info: auths : 1759831824143 - ADMIN
+2025-10-07T10:10:30.364Z info: SetSrvStatus finished
+2025-10-07T10:10:43.173Z info: SetSrvStatus : 2025-10-07T10:10:43.173Z
+2025-10-07T10:10:43.178Z info: auths : 1759831843166 - ADMIN
+2025-10-07T10:10:43.185Z info: SetSrvStatus finished
+2025-10-07T14:59:08.748Z info: 11 operations registered
+2025-10-07T14:59:08.753Z info: 8 document classes
+2025-10-07T14:59:08.755Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-07T14:59:08.756Z info: Firestore connector
+2025-10-07T14:59:08.757Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-07T14:59:08.758Z info: 11 App operations registered
+2025-10-07T14:59:08.777Z info: HTTP listen [8080]
+2025-10-07T15:11:54.414Z info: EchoText : 2025-10-07T15:11:54.411Z
+2025-10-07T15:11:54.417Z info: EchoText terminated on exception
+2025-10-07T15:11:54.425Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:13:11.132Z info: EchoText : 2025-10-07T15:13:11.130Z
+2025-10-07T15:13:17.388Z info: EchoText terminated on exception
+2025-10-07T15:13:26.588Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:18:07.635Z info: EchoText : 2025-10-07T15:18:07.635Z
+2025-10-07T15:18:12.759Z info: EchoText terminated on exception
+2025-10-07T15:18:12.761Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:20:03.311Z info: EchoText : 2025-10-07T15:20:03.310Z
+2025-10-07T15:20:03.315Z info: EchoText terminated on exception
+2025-10-07T15:20:03.318Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:23:24.347Z info: EchoText : 2025-10-07T15:23:24.346Z
+2025-10-07T15:23:24.350Z info: EchoText terminated on exception
+2025-10-07T15:23:24.355Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:55:44.650Z info: EchoText : 2025-10-07T15:55:44.649Z
+2025-10-07T15:55:44.655Z info: EchoText terminated on exception
+2025-10-07T15:55:44.659Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:57:35.189Z info: EchoText : 2025-10-07T15:57:35.188Z
+2025-10-07T15:57:35.193Z info: EchoText terminated on exception
+2025-10-07T15:57:35.196Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T15:59:58.466Z info: EchoText : 2025-10-07T15:59:58.466Z
+2025-10-07T15:59:58.470Z info: EchoText terminated on exception
+2025-10-07T15:59:58.473Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:01:29.996Z info: EchoText : 2025-10-07T16:01:29.994Z
+2025-10-07T16:01:29.999Z info: EchoText terminated on exception
+2025-10-07T16:01:30.001Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:07:03.645Z info: EchoText : 2025-10-07T16:07:03.644Z
+2025-10-07T16:07:03.650Z info: EchoText terminated on exception
+2025-10-07T16:07:03.654Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:14:09.499Z info: EchoText : 2025-10-07T16:14:09.498Z
+2025-10-07T16:14:09.503Z info: EchoText terminated on exception
+2025-10-07T16:14:09.506Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:20:03.570Z info: EchoText : 2025-10-07T16:20:03.569Z
+2025-10-07T16:20:03.574Z info: EchoText terminated on exception
+2025-10-07T16:20:03.577Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:30:50.748Z info: EchoText : 2025-10-07T16:30:50.748Z
+2025-10-07T16:30:50.750Z info: EchoText terminated on exception
+2025-10-07T16:30:50.751Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:39:41.681Z info: EchoText : 2025-10-07T16:39:41.681Z
+2025-10-07T16:39:41.685Z info: EchoText terminated on exception
+2025-10-07T16:39:48.762Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T16:40:39.449Z info: EchoText : 2025-10-07T16:40:39.448Z
+2025-10-07T16:40:39.453Z info: EchoText terminated on exception
+2025-10-07T16:40:39.455Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T17:04:42.310Z info: EchoText : 2025-10-07T17:04:42.310Z
+2025-10-07T17:04:42.315Z info: EchoText terminated on exception
+2025-10-07T17:04:42.318Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-07T17:05:44.370Z info: EchoText : 2025-10-07T17:05:44.370Z
+2025-10-07T17:05:44.374Z info: EchoText terminated on exception
+2025-10-07T17:05:44.377Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:44)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
