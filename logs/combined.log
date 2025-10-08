@@ -2908,3 +2908,76 @@ Error: KO
     at IncomingMessage.emit (node:events:518:28)
     at endReadableNT (node:internal/streams/readable:1698:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-08T08:32:18.384Z info: 11 operations registered
+2025-10-08T08:32:18.388Z info: 8 document classes
+2025-10-08T08:32:18.389Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-08T08:32:18.390Z info: Firestore connector
+2025-10-08T08:32:18.390Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-08T08:32:18.391Z info: 11 App operations registered
+2025-10-08T08:32:18.403Z info: HTTP listen [8080]
+2025-10-08T08:36:36.992Z info: EchoText : 2025-10-08T08:36:36.989Z
+2025-10-08T08:36:36.993Z info: EchoText terminated on exception
+2025-10-08T08:36:37.003Z info: AppExc: 1999:unexpected exception["KO"]
+Error: KO
+    at EchoText.init (D:\git\asocial2-srv\src-fw\operations.ts:25:37)
+    at doOp (D:\git\asocial2-srv\src-fw\index.ts:223:8)
+    at IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:119:15)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-10-08T08:37:29.101Z info: EchoText : 2025-10-08T08:37:29.100Z
+2025-10-08T08:37:29.104Z info: AppExc: 1001:Fake in EchoText@EchoText:[]
+2025-10-08T08:37:29.106Z info: EchoText terminated on exception
+2025-10-08T08:42:21.567Z info: 11 operations registered
+2025-10-08T08:42:21.570Z info: 8 document classes
+2025-10-08T08:42:21.570Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-08T08:42:21.571Z info: Firestore connector
+2025-10-08T08:42:21.571Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-08T08:42:21.572Z info: 11 App operations registered
+2025-10-08T08:42:21.581Z info: HTTP listen [8080]
+2025-10-08T08:42:54.017Z info: EchoText : 2025-10-08T08:42:54.014Z
+2025-10-08T08:42:54.019Z info: EchoText terminated on exception
+2025-10-08T08:42:54.027Z error: AppExc: 3001:unexpected exception["KO"]
+2025-10-08T08:47:08.511Z info: EchoText : 2025-10-08T08:47:08.510Z
+2025-10-08T08:47:08.514Z info: AppExc: 1001:Fake in EchoText@EchoText:[]
+2025-10-08T08:47:08.515Z info: EchoText terminated on exception
+2025-10-08T08:47:22.799Z info: EchoText : 2025-10-08T08:47:22.798Z
+2025-10-08T08:47:22.803Z info: EchoText terminated on exception
+2025-10-08T08:47:22.806Z error: AppExc: 3001:unexpected exception["KO"]
+2025-10-08T08:54:27.369Z info: EchoText : 2025-10-08T08:54:27.368Z
+2025-10-08T08:54:27.373Z info: AppExc: 1001:Fake in EchoText@EchoText:[]
+2025-10-08T08:54:27.375Z info: EchoText terminated on exception
+2025-10-08T09:51:52.372Z info: EchoText : 2025-10-08T09:51:52.371Z
+2025-10-08T09:51:52.376Z info: EchoText finished
+2025-10-08T09:51:55.738Z info: GetSrvStatus : 2025-10-08T09:51:55.737Z
+2025-10-08T09:51:55.938Z info: auths : 0 - 
+2025-10-08T09:51:55.940Z info: GetSrvStatus finished
+2025-10-08T09:51:58.753Z info: SetSrvStatus : 2025-10-08T09:51:58.752Z
+2025-10-08T09:51:58.757Z info: auths : 1759917118747 - ADMIN
+2025-10-08T09:51:58.763Z info: SetSrvStatus finished
+2025-10-08T09:52:00.166Z info: SetSrvStatus : 2025-10-08T09:52:00.166Z
+2025-10-08T09:52:00.171Z info: auths : 1759917120163 - ADMIN
+2025-10-08T09:52:00.177Z info: SetSrvStatus finished
+2025-10-08T09:52:09.098Z info: EchoText : 2025-10-08T09:52:09.097Z
+2025-10-08T09:52:09.102Z info: EchoText terminated on exception
+2025-10-08T09:52:09.109Z error: AppExc: 3001:unexpected exception["KO"]
+2025-10-08T09:52:27.482Z info: EchoText : 2025-10-08T09:52:27.481Z
+2025-10-08T09:52:27.487Z info: AppExc: 1001:Fake in EchoText@EchoText:[]
+2025-10-08T09:52:27.489Z info: EchoText terminated on exception
+2025-10-08T11:36:36.503Z info: GetSrvStatus : 2025-10-08T11:36:36.502Z
+2025-10-08T11:36:36.514Z info: auths : 0 - 
+2025-10-08T11:36:36.516Z info: GetSrvStatus finished
+2025-10-08T11:36:38.624Z info: SetSrvStatus : 2025-10-08T11:36:38.623Z
+2025-10-08T11:36:38.629Z info: auths : 1759923398627 - ADMIN
+2025-10-08T11:36:38.635Z info: SetSrvStatus finished
+2025-10-08T11:36:40.363Z info: SetSrvStatus : 2025-10-08T11:36:40.363Z
+2025-10-08T11:36:40.367Z info: auths : 1759923400369 - ADMIN
+2025-10-08T11:36:40.374Z info: SetSrvStatus finished
+2025-10-08T11:55:57.970Z info: EchoText : 2025-10-08T11:55:57.969Z
+2025-10-08T11:56:23.161Z info: EchoText finished
+2025-10-08T11:58:31.720Z info: EchoText : 2025-10-08T11:58:31.719Z
+2025-10-08T11:58:59.941Z info: EchoText finished
+2025-10-08T12:01:18.457Z info: EchoText : 2025-10-08T12:01:18.457Z
+2025-10-08T12:01:48.818Z info: EchoText finished
+2025-10-08T12:01:57.970Z info: EchoText : 2025-10-08T12:01:57.970Z
+2025-10-08T12:02:14.612Z info: EchoText finished

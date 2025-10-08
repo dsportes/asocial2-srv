@@ -238,7 +238,7 @@ export async function doOp (
     if (e instanceof AppExc) {
       b = e.serial()
     } else {
-      const e2 = new AppExc(1999, 'unexpected exception', null, [e.message], e.stack || '')
+      const e2 = new AppExc(3001, 'unexpected exception', null, [e.message], e.stack || '')
       b = e2.serial()
       st = 401
     }

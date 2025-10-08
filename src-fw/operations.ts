@@ -22,7 +22,9 @@ class EchoText extends Operation {
   init () {
     super.init()
     this._text = this.stringValue('text', true, 1, 10)
-    if (this._text.startsWith('KO')) throw Error('KO')
+    if (this._text === 'KO1') throw Error('KO')
+    if (this._text === 'KO2') 
+      throw new AppExc(1001, 'Fake in EchoText', this)
   }
 
   phase2 : null
