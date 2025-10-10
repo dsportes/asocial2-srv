@@ -7,7 +7,7 @@ import path from 'path'
 
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, expList, expListQ, updType, pkv } from '../src-fw/iDbGeneric'
+import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, expList, expListQ, updType, docColl } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -417,32 +417,21 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return !row || (!v && row.deleted) ? null : row
   }
 
-  /* Retourne la sous-collection 'clazz/colName/col' (par exemple: Article/auteurs/Zola)
-  sous la forme de deux listes:
-  - une liste D des documents de la classe clazz,
-  - une liste Q des couples (pk, v) des documents ayant quitté la sous-collection.
-
-  Si v est absent:
-  - D: liste INTEGRALE des documents de la sous-collection à l'instant t.
-  - Q est vide.
-
-  Si v est présent:
-  - D: liste des documents ayant 'Zola' dans sa liste d'auteurs,
-    - créés après v.
-    - modifiés après v.
-    - zombifiés après v.
-  - Q: liste des couples (pk, v) des documents de clé pk,
-    - ayant quitté la sous-collection postérieurement à v (possiblement par zombification).
-  Il se peut que dans Q soient cités des documents ayant quitté la collection
-  à t2 alors qu'ils inscrits comme présents à t3 dans D. Ils sont à ignorer (D l'emporte sur Q)
-
-  isList: true si la propriété 'auteurs' est une liste.
+  /* Retourne la sous-collection 'clazz/colName/colValue' (par exemple: Article/auteurs/Zola)
+  sous la forme d'une liste de triplets {v, d, isIn}:
+  - v: version du document
+  - d: data du document,
+  - isIn:
+    - true: si le document est ENCORE dans la sous-collection
+    - false: le document A ETE (UN JOUR) dans la sous-collection mais ne l'est plus
+      (soit par changement de valeur, soit par zombification)
+  Si v n'est pas spécifié, tous les triplets ont isIn à true.
   */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, v: number) 
-    : Promise<[Uint8Array[], pkv[]]> {
+    : Promise<docColl[]> {
     
-    const datas: Uint8Array[] = []
-    const lpkv: pkv[] = []
+    const m: Map<string, docColl> = new Map() 
+    const mpkv: Map<string, number> = new Map()
     const crd = this.colRef(clazz)
     const crq = this.colRefQ(clazz, colName)
     const comp = isList ? 'array-contains' : '=='
@@ -456,8 +445,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
       const row = this.rowToAPP(doc.data() as row)
-      if (row && (v || !row.deleted)) 
-        datas.push(row.data)
+      if (row && (v || !row.deleted)) {
+        m.set(doc.id, { v, d: row.data, isIn: true})
+      }
     }
 
     if (v) {
@@ -468,11 +458,24 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
         if (ttl.seconds * 1000 > this.op.now) {
           const v = doc.get('v')
           const pk = doc.id.substring(0, doc.id.indexOf('@'))
-          lpkv.push([pk, v])
+          mpkv.set(pk, v)
+        }
+      }
+
+      for(const [pk, vx] of mpkv) {
+        /* On insère dans le résultat les row qui,
+        - soit ne sont pas dans la liste principale
+        - soit ceux de version postérieure (mais on ne voit pas comment ça pourrait se produire)
+        */
+        const x = m.get(pk)
+        if (!x || x.v < vx) {
+          const row = await this.oneRow(clazz, pk, v)
+          m.set(pk, { v: row.v, d: row.data, isIn: false})
         }
       }
     }
-    return [datas, lpkv]
+
+    return Array.from(m.values())
   }
 
   /* Sélectionne les documents et les transmet à la fonction de traitement

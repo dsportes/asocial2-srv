@@ -47,6 +47,13 @@ export type srvStatus = {
   txt: string
 }
 
+/* Document dans une collection */
+export type docColl = {
+  v: number // version du document
+  d: Uint8Array // sa data
+  isIn: boolean // true si le document est encore dans la collection (si false il y a été mais ne l'est plus)
+}
+
 export interface IDbGeneric {
   connector: DbConnector
   op: Operation
@@ -151,29 +158,18 @@ export interface IDbGeneric {
   */
   oneRow (clazz: string, pk: string, v: number) : Promise<row | null>
 
-  /* Retourne la sous-collection 'clazz/colName/col' (par exemple: Article/auteurs/Zola)
-  sous la forme de deux listes:
-  - une liste D des documents de la classe clazz,
-  - une liste Q des couples (pk, v) des documents ayant quitté la sous-collection.
-
-  Si v est absent:
-  - D: liste INTEGRALE des documents de la sous-collection à l'instant t.
-  - Q est vide.
-
-  Si v est présent:
-  - D: liste des documents ayant 'Zola' dans sa liste d'auteurs,
-    - créés après v.
-    - modifiés après v.
-    - zombifiés après v.
-  - Q: liste des couples (pk, v) des documents de clé pk,
-    - ayant quitté la sous-collection postérieurement à v (possiblement par zombification).
-  Il se peut que dans Q soient cités des documents ayant quitté la collection
-  à t2 alors qu'ils inscrits comme présents à t3 dans D. Ils sont à ignorer (D l'emporte sur Q)
-
-  isList: true si la propriété 'auteurs' est une liste.
+  /* Retourne la sous-collection 'clazz/colName/colValue' (par exemple: Article/auteurs/Zola)
+  sous la forme d'une liste de triplets {v, d, isIn}:
+  - v: version du document
+  - d: data du document,
+  - isIn:
+    - true: si le document est ENCORE dans la sous-collection
+    - false: le document A ETE (UN JOUR) dans la sous-collection mais ne l'est plus
+      (soit par changement de valeur, soit par zombification)
+  Si v n'est pas spécifié, tous les triplets ont isIn à true.
   */
   getColl(clazz: string, 
-    colName: string, col: string, isList: boolean, v: number) : Promise<[Uint8Array[], pkv[]]>
+    colName: string, col: string, isList: boolean, v: number) : Promise<docColl[]>
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.

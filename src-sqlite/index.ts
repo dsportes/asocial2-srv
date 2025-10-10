@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType, pkv } from '../src-fw/iDbGeneric'
+import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType, docColl } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -416,10 +416,22 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return !row || (!v && row.deleted) ? null : row
   }
 
+  /* Retourne la sous-collection 'clazz/colName/colValue' (par exemple: Article/auteurs/Zola)
+  sous la forme d'une liste de triplets {v, d, isIn}:
+  - v: version du document
+  - d: data du document,
+  - isIn:
+    - true: si le document est ENCORE dans la sous-collection
+    - false: le document A ETE (UN JOUR) dans la sous-collection mais ne l'est plus
+      (soit par changement de valeur, soit par zombification)
+  Si v n'est pas spécifié, tous les triplets ont isIn à true.
+  */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, v: number) 
-    : Promise<[Uint8Array[], pkv[]]> {
-    const datas: Uint8Array[] = []
-    const lpkv: pkv[] = []
+    : Promise<docColl[]> {
+
+    const m: Map<string, docColl> = new Map() 
+    const mpkv: Map<string, number> = new Map()
+
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
       + ' WHERE org = @org AND ' 
       + (isList ? ('instr(' + colName + ', @col') : ('colName = @col') )
@@ -427,7 +439,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const docs = stmt.all({org: this.org, v : v || 0, col })
     for (let doc of docs) {
       const row = this.rowToAPP(doc as row)
-      if (row && (v || !row.deleted)) datas.push(row.data)
+      if (row && (v || !row.deleted)) 
+         m.set(row.pk, { v, d: row.data, isIn: true})
     }
 
     if (v) {
@@ -435,9 +448,24 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       const stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
         + ' WHERE org = @org AND colName = @col AND v > @v AND ttl > @ttl;')
       const docs = stmt.all({org: this.org, v : v || 0, col, ttl })
-      for (let doc of docs) lpkv.push([doc.pk, doc.v])
+      for (let doc of docs) {
+        mpkv.set(doc.pk, doc.v)
+      }
+
+      for(const [pk, vx] of mpkv) {
+        /* On insère dans le résultat les row qui,
+        - soit ne sont pas dans la liste principale
+        - soit ceux de version postérieure (mais on ne voit pas comment ça pourrait se produire)
+        */
+        const x = m.get(pk)
+        if (!x || x.v < vx) {
+          const row = await this.oneRow(clazz, pk, v)
+          m.set(pk, { v: row.v, d: row.data, isIn: false})
+        }
+      }
     }
-    return [datas, lpkv]
+    
+    return Array.from(m.values())
   }
 
   compOp (colName: string, filter: filter, col: any) {

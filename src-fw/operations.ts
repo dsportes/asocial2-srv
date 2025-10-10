@@ -306,7 +306,7 @@ type subsToSync = {
 - toSync = subsToSync[]
 Retourne pour chaque 'def' les documents/rowQ nouveaux depuis t.
 Si t est 0, retourne les documents sans filtre de version.
-Retour: { def0: [data], def1: data, def2: [data[], pkv] ... }
+Retour: { def0: [data], def1: data, def2: [docColl] ... }
 - data: Uint8Array
 - pkv: object donnant pour chaque pk sa version la plus récente ayant quitté la collection
 */
@@ -328,7 +328,7 @@ class Sync extends Operation {
       switch (type) {
         case 0 : { await this.sync0(def, v, item[0]); break }
         case 1 : { await this.sync1(def, v, item[0], item[1]); break }
-        case 0 : { await this.sync2(def, v, item[0], item[1], item[2]); break }
+        case 2 : { await this.sync2(def, v, item[0], item[1], item[2]); break }
       }
     }
   }
@@ -354,13 +354,8 @@ class Sync extends Operation {
       this.addRes(def, {})
       return
     }
-    const [datas, lpkv] = await this.db.getColl(clazz, colName, col, x.list, v)
-    const pkv = {} // version la plus récente pour chaque pk
-    for(const [pk, v] of lpkv) {
-      const vx = pkv[pk]
-      if (vx === undefined || v > vx) pkv[pk] = v
-    }
-    this.addRes(def, [datas, pkv])
+    const docColls = await this.db.getColl(clazz, colName, col, x.list, v)
+    this.addRes(def, docColls)
   }
 
   phase3 : null

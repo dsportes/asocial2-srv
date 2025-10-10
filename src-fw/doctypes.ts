@@ -81,7 +81,7 @@ export class DocType {
   }
 
   /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */
-  getColl (src: Object, name: string) : string[] {
+  getCollId (src: Object, name: string) : string[] {
     const c = this.hasColls ? this.colls.get(name) : null
     if (!c) return null
     if (c.list) {
@@ -116,7 +116,7 @@ export class DocType {
   extractColls (src: Object) : Object {
     const t = {}
     if (this.hasColls) this.colls.forEach((v, k) => {
-      const x = this.getColl(src, k)
+      const x = this.getCollId(src, k)
       if (x) t[k] = x
     })
     return t

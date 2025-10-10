@@ -69,7 +69,7 @@ export class Document {
   C'est un STRING[] des valeurs hachées.
   Quand la propriété de collection N'EST PAS une liste, sa valeur est [0]
   */
-  collValue (name: string) : string[] { return this.docType.getColl(this, name)}
+  collValue (name: string) : string[] { return this.docType.getCollId(this, name)}
 
   /* Retourne la VALEUR la propriété d'index nommée name:
   Selon le type de cette propriété c'est:
