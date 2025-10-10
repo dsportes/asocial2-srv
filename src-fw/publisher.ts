@@ -42,7 +42,7 @@ export class Publisher {
       if (s) lines.push(s)
       defs.push(def)
     }
-    /* buf : objet "message" sérialisé en base6
+    /* buf : objet "message" sérialisé en base64
     const message = {
       org: 'demo'
       title: 'myApp - demo', 
@@ -62,7 +62,9 @@ export class Publisher {
 
   getSessionNotifs () : Object {
     const notif = this.toNotif.get(this.sessionId)
-    return !notif ? null : this.buildMessage(notif)
+    if (!notif) return null
+    const message = this.buildMessage(notif)
+    return Util.objToB64(message)
   }
 
   /*

@@ -244,6 +244,14 @@ export class Operation {
     return value
   }
 
+  arrayValue (par: string, req: boolean) : Object {
+    const [present, value, type] = this.type(par, req)
+    if (!present && !req) return ''
+    if (present && type !== 'array')
+      throw new AppExc(1010, 'invalid argument', this, [par])
+    return value
+  }
+
   stringValue (par: string, req: boolean, minlg?: number, maxlg?: number) : string {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return ''

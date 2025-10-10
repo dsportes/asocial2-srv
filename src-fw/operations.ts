@@ -297,27 +297,31 @@ class AdjustSubscription extends Operation {
 }
 Operation.register('AdjustSubscription', () => { return new AdjustSubscription()})
 
+type subsToSync = {
+  def: string, 
+  v: number
+}
+
 /* Sync : synchronise les abonnements cités *************************
-- defs: { def1: t1, def2: t2 ... }
+- toSync = subsToSync[]
 Retourne pour chaque 'def' les documents/rowQ nouveaux depuis t.
 Si t est 0, retourne les documents sans filtre de version.
 Retour: { def0: [data], def1: data, def2: [data[], pkv] ... }
 - data: Uint8Array
-- pkv: object donnant pour chaque pk sa version la plus récente ayant quiité la collection
+- pkv: object donnant pour chaque pk sa version la plus récente ayant quitté la collection
 */
 class Sync extends Operation {
   constructor () { super() }
 
-  _defs : Object
+  _toSync : subsToSync[]
 
   init () {
     super.init()
-    this._defs = this.objectValue('defs', true)
+    this._toSync = this.arrayValue('toSync', true) as subsToSync[]
   }
 
   async phase2 () {
-    for (const def in this._defs) {
-      const v = this._defs[def]
+    for (const { def, v } of this._toSync) {
       const item = def.split('/')
       // 0: subs classe 1: subs document 2:subs coll
       const type = item.length - 1
