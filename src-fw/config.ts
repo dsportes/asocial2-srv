@@ -29,6 +29,7 @@ export interface BaseConfig {
 
   databases: dbChoice[]
   storages: stChoice[]
+  directoryDB: DbConnector,
   dbConnectors: Object
   factory: Function
   documentClasses: Object

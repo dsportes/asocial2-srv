@@ -19,6 +19,7 @@ const schemaPath = './emulators/firestore.indexes.json'
 const t1 = `{
 "indexes": [],
 "fieldOverrides": [
+{ "collectionGroup": "Urls", "fieldPath": "url", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "st", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "at", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "txt", "indexes": [] },`
@@ -137,6 +138,12 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
+  async getUrl (org: string) : Promise<string> {
+    const dr = this.fs.doc('Urls/' + org)
+    const ds = await dr.get()
+    return ds.exists ? ds.get('url') : '$'
+  }
+
   async getSrvStatus () :  Promise<srvStatus> {
     let st = 0
     let at = 0
@@ -150,7 +157,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
     return { now: this.op.now, st, at, txt }
   }
-
+  
   async setSrvStatus (st: number, txt: string) :  Promise<srvStatus> {
     const dr = this.fs.doc('Status/1')
     await dr.set({ st, at: this.op.now, txt})

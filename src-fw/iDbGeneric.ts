@@ -66,6 +66,8 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
+  getUrl (org: string) : Promise<string>
+
   /* Retourne le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP
   at: time de dernière mise à jour

@@ -2981,3 +2981,58 @@ Error: KO
 2025-10-08T12:01:48.818Z info: EchoText finished
 2025-10-08T12:01:57.970Z info: EchoText : 2025-10-08T12:01:57.970Z
 2025-10-08T12:02:14.612Z info: EchoText finished
+2025-10-11T09:17:32.167Z info: 11 operations registered
+2025-10-11T09:17:32.170Z info: 8 document classes
+2025-10-11T09:17:32.171Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:17:32.172Z info: Firestore connector
+2025-10-11T09:17:32.172Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:17:32.173Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-11T09:17:32.173Z info: 11 App operations registered
+2025-10-11T09:17:54.108Z info: 11 operations registered
+2025-10-11T09:17:54.111Z info: 8 document classes
+2025-10-11T09:17:54.112Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:17:54.112Z info: Firestore connector
+2025-10-11T09:17:54.112Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:17:54.113Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-11T09:17:54.113Z info: 11 App operations registered
+2025-10-11T09:59:52.286Z info: 11 operations registered
+2025-10-11T09:59:52.289Z info: 8 document classes
+2025-10-11T09:59:52.290Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:59:52.290Z info: Firestore connector
+2025-10-11T09:59:52.291Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T09:59:52.292Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-11T09:59:52.292Z info: 11 App operations registered
+2025-10-11T09:59:52.301Z info: HTTP listen [8080]
+2025-10-11T10:13:13.998Z info: 11 operations registered
+2025-10-11T10:13:14.001Z info: 8 document classes
+2025-10-11T10:13:14.002Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T10:13:14.002Z info: Firestore connector
+2025-10-11T10:13:14.003Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T10:13:14.003Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-11T10:13:14.004Z info: 11 App operations registered
+2025-10-11T10:13:14.015Z info: HTTP listen [8080]
+2025-10-11T10:21:27.585Z info: 11 operations registered
+2025-10-11T10:21:27.588Z info: 8 document classes
+2025-10-11T10:21:27.588Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T10:21:27.589Z info: Firestore connector
+2025-10-11T10:21:27.589Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-10-11T10:21:27.590Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-10-11T10:21:27.590Z info: 11 App operations registered
+2025-10-11T10:21:27.600Z info: HTTP listen [8080]
+2025-10-11T10:33:21.160Z info: GetSrvStatus : 2025-10-11T10:33:21.158Z
+2025-10-11T10:33:21.164Z info: auths : 0 - 
+2025-10-11T10:33:21.166Z info: GetSrvStatus finished
+2025-10-11T10:33:25.125Z info: SetSrvStatus : 2025-10-11T10:33:25.122Z
+2025-10-11T10:33:25.129Z info: auths : 1760178805112 - ADMIN
+2025-10-11T10:33:25.134Z info: SetSrvStatus finished
+2025-10-11T10:33:26.855Z info: SetSrvStatus : 2025-10-11T10:33:26.855Z
+2025-10-11T10:33:26.858Z info: auths : 1760178806846 - ADMIN
+2025-10-11T10:33:26.859Z info: SetSrvStatus finished
+2025-10-11T10:33:29.083Z info: GetSrvStatus : 2025-10-11T10:33:29.083Z
+2025-10-11T10:33:29.087Z info: auths : 0 - 
+2025-10-11T10:33:29.089Z info: GetSrvStatus finished
+2025-10-11T10:37:05.666Z info: GetSrvStatus : 2025-10-11T10:37:05.666Z
+2025-10-11T10:37:05.670Z info: auths : 0 - 
+2025-10-11T10:37:05.672Z info: GetSrvStatus finished
+2025-10-11T10:39:55.226Z info: EchoText : 2025-10-11T10:39:55.225Z
+2025-10-11T10:39:55.228Z info: EchoText finished

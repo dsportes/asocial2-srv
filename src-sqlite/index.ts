@@ -17,7 +17,12 @@ import { writeFileSync } from 'node:fs'
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
 
-const t1 = `CREATE TABLE IF NOT EXISTS "STATUS" (
+const t1 = `CREATE TABLE IF NOT EXISTS "URLS" (
+  "org" TEXT,
+  "url" TEXT,
+PRIMARY KEY(org));
+
+CREATE TABLE IF NOT EXISTS "STATUS" (
   "pk" TEXT,
   "at" INTEGER,
   "st" INTEGER,
@@ -194,6 +199,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       (e.stack ? e.stack + '\n' : '') + this.lastSql.join('\n')
     if (e.code && e.code.startsWith('SQLITE_BUSY')) return [1, s]
     return [2, s]
+  }
+
+  async getUrl (org: string) : Promise<string> {
+    const stmt = this.sql.prepare('SELECT * FROM "URLS" WHERE org = @org')
+    const res = stmt.get({org})
+    return res ? res.url : '$'
   }
 
   async getSrvStatus () :  Promise<srvStatus> {

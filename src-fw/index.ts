@@ -44,6 +44,11 @@ export function getExpressApp (): express.Application {
     res.send(new Date().toISOString() + ' ' + config.BUILD + ' [' + config.APIVERSIONS[0] + '/' + config.APIVERSIONS[1] + ']')
   })
 
+  app.get('/url/:org', async (req, res) => {
+    const u = await getUrl(req.params.org)
+    res.send(u)
+  })
+
   app.get('/file/:arg', async (req, res) => {
     const st = config.storages[0][1]
     if (!st) {
@@ -123,6 +128,19 @@ export function getExpressApp (): express.Application {
   })
   
   return app
+}
+
+async function getUrl (org: string) {
+  try {
+    const connector = config.directoryDB
+    const op = new Operation()
+    const cnx = await connector.getConnexion(op)
+    const url = await cnx.getUrl(org)
+    await cnx.disconnect()
+    return url
+  } catch (e) {
+    return '$' + e.toString()
+  }
 }
 
 export function startSRV (app : any) : Promise<void>{

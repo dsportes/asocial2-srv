@@ -73,6 +73,7 @@ setConfig(
     sqlite: AppSQLiteConnector,
     firestore: AppFirestoreConnector,
   },
+  directoryDB: null,
   factory: factory,
   documentClasses: documentClasses ,
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60]
@@ -90,6 +91,8 @@ config.databases = [
   ['sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']),],
   ['firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']),],
 ]
+
+config.directoryDB = new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A'])
 
 config.storages = [
   ['storage_a', new FilesystemStorage(keys['storage_a'])],

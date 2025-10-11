@@ -1,32 +1,43 @@
 {
 "indexes": [],
 "fieldOverrides": [
+{ "collectionGroup": "Urls", "fieldPath": "url", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "st", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "at", "indexes": [] },
 { "collectionGroup": "Status", "fieldPath": "txt", "indexes": [] },
 
 { "collectionGroup": "Org", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Org", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Org", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Org", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Org", "fieldPath": "ttl", "indexes": [] },
 { "collectionGroup": "Org", "fieldPath": "data", "indexes": [] },
 
 { "collectionGroup": "Task", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Task", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Task", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Task", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Task", "fieldPath": "ttl", "indexes": [] },
 { "collectionGroup": "Task", "fieldPath": "data", "indexes": [] },
-{ "collectionGroup": "Task", "fieldPath": "startTime", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Task", "fieldPath": "startTime", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION_GROUP" }] },
+
+{ "collectionGroup": "Subs", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Subs", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Subs", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Subs", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Subs", "fieldPath": "ttl", "indexes": [] },
+{ "collectionGroup": "Subs", "fieldPath": "data", "indexes": [] },
 
 { "collectionGroup": "SubsItem", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "SubsItem", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "SubsItem", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "SubsItem", "fieldPath": "ttl", "indexes": [] },
 { "collectionGroup": "SubsItem", "fieldPath": "data", "indexes": [] },
-{ "collectionGroup": "SubsItem", "fieldPath": "hdef", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
-{ "collectionGroup": "SubsItem", "fieldPath": "sessionId", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "SubsItem", "fieldPath": "def", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 
 { "collectionGroup": "Article", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Article", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Article", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Article", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Article", "fieldPath": "ttl", "indexes": [] },
@@ -42,6 +53,7 @@
 { "collectionGroup": "Article@auteurs", "fieldPath": "ttl", "indexes": [] },
 
 { "collectionGroup": "Auteur", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Auteur", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Auteur", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Auteur", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Auteur", "fieldPath": "ttl", "indexes": [] },
@@ -49,6 +61,7 @@
 { "collectionGroup": "Auteur", "fieldPath": "nom", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 
 { "collectionGroup": "Chat", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Chat", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Chat", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Chat", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Chat", "fieldPath": "ttl", "indexes": [] },
@@ -60,6 +73,7 @@
 { "collectionGroup": "Chat@participants", "fieldPath": "ttl", "indexes": [] },
 
 { "collectionGroup": "Sujet", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
+{ "collectionGroup": "Sujet", "fieldPath": "org", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Sujet", "fieldPath": "v", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Sujet", "fieldPath": "pk", "indexes": [{ "order": "ASCENDING", "queryScope": "COLLECTION" }] },
 { "collectionGroup": "Sujet", "fieldPath": "ttl", "indexes": [] },
