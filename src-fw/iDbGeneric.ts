@@ -47,13 +47,6 @@ export type srvStatus = {
   txt: string
 }
 
-/* Document dans une collection */
-export type docColl = {
-  v: number // version du document
-  d: Uint8Array // sa data
-  isIn: boolean // true si le document est encore dans la collection (si false il y a été mais ne l'est plus)
-}
-
 export interface IDbGeneric {
   connector: DbConnector
   op: Operation
@@ -160,18 +153,17 @@ export interface IDbGeneric {
   */
   oneRow (clazz: string, pk: string, v: number) : Promise<row | null>
 
-  /* Retourne la sous-collection 'clazz/colName/colValue' (par exemple: Article/auteurs/Zola)
-  sous la forme d'une liste de triplets {v, d, isIn}:
-  - v: version du document
-  - d: data du document,
-  - isIn:
-    - true: si le document est ENCORE dans la sous-collection
-    - false: le document A ETE (UN JOUR) dans la sous-collection mais ne l'est plus
-      (soit par changement de valeur, soit par zombification)
-  Si v n'est pas spécifié, tous les triplets ont isIn à true.
+  /* Retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
+  - si vs est absent: connue actuellement (à now)
+  - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
+    de la sous-collection connue en session.
+  Retour: un objet { pk: data | v ... }
+  - v: version du document si n'est PLUS dans la collection
+  - data: data du document s'il est dans la collection
   */
-  getColl(clazz: string, 
-    colName: string, col: string, isList: boolean, v: number) : Promise<docColl[]>
+  getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
+    : Promise<Object>
+
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.

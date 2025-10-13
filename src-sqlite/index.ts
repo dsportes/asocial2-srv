@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType, docColl } from '../src-fw/iDbGeneric'
+import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -427,56 +427,39 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return !row || (!v && row.deleted) ? null : row
   }
 
-  /* Retourne la sous-collection 'clazz/colName/colValue' (par exemple: Article/auteurs/Zola)
-  sous la forme d'une liste de triplets {v, d, isIn}:
-  - v: version du document
-  - d: data du document,
-  - isIn:
-    - true: si le document est ENCORE dans la sous-collection
-    - false: le document A ETE (UN JOUR) dans la sous-collection mais ne l'est plus
-      (soit par changement de valeur, soit par zombification)
-  Si v n'est pas spécifié, tous les triplets ont isIn à true.
+  /* Retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
+  - si vs est absent: connue actuellement (à now)
+  - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
+    de la sous-collection connue en session.
+  Retour: un objet { pk: data | v ... }
+  - v: version du document si n'est PLUS dans la collection
+  - data: data du document s'il est dans la collection
   */
-  async getColl(clazz: string, colName: string, col: string, isList: boolean, v: number) 
-    : Promise<docColl[]> {
+  async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
+    : Promise<Object> {
 
-    const m: Map<string, docColl> = new Map() 
-    const mpkv: Map<string, number> = new Map()
+    const vd: Object = {}
 
     const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
       + ' WHERE org = @org AND ' 
       + (isList ? ('instr(' + colName + ', @col') : ('colName = @col') )
-      + (!v ? ';' : ' AND v > @v ;'))
-    const docs = stmt.all({org: this.org, v : v || 0, col })
+      + (!vs ? ';' : ' AND v > @vs ;'))
+    const docs = stmt.all({org: this.org, vs : vs || 0, col })
     for (let doc of docs) {
       const row = this.rowToAPP(doc as row)
-      if (row && (v || !row.deleted)) 
-         m.set(row.pk, { v, d: row.data, isIn: true})
+      if (!row || row.deleted) vd[row.pk] = row.v
+      else vd[row.pk] = row.data
     }
 
-    if (v) {
+    if (vs) {
       const ttl = Math.round(this.op.now / 60000)
       const stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
-        + ' WHERE org = @org AND colName = @col AND v > @v AND ttl > @ttl;')
-      const docs = stmt.all({org: this.org, v : v || 0, col, ttl })
-      for (let doc of docs) {
-        mpkv.set(doc.pk, doc.v)
-      }
-
-      for(const [pk, vx] of mpkv) {
-        /* On insère dans le résultat les row qui,
-        - soit ne sont pas dans la liste principale
-        - soit ceux de version postérieure (mais on ne voit pas comment ça pourrait se produire)
-        */
-        const x = m.get(pk)
-        if (!x || x.v < vx) {
-          const row = await this.oneRow(clazz, pk, v)
-          m.set(pk, { v: row.v, d: row.data, isIn: false})
-        }
-      }
+        + ' WHERE org = @org AND colName = @col AND v > @vs AND ttl > @ttl;')
+      const docs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
+      for (let doc of docs) if (!vd[doc.pk]) vd[doc.pk] = doc.v
     }
     
-    return Array.from(m.values())
+    return vd
   }
 
   compOp (colName: string, filter: filter, col: any) {
