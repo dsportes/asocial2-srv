@@ -53,6 +53,7 @@ export class Publisher {
     */
     return {
       org: this.op.org,
+      now: this.op.now,
       title: notif.title,
       url: notif.url,
       body: lines.join('\n'),
