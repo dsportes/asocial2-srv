@@ -589,14 +589,14 @@ export class Cache {
       let row : row
       const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
-        row = doc.toRow(this.op.now, this.db.key)
+        row = doc.toRow(this.op.now)
         this.db.writeRow(updType.UPDATE, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
-        row = doc.toRow(this.op.now, this.db.key)
+        row = doc.toRow(this.op.now)
         this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL
         if (doc.docType.sync) {
-          row = doc.toZombiRow(this.op.now, this.db.key)
+          row = doc.toZombiRow(this.op.now)
           this.db.writeRow(updType.UPDATE, dd.clazz, row)
         }
         else this.db.deleteRow(dd.clazz, dd.pk)

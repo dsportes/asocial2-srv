@@ -30,13 +30,17 @@ export type rowQ = {
   col: string
 }
 
+export type vdata = {
+  v : number,
+  data: Uint8Array
+}
+
 export type row = {
   pk: string, // primary key (hash)
   v: number, // version: time de la dernière opération de création / maj / suppression
   maxLife?: number, // time de fin de vie programmée par l'application (EPOCH en MINUTES)
   ttl?: any, // DB seulement - TTL pour purge automatique par la DB
-  deleted?: boolean, // APP seulement - document supprimé
-  data: Uint8Array,
+  data: Uint8Array, // null si DELETED
   [index: string]:any
 }
 
@@ -153,16 +157,17 @@ export interface IDbGeneric {
   */
   oneRow (clazz: string, pk: string, v: number) : Promise<row | null>
 
-  /* Retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
+  /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
+  (par exemple: Article/auteurs/Zola)
   - si vs est absent: connue actuellement (à now)
-  - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
-    de la sous-collection connue en session.
-  Retour: un objet { pk: data | v ... }
-  - v: version du document si n'est PLUS dans la collection
-  - data: data du document s'il est dans la collection
+  - sinon documents ajoutés ou partis de la sous-collection (ou zombifiés) 
+    depuis la version vs de la sous-collection connue en session.
+  Retour: liste des documents (leur version la plus récente). 
+  - Certains d'entre eux peuvent ne plus appartenir à la collection 
+  (à vérifier en session) ou être zombi.
   */
   getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<Object>
+    : Promise<Uint8Array[]>
 
 
   /* Sélectionne les documents et les transmet à la fonction de traitement

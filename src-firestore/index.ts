@@ -5,9 +5,11 @@ import { FieldPath, DocumentReference, Firestore, Query, QuerySnapshot,
 import { writeFileSync } from 'node:fs'
 import path from 'path'
 
+import { encode } from '@msgpack/msgpack'
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, expList, expListQ, updType } from '../src-fw/iDbGeneric'
+import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, 
+  expList, expListQ, updType, vdata } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -209,22 +211,37 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   Retourne le row
   */
   rowToDB (row: row, nocrypt?: boolean) : row {
-    if (row.deleted) row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
-    else if (row.maxLife && (row.maxLife > this.op.now))
-      row.ttl = new Timestamp(Math.floor(row.maxLife * 60), 0)
-    delete row.deleted
-    delete row.maxLife
+    if (!row.data) // deleted
+      row.ttl = new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
+    else if (row.maxLife) {
+      if (row.maxLife > this.op.now)
+        row.ttl = new Timestamp(Math.floor(row.maxLife * 60), 0)
+      delete row.maxLife
+    }
     if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
     return row
   }
 
   /* Transforme un row DB en row APP et le retourne:
-  - SAUF si son ttl existe et est dépassé
-  - decrypte row.data
+  - si son ttl existe,
+    - si dépassé : row.deleted est true
+    - pas dépassé : converti en maxLife
+  Si row.deleted: row.data est reconstitué NON crypté { deleted, v, _clazz, _pk }
+  Sinon row.data est décrypté (ou non)
   */
-  rowToAPP (row: row, nodecrypt?: boolean) : row | null{
-    if (row.ttl && (row.ttl.seconds * 1000 < this.op.now)) return null
-    if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
+  rowToAPP (clazz: string, row: row, nodecrypt?: boolean) : row {
+    let sec = 0
+    if (row.ttl) { 
+      sec = row.ttl.seconds * 1000
+      delete row.ttl
+    }
+    if (!row.data || (sec && (sec * 1000 < this.op.now))) {
+      row.deleted = true
+      row.data = encode({ deleted: true, v: row.v, _pk: row.pk, _clazz: clazz })
+      return row
+    }
+    if (sec) row.maxLife = Math.floor(sec / 60)
+    if (!nodecrypt) row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
 
@@ -247,7 +264,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return this.fs.collection('Org/' + this.org + '/' + clazz + '@' + colName)
   }
 
-  /* Exportation des rows n'ayant pas dépassé leur TTL
+  /* Exportation des rows existants
   mark: dont les pk sont > pk
   limit: nombre max de rows lus
   Retourne:
@@ -267,8 +284,8 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (!qs.empty) for (let doc of qs.docs) {
       n++
       lastMark = doc.id
-      const row = this.rowToAPP(doc.data() as row, true)
-      if (row) rows.push(row)
+      const row = this.rowToAPP(clazz, doc.data() as row, true)
+      if (!row.deleted) rows.push(row)
     }
     return { rows, eox: n < limit, lastMark} 
   }
@@ -403,9 +420,8 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const q: Query = !v ? cr : cr.where('v', '>', v)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
-      const row = this.rowToAPP(doc.data() as row)
-      if (row && (v || !row.deleted)) 
-        datas.push(row.data)
+      const row = this.rowToAPP(clazz, doc.data() as row)
+      if (v || !row.deleted) datas.push(row.data)
     }
     return datas
   }
@@ -413,29 +429,31 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   /* Retourne le row de classe fixée ayant la pk fixée:
   - si v absent: ne retourne pas le row s'il est supprimé
   - si v présent ne retourne le row QUE s'il a été mis à jour ou supprimé après v.
-    si supprimé , le data l'indique.
   */
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
     const cr = this.colRef(clazz)
     const q: Query = !v ? cr.where('pk', '==', pk) : cr.where('pk', '==', pk).where('v', '>', v)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (qs.empty) return null
-    const row = this.rowToAPP(qs.docs[0].data() as row)
-    return !row || (!v && row.deleted) ? null : row
+    const row = this.rowToAPP(clazz, qs.docs[0].data() as row)
+    return v || !row.deleted ? row : null
   }
 
-  /* Retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
+  /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
+  (par exemple: Article/auteurs/Zola)
   - si vs est absent: connue actuellement (à now)
-  - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
-    de la sous-collection connue en session.
-  Retour: un objet { pk: data | v ... }
-  - v: version du document si n'est PLUS dans la collection
-  - data: data du document s'il est dans la collection
+  - sinon documents ajoutés ou partis de la sous-collection (ou zombifiés) 
+    depuis la version vs de la sous-collection connue en session.
+  Retour: liste des documents (leur version la plus récente). 
+  - Certains d'entre eux peuvent ne plus appartenir à la collection ou être zombi
+    (à vérifier en session).
   */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<Object> {
+    : Promise<Uint8Array[]> {
     
-    const vd: Object = {}
+    // Map des documents par pk
+    const m: Map<string, vdata> = new Map<string, vdata>()
+    const datas: Uint8Array[] = []
     const crd = this.colRef(clazz)
     const crq = this.colRefQ(clazz, colName)
     const comp = isList ? 'array-contains' : '=='
@@ -446,27 +464,31 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     } else {
       q = crd.where(colName, comp, col).where('v', '>', vs)
     }
-    const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
+    let qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
-      const row = this.rowToAPP(doc.data() as row)
-      if (!row || row.deleted) vd[doc.id] = row.v // doc.id : row.pk
-      else vd[doc.id] = row.data
+      const row = this.rowToAPP(clazz, doc.data() as row)
+      if (!vs) {
+        if (!row.deleted) datas.push(row.data)
+      } else if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
     }
+    if (!vs) return datas
 
-    if (vs) {
-      q = crq.where('col', '==', col).where('v', '>', vs)
-      const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
-      if (!qs.empty) for (let doc of qs.docs) {
-        const ttl = doc.get('ttl') as Timestamp
-        if (ttl.seconds * 1000 > this.op.now) {
-          const v = doc.get('v')
-          const pk = doc.id.substring(0, doc.id.indexOf('@'))
-          if (!vd[pk]) vd[pk] = v
+    q = crq.where('col', '==', col).where('v', '>', vs)
+    qs = this.transaction ? await this.transaction.get(q) : await q.get()
+    if (!qs.empty) for (let doc of qs.docs) {
+      const ttl = doc.get('ttl') as Timestamp
+      if (ttl.seconds * 1000 > this.op.now) {
+        const v = doc.get('v')
+        const pk = doc.id.substring(0, doc.id.indexOf('@'))
+        const vd = m.get(pk)
+        if (!vd || (v > vd.v)) {
+          const r = await this.oneRow(clazz, pk, vs)
+          m.set(pk, { v: r.v, data: r.data })
         }
       }
     }
-
-    return vd
+    for(const [, {data}] of m) datas.push(data)
+    return datas
   }
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
@@ -480,8 +502,8 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (limit) q = q.limit(limit)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
-      const row = this.rowToAPP(doc.data() as row)
-      fn(row)
+      const row = this.rowToAPP(clazz, doc.data() as row)
+      if (!row.deleted) fn(row)
     }
   }
 
@@ -503,11 +525,13 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (limit) q = q.limit(limit)
     const qs: QuerySnapshot = this.transaction ? await this.transaction.get(q) : await q.get()
     if (!qs.empty) for (let doc of qs.docs) {
-      const row = this.rowToAPP(doc.data() as row)
-      const p = doc.ref.path
-      const i = p.indexOf('/', 5)
-      const org = p.substring(4, i)
-      fn(org, row)
+      const row = this.rowToAPP(clazz, doc.data() as row)
+      if (!row.deleted) {
+        const p = doc.ref.path
+        const i = p.indexOf('/', 5)
+        const org = p.substring(4, i)
+        fn(org, row)
+      }
     }
   }
 }

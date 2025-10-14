@@ -1,9 +1,11 @@
 import Database from 'better-sqlite3'
 // import { Database } from './loadreq.js'
 
+import { encode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, row, rowQ, updType } from '../src-fw/iDbGeneric'
+import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
+  row, rowQ, updType, vdata } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -240,33 +242,52 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async commit () : Promise<void> {}
 
-  /* Transforme un row DB en row APP et le retourne:
-  - decrypte row.data
-  */
-  rowToAPP (row: row, nodecrypt?: boolean) : row | null{
-    if (row.ttl && (row.ttl.seconds * 1000 < this.op.now)) return null
-    if (!nodecrypt && row.data) row.data = Crypt.syncDecrypt(this.key, row.data)
-    return row
-  }
-
   /* Transforme un row APP en row DB
   - calcul du TTL éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
-  - les propriétés "list" sont sérialisées '$a..$b...' pour recherche te texte
+  - transforme les propriétés "list" en string avec séparateur $
+    pour recherche instr de SQL
   Retourne le row
   */
   rowToDB (row: row, nocrypt?: boolean) : row {
-    const [, ll] = this.columns(row.clazz)
-    if (row.deleted) row.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
-    else if (row.maxLife && (row.maxLife > this.op.now))
-      row.ttl = row.maxLife
-    delete row.deleted
-    delete row.maxLife
-    ll.forEach(p => {
-      const a = row[p]
-      row[p] = a && a.length ? ('$' + a.join('$')) : ''
-    })
+    if (!row.data) { // deleted
+      row.ttl = Math.floor(row.v / 60000) + zombiLapse, 0
+    } else {
+      const [, ll] = this.columns(row.clazz)
+      ll.forEach(p => {
+        const a = row[p]
+        row[p] = a && a.length ? ('$' + a.join('$')) : ''
+      })
+      if (row.maxLife) {
+        if (row.maxLife > this.op.now)
+          row.ttl = row.maxLife
+        delete row.maxLife
+      }
+    }
     if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
+    return row
+  }
+
+  /* Transforme un row DB en row APP et le retourne:
+  - si son ttl (en minutes) existe,
+    - si dépassé : row.deleted est true
+    - pas dépassé : converti en maxLife
+  Si row.deleted: row.data est reconstitué NON crypté { deleted, v, _clazz, _pk }
+  Sinon row.data est décrypté (ou non)
+  */
+  rowToAPP (clazz: string, row: row, nodecrypt?: boolean) : row | null{
+    let sec = 0
+    if (row.ttl) { 
+      sec = row.ttl * 60
+      delete row.ttl
+    }
+    if (!row.data || (sec && (sec * 1000 < this.op.now))) {
+      row.deleted = true
+      row.data = encode({ deleted: true, v: row.v, _pk: row.pk, _clazz: clazz })
+      return row
+    }
+    if (sec) row.maxLife = Math.floor(sec / 60)
+    if (!nodecrypt) row.data = Crypt.syncDecrypt(this.key, row.data)
     return row
   }
 
@@ -282,8 +303,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     for (let doc of docs) {
       n++
       lastMark = doc.pk
-      const row = this.rowToAPP(doc as row, true)
-      if (row) rows.push(row)
+      const row = this.rowToAPP(clazz, doc as row, true)
+      if (!row.deleted) rows.push(row)
     }
     return { rows, eox: n < limit, lastMark} 
   }
@@ -411,9 +432,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' WHERE org = @org ' + (!v ? ';' : ' AND v > @v ;'))
     const docs = stmt.all({org: this.org, v : v || 0})
     for (let doc of docs) {
-      const row = this.rowToAPP(doc as row)
-      if (row && (v || !row.deleted))
-        datas.push(row.data)
+      const row = this.rowToAPP(clazz, doc as row)
+      if (v || !row.deleted) datas.push(row.data)
     }
     return datas
   }
@@ -423,43 +443,56 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' WHERE org = @org AND pk = @pk' + (!v ? ';' : ' AND v > @v ;'))
     const doc = stmt.get({org: this.org, v : v || 0, pk })
     if (!doc) return null
-    const row = this.rowToAPP(doc as row)
-    return !row || (!v && row.deleted) ? null : row
+    const row = this.rowToAPP(clazz, doc as row)
+    return v || !row.deleted ? row : null
   }
 
-  /* Retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
+  /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
+  (par exemple: Article/auteurs/Zola)
   - si vs est absent: connue actuellement (à now)
-  - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
-    de la sous-collection connue en session.
-  Retour: un objet { pk: data | v ... }
-  - v: version du document si n'est PLUS dans la collection
-  - data: data du document s'il est dans la collection
+  - sinon documents ajoutés ou partis de la sous-collection (ou zombifiés) 
+    depuis la version vs de la sous-collection connue en session.
+  Retour: liste des documents (leur version la plus récente). 
+  - Certains d'entre eux peuvent ne plus appartenir à la collection ou être zombi
+    (à vérifier en session).
   */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<Object> {
+    : Promise<Uint8Array[]> {
 
-    const vd: Object = {}
+    // Map des documents par pk
+    const m: Map<string, vdata> = new Map<string, vdata>()
+    const datas: Uint8Array[] = []
 
-    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
+    let stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
       + ' WHERE org = @org AND ' 
       + (isList ? ('instr(' + colName + ', @col') : ('colName = @col') )
       + (!vs ? ';' : ' AND v > @vs ;'))
-    const docs = stmt.all({org: this.org, vs : vs || 0, col })
+    let docs = stmt.all({org: this.org, vs : vs || 0, col })
     for (let doc of docs) {
-      const row = this.rowToAPP(doc as row)
-      if (!row || row.deleted) vd[row.pk] = row.v
-      else vd[row.pk] = row.data
+      const row = this.rowToAPP(clazz, doc as row)
+      if (!vs) {
+        if (!row.deleted) datas.push(row.data)
+      } else if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
     }
+    if (!vs) return datas
 
-    if (vs) {
-      const ttl = Math.round(this.op.now / 60000)
-      const stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
-        + ' WHERE org = @org AND colName = @col AND v > @vs AND ttl > @ttl;')
-      const docs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
-      for (let doc of docs) if (!vd[doc.pk]) vd[doc.pk] = doc.v
+    const ttl = Math.round(this.op.now / 60000)
+    stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
+      + ' WHERE org = @org AND colName = @col AND v > @vs AND ttl > @ttl;')
+    docs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
+    for (let doc of docs) {
+      if (doc.ttl * 60000 > this.op.now) {
+        const v = doc.v
+        const pk = doc.pk
+        const vd = m.get(pk)
+        if (!vd || (v > vd.v)) {
+          const r = await this.oneRow(clazz, pk, vs)
+          m.set(pk, { v: r.v, data: r.data })
+        }
+      }
     }
-    
-    return vd
+    for(const [, {data}] of m) datas.push(data)
+    return datas
   }
 
   compOp (colName: string, filter: filter, col: any) {
@@ -487,8 +520,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       + (limit ? ' LIMIT ' + limit : '') + ';')
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
-      const row = this.rowToAPP(doc as row)
-      fn(row)
+      const row = this.rowToAPP(clazz, doc as row)
+      if (!row.deleted) fn(row)
     }
   }
 
@@ -501,8 +534,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       + (limit ? ' LIMIT ' + limit : '') + ';')
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
-      const row = this.rowToAPP(doc as row)
-      fn(doc.org, row)
+      const row = this.rowToAPP(clazz, doc as row)
+      if (!row.deleted) fn(doc.org, row)
     }
   }
 

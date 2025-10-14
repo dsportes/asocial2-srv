@@ -123,9 +123,9 @@ export class Document {
     return doc
   }
 
-  /* Construit un "row" pour DB depuis un document
+  /* Construit un "row" pour DB depuis un document - data encodé pas crypté
   */
-  toRow (now: number, key: Uint8Array) {
+  toRow (now: number) {
     const d = {}
     for (const k of Object.keys(this))
       if (k.charAt[0] !== '_') d[k] = this[k]
@@ -133,7 +133,7 @@ export class Document {
     const row: row = {
       v: now,
       pk: this.pk,
-      data: Crypt.syncCrypt(key, encode(d))
+      data: encode(d)
     }
     const ml = this['maxLife']; if (ml) row.maxLife = ml
     const dt = this.docType
@@ -142,10 +142,9 @@ export class Document {
     return row
   }
 
-  /* Construit un "row minimal" pour DB depuis un "data" ZOMBI de document
-  { v, deleted, propriétés de pk }
-  */
-  toZombiRow (now: number, key: Uint8Array) {
+  /* Construit un "row minimal" pour DB - data null */
+  toZombiRow (now: number) : row {
+    /*
     const dt = this.docType
     const d = { v : now, _deleted: true }
     dt.pk.forEach(p => { const v = this[p] ; if (v) d[p] = v })
@@ -155,7 +154,8 @@ export class Document {
       deleted: true,
       data: Crypt.syncCrypt(key, encode(d))
     }
-    return row
+    */
+    return { v: now, pk: this.pk, data: null }
   }
 
 }
