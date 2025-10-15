@@ -238,7 +238,7 @@ export class Operation {
 
   objectValue (par: string, req: boolean) : Object {
     const [present, value, type] = this.type(par, req)
-    if (!present && !req) return ''
+    if (!present && !req) return null
     if (present && type !== 'object')
       throw new AppExc(1010, 'invalid argument', this, [par])
     return value
@@ -641,6 +641,16 @@ export class Cache {
   }
 } 
 
+/* Contient la liste des documents créés / mis à jour / supprimés d'une opération
+afin que le publisher rechercher les souscriptions correspondantes à notifier.
+Voir manageRowQ() ci-dessus.
+Map : 
+- key: clazz/pk - identifiant du document
+- value: ImpactedSub { clazz, pk, colls }
+  - colls:  Map: 
+    - key: nom collection (colName) 
+    - value: colValues 
+*/
 export class ImpactedSubs {
   all : Map<string, ImpactedSub>
 
@@ -663,7 +673,11 @@ export class ImpactedSub {
 
   clazz: string // du document
   pk: string // du document 
-  colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
+  colls: Map<string, Set<string>> 
+  /* key: nom de la collection (colName)
+    value: colValues - set des valeurs impactées par le document
+      ajoutées et retirées
+  */
 
   constructor (clazz: string, pk: string) {
     this.clazz = clazz, this.pk = pk

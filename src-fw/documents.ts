@@ -16,7 +16,7 @@ export class Task extends Document {
 - url : url de l'application à ouvrir par le terminal sur web-push
 - title : titre des notifications web-push
 - v : version
-- defs : une map `{ def: msg ... }`
+- defs : un object `{ def: msg ... }` liste les définitions
   - def: sa définition.
   - msg: est un message ou ''
 */
@@ -63,10 +63,10 @@ et peut avoir trois formes:
 - 2 : souscription à la sous-collection nommée des documents de la classe
 
 La définition def d'un SubsItem est le string:
-- type 0: org/clazz
-- type 1: org/clazz/pkVal (c'est un shaC)
-- type 2: org/clazz/colName/colVal (c'est un shaC)
-hdef est une propriété indexée: permet de récupérer tous les SubsItem 
+- type 0: clazz
+- type 1: clazz/pkVal (c'est un shaC)
+- type 2: clazz/colName/colVal (c'est un shaC)
+def est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
 export class SubsItem extends Document {

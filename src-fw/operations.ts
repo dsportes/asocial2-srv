@@ -120,123 +120,80 @@ class GetPutUrl extends Operation {
 }
 Operation.register('GetPutUrl', () => { return new GetPutUrl()})
 
-/* CreateSubscription enregistre la sousciption d'une session *************************
-Supprime la précédente auparavant
-Créé une nouvelle
+/* SetSubscription enregistre la sousciption d'une session *************************
+- Supprime la précédente s'il y en avait une
+- Créé une nouvelle si l'argument subscription n'est pas null
 */
-class CreateSubscription extends Operation {
+class SetSubscription extends Operation {
   constructor () { super() }
 
-  _subs : subscription
+  _subs: subscription
   _life: number
 
   init () {
     super.init()
-    this._subs = this.objectValue('subs', true) as subscription
+    this._subs = this.objectValue('subsscription', false) as subscription
     const longLife = this.boolValue('longLife', false)
     this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
 
   async phase2 () {
     await SubsItem.deleteSessionId(this, this._subs.sessionId)
-    const subs = Subs.newSubs(this, this._subs, this._life) as Subs
-    for (const xdef in subs.defs) {
-      const [def, msg] = subs.defs[xdef]
-      SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+    if (this._subs) {
+      const subs = Subs.newSubs(this, this._subs, this._life) as Subs
+      for (const def in subs.defs) {
+        // const msg = subs.defs[def] - pas enregistré dans SubsItem
+        SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+      }
     }
   }
 
   phase3 : null
 
 }
-Operation.register('CreateSubscription', () => { return new CreateSubscription()})
+Operation.register('SetSubscription', () => { return new SetSubscription()})
 
-/* DeleteSubscription supprime la souscription de sessionId *****************************
-et tous ses items
-*/
-class DeleteSubscription extends Operation {
-  constructor () { super() }
-
-  _sessionId : string
-
-  init () {
-    super.init()
-    this._sessionId = this.stringValue('sessionId', true)
-  }
-
-  async phase2 () {
-    this.db.deleteRow('Subs', this._sessionId)
-    await SubsItem.deleteSessionId(this, this._sessionId)
-  }
-
-  phase3 : null
-
-}
-Operation.register('DeleteSubscription', () => { return new DeleteSubscription()})
-
-/* UpdateSubscription met à jour la souscription de sessionId ********************************
-et la créé si elle ne l'était pas.
-Ses items antérieurs non repris dans l'actuelle sont supprimés.
-Les items déjà existants sont réinscrits si leur maxLife est trop courte
-- longLife : true si vie longue
+/* UpdateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
+Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
 */
 class UpdateSubscription extends Operation {
   constructor () { super() }
 
-  _subs : subscription
-  _life: number
-  _lifeMin: number
+  _sessionId : string
+  _defs : Object
+  // _life : number
 
   init () {
     super.init()
-    this._subs = this.objectValue('subs', true) as subscription
+    this._sessionId = this.stringValue('sessionId', true)
+    this._defs = this.objectValue('defs', true)
     const longLife = this.boolValue('longLife', false)
-    this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
-    this._lifeMin = Math.floor(this.now / 1440000) + 
-      Math.floor((longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE) / 2)
+    // this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
 
   async phase2 () {
-    let subs = await this.cache.getDoc('Subs', { sessionId: this._subs.sessionId}) as Subs
-    if (!subs) {
-      await SubsItem.deleteSessionId(this, this._subs.sessionId)
-      subs = Subs.newSubs(this, this._subs, this._life) as Subs
-      for (const xdef in subs.defs) {
-        const [def, msg] = subs.defs[xdef]
-        SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
-      }
-    } else {
-      // la souscription existait : mise à jour
-      const defsBefore : Set<string> = new Set()
-      for (const def in subs.defs) defsBefore.add(def)
-      const defsAfter : Set<string> = new Set()
-      for (const def in this._subs.defs) defsAfter.add(def)
-      for (const def of defsBefore) {
-      // Suppression des items qui ne sont plus dans la nouvelle souscription
-        if (!defsAfter.has(def)) {
-          const pk = Crypt.shaS(this._subs.sessionId + '/' + def)
-          this.db.deleteRow('SubsItem', pk)
+    const subs = await this.cache.getDoc('Subs', { sessionId: this._sessionId}) as Subs
+    if (!subs) 
+      throw new AppExc(1025, 'Unknown session', this, [this._sessionId])
+    for (const def in this._defs) {
+      const src = { sessionId: this._sessionId, def, maxLife: subs.maxLife }
+      const msg = this._defs[def]
+      if (msg === false) {
+        delete subs.defs[def]
+        await this.cache.getDoc('SubsItem', src) as SubsItem
+        this.cache.delDoc('SubsItem', Crypt.shaS(this._sessionId + '/' + def))
+      } else {
+        subs.defs[def] = msg
+        let subsItem = await this.cache.getDoc('SubsItem', src) as SubsItem
+        if (!subsItem) {
+          subsItem = this.cache.newDoc('SubsItem', src) as SubsItem
+          subsItem._status = DocStatus.NEW
+        } else { 
+          subsItem.def = def
+          subsItem._status = DocStatus.UPD
         }
       }
-      // Maj de la souscription
       subs._status = DocStatus.UPD
-      subs.defs = this._subs.defs
-      subs.maxLife = this._life
-      // Set de ses items
-      for (const def of defsAfter) {
-        const src = { sessionId: this._subs.sessionId, def }
-        if (!defsBefore.has(def)) {
-          // nouvel item : création
-          this.cache.newDoc('SubsItem', src)
-        } else {
-          // item existant : update pour changer le maxLife
-          const item = await this.cache.getDoc('SubsItem', src) as SubsItem
-          if (item.maxLife < this._lifeMin) {
-            item.maxLife = this._life
-            item._status = DocStatus.UPD
-          }
-        }
-      }
     }
   }
 
@@ -245,64 +202,12 @@ class UpdateSubscription extends Operation {
 }
 Operation.register('UpdateSubscription', () => { return new UpdateSubscription()})
 
-/* AdjustSubscription corrige la sousciption d'une session *************************
-Ajoute ou enlève des defs { def1: 'm1', def2: '', def3: false }
-- longLife : true si vie longue
-*/
-class AdjustSubscription extends Operation {
-  constructor () { super() }
-
-  _sessionId : string
-  _defs : Object
-  _life : number
-
-  init () {
-    super.init()
-    this._sessionId = this.stringValue('sessionId', true)
-    this._defs = this.objectValue('defs', true)
-    const longLife = this.boolValue('longLife', false)
-    this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
-  }
-
-  async phase2 () {
-    const subs = await this.cache.getDoc('Subs', { sessionId: this._sessionId}) as Subs
-    if (!subs) 
-      throw new AppExc(1025, 'Unknown session', this, [this._sessionId])
-    for (const def in this._defs) {
-      const src = { sessionId: this._sessionId, def, maxLife: this._life }
-      const v = this._defs[def]
-      if (v === false) {
-        delete subs.defs[def]
-        await this.cache.getDoc('SubsItem', src) as SubsItem
-        this.cache.delDoc('SubsItem', Crypt.shaS(this._sessionId + '/' + def))
-      } else if (typeof v === 'string') {
-        subs.defs[def] = v
-        let subsItem = await this.cache.getDoc('SubsItem', src) as SubsItem
-        if (!subsItem) {
-          subsItem = this.cache.newDoc('SubsItem', src) as SubsItem
-          subsItem._status = DocStatus.NEW
-        } else { 
-          subsItem.def = def
-          subsItem['maxLife'] = this._life
-          subsItem._status = DocStatus.UPD
-        }
-      }
-      subs._status = DocStatus.UPD
-      subs.maxLife = this._life
-    }
-  }
-
-  phase3 : null
-
-}
-Operation.register('AdjustSubscription', () => { return new AdjustSubscription()})
-
 type subsToSync = {
   def: string, 
   v: number
 }
 
-/* Sync : synchronise les abonnements cités *************************
+/* Sync : synchronise les souscriptions citées *************************
 - toSync = subsToSync[]
 subsToSync = {
   def: string, 
@@ -352,17 +257,13 @@ class Sync extends Operation {
 
   async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
     const dt = DocType.get(clazz)
-    if (!dt || !dt.hasColls) {
-      this.addRes(def, {})
-      return
+    if (dt && dt.hasColls) {
+      const x = dt.colls.get(colName)
+      if (x) {
+        const datas = await this.db.getColl(clazz, colName, col, x.list, v)
+        this.addRes(def, datas)
+      }
     }
-    const x = dt.colls.get(colName)
-    if (!x) {
-      this.addRes(def, {})
-      return
-    }
-    const docColls = await this.db.getColl(clazz, colName, col, x.list, v)
-    this.addRes(def, docColls)
   }
 
   phase3 : null

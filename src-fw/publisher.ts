@@ -2,7 +2,7 @@ import webpush from 'web-push'
 import { Log } from './log'
 import { Util } from './util'
 import { Operation, Cache, ImpactedSub } from './operation'
-import { SubsItem } from './documents'
+import { SubsItem, subscription } from './documents'
 
 import { encode, decode } from '@msgpack/msgpack'
 
@@ -11,16 +11,27 @@ const vapidKeys = webpush.generateVAPIDKeys()
 console.log(vapidKeys.publicKey, vapidKeys.privateKey)
 */
 
+/* Pour une sessionId, notifications à publier:
+- son entête : sub, title, url
+- Pour chaque def: son "message" à popper dans le browser (ou '')
+*/
 type notif = {
   sub: webpush.PushSubscription
   title: string
   url: string
-  defs: Map<string, string> // key: hdef, value: msg ou ''
+  defs: Object // key: def, value: msg ou ''
+  allDefs: Object 
+  /* { def1:msg1, def2:'' ... } cache TOUTES les defs souscrites 
+  par la sessionId alors que defs ne comporte QUE celles à notifier.
+  */
 }
 
+/* Un "publisher" est créé pour chaque opération.
+Il a une entrée par sessionId devant être notifiée.
+*/
 export class Publisher {
 
-  toNotif: Map<string, notif>
+  toNotif: Map<string, notif> // key: sessionId value: notif (ci-dessus)
   op: Operation
   sessionNotifs: string[]
   sessionId: string
@@ -33,12 +44,13 @@ export class Publisher {
   }
 
   buildMessage (notif: notif) : Object {
-    /* UN message par session:
-    Pas envoyé à la session en cours qui recevra l'info
+    /* Construit UN message par session 
+    Le message n'est pas envoyé à la session en cours qui recevra l'info
     en retour d'opération */
     const lines : string[] = []
     const defs : string[] = []
-    for(const [def, s] of notif.defs) {
+    for(const def in notif.defs) {
+      const s = notif.defs[def]
       if (s) lines.push(s)
       defs.push(def)
     }
@@ -48,7 +60,7 @@ export class Publisher {
       title: 'myApp - demo', 
       body: 'Chat reçu',
       url: 'http...'
-      defs: [a/v/c c/d/e ...]
+      defs: 'a/v/c c/d/e ...' - définitions séparées par un espace
     }
     */
     return {
@@ -68,11 +80,16 @@ export class Publisher {
     return Util.objToB64(message)
   }
 
-  /*
-  ImpactedSub:
-    clazz: string // du document
-    pk: string // du document 
-    colls: Map<string, Set<string>> // key: nom collection, value: set des valeurs impactées 
+  /* ImpactedSub : contient la liste des documents créés / mis à jour / supprimés d'une opération
+  afin que le publisher rechercher les souscriptions correspondantes à notifier.
+  Voir manageRowQ() ci-dessus.
+  Map : 
+  - key: clazz/pk - identifiant du document
+  - value: ImpactedSub { clazz, pk, colls }
+    - colls:  Map: 
+      - key: nom collection (colName) 
+      - value: colValues 
+  publish est invoqué par l'opération pour chaque ImpactedSub.
   */
   async publish (op: Operation, is: ImpactedSub) {
     // Souscriptions à la collection des documents
@@ -83,33 +100,37 @@ export class Publisher {
 
     // Souscriptions aux sous-collections
     for(const [colName, values] of is.colls) {
-      for (const val of values) 
-        await this.doSids(SubsItem.def2(is.clazz, colName, val))
+      for (const colValue of values) 
+        await this.doSids(SubsItem.def2(is.clazz, colName, colValue))
     }
   }
 
+  /* Récupère toutes les sessions ayant souscrit à cette définition.
+  Pour chacune, créé / complète la liste des souscriptions à notifier:
+  */
   async doSids (def: string) : Promise<void> {
-    const sids = await SubsItem.getSessionIds(this.op, def)
-    if (sids.length) for(const sid of sids) await this.setDef(sid, def)
-  }
-
-  // Inscription d'une def à publier par sessionId
-  async setDef (sessionId: string, def: string) {
-    let tn = this.toNotif.get(sessionId)
-    if (!tn) {
-      const rowSubs = await Cache.getRow(this.op, 'Subs', { sessionId }, 2)
-      if (!rowSubs) return
-      const data = decode(rowSubs.row.data) as notif
-      tn = {
-        url: data.url,
-        title: data.title,
-        sub: JSON.parse(data['subJSON']) as webpush.PushSubscription,
-        defs: new Map()
+    const sessionIds = await SubsItem.getSessionIds(this.op, def)
+    if (sessionIds.length) for(const sessionId of sessionIds) {
+      let tn: notif = this.toNotif.get(sessionId)
+      if (!tn) {
+        const rowSubs = await Cache.getRow(this.op, 'Subs', { sessionId }, 2)
+        if (!rowSubs) return
+        const subs: subscription = decode(rowSubs.row.data) as subscription
+        const msg = subs.defs[def] // msg ou ''
+        if (msg === undefined) return // cette session n'a pas (encore) de souscription à notifier
+        tn = {
+          url: subs.url,
+          title: subs.title,
+          sub: JSON.parse(subs.subJSON) as webpush.PushSubscription,
+          defs: {}, // les defs de la souscription à notifier
+          allDefs: subs.defs // TOUTES les defs de la souscription, à notifier OU NON
+        }
+        tn.defs[def] = msg
+        this.toNotif.set(sessionId, tn)
+      } else { // La session a déjà une notif amorcée: elle est complétée (ou non)
+        const msg = tn.allDefs[def] // msg ou ''
+        if (msg !== undefined) tn.defs[def] = msg
       }
-      const x = data['defs'][def] // [def, msg]
-      if (!x) return
-      tn.defs[def] = x[1] || ''
-      this.toNotif.set(sessionId, tn)
     }
   }
 
