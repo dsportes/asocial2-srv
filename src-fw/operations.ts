@@ -154,34 +154,39 @@ class SetSubscription extends Operation {
 Operation.register('SetSubscription', () => { return new SetSubscription()})
 
 /* UpdateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
+Maj éventuelle de title / url
 Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
 */
 class UpdateSubscription extends Operation {
   constructor () { super() }
 
-  _sessionId : string
-  _defs : Object
-  // _life : number
+  _title: string
+  _url: string
+  _defs: Object
 
   init () {
     super.init()
-    this._sessionId = this.stringValue('sessionId', true)
+    this._title = this.stringValue('title', false)
+    this._url = this.stringValue('url', false)
     this._defs = this.objectValue('defs', true)
-    const longLife = this.boolValue('longLife', false)
-    // this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
 
   async phase2 () {
-    const subs = await this.cache.getDoc('Subs', { sessionId: this._sessionId}) as Subs
+    const subs = await this.cache.getDoc('Subs', { sessionId: this.sessionId}) as Subs
     if (!subs) 
-      throw new AppExc(1025, 'Unknown session', this, [this._sessionId])
+      throw new AppExc(1025, 'Unknown session', this, [this.sessionId])
+
+    if (this.args['title']) { subs.title = this._title; subs._status = DocStatus.UPD }
+
+    if (this.args['url']) { subs.url = this._url; subs._status = DocStatus.UPD }
+
     for (const def in this._defs) {
-      const src = { sessionId: this._sessionId, def, maxLife: subs.maxLife }
+      const src = { sessionId: this.sessionId, def, maxLife: subs.maxLife }
       const msg = this._defs[def]
       if (msg === false) {
         delete subs.defs[def]
         await this.cache.getDoc('SubsItem', src) as SubsItem
-        this.cache.delDoc('SubsItem', Crypt.shaS(this._sessionId + '/' + def))
+        this.cache.delDoc('SubsItem', Crypt.shaS(this.sessionId + '/' + def))
       } else {
         subs.defs[def] = msg
         let subsItem = await this.cache.getDoc('SubsItem', src) as SubsItem
