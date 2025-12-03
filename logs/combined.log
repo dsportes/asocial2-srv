@@ -3036,3 +3036,17 @@ Error: KO
 2025-10-11T10:37:05.672Z info: GetSrvStatus finished
 2025-10-11T10:39:55.226Z info: EchoText : 2025-10-11T10:39:55.225Z
 2025-10-11T10:39:55.228Z info: EchoText finished
+2025-12-03T10:16:49.611Z info: 9 operations registered
+2025-12-03T10:16:49.615Z info: 8 document classes
+2025-12-03T10:16:49.616Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-03T10:16:49.617Z info: Firestore connector
+2025-12-03T10:16:49.617Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-03T10:16:49.618Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-03T10:16:49.619Z info: 9 App operations registered
+2025-12-03T10:16:49.726Z info: HTTP listen [8080]
+2025-12-03T10:29:26.037Z info: TestAuth : 2025-12-03T10:29:26.033Z
+2025-12-03T10:29:43.381Z info: auths : 1764757658429 - ADMIN TOTO
+2025-12-03T10:30:12.395Z info: TestAuth finished
+2025-12-03T10:33:20.326Z info: TestAuth : 2025-12-03T10:33:20.325Z
+2025-12-03T10:33:24.647Z info: auths : 1764757993167 - ADMIN TOTO
+2025-12-03T10:33:24.649Z info: TestAuth finished
