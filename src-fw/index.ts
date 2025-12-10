@@ -114,17 +114,32 @@ export function getExpressApp (): express.Application {
     const storage = config.storages[0][1]
     const dbConnector = config.databases[0][1]
 
-    let body
     if (!req['rawBody']) {
       let chunks = [];
       req.on('data', (chunk) => {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
-        body = Buffer.concat(chunks)
+        const body = Buffer.concat(chunks)
         await doOp(storage, dbConnector, req, res, body)
       })
     } else // Cloud functions
       await doOp(storage, dbConnector, req, res, req['rawBody'])
+  })
+
+  //**** appels des opérations du module safe****
+  app.use('/safe/:operation', async (req, res) => {
+    const dbConnector = config.directoryDB
+
+    if (!req['rawBody']) {
+      let chunks = [];
+      req.on('data', (chunk) => {
+        chunks.push(Buffer.from(chunk))
+      }).on('end', async () => {
+        const body = Buffer.concat(chunks)
+        await doSafeOp(dbConnector, req, res, body)
+      })
+    } else // Cloud functions
+      await doSafeOp(dbConnector, req, res, req['rawBody'])
   })
   
   return app
@@ -191,6 +206,17 @@ function checkOrigin(req: express.Request, origins: Set<string>) {
 
 let today = 0
 let todayEpoch = 0
+
+export async function doSafeOp (
+  dbConnector: DbConnector,
+  req: express.Request, 
+  res: express.Response, 
+  body: Buffer) {
+  
+  const opName = req.params.operation
+  // TODO
+  
+}
 
 export async function doOp (
   storage: IStGeneric, 
