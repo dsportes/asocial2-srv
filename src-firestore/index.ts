@@ -180,8 +180,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   /* Purge les safes obsolètes */
   async purgeSafes () :  Promise<void> {
-    // A REPRENDRE
-    const lim = Math.floor(Date.now() / 86400) + safeLapse
+    const lim = new Timestamp(Math.floor(Date.now() / 1000) + safeLapse, 0) 
     const cr = this.fs.collection('Safe/')
     const q: Query = cr.where('ttl', '<=', lim)
     const qs: QuerySnapshot = await q.get()
