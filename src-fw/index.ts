@@ -11,6 +11,7 @@ import { Log } from './log'
 import { config } from './config'
 import { Operation } from './operation'
 import { register } from './operations'
+import { SafeOperation } from './safeop'
 import { Util } from './util'
 
 import { DbConnector } from './dbConnector'
@@ -128,21 +129,50 @@ export function getExpressApp (): express.Application {
 
   //**** appels des opérations du module safe****
   app.use('/safe/:operation', async (req, res) => {
-    const dbConnector = config.directoryDB
-
+    let result: Object
+    const opName = req.params.operation as string
     if (!req['rawBody']) {
       let chunks = [];
       req.on('data', (chunk) => {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         const body = Buffer.concat(chunks)
-        await doSafeOp(dbConnector, req, res, body)
+        await doSafeOp(opName, body, res)
       })
     } else // Cloud functions
-      await doSafeOp(dbConnector, req, res, req['rawBody'])
-  })
+      result = doSafeOp(opName, req['rawBody'], res)
+    })
   
   return app
+}
+
+async function doSafeOp(opName: string, body: Buffer, res) {
+  try {
+    const result = await SafeOperation.doOp(opName, decode(body))
+    if (config.debugLevel === 2) Log.info(opName + ' finished')
+    const b = encode(result || {})
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+  } catch(exc) { 
+    ExcOp(exc, opName, res)
+  }
+}
+
+function ExcOp (exc, opName, res) {
+  if (config.debugLevel === 2)
+    Log.info(opName + ' terminated on exception')
+  // 400: AppExc
+  // 401: AppExc inattendue
+  const e = exc
+  let b: Buffer
+  let st = 400
+  if (e instanceof AppExc) {
+    b = e.serial()
+  } else {
+    const e2 = new AppExc(3001, 'unexpected exception', null, [e.message], e.stack || '')
+    b = e2.serial()
+    st = 401
+  }
+  res.status(st).type('application/octet-stream').send(b)
 }
 
 async function getUrl (org: string) {
@@ -207,17 +237,6 @@ function checkOrigin(req: express.Request, origins: Set<string>) {
 let today = 0
 let todayEpoch = 0
 
-export async function doSafeOp (
-  dbConnector: DbConnector,
-  req: express.Request, 
-  res: express.Response, 
-  body: Buffer) {
-  
-  const opName = req.params.operation
-  // TODO
-  
-}
-
 export async function doOp (
   storage: IStGeneric, 
   dbConnector: DbConnector,
@@ -272,21 +291,7 @@ export async function doOp (
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
   } catch(exc) {
-    if (config.debugLevel === 2)
-      Log.info(opName + ' terminated on exception')
-    // 400: AppExc
-    // 401: AppExc inattendue
-    const e = exc
-    let b: Buffer
-    let st = 400
-    if (e instanceof AppExc) {
-      b = e.serial()
-    } else {
-      const e2 = new AppExc(3001, 'unexpected exception', null, [e.message], e.stack || '')
-      b = e2.serial()
-      st = 401
-    }
-    res.status(st).type('application/octet-stream').send(b)
+    ExcOp(exc, opName, res)
   }
 }
 

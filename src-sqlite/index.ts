@@ -1,11 +1,12 @@
 import Database from 'better-sqlite3'
 // import { Database } from './loadreq.js'
 
-import { encode } from '@msgpack/msgpack'
+import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
-  row, rowQ, updType, vdata } from '../src-fw/iDbGeneric'
+  row, rowQ, updType, vdata, IDP0R0, 
+  safeLapse} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -23,6 +24,17 @@ const t1 = `CREATE TABLE IF NOT EXISTS "URLS" (
   "org" TEXT,
   "url" TEXT,
 PRIMARY KEY(org));
+
+CREATE TABLE IF NOT EXISTS "SAFE" (
+  "id" TEXT,
+  "p0" TEXT,
+  "r0" TEXT,
+  "ttl" INTEGER,
+	"data" BLOB,
+PRIMARY KEY(id);
+CREATE INDEX IF NOT EXISTS "SAFE_p0" ON "SAFE" ( "p0" );
+CREATE INDEX IF NOT EXISTS "SAFE_r0" ON "SAFE" ( "r0" );
+CREATE INDEX IF NOT EXISTS "SAFE_ttl" ON "ARTICLE" ( "ttl" ) WHERE "ttl" > 0;
 
 CREATE TABLE IF NOT EXISTS "STATUS" (
   "pk" TEXT,
@@ -201,6 +213,38 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       (e.stack ? e.stack + '\n' : '') + this.lastSql.join('\n')
     if (e.code && e.code.startsWith('SQLITE_BUSY')) return [1, s]
     return [2, s]
+  }
+
+  async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
+    const idx = idp0r0 === IDP0R0.P0 ? 'p0' : (idp0r0 === IDP0R0.R0 ? 'r0' : 'id')
+    const stmt = this.sql.prepare('SELECT data FROM "SAFE" WHERE ' + idx + ' = @id')
+    const row = stmt.get({id})
+    if (!row) return null
+    const data = Crypt.syncDecrypt(this.key, row.data)
+    return decode(data)
+  }
+
+  async setSafe (safe: Object) :  Promise<void> {
+    const id = safe['id']
+    const r0 = safe['r0']
+    const p0 = safe['p0']
+    safe['maxLife'] = Math.floor(Date.now() / 86400) + safeLapse
+    const ttl = safe['maxLife']
+    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    const stmt = this.sql.prepare('INSERT INTO SAFE (id, p0, r0, ttl, data) VALUES (@id, @p0, @r0, @ttl, @data) ' + 
+      'ON CONFLICT (id) DO UPDATE SET p0 = excluded.p0, r0 = excluded.r0, ttl = excluded.ttl, data = excluded.data')
+    stmt.run({ id, p0, r0, ttl, data })
+  }
+
+  async delSafe (id: string) :  Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE id < @id')
+    stmt.run({ id })
+  }
+
+  async purgeSafes () :  Promise<void> {
+    const lim = Math.floor(Date.now() / 86400) + safeLapse
+    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE ttl < @liml')
+    stmt.run({ lim })
   }
 
   async getUrl (org: string) : Promise<string> {

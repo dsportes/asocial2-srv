@@ -9,6 +9,8 @@ export enum updType { SET, CREATE, UPDATE }
 
 export const zombiLapse = 90 * 86400 // 90 jours en secondes 
 
+export const safeLapse = 750 * 86400 // 750 jours en secondes 
+
 export type pkv = [ pk: string, v: number ]
 
 export type expList = {
@@ -51,6 +53,8 @@ export type srvStatus = {
   txt: string
 }
 
+export enum IDP0R0 { ID, P0, R0 }
+
 export interface IDbGeneric {
   connector: DbConnector
   op: Operation
@@ -64,6 +68,20 @@ export interface IDbGeneric {
   disconnect () : Promise<void>
 
   getUrl (org: string) : Promise<string>
+
+  /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
+  null si non trouvé
+  */
+  getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object>
+
+  /* Met à jour ou insère un safe depuis son objet */
+  setSafe (safe: Object) :  Promise<void>
+
+  /* Supprime un safe depuis son id */
+  delSafe (id: string) :  Promise<void>
+
+  /* Purge les safes obsolètes */
+  purgeSafes () :  Promise<void>
 
   /* Retourne le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP

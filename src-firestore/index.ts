@@ -5,11 +5,11 @@ import { FieldPath, DocumentReference, Firestore, Query, QuerySnapshot,
 import { writeFileSync } from 'node:fs'
 import path from 'path'
 
-import { encode } from '@msgpack/msgpack'
+import { encode, decode } from '@msgpack/msgpack'
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, 
-  expList, expListQ, updType, vdata } from '../src-fw/iDbGeneric'
+import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
+  expList, expListQ, updType, vdata, IDP0R0 } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -138,6 +138,55 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     const s = (e.code || '???') + ' - ' + (e.message || '?')
     if (e.code && e.code === 'ABORTED') return [1, s]
     return [2, s]
+  }
+
+  /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
+  null si non trouvé
+  */
+  async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
+    let buf
+    if (idp0r0 === IDP0R0.ID ) {
+      const dr = this.fs.doc('Safe/' + id)
+      const ds = await dr.get()
+      if (!ds.exists) return null
+      buf = ds.get('data')
+    } else {
+      const cr = this.fs.collection('Safe/')
+      const q: Query = idp0r0 === IDP0R0.P0 ? cr.where('p0', '==', id) : cr.where('r0', '==', id)
+      const qs: QuerySnapshot = await q.get()
+      if (qs.empty) return null
+      buf = qs.docs[0].data()
+    }
+    const data = Crypt.syncDecrypt(this.key, buf)
+    return decode(data)
+  }
+
+  /* Met à jour ou insère un safe depuis son objet */
+  async setSafe (safe: Object) :  Promise<void> {
+    const id = safe['id']
+    const r0 = safe['r0']
+    const p0 = safe['p0']
+    safe['maxLife'] = Math.floor(Date.now() / 86400) + safeLapse
+    const ttl = new Timestamp(Math.floor(safe['maxLife']), 0)
+    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    this.fs.doc('Safe/' + id).set( { p0, r0, ttl, data })
+  }
+
+  /* Supprime un safe depuis son id */
+  async delSafe (id: string) :  Promise<void> {
+    const dr = this.fs.doc('Safe/' + id)
+    dr.delete()
+  }
+
+  /* Purge les safes obsolètes */
+  async purgeSafes () :  Promise<void> {
+    // A REPRENDRE
+    const lim = Math.floor(Date.now() / 86400) + safeLapse
+    const cr = this.fs.collection('Safe/')
+    const q: Query = cr.where('ttl', '<=', lim)
+    const qs: QuerySnapshot = await q.get()
+    if (!qs.empty) for (let doc of qs.docs)
+      await doc.ref.delete()
   }
 
   async getUrl (org: string) : Promise<string> {
