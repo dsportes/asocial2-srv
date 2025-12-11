@@ -38,11 +38,11 @@ export class SafeOperation extends Operation {
 
 /* Creation d'un nouveau Safe
 */
-class CreateSafe extends SafeOperation {
+class $CreateSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
 
   }
 }
-SafeOperation.register('CreateSafe', () => { return new CreateSafe()})
+SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
