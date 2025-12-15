@@ -55,4 +55,11 @@ static clone (obj: any) : any {
   return Util.b64ToObj(Util.objToB64(obj))
 }
 
+static currentMonth () : number {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = d.getMonth() + 1
+  return (y * 100) + m
+}
+
 }

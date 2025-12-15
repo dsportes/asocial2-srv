@@ -55,6 +55,21 @@ export type srvStatus = {
 
 export enum IDP0R0 { ID, P0, R0 }
 
+export type Safe = {
+  userId: string // identifiant.
+  pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
+  hp0: string // index unique, `SH(p0)`.
+  hr0: string // index unique, `SH(r0)`.
+  hhp1: Uint8Array // SHA de `SH(p1)`.
+  hhr1: Uint8Array // SHA de `SH(r1)`.
+  hhk: Uint8Array // SHA de `SH(K)`.
+  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+  devices: Object
+  creds: Object
+  profiles: Object
+}
+
 export interface IDbGeneric {
   connector: DbConnector
   op: Operation
@@ -74,14 +89,29 @@ export interface IDbGeneric {
   */
   getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object>
 
-  /* Met à jour ou insère un safe depuis son objet */
-  setSafe (safe: Object) :  Promise<void>
+  /* Créé un nouveau safe. Retour:
+  0: OK
+  1: un safe existe déjà avec cette id
+  1: un safe existe déjà avec ce p0
+  2: un safe existe déjà avec ce r0
+  */
+  newSafe (safe: Object) :  Promise<number>
+
+  /* Met à jour le p0 / ro d'un safe. Retour:
+  0: OK
+  1: un safe existe déjà avec ce p0
+  2: un safe existe déjà avec ce r0
+  */
+  updPRSafe (safe: Object) :  Promise<number>
+
+  /* Met à jour un safe depuis son objet */
+  updSafe (safe: Object) :  Promise<void>
 
   /* Supprime un safe depuis son id */
   delSafe (id: string) :  Promise<void>
 
   /* Purge les safes obsolètes */
-  purgeSafes () :  Promise<void>
+  purgeSafes (lam: number) :  Promise<void>
 
   /* Retourne le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP

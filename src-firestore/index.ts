@@ -15,6 +15,7 @@ import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
 import { Crypt } from '../src-fw/crypt'
+import { Util } from '../src-fw/util'
 
 const schemaPath = './emulators/firestore.indexes.json'
 
@@ -144,25 +145,48 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   null si non trouvé
   */
   async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
+    // A REVISER
     let buf
+    let lam
+    let idx
     if (idp0r0 === IDP0R0.ID ) {
       const dr = this.fs.doc('Safe/' + id)
       const ds = await dr.get()
       if (!ds.exists) return null
       buf = ds.get('data')
+      lam = ds.get('lam')
+      idx = id
     } else {
       const cr = this.fs.collection('Safe/')
       const q: Query = idp0r0 === IDP0R0.P0 ? cr.where('p0', '==', id) : cr.where('r0', '==', id)
       const qs: QuerySnapshot = await q.get()
       if (qs.empty) return null
-      buf = qs.docs[0].data()
+      const row = qs.docs[0].data()
+      buf = row.data
+      lam = row.lam
+      idx = row.id
+    }
+    const cm = Util.currentMonth()
+    if (cm !== lam) {
+      this.fs.doc('Safe/' + idx).set({ lam: cm })
     }
     const data = Crypt.syncDecrypt(this.key, buf)
     return decode(data)
   }
 
+  async newSafe (safe: Object) :  Promise<number> {
+    // TODO
+    return 0
+  }
+
+  async updPRSafe (safe: Object) :  Promise<number> {
+    // TODO
+    return 0
+  }
+
   /* Met à jour ou insère un safe depuis son objet */
-  async setSafe (safe: Object) :  Promise<void> {
+  async updSafe (safe: Object) :  Promise<void> {
+    // A REVISER
     const id = safe['id']
     const r0 = safe['r0']
     const p0 = safe['p0']
@@ -179,10 +203,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Purge les safes obsolètes */
-  async purgeSafes () :  Promise<void> {
-    const lim = new Timestamp(Math.floor(Date.now() / 1000) + safeLapse, 0) 
+  async purgeSafes (lam: number) :  Promise<void> {
     const cr = this.fs.collection('Safe/')
-    const q: Query = cr.where('ttl', '<=', lim)
+    const q: Query = cr.where('lam', '<=', lam)
     const qs: QuerySnapshot = await q.get()
     if (!qs.empty) for (let doc of qs.docs)
       await doc.ref.delete()

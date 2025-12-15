@@ -1,6 +1,6 @@
 # Serveur
 
-GetLock : hors transation.
+GetLock : hors transaction.
 
 Non régression de v pour un document à gérer.
 

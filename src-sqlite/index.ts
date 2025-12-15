@@ -6,12 +6,13 @@ import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
   row, rowQ, updType, vdata, IDP0R0, 
-  safeLapse} from '../src-fw/iDbGeneric'
+  safeLapse, Safe} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
 import { Crypt } from '../src-fw/crypt'
+import { Util } from '../src-fw/util'
 
 import path from 'path'
 import { existsSync } from 'node:fs'
@@ -29,12 +30,12 @@ CREATE TABLE IF NOT EXISTS "SAFE" (
   "id" TEXT,
   "p0" TEXT,
   "r0" TEXT,
-  "ttl" INTEGER,
+  "lam" INTEGER,
 	"data" BLOB,
 PRIMARY KEY(id);
 CREATE INDEX IF NOT EXISTS "SAFE_p0" ON "SAFE" ( "p0" );
 CREATE INDEX IF NOT EXISTS "SAFE_r0" ON "SAFE" ( "r0" );
-CREATE INDEX IF NOT EXISTS "SAFE_ttl" ON "ARTICLE" ( "ttl" ) WHERE "ttl" > 0;
+CREATE INDEX IF NOT EXISTS "SAFE_lam" ON "ARTICLE" ( "lam" );
 
 CREATE TABLE IF NOT EXISTS "STATUS" (
   "pk" TEXT,
@@ -217,23 +218,61 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
     const idx = idp0r0 === IDP0R0.P0 ? 'p0' : (idp0r0 === IDP0R0.R0 ? 'r0' : 'id')
-    const stmt = this.sql.prepare('SELECT data FROM "SAFE" WHERE ' + idx + ' = @id')
+    const stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE ' + idx + ' = @id')
     const row = stmt.get({id})
     if (!row) return null
     const data = Crypt.syncDecrypt(this.key, row.data)
+    const cm = Util.currentMonth()
+    if (row.lam !== cm) {
+      const upd = this.sql.prepare('UPDATE SAFE SET lam = @lam WHERE id = @id')
+      upd.run({ id: row.id, lam: cm })
+    }
     return decode(data)
   }
 
-  async setSafe (safe: Object) :  Promise<void> {
+  async newSafe (safe: Object) :  Promise<number> {
     const id = safe['id']
-    const r0 = safe['r0']
     const p0 = safe['p0']
-    safe['maxLife'] = Math.floor(Date.now() / 86400) + safeLapse
-    const ttl = safe['maxLife']
+    const r0 = safe['r0']
+    const lam = Util.currentMonth()
+    let stmt = this.sql.prepare('SELECT id FROM SAFE WHERE id = @id')
+    let row = stmt.get({id})
+    if (row) return 1
+    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE p0 = @p0')
+    row = stmt.get({p0})
+    if (row) return 2
+    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE r0 = @r0')
+    row = stmt.get({r0})
+    if (row) return 3
     const data = Crypt.syncDecrypt(this.key, encode(safe))
-    const stmt = this.sql.prepare('INSERT INTO SAFE (id, p0, r0, ttl, data) VALUES (@id, @p0, @r0, @ttl, @data) ' + 
-      'ON CONFLICT (id) DO UPDATE SET p0 = excluded.p0, r0 = excluded.r0, ttl = excluded.ttl, data = excluded.data')
-    stmt.run({ id, p0, r0, ttl, data })
+    stmt = this.sql.prepare('INSERT INTO SAFE (id, p0, r0, lam, data) VALUES (@id, @p0, @r0, @lam, @data)')
+    stmt.run({ id, p0, r0, lam, data })
+    return 0
+  }
+
+  async updPRSafe (safe: Object) :  Promise<number> {
+    const id = safe['id']
+    const p0 = safe['p0']
+    const r0 = safe['r0']
+    const lam = Util.currentMonth()
+    let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE p0 = @p0')
+    let row = stmt.get({p0})
+    if (row && row.id !== id) return 2
+    stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE r0 = @r0')
+    row = stmt.get({r0})
+    if (row && row.id !== id) return 3
+    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    stmt = this.sql.prepare('UPDATE SAFE SET p0 = @p0, r0 = @ro, lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, p0, r0, lam, data })
+    return 0
+  }
+
+  async updSafe (safe: Object) :  Promise<void> {
+    const id = safe['id']
+    const lam = Util.currentMonth()
+    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, lam, data })
   }
 
   async delSafe (id: string) :  Promise<void> {
@@ -241,10 +280,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ id })
   }
 
-  async purgeSafes () :  Promise<void> {
-    const lim = Math.floor(Date.now() / 86400) + safeLapse
-    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE ttl < @liml')
-    stmt.run({ lim })
+  async purgeSafes (lam: number) :  Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE lam < @lam')
+    stmt.run({ lam })
   }
 
   async getUrl (org: string) : Promise<string> {
