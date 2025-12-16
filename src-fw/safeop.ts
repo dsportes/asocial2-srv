@@ -36,13 +36,30 @@ export class SafeOperation extends Operation {
   async doTheJob () : Promise<void> {  }
 }
 
+export type Safe = {
+  id: string // identifiant.
+  pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
+  hp0: string // index unique, `SH(p0)`.
+  hr0: string // index unique, `SH(r0)`.
+  hhp1: string // SHA de `SH(p1)`.
+  hhr1: string // SHA de `SH(r1)`.
+  hhk: string // SHA de `SH(K)`.
+  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+  devices: Object
+  creds: Object
+  profiles: Object
+}
+
 /* Creation d'un nouveau Safe
 */
 class $CreateSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-
+    const safe = this.args['safe']
+    const ret = await this.db.newSafe(safe)
+    this.setRes('status', ret)
   }
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})

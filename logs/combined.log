@@ -3050,3 +3050,25 @@ Error: KO
 2025-12-03T10:33:20.326Z info: TestAuth : 2025-12-03T10:33:20.325Z
 2025-12-03T10:33:24.647Z info: auths : 1764757993167 - ADMIN TOTO
 2025-12-03T10:33:24.649Z info: TestAuth finished
+2025-12-16T16:32:55.770Z info: 9 operations registered
+2025-12-16T16:32:55.774Z info: 8 document classes
+2025-12-16T16:32:55.774Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:32:55.775Z info: Firestore connector
+2025-12-16T16:32:55.776Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:32:55.776Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-16T16:32:55.777Z info: 9 App operations registered
+2025-12-16T16:34:39.065Z info: 9 operations registered
+2025-12-16T16:34:39.069Z info: 8 document classes
+2025-12-16T16:34:39.070Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:34:39.070Z info: Firestore connector
+2025-12-16T16:34:39.071Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:34:39.071Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-16T16:34:39.072Z info: 9 App operations registered
+2025-12-16T16:38:08.556Z info: 9 operations registered
+2025-12-16T16:38:08.559Z info: 8 document classes
+2025-12-16T16:38:08.560Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:38:08.561Z info: Firestore connector
+2025-12-16T16:38:08.561Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-16T16:38:08.562Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-16T16:38:08.562Z info: 9 App operations registered
+2025-12-16T16:38:08.575Z info: HTTP listen [8080]
