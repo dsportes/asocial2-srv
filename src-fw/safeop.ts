@@ -1,6 +1,9 @@
 import { Operation } from './operation'
 import { AppExc } from './index'
 import { config } from './config'
+import { IDP0R0 } from './iDbGeneric'
+import { Crypt } from './crypt'
+import { Util } from './util'
 // import { encode, decode } from '@msgpack/msgpack'
 
 /* Appel direct d'une opération: 
@@ -23,10 +26,10 @@ export class SafeOperation extends Operation {
     try {
       await config.directoryDB.getConnexion(op)
       await op.doTheJob()
-      await op.disconnect()
+      await op.db.disconnect()
       return op.result
     } catch (e) {
-      await op.disconnect()
+      await op.db.disconnect()
       throw(e)
     }
   }
@@ -63,3 +66,22 @@ class $CreateSafe extends SafeOperation {
   }
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
+
+/* Ouverture d'un Safe
+*/
+class $OpenSafeByP0 extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const sh0 = this.args['sh0']
+    const hhp1 = Crypt.shaS(this.args['sh1'])
+    const safe: Safe = (await this.db.getSafe(Util.u8ToB64(sh0, true), IDP0R0.P0)) as Safe
+    if (!safe) this.setRes('status', 1)
+    else if (safe.hhp1 !== hhp1) this.setRes('status', 2)
+    else {
+      this.setRes('status', 0)
+      this.setRes('safe', safe)
+    }
+  }
+}
+SafeOperation.register('$OpenSafeByP0', () => { return new $OpenSafeByP0()})

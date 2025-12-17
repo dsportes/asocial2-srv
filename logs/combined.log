@@ -3072,3 +3072,93 @@ Error: KO
 2025-12-16T16:38:08.562Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2025-12-16T16:38:08.562Z info: 9 App operations registered
 2025-12-16T16:38:08.575Z info: HTTP listen [8080]
+2025-12-17T09:29:40.051Z info: 9 operations registered
+2025-12-17T09:29:40.054Z info: 8 document classes
+2025-12-17T09:29:40.056Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T09:29:40.056Z info: Firestore connector
+2025-12-17T09:29:40.057Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T09:29:40.057Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T09:29:40.058Z info: 9 App operations registered
+2025-12-17T10:13:50.310Z info: 9 operations registered
+2025-12-17T10:13:50.313Z info: 8 document classes
+2025-12-17T10:13:50.313Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:13:50.314Z info: Firestore connector
+2025-12-17T10:13:50.314Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:13:50.315Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:13:50.315Z info: 9 App operations registered
+2025-12-17T10:13:50.325Z info: HTTP listen [8080]
+2025-12-17T10:35:38.358Z info: 9 operations registered
+2025-12-17T10:35:38.361Z info: 8 document classes
+2025-12-17T10:35:38.362Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:35:38.362Z info: Firestore connector
+2025-12-17T10:35:38.363Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:35:38.364Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:35:38.364Z info: 9 App operations registered
+2025-12-17T10:35:38.374Z info: HTTP listen [8080]
+2025-12-17T10:38:15.163Z info: 9 operations registered
+2025-12-17T10:38:15.166Z info: 8 document classes
+2025-12-17T10:38:15.167Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:38:15.167Z info: Firestore connector
+2025-12-17T10:38:15.168Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:38:15.168Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:38:15.169Z info: 9 App operations registered
+2025-12-17T10:38:15.179Z info: HTTP listen [8080]
+2025-12-17T10:38:41.521Z info: $CreateSafe terminated on exception
+2025-12-17T10:38:41.529Z error: AppExc: 3001:unexpected exception["op.disconnect is not a function"]
+2025-12-17T10:41:22.131Z info: 9 operations registered
+2025-12-17T10:41:22.135Z info: 8 document classes
+2025-12-17T10:41:22.136Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:41:22.137Z info: Firestore connector
+2025-12-17T10:41:22.137Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:41:22.138Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:41:22.138Z info: 9 App operations registered
+2025-12-17T10:41:22.147Z info: HTTP listen [8080]
+2025-12-17T10:43:39.127Z info: 9 operations registered
+2025-12-17T10:43:39.130Z info: 8 document classes
+2025-12-17T10:43:39.131Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:43:39.131Z info: Firestore connector
+2025-12-17T10:43:39.132Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:43:39.133Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:43:39.133Z info: 9 App operations registered
+2025-12-17T10:43:39.142Z info: HTTP listen [8080]
+2025-12-17T10:44:18.874Z info: $CreateSafe finished
+2025-12-17T10:58:30.023Z info: 9 operations registered
+2025-12-17T10:58:30.026Z info: 8 document classes
+2025-12-17T10:58:30.027Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:58:30.028Z info: Firestore connector
+2025-12-17T10:58:30.028Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T10:58:30.029Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T10:58:30.029Z info: 9 App operations registered
+2025-12-17T10:58:30.039Z info: HTTP listen [8080]
+2025-12-17T11:00:01.278Z info: $CreateSafe finished
+2025-12-17T11:03:01.774Z info: $CreateSafe finished
+2025-12-17T11:07:01.701Z info: $CreateSafe finished
+2025-12-17T11:10:03.587Z info: $CreateSafe finished
+2025-12-17T14:25:58.590Z info: 9 operations registered
+2025-12-17T14:25:58.593Z info: 8 document classes
+2025-12-17T14:25:58.594Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T14:25:58.594Z info: Firestore connector
+2025-12-17T14:25:58.595Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T14:25:58.595Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T14:25:58.596Z info: 9 App operations registered
+2025-12-17T14:25:58.605Z info: HTTP listen [8080]
+2025-12-17T14:27:14.631Z info: $CreateSafe finished
+2025-12-17T14:29:07.412Z info: $OpenSafeByP0 finished
+2025-12-17T14:31:58.692Z info: $OpenSafeByP0 finished
+2025-12-17T14:40:40.059Z info: 9 operations registered
+2025-12-17T14:40:40.062Z info: 8 document classes
+2025-12-17T14:40:40.063Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T14:40:40.063Z info: Firestore connector
+2025-12-17T14:40:40.064Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-17T14:40:40.065Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-17T14:40:40.065Z info: 9 App operations registered
+2025-12-17T14:40:40.075Z info: HTTP listen [8080]
+2025-12-17T14:41:52.021Z info: $OpenSafeByP0 terminated on exception
+2025-12-17T14:41:52.033Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2025-12-17T14:44:45.029Z info: $OpenSafeByP0 terminated on exception
+2025-12-17T14:44:45.032Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2025-12-17T14:45:33.502Z info: $OpenSafeByP0 finished
+2025-12-17T14:50:07.145Z info: $OpenSafeByP0 finished
+2025-12-17T14:50:49.469Z info: $OpenSafeByP0 finished
+2025-12-17T14:52:17.506Z info: $OpenSafeByP0 finished
+2025-12-17T14:53:30.301Z info: $OpenSafeByP0 finished

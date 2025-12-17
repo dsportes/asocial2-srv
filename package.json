@@ -14,6 +14,7 @@
   "scripts": {
     "crypt": "npx tsx src-fw/cryptKeys.ts -i ./keys.json -o src/keys.ts -p \"toto est tres tres beau\"",
     "testsrv": "npx tsx src/index.ts",
+    "test1": "npx tsx src/index.ts test1",
     "schemaSqlite": "npx tsx src/index.ts schemaSqlite",
     "schemaFirestore": "npx tsx src/index.ts schemaFirestore",
     "builddist": "parcel build",

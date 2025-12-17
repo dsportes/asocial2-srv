@@ -165,18 +165,22 @@ export class Crypt {
   Le "login" sert à générer le salt qui est utilisé pour hasher l'ensemble s1 + s2.
   Deux versins: une async universelle et une sync seulement sous node.
   */
-   static async strongHash (s1: string, s2: string, sep?: string) : Promise<string> {
-    let s = sep || ''
-    if (s) {
-      s = sep
-      const l = (s1 ? s1.length : 0) + (s2 ? s2.length : 0)
-      while (l + s.length < 40) s += sep
+static async strongHash (s: string | Uint8Array, pad?: boolean, bin?: boolean) 
+  : Promise<string | Uint8Array> {
+    let x: Uint8Array = typeof s === 'string' ? encoder.encode(s) : s as Uint8Array
+    const l = 32 - x.length
+    let ex: Uint8Array
+    if (!pad || l <= 0) ex = x
+    else {
+      const p = new Uint8Array(l)
+      p.fill(35, 0, l) // 35 : ASCII de #
+      // ex = concat([x, p])
+      ex = Buffer.concat([x, p])
     }
-    const x = (s1 || '') + s + (s2 || '')
-    const ex = encoder.encode(x)
-    const h1 = new Uint8Array(await crypto.subtle.digest("SHA-256", ex))
+    // const h1 = new Uint8Array(sha256.arrayBuffer(ex))
+    const h1 = new Uint8Array(await crypto.subtle.digest("SHA-256", ex as BufferSource))
     const salt = h1.subarray(0, 16)
-    const p = await crypto.subtle.importKey('raw', ex, 'PBKDF2', false, ['deriveKey'])
+    const p = await crypto.subtle.importKey('raw', ex as BufferSource, 'PBKDF2', false, ['deriveKey'])
     const key = await crypto.subtle.deriveKey(
       { name: 'PBKDF2', salt : salt, iterations: 20000, hash: 'SHA-256' },
       p,
@@ -185,7 +189,7 @@ export class Crypt {
       ['encrypt', 'decrypt']
     )
     const res = new Uint8Array(await crypto.subtle.exportKey('raw', key))
-    return u8ToB64(res, true)
+    return bin ? res : u8ToB64(res, true)
   }
   /*
   static async strongHash (s1: string, s2: string) : Promise<string> {
@@ -221,7 +225,7 @@ export class Crypt {
     return u8ToB64(k, true)
   }
 
-  static sha32 (x: any) : string {
+  static sha (x: any) : string {
     return crypto.createHash('sha256').update(Buffer.from(x)).digest().toString('base64url')
   }
 
@@ -238,20 +242,25 @@ export class Crypt {
 
 export async function testSH () {
   const x = 'toto est tres tres beau'
-  console.log(Crypt.sha32(x))
+  console.log(Crypt.sha(x))
   console.log(Crypt.shaS(x))
   console.log(Crypt.shaInt(x))
-  
-  console.log(await Crypt.strongHash('pierre', 'legrand', '$/@'))
-  console.log(Crypt.syncStrongHash('pierre', 'legrand', '$/@'))
-  console.log(Crypt.sha32(x))
+
+  console.log(await Crypt.strongHash(x))
+  console.log(await Crypt.strongHash(encoder.encode(x)))
+  console.log(await Crypt.strongHash(x, true))
+  console.log(await Crypt.strongHash(encoder.encode(x), true))
+  console.log(Crypt.sha(x))
+  console.log(Crypt.sha(encoder.encode(x)))
   console.log(Crypt.shaS(x))
   console.log(Crypt.shaInt(x))
-  
+
+  /*
   const t = Date.now()
-  for (let i= 0; i< 100000; i++) Crypt.sha32(x)
+  for (let i= 0; i< 100000; i++) await Crypt.sha(x)
   const n = Date.now() - t
-  console.log('sha32 : ', n)
+  console.log('sha : ', n)
+  */
 }
 
 export async function testECDH () {

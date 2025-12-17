@@ -37,3 +37,6 @@ PRAGMA journal_mode = WAL
 2025-10-08T08:42:54.027Z error: AppExc: 3001:unexpected exception["KO"]
 2025-10-08T08:47:22.806Z error: AppExc: 3001:unexpected exception["KO"]
 2025-10-08T09:52:09.109Z error: AppExc: 3001:unexpected exception["KO"]
+2025-12-17T10:38:41.529Z error: AppExc: 3001:unexpected exception["op.disconnect is not a function"]
+2025-12-17T14:41:52.033Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2025-12-17T14:44:45.032Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]

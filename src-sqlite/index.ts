@@ -28,13 +28,13 @@ PRIMARY KEY(org));
 
 CREATE TABLE IF NOT EXISTS "SAFE" (
   "id" TEXT,
-  "p0" TEXT,
-  "r0" TEXT,
+  "hp0" TEXT,
+  "hr0" TEXT,
   "lam" INTEGER,
 	"data" BLOB,
 PRIMARY KEY(id));
-CREATE INDEX IF NOT EXISTS "SAFE_p0" ON "SAFE" ( "p0" );
-CREATE INDEX IF NOT EXISTS "SAFE_r0" ON "SAFE" ( "r0" );
+CREATE INDEX IF NOT EXISTS "SAFE_hp0" ON "SAFE" ( "hp0" );
+CREATE INDEX IF NOT EXISTS "SAFE_hr0" ON "SAFE" ( "hr0" );
 CREATE INDEX IF NOT EXISTS "SAFE_lam" ON "ARTICLE" ( "lam" );
 
 CREATE TABLE IF NOT EXISTS "STATUS" (
@@ -217,7 +217,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
-    const idx = idp0r0 === IDP0R0.P0 ? 'p0' : (idp0r0 === IDP0R0.R0 ? 'r0' : 'id')
+    const idx = idp0r0 === IDP0R0.P0 ? 'hp0' : (idp0r0 === IDP0R0.R0 ? 'hr0' : 'id')
     const stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE ' + idx + ' = @id')
     const row = stmt.get({id})
     if (!row) return null
@@ -232,21 +232,21 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async newSafe (safe: Object) :  Promise<number> {
     const id = safe['id']
-    const p0 = safe['p0']
-    const r0 = safe['r0']
+    const hp0 = safe['hp0']
+    const hr0 = safe['hr0']
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id FROM SAFE WHERE id = @id')
     let row = stmt.get({id})
     if (row) return 1
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE p0 = @p0')
-    row = stmt.get({p0})
+    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+    row = stmt.get({hp0})
     if (row) return 2
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE r0 = @r0')
-    row = stmt.get({r0})
+    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+    row = stmt.get({hr0})
     if (row) return 3
-    const data = Crypt.syncDecrypt(this.key, encode(safe))
-    stmt = this.sql.prepare('INSERT INTO SAFE (id, p0, r0, lam, data) VALUES (@id, @p0, @r0, @lam, @data)')
-    stmt.run({ id, p0, r0, lam, data })
+    const data = Crypt.syncCrypt(this.key, encode(safe))
+    stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
+    stmt.run({ id, hp0, hr0, lam, data })
     return 0
   }
 

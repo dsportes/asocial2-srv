@@ -344,7 +344,7 @@ export class AuthRecord {
       const k = hck[token['type']]
       if (k) {
         // Autorisation cryptée en config
-        const h = Crypt.sha32(token['value'])
+        const h = Crypt.sha(token['value'])
         if (h === k) auths.add(token['type'])
       } else {
         // Autorisation calculée
