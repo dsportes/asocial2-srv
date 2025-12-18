@@ -252,25 +252,25 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async updPRSafe (safe: Object) :  Promise<number> {
     const id = safe['id']
-    const p0 = safe['p0']
-    const r0 = safe['r0']
+    const hp0 = safe['hp0']
+    const hr0 = safe['hr0']
     const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE p0 = @p0')
-    let row = stmt.get({p0})
+    let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hp0 = @hp0')
+    let row = stmt.get({hp0})
     if (row && row.id !== id) return 2
-    stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE r0 = @r0')
-    row = stmt.get({r0})
+    stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hr0 = @hr0')
+    row = stmt.get({hr0})
     if (row && row.id !== id) return 3
-    const data = Crypt.syncDecrypt(this.key, encode(safe))
-    stmt = this.sql.prepare('UPDATE SAFE SET p0 = @p0, r0 = @ro, lam = @lam, data = @data WHERE id = @id')
-    stmt.run({ id, p0, r0, lam, data })
+    const data = Crypt.syncCrypt(this.key, encode(safe))
+    stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, hp0, hr0, lam, data })
     return 0
   }
 
   async updSafe (safe: Object) :  Promise<void> {
     const id = safe['id']
     const lam = Util.currentMonth()
-    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    const data = Crypt.syncCrypt(this.key, encode(safe))
     const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, lam, data })
   }
