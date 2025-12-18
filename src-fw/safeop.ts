@@ -37,6 +37,21 @@ export class SafeOperation extends Operation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {  }
+
+  async getSafePR (sh0: Uint8Array, sh1: Uint8Array)
+    : Promise<[status: number, safe: Safe, byP: boolean]> { 
+    let byP = true
+    const s0 = Util.u8ToB64(sh0, true)
+    const hhp1 = Crypt.shaS(sh1)
+    let safe: Safe = (await this.db.getSafe(s0, IDP0R0.P0)) as Safe
+    if (!safe) {
+      byP = false
+      safe = (await this.db.getSafe(s0, IDP0R0.R0)) as Safe
+      if (!safe) return [1, null, false]
+    }
+    if (safe.hhp1 !== hhp1) return [2, null, false]
+    return [0, safe, byP]
+  }
 }
 
 export type Safe = {
@@ -62,26 +77,52 @@ class $CreateSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe']
     const ret = await this.db.newSafe(safe)
+    if (ret !== 0) await Util.sleep(3000)
     this.setRes('status', ret)
   }
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 
-/* Ouverture d'un Safe
+/* Mise à jour des codes d'accès d'un Safe
 */
-class $OpenSafeByP0 extends SafeOperation {
+class $UpdCodesSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const sh0 = this.args['sh0']
-    const hhp1 = Crypt.shaS(this.args['sh1'])
-    const safe: Safe = (await this.db.getSafe(Util.u8ToB64(sh0, true), IDP0R0.P0)) as Safe
-    if (!safe) this.setRes('status', 1)
-    else if (safe.hhp1 !== hhp1) this.setRes('status', 2)
-    else {
-      this.setRes('status', 0)
-      this.setRes('safe', safe)
+    const safeNew = this.args['safe']
+    const safe: Safe = (await this.db.getSafe(safeNew.id)) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
     }
+    safe.pseudo = safeNew.pseudo
+    safe.hp0 = safeNew.hp0
+    safe.hr0 = safeNew.hr0
+    safe.hhp1 = safeNew.hhp1
+    safe.hhr1 = safeNew.hhr1
+    safe.Ka = safeNew.Ka
+    safe.Kr = safeNew.Kr
+    const ret = await this.db.updPRSafe(safe)
+    this.setRes('status', ret)
+    if (ret !== 0) await Util.sleep(3000)
+    else this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$OpenSafeByP0', () => { return new $OpenSafeByP0()})
+SafeOperation.register('$UpdCodesSafe', () => { return new $UpdCodesSafe()})
+
+
+/* Ouverture d'un Safe
+*/
+class $OpenSafeByPR extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const [status, safe, byP] = await this.getSafePR(this.args['sh0'], this.args['sh1'])
+    this.setRes('status', status)
+    this.setRes('safe', safe)
+    this.setRes('byP', byP)
+    if (status !== 0) await Util.sleep(3000)
+  }
+}
+SafeOperation.register('$OpenSafeByPR', () => { return new $OpenSafeByPR()})
