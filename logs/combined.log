@@ -3238,3 +3238,33 @@ Error: KO
 2025-12-18T13:40:55.276Z info: $CreateSafe finished
 2025-12-18T13:46:45.142Z info: $UpdCodesSafe finished
 2025-12-18T13:47:30.445Z info: $OpenSafeByPR finished
+2025-12-19T14:08:44.916Z info: 9 operations registered
+2025-12-19T14:08:44.918Z info: 8 document classes
+2025-12-19T14:08:44.919Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:08:44.920Z info: Firestore connector
+2025-12-19T14:08:44.921Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:08:44.921Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-19T14:08:44.922Z info: 9 App operations registered
+2025-12-19T14:10:42.579Z info: 9 operations registered
+2025-12-19T14:10:42.583Z info: 8 document classes
+2025-12-19T14:10:42.584Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:10:42.585Z info: Firestore connector
+2025-12-19T14:10:42.586Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:10:42.587Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-19T14:10:42.588Z info: 9 App operations registered
+2025-12-19T14:11:08.347Z info: 9 operations registered
+2025-12-19T14:11:08.350Z info: 8 document classes
+2025-12-19T14:11:08.352Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:11:08.352Z info: Firestore connector
+2025-12-19T14:11:08.353Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:11:08.354Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-19T14:11:08.355Z info: 9 App operations registered
+2025-12-19T14:12:48.046Z info: 9 operations registered
+2025-12-19T14:12:48.049Z info: 8 document classes
+2025-12-19T14:12:48.050Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:12:48.051Z info: Firestore connector
+2025-12-19T14:12:48.051Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-19T14:12:48.052Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-19T14:12:48.054Z info: 9 App operations registered
+2025-12-19T14:12:48.068Z info: HTTP listen [8080]
+2025-12-19T14:18:40.877Z info: $CreateSafe finished
