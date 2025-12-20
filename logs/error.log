@@ -43,3 +43,4 @@ PRAGMA journal_mode = WAL
 2025-12-18T13:16:34.357Z error: AppExc: 3001:unexpected exception["no such column: p0"]
 2025-12-18T13:20:00.478Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
 2025-12-18T13:25:15.814Z error: AppExc: 3001:unexpected exception["Missing named parameter \"hro\""]
+2025-12-20T14:37:39.624Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]

@@ -3268,3 +3268,104 @@ Error: KO
 2025-12-19T14:12:48.054Z info: 9 App operations registered
 2025-12-19T14:12:48.068Z info: HTTP listen [8080]
 2025-12-19T14:18:40.877Z info: $CreateSafe finished
+2025-12-20T11:44:33.298Z info: 9 operations registered
+2025-12-20T11:44:33.302Z info: 8 document classes
+2025-12-20T11:44:33.304Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T11:44:33.305Z info: Firestore connector
+2025-12-20T11:44:33.305Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T11:44:33.307Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T11:44:33.308Z info: 9 App operations registered
+2025-12-20T11:44:33.325Z info: HTTP listen [8080]
+2025-12-20T11:45:37.491Z info: $OpenSafeByPR finished
+2025-12-20T12:35:24.641Z info: $OpenSafeByPR finished
+2025-12-20T12:40:36.622Z info: 9 operations registered
+2025-12-20T12:40:36.625Z info: 8 document classes
+2025-12-20T12:40:36.626Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T12:40:36.627Z info: Firestore connector
+2025-12-20T12:40:36.628Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T12:40:36.629Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T12:40:36.630Z info: 9 App operations registered
+2025-12-20T12:40:36.643Z info: HTTP listen [8080]
+2025-12-20T12:48:53.201Z info: 9 operations registered
+2025-12-20T12:48:53.205Z info: 8 document classes
+2025-12-20T12:48:53.206Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T12:48:53.207Z info: Firestore connector
+2025-12-20T12:48:53.208Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T12:48:53.209Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T12:48:53.211Z info: 9 App operations registered
+2025-12-20T12:48:53.224Z info: HTTP listen [8080]
+2025-12-20T12:48:57.788Z info: $OpenSafeByPR finished
+2025-12-20T12:51:46.192Z info: $TrustDevice finished
+2025-12-20T14:07:07.008Z info: 9 operations registered
+2025-12-20T14:07:07.012Z info: 8 document classes
+2025-12-20T14:07:07.013Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:07:07.014Z info: Firestore connector
+2025-12-20T14:07:07.015Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:07:07.016Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T14:07:07.017Z info: 9 App operations registered
+2025-12-20T14:07:07.033Z info: HTTP listen [8080]
+2025-12-20T14:09:28.164Z info: 9 operations registered
+2025-12-20T14:09:28.168Z info: 8 document classes
+2025-12-20T14:09:28.169Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:09:28.170Z info: Firestore connector
+2025-12-20T14:09:28.171Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:09:28.172Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T14:09:28.173Z info: 9 App operations registered
+2025-12-20T14:09:28.187Z info: HTTP listen [8080]
+2025-12-20T14:11:02.911Z info: $OpenSafeByPin finished
+2025-12-20T14:18:08.939Z info: $OpenSafeByPR finished
+2025-12-20T14:20:26.790Z info: $TrustDevice finished
+2025-12-20T14:23:31.823Z info: $OpenSafeByPin finished
+2025-12-20T14:25:16.153Z info: $OpenSafeByPin finished
+2025-12-20T14:31:07.207Z info: $OpenSafeByPin finished
+2025-12-20T14:32:26.574Z info: $OpenSafeByPR finished
+2025-12-20T14:34:22.188Z info: $TrustDevice finished
+2025-12-20T14:36:16.185Z info: $OpenSafeByPin finished
+2025-12-20T14:37:39.619Z info: $OpenSafeById terminated on exception
+2025-12-20T14:37:39.624Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2025-12-20T14:39:58.823Z info: 9 operations registered
+2025-12-20T14:39:58.835Z info: 8 document classes
+2025-12-20T14:39:58.839Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:39:58.842Z info: Firestore connector
+2025-12-20T14:39:58.844Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:39:58.848Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T14:39:58.852Z info: 9 App operations registered
+2025-12-20T14:39:58.878Z info: HTTP listen [8080]
+2025-12-20T14:40:52.254Z info: $OpenSafeByPin finished
+2025-12-20T14:41:16.266Z info: $OpenSafeById finished
+2025-12-20T14:43:51.911Z info: 9 operations registered
+2025-12-20T14:43:51.914Z info: 8 document classes
+2025-12-20T14:43:51.915Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:43:51.916Z info: Firestore connector
+2025-12-20T14:43:51.917Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T14:43:51.920Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T14:43:51.923Z info: 9 App operations registered
+2025-12-20T14:43:51.943Z info: HTTP listen [8080]
+2025-12-20T14:44:52.560Z info: $OpenSafeByPin finished
+2025-12-20T14:45:07.964Z info: $OpenSafeById finished
+2025-12-20T14:46:26.280Z info: $OpenSafeByPin finished
+2025-12-20T14:46:30.745Z info: $OpenSafeById finished
+2025-12-20T15:08:05.859Z info: 9 operations registered
+2025-12-20T15:08:05.864Z info: 8 document classes
+2025-12-20T15:08:05.865Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T15:08:05.866Z info: Firestore connector
+2025-12-20T15:08:05.867Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T15:08:05.868Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T15:08:05.869Z info: 9 App operations registered
+2025-12-20T15:08:05.884Z info: HTTP listen [8080]
+2025-12-20T15:08:27.386Z info: $OpenSafeByPin finished
+2025-12-20T15:08:27.498Z info: $OpenSafeById finished
+2025-12-20T15:09:26.315Z info: $OpenSafeByPR finished
+2025-12-20T15:43:06.432Z info: 9 operations registered
+2025-12-20T15:43:06.435Z info: 8 document classes
+2025-12-20T15:43:06.436Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T15:43:06.437Z info: Firestore connector
+2025-12-20T15:43:06.438Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-20T15:43:06.439Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-20T15:43:06.440Z info: 9 App operations registered
+2025-12-20T15:43:06.454Z info: HTTP listen [8080]
+2025-12-20T15:43:50.018Z info: $OpenSafeByPin finished
+2025-12-20T15:43:50.123Z info: $OpenSafeById finished
+2025-12-20T15:44:19.856Z info: $OpenSafeByPR finished
+2025-12-20T15:46:46.500Z info: $OpenSafeByPR finished
+2025-12-20T15:49:42.277Z info: $OpenSafeByPR finished

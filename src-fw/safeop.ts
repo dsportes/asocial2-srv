@@ -6,6 +6,14 @@ import { Crypt } from './crypt'
 import { Util } from './util'
 // import { encode, decode } from '@msgpack/msgpack'
 
+type Device = {
+  devName: string | Uint8Array
+  Va: Uint8Array
+  cy: string
+  sign: Uint8Array
+  nbe: number
+}
+
 /* Appel direct d'une opération: 
   const result = await SafeOperation.doOp(opName, args)
 */
@@ -52,6 +60,7 @@ export class SafeOperation extends Operation {
     if (safe.hhp1 !== hhp1) return [2, null, false]
     return [0, safe, byP]
   }
+
 }
 
 export type Safe = {
@@ -111,7 +120,6 @@ class $UpdCodesSafe extends SafeOperation {
 }
 SafeOperation.register('$UpdCodesSafe', () => { return new $UpdCodesSafe()})
 
-
 /* Ouverture d'un Safe
 */
 class $OpenSafeByPR extends SafeOperation {
@@ -126,3 +134,115 @@ class $OpenSafeByPR extends SafeOperation {
   }
 }
 SafeOperation.register('$OpenSafeByPR', () => { return new $OpenSafeByPR()})
+
+/* Ouverture d'un Safe
+*/
+class $OpenSafeById extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const safe = await this.db.getSafe(this.args['userId']) as Safe
+    const hhk = Crypt.shaS(this.args['shk'])
+    if (safe && hhk === safe.hhk) {
+      this.setRes('status', 0)
+      this.setRes('safe', safe)
+    } else {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+    }
+  }
+}
+SafeOperation.register('$OpenSafeById', () => { return new $OpenSafeById()})
+
+/* Ouverture d'un Safe
+  - accède au _safe_ dont l'id est `userId`.
+  - accède dans la section `devices` à l'entrée `devId` 
+  ce qui lui donne les propriétés `Va cy sign nbe`. 
+*/
+class $OpenSafeByPin extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const userId: string = this.args['userId']
+    const devId: string = this.args['devId']
+    const pincx: Uint8Array = this.args['pincx']
+
+    const safe = await this.db.getSafe(userId) as Safe
+    if (!safe) {
+      this.setRes('status', 2)
+      return
+    }
+    const dev = safe.devices[devId]
+    if (!dev) {
+      this.setRes('status', 3)
+      return
+    }
+    /* vérifie par `Va` que `sign` est bien la signature de pincx 
+    */
+    const ok = await Crypt.verify(dev.Va, dev.sign, pincx)
+    if (!ok) {
+      dev.nbe++
+      if (dev.nbe > 2) {
+        delete safe.devices[devId]
+        this.setRes('status', 5)
+      } else this.setRes('status', 4)
+      await this.db.updSafe(safe)
+      return
+    }
+    if (dev.nbe) {
+      dev.nbe = 0
+      await this.db.updSafe(safe)
+    }
+    this.setRes('status', 0)
+    this.setRes('cy', dev.cy)
+  }
+}
+SafeOperation.register('$OpenSafeByPin', () => { return new $OpenSafeByPin()})
+
+type TrustDev = {
+  userId: string
+  devId: string
+  sh1p: Uint8Array
+  sh1r: Uint8Array
+  devName: Uint8Array
+  Va: Uint8Array
+  cy: string
+  sign: Uint8Array
+}
+
+/* Trust d'un device
+*/
+class $TrustDevice extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const td = this.args['trustDev']
+    const safe = await this.db.getSafe(td.userId) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
+    }
+    let ok = false
+    if (td.sh1p && safe.hhp1 === Crypt.shaS(td.sh1p)) ok = true
+    else if (td.sh1r && safe.hhr1 === Crypt.shaS(td.sh1r)) ok = true
+    if (!ok) {
+      this.setRes('status', 2)
+      await Util.sleep(3000)
+      return
+    }
+
+    const d: Device = {
+      devName: td.devName,
+      Va: td.Va,
+      cy: td.cy,
+      sign: td.sign,
+      nbe: 0
+    }
+    safe.devices[td.devId] = d
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$TrustDevice', () => { return new $TrustDevice()})
