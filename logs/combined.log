@@ -3391,3 +3391,20 @@ Error: KO
 2025-12-20T17:34:23.865Z info: $OpenSafeByPR finished
 2025-12-20T17:37:04.163Z info: $OpenSafeByPR finished
 2025-12-20T17:40:45.890Z info: $OpenSafeByPR finished
+2025-12-21T16:43:53.976Z info: 9 operations registered
+2025-12-21T16:43:53.979Z info: 8 document classes
+2025-12-21T16:43:53.980Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-21T16:43:53.981Z info: Firestore connector
+2025-12-21T16:43:53.981Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-21T16:43:53.982Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-21T16:43:53.985Z info: 9 App operations registered
+2025-12-21T16:43:54.006Z info: HTTP listen [8080]
+2025-12-21T17:15:49.486Z info: $OpenSafeByPR finished
+2025-12-21T17:33:03.617Z info: $OpenSafeByPR finished
+2025-12-21T17:47:32.418Z info: $OpenSafeByPR finished
+2025-12-21T18:03:22.735Z info: $OpenSafeByPin finished
+2025-12-21T18:03:22.882Z info: $OpenSafeById finished
+2025-12-21T18:13:01.892Z info: $OpenSafeByPin finished
+2025-12-21T18:13:02.037Z info: $OpenSafeById finished
+2025-12-21T18:17:15.552Z info: $OpenSafeByPin finished
+2025-12-21T18:17:15.688Z info: $OpenSafeById finished
