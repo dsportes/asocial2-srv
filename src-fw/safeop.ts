@@ -210,13 +210,20 @@ type TrustDev = {
   sign: Uint8Array
 }
 
+type UntrustDev = {
+  userId: string
+  devId: string
+  sh1p: Uint8Array
+  sh1r: Uint8Array
+}
+
 /* Trust d'un device
 */
 class $TrustDevice extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const td = this.args['trustDev']
+    const td = this.args['trustDev'] as TrustDev
     const safe = await this.db.getSafe(td.userId) as Safe
     if (!safe) {
       this.setRes('status', 1)
@@ -246,3 +253,33 @@ class $TrustDevice extends SafeOperation {
   }
 }
 SafeOperation.register('$TrustDevice', () => { return new $TrustDevice()})
+
+/* Trust d'un device
+*/
+class $UntrustDevice extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const td = this.args['untrustDev'] as UntrustDev
+    const safe = await this.db.getSafe(td.userId) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
+    }
+    let ok = false
+    if (td.sh1p && safe.hhp1 === Crypt.shaS(td.sh1p)) ok = true
+    else if (td.sh1r && safe.hhr1 === Crypt.shaS(td.sh1r)) ok = true
+    if (!ok) {
+      this.setRes('status', 2)
+      await Util.sleep(3000)
+      return
+    }
+
+    delete safe.devices[td.devId]
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$UntrustDevice', () => { return new $UntrustDevice()})

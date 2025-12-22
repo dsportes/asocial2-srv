@@ -3408,3 +3408,25 @@ Error: KO
 2025-12-21T18:13:02.037Z info: $OpenSafeById finished
 2025-12-21T18:17:15.552Z info: $OpenSafeByPin finished
 2025-12-21T18:17:15.688Z info: $OpenSafeById finished
+2025-12-22T13:41:46.903Z info: 9 operations registered
+2025-12-22T13:41:46.925Z info: 8 document classes
+2025-12-22T13:41:46.930Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-22T13:41:46.934Z info: Firestore connector
+2025-12-22T13:41:46.939Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2025-12-22T13:41:46.949Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2025-12-22T13:41:46.950Z info: 9 App operations registered
+2025-12-22T13:41:46.972Z info: HTTP listen [8080]
+2025-12-22T13:42:19.661Z info: $OpenSafeByPR finished
+2025-12-22T13:43:22.502Z info: $OpenSafeByPR finished
+2025-12-22T13:45:50.383Z info: $UntrustDevice finished
+2025-12-22T13:51:55.993Z info: $OpenSafeByPR finished
+2025-12-22T13:53:54.812Z info: $UntrustDevice finished
+2025-12-22T13:57:00.089Z info: $OpenSafeByPR finished
+2025-12-22T14:00:39.895Z info: $UntrustDevice finished
+2025-12-22T14:02:05.796Z info: $TrustDevice finished
+2025-12-22T14:02:15.099Z info: $UntrustDevice finished
+2025-12-22T14:12:32.144Z info: $OpenSafeByPR finished
+2025-12-22T14:21:02.697Z info: $OpenSafeByPR finished
+2025-12-22T14:36:21.737Z info: $TrustDevice finished
+2025-12-22T14:36:31.648Z info: $UntrustDevice finished
+2025-12-22T14:36:45.853Z info: $TrustDevice finished
