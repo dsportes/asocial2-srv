@@ -71,11 +71,14 @@ export type Safe = {
   hhp1: string // SHA de `SH(p1)`.
   hhr1: string // SHA de `SH(r1)`.
   hhk: string // SHA de `SH(K)`.
+  C: Uint8Array // clé publique de cryptage. id = shaS(C)
+  DK: Uint8Array // clé privée de décryptage, cryptée par la clé K
   Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
   devices: Object
   creds: Object
   profiles: Object
+  prefs: Object
 }
 
 /* Creation d'un nouveau Safe
