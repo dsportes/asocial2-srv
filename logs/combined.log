@@ -3430,3 +3430,25 @@ Error: KO
 2025-12-22T14:36:21.737Z info: $TrustDevice finished
 2025-12-22T14:36:31.648Z info: $UntrustDevice finished
 2025-12-22T14:36:45.853Z info: $TrustDevice finished
+2025-12-28T10:53:09.398Z info: 9 operations registered
+2025-12-28T10:53:09.404Z info: 8 document classes
+2025-12-28T10:53:09.405Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-28T10:53:09.406Z info: Firestore connector
+2025-12-28T10:53:09.406Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-28T10:53:09.407Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-28T10:53:09.408Z info: 9 App operations registered
+2025-12-28T10:53:09.424Z info: HTTP listen [8080]
+2025-12-28T10:58:50.376Z info: $CreateSafe finished
+2025-12-28T11:05:51.374Z info: 9 operations registered
+2025-12-28T11:05:51.377Z info: 8 document classes
+2025-12-28T11:05:51.377Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-28T11:05:51.378Z info: Firestore connector
+2025-12-28T11:05:51.378Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-28T11:05:51.379Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-28T11:05:51.379Z info: 9 App operations registered
+2025-12-28T11:05:51.390Z info: HTTP listen [8080]
+2025-12-28T11:07:18.137Z info: $CreateSafe finished
+2025-12-28T11:14:51.244Z info: $CreateSafe finished
+2025-12-28T11:15:44.948Z info: $TrustDevice finished
+2025-12-28T11:16:15.090Z info: $OpenSafeByPin finished
+2025-12-28T11:16:15.146Z info: $OpenSafeById finished
