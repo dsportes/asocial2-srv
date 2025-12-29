@@ -3452,3 +3452,75 @@ Error: KO
 2025-12-28T11:15:44.948Z info: $TrustDevice finished
 2025-12-28T11:16:15.090Z info: $OpenSafeByPin finished
 2025-12-28T11:16:15.146Z info: $OpenSafeById finished
+2025-12-29T13:31:56.605Z info: 9 operations registered
+2025-12-29T13:31:56.608Z info: 8 document classes
+2025-12-29T13:31:56.609Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-29T13:31:56.610Z info: Firestore connector
+2025-12-29T13:31:56.610Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-29T13:31:56.611Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-29T13:31:56.611Z info: 9 App operations registered
+2025-12-29T13:31:56.620Z info: HTTP listen [8080]
+2025-12-29T13:34:02.709Z info: $OpenSafeByPR finished
+2025-12-29T13:34:29.408Z info: $TrustDevice finished
+2025-12-29T13:47:48.351Z info: $OpenSafeByPR finished
+2025-12-29T13:48:50.325Z info: $TrustDevice finished
+2025-12-29T13:58:25.822Z info: $OpenSafeByPin finished
+2025-12-29T13:58:44.047Z info: $OpenSafeByPin finished
+2025-12-29T13:59:12.959Z info: $OpenSafeByPR finished
+2025-12-29T13:59:32.175Z info: $TrustDevice finished
+2025-12-29T13:59:57.806Z info: $OpenSafeByPR finished
+2025-12-29T14:00:09.725Z info: $TrustDevice finished
+2025-12-29T14:04:23.960Z info: $OpenSafeByPin finished
+2025-12-29T14:04:24.006Z info: $OpenSafeById finished
+2025-12-29T14:07:25.603Z info: $OpenSafeByPin finished
+2025-12-29T14:07:25.651Z info: $OpenSafeById finished
+2025-12-29T14:10:59.861Z info: $OpenSafeByPin finished
+2025-12-29T14:10:59.911Z info: $OpenSafeById finished
+2025-12-29T14:11:43.689Z info: $OpenSafeByPin finished
+2025-12-29T14:11:43.736Z info: $OpenSafeById finished
+2025-12-29T14:25:52.643Z info: $OpenSafeByPin finished
+2025-12-29T14:25:52.708Z info: $OpenSafeById finished
+2025-12-29T14:35:54.508Z info: $OpenSafeByPin finished
+2025-12-29T14:35:54.569Z info: $OpenSafeById finished
+2025-12-29T14:43:33.509Z info: $OpenSafeByPin finished
+2025-12-29T14:43:33.575Z info: $OpenSafeById finished
+2025-12-29T14:47:07.184Z info: $OpenSafeByPin finished
+2025-12-29T14:47:07.233Z info: $OpenSafeById finished
+2025-12-29T14:49:53.974Z info: $OpenSafeByPin finished
+2025-12-29T14:49:54.025Z info: $OpenSafeById finished
+2025-12-29T15:33:43.740Z info: $OpenSafeByPin finished
+2025-12-29T15:33:43.835Z info: $OpenSafeById finished
+2025-12-29T15:40:09.676Z info: $OpenSafeByPin finished
+2025-12-29T15:40:09.730Z info: $OpenSafeById finished
+2025-12-29T15:47:10.345Z info: $OpenSafeByPin finished
+2025-12-29T15:47:10.407Z info: $OpenSafeById finished
+2025-12-29T15:56:23.939Z info: $OpenSafeByPin finished
+2025-12-29T15:56:23.989Z info: $OpenSafeById finished
+2025-12-29T15:58:55.259Z info: $OpenSafeByPin finished
+2025-12-29T15:58:55.307Z info: $OpenSafeById finished
+2025-12-29T16:01:44.552Z info: $OpenSafeByPR finished
+2025-12-29T16:02:03.605Z info: $TrustDevice finished
+2025-12-29T16:03:12.489Z info: $OpenSafeByPin finished
+2025-12-29T16:03:12.532Z info: $OpenSafeById finished
+2025-12-29T16:04:37.644Z info: $OpenSafeByPR finished
+2025-12-29T16:05:01.526Z info: $TrustDevice finished
+2025-12-29T16:08:03.044Z info: $OpenSafeByPin finished
+2025-12-29T16:08:03.092Z info: $OpenSafeById finished
+2025-12-29T16:13:03.898Z info: $OpenSafeByPR finished
+2025-12-29T16:13:27.992Z info: $TrustDevice finished
+2025-12-29T16:13:47.537Z info: $OpenSafeByPin finished
+2025-12-29T16:13:47.585Z info: $OpenSafeById finished
+2025-12-29T16:21:26.251Z info: $OpenSafeByPin finished
+2025-12-29T16:21:26.301Z info: $OpenSafeById finished
+2025-12-29T16:22:08.841Z info: $OpenSafeByPin finished
+2025-12-29T16:22:08.876Z info: $OpenSafeById finished
+2025-12-29T18:02:51.100Z info: $OpenSafeByPR finished
+2025-12-29T18:03:14.713Z info: $TrustDevice finished
+2025-12-29T18:04:06.581Z info: $OpenSafeByPin finished
+2025-12-29T18:04:06.637Z info: $OpenSafeById finished
+2025-12-29T18:13:28.255Z info: $OpenSafeByPR finished
+2025-12-29T18:13:46.050Z info: $TrustDevice finished
+2025-12-29T18:14:04.702Z info: $OpenSafeByPR finished
+2025-12-29T18:14:17.823Z info: $TrustDevice finished
+2025-12-29T18:15:04.864Z info: $OpenSafeByPin finished
+2025-12-29T18:15:04.916Z info: $OpenSafeById finished
