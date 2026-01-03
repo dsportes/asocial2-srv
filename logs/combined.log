@@ -3524,3 +3524,99 @@ Error: KO
 2025-12-29T18:14:17.823Z info: $TrustDevice finished
 2025-12-29T18:15:04.864Z info: $OpenSafeByPin finished
 2025-12-29T18:15:04.916Z info: $OpenSafeById finished
+2025-12-31T09:04:41.909Z info: 9 operations registered
+2025-12-31T09:04:41.912Z info: 8 document classes
+2025-12-31T09:04:41.913Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-31T09:04:41.914Z info: Firestore connector
+2025-12-31T09:04:41.914Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2025-12-31T09:04:41.915Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2025-12-31T09:04:41.916Z info: 9 App operations registered
+2025-12-31T09:04:41.926Z info: HTTP listen [8080]
+2025-12-31T09:09:23.911Z info: $OpenSafeByPR finished
+2025-12-31T09:09:49.210Z info: $OpenSafeByPR finished
+2025-12-31T09:45:18.141Z info: $OpenSafeByPR finished
+2025-12-31T09:48:51.513Z info: $OpenSafeByPR finished
+2025-12-31T09:52:06.607Z info: $OpenSafeByPR finished
+2025-12-31T09:55:57.576Z info: $TrustDevice finished
+2025-12-31T09:56:48.092Z info: $OpenSafeByPin finished
+2025-12-31T09:56:48.145Z info: $OpenSafeById finished
+2025-12-31T10:06:23.987Z info: $OpenSafeByPR finished
+2025-12-31T10:07:39.103Z info: $OpenSafeByPin finished
+2025-12-31T10:07:39.152Z info: $OpenSafeById finished
+2026-01-03T12:06:15.033Z info: 9 operations registered
+2026-01-03T12:06:15.036Z info: 8 document classes
+2026-01-03T12:06:15.037Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-03T12:06:15.037Z info: Firestore connector
+2026-01-03T12:06:15.038Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-03T12:06:15.041Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-03T12:06:15.042Z info: 9 App operations registered
+2026-01-03T12:06:15.055Z info: HTTP listen [8080]
+2026-01-03T12:32:27.397Z info: $OpenSafeByPR finished
+2026-01-03T12:38:36.550Z info: $OpenSafeByPR finished
+2026-01-03T13:21:54.392Z info: $CreateSafe finished
+2026-01-03T13:27:58.728Z info: $OpenSafeByPR finished
+2026-01-03T13:40:10.411Z info: 9 operations registered
+2026-01-03T13:40:10.415Z info: 8 document classes
+2026-01-03T13:40:10.415Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-03T13:40:10.416Z info: Firestore connector
+2026-01-03T13:40:10.417Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-03T13:40:10.417Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-03T13:40:10.418Z info: 9 App operations registered
+2026-01-03T13:40:10.429Z info: HTTP listen [8080]
+2026-01-03T13:41:30.362Z info: $CreateSafe finished
+2026-01-03T13:47:38.821Z info: $UpdCodesSafe finished
+2026-01-03T13:52:06.185Z info: $OpenSafeByPR finished
+2026-01-03T13:52:19.438Z info: $OpenSafeByPR finished
+2026-01-03T13:52:28.942Z info: $OpenSafeByPR finished
+2026-01-03T13:53:54.782Z info: $OpenSafeByPR finished
+2026-01-03T13:56:59.242Z info: $OpenSafeByPR finished
+2026-01-03T14:00:57.089Z info: $UpdCodesSafe finished
+2026-01-03T14:05:49.284Z info: $UpdCodesSafe finished
+2026-01-03T14:07:03.260Z info: $OpenSafeByPR finished
+2026-01-03T14:13:46.634Z info: $OpenSafeByPR finished
+2026-01-03T14:17:26.317Z info: $OpenSafeByPR finished
+2026-01-03T14:17:40.341Z info: $OpenSafeByPR finished
+2026-01-03T14:22:08.902Z info: $OpenSafeByPR finished
+2026-01-03T14:23:44.933Z info: $TrustDevice finished
+2026-01-03T14:32:35.372Z info: $OpenSafeByPR finished
+2026-01-03T14:38:13.105Z info: $OpenSafeByPR finished
+2026-01-03T14:41:45.240Z info: $OpenSafeByPR finished
+2026-01-03T14:46:15.628Z info: $OpenSafeByPR finished
+2026-01-03T14:48:28.847Z info: $OpenSafeByPR finished
+2026-01-03T14:49:26.807Z info: $TrustDevice finished
+2026-01-03T14:50:11.401Z info: $OpenSafeByPin finished
+2026-01-03T14:50:11.451Z info: $OpenSafeById finished
+2026-01-03T15:20:14.040Z info: $OpenSafeByPin finished
+2026-01-03T15:20:14.094Z info: $OpenSafeById finished
+2026-01-03T15:23:53.825Z info: $OpenSafeByPin finished
+2026-01-03T15:23:53.907Z info: $OpenSafeById finished
+2026-01-03T15:24:55.082Z info: $OpenSafeByPin finished
+2026-01-03T15:24:55.129Z info: $OpenSafeById finished
+2026-01-03T15:28:35.263Z info: $OpenSafeByPin finished
+2026-01-03T15:28:35.314Z info: $OpenSafeById finished
+2026-01-03T15:30:55.869Z info: $OpenSafeByPin finished
+2026-01-03T15:30:55.922Z info: $OpenSafeById finished
+2026-01-03T15:33:29.804Z info: $OpenSafeByPin finished
+2026-01-03T15:33:29.888Z info: $OpenSafeById finished
+2026-01-03T15:51:10.771Z info: $OpenSafeByPin finished
+2026-01-03T15:51:10.824Z info: $OpenSafeById finished
+2026-01-03T15:57:45.508Z info: $OpenSafeByPin finished
+2026-01-03T15:57:45.559Z info: $OpenSafeById finished
+2026-01-03T16:08:21.416Z info: $OpenSafeByPin finished
+2026-01-03T16:08:21.474Z info: $OpenSafeById finished
+2026-01-03T16:12:02.002Z info: $OpenSafeByPin finished
+2026-01-03T16:12:02.054Z info: $OpenSafeById finished
+2026-01-03T16:13:51.874Z info: $OpenSafeByPin finished
+2026-01-03T16:13:51.926Z info: $OpenSafeById finished
+2026-01-03T16:18:23.418Z info: $OpenSafeByPin finished
+2026-01-03T16:18:23.475Z info: $OpenSafeById finished
+2026-01-03T17:02:15.292Z info: $OpenSafeByPin finished
+2026-01-03T17:02:15.350Z info: $OpenSafeById finished
+2026-01-03T17:17:42.429Z info: $OpenSafeByPin finished
+2026-01-03T17:17:42.477Z info: $OpenSafeById finished
+2026-01-03T17:22:56.649Z info: $OpenSafeByPin finished
+2026-01-03T17:22:56.703Z info: $OpenSafeById finished
+2026-01-03T17:25:47.080Z info: $OpenSafeByPin finished
+2026-01-03T17:25:47.135Z info: $OpenSafeById finished
+2026-01-03T17:28:47.584Z info: $OpenSafeByPin finished
+2026-01-03T17:28:47.628Z info: $OpenSafeById finished
