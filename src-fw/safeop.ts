@@ -73,6 +73,8 @@ export type Safe = {
   hhk: string // SHA de `SH(K)`.
   C: Uint8Array // clé publique de cryptage. id = shaS(C)
   DK: Uint8Array // clé privée de décryptage, cryptée par la clé K
+  S: Uint8Array // clé publique de signature.
+  VK: Uint8Array // clé privée de vérification, cryptée par la clé K
   Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
   devices: Object
