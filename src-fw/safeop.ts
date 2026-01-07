@@ -63,24 +63,28 @@ export class SafeOperation extends Operation {
 
 }
 
-export type Safe = {
-  id: string // identifiant.
+export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
+  id: string // identifiant aléatoire.
   pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
   hp0: string // index unique, `SH(p0)`.
   hr0: string // index unique, `SH(r0)`.
   hhp1: string // SHA de `SH(p1)`.
   hhr1: string // SHA de `SH(r1)`.
+  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+}
+
+export interface Safe extends SafeCodes { // paramétres de l'opération $CreateSafe
   hhk: string // SHA de `SH(K)`.
-  C: Uint8Array // clé publique de cryptage. id = shaS(C)
+  C: Uint8Array // clé publique de cryptage.
   DK: Uint8Array // clé privée de décryptage, cryptée par la clé K
   S: Uint8Array // clé publique de signature.
   VK: Uint8Array // clé privée de vérification, cryptée par la clé K
-  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+
   devices: Object
   creds: Object
   profiles: Object
-  prefs: Object
+  prefs: Object // pour chaque application, liste des préférences déclarées (ordonnée par date d'utilisation)
 }
 
 /* Creation d'un nouveau Safe
@@ -89,7 +93,7 @@ class $CreateSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const safe = this.args['safe']
+    const safe = this.args['safe'] as Safe
     const ret = await this.db.newSafe(safe)
     if (ret !== 0) await Util.sleep(3000)
     this.setRes('status', ret)
@@ -103,7 +107,7 @@ class $UpdCodesSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const safeNew = this.args['safe']
+    const safeNew = this.args['safeCodes'] as SafeCodes
     const safe: Safe = (await this.db.getSafe(safeNew.id)) as Safe
     if (!safe) {
       this.setRes('status', 1)
