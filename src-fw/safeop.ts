@@ -292,3 +292,44 @@ class $UntrustDevice extends SafeOperation {
   }
 }
 SafeOperation.register('$UntrustDevice', () => { return new $UntrustDevice()})
+
+type SetAboutProfile = {
+  userId: string
+  sh1p: Uint8Array
+  sh1r: Uint8Array
+  profId: string
+  about: Uint8Array
+}
+
+/* Sauvegarde de la maj de l'about du profil
+*/
+class $SetAboutProfile extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const ab = this.args['aboutProfile'] as SetAboutProfile
+    const safe = await this.db.getSafe(ab.userId) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
+    }
+    let ok = false
+    if (ab.sh1p && safe.hhp1 === Crypt.shaS(ab.sh1p)) ok = true
+    else if (ab.sh1r && safe.hhr1 === Crypt.shaS(ab.sh1r)) ok = true
+    if (!ok) {
+      this.setRes('status', 2)
+      await Util.sleep(3000)
+      return
+    }
+
+    const prf = safe.profiles[ab.profId]
+    if (prf) {
+      prf.about = ab.about
+      await this.db.updSafe(safe)
+    }
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$SetAboutProfile', () => { return new $SetAboutProfile()})
