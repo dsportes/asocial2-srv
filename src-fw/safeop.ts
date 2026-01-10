@@ -294,6 +294,7 @@ class $UntrustDevice extends SafeOperation {
 SafeOperation.register('$UntrustDevice', () => { return new $UntrustDevice()})
 
 type SetAboutProfile = {
+  app: string
   userId: string
   sh1p: Uint8Array
   sh1r: Uint8Array
@@ -302,7 +303,7 @@ type SetAboutProfile = {
 }
 
 /* Sauvegarde de la maj de l'about du profil
-*/
+ou crée un profil avec about et creds vide s'il n'existait pas */
 class $SetAboutProfile extends SafeOperation {
   constructor () { super() }
 
@@ -323,11 +324,13 @@ class $SetAboutProfile extends SafeOperation {
       return
     }
 
-    const prf = safe.profiles[ab.profId]
-    if (prf) {
-      prf.about = ab.about
-      await this.db.updSafe(safe)
-    }
+    let appe = safe.profiles[ab.app]
+    if (!appe) { appe = {}; safe.profiles[ab.app] = appe }
+
+    let prf = appe[ab.profId]
+    if (!prf) { prf = { creds: [] } ; appe[ab.profId] = prf }
+    prf.about = ab.about
+    await this.db.updSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
