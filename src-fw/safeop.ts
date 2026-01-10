@@ -208,6 +208,36 @@ class $OpenSafeByPin extends SafeOperation {
 }
 SafeOperation.register('$OpenSafeByPin', () => { return new $OpenSafeByPin()})
 
+type ReloadSafe = {
+  userId: string
+  shk: Uint8Array
+}
+
+/* Sauvegarde de la maj de l'about du profil
+ou crée un profil avec about et creds vide s'il n'existait pas */
+class $ReloadSafe extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const ab = this.args['reloadSafe'] as SetAboutProfile
+    const safe = await this.db.getSafe(ab.userId) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
+    }
+
+    if (safe.hhk !== Crypt.shaS(ab.shk)) {
+      this.setRes('status', 2)
+      await Util.sleep(3000)
+      return
+    }
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$ReloadSafe', () => { return new $ReloadSafe()})
+
 type TrustDev = {
   userId: string
   devId: string
@@ -296,8 +326,7 @@ SafeOperation.register('$UntrustDevice', () => { return new $UntrustDevice()})
 type SetAboutProfile = {
   app: string
   userId: string
-  sh1p: Uint8Array
-  sh1r: Uint8Array
+  shk: Uint8Array
   profId: string
   about: Uint8Array
 }
@@ -315,10 +344,8 @@ class $SetAboutProfile extends SafeOperation {
       await Util.sleep(3000)
       return
     }
-    let ok = false
-    if (ab.sh1p && safe.hhp1 === Crypt.shaS(ab.sh1p)) ok = true
-    else if (ab.sh1r && safe.hhr1 === Crypt.shaS(ab.sh1r)) ok = true
-    if (!ok) {
+
+    if (safe.hhk !== Crypt.shaS(ab.shk)) {
       this.setRes('status', 2)
       await Util.sleep(3000)
       return
