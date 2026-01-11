@@ -208,36 +208,6 @@ class $OpenSafeByPin extends SafeOperation {
 }
 SafeOperation.register('$OpenSafeByPin', () => { return new $OpenSafeByPin()})
 
-type ReloadSafe = {
-  userId: string
-  shk: Uint8Array
-}
-
-/* Sauvegarde de la maj de l'about du profil
-ou crée un profil avec about et creds vide s'il n'existait pas */
-class $ReloadSafe extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> {
-    const ab = this.args['reloadSafe'] as SetAboutProfile
-    const safe = await this.db.getSafe(ab.userId) as Safe
-    if (!safe) {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-      return
-    }
-
-    if (safe.hhk !== Crypt.shaS(ab.shk)) {
-      this.setRes('status', 2)
-      await Util.sleep(3000)
-      return
-    }
-    this.setRes('status', 0)
-    this.setRes('safe', safe)
-  }
-}
-SafeOperation.register('$ReloadSafe', () => { return new $ReloadSafe()})
-
 type TrustDev = {
   userId: string
   devId: string
