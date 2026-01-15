@@ -3781,3 +3781,50 @@ Error: KO
 2026-01-12T18:26:10.749Z info: $OpenSafeByPin finished
 2026-01-12T18:26:10.879Z info: $OpenSafeById finished
 2026-01-12T18:26:20.795Z info: $OpenSafeById finished
+2026-01-15T10:05:43.319Z info: 9 operations registered
+2026-01-15T10:05:43.322Z info: 8 document classes
+2026-01-15T10:05:43.323Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-15T10:05:43.324Z info: Firestore connector
+2026-01-15T10:05:43.324Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-15T10:05:43.324Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-15T10:05:43.325Z info: 9 App operations registered
+2026-01-15T10:05:43.333Z info: HTTP listen [8080]
+2026-01-15T10:10:11.520Z info: $OpenSafeByPin finished
+2026-01-15T10:10:11.561Z info: $OpenSafeById finished
+2026-01-15T10:11:28.027Z info: $OpenSafeByPin finished
+2026-01-15T10:11:28.067Z info: $OpenSafeById finished
+2026-01-15T10:11:49.990Z info: $OpenSafeByPR finished
+2026-01-15T10:13:08.111Z info: $SetAboutProfile finished
+2026-01-15T10:13:23.383Z info: $OpenSafeById finished
+2026-01-15T10:19:44.619Z info: $OpenSafeById finished
+2026-01-15T10:20:40.602Z info: $OpenSafeByPin finished
+2026-01-15T10:20:40.640Z info: $OpenSafeById finished
+2026-01-15T10:22:10.325Z info: $OpenSafeById finished
+2026-01-15T12:54:11.350Z info: $OpenSafeByPin finished
+2026-01-15T12:54:11.391Z info: $OpenSafeById finished
+2026-01-15T16:04:44.421Z info: 9 operations registered
+2026-01-15T16:04:44.423Z info: 8 document classes
+2026-01-15T16:04:44.424Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-15T16:04:44.424Z info: Firestore connector
+2026-01-15T16:04:44.425Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-15T16:04:44.425Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-15T16:04:44.426Z info: 9 App operations registered
+2026-01-15T16:04:44.433Z info: HTTP listen [8080]
+2026-01-15T16:08:01.197Z info: $OpenSafeByPin finished
+2026-01-15T16:08:01.235Z info: $OpenSafeById finished
+2026-01-15T16:11:34.891Z info: $OpenSafeByPin finished
+2026-01-15T16:11:34.930Z info: $OpenSafeById finished
+2026-01-15T16:50:40.777Z info: $OpenSafeByPin finished
+2026-01-15T16:50:40.872Z info: $OpenSafeById finished
+2026-01-15T16:58:07.575Z info: $OpenSafeByPin finished
+2026-01-15T16:58:07.610Z info: $OpenSafeById finished
+2026-01-15T17:01:37.453Z info: $OpenSafeByPR finished
+2026-01-15T17:02:20.477Z info: $TrustDevice finished
+2026-01-15T17:04:56.598Z info: $OpenSafeByPR finished
+2026-01-15T17:09:02.545Z info: $TrustDevice finished
+2026-01-15T17:19:06.068Z info: $OpenSafeByPR finished
+2026-01-15T17:19:36.666Z info: $UntrustDevice finished
+2026-01-15T17:20:09.953Z info: $TrustDevice finished
+2026-01-15T17:22:31.764Z info: $OpenSafeByPin finished
+2026-01-15T17:22:31.804Z info: $OpenSafeById finished
+2026-01-15T17:23:21.039Z info: $OpenSafeById finished
