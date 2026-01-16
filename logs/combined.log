@@ -3828,3 +3828,64 @@ Error: KO
 2026-01-15T17:22:31.764Z info: $OpenSafeByPin finished
 2026-01-15T17:22:31.804Z info: $OpenSafeById finished
 2026-01-15T17:23:21.039Z info: $OpenSafeById finished
+2026-01-16T10:45:58.392Z info: 9 operations registered
+2026-01-16T10:45:58.395Z info: 8 document classes
+2026-01-16T10:45:58.396Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T10:45:58.396Z info: Firestore connector
+2026-01-16T10:45:58.397Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T10:45:58.398Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T10:45:58.399Z info: 9 App operations registered
+2026-01-16T10:45:58.412Z info: HTTP listen [8080]
+2026-01-16T10:45:59.725Z info: $OpenSafeByPin finished
+2026-01-16T10:45:59.764Z info: $OpenSafeById finished
+2026-01-16T10:48:07.176Z info: $OpenSafeByPin finished
+2026-01-16T10:48:07.215Z info: $OpenSafeById finished
+2026-01-16T11:01:18.790Z info: $OpenSafeByPin finished
+2026-01-16T11:01:18.831Z info: $OpenSafeById finished
+2026-01-16T11:02:34.276Z info: $OpenSafeById finished
+2026-01-16T11:31:32.908Z info: 9 operations registered
+2026-01-16T11:31:32.911Z info: 8 document classes
+2026-01-16T11:31:32.912Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T11:31:32.912Z info: Firestore connector
+2026-01-16T11:31:32.912Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T11:31:32.913Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T11:31:32.913Z info: 9 App operations registered
+2026-01-16T11:31:32.921Z info: HTTP listen [8080]
+2026-01-16T11:31:38.666Z info: $OpenSafeByPin finished
+2026-01-16T11:33:25.123Z info: 9 operations registered
+2026-01-16T11:33:25.126Z info: 8 document classes
+2026-01-16T11:33:25.126Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T11:33:25.126Z info: Firestore connector
+2026-01-16T11:33:25.127Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T11:33:25.127Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T11:33:25.127Z info: 9 App operations registered
+2026-01-16T11:33:25.136Z info: HTTP listen [8080]
+2026-01-16T11:33:29.485Z info: $OpenSafeByPin finished
+2026-01-16T11:33:29.528Z info: $OpenSafeById finished
+2026-01-16T12:04:28.960Z info: 9 operations registered
+2026-01-16T12:04:28.962Z info: 8 document classes
+2026-01-16T12:04:28.963Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:04:28.963Z info: Firestore connector
+2026-01-16T12:04:28.963Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:04:28.964Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T12:04:28.964Z info: 9 App operations registered
+2026-01-16T12:04:28.976Z info: HTTP listen [8080]
+2026-01-16T12:04:51.849Z info: $OpenSafeByPR finished
+2026-01-16T12:08:26.682Z info: 9 operations registered
+2026-01-16T12:08:26.685Z info: 8 document classes
+2026-01-16T12:08:26.685Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:08:26.685Z info: Firestore connector
+2026-01-16T12:08:26.686Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:08:26.686Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T12:08:26.686Z info: 9 App operations registered
+2026-01-16T12:08:26.695Z info: HTTP listen [8080]
+2026-01-16T12:08:44.336Z info: $OpenSafeByPR finished
+2026-01-16T12:16:28.631Z info: 9 operations registered
+2026-01-16T12:16:28.634Z info: 8 document classes
+2026-01-16T12:16:28.634Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:16:28.635Z info: Firestore connector
+2026-01-16T12:16:28.635Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-16T12:16:28.635Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-16T12:16:28.636Z info: 9 App operations registered
+2026-01-16T12:16:28.644Z info: HTTP listen [8080]
+2026-01-16T12:16:59.343Z info: $OpenSafeByPR finished
