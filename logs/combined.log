@@ -3889,3 +3889,126 @@ Error: KO
 2026-01-16T12:16:28.636Z info: 9 App operations registered
 2026-01-16T12:16:28.644Z info: HTTP listen [8080]
 2026-01-16T12:16:59.343Z info: $OpenSafeByPR finished
+2026-01-18T08:35:32.067Z info: 9 operations registered
+2026-01-18T08:35:32.070Z info: 8 document classes
+2026-01-18T08:35:32.071Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T08:35:32.071Z info: Firestore connector
+2026-01-18T08:35:32.072Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T08:35:32.072Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-18T08:35:32.072Z info: 9 App operations registered
+2026-01-18T08:35:32.082Z info: HTTP listen [8080]
+2026-01-18T08:35:36.280Z info: $OpenSafeByPin finished
+2026-01-18T08:35:36.323Z info: $OpenSafeById finished
+2026-01-18T08:37:43.173Z info: $OpenSafeByPR finished
+2026-01-18T08:38:03.377Z info: $TrustDevice finished
+2026-01-18T09:32:51.928Z info: $OpenSafeByPin finished
+2026-01-18T09:32:52.009Z info: $OpenSafeById finished
+2026-01-18T09:35:02.107Z info: $OpenSafeByPin finished
+2026-01-18T09:35:02.147Z info: $OpenSafeById finished
+2026-01-18T09:36:56.705Z info: $OpenSafeByPin finished
+2026-01-18T09:36:56.741Z info: $OpenSafeById finished
+2026-01-18T09:37:55.875Z info: $OpenSafeByPin finished
+2026-01-18T09:37:55.918Z info: $OpenSafeById finished
+2026-01-18T09:40:11.923Z info: $OpenSafeByPin finished
+2026-01-18T09:40:11.960Z info: $OpenSafeById finished
+2026-01-18T09:41:06.864Z info: $OpenSafeByPin finished
+2026-01-18T09:41:06.901Z info: $OpenSafeById finished
+2026-01-18T09:44:26.392Z info: $OpenSafeByPin finished
+2026-01-18T09:44:26.432Z info: $OpenSafeById finished
+2026-01-18T09:46:14.432Z info: $OpenSafeByPin finished
+2026-01-18T09:46:14.467Z info: $OpenSafeById finished
+2026-01-18T09:47:38.793Z info: $OpenSafeByPin finished
+2026-01-18T09:47:38.855Z info: $OpenSafeById finished
+2026-01-18T09:50:12.136Z info: $OpenSafeByPin finished
+2026-01-18T09:50:12.171Z info: $OpenSafeById finished
+2026-01-18T09:52:37.136Z info: $OpenSafeByPin finished
+2026-01-18T09:52:37.170Z info: $OpenSafeById finished
+2026-01-18T09:54:32.473Z info: 9 operations registered
+2026-01-18T09:54:32.476Z info: 8 document classes
+2026-01-18T09:54:32.476Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T09:54:32.476Z info: Firestore connector
+2026-01-18T09:54:32.477Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T09:54:32.477Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-18T09:54:32.477Z info: 9 App operations registered
+2026-01-18T09:54:32.486Z info: HTTP listen [8080]
+2026-01-18T10:52:14.902Z info: $OpenSafeByPin finished
+2026-01-18T10:52:14.941Z info: $OpenSafeById finished
+2026-01-18T10:53:51.316Z info: $OpenSafeByPin finished
+2026-01-18T10:53:51.356Z info: $OpenSafeById finished
+2026-01-18T10:59:06.422Z info: $OpenSafeByPin finished
+2026-01-18T10:59:06.462Z info: $OpenSafeById finished
+2026-01-18T11:02:41.979Z info: $OpenSafeByPin finished
+2026-01-18T11:02:42.048Z info: $OpenSafeById finished
+2026-01-18T11:03:02.895Z info: $OpenSafeByPin finished
+2026-01-18T11:03:02.932Z info: $OpenSafeById finished
+2026-01-18T11:10:10.637Z info: $OpenSafeByPin finished
+2026-01-18T11:10:10.672Z info: $OpenSafeById finished
+2026-01-18T11:11:04.210Z info: $OpenSafeByPin finished
+2026-01-18T11:11:04.249Z info: $OpenSafeById finished
+2026-01-18T11:12:08.891Z info: $OpenSafeByPin finished
+2026-01-18T11:12:08.929Z info: $OpenSafeById finished
+2026-01-18T11:58:49.329Z info: $OpenSafeByPin finished
+2026-01-18T11:58:49.370Z info: $OpenSafeById finished
+2026-01-18T12:02:16.181Z info: $OpenSafeByPin finished
+2026-01-18T12:02:16.219Z info: $OpenSafeById finished
+2026-01-18T12:08:40.056Z info: $OpenSafeByPin finished
+2026-01-18T12:08:40.100Z info: $OpenSafeById finished
+2026-01-18T13:26:48.940Z info: $CreateSafe finished
+2026-01-18T13:27:25.013Z info: $TrustDevice finished
+2026-01-18T13:29:00.513Z info: $OpenSafeByPR finished
+2026-01-18T13:30:45.051Z info: $OpenSafeByPR finished
+2026-01-18T13:31:35.867Z info: $OpenSafeByPR finished
+2026-01-18T18:09:17.373Z info: 9 operations registered
+2026-01-18T18:09:17.376Z info: 8 document classes
+2026-01-18T18:09:17.376Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T18:09:17.377Z info: Firestore connector
+2026-01-18T18:09:17.377Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-18T18:09:17.378Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-18T18:09:17.378Z info: 9 App operations registered
+2026-01-18T18:09:17.390Z info: HTTP listen [8080]
+2026-01-18T18:15:14.401Z info: $CreateSafe finished
+2026-01-18T18:16:43.713Z info: $SetAboutProfile finished
+2026-01-18T18:17:01.375Z info: AppExc: 1002:unknown operation["$$OpenSafeById"]
+2026-01-18T18:17:01.377Z info: $$OpenSafeById terminated on exception
+2026-01-18T18:19:17.087Z info: $TrustDevice finished
+2026-01-18T18:20:03.084Z info: $OpenSafeByPin finished
+2026-01-18T18:20:03.129Z info: $OpenSafeById finished
+2026-01-18T18:22:18.604Z info: $OpenSafeByPin finished
+2026-01-18T18:22:18.646Z info: $OpenSafeById finished
+2026-01-18T18:24:03.441Z info: $SetAboutProfile finished
+2026-01-18T18:24:39.070Z info: AppExc: 1002:unknown operation["$$OpenSafeById"]
+2026-01-18T18:24:39.071Z info: $$OpenSafeById terminated on exception
+2026-01-18T18:31:24.259Z info: $OpenSafeByPin finished
+2026-01-18T18:31:24.297Z info: $OpenSafeById finished
+2026-01-18T18:31:47.451Z info: $SetAboutProfile finished
+2026-01-18T18:32:02.958Z info: $OpenSafeById terminated on exception
+2026-01-18T18:32:02.960Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2026-01-18T18:34:38.237Z info: $OpenSafeByPin finished
+2026-01-18T18:34:59.924Z info: $OpenSafeById finished
+2026-01-18T18:35:29.054Z info: $SetAboutProfile finished
+2026-01-18T18:36:31.233Z info: $OpenSafeById terminated on exception
+2026-01-18T18:36:31.235Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2026-01-18T18:37:21.117Z info: $OpenSafeByPin finished
+2026-01-18T18:37:37.661Z info: $OpenSafeByPin finished
+2026-01-18T18:39:24.359Z info: $OpenSafeByPin finished
+2026-01-18T18:45:50.175Z info: $OpenSafeByPR finished
+2026-01-18T18:46:14.410Z info: $TrustDevice finished
+2026-01-18T18:46:49.772Z info: $SetAboutProfile finished
+2026-01-18T18:47:21.046Z info: $OpenSafeById finished
+2026-01-18T18:47:44.711Z info: $OpenSafeById finished
+2026-01-18T18:48:09.038Z info: $OpenSafeByPR finished
+2026-01-18T18:48:19.758Z info: $TrustDevice finished
+2026-01-18T18:48:34.742Z info: $SetAboutProfile finished
+2026-01-18T18:48:40.559Z info: $OpenSafeById finished
+2026-01-18T18:49:10.375Z info: $OpenSafeByPin finished
+2026-01-18T18:49:10.425Z info: $OpenSafeById finished
+2026-01-18T18:50:14.870Z info: $OpenSafeByPin finished
+2026-01-18T18:50:14.937Z info: $OpenSafeById finished
+2026-01-18T18:58:01.314Z info: $SetAboutProfile finished
+2026-01-18T19:01:23.690Z info: $OpenSafeById finished
+2026-01-18T19:04:19.618Z info: $SetAboutProfile finished
+2026-01-18T19:04:26.757Z info: $OpenSafeById finished
+2026-01-18T19:06:30.326Z info: $OpenSafeByPin finished
+2026-01-18T19:06:30.367Z info: $OpenSafeById finished
+2026-01-18T19:08:17.731Z info: $SetAboutProfile finished
+2026-01-18T19:08:24.216Z info: $OpenSafeById finished
