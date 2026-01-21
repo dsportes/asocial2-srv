@@ -4012,3 +4012,37 @@ Error: KO
 2026-01-18T19:06:30.367Z info: $OpenSafeById finished
 2026-01-18T19:08:17.731Z info: $SetAboutProfile finished
 2026-01-18T19:08:24.216Z info: $OpenSafeById finished
+2026-01-21T09:20:33.393Z info: 9 operations registered
+2026-01-21T09:20:33.396Z info: 8 document classes
+2026-01-21T09:20:33.397Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-21T09:20:33.397Z info: Firestore connector
+2026-01-21T09:20:33.398Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-21T09:20:33.398Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-21T09:20:33.398Z info: 9 App operations registered
+2026-01-21T09:20:33.410Z info: HTTP listen [8080]
+2026-01-21T09:30:23.123Z info: $OpenSafeByPin finished
+2026-01-21T09:30:23.163Z info: $OpenSafeById finished
+2026-01-21T09:32:11.555Z info: $OpenSafeByPin finished
+2026-01-21T09:32:11.594Z info: $OpenSafeById finished
+2026-01-21T17:15:22.981Z info: 9 operations registered
+2026-01-21T17:15:22.984Z info: 8 document classes
+2026-01-21T17:15:22.984Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-21T17:15:22.985Z info: Firestore connector
+2026-01-21T17:15:22.985Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-21T17:15:22.986Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-21T17:15:22.987Z info: 9 App operations registered
+2026-01-21T17:15:22.996Z info: HTTP listen [8080]
+2026-01-21T17:18:38.243Z info: $OpenSafeByPin finished
+2026-01-21T17:18:38.300Z info: $OpenSafeById finished
+2026-01-21T17:22:24.703Z info: $OpenSafeByPin finished
+2026-01-21T17:22:24.762Z info: $OpenSafeById finished
+2026-01-21T17:23:27.628Z info: $OpenSafeByPin finished
+2026-01-21T17:23:27.689Z info: $OpenSafeById finished
+2026-01-21T17:24:58.172Z info: $OpenSafeByPin finished
+2026-01-21T17:24:58.228Z info: $OpenSafeById finished
+2026-01-21T17:26:20.554Z info: $OpenSafeByPin finished
+2026-01-21T17:26:20.614Z info: $OpenSafeById finished
+2026-01-21T17:27:52.477Z info: $OpenSafeByPin finished
+2026-01-21T17:27:52.539Z info: $OpenSafeById finished
+2026-01-21T17:33:26.860Z info: $OpenSafeByPin finished
+2026-01-21T17:33:26.909Z info: $OpenSafeById finished

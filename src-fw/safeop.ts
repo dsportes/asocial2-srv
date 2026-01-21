@@ -42,6 +42,35 @@ export class SafeOperation extends Operation {
     }
   }
 
+  async getSafe (arg: Object): Promise<Safe> {
+    const safe = await this.db.getSafe(arg['userId']) as Safe
+    if (!safe) {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+      return
+    }
+
+    if (arg['shk']) {
+      if (safe.hhk !== Crypt.shaS(arg['shk'])) {
+        this.setRes('status', 2)
+        await Util.sleep(3000)
+        return safe
+      }
+    }
+
+    let ok = false
+    const sh1p = arg['sh1p']
+    const sh1r = arg['sh1r']
+    if (sh1p && safe.hhp1 === Crypt.shaS(sh1p)) ok = true
+    else if (sh1r && safe.hhr1 === Crypt.shaS(sh1r)) ok = true
+    if (!ok) {
+      this.setRes('status', 2)
+      await Util.sleep(3000)
+      return safe
+    }
+    return null
+  }
+
   constructor () { super() }
 
   async doTheJob () : Promise<void> {  }
@@ -233,20 +262,8 @@ class $TrustDevice extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const td = this.args['trustDev'] as TrustDev
-    const safe = await this.db.getSafe(td.userId) as Safe
-    if (!safe) {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-      return
-    }
-    let ok = false
-    if (td.sh1p && safe.hhp1 === Crypt.shaS(td.sh1p)) ok = true
-    else if (td.sh1r && safe.hhr1 === Crypt.shaS(td.sh1r)) ok = true
-    if (!ok) {
-      this.setRes('status', 2)
-      await Util.sleep(3000)
-      return
-    }
+    const safe = await this.getSafe(td)
+    if (!safe) return
 
     const d: Device = {
       devName: td.devName,
@@ -270,20 +287,8 @@ class $UntrustDevice extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const td = this.args['untrustDev'] as UntrustDev
-    const safe = await this.db.getSafe(td.userId) as Safe
-    if (!safe) {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-      return
-    }
-    let ok = false
-    if (td.sh1p && safe.hhp1 === Crypt.shaS(td.sh1p)) ok = true
-    else if (td.sh1r && safe.hhr1 === Crypt.shaS(td.sh1r)) ok = true
-    if (!ok) {
-      this.setRes('status', 2)
-      await Util.sleep(3000)
-      return
-    }
+    const safe = await this.getSafe(td)
+    if (!safe) return
 
     delete safe.devices[td.devId]
     await this.db.updSafe(safe)
@@ -308,18 +313,8 @@ class $SetAboutProfile extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const ab = this.args['aboutProfile'] as SetAboutProfile
-    const safe = await this.db.getSafe(ab.userId) as Safe
-    if (!safe) {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-      return
-    }
-
-    if (safe.hhk !== Crypt.shaS(ab.shk)) {
-      this.setRes('status', 2)
-      await Util.sleep(3000)
-      return
-    }
+    const safe = await this.getSafe(ab)
+    if (!safe) return
 
     let appe = safe.profiles[ab.app]
     if (!appe) { appe = {}; safe.profiles[ab.app] = appe }
@@ -333,3 +328,41 @@ class $SetAboutProfile extends SafeOperation {
   }
 }
 SafeOperation.register('$SetAboutProfile', () => { return new $SetAboutProfile()})
+
+type UpdateCreds = {
+  app: string
+  userId: string
+  shk: Uint8Array
+  creds: Object // clé: credId, valeur: Objet Credential sérialisé crypté
+  delcreds: string[] // liste des credIds à supprimer
+  profiles: Object // clé: profId, valeur: Objet Profile sérialisé crypté
+}
+
+/* Sauvegarde de la maj de l'about du profil
+ou crée un profil avec about et creds vide s'il n'existait pas */
+class $UpdateCreds extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const uc = this.args['updateCreds'] as UpdateCreds
+    const safe = await this.getSafe(uc)
+    if (!safe) return
+
+    let appp = safe.profiles[uc.app]
+    if (!appp) { appp = {}; safe.profiles[uc.app] = appp }
+    for(const profId in uc.profiles)
+      appp[profId] = uc.profiles[profId]
+
+    let appc = safe.creds[uc.app]
+    if (!appc) { appc = {}; safe.creds[uc.app] = appc}
+    for(const credId in uc.creds)
+      appc[credId] = uc.creds[credId]
+    for(const credId of uc.delcreds)
+      delete appc[credId]
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$UpdateCreds', () => { return new $UpdateCreds()})
