@@ -66,9 +66,9 @@ export class SafeOperation extends Operation {
     if (!ok) {
       this.setRes('status', 2)
       await Util.sleep(3000)
-      return safe
+      return null
     }
-    return null
+    return safe
   }
 
   constructor () { super() }
