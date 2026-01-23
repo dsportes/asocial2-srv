@@ -4104,3 +4104,84 @@ Error: KO
 2026-01-22T18:07:36.574Z info: $OpenSafeById finished
 2026-01-22T18:07:49.273Z info: $OpenSafeById finished
 2026-01-22T18:08:24.094Z info: $OpenSafeById finished
+2026-01-23T07:30:47.718Z info: 9 operations registered
+2026-01-23T07:30:47.724Z info: 8 document classes
+2026-01-23T07:30:47.726Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T07:30:47.728Z info: Firestore connector
+2026-01-23T07:30:47.729Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T07:30:47.731Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-23T07:30:47.732Z info: 9 App operations registered
+2026-01-23T07:30:47.756Z info: HTTP listen [8080]
+2026-01-23T10:33:12.992Z info: $OpenSafeByPin finished
+2026-01-23T10:33:13.033Z info: $OpenSafeById finished
+2026-01-23T11:04:30.364Z info: $OpenSafeByPin finished
+2026-01-23T11:04:30.427Z info: $OpenSafeById finished
+2026-01-23T11:16:58.205Z info: $OpenSafeByPin finished
+2026-01-23T11:16:58.261Z info: $OpenSafeById finished
+2026-01-23T12:08:52.470Z info: 9 operations registered
+2026-01-23T12:08:52.473Z info: 8 document classes
+2026-01-23T12:08:52.474Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T12:08:52.475Z info: Firestore connector
+2026-01-23T12:08:52.475Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T12:08:52.476Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-23T12:08:52.477Z info: 9 App operations registered
+2026-01-23T12:08:52.490Z info: HTTP listen [8080]
+2026-01-23T12:55:19.902Z info: $OpenSafeByPin finished
+2026-01-23T12:55:19.962Z info: $OpenSafeById finished
+2026-01-23T13:05:05.629Z info: $OpenSafeByPin finished
+2026-01-23T13:05:05.671Z info: $OpenSafeById finished
+2026-01-23T13:06:59.343Z info: $OpenSafeByPin finished
+2026-01-23T13:06:59.426Z info: $OpenSafeById finished
+2026-01-23T13:11:21.774Z info: $OpenSafeByPin finished
+2026-01-23T13:11:21.823Z info: $OpenSafeById finished
+2026-01-23T13:13:37.482Z info: $OpenSafeByPin finished
+2026-01-23T13:13:37.536Z info: $OpenSafeById finished
+2026-01-23T13:47:15.931Z info: $OpenSafeByPin finished
+2026-01-23T13:47:16.021Z info: $OpenSafeById finished
+2026-01-23T13:50:54.936Z info: $UpdateCreds finished
+2026-01-23T13:57:45.978Z info: 9 operations registered
+2026-01-23T13:57:45.982Z info: 8 document classes
+2026-01-23T13:57:45.983Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T13:57:45.984Z info: Firestore connector
+2026-01-23T13:57:45.984Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T13:57:45.985Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-23T13:57:45.985Z info: 9 App operations registered
+2026-01-23T13:57:45.995Z info: HTTP listen [8080]
+2026-01-23T14:12:33.987Z info: $OpenSafeByPin finished
+2026-01-23T14:12:34.095Z info: $OpenSafeById finished
+2026-01-23T14:16:35.012Z info: $UpdateCreds finished
+2026-01-23T14:23:02.116Z info: $OpenSafeByPin finished
+2026-01-23T14:23:02.177Z info: $OpenSafeById finished
+2026-01-23T14:26:02.915Z info: $OpenSafeByPin finished
+2026-01-23T14:26:02.967Z info: $OpenSafeById finished
+2026-01-23T14:31:34.195Z info: $OpenSafeByPin finished
+2026-01-23T14:31:34.258Z info: $OpenSafeById finished
+2026-01-23T14:33:48.349Z info: $OpenSafeByPin finished
+2026-01-23T14:33:48.407Z info: $OpenSafeById finished
+2026-01-23T14:34:54.157Z info: $OpenSafeByPin finished
+2026-01-23T14:34:54.278Z info: $OpenSafeById finished
+2026-01-23T14:37:11.214Z info: $OpenSafeByPin finished
+2026-01-23T14:37:11.349Z info: $OpenSafeById finished
+2026-01-23T14:38:26.741Z info: $OpenSafeByPin finished
+2026-01-23T14:38:26.917Z info: $OpenSafeById finished
+2026-01-23T14:39:52.440Z info: $OpenSafeByPin finished
+2026-01-23T14:39:52.485Z info: $OpenSafeById finished
+2026-01-23T14:48:10.303Z info: 9 operations registered
+2026-01-23T14:48:10.306Z info: 8 document classes
+2026-01-23T14:48:10.307Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T14:48:10.308Z info: Firestore connector
+2026-01-23T14:48:10.308Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-23T14:48:10.309Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-23T14:48:10.309Z info: 9 App operations registered
+2026-01-23T14:48:10.318Z info: HTTP listen [8080]
+2026-01-23T14:48:27.472Z info: $OpenSafeByPin finished
+2026-01-23T14:48:27.519Z info: $OpenSafeById finished
+2026-01-23T14:52:40.044Z info: $UpdateCreds finished
+2026-01-23T14:55:51.482Z info: $OpenSafeByPin finished
+2026-01-23T14:55:51.563Z info: $OpenSafeById finished
+2026-01-23T14:58:12.337Z info: $OpenSafeByPin finished
+2026-01-23T14:58:12.388Z info: $OpenSafeById finished
+2026-01-23T15:28:18.724Z info: $UpdateCreds finished
+2026-01-23T15:28:48.630Z info: $OpenSafeById finished
+2026-01-23T15:29:55.765Z info: $OpenSafeById finished
+2026-01-23T15:30:31.820Z info: $OpenSafeById finished

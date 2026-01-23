@@ -47,28 +47,22 @@ export class SafeOperation extends Operation {
     if (!safe) {
       this.setRes('status', 1)
       await Util.sleep(3000)
-      return
+      return null
     }
 
-    if (arg['shk']) {
-      if (safe.hhk !== Crypt.shaS(arg['shk'])) {
-        this.setRes('status', 2)
-        await Util.sleep(3000)
-        return safe
-      }
-    }
+    if (arg['shk'] && safe.hhk === Crypt.shaS(arg['shk']))
+      return safe
 
     let ok = false
     const sh1p = arg['sh1p']
     const sh1r = arg['sh1r']
     if (sh1p && safe.hhp1 === Crypt.shaS(sh1p)) ok = true
     else if (sh1r && safe.hhr1 === Crypt.shaS(sh1r)) ok = true
-    if (!ok) {
-      this.setRes('status', 2)
-      await Util.sleep(3000)
-      return null
-    }
-    return safe
+    if (ok) return safe
+    
+    this.setRes('status', 2)
+    await Util.sleep(3000)
+    return null
   }
 
   constructor () { super() }
@@ -336,6 +330,7 @@ type UpdateCreds = {
   creds: Object // clé: credId, valeur: Objet Credential sérialisé crypté
   delcreds: string[] // liste des credIds à supprimer
   profiles: Object // clé: profId, valeur: Objet Profile sérialisé crypté
+  delprofs: string[] // liste des profIds à supprimer
 }
 
 /* Sauvegarde de la maj de l'about du profil
@@ -352,6 +347,8 @@ class $UpdateCreds extends SafeOperation {
     if (!appp) { appp = {}; safe.profiles[uc.app] = appp }
     for(const profId in uc.profiles)
       appp[profId] = uc.profiles[profId]
+    for(const profId of uc.delprofs)
+      delete appp[profId]
 
     let appc = safe.creds[uc.app]
     if (!appc) { appc = {}; safe.creds[uc.app] = appc}
