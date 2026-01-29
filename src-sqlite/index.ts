@@ -216,6 +216,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
+  /******************************************************************************
+  * Gestion des safe  
+  ******************************************************************************/
+
   async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
     const idx = idp0r0 === IDP0R0.P0 ? 'hp0' : (idp0r0 === IDP0R0.R0 ? 'hr0' : 'id')
     const stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE ' + idx + ' = @id')
@@ -230,22 +234,59 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return decode(data)
   }
 
+  async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
+    const r = { lm: -1, xp: true, xr: true }
+    const stmt = this.sql.prepare('SELECT id, data FROM SAFE WHERE id = @id')
+    const row = stmt.get({id})
+    if (row) {
+      const data = decode(Crypt.syncDecrypt(this.key, row.data))
+      r.lm = data['lm'] || 0
+      if (data['hp0'] === hp0) r.xp = true
+      else {
+        const stmt2 = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+        const row2 = stmt2.get({hp0})
+        r.xp = row2 ? false : true
+      }
+      if (data['hr0'] === hr0) r.xr = true
+      else {
+        const stmt3 = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+        const row3 = stmt3.get({hr0})
+        r.xr = row3 ? false : true
+      }
+    } else {
+      r.lm = -1
+      const stmt2 = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+      const row2 = stmt2.get({hp0})
+      r.xp = row2 ? false : true
+      const stmt3 = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+      const row3 = stmt3.get({hr0})
+      r.xr = row3 ? false : true
+    }
+    return r
+  }
+
   async newSafe (safe: Object) :  Promise<number> {
     const id = safe['id']
     const hp0 = safe['hp0']
     const hr0 = safe['hr0']
+    safe['lm'] = Date.now()
     const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id FROM SAFE WHERE id = @id')
-    let row = stmt.get({id})
-    if (row) return 1
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
-    row = stmt.get({hp0})
-    if (row) return 2
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
-    row = stmt.get({hr0})
-    if (row) return 3
+    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
+    let row0, row1, row2
+    row0 = stmt.get({id})
+    if ((row0 && row0['hp0'] !== hp0) || !row0) {
+      stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+      row1 = stmt.get({hp0})
+      if (row1) return 1
+    }
+    if ((row0 && row0['hr0'] !== hr0) || !row0) {
+      stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+      const row3 = stmt.get({hr0})
+      if (row2) return 2
+    }
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
+    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
+    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hp0, hr0, lam, data })
     return 0
   }
@@ -254,6 +295,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const id = safe['id']
     const hp0 = safe['hp0']
     const hr0 = safe['hr0']
+    safe['lm'] = Date.now()
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hp0 = @hp0')
     let row = stmt.get({hp0})
@@ -269,6 +311,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async updSafe (safe: Object) :  Promise<void> {
     const id = safe['id']
+    safe['lm'] = Date.now()
     const lam = Util.currentMonth()
     const data = Crypt.syncCrypt(this.key, encode(safe))
     const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')
@@ -285,6 +328,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ lam })
   }
 
+  /******************************************************************************/
   async getUrl (org: string) : Promise<string> {
     const stmt = this.sql.prepare('SELECT * FROM "URLS" WHERE org = @org')
     const res = stmt.get({org})

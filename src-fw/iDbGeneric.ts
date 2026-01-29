@@ -89,11 +89,23 @@ export interface IDbGeneric {
   */
   getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object>
 
-  /* Créé un nouveau safe. Retour:
+  /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
+  - id, hp0, hr0 : id et accès externe 
+  Retour : { lm, xp, xr }
+  - lm : last modifidication time du safe d' id donnée. -1 si ce safe n'existe pas.
+  - xp : true si aucun safe n'a hp0 comme cl& externe OU si le safe d'id existe et a 
+  hp0 comme clé p0
+  - xr : idem pour hr0
+  */
+  statusSafe (id: string, hp0: string, hr0: string) : Promise<Object>
+
+  /* Créé un nouveau safe. 
+  Si le safe existait déjà avec cet id et qu'aucun autre d'id différente
+  existait pour p0 / r0, il est RECREE (en fait mis à jour / écrasé)
+  Retour:
   0: OK
-  1: un safe existe déjà avec cette id
-  1: un safe existe déjà avec ce p0
-  2: un safe existe déjà avec ce r0
+  1: un safe d'id différent existe avec ce p0
+  2: un safe d'id différent existe avec ce r0
   */
   newSafe (safe: Object) :  Promise<number>
 

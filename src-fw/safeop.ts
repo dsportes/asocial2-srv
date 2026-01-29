@@ -363,3 +363,24 @@ class $UpdateCreds extends SafeOperation {
   }
 }
 SafeOperation.register('$UpdateCreds', () => { return new $UpdateCreds()})
+
+/* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
+- id, hp0, hr0 : id et accès externe 
+Retour : { lm, xp, xr }
+- lm : last modifidication time du safe d' id donnée. -1 si ce safe n'existe pas.
+- xp : true si aucun safe n'a hp0 comme cl& externe OU si le safe d'id existe et a 
+hp0 comme clé p0
+- xr : idem pour hr0
+*/
+class $StatusSafe extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const id = this.args['id']
+    const hp0 = this.args['hp0']
+    const hr0 = this.args['hr0']
+    const ret = await this.db.statusSafe(id, hp0, hr0)
+    this.setRes('statusSafe', ret)
+  }
+}
+SafeOperation.register('$StatusSafe', () => { return new $StatusSafe()})
