@@ -5,8 +5,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, IDP0R0, 
-  safeLapse, Safe} from '../src-fw/iDbGeneric'
+  row, rowQ, updType, vdata, Safe} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -220,18 +219,28 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   * Gestion des safe  
   ******************************************************************************/
 
-  async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
-    const idx = idp0r0 === IDP0R0.P0 ? 'hp0' : (idp0r0 === IDP0R0.R0 ? 'hr0' : 'id')
-    const stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE ' + idx + ' = @id')
-    const row = stmt.get({id})
-    if (!row) return null
+  async getSafe (id: string) : Promise<[number, Safe]> {
+    let m = 0
+    let stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE id = @id')
+    let row = stmt.get({id})
+    if (!row) {
+      m = 1
+      stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hp0 = @id')
+      row = stmt.get({id})
+      if (!row) {
+        m = 2
+        stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hr0 = @id')
+        row = stmt.get({id})
+      }
+      if (!row) return [m, null]
+    }
     const data = Crypt.syncDecrypt(this.key, row.data)
     const cm = Util.currentMonth()
     if (row.lam !== cm) {
       const upd = this.sql.prepare('UPDATE SAFE SET lam = @lam WHERE id = @id')
       upd.run({ id: row.id, lam: cm })
     }
-    return decode(data)
+    return [m, decode(data) as Safe]
   }
 
   async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
@@ -265,11 +274,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return r
   }
 
-  async newSafe (safe: Object) :  Promise<number> {
-    const id = safe['id']
-    const hp0 = safe['hp0']
-    const hr0 = safe['hr0']
-    safe['lm'] = Date.now()
+  async newSafe (safe: Safe) :  Promise<number> {
+    const id = safe.id
+    const hp0 = safe.hp0
+    const hr0 = safe.hr0
+    safe.lm = Date.now()
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
     let row0, row1, row2
@@ -282,7 +291,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if ((row0 && row0['hr0'] !== hr0) || !row0) {
       stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
       const row3 = stmt.get({hr0})
-      if (row2) return 2
+      if (row3) return 2
     }
     const data = Crypt.syncCrypt(this.key, encode(safe))
     if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
@@ -291,11 +300,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-  async updPRSafe (safe: Object) :  Promise<number> {
-    const id = safe['id']
-    const hp0 = safe['hp0']
-    const hr0 = safe['hr0']
-    safe['lm'] = Date.now()
+  async updPRSafe (safe: Safe) :  Promise<number> {
+    const id = safe.id
+    const hp0 = safe.hp0
+    const hr0 = safe.hr0
+    safe.lm = Date.now()
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hp0 = @hp0')
     let row = stmt.get({hp0})
@@ -309,9 +318,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-  async updSafe (safe: Object) :  Promise<void> {
-    const id = safe['id']
-    safe['lm'] = Date.now()
+  async updSafe (safe: Safe) :  Promise<void> {
+    const id = safe.id
+    safe.lm = Date.now()
     const lam = Util.currentMonth()
     const data = Crypt.syncCrypt(this.key, encode(safe))
     const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')

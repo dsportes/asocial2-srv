@@ -48,3 +48,7 @@ PRAGMA journal_mode = WAL
 2026-01-10T11:18:32.095Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'userId')"]
 2026-01-18T18:32:02.960Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
 2026-01-18T18:36:31.235Z error: AppExc: 3001:unexpected exception["The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received undefined"]
+2026-01-30T15:44:15.448Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:47:33.971Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:48:58.395Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:51:32.121Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]

@@ -1,10 +1,10 @@
 import { Operation } from './operation'
 import { AppExc } from './index'
 import { config } from './config'
-import { IDP0R0 } from './iDbGeneric'
 import { Crypt } from './crypt'
 import { Util } from './util'
-// import { encode, decode } from '@msgpack/msgpack'
+import { Safe } from './iDbGeneric'
+import { encode, decode } from '@msgpack/msgpack'
 
 type Device = {
   devName: string | Uint8Array
@@ -43,7 +43,7 @@ export class SafeOperation extends Operation {
   }
 
   async getSafe (arg: Object): Promise<Safe> {
-    const safe = await this.db.getSafe(arg['userId']) as Safe
+    const [m, safe] = await this.db.getSafe(arg['userId'])
     if (!safe) {
       this.setRes('status', 1)
       await Util.sleep(3000)
@@ -69,21 +69,6 @@ export class SafeOperation extends Operation {
 
   async doTheJob () : Promise<void> {  }
 
-  async getSafePR (sh0: Uint8Array, sh1: Uint8Array)
-    : Promise<[status: number, safe: Safe, byP: boolean]> { 
-    let byP = true
-    const s0 = Util.u8ToB64(sh0, true)
-    const hhp1 = Crypt.shaS(sh1)
-    let safe: Safe = (await this.db.getSafe(s0, IDP0R0.P0)) as Safe
-    if (!safe) {
-      byP = false
-      safe = (await this.db.getSafe(s0, IDP0R0.R0)) as Safe
-      if (!safe) return [1, null, false]
-    }
-    if (safe.hhp1 !== hhp1) return [2, null, false]
-    return [0, safe, byP]
-  }
-
 }
 
 export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
@@ -96,7 +81,7 @@ export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
 }
-
+/*
 export interface Safe extends SafeCodes { // paramétres de l'opération $CreateSafe
   hhk: string // SHA de `SH(K)`.
   C: Uint8Array // clé publique de cryptage.
@@ -109,6 +94,7 @@ export interface Safe extends SafeCodes { // paramétres de l'opération $Create
   profiles: Object
   prefs: Object // pour chaque application, liste des préférences déclarées (ordonnée par date d'utilisation)
 }
+*/
 
 /* Creation d'un nouveau Safe
 */
@@ -131,7 +117,7 @@ class $UpdCodesSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
     const safeNew = this.args['safeCodes'] as SafeCodes
-    const safe: Safe = (await this.db.getSafe(safeNew.id)) as Safe
+    const [m, safe] = await this.db.getSafe(safeNew.id)
     if (!safe) {
       this.setRes('status', 1)
       await Util.sleep(3000)
@@ -153,12 +139,25 @@ class $UpdCodesSafe extends SafeOperation {
 SafeOperation.register('$UpdCodesSafe', () => { return new $UpdCodesSafe()})
 
 /* Ouverture d'un Safe
+- sh0: sh (binaire) de la partie pseudo
+- sh1: sh (binaire) de la partie phrase
+status 0: OK, 1:pseudo non reconnu
+byP: quand status 0, true si accès "primaire" (sinon "secondaire")
+safe: quand status 0, le safe
 */
 class $OpenSafeByPR extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const [status, safe, byP] = await this.getSafePR(this.args['sh0'], this.args['sh1'])
+    let byP = false
+    let status = 1
+    const s0 = Util.u8ToB64(this.args['sh0'], true)
+    const [m, safe] = await this.db.getSafe(s0)
+    const hhp1 = Crypt.shaS(this.args['sh1'])
+    if (safe && safe.hhp1 === hhp1) {
+      byP = m === 1
+      status = 0
+    }
     this.setRes('status', status)
     this.setRes('safe', safe)
     this.setRes('byP', byP)
@@ -173,7 +172,7 @@ class $OpenSafeById extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const safe = await this.db.getSafe(this.args['userId']) as Safe
+    const [m, safe] = await this.db.getSafe(this.args['userId'])
     const hhk = Crypt.shaS(this.args['shk'])
     if (safe && hhk === safe.hhk) {
       this.setRes('status', 0)
@@ -199,7 +198,7 @@ class $OpenSafeByPin extends SafeOperation {
     const devId: string = this.args['devId']
     const pincx: Uint8Array = this.args['pincx']
 
-    const safe = await this.db.getSafe(userId) as Safe
+    const [m, safe] = await this.db.getSafe(userId)
     if (!safe) {
       this.setRes('status', 2)
       return
@@ -331,6 +330,7 @@ type UpdateCreds = {
   delcreds: string[] // liste des credIds à supprimer
   profiles: Object // clé: profId, valeur: Objet Profile sérialisé crypté
   delprofs: string[] // liste des profIds à supprimer
+  nosafe: boolean // ne pas retourner le safe mis à jour
 }
 
 /* Sauvegarde de la maj de l'about du profil
@@ -359,10 +359,45 @@ class $UpdateCreds extends SafeOperation {
 
     await this.db.updSafe(safe)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
+    if (!uc.nosafe) this.setRes('safe', safe)
   }
 }
 SafeOperation.register('$UpdateCreds', () => { return new $UpdateCreds()})
+
+type TransmitCred = {
+  app: string
+  targetId: string // id ou p0 ou r0 du destinataire du credential
+  credId: string // id du credential
+  pubC: Uint8Array // clé publique de cryptage de l'émetteur
+  cryptedCred: Uint8Array // Objet Credential sérialisé crypté pour le destinataire
+}
+/* Tranmission d'un credentialpar user "émetteur" à un user "target
+- target est donné par son id ou l'un de ses pseudos p0 ou r0
+- la clé publique de cryptage de l'émetteur est donnée dans pubC
+- l'objet credential a été sérialisé puis crypté par la clé AES obtenue depuis
+la clé privée de l'émetteur et la clé publique du destinataire target
+*/
+class $TransmitCred extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const tc = this.args['transmitCred'] as TransmitCred
+    const [m, safe] = await this.db.getSafe(tc.targetId)
+
+    if (!safe) {
+      this.setRes('status', 1)
+      return
+    }
+
+    let appc = safe.creds[tc.app]
+    if (!appc) { appc = {}; safe.creds[tc.app] = appc}
+    appc['$' + tc.credId] = encode([tc.cryptedCred, tc.pubC])
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$TransmitCred', () => { return new $TransmitCred()})
 
 /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
 - id, hp0, hr0 : id et accès externe 
@@ -384,3 +419,20 @@ class $StatusSafe extends SafeOperation {
   }
 }
 SafeOperation.register('$StatusSafe', () => { return new $StatusSafe()})
+
+/* Obtention des clés publique d'un safe donné par:
+- son id, son pseudo principal ou secondaire
+- res.crypt: clé de cryptage
+- res.verif: clé de vérification
+*/
+class $GetPublicKeys extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const id = this.args['id']
+    const [m, safe] = await this.db.getSafe(id)
+    this.setRes('crypt', safe ? safe.C : null)
+    this.setRes('sign', safe ? safe.S : null)
+  }
+}
+SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})

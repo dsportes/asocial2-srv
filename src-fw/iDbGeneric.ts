@@ -53,18 +53,26 @@ export type srvStatus = {
   txt: string
 }
 
-export enum IDP0R0 { ID, P0, R0 }
-
 export type Safe = {
-  userId: string // identifiant.
+  id: string // identifiant.
+
+  lam: number // dernier mois d'accès
+  lm: number // date-heure de dernière mise à jour
+
   pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
   hp0: string // index unique, `SH(p0)`.
   hr0: string // index unique, `SH(r0)`.
-  hhp1: Uint8Array // SHA de `SH(p1)`.
-  hhr1: Uint8Array // SHA de `SH(r1)`.
-  hhk: Uint8Array // SHA de `SH(K)`.
+  hhp1: string // SHA court de `SH(p1)`.
+  hhr1: string // SHA court de `SH(r1)`.
   Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+  
+  hhk: string // SHA court de `SH(K)`.
+  C : Uint8Array // clé publique de cryptage,
+  DK: Uint8Array // clé privée de decryptage cryptée par la clé K
+  S : Uint8Array // clé publique de vérification,
+  VK: Uint8Array // clé privée de vérification cryptée par la clé K
+
   devices: Object
   creds: Object
   profiles: Object
@@ -84,10 +92,13 @@ export interface IDbGeneric {
 
   getUrl (org: string) : Promise<string>
 
-  /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
-  null si non trouvé
+  /* Retourne [r, safe]. safe est l'objet safe depuis,
+  - soit son id (r=0)
+  - soit son p0 (r=1)
+  - soit son r0 (r=1)
+  safe est null si non trouvé
   */
-  getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object>
+  getSafe (id: string) : Promise<[number, Safe]>
 
   /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
   - id, hp0, hr0 : id et accès externe 
@@ -107,17 +118,17 @@ export interface IDbGeneric {
   1: un safe d'id différent existe avec ce p0
   2: un safe d'id différent existe avec ce r0
   */
-  newSafe (safe: Object) :  Promise<number>
+  newSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour le p0 / ro d'un safe. Retour:
   0: OK
   1: un safe existe déjà avec ce p0
   2: un safe existe déjà avec ce r0
   */
-  updPRSafe (safe: Object) :  Promise<number>
+  updPRSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour un safe depuis son objet */
-  updSafe (safe: Object) :  Promise<void>
+  updSafe (safe: Safe) :  Promise<void>
 
   /* Supprime un safe depuis son id */
   delSafe (id: string) :  Promise<void>

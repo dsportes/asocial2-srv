@@ -4281,3 +4281,134 @@ Error: KO
 2026-01-29T14:42:01.546Z info: HTTP listen [8080]
 2026-01-29T14:43:13.188Z info: $StatusSafe finished
 2026-01-29T14:44:13.504Z info: $CreateSafe finished
+2026-01-30T15:06:06.980Z info: 9 operations registered
+2026-01-30T15:06:06.983Z info: 8 document classes
+2026-01-30T15:06:06.984Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:06:06.984Z info: Firestore connector
+2026-01-30T15:06:06.985Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:06:06.986Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-30T15:06:06.986Z info: 9 App operations registered
+2026-01-30T15:06:06.998Z info: HTTP listen [8080]
+2026-01-30T15:22:03.033Z info: $CreateSafe finished
+2026-01-30T15:28:02.529Z info: $CreateSafe finished
+2026-01-30T15:28:52.310Z info: $CreateSafe finished
+2026-01-30T15:29:41.032Z info: $TrustDevice finished
+2026-01-30T15:32:15.433Z info: $CreateSafe finished
+2026-01-30T15:33:10.342Z info: $UpdateCreds finished
+2026-01-30T15:37:58.237Z info: $OpenSafeByPin finished
+2026-01-30T15:37:58.326Z info: $OpenSafeById finished
+2026-01-30T15:38:37.551Z info: $UpdateCreds finished
+2026-01-30T15:41:34.906Z info: $OpenSafeByPin finished
+2026-01-30T15:41:34.942Z info: $OpenSafeById finished
+2026-01-30T15:42:43.040Z info: $OpenSafeByPin finished
+2026-01-30T15:42:43.075Z info: $OpenSafeById finished
+2026-01-30T15:44:15.446Z info: $GetPublicKeys terminated on exception
+2026-01-30T15:44:15.448Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:47:33.969Z info: $GetPublicKeys terminated on exception
+2026-01-30T15:47:33.971Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:48:58.393Z info: $GetPublicKeys terminated on exception
+2026-01-30T15:48:58.395Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:50:26.707Z info: $OpenSafeByPin finished
+2026-01-30T15:50:26.757Z info: $OpenSafeById finished
+2026-01-30T15:51:32.119Z info: $GetPublicKeys terminated on exception
+2026-01-30T15:51:32.121Z error: AppExc: 3001:unexpected exception["(intermediate value) is not iterable"]
+2026-01-30T15:52:29.943Z info: 9 operations registered
+2026-01-30T15:52:29.947Z info: 8 document classes
+2026-01-30T15:52:29.948Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:52:29.948Z info: Firestore connector
+2026-01-30T15:52:29.949Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:52:29.950Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-30T15:52:29.950Z info: 9 App operations registered
+2026-01-30T15:52:29.962Z info: HTTP listen [8080]
+2026-01-30T15:53:05.307Z info: $OpenSafeByPin finished
+2026-01-30T15:53:05.356Z info: $OpenSafeById finished
+2026-01-30T15:56:25.640Z info: 9 operations registered
+2026-01-30T15:56:25.644Z info: 8 document classes
+2026-01-30T15:56:25.646Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:56:25.648Z info: Firestore connector
+2026-01-30T15:56:25.649Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T15:56:25.650Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-30T15:56:25.650Z info: 9 App operations registered
+2026-01-30T15:56:25.669Z info: HTTP listen [8080]
+2026-01-30T16:05:14.397Z info: $OpenSafeByPin finished
+2026-01-30T16:05:14.492Z info: $OpenSafeById finished
+2026-01-30T16:06:35.061Z info: $GetPublicKeys finished
+2026-01-30T16:12:00.716Z info: $OpenSafeByPin finished
+2026-01-30T16:12:00.759Z info: $OpenSafeById finished
+2026-01-30T16:12:50.540Z info: 9 operations registered
+2026-01-30T16:12:50.545Z info: 8 document classes
+2026-01-30T16:12:50.548Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T16:12:50.549Z info: Firestore connector
+2026-01-30T16:12:50.566Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T16:12:50.567Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-30T16:12:50.568Z info: 9 App operations registered
+2026-01-30T16:12:50.588Z info: HTTP listen [8080]
+2026-01-30T16:13:11.171Z info: $GetPublicKeys finished
+2026-01-30T16:15:51.312Z info: $TransmitCred finished
+2026-01-30T16:16:29.777Z info: $OpenSafeByPin finished
+2026-01-30T16:16:29.820Z info: $OpenSafeById finished
+2026-01-30T16:17:57.618Z info: $UpdateCreds finished
+2026-01-30T16:18:31.837Z info: $GetPublicKeys finished
+2026-01-30T16:18:35.843Z info: $TransmitCred finished
+2026-01-30T16:19:22.113Z info: $OpenSafeByPR finished
+2026-01-30T16:19:45.537Z info: $TrustDevice finished
+2026-01-30T16:20:02.757Z info: $OpenSafeByPin finished
+2026-01-30T16:20:02.796Z info: $OpenSafeById finished
+2026-01-30T16:20:45.399Z info: $OpenSafeByPin finished
+2026-01-30T16:20:45.464Z info: $OpenSafeById finished
+2026-01-30T16:22:50.130Z info: $OpenSafeByPin finished
+2026-01-30T16:22:50.172Z info: $OpenSafeById finished
+2026-01-30T16:56:17.595Z info: $OpenSafeByPin finished
+2026-01-30T16:56:17.636Z info: $OpenSafeById finished
+2026-01-30T16:59:13.944Z info: $OpenSafeByPin finished
+2026-01-30T16:59:13.978Z info: $OpenSafeById finished
+2026-01-30T17:00:47.870Z info: $UpdateCreds finished
+2026-01-30T17:05:48.675Z info: $GetPublicKeys finished
+2026-01-30T17:07:26.832Z info: $OpenSafeByPin finished
+2026-01-30T17:07:41.447Z info: $OpenSafeByPin finished
+2026-01-30T17:07:56.846Z info: $OpenSafeByPin finished
+2026-01-30T17:08:20.167Z info: $OpenSafeByPR finished
+2026-01-30T17:11:14.894Z info: 9 operations registered
+2026-01-30T17:11:14.898Z info: 8 document classes
+2026-01-30T17:11:14.899Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T17:11:14.899Z info: Firestore connector
+2026-01-30T17:11:14.900Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-30T17:11:14.901Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-30T17:11:14.901Z info: 9 App operations registered
+2026-01-30T17:11:14.911Z info: HTTP listen [8080]
+2026-01-30T17:11:21.154Z info: $CreateSafe finished
+2026-01-30T17:11:56.966Z info: $TrustDevice finished
+2026-01-30T17:16:48.576Z info: $OpenSafeByPR finished
+2026-01-30T17:16:54.365Z info: $UntrustDevice finished
+2026-01-30T17:18:13.193Z info: $OpenSafeByPR finished
+2026-01-30T17:18:28.009Z info: $TrustDevice finished
+2026-01-30T17:19:27.243Z info: $TrustDevice finished
+2026-01-30T17:23:36.444Z info: $OpenSafeByPin finished
+2026-01-30T17:23:36.509Z info: $OpenSafeById finished
+2026-01-30T17:27:19.532Z info: $OpenSafeByPin finished
+2026-01-30T17:27:19.570Z info: $OpenSafeById finished
+2026-01-30T17:28:10.668Z info: $OpenSafeByPR finished
+2026-01-30T17:28:36.825Z info: $UntrustDevice finished
+2026-01-30T17:31:48.679Z info: $OpenSafeByPR finished
+2026-01-30T17:33:22.189Z info: $OpenSafeByPR finished
+2026-01-30T17:35:37.324Z info: $OpenSafeByPR finished
+2026-01-30T17:37:45.491Z info: $OpenSafeByPR finished
+2026-01-30T17:41:55.239Z info: $OpenSafeByPR finished
+2026-01-30T17:45:39.175Z info: $OpenSafeByPR finished
+2026-01-30T17:48:17.600Z info: $OpenSafeByPR finished
+2026-01-30T17:50:32.583Z info: $OpenSafeByPR finished
+2026-01-30T17:58:24.643Z info: $OpenSafeByPR finished
+2026-01-30T18:05:09.476Z info: $OpenSafeByPR finished
+2026-01-30T18:05:23.006Z info: $TrustDevice finished
+2026-01-30T18:05:53.239Z info: $UpdateCreds finished
+2026-01-30T18:07:31.003Z info: $OpenSafeByPR finished
+2026-01-30T18:15:41.576Z info: $CreateSafe finished
+2026-01-30T18:16:01.166Z info: $TrustDevice finished
+2026-01-30T18:16:32.727Z info: $UpdateCreds finished
+2026-01-30T18:17:12.190Z info: $GetPublicKeys finished
+2026-01-30T18:17:45.105Z info: $TransmitCred finished
+2026-01-30T18:18:16.753Z info: $OpenSafeByPin finished
+2026-01-30T18:18:16.794Z info: $OpenSafeById finished
+2026-01-30T18:19:19.115Z info: $UpdateCreds finished
+2026-01-30T18:19:46.947Z info: $OpenSafeByPin finished
+2026-01-30T18:19:46.985Z info: $OpenSafeById finished
