@@ -67,10 +67,6 @@ export class Tools {
       this.log('======================================================')
       // this.cfg = {}
       switch (this.tool) {
-        case 'srvStatus' : {
-          await this.srvStatus()
-          break
-        }
         case 'test1' : {
           await this.test1()
           break
@@ -123,7 +119,7 @@ export class Tools {
         }
         */
         default : {
-          throw 'Premier argument attendu: srvStatus test1 export-db export-st vapid. Trouvé [' + this.tool + ']'
+          throw 'Premier argument attendu: test1 export-db export-st vapid. Trouvé [' + this.tool + ']'
         }
       }
       return [0, this.tool + ' OK']
@@ -226,22 +222,6 @@ export class Tools {
     }
     const t = Date.now() - st
     this.log('\n============== Export / import completed in ' + t + 'ms - ' + nbr + ' rows - ' + nbrq + ' rowsQ')
-  }
-
-  async srvStatus () : Promise<void> {
-    this.op = new Operation()
-    this.op.opName = 'Fake'
-    await config.databases[0][1].getConnexion(this.op)
-    {
-      const {st, at, txt} = await this.op.db.getSrvStatus()
-      const atS = at ? new Date(at).toISOString() : '?'
-      Log.info('st:' + st + ' at:' + atS + ' info:' + txt)
-    }
-    {
-      const [status, msg] = await config.storages[0][1].ping()
-      if (status === 0) Log.info(msg)
-      else throw new AppExc(1013, 'PING Storage FAILED: ', null, [msg])
-    }
   }
 
    async test1 () : Promise<void> {
