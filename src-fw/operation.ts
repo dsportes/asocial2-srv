@@ -67,6 +67,7 @@ export class Operation {
   }
 
   public opName: string
+  public noDB: boolean
   public org: string
   public result: any
   public args: any // arguments bruts de l'opération
@@ -455,8 +456,13 @@ export class Cache {
   /* SrvStatus : lazy
   */
   static async getSrvStatus (op: Operation, lazy?: number) {
-    if (!Cache.srvStatus || !lazy || ((op.now - Cache.srvStatus.now) > (lazy * Cache.LAZY_MS)))
-      Cache.srvStatus = await op.db.getSrvStatus() 
+    if (!Cache.srvStatus || !lazy || ((op.now - Cache.srvStatus.now) > (lazy * Cache.LAZY_MS))) {
+      const val = await op.db.getSingleton('status')
+      const now = Date.now()
+      const obj = val ? JSON.parse(val) : { at: 0, st: 0, txt: ''}
+      obj.now = now
+      Cache.srvStatus = obj
+    }
     return Cache.srvStatus
   }
 

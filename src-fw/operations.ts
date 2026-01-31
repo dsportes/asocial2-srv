@@ -15,13 +15,13 @@ export function register () {
 
 // EchoText retourne le texte passé en argument (un peu modifié)
 class EchoText extends Operation {
-  constructor () { super() }
+  constructor () { super(); this.noDB = true }
 
   _text: string
 
   init () {
     super.init()
-    this._text = this.stringValue('text', true, 1, 10)
+    this._text = this.stringValue('text', true, 1, 30)
     if (this._text === 'KO1') throw Error('KO')
     if (this._text === 'KO2') 
       throw new AppExc(1001, 'Fake in EchoText', this)
@@ -84,7 +84,11 @@ class SetSrvStatus extends Operation {
   async phase2 () {
     if (!this.auths.has('ADMIN'))
       throw new AppExc(1010, 'ADMIN required', this, ['SetSrvStatus'])
-    Cache.srvStatus = await this.db.setSrvStatus(this._st, this._txt)
+    const now = Date.now()
+    const value = { at: Date.now(), st: this._st, txt: this._txt }
+    await this.db.setSingleton('status', JSON.stringify(value))
+    value['now'] = now
+    Cache.srvStatus = value
     this.setRes('srvStatus', Cache.srvStatus)
   }
 

@@ -20,10 +20,10 @@ import { writeFileSync } from 'node:fs'
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
 
-const t1 = `CREATE TABLE IF NOT EXISTS "URLS" (
-  "org" TEXT,
-  "url" TEXT,
-PRIMARY KEY(org));
+const t1 = `CREATE TABLE IF NOT EXISTS "SINGLETONS" (
+  "key" TEXT,
+  "value" TEXT,
+PRIMARY KEY(key));
 
 CREATE TABLE IF NOT EXISTS "SAFE" (
   "id" TEXT,
@@ -337,13 +337,24 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ lam })
   }
 
-  /******************************************************************************/
-  async getUrl (org: string) : Promise<string> {
-    const stmt = this.sql.prepare('SELECT * FROM "URLS" WHERE org = @org')
-    const res = stmt.get({org})
-    return res ? res.url : '$'
+  /******************************************************************************
+  Lecture de la map des organisations
+  ******************************************************************************/
+  async getSingleton (key: string) : Promise<string> {
+    const stmt = this.sql.prepare('SELECT value FROM SINGLETONS WHERE key = @key')
+    const res = stmt.get({key})
+    return res ? res.value : ''
   }
 
+  async setSingleton (key: string, value: string) : Promise<void> {
+    const stmt = this.sql.prepare('INSERT INTO SINGLETONS (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value')
+    const res = stmt.run({key, value})
+  }
+
+  /******************************************************************************
+  Opérations sur documents
+  ******************************************************************************/
+/*
   async getSrvStatus () :  Promise<srvStatus> {
     const stmt = this.sql.prepare('SELECT * FROM STATUS WHERE pk = \'1\'')
     const res = stmt.get()
@@ -359,7 +370,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ st, at: this.op.now, txt })
     return { now: this.op.now, st, at: this.op.now, txt }
   }
-  
+*/
+
   async doTransaction () : Promise<[number, string]> {
     try {
       this.transaction = true

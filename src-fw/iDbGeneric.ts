@@ -47,7 +47,7 @@ export type row = {
 }
 
 export type srvStatus = {
-  now: number,
+  now?: number,
   st: number,
   at: number,
   txt: string
@@ -90,7 +90,8 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
-  getUrl (org: string) : Promise<string>
+  getSingleton (key: string) : Promise<string>
+  setSingleton (key: string, value: string) : Promise<void>
 
   /* Retourne [r, safe]. safe est l'objet safe depuis,
   - soit son id (r=0)
@@ -135,14 +136,6 @@ export interface IDbGeneric {
 
   /* Purge les safes obsolètes */
   purgeSafes (lam: number) :  Promise<void>
-
-  /* Retourne le status du service: { st, at, txt }
-  st: code 0: DOWN, 1: UP
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-  */
-  getSrvStatus () :  Promise<srvStatus>
-  setSrvStatus (st: number, txt: string) :  Promise<srvStatus>
 
   /* Exécute dans une transaction la méthode async transac() de l'opération.
   Retour 'normaux':

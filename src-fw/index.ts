@@ -26,6 +26,79 @@ export function init () {
   webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 }
 
+export class OrgsConfig {
+  static updating: boolean = false
+  static current: OrgsConfig = null
+  static lastLoading: number = 0
+
+  orgs : Map<string, [string, string]>
+  dbs : Map<string, Set<string>>
+  storages : Map<string, Set<string>>
+
+  constructor () {  }
+
+  static reload () {
+    if (OrgsConfig.updating) return
+    if (Date.now() - OrgsConfig.lastLoading < 300000) return
+    OrgsConfig.updating = true
+    setTimeout(OrgsConfig.doReload, 50)
+  }
+
+  static async doReload (init?: boolean) : Promise<boolean> {
+    const op = new Operation()
+    op.now = Date.now()
+    try {
+      const oc = new OrgsConfig()
+      oc.orgs = new Map<string, [string, string]>()
+      oc.dbs = new Map<string, Set<string>>()
+      oc.storages = new Map<string, Set<string>>()
+      const dbConnector = config.orgsDB
+      await dbConnector.getConnexion(op)
+      const val = await op.db.getSingleton('orgs') as string
+      const x = JSON.parse(val)
+      /* { org1:[db1, st1], ...} */
+      for (const org in x) {
+        const [db, st] = x[org]
+        oc.orgs.set(org, [db, st])
+        let e = oc.dbs.get(db); if (!e) e = new Set<string>(); oc.dbs.set(db, e)
+        e.add(org)
+        e = oc.storages.get(db); if (!e) e = new Set<string>(); oc.storages.set(db, e)
+        e.add(org)
+      }
+      op.db.disconnect()
+      OrgsConfig.current = oc
+      OrgsConfig.updating = false
+      OrgsConfig.lastLoading = Date.now()
+      if (config.debugLevel > 0) 
+        Log.debug('Reloading orgs config OK')
+      return true
+    } catch (e) {
+      if (op && op.db) op.db.disconnect()
+      Log.error('Reloading orgs config KO: ' + e.toString())
+      if (!init) setTimeout(OrgsConfig.doReload, 60000)
+      return false 
+    }
+  }
+
+  static getDbConnector (org: string) : DbConnector {
+    OrgsConfig.reload()
+    const c = OrgsConfig.current
+    if (!c) return null
+    const e = c.orgs.get(org)
+    if (!e || !e[0]) return null
+    return config.databases.get(e[0]) || null
+  }
+
+  static getStorage (org: string) : IStGeneric {
+    OrgsConfig.reload()
+    const c = OrgsConfig.current
+    if (!c) return null
+    const e = c.storages.get(org)
+    if (!e || !e[1]) return null
+    return config.storages.get(e[1]) || null
+  }
+}
+
 export function getExpressApp (): express.Application {
   const app = express()
   app.use(cors({}))
@@ -45,13 +118,15 @@ export function getExpressApp (): express.Application {
     res.send(new Date().toISOString() + ' ' + config.BUILD + ' [' + config.APIVERSIONS[0] + '/' + config.APIVERSIONS[1] + ']')
   })
 
+  /*
   app.get('/url/:org', async (req, res) => {
     const u = await getUrl(req.params.org)
     res.send(u)
   })
+  */
 
   app.get('/file/:arg', async (req, res) => {
-    const st = config.storages[0][1]
+    const st = config.storages[0][1] // TODO
     if (!st) {
       res.status(404).send('File not found')
       return
@@ -67,7 +142,7 @@ export function getExpressApp (): express.Application {
   })
 
   app.put('/file/:arg', async (req, res) => {
-    const st = config.storages[0][1]
+    const st = config.storages[0][1] // TODO
     if (!config.GCLOUDLOGGING) {
       res.status(404).send('File not uploaded')
       return
@@ -111,9 +186,9 @@ export function getExpressApp (): express.Application {
   })
 
   //**** appels des opérations ****
-  app.use('/op/:operation', async (req, res) => {
-    const storage = config.storages[0][1]
-    const dbConnector = config.databases[0][1]
+  app.use('/op/:org/:operation', async (req, res) => {
+    const storage = OrgsConfig.getStorage(req.params.org)
+    const dbConnector = OrgsConfig.getDbConnector(req.params.org)
 
     if (!req['rawBody']) {
       let chunks = [];
@@ -157,7 +232,7 @@ async function doSafeOp(opName: string, body: Buffer, res) {
   }
 }
 
-function ExcOp (exc, opName, res) {
+function ExcOp (exc: any, opName: string, res: any) {
   if (config.debugLevel === 2)
     Log.info(opName + ' terminated on exception')
   // 400: AppExc
@@ -175,21 +250,10 @@ function ExcOp (exc, opName, res) {
   res.status(st).type('application/octet-stream').send(b)
 }
 
-async function getUrl (org: string) {
-  try {
-    const connector = config.directoryDB
-    const op = new Operation()
-    const cnx = await connector.getConnexion(op)
-    const url = await cnx.getUrl(org)
-    await cnx.disconnect()
-    return url
-  } catch (e) {
-    return '$' + e.toString()
-  }
-}
-
 export function startSRV (app : any) : Promise<void>{
   return new Promise(async (resolve, reject) => {
+    if (!await OrgsConfig.doReload(true)) reject('Cannot get orgs config')
+
     let server : http.Server | https.Server
 
     if (config.https) {
@@ -244,6 +308,7 @@ export async function doOp (
   res: express.Response, 
   body: Buffer) {
   
+  OrgsConfig.reload()
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
@@ -272,8 +337,13 @@ export async function doOp (
     if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
     const op = f()
     op.opName = opName
-    op.storage = storage
-    op.dbConnector = dbConnector
+    op.org = req.params.org
+    if (!op.noDB) {
+      if (!dbConnector) 
+        throw new AppExc(1003, 'unknown organisation', null, [opName, op.org])
+      op.storage = storage
+      op.dbConnector = dbConnector
+    }
     op.now = now
     op.today = today
     op.args = decode(body)

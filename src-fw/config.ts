@@ -1,9 +1,6 @@
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
-export type dbChoice = [string, DbConnector]
-export type stChoice = [string, IStGeneric]
-
 export interface BaseConfig {
   PROD: boolean
   GCLOUDLOGGING: boolean
@@ -27,9 +24,10 @@ export interface BaseConfig {
   // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
   srvUrl: string
 
-  databases: dbChoice[]
-  storages: stChoice[]
-  directoryDB: DbConnector,
+  databases: Map<string, DbConnector>
+  storages: Map<string, IStGeneric>
+  safeDB: DbConnector,
+  orgsDB: DbConnector,
   dbConnectors: Object
   factory: Function
   documentClasses: Object

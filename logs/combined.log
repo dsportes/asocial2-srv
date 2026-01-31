@@ -4439,3 +4439,103 @@ Error: KO
 2026-01-31T09:23:07.951Z info: $OpenSafeById finished
 2026-01-31T09:23:43.532Z info: $OpenSafeByPin finished
 2026-01-31T09:23:43.568Z info: $OpenSafeById finished
+2026-01-31T12:13:37.952Z info: 9 operations registered
+2026-01-31T12:13:37.955Z info: 8 document classes
+2026-01-31T12:13:37.955Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-31T12:13:37.956Z info: Firestore connector
+2026-01-31T12:13:37.956Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-31T12:13:37.957Z info: 9 App operations registered
+2026-01-31T12:14:44.303Z info: Reloading orgs config OK
+2026-01-31T12:14:50.455Z info: HTTP listen [8080]
+2026-01-31T13:22:13.721Z info: EchoText : 2026-01-31T13:22:10.640Z
+2026-01-31T13:22:14.396Z info: AppExc: 1010:invalid argument@EchoText:["text"]
+2026-01-31T13:22:31.262Z info: EchoText terminated on exception
+2026-01-31T13:23:16.448Z info: Reloading orgs config OK
+2026-01-31T13:23:47.624Z info: EchoText : 2026-01-31T13:23:37.447Z
+2026-01-31T13:24:19.978Z info: AppExc: 1010:invalid argument@EchoText:["text"]
+2026-01-31T13:24:41.942Z info: EchoText terminated on exception
+2026-01-31T13:24:59.379Z info: EchoText : 2026-01-31T13:24:57.528Z
+2026-01-31T13:25:04.169Z info: EchoText finished
+2026-01-31T13:26:10.900Z info: GetSrvStatus : 2026-01-31T13:26:10.900Z
+2026-01-31T13:26:10.904Z error: GetSrvStatus : 2026-01-31T13:26:10.900Z : TypeError: Cannot read properties of null (reading 'getConnexion')
+2026-01-31T13:26:10.905Z info: GetSrvStatus terminated on exception
+2026-01-31T13:26:10.910Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading 'getConnexion')"]
+2026-01-31T13:26:39.631Z info: Reloading orgs config OK
+2026-01-31T13:31:09.221Z info: 9 operations registered
+2026-01-31T13:31:09.224Z info: 8 document classes
+2026-01-31T13:31:09.225Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-31T13:31:09.226Z info: Firestore connector
+2026-01-31T13:31:09.226Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-31T13:31:09.227Z info: 9 App operations registered
+2026-01-31T13:31:12.621Z info: Reloading orgs config OK
+2026-01-31T13:31:12.629Z info: HTTP listen [8080]
+2026-01-31T13:31:30.731Z info: EchoText : 2026-01-31T13:31:29.041Z
+2026-01-31T13:31:30.733Z info: EchoText finished
+2026-01-31T13:32:46.881Z info: EchoText : 2026-01-31T13:32:39.268Z
+2026-01-31T13:32:46.883Z info: EchoText finished
+2026-01-31T13:33:29.052Z info: GetSrvStatus : 2026-01-31T13:33:08.934Z
+2026-01-31T13:33:49.547Z error: GetSrvStatus : 2026-01-31T13:33:08.934Z : TypeError: Cannot read properties of null (reading 'getConnexion')
+2026-01-31T13:33:49.549Z info: GetSrvStatus terminated on exception
+2026-01-31T13:33:49.552Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading 'getConnexion')"]
+2026-01-31T13:42:49.786Z info: 9 operations registered
+2026-01-31T13:42:49.790Z info: 8 document classes
+2026-01-31T13:42:49.791Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-31T13:42:49.792Z info: Firestore connector
+2026-01-31T13:42:49.792Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-31T13:42:49.793Z info: 9 App operations registered
+2026-01-31T13:42:49.809Z info: Reloading orgs config OK
+2026-01-31T13:42:49.815Z info: HTTP listen [8080]
+2026-01-31T13:43:05.465Z info: AppExc: 1002:unknown organisation["GetSrvStatus","none"]
+2026-01-31T13:43:05.468Z info: GetSrvStatus terminated on exception
+2026-01-31T13:54:16.831Z info: GetSrvStatus : 2026-01-31T13:54:16.828Z
+2026-01-31T13:54:16.836Z info: auths : 0 - 
+2026-01-31T13:54:26.172Z info: GetSrvStatus finished
+2026-01-31T13:54:26.179Z info: Reloading orgs config OK
+2026-01-31T14:02:57.975Z info: GetSrvStatus : 2026-01-31T14:02:57.975Z
+2026-01-31T14:02:57.979Z info: auths : 0 - 
+2026-01-31T14:03:02.961Z info: GetSrvStatus finished
+2026-01-31T14:03:02.966Z info: Reloading orgs config OK
+2026-01-31T14:03:10.680Z info: SetSrvStatus : 2026-01-31T14:03:10.679Z
+2026-01-31T14:03:10.683Z info: auths : 1769868190673 - ADMIN
+2026-01-31T14:03:31.451Z error: Op.run.phase2 - DB error - SQLITE_ERROR
+no such column: pk
+SqliteError: no such column: pk
+    at Database.prepare (D:\git\asocial2-srv\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:350:27)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:89:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:138:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:379:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:158:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+BEGIN
+PRAGMA journal_mode = WAL
+2026-01-31T14:03:31.456Z info: AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nno such column: pk\nSqliteError: no such column: pk\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:350:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:89:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:138:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:379:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:158:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2026-01-31T14:03:31.458Z error: SetSrvStatus : 2026-01-31T14:03:10.679Z : AppExc: 11:DB error@SetSrvStatus:["SQLITE_ERROR\nno such column: pk\nSqliteError: no such column: pk\n    at Database.prepare (D:\\git\\asocial2-srv\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:350:27)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:89:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:138:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:379:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:158:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nBEGIN\nPRAGMA journal_mode = WAL"]
+2026-01-31T14:03:31.459Z info: SetSrvStatus terminated on exception
+2026-01-31T14:04:53.202Z info: 9 operations registered
+2026-01-31T14:04:53.205Z info: 8 document classes
+2026-01-31T14:04:53.206Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-01-31T14:04:53.207Z info: Firestore connector
+2026-01-31T14:04:53.207Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-01-31T14:04:53.208Z info: 9 App operations registered
+2026-01-31T14:04:53.221Z info: Reloading orgs config OK
+2026-01-31T14:04:53.227Z info: HTTP listen [8080]
+2026-01-31T14:05:05.686Z info: SetSrvStatus : 2026-01-31T14:05:05.682Z
+2026-01-31T14:05:05.690Z info: auths : 1769868305662 - ADMIN
+2026-01-31T14:05:14.879Z info: SetSrvStatus finished
+2026-01-31T14:05:24.727Z info: SetSrvStatus : 2026-01-31T14:05:24.726Z
+2026-01-31T14:05:24.730Z info: auths : 1769868324720 - ADMIN
+2026-01-31T14:05:31.798Z info: SetSrvStatus finished
+2026-01-31T14:05:39.286Z info: GetSrvStatus : 2026-01-31T14:05:39.285Z
+2026-01-31T14:05:39.288Z info: auths : 0 - 
+2026-01-31T14:05:47.096Z info: GetSrvStatus finished
+2026-01-31T14:05:54.054Z info: SetSrvStatus : 2026-01-31T14:05:54.053Z
+2026-01-31T14:05:54.056Z info: auths : 1769868354047 - ADMIN
+2026-01-31T14:05:54.058Z info: SetSrvStatus finished
+2026-01-31T14:06:06.765Z info: EchoText : 2026-01-31T14:06:06.764Z
+2026-01-31T14:06:06.772Z info: EchoText finished
+2026-01-31T14:06:58.771Z info: EchoText : 2026-01-31T14:06:58.771Z
+2026-01-31T14:06:58.776Z info: EchoText finished

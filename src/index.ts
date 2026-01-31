@@ -21,6 +21,8 @@ import { Tools } from '../src-fw/tools'
 import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
 
 // import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
+import { DbConnector } from '../src-fw/dbConnector'
+import { IStGeneric } from '../src-fw/iStGeneric'
 import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
 import { AppFirestoreConnector } from './firestore' // extension spécifique de App
 
@@ -67,8 +69,10 @@ setConfig(
   // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
   srvUrl: 'http://localhost:8080',
 
-  databases: null,
-  storages: null,
+  databases: new Map<string, DbConnector>(),
+  storages: new Map<string, IStGeneric>(),
+  safeDB: null,
+  orgsDB: null,
   dbConnectors: {
     sqlite: AppSQLiteConnector,
     firestore: AppFirestoreConnector,
@@ -87,17 +91,14 @@ if (docTypeErrors.length) {
 }
 Log.info(DocType.docTypes.size + ' document classes')
 
-config.databases = [
-  ['sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']),],
-  ['firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']),],
-]
+config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
+config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
 
-config.directoryDB = new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A'])
+config.safeDB = config.databases.get('sqlite_a')
+config.orgsDB = config.databases.get('sqlite_a')
 
-config.storages = [
-  ['storage_a', new FilesystemStorage(keys['storage_a'])],
-  // ['storage_b', new FilesystemStorage(keys['storage_b'])],
-]
+config.storages.set('storage_a', new FilesystemStorage(keys['storage_a']))
+// config.storages.set('storage_b', new FilesystemStorage(keys['storage_b']))
 
 const nbOp = register()
 if (config.debugLevel > 0)
@@ -112,7 +113,7 @@ if (process.argv.length > 2) {
     exit()
   }, 50)
 } else {
-  // Commenter si appel en gloud functions
+  // Commenter si appel en gcloud functions
   if (!gcp) startSRV(asocialgcf)
   .then(() => {
     console.log('Server started')

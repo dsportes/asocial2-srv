@@ -32,7 +32,7 @@ export class SafeOperation extends Operation {
     op.args = args
     op.result = { }
     try {
-      await config.directoryDB.getConnexion(op)
+      await config.safeDB.getConnexion(op)
       await op.doTheJob()
       await op.db.disconnect()
       return op.result
