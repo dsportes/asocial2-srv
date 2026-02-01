@@ -4588,3 +4588,43 @@ PRAGMA journal_mode = WAL
 2026-02-01T10:51:48.304Z info: Firestore connector
 2026-02-01T10:51:48.304Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-02-01T10:51:48.305Z info: 9 App operations registered
+2026-02-01T14:02:16.000Z info: 9 operations registered
+2026-02-01T14:02:16.004Z info: 8 document classes
+2026-02-01T14:02:16.004Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-01T14:02:16.005Z info: Firestore connector
+2026-02-01T14:02:16.005Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-01T14:02:16.005Z info: 9 App operations registered
+2026-02-01T14:02:16.152Z info: Reloading orgs config OK
+2026-02-01T14:02:16.157Z info: HTTP listen [8080]
+2026-02-01T14:02:16.289Z info: $StatusSafe finished
+2026-02-01T14:53:20.707Z info: $StatusSafe finished
+2026-02-01T14:56:42.172Z info: $StatusSafe finished
+2026-02-01T14:58:17.023Z info: $StatusSafe finished
+2026-02-01T15:06:19.232Z info: $StatusSafe finished
+2026-02-01T15:09:04.745Z info: $StatusSafe finished
+2026-02-01T15:10:14.509Z info: $StatusSafe finished
+2026-02-01T15:11:22.350Z info: $StatusSafe finished
+2026-02-01T15:12:20.600Z info: $StatusSafe finished
+2026-02-01T16:06:50.223Z info: $StatusSafe finished
+2026-02-01T16:09:01.303Z info: $StatusSafe finished
+2026-02-01T16:42:32.460Z info: 9 operations registered
+2026-02-01T16:42:32.464Z info: 8 document classes
+2026-02-01T16:42:32.465Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-01T16:42:32.465Z info: Firestore connector
+2026-02-01T16:42:32.466Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-01T16:42:32.466Z info: 9 App operations registered
+2026-02-01T16:42:32.480Z info: Reloading orgs config OK
+2026-02-01T16:42:32.486Z info: HTTP listen [8080]
+2026-02-01T16:54:22.533Z info: 9 operations registered
+2026-02-01T16:54:22.536Z info: 8 document classes
+2026-02-01T16:54:22.537Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-01T16:54:22.537Z info: Firestore connector
+2026-02-01T16:54:22.538Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-01T16:54:22.538Z info: 9 App operations registered
+2026-02-01T16:54:22.552Z info: Reloading orgs config OK
+2026-02-01T16:54:22.557Z info: HTTP listen [8080]
+2026-02-01T16:55:03.812Z info: $StatusSafe finished
+2026-02-01T16:55:53.743Z info: $StatusSafe finished
+2026-02-01T16:58:32.397Z info: $StatusSafe finished
+2026-02-01T16:59:07.393Z info: $StatusSafe finished
+2026-02-01T16:59:57.257Z info: $RestoreSafe finished

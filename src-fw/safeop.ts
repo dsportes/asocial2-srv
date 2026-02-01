@@ -110,6 +110,20 @@ class $CreateSafe extends SafeOperation {
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 
+/* Restauration d'un Safe
+*/
+class $RestoreSafe extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const safe = this.args['safe'] as Safe
+    const ret = await this.db.restoreSafe(safe)
+    if (ret !== 0) await Util.sleep(3000)
+    this.setRes('status', ret)
+  }
+}
+SafeOperation.register('$RestoreSafe', () => { return new $RestoreSafe()})
+
 /* Copie binaire du Safe args: userId shk
 */
 class $GetBinSafe extends SafeOperation {

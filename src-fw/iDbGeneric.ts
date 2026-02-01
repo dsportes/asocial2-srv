@@ -121,6 +121,7 @@ export interface IDbGeneric {
   2: un safe d'id différent existe avec ce r0
   */
   newSafe (safe: Safe) :  Promise<number>
+  restoreSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour le p0 / ro d'un safe. Retour:
   0: OK
