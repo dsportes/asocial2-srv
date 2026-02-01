@@ -110,6 +110,26 @@ class $CreateSafe extends SafeOperation {
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 
+/* Copie binaire du Safe args: userId shk
+*/
+class $GetBinSafe extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const [m, bin] = await this.db.getBinSafe(this.args['userId'])
+    const hhk = Crypt.shaS(this.args['shk'])
+    const safe = decode(bin) as Safe
+    if (safe && hhk === safe.hhk) {
+      this.setRes('status', 0)
+      this.setRes('binsafe', bin)
+    } else {
+      this.setRes('status', 1)
+      await Util.sleep(3000)
+    }
+  }
+}
+SafeOperation.register('$GetBinSafe', () => { return new $GetBinSafe()})
+
 /* Mise à jour des codes d'accès d'un Safe
 */
 class $UpdCodesSafe extends SafeOperation {

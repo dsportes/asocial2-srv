@@ -219,7 +219,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   * Gestion des safe  
   ******************************************************************************/
 
-  async getSafe (id: string) : Promise<[number, Safe]> {
+  async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
     let m = 0
     let stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE id = @id')
     let row = stmt.get({id})
@@ -240,8 +240,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       const upd = this.sql.prepare('UPDATE SAFE SET lam = @lam WHERE id = @id')
       upd.run({ id: row.id, lam: cm })
     }
-    return [m, decode(data) as Safe]
+    return [m, data]
   }
+
+  async getSafe (id: string) : Promise<[number, Safe]> {
+    const [m, bin] = await this.getBinSafe(id)
+    return [m, bin ? decode(bin) as Safe : null]
+  }
+
 
   async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
     const r = { lm: -1, xp: true, xr: true }

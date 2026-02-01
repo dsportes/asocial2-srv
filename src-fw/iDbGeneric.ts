@@ -100,6 +100,7 @@ export interface IDbGeneric {
   safe est null si non trouvé
   */
   getSafe (id: string) : Promise<[number, Safe]>
+  getBinSafe (id: string) : Promise<[number, Uint8Array]>
 
   /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
   - id, hp0, hr0 : id et accès externe 
