@@ -36,12 +36,6 @@ CREATE INDEX IF NOT EXISTS "SAFE_hp0" ON "SAFE" ( "hp0" );
 CREATE INDEX IF NOT EXISTS "SAFE_hr0" ON "SAFE" ( "hr0" );
 CREATE INDEX IF NOT EXISTS "SAFE_lam" ON "SAFE" ( "lam" );
 
-CREATE TABLE IF NOT EXISTS "STATUS" (
-  "pk" TEXT,
-  "at" INTEGER,
-  "st" INTEGER,
-  "txt"	TEXT,
-PRIMARY KEY(pk));
 `
 
 const t3 = `\t"data" BLOB,

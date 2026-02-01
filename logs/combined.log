@@ -4551,3 +4551,40 @@ PRAGMA journal_mode = WAL
 2026-02-01T09:59:41.687Z info: $OpenSafeByPR finished
 2026-02-01T10:01:11.097Z info: $OpenSafeByPR finished
 2026-02-01T10:02:20.630Z info: $OpenSafeByPR finished
+2026-02-01T10:12:22.993Z info: 9 operations registered
+2026-02-01T10:12:22.996Z info: 8 document classes
+2026-02-01T10:12:22.996Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-01T10:12:22.997Z info: Firestore connector
+2026-02-01T10:12:22.997Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-01T10:12:22.998Z info: 9 App operations registered
+2026-02-01T10:12:23.014Z info: Reloading orgs config OK
+2026-02-01T10:12:23.020Z info: HTTP listen [8080]
+2026-02-01T10:13:30.616Z info: $CreateSafe finished
+2026-02-01T10:14:05.827Z info: $TrustDevice finished
+2026-02-01T10:14:34.904Z info: $UpdateCreds finished
+2026-02-01T10:16:09.214Z info: $GetBinSafe finished
+2026-02-01T10:18:03.518Z info: $OpenSafeByPin finished
+2026-02-01T10:18:03.569Z info: $OpenSafeById finished
+2026-02-01T10:18:22.036Z info: $GetBinSafe finished
+2026-02-01T10:35:44.414Z info: $OpenSafeByPin finished
+2026-02-01T10:35:44.465Z info: $OpenSafeById finished
+2026-02-01T10:35:48.233Z info: $GetBinSafe finished
+2026-02-01T10:40:59.923Z info: $GetBinSafe finished
+2026-02-01T10:42:57.360Z info: $CreateSafe finished
+2026-02-01T10:43:11.803Z info: $TrustDevice finished
+2026-02-01T10:43:18.641Z info: $GetBinSafe finished
+2026-02-01T10:44:56.031Z info: $GetBinSafe finished
+2026-02-01T10:45:57.108Z info: $UpdateCreds finished
+2026-02-01T10:46:52.007Z info: $GetPublicKeys finished
+2026-02-01T10:46:52.032Z info: $TransmitCred finished
+2026-02-01T10:47:30.664Z info: $OpenSafeByPin finished
+2026-02-01T10:47:30.703Z info: $OpenSafeById finished
+2026-02-01T10:47:30.731Z info: $UpdateCreds finished
+2026-02-01T10:47:54.040Z info: $OpenSafeByPin finished
+2026-02-01T10:47:54.079Z info: $OpenSafeById finished
+2026-02-01T10:51:48.300Z info: 9 operations registered
+2026-02-01T10:51:48.303Z info: 8 document classes
+2026-02-01T10:51:48.304Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-01T10:51:48.304Z info: Firestore connector
+2026-02-01T10:51:48.304Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-01T10:51:48.305Z info: 9 App operations registered
