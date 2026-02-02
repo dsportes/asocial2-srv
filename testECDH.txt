@@ -1,0 +1,16 @@
+-----BEGIN PUBLIC KEY-----
+BADIqIAsjtkLmevH+im9J6F4rr9leu5BsSzMI+/u+014YBDmQnAwZTjHYWqeEa+CnWuiuOTjcThq5/tY6k2FAf1ZQQB3P87Ssl/b5oQnpIDbXObPyqBI8e8/67/wcmH/m5TG5+TBj9LzGYERKY2NQpgNBIbK8qs4+CcLlm6D4iOfmeWbFg==
+-----END PUBLIC KEY-----
+
+{
+    "key_ops": [
+        "sign"
+    ],
+    "ext": true,
+    "kty": "EC",
+    "x": "AMiogCyO2QuZ68f6Kb0noXiuv2V67kGxLMwj7-77TXhgEOZCcDBlOMdhap4Rr4Kda6K45ONxOGrn-1jqTYUB_VlB",
+    "y": "AHc_ztKyX9vmhCekgNtc5s_KoEjx7z_rv_ByYf-blMbn5MGP0vMZgREpjY1CmA0Ehsryqzj4JwuWboPiI5-Z5ZsW",
+    "crv": "P-521",
+    "d": "AQPFFFs0XnNb3KbgHOd5k-NGbu0xjvZw8RLzCMtmt8QBPDVsJoaKIYfNGE0pg1g7y_UYG6hWN-X44spAYp3McMu8"
+}
+

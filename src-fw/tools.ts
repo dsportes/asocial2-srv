@@ -225,8 +225,9 @@ export class Tools {
   }
 
    async test1 () : Promise<void> {
-    // await testECDH()
-    await testSH()
+    const s = await testECDH()
+    writeFileSync("testECDH.txt", s); 
+    // await testSH()
   }
 
   async schemaFirestore () : Promise<void> {

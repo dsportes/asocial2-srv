@@ -122,7 +122,7 @@ export class Crypt {
   - la clé privée est longue (encodée en binaire depuis un JWT.)
   */
   static async getKeyPair () : Promise<Uint8Array[]> {
-    const p = await crypto.subtle.generateKey(Crypt.alg, true, ['deriveKey'])
+    const p = await crypto.subtle.generateKey(Crypt.alg, true, ['deriveKey']) as CryptoKeyPair
     return [
       new Uint8Array(await crypto.subtle.exportKey('raw', p.publicKey)),
       new Uint8Array(encode(await crypto.subtle.exportKey('jwk', p.privateKey)))
@@ -130,7 +130,7 @@ export class Crypt {
   }
 
   static async getSVKeyPair () : Promise<Uint8Array[]> {
-    const p = await crypto.subtle.generateKey(Crypt.ecdsa, true, ['sign', 'verify'])
+    const p = await crypto.subtle.generateKey(Crypt.ecdsa, true, ['sign', 'verify']) as CryptoKeyPair
     return [
       new Uint8Array(await crypto.subtle.exportKey('raw', p.publicKey)),
       new Uint8Array(encode(await crypto.subtle.exportKey('jwk', p.privateKey)))
@@ -263,7 +263,8 @@ export async function testSH () {
   */
 }
 
-export async function testECDH () {
+export async function testECDH () : Promise<string> {
+  let toreturn = ''
   const x = new TextEncoder().encode('toto est tres tres beau')
   const xx = new TextEncoder().encode('toto est tres tres beaux')
 
@@ -275,6 +276,12 @@ export async function testECDH () {
   const appSVPair = await Crypt.getSVKeyPair()
   const appSVPub = appSVPair[0]
   const sign = await Crypt.sign(appSVPair[1], x)
+
+  const begin = '-----BEGIN PUBLIC KEY-----\n'
+  const end = '\n-----END PUBLIC KEY-----'
+  toreturn += begin + u8ToB64(appSVPub) + end + '\n\n'
+  const jwk = decode(appSVPair[1])
+  toreturn += JSON.stringify(jwk, null, 4) + '\n\n'
 
   // Dans srv
   const verif1 = await Crypt.verify(appSVPub, sign, x)
@@ -304,4 +311,5 @@ export async function testECDH () {
   console.log('x5: ', decoder.decode(x5))
   const x6 = await Crypt.decrypt(aesApp, Buffer.from(x1b))
   console.log('x6: ', decoder.decode(x6))
+  return toreturn
 }
