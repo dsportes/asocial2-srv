@@ -277,7 +277,7 @@ type TrustDev = {
 
 type UntrustDev = {
   userId: string
-  devId: string
+  devIds: string[]
   sh1p: Uint8Array
   sh1r: Uint8Array
 }
@@ -309,21 +309,22 @@ SafeOperation.register('$TrustDevice', () => { return new $TrustDevice()})
 
 /* Trust d'un device
 */
-class $UntrustDevice extends SafeOperation {
+class $UntrustDevices extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const td = this.args['untrustDev'] as UntrustDev
+    const td = this.args['untrustDev']
     const safe = await this.getSafe(td)
     if (!safe) return
 
-    delete safe.devices[td.devId]
+    for (const id of td.devIds)
+      delete safe.devices[id]
     await this.db.updSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UntrustDevice', () => { return new $UntrustDevice()})
+SafeOperation.register('$UntrustDevices', () => { return new $UntrustDevices()})
 
 type SetAboutProfile = {
   app: string
