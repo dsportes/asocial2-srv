@@ -242,7 +242,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return [m, bin ? decode(bin) as Safe : null]
   }
 
-
   async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
     const r = { lm: -1, xp: true, xr: true }
     const stmt = this.sql.prepare('SELECT id, data FROM SAFE WHERE id = @id')
@@ -278,7 +277,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
-    safe.lm = Date.now()
+    safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
     let row0, row1, row2
@@ -304,7 +303,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
-    safe.lm = Date.now()
+    safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
     let row0, row1, row2
@@ -322,12 +321,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-
   async updPRSafe (safe: Safe) :  Promise<number> {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
-    safe.lm = Date.now()
+    safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hp0 = @hp0')
     let row = stmt.get({hp0})
@@ -343,7 +341,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async updSafe (safe: Safe) :  Promise<void> {
     const id = safe.id
-    safe.lm = Date.now()
+    safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     const data = Crypt.syncCrypt(this.key, encode(safe))
     const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')
@@ -351,7 +349,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async delSafe (id: string) :  Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE id < @id')
+    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE id = @id')
     stmt.run({ id })
   }
 
@@ -377,23 +375,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   /******************************************************************************
   Opérations sur documents
   ******************************************************************************/
-/*
-  async getSrvStatus () :  Promise<srvStatus> {
-    const stmt = this.sql.prepare('SELECT * FROM STATUS WHERE pk = \'1\'')
-    const res = stmt.get()
-    if (res) {
-      res.now = this.op.now
-      return res
-    }
-    return { now: this.op.now, st: 0, at: 0, txt: '(none)' }
-  }
-
-  async setSrvStatus (st: number, txt: string) :  Promise<srvStatus> {
-    const stmt = this.sql.prepare('INSERT INTO STATUS (st, at, txt, pk) VALUES (@st, @at, @txt, \'1\') ON CONFLICT (pk) DO UPDATE SET st = excluded.st, at = excluded.at, txt = excluded.txt')
-    stmt.run({ st, at: this.op.now, txt })
-    return { now: this.op.now, st, at: this.op.now, txt }
-  }
-*/
 
   async doTransaction () : Promise<[number, string]> {
     try {
