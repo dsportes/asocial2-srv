@@ -1,14 +1,14 @@
 import { Operation } from './operation'
 import { AppExc } from './index'
 import { config } from './config'
-import { Crypt } from './crypt'
+import { Crypt, fromPem, toPem } from './crypt'
 import { Util } from './util'
 import { Safe } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
 type Device = {
   devName: string | Uint8Array
-  Va: Uint8Array
+  Va: string
   cy: string
   sign: Uint8Array
   nbe: number
@@ -244,7 +244,8 @@ class $OpenSafeByPin extends SafeOperation {
     }
     /* vérifie par `Va` que `sign` est bien la signature de pincx 
     */
-    const ok = await Crypt.verify(dev.Va, dev.sign, pincx)
+    const V = fromPem(dev.Va, true)
+    const ok = await Crypt.verify(V, dev.sign, pincx)
     if (!ok) {
       dev.nbe++
       if (dev.nbe > 2) {
@@ -270,7 +271,7 @@ type TrustDev = {
   sh1p: Uint8Array
   sh1r: Uint8Array
   devName: Uint8Array
-  Va: Uint8Array
+  Va: string
   cy: string
   sign: Uint8Array
 }
@@ -403,7 +404,7 @@ type TransmitCred = {
   app: string
   targetId: string // id ou p0 ou r0 du destinataire du credential
   credId: string // id du credential
-  pubC: Uint8Array // clé publique de cryptage de l'émetteur
+  pubC: string // clé publique de cryptage de l'émetteur
   cryptedCred: Uint8Array // Objet Credential sérialisé crypté pour le destinataire
 }
 /* Tranmission d'un credentialpar user "émetteur" à un user "target
@@ -467,7 +468,7 @@ class $GetPublicKeys extends SafeOperation {
     const id = this.args['id']
     const [m, safe] = await this.db.getSafe(id)
     this.setRes('crypt', safe ? safe.C : null)
-    this.setRes('sign', safe ? safe.S : null)
+    this.setRes('verify', safe ? safe.V : null)
   }
 }
 SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})
