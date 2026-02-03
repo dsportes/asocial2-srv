@@ -13,6 +13,25 @@ function u8ToB64 (u8: Uint8Array, url?: boolean) : string {
   return !url ? s : s.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
 }
 
+export function toPem(key: Buffer, pub?: boolean) : string {
+  const exportedAsBase64 = Buffer.from(key).toString('base64')
+  return !pub ? `-----BEGIN PRIVATE KEY-----\n${exportedAsBase64}\n-----END PRIVATE KEY-----`
+  : `-----BEGIN PUBLIC KEY-----\n${exportedAsBase64}\n-----END PUBLIC KEY-----`
+}
+
+export function fromPem(pem: string, pub?: boolean) : Buffer {
+  // fetch the part of the PEM string between header and footer
+  const pemHeader = pub ? '-----BEGIN PUBLIC KEY-----' : '-----BEGIN PRIVATE KEY-----'
+  const pemFooter = pub ? '-----END PUBLIC KEY-----' : '-----END PRIVATE KEY-----'
+  const pemContents = pem.substring(pemHeader.length, pem.length - pemFooter.length - 1)
+  return Buffer.from(pemContents, 'base64')
+}
+
+export type KeyPair = {
+  pub: any,
+  priv: any
+}
+
 /* 
 AES-GCM
 Problème de comptabilité entre subtle.crypt et crypto.createCipheriv
@@ -37,8 +56,9 @@ générer une clé AES-GCM de 256bits, qui elle va gérer le contenu réel et no
 on peut crypter des contenus courts en AES pour moins de 256 bytes.
 
 Sign/Verif asymétrique
-L'algorithme à employer est ECDSA (différent de ECDH) qui génère une paire de clés
-différentes. 
+L'algorithme à employer est RSASSA-PKCS1-v1_5 qui génère une paire de clés.
+Pourquoi pas ECDSA (différent d'ailleurs deECDH) ? Parce que la vérification d'une signature par crypto.subtle
+ne marche pas en openSSL (donc pas en PHP).
 En pratique la clé privée n'est JAMAIS dans un serveur:
 - la signature est toujours côté client,
 - la vérification est toujours côté serveur.
@@ -77,9 +97,17 @@ export class Crypt {
     return Buffer.concat([b1, b2])
   }
 
-  static alg = { name: 'ECDH', namedCurve: 'P-521' }
-  static ecdsa = { name: 'ECDSA', namedCurve: 'P-521' }
-  static ecdsaSV = { name: 'ECDSA', hash: 'SHA-256' }
+  static algs = {
+    ecdh: { name: 'ECDH', namedCurve: 'P-521' },
+    ecdsa: { name: 'ECDSA', namedCurve: 'P-521' },
+    ecdsasv: { name: 'ECDSA', hash: 'SHA-256' },
+    rsa: { name: 'RSASSA-PKCS1-v1_5', // 'RSA-OAEP' PAS pour sign / verify
+      modulusLength: 2048, 
+      publicExponent: new Uint8Array([0x01, 0x00, 0x01]), 
+      hash: {name: "SHA-256"} },
+    rsasv: { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256'},
+  }
+  static alg = 'rsa'
 
   /* CRYPTO.SUBTLE
   Le authTag est généré sans laisser le choix 
@@ -121,20 +149,18 @@ export class Crypt {
   - la clé publique est courte.
   - la clé privée est longue (encodée en binaire depuis un JWT.)
   */
-  static async getKeyPair () : Promise<Uint8Array[]> {
-    const p = await crypto.subtle.generateKey(Crypt.alg, true, ['deriveKey']) as CryptoKeyPair
-    return [
-      new Uint8Array(await crypto.subtle.exportKey('raw', p.publicKey)),
-      new Uint8Array(encode(await crypto.subtle.exportKey('jwk', p.privateKey)))
-    ]
+  static async getKeyPair () : Promise<KeyPair> {
+    const p = await crypto.subtle.generateKey(Crypt.algs.ecdh, true, ['deriveKey'])
+    const spki = await crypto.subtle.exportKey('spki', p.publicKey)
+    const pkcs8 = await crypto.subtle.exportKey('pkcs8', p.privateKey)
+    return { pub: spki, priv: pkcs8 }
   }
 
-  static async getSVKeyPair () : Promise<Uint8Array[]> {
-    const p = await crypto.subtle.generateKey(Crypt.ecdsa, true, ['sign', 'verify']) as CryptoKeyPair
-    return [
-      new Uint8Array(await crypto.subtle.exportKey('raw', p.publicKey)),
-      new Uint8Array(encode(await crypto.subtle.exportKey('jwk', p.privateKey)))
-    ]
+  static async getSVKeyPair () : Promise<KeyPair> {
+    const p = await crypto.subtle.generateKey(Crypt.algs[Crypt.alg], true, ['sign', 'verify'])
+    const spki = await crypto.subtle.exportKey('spki', p.publicKey)
+    const pkcs8 = await crypto.subtle.exportKey('pkcs8', p.privateKey)
+    return { pub: spki, priv: pkcs8 }
   }
 
   /* Obtention de la clé AES-GCM 256 depuis un couple publique (Emilie), privée (Julie).
@@ -142,23 +168,23 @@ export class Crypt {
   Pour le couple inversé (publique(Julie), privée (Emilie)), 
   retourne aussi la même clé AES (c'est le but !).
   */
-  static async getAESKey (pubKey: Uint8Array, myPrivKey: Uint8Array): Promise<Uint8Array> {
-    const pub = await crypto.subtle.importKey('raw', pubKey, Crypt.alg, true, [])
-    const priv = await crypto.subtle.importKey('jwk', decode(myPrivKey), Crypt.alg, true, ['deriveKey'])
+  static async getAESKey (pubKey: Buffer, myPrivKey: Buffer): Promise<Uint8Array> {
+    const pub = await crypto.subtle.importKey('spki', pubKey, Crypt.algs.ecdh, true, [])
+    const priv = await crypto.subtle.importKey('pkcs8', myPrivKey, Crypt.algs.ecdh, true, ['deriveKey'])
     const k = await crypto.subtle.deriveKey(
       { name: 'ECDH', public: pub }, priv, { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']
     )
     return new Uint8Array(await crypto.subtle.exportKey('raw', k))
   }
 
-  static async sign (privKey: Uint8Array, data: Uint8Array) : Promise<Uint8Array> {
-    const priv = await crypto.subtle.importKey('jwk', decode(privKey), Crypt.ecdsa, false, ['sign'])
-    return new Uint8Array(await crypto.subtle.sign(Crypt.ecdsaSV, priv, data))
+  static async sign (privKey: Buffer, data: Uint8Array) : Promise<Uint8Array> {
+    const priv = await crypto.subtle.importKey('pkcs8', privKey, Crypt.algs[Crypt.alg], false, ['sign'])
+    return new Uint8Array(await crypto.subtle.sign(Crypt.algs[Crypt.alg + 'sv'], priv, data as BufferSource))
   }
 
-  static async verify (pubKey: Uint8Array, signature: Uint8Array, data: Uint8Array) : Promise<boolean> {
-    const pub = await crypto.subtle.importKey('raw', pubKey, Crypt.ecdsa, true, ['verify'])
-    return await crypto.subtle.verify(Crypt.ecdsaSV, pub, signature, data)
+  static async verify (pubKey: Buffer, signature: Uint8Array, data: Uint8Array) : Promise<boolean> {
+    const pub = await crypto.subtle.importKey('spki', pubKey, Crypt.algs[Crypt.alg], true, ['verify'])
+    return await crypto.subtle.verify(Crypt.algs[Crypt.alg + 'sv'], pub, signature as BufferSource, data as BufferSource)
   }
 
   /* Hash PBKFD2 d'une "pass phrase" en deux morceaux (équivelent à login / password).
@@ -263,53 +289,47 @@ export async function testSH () {
   */
 }
 
-export async function testECDH () : Promise<string> {
-  let toreturn = ''
+export async function testECDH () {
   const x = new TextEncoder().encode('toto est tres tres beau')
   const xx = new TextEncoder().encode('toto est tres tres beaux')
 
   // Dans app
   const appPair = await Crypt.getKeyPair()
-  const appPub = appPair[0]
-  console.log(u8ToB64(appPub), u8ToB64(appPair[1]))
+  const appPub = toPem(appPair.pub, true)
+  const appPriv = toPem(appPair.priv)
+  console.log('ECDH: APP crypt/decrypt')
+  console.log(appPub)
+  console.log(appPriv)
 
   const appSVPair = await Crypt.getSVKeyPair()
-  const appSVPub = appSVPair[0]
-  const sign = await Crypt.sign(appSVPair[1], x)
-
-  const begin = '-----BEGIN PUBLIC KEY-----\n'
-  const end = '\n-----END PUBLIC KEY-----'
-  toreturn += begin + u8ToB64(appSVPub) + end + '\n\n'
-  const jwk = decode(appSVPair[1])
-  toreturn += JSON.stringify(jwk, null, 4) + '\n\n'
+  const appSVPub = toPem(appSVPair.pub, true)
+  const appSVPriv = toPem(appSVPair.priv)
+  console.log('RSA: SRV sign/verify')
+  console.log(appSVPub)
+  console.log(appSVPriv)
+  const sign = await Crypt.sign(appSVPair.priv, x)
 
   // Dans srv
-  const verif1 = await Crypt.verify(appSVPub, sign, x)
+  const verif1 = await Crypt.verify(fromPem(appSVPub, true), sign, x)
   console.log('verif1 = ', verif1)
-  const verif2 = await Crypt.verify(appSVPub, sign, xx)
+  const verif2 = await Crypt.verify(fromPem(appSVPub, true), sign, xx)
   console.log('verif2 = ', verif2)
 
   const srvPair = await Crypt.getKeyPair()
-  const srvPub = srvPair[0]
-  console.log(u8ToB64(srvPub), u8ToB64(srvPair[1]))
+  const srvPub = toPem(srvPair.pub, true)
+  const srvPriv = toPem(srvPair.priv)
+  console.log('ECDH: SRV crypt/decrypt')
+  console.log(srvPub)
+  console.log(srvPriv)
 
-  const aesSrv = await Crypt.getAESKey(appPub, srvPair[1])
+  const aesSrv = await Crypt.getAESKey(fromPem(appPub, true), srvPair.priv)
   console.log('aesSrv: ', u8ToB64(aesSrv))
-  const aesSrv2 = await Crypt.getAESKey(appPub, srvPair[1])
-  console.log('aesSrv again: ', u8ToB64(aesSrv2))
-  const x1 = await Crypt.crypt(aesSrv, encoder.encode('toto est tres beau'))
-  const x1b = Crypt.syncCrypt(Buffer.from(aesSrv), Buffer.from(encoder.encode('toto est tres beau')))
+  const x1 = await Crypt.crypt(aesSrv, x)
 
   // Dans app
-  const aesApp = await Crypt.getAESKey(srvPub, appPair[1])
+  const aesApp = await Crypt.getAESKey(fromPem(srvPub, true), appPair.priv)
   console.log('aesApp: ', u8ToB64(aesApp))
   const x3 = await Crypt.decrypt(aesApp, x1)
-  console.log('x3:', decoder.decode(x3))
-  const x4 = Crypt.syncDecrypt(Buffer.from(aesApp), Buffer.from(x1b))
-  console.log('x4:', decoder.decode(x4))
-  const x5 = Crypt.syncDecrypt(Buffer.from(aesApp), Buffer.from(x1))
-  console.log('x5: ', decoder.decode(x5))
-  const x6 = await Crypt.decrypt(aesApp, Buffer.from(x1b))
-  console.log('x6: ', decoder.decode(x6))
-  return toreturn
+  const x2 = decoder.decode(x3)
+  console.log(x2)
 }

@@ -4723,3 +4723,33 @@ PRAGMA journal_mode = WAL
 2026-02-02T18:32:40.458Z info: Firestore connector
 2026-02-02T18:32:40.458Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-02-02T18:32:40.459Z info: 9 App operations registered
+2026-02-03T11:39:09.116Z info: 9 operations registered
+2026-02-03T11:39:09.119Z info: 8 document classes
+2026-02-03T11:39:09.120Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T11:39:09.121Z info: Firestore connector
+2026-02-03T11:39:09.121Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T11:39:09.122Z info: 9 App operations registered
+2026-02-03T11:41:14.189Z info: 9 operations registered
+2026-02-03T11:41:14.192Z info: 8 document classes
+2026-02-03T11:41:14.193Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T11:41:14.193Z info: Firestore connector
+2026-02-03T11:41:14.194Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T11:41:14.194Z info: 9 App operations registered
+2026-02-03T11:44:38.813Z info: 9 operations registered
+2026-02-03T11:44:38.816Z info: 8 document classes
+2026-02-03T11:44:38.818Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T11:44:38.819Z info: Firestore connector
+2026-02-03T11:44:38.820Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T11:44:38.822Z info: 9 App operations registered
+2026-02-03T11:48:39.664Z info: 9 operations registered
+2026-02-03T11:48:39.667Z info: 8 document classes
+2026-02-03T11:48:39.668Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T11:48:39.669Z info: Firestore connector
+2026-02-03T11:48:39.669Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T11:48:39.670Z info: 9 App operations registered
+2026-02-03T11:51:08.675Z info: 9 operations registered
+2026-02-03T11:51:08.678Z info: 8 document classes
+2026-02-03T11:51:08.678Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T11:51:08.679Z info: Firestore connector
+2026-02-03T11:51:08.680Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T11:51:08.680Z info: 9 App operations registered

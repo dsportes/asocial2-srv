@@ -225,8 +225,7 @@ export class Tools {
   }
 
    async test1 () : Promise<void> {
-    const s = await testECDH()
-    writeFileSync("testECDH.txt", s); 
+    await testECDH()
     // await testSH()
   }
 
