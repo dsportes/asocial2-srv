@@ -4815,3 +4815,9 @@ PRAGMA journal_mode = WAL
 2026-02-03T14:58:59.169Z info: $OpenSafeById finished
 2026-02-03T14:59:29.659Z info: $OpenSafeByPR finished
 2026-02-03T14:59:40.098Z info: $TrustDevice finished
+2026-02-03T18:31:01.327Z info: 9 operations registered
+2026-02-03T18:31:01.330Z info: 8 document classes
+2026-02-03T18:31:01.331Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-03T18:31:01.331Z info: Firestore connector
+2026-02-03T18:31:01.332Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-03T18:31:01.333Z info: 9 App operations registered

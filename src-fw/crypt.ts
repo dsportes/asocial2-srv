@@ -1,11 +1,39 @@
 import { encode, decode } from '@msgpack/msgpack'
 import crypto from 'crypto'
+// @ts-ignore
+import rsa from 'jsrsasign'
 
 const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
 const p2 = [1, 0, 0, 0, 0, 0]; for (let i = 1; i < 6; i++) p2[i] = p2[i - 1] * 256
+
+const byteToHex = [];
+
+for (let n = 0; n <= 0xff; ++n) {
+    const hexOctet = n.toString(16).padStart(2, "0")
+    byteToHex.push(hexOctet)
+}
+
+export function arrayBuffertohex (arrayBuffer: Buffer) : string {
+    const buff = new Uint8Array(arrayBuffer)
+    const hexOctets = [] // new Array(buff.length) is even faster (preallocates necessary array size), then use hexOctets[i] instead of .push()
+    for (let i = 0; i < buff.length; ++i) hexOctets.push(byteToHex[buff[i]])
+    return hexOctets.join("")
+}
+
+export function hexToArrayBuffer (hex: string) : Buffer {
+    const uint8array = new Uint8Array(Math.ceil(hex.length / 2))
+    for (let i = 0; i < hex.length;)
+        uint8array[i / 2] = Number.parseInt(hex.slice(i, i += 2), 16)
+    return Buffer.from(uint8array)
+}
+
+export function u8ToHex (u8: Uint8Array) : string {
+  // @ts-ignore
+  return arrayBuffertohex(Buffer.from(u8))
+}
 
 function u8ToB64 (u8: Uint8Array, url?: boolean) : string {
   if (!u8) return ''
@@ -107,7 +135,8 @@ export class Crypt {
       hash: {name: "SHA-256"} },
     rsasv: { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256'},
   }
-  static alg = 'rsa'
+  // static alg = 'rsa'
+  static alg = 'ecdsa'
 
   /* CRYPTO.SUBTLE
   Le authTag est généré sans laisser le choix 
@@ -179,7 +208,14 @@ export class Crypt {
 
   static async sign (privKey: Buffer, data: Uint8Array) : Promise<Uint8Array> {
     const priv = await crypto.subtle.importKey('pkcs8', privKey, Crypt.algs[Crypt.alg], false, ['sign'])
-    return new Uint8Array(await crypto.subtle.sign(Crypt.algs[Crypt.alg + 'sv'], priv, data as BufferSource))
+    const sign = await crypto.subtle.sign(Crypt.algs[Crypt.alg + 'sv'], priv, data as BufferSource)
+    return new Uint8Array(sign)
+  }
+
+  static signToAsn1 (sign: Uint8Array) : Uint8Array {
+    const x1 = u8ToHex(sign)
+    const x2 = rsa.KJUR.crypto.ECDSA.concatSigToASN1Sig(x1)
+    return new Uint8Array(hexToArrayBuffer(x2))
   }
 
   static async verify (pubKey: Buffer, signature: Uint8Array, data: Uint8Array) : Promise<boolean> {
@@ -308,6 +344,7 @@ export async function testECDH () {
   console.log(appSVPub)
   console.log(appSVPriv)
   const sign = await Crypt.sign(appSVPair.priv, x)
+  const signAsn1 = Crypt.signToAsn1(sign)
 
   // Dans srv
   const verif1 = await Crypt.verify(fromPem(appSVPub, true), sign, x)
