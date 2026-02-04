@@ -4821,3 +4821,9 @@ PRAGMA journal_mode = WAL
 2026-02-03T18:31:01.331Z info: Firestore connector
 2026-02-03T18:31:01.332Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-02-03T18:31:01.333Z info: 9 App operations registered
+2026-02-04T11:34:31.056Z info: 9 operations registered
+2026-02-04T11:34:31.060Z info: 8 document classes
+2026-02-04T11:34:31.061Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-04T11:34:31.061Z info: Firestore connector
+2026-02-04T11:34:31.062Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-04T11:34:31.062Z info: 9 App operations registered

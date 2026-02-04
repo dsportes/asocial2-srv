@@ -1,7 +1,8 @@
 import { encode, decode } from '@msgpack/msgpack'
 import crypto from 'crypto'
 // @ts-ignore
-import rsa from 'jsrsasign'
+// import rsa from 'jsrsasign'
+import { KJUR } from './dsportes_jsrsasign.mjs'
 
 const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
@@ -214,7 +215,15 @@ export class Crypt {
 
   static signToAsn1 (sign: Uint8Array) : Uint8Array {
     const x1 = u8ToHex(sign)
-    const x2 = rsa.KJUR.crypto.ECDSA.concatSigToASN1Sig(x1)
+    // const x2 = rsa.KJUR.crypto.ECDSA.concatSigToASN1Sig(x1)
+    const x2 = KJUR.crypto.ECDSA.concatSigToASN1Sig(x1)
+    return new Uint8Array(hexToArrayBuffer(x2))
+  }
+
+  static signFromAsn1 (sign: Uint8Array) : Uint8Array {
+    const x1 = u8ToHex(sign)
+    // const x2 = rsa.KJUR.crypto.ECDSA.asn1SigToConcatSig(x1)
+    const x2 = KJUR.crypto.ECDSA.asn1SigToConcatSig(x1)
     return new Uint8Array(hexToArrayBuffer(x2))
   }
 
@@ -345,7 +354,18 @@ export async function testECDH () {
   console.log(appSVPriv)
   const sign = await Crypt.sign(appSVPair.priv, x)
   const signAsn1 = Crypt.signToAsn1(sign)
-
+  const sign2 = Crypt.signFromAsn1(signAsn1)
+  const h1 = u8ToHex(sign)
+  const h2 = u8ToHex(signAsn1)
+  console.log('---- EC / ASN1 -------')
+  console.log(h1)
+  console.log(h2)
+  console.log('----------------------')
+  const h3 = u8ToHex(sign2)
+  if (h1 === h3)
+    console.log('trop cool !!!')
+  else console.log('TOO BAD !!!')
+  
   // Dans srv
   const verif1 = await Crypt.verify(fromPem(appSVPub, true), sign, x)
   console.log('verif1 = ', verif1)
