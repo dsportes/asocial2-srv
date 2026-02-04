@@ -245,7 +245,9 @@ class $OpenSafeByPin extends SafeOperation {
     /* vérifie par `Va` que `sign` est bien la signature de pincx 
     */
     const V = fromPem(dev.Va, true)
-    const ok = await Crypt.verify(V, dev.sign, pincx)
+    // Rétablit la signature en EC - ce que ne fait pas la version PHP
+    const sign = Crypt.signFromAsn1(dev.sign)
+    const ok = await Crypt.verify(V, sign, pincx)
     if (!ok) {
       dev.nbe++
       if (dev.nbe > 2) {
