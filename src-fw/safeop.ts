@@ -2,7 +2,7 @@ import { Operation } from './operation'
 import { AppExc } from './index'
 import { config } from './config'
 import { Crypt, fromPem, toPem } from './crypt'
-import { Util } from './util'
+import { Util  } from './util'
 import { Safe } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
@@ -50,12 +50,12 @@ export class SafeOperation extends Operation {
       return null
     }
 
-    if (arg['shk'] && safe.hhk === Crypt.shaS(arg['shk']))
+    if (arg['shk'] && safe.hhk === Crypt.shaS(Util.b64ToU8(arg['shk'])))
       return safe
 
     let ok = false
-    const sh1p = arg['sh1p']
-    const sh1r = arg['sh1r']
+    const sh1p = Util.b64ToU8(arg['sh1p'])
+    const sh1r = Util.b64ToU8(arg['sh1r'])
     if (sh1p && safe.hhp1 === Crypt.shaS(sh1p)) ok = true
     else if (sh1r && safe.hhr1 === Crypt.shaS(sh1r)) ok = true
     if (ok) return safe
@@ -73,21 +73,21 @@ export class SafeOperation extends Operation {
 
 export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   id: string // identifiant aléatoire.
-  pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
+  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
   hp0: string // index unique, `SH(p0)`.
   hr0: string // index unique, `SH(r0)`.
   hhp1: string // SHA de `SH(p1)`.
   hhr1: string // SHA de `SH(r1)`.
-  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
 }
 /*
 export interface Safe extends SafeCodes { // paramétres de l'opération $CreateSafe
   hhk: string // SHA de `SH(K)`.
-  C: Uint8Array // clé publique de cryptage.
-  DK: Uint8Array // clé privée de décryptage, cryptée par la clé K
-  S: Uint8Array // clé publique de signature.
-  VK: Uint8Array // clé privée de vérification, cryptée par la clé K
+  C: string // clé publique de cryptage.
+  DK: string // clé privée de décryptage, cryptée par la clé K
+  S: string // clé publique de signature.
+  VK: string // clé privée de vérification, cryptée par la clé K
 
   devices: Object
   creds: Object
@@ -131,7 +131,7 @@ class $GetBinSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const [m, bin] = await this.db.getBinSafe(this.args['userId'])
-    const hhk = Crypt.shaS(this.args['shk'])
+    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shk']))
     const safe = decode(bin) as Safe
     if (safe && hhk === safe.hhk) {
       this.setRes('status', 0)
@@ -185,9 +185,9 @@ class $OpenSafeByPR extends SafeOperation {
   async doTheJob () : Promise<void> {
     let byP = false
     let status = 1
-    const s0 = Util.u8ToB64(this.args['sh0'], true)
+    const s0 = this.args['sh0']
     const [m, safe] = await this.db.getSafe(s0)
-    const hhp1 = Crypt.shaS(this.args['sh1'])
+    const hhp1 = Crypt.shaS(Util.b64ToU8(this.args['sh1']))
     if (safe && safe.hhp1 === hhp1) {
       byP = m === 1
       status = 0
@@ -207,7 +207,7 @@ class $OpenSafeById extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const [m, safe] = await this.db.getSafe(this.args['userId'])
-    const hhk = Crypt.shaS(this.args['shk'])
+    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shk']))
     if (safe && hhk === safe.hhk) {
       this.setRes('status', 0)
       this.setRes('safe', safe)
@@ -230,13 +230,14 @@ class $OpenSafeByPin extends SafeOperation {
   async doTheJob () : Promise<void> {
     const userId: string = this.args['userId']
     const devId: string = this.args['devId']
-    const pincx: Uint8Array = this.args['pincx']
+    const pincx: string = this.args['pincx']
 
     const [m, safe] = await this.db.getSafe(userId)
     if (!safe) {
       this.setRes('status', 2)
       return
     }
+    if (!safe.devices) safe.devices = {}
     const dev = safe.devices[devId]
     if (!dev) {
       this.setRes('status', 3)
@@ -246,8 +247,9 @@ class $OpenSafeByPin extends SafeOperation {
     */
     const V = fromPem(dev.Va, true)
     // Rétablit la signature en EC - ce que ne fait pas la version PHP
-    const sign = Crypt.signFromAsn1(dev.sign)
-    const ok = await Crypt.verify(V, sign, pincx)
+    const s1 = Util.b64ToU8(dev.sign)
+    const sign = Crypt.signFromAsn1(s1)
+    const ok = await Crypt.verify(V, sign, Util.b64ToU8(pincx))
     if (!ok) {
       dev.nbe++
       if (dev.nbe > 2) {
@@ -302,6 +304,7 @@ class $TrustDevice extends SafeOperation {
       sign: td.sign,
       nbe: 0
     }
+    if (!safe.devices) safe.devices = {}
     safe.devices[td.devId] = d
     await this.db.updSafe(safe)
     this.setRes('status', 0)
@@ -320,7 +323,7 @@ class $UntrustDevices extends SafeOperation {
     const safe = await this.getSafe(td)
     if (!safe) return
 
-    for (const id of td.devIds)
+    if (safe.devices) for (const id of td.devIds)
       delete safe.devices[id]
     await this.db.updSafe(safe)
     this.setRes('status', 0)
@@ -347,6 +350,7 @@ class $SetAboutProfile extends SafeOperation {
     const safe = await this.getSafe(ab)
     if (!safe) return
 
+    if (!safe.profiles) safe.profiles = {}
     let appe = safe.profiles[ab.app]
     if (!appe) { appe = {}; safe.profiles[ab.app] = appe }
 
@@ -381,6 +385,9 @@ class $UpdateCreds extends SafeOperation {
     const safe = await this.getSafe(uc)
     if (!safe) return
 
+    if (!safe.profiles) safe.profiles = {}
+    if (!safe.creds) safe.creds = {}
+
     let appp = safe.profiles[uc.app]
     if (!appp) { appp = {}; safe.profiles[uc.app] = appp }
     for(const profId in uc.profiles)
@@ -407,7 +414,7 @@ type TransmitCred = {
   targetId: string // id ou p0 ou r0 du destinataire du credential
   credId: string // id du credential
   pubC: string // clé publique de cryptage de l'émetteur
-  cryptedCred: Uint8Array // Objet Credential sérialisé crypté pour le destinataire
+  cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
 }
 /* Tranmission d'un credentialpar user "émetteur" à un user "target
 - target est donné par son id ou l'un de ses pseudos p0 ou r0
@@ -426,6 +433,8 @@ class $TransmitCred extends SafeOperation {
       this.setRes('status', 1)
       return
     }
+
+    if (!safe.creds) safe.creds = {}
 
     let appc = safe.creds[tc.app]
     if (!appc) { appc = {}; safe.creds[tc.app] = appc}

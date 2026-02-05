@@ -4827,3 +4827,102 @@ PRAGMA journal_mode = WAL
 2026-02-04T11:34:31.061Z info: Firestore connector
 2026-02-04T11:34:31.062Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-02-04T11:34:31.062Z info: 9 App operations registered
+2026-02-04T12:20:36.693Z info: 9 operations registered
+2026-02-04T12:20:36.696Z info: 8 document classes
+2026-02-04T12:20:36.696Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-04T12:20:36.697Z info: Firestore connector
+2026-02-04T12:20:36.697Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-04T12:20:36.698Z info: 9 App operations registered
+2026-02-04T12:20:36.798Z info: Reloading orgs config OK
+2026-02-04T12:20:36.803Z info: HTTP listen [8080]
+2026-02-04T12:21:44.275Z info: $OpenSafeByPR finished
+2026-02-04T12:21:49.279Z info: $UntrustDevices finished
+2026-02-04T12:22:24.409Z info: $TrustDevice finished
+2026-02-04T12:22:54.346Z info: $OpenSafeByPR finished
+2026-02-04T12:23:22.979Z info: $OpenSafeByPR finished
+2026-02-04T12:23:29.650Z info: $UntrustDevices finished
+2026-02-04T12:23:50.191Z info: $OpenSafeByPR finished
+2026-02-04T12:24:06.324Z info: $TrustDevice finished
+2026-02-04T12:24:45.159Z info: $OpenSafeByPin finished
+2026-02-04T12:24:47.836Z info: $OpenSafeById finished
+2026-02-05T10:05:40.402Z info: 9 operations registered
+2026-02-05T10:05:40.406Z info: 8 document classes
+2026-02-05T10:05:40.407Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-05T10:05:40.407Z info: Firestore connector
+2026-02-05T10:05:40.408Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-05T10:05:40.409Z info: 9 App operations registered
+2026-02-05T10:05:40.439Z info: Reloading orgs config OK
+2026-02-05T10:05:40.446Z info: HTTP listen [8080]
+2026-02-05T10:08:03.131Z info: $CreateSafe finished
+2026-02-05T16:30:08.003Z info: 9 operations registered
+2026-02-05T16:30:08.009Z info: 8 document classes
+2026-02-05T16:30:08.011Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-05T16:30:08.012Z info: Firestore connector
+2026-02-05T16:30:08.013Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-05T16:30:08.015Z info: 9 App operations registered
+2026-02-05T16:30:08.122Z info: Reloading orgs config OK
+2026-02-05T16:30:08.128Z info: HTTP listen [8080]
+2026-02-05T16:34:12.928Z info: $CreateSafe finished
+2026-02-05T16:35:51.696Z info: $CreateSafe finished
+2026-02-05T16:43:39.878Z info: 9 operations registered
+2026-02-05T16:43:39.881Z info: 8 document classes
+2026-02-05T16:43:39.881Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-05T16:43:39.882Z info: Firestore connector
+2026-02-05T16:43:39.882Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-05T16:43:39.883Z info: 9 App operations registered
+2026-02-05T16:43:39.897Z info: Reloading orgs config OK
+2026-02-05T16:43:39.903Z info: HTTP listen [8080]
+2026-02-05T16:44:25.656Z info: $OpenSafeByPR finished
+2026-02-05T16:53:48.783Z info: $TrustDevice finished
+2026-02-05T16:59:05.701Z info: $OpenSafeByPin finished
+2026-02-05T17:13:25.191Z info: 9 operations registered
+2026-02-05T17:13:25.194Z info: 8 document classes
+2026-02-05T17:13:25.195Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-05T17:13:25.196Z info: Firestore connector
+2026-02-05T17:13:25.196Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-05T17:13:25.197Z info: 9 App operations registered
+2026-02-05T17:13:25.213Z info: Reloading orgs config OK
+2026-02-05T17:13:25.220Z info: HTTP listen [8080]
+2026-02-05T17:14:03.667Z info: $OpenSafeByPR finished
+2026-02-05T17:15:36.017Z info: $TrustDevice finished
+2026-02-05T17:18:40.493Z info: $OpenSafeByPR finished
+2026-02-05T17:19:17.939Z info: $OpenSafeByPR finished
+2026-02-05T17:20:32.882Z info: $TrustDevice finished
+2026-02-05T17:23:42.406Z info: $OpenSafeByPin finished
+2026-02-05T17:23:54.076Z info: $OpenSafeById terminated on exception
+2026-02-05T17:23:54.078Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
+2026-02-05T17:27:00.829Z info: $OpenSafeByPin finished
+2026-02-05T17:27:41.591Z info: $OpenSafeById finished
+2026-02-05T17:30:29.187Z info: $OpenSafeByPR finished
+2026-02-05T17:32:38.521Z info: $UntrustDevices finished
+2026-02-05T17:34:58.063Z info: $OpenSafeByPR finished
+2026-02-05T17:35:40.565Z info: $OpenSafeByPR finished
+2026-02-05T17:37:44.641Z info: $OpenSafeByPR finished
+2026-02-05T17:40:02.448Z info: $OpenSafeByPR finished
+2026-02-05T17:41:28.037Z info: $OpenSafeByPR finished
+2026-02-05T17:42:13.256Z info: $OpenSafeByPR finished
+2026-02-05T17:42:41.019Z info: $TrustDevice finished
+2026-02-05T17:44:09.452Z info: $UntrustDevices finished
+2026-02-05T17:45:07.719Z info: $TrustDevice finished
+2026-02-05T17:45:42.534Z info: $OpenSafeByPin finished
+2026-02-05T17:48:57.766Z info: $OpenSafeByPin finished
+2026-02-05T17:54:53.696Z info: $OpenSafeByPR finished
+2026-02-05T17:58:28.311Z info: $TrustDevice finished
+2026-02-05T18:00:14.306Z info: $OpenSafeByPin finished
+2026-02-05T18:00:14.356Z info: $OpenSafeById finished
+2026-02-05T18:01:03.569Z info: $OpenSafeByPin finished
+2026-02-05T18:01:03.630Z info: $OpenSafeById finished
+2026-02-05T18:04:24.817Z info: $OpenSafeByPR finished
+2026-02-05T18:07:02.310Z info: $TrustDevice finished
+2026-02-05T18:14:56.065Z info: $OpenSafeByPR finished
+2026-02-05T18:16:32.777Z info: $TrustDevice finished
+2026-02-05T18:24:26.834Z info: $OpenSafeByPin finished
+2026-02-05T18:24:30.641Z info: $OpenSafeById finished
+2026-02-05T18:27:25.108Z info: $OpenSafeByPR finished
+2026-02-05T18:28:14.629Z info: $TrustDevice finished
+2026-02-05T18:29:37.599Z info: $OpenSafeByPin finished
+2026-02-05T18:29:42.008Z info: $OpenSafeById finished
+2026-02-05T18:30:37.613Z info: $OpenSafeByPR finished
+2026-02-05T18:33:21.939Z info: $TrustDevice finished
+2026-02-05T18:34:55.249Z info: $OpenSafeByPin finished
+2026-02-05T18:34:58.487Z info: $OpenSafeById finished

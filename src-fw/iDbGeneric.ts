@@ -59,23 +59,24 @@ export type Safe = {
   lam: number // dernier mois d'accès
   lm: number // date-heure de dernière mise à jour
 
-  pseudo: Uint8Array // pseudo / trigramme crypté par la clé K du _safe_.
+  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
   hp0: string // index unique, `SH(p0)`.
   hr0: string // index unique, `SH(r0)`.
   hhp1: string // SHA court de `SH(p1)`.
   hhr1: string // SHA court de `SH(r1)`.
-  Ka: Uint8Array // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: Uint8Array //  clé `K` du safe cryptée par `SH(r0, r1)`.
+  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
   
   hhk: string // SHA court de `SH(K)`.
-  C : Uint8Array // clé publique de cryptage,
-  DK: Uint8Array // clé privée de decryptage cryptée par la clé K
-  V : Uint8Array // clé publique de vérification,
-  SK: Uint8Array // clé privée de signature cryptée par la clé K
+  C : string // clé publique de cryptage,
+  DK: string // clé privée de decryptage cryptée par la clé K
+  V : string // clé publique de vérification,
+  SK: string // clé privée de signature cryptée par la clé K
 
   devices: Object
   creds: Object
   profiles: Object
+  prefs: Object
 }
 
 export interface IDbGeneric {
