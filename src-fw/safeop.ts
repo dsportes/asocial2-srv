@@ -254,10 +254,10 @@ class $OpenSafeByPin extends SafeOperation {
       dev.nbe++
       if (dev.nbe > 2) {
         delete safe.devices[devId]
-        if (Object.keys(safe.devices).length === 0)
-          delete safe.devices
         this.setRes('status', 5)
       } else this.setRes('status', 4)
+      if (Object.keys(safe.devices).length === 0)
+        delete safe.devices
       await this.db.updSafe(safe)
       return
     }
@@ -325,11 +325,13 @@ class $UntrustDevices extends SafeOperation {
     const safe = await this.getSafe(td)
     if (!safe) return
 
-    if (safe.devices) for (const id of td.devIds)
-      delete safe.devices[id]
-    if (Object.keys(safe.devices).length === 0)
-      delete safe.devices
-    await this.db.updSafe(safe)
+    if (safe.devices) {
+      for (const id of td.devIds)
+        delete safe.devices[id]
+      if (Object.keys(safe.devices).length === 0)
+        delete safe.devices
+      await this.db.updSafe(safe)
+    }
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
