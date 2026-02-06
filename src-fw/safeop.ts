@@ -186,11 +186,24 @@ class $OpenSafeByPR extends SafeOperation {
     let byP = false
     let status = 1
     const s0 = this.args['sh0']
-    const [m, safe] = await this.db.getSafe(s0)
-    const hhp1 = Crypt.shaS(Util.b64ToU8(this.args['sh1']))
-    if (safe && safe.hhp1 === hhp1) {
-      byP = m === 1
-      status = 0
+    let [m, safe] = await this.db.getSafe(s0)
+    if (!safe) {
+      status = 3
+      byP = false
+      safe = null
+    } else {
+      const hh1 = Crypt.shaS(Util.b64ToU8(this.args['sh1']))
+      if (m === 1 && safe.hhp1 === hh1) {
+        byP = true
+        status = 0
+      } else if (m === 2 && safe.hhr1 === hh1) {
+        byP = false
+        status = 0
+      } else {
+        status = 3
+        byP = false
+        safe = null
+      }
     }
     this.setRes('status', status)
     this.setRes('safe', safe)
