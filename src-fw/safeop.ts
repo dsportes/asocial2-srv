@@ -1,7 +1,7 @@
 import { Operation } from './operation'
 import { AppExc } from './index'
 import { config } from './config'
-import { Crypt, fromPem, toPem } from './crypt'
+import { Crypt, fromPem } from './crypt'
 import { Util  } from './util'
 import { Safe } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
@@ -254,6 +254,8 @@ class $OpenSafeByPin extends SafeOperation {
       dev.nbe++
       if (dev.nbe > 2) {
         delete safe.devices[devId]
+        if (Object.keys(safe.devices).length === 0)
+          delete safe.devices
         this.setRes('status', 5)
       } else this.setRes('status', 4)
       await this.db.updSafe(safe)
@@ -325,6 +327,8 @@ class $UntrustDevices extends SafeOperation {
 
     if (safe.devices) for (const id of td.devIds)
       delete safe.devices[id]
+    if (Object.keys(safe.devices).length === 0)
+      delete safe.devices
     await this.db.updSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
@@ -394,6 +398,10 @@ class $UpdateCreds extends SafeOperation {
       appp[profId] = uc.profiles[profId]
     for(const profId of uc.delprofs)
       delete appp[profId]
+    if (Object.keys(safe.profiles[uc.app]).length === 0)
+      delete safe.profiles[uc.app]
+    if (Object.keys(safe.profiles).length === 0)
+      delete safe.profiles
 
     let appc = safe.creds[uc.app]
     if (!appc) { appc = {}; safe.creds[uc.app] = appc}
@@ -401,6 +409,10 @@ class $UpdateCreds extends SafeOperation {
       appc[credId] = uc.creds[credId]
     for(const credId of uc.delcreds)
       delete appc[credId]
+    if (Object.keys(safe.creds[uc.app]).length === 0) 
+      delete safe.creds[uc.app]
+    if (Object.keys(safe.creds).length === 0)
+      delete safe.creds
 
     await this.db.updSafe(safe)
     this.setRes('status', 0)
@@ -413,8 +425,9 @@ type TransmitCred = {
   app: string
   targetId: string // id ou p0 ou r0 du destinataire du credential
   credId: string // id du credential
-  pubC: string // clé publique de cryptage de l'émetteur
-  cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
+  crpub: string // [cryptedCred, pubc] encodé et en base64
+    // pubC: string // clé publique (PEM) de cryptage de l'émetteur
+    // cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
 }
 /* Tranmission d'un credentialpar user "émetteur" à un user "target
 - target est donné par son id ou l'un de ses pseudos p0 ou r0
@@ -438,7 +451,11 @@ class $TransmitCred extends SafeOperation {
 
     let appc = safe.creds[tc.app]
     if (!appc) { appc = {}; safe.creds[tc.app] = appc}
-    appc['$' + tc.credId] = encode([tc.cryptedCred, tc.pubC])
+    appc['$' + tc.credId] = tc.crpub
+    if (Object.keys(safe.creds[tc.app]).length === 0) 
+      delete safe.creds[tc.app]
+    if (Object.keys(safe.creds).length === 0)
+      delete safe.creds
 
     await this.db.updSafe(safe)
     this.setRes('status', 0)
