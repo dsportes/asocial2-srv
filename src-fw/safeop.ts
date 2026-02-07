@@ -81,20 +81,6 @@ export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
 }
-/*
-export interface Safe extends SafeCodes { // paramétres de l'opération $CreateSafe
-  hhk: string // SHA de `SH(K)`.
-  C: string // clé publique de cryptage.
-  DK: string // clé privée de décryptage, cryptée par la clé K
-  S: string // clé publique de signature.
-  VK: string // clé privée de vérification, cryptée par la clé K
-
-  devices: Object
-  creds: Object
-  profiles: Object
-  prefs: Object // pour chaque application, liste des préférences déclarées (ordonnée par date d'utilisation)
-}
-*/
 
 /* Creation d'un nouveau Safe
 */
@@ -135,7 +121,7 @@ class $GetBinSafe extends SafeOperation {
     const safe = decode(bin) as Safe
     if (safe && hhk === safe.hhk) {
       this.setRes('status', 0)
-      this.setRes('binsafe', bin)
+      this.setRes('safe', safe)
     } else {
       this.setRes('status', 1)
       await Util.sleep(3000)
@@ -369,14 +355,13 @@ class $SetAboutProfile extends SafeOperation {
     const safe = await this.getSafe(ab)
     if (!safe) return
 
-    if (!safe.profiles) safe.profiles = {}
-    let appe = safe.profiles[ab.app]
-    if (!appe) { appe = {}; safe.profiles[ab.app] = appe }
-
-    let prf = appe[ab.profId]
-    if (!prf) { prf = { creds: [] } ; appe[ab.profId] = prf }
-    prf.about = ab.about
-    await this.db.updSafe(safe)
+    if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
+      const prf = decode(safe.profiles[ab.app][ab.profId])
+      prf['about'] = ab.about
+      const prf2 = encode(prf)
+      safe.profiles[ab.app][ab.profId] = prf2
+      await this.db.updSafe(safe)
+    }
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
@@ -515,3 +500,18 @@ class $GetPublicKeys extends SafeOperation {
   }
 }
 SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})
+
+/* Suppression d'un safe - auth "forte" requise
+*/
+class $DelSafe extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const userId = this.args['userId']
+    const safe = await this.getSafe(this.args)
+    if (!safe) return
+    await this.db.delSafe(userId)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$DelSafe', () => { return new $DelSafe()})

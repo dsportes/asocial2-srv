@@ -1,3 +1,8 @@
+# Safe
+Testé OK.
+
+Gestion des préférences à faire
+
 # Serveur
 
 GetLock : hors transaction.
