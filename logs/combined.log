@@ -5096,3 +5096,11 @@ PRAGMA journal_mode = WAL
 2026-02-07T17:33:06.007Z info: $StatusSafe finished
 2026-02-07T17:33:14.956Z info: $RestoreSafe finished
 2026-02-07T17:33:33.120Z info: $OpenSafeByPR finished
+2026-02-08T13:36:00.267Z info: 9 operations registered
+2026-02-08T13:36:00.272Z info: 8 document classes
+2026-02-08T13:36:00.272Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-08T13:36:00.273Z info: Firestore connector
+2026-02-08T13:36:00.274Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-08T13:36:00.274Z info: 9 App operations registered
+2026-02-08T13:36:00.434Z info: Reloading orgs config OK
+2026-02-08T13:36:00.443Z info: HTTP listen [8080]
