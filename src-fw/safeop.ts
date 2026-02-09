@@ -356,11 +356,9 @@ class $SetAboutProfile extends SafeOperation {
     if (!safe) return
 
     if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
-      const x = safe.profiles[ab.app][ab.profId]
-      const prf = decode(Util.b64ToU8(x))
+      const prf = decode(Util.b64ToU8(safe.profiles[ab.app][ab.profId]))
       prf['about'] = ab.about
-      const prf2 = encode(prf)
-      safe.profiles[ab.app][ab.profId] = Util.u8ToB64(prf2)
+      safe.profiles[ab.app][ab.profId] = Util.u8ToB64(encode(prf))
       await this.db.updSafe(safe)
     }
     this.setRes('status', 0)
