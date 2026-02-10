@@ -378,8 +378,7 @@ type UpdateCreds = {
   nosafe: boolean // ne pas retourner le safe mis à jour
 }
 
-/* Sauvegarde de la maj de l'about du profil
-ou crée un profil avec about et creds vide s'il n'existait pas */
+/* Mise à jour des credentials et profiles */
 class $UpdateCreds extends SafeOperation {
   constructor () { super() }
 
@@ -419,6 +418,42 @@ class $UpdateCreds extends SafeOperation {
   }
 }
 SafeOperation.register('$UpdateCreds', () => { return new $UpdateCreds()})
+
+type UpdatePrefs = {
+  app: string
+  userId: string
+  shk: string    
+  prefs: Object // clé: crId, valeur: Objet Credential sérialisé crypté
+  delprefs: string[] // liste des crIds à supprimer
+}
+
+class $UpdatePrefs extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const up = this.args['updatePrefs'] as UpdatePrefs
+    const safe = await this.getSafe(up)
+    if (!safe) return
+
+    if (!safe.prefs) safe.prefs = {}
+
+    let appp = safe.prefs[up.app]
+    if (!appp) { appp = {}; safe.prefs[up.app] = appp }
+    for(const code in up.prefs)
+      appp[code] = up.prefs[code]
+    for(const code of up.delprefs)
+      delete appp[code]
+    if (Object.keys(safe.prefs[up.app]).length === 0)
+      delete safe.prefs[up.app]
+    if (Object.keys(safe.prefs).length === 0)
+      delete safe.prefs
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
 
 type TransmitCred = {
   app: string
