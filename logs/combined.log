@@ -5259,3 +5259,110 @@ PRAGMA journal_mode = WAL
 2026-02-10T13:58:38.514Z info: $UpdatePrefs finished
 2026-02-10T13:58:45.677Z info: $UpdatePrefs finished
 2026-02-10T13:58:49.969Z info: $OpenSafeById finished
+2026-02-11T08:04:52.054Z info: 9 operations registered
+2026-02-11T08:04:52.057Z info: 8 document classes
+2026-02-11T08:04:52.058Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-11T08:04:52.059Z info: Firestore connector
+2026-02-11T08:04:52.059Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-11T08:04:52.059Z info: 9 App operations registered
+2026-02-11T08:04:52.186Z info: Reloading orgs config OK
+2026-02-11T08:04:52.192Z info: HTTP listen [8080]
+2026-02-11T08:04:54.656Z info: $OpenSafeByPin finished
+2026-02-11T08:04:54.700Z info: $OpenSafeById finished
+2026-02-11T08:09:27.883Z info: $OpenSafeByPin finished
+2026-02-11T08:09:27.924Z info: $OpenSafeById finished
+2026-02-11T08:12:37.035Z info: $OpenSafeByPin finished
+2026-02-11T08:12:37.074Z info: $OpenSafeById finished
+2026-02-11T08:14:01.926Z info: $OpenSafeByPin finished
+2026-02-11T08:14:01.962Z info: $OpenSafeById finished
+2026-02-11T08:14:47.507Z info: $OpenSafeByPin finished
+2026-02-11T08:14:47.546Z info: $OpenSafeById finished
+2026-02-11T08:36:35.578Z info: $OpenSafeByPin finished
+2026-02-11T08:36:35.619Z info: $OpenSafeById finished
+2026-02-11T08:43:40.242Z info: $OpenSafeByPin finished
+2026-02-11T08:43:40.282Z info: $OpenSafeById finished
+2026-02-11T08:49:14.644Z info: $OpenSafeByPin finished
+2026-02-11T08:49:14.683Z info: $OpenSafeById finished
+2026-02-11T09:02:20.420Z info: $OpenSafeByPin finished
+2026-02-11T09:02:20.459Z info: $OpenSafeById finished
+2026-02-11T09:09:45.443Z info: $OpenSafeByPin finished
+2026-02-11T09:09:45.484Z info: $OpenSafeById finished
+2026-02-11T09:13:17.437Z info: $OpenSafeByPin finished
+2026-02-11T09:13:17.538Z info: $OpenSafeById finished
+2026-02-11T09:15:49.309Z info: $OpenSafeByPin finished
+2026-02-11T09:15:49.350Z info: $OpenSafeById finished
+2026-02-11T09:33:02.823Z info: $OpenSafeByPin finished
+2026-02-11T09:33:02.861Z info: $OpenSafeById finished
+2026-02-11T09:41:03.514Z info: $OpenSafeByPR finished
+2026-02-11T09:41:24.229Z info: $TrustDevice finished
+2026-02-11T09:44:26.989Z info: $OpenSafeByPin finished
+2026-02-11T09:44:27.043Z info: $OpenSafeById finished
+2026-02-11T09:45:21.083Z info: $OpenSafeByPin finished
+2026-02-11T09:45:21.121Z info: $OpenSafeById finished
+2026-02-11T10:07:41.714Z info: $OpenSafeByPin finished
+2026-02-11T10:07:41.754Z info: $OpenSafeById finished
+2026-02-11T10:09:15.844Z info: $OpenSafeByPin finished
+2026-02-11T10:09:15.906Z info: $OpenSafeById finished
+2026-02-11T10:10:41.486Z info: $UpdatePrefs finished
+2026-02-11T10:11:16.608Z info: $OpenSafeByPin finished
+2026-02-11T10:11:16.631Z info: $OpenSafeById finished
+2026-02-11T10:45:13.575Z info: $OpenSafeByPin finished
+2026-02-11T10:45:13.614Z info: $OpenSafeById finished
+2026-02-11T10:50:29.168Z info: $OpenSafeByPin finished
+2026-02-11T10:50:29.202Z info: $OpenSafeById finished
+2026-02-11T10:52:36.353Z info: $OpenSafeByPin finished
+2026-02-11T10:52:36.451Z info: $OpenSafeById finished
+2026-02-11T11:25:25.262Z info: $OpenSafeByPin finished
+2026-02-11T11:25:25.308Z info: $OpenSafeById finished
+2026-02-11T12:06:46.750Z info: $OpenSafeByPin finished
+2026-02-11T12:06:46.793Z info: $OpenSafeById finished
+2026-02-11T12:14:59.772Z info: $OpenSafeByPin finished
+2026-02-11T12:14:59.812Z info: $OpenSafeById finished
+2026-02-11T12:16:44.600Z info: $OpenSafeByPin finished
+2026-02-11T12:16:44.638Z info: $OpenSafeById finished
+2026-02-11T12:44:32.141Z info: $OpenSafeByPin finished
+2026-02-11T12:44:32.174Z info: $OpenSafeById finished
+2026-02-11T12:45:03.355Z info: AppExc: 1003:unknown organisation["GetSrvStatus","demo"]
+2026-02-11T12:45:03.356Z info: GetSrvStatus terminated on exception
+2026-02-11T12:45:03.412Z info: Reloading orgs config OK
+2026-02-11T12:58:34.083Z info: $OpenSafeByPin finished
+2026-02-11T12:58:34.118Z info: $OpenSafeById finished
+2026-02-11T13:09:36.003Z info: AppExc: 1003:unknown organisation["GetSrvStatus","demo"]
+2026-02-11T13:09:36.003Z info: GetSrvStatus terminated on exception
+2026-02-11T13:09:36.055Z info: Reloading orgs config OK
+2026-02-11T13:13:44.076Z info: AppExc: 1003:unknown organisation["GetSrvStatus","demo"]
+2026-02-11T13:13:44.077Z info: GetSrvStatus terminated on exception
+2026-02-11T13:14:29.587Z info: 9 operations registered
+2026-02-11T13:14:29.590Z info: 8 document classes
+2026-02-11T13:14:29.591Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-11T13:14:29.591Z info: Firestore connector
+2026-02-11T13:14:29.592Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-11T13:14:29.593Z info: 9 App operations registered
+2026-02-11T13:14:29.701Z info: Reloading orgs config OK
+2026-02-11T13:14:29.706Z info: HTTP listen [8080]
+2026-02-11T13:14:35.069Z info: GetSrvStatus : 2026-02-11T13:14:35.067Z
+2026-02-11T13:14:35.073Z info: auths : 0 - 
+2026-02-11T13:14:35.074Z info: GetSrvStatus finished
+2026-02-11T13:21:46.148Z info: EchoText : 2026-02-11T13:21:46.146Z
+2026-02-11T13:21:46.154Z info: EchoText finished
+2026-02-11T13:21:46.200Z info: Reloading orgs config OK
+2026-02-11T13:28:12.839Z info: $OpenSafeByPin finished
+2026-02-11T13:28:12.897Z info: $OpenSafeById finished
+2026-02-11T13:29:38.910Z info: $OpenSafeByPin finished
+2026-02-11T13:29:38.963Z info: $OpenSafeById finished
+2026-02-11T13:29:58.715Z info: $SetAboutProfile finished
+2026-02-11T13:30:12.339Z info: $OpenSafeById finished
+2026-02-11T13:36:09.470Z info: $OpenSafeByPin finished
+2026-02-11T13:36:09.538Z info: $OpenSafeById finished
+2026-02-11T13:36:12.416Z info: $GetBinSafe finished
+2026-02-11T13:37:11.740Z info: $GetBinSafe finished
+2026-02-11T13:44:54.993Z info: $GetBinSafe finished
+2026-02-11T13:45:00.551Z info: $GetBinSafe finished
+2026-02-11T13:47:24.987Z info: $GetBinSafe finished
+2026-02-11T13:52:12.321Z info: $GetBinSafe finished
+2026-02-11T13:55:44.913Z info: $GetBinSafe finished
+2026-02-11T13:56:35.683Z info: $GetBinSafe finished
+2026-02-11T17:48:50.443Z info: $OpenSafeByPR finished
+2026-02-11T18:04:03.461Z info: $OpenSafeByPR finished
+2026-02-11T18:17:19.364Z info: $OpenSafeByPR finished
+2026-02-11T18:37:33.306Z info: $OpenSafeByPR finished

@@ -316,7 +316,7 @@ export async function doOp (
     today = Util.amj(now)
   }
 
-  const opName = req.params.operation
+  const opName = req.params.operation as string
 
   try {
     if (opName === 'yo'){
