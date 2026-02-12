@@ -1,7 +1,10 @@
 # Safe
 Testé OK.
 
-Gestion des préférences à faire
+- Gérer la mise à jour du volume des sessions par l'application.
+- Gérer dans l'application l'arrivée d'une mise à jour de credential.
+- Dans safe-app, pour une session (épinglée donc) qui signifie "hasCache" ?
+  existe-t-il des sessions épinglées sans "cache" ? 
 
 # Serveur
 
