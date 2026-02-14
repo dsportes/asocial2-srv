@@ -9,7 +9,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
-  expList, expListQ, updType, vdata, IDP0R0 } from '../src-fw/iDbGeneric'
+  expList, expListQ, updType, vdata, Safe } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -141,11 +141,18 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return [2, s]
   }
 
+  async getSingleton (key: string) : Promise<string> {
+    return null // TODO
+  }
+  async setSingleton (key: string, value: string) : Promise<void> {
+    // TODO
+  }
+
   /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
   null si non trouvé
   */
-  async getSafe (id: string, idp0r0?: IDP0R0) : Promise<Object> {
-    // A REVISER
+  async getSafe (id: string) : Promise<[number, Safe]> {
+    /* TODO
     let buf
     let lam
     let idx
@@ -172,9 +179,24 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
     const data = Crypt.syncDecrypt(this.key, buf)
     return decode(data)
+    */
+   return null
+  }
+
+  async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
+    return null // TODO
+  }
+
+  async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
+    return null // TODO
   }
 
   async newSafe (safe: Object) :  Promise<number> {
+    // TODO
+    return 0
+  }
+
+  async restoreSafe (safe: Safe) :  Promise<number> {
     // TODO
     return 0
   }
