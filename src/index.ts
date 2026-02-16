@@ -45,8 +45,14 @@ try {
   exit()
 }
 
+const ADMINPEM = `-----BEGIN PUBLIC KEY-----
+MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAWvI4/v3MX1EyPM/7jNstr3TlRQzWbXrO5CXxE5Qy8qj/uYFCwlcqA+inkZZJwm3yU3RKnN+eN881aN62gbc4cSgBqNDxTODoZYExqDNjxnuc9QIF3Ldn3ohMvQtUEyold4OHgpqI+DEgUv52Zh3ktL0JCc5nLXrOOfFyT+++mL8Ixzg=
+-----END PUBLIC KEY-----`
+
 setConfig(
   {
+  ADMINPEM,
+
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
 

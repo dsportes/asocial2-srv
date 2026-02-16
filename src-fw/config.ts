@@ -2,6 +2,7 @@ import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
 export interface BaseConfig {
+  ADMINPEM: string
   PROD: boolean
   GCLOUDLOGGING: boolean
 
