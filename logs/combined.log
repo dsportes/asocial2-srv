@@ -5425,3 +5425,36 @@ PRAGMA journal_mode = WAL
 2026-02-12T16:45:41.755Z info: $OpenSafeById finished
 2026-02-12T17:21:00.422Z info: $OpenSafeByPin finished
 2026-02-12T17:21:00.458Z info: $OpenSafeById finished
+2026-02-16T16:52:48.806Z info: 9 operations registered
+2026-02-16T16:52:48.810Z info: 8 document classes
+2026-02-16T16:52:48.811Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-16T16:52:48.811Z info: Firestore connector
+2026-02-16T16:52:48.812Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-16T16:52:48.812Z info: 9 App operations registered
+2026-02-16T16:52:48.949Z info: Reloading orgs config OK
+2026-02-16T16:52:48.955Z info: HTTP listen [8080]
+2026-02-16T16:54:09.950Z info: $OpenSafeByPin finished
+2026-02-16T16:54:10.003Z info: $OpenSafeById finished
+2026-02-16T16:54:44.687Z info: $UpdateCreds finished
+2026-02-16T16:55:30.322Z info: $UpdateCreds finished
+2026-02-16T16:55:42.836Z info: $OpenSafeByPin finished
+2026-02-16T16:55:42.888Z info: $OpenSafeById finished
+2026-02-16T17:04:42.484Z info: $OpenSafeByPin finished
+2026-02-16T17:04:42.564Z info: $OpenSafeById finished
+2026-02-16T17:07:19.441Z info: $UpdateCreds finished
+2026-02-16T17:08:45.481Z info: $OpenSafeByPin finished
+2026-02-16T17:08:45.553Z info: $OpenSafeById finished
+2026-02-16T17:13:44.354Z info: $UpdateCreds finished
+2026-02-16T17:19:10.376Z info: $OpenSafeByPin finished
+2026-02-16T17:19:10.416Z info: $OpenSafeById finished
+2026-02-16T17:19:49.913Z info: $OpenSafeByPin finished
+2026-02-16T17:19:49.951Z info: $OpenSafeById finished
+2026-02-16T17:21:06.786Z info: $OpenSafeByPin finished
+2026-02-16T17:21:06.822Z info: $OpenSafeById finished
+2026-02-16T17:22:15.543Z info: $OpenSafeByPin finished
+2026-02-16T17:22:15.594Z info: $OpenSafeById finished
+2026-02-16T17:22:42.708Z info: $UpdateCreds finished
+2026-02-16T17:28:00.512Z info: $UpdateCreds finished
+2026-02-16T17:28:55.836Z info: $OpenSafeByPR finished
+2026-02-16T17:28:55.906Z info: $UpdateCreds finished
+2026-02-16T17:29:10.592Z info: $TrustDevice finished
