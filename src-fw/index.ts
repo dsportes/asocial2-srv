@@ -62,7 +62,7 @@ export class OrgsConfig {
         oc.orgs.set(org, [db, st])
         let e = oc.dbs.get(db); if (!e) e = new Set<string>(); oc.dbs.set(db, e)
         e.add(org)
-        e = oc.storages.get(db); if (!e) e = new Set<string>(); oc.storages.set(db, e)
+        e = oc.storages.get(st); if (!e) e = new Set<string>(); oc.storages.set(st, e)
         e.add(org)
       }
       op.db.disconnect()
@@ -93,7 +93,7 @@ export class OrgsConfig {
     OrgsConfig.reload()
     const c = OrgsConfig.current
     if (!c) return null
-    const e = c.storages.get(org)
+    const e = c.orgs.get(org)
     if (!e || !e[1]) return null
     return config.storages.get(e[1]) || null
   }

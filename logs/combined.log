@@ -5523,3 +5523,194 @@ PRAGMA journal_mode = WAL
 2026-02-17T10:22:21.301Z info: $OpenSafeByPin finished
 2026-02-17T10:22:21.340Z info: $OpenSafeById finished
 2026-02-17T10:23:25.340Z info: $OpenSafeById finished
+2026-02-17T14:32:10.094Z info: 9 operations registered
+2026-02-17T14:32:10.097Z info: 8 document classes
+2026-02-17T14:32:10.098Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T14:32:10.099Z info: Firestore connector
+2026-02-17T14:32:10.099Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T14:32:10.100Z info: 9 App operations registered
+2026-02-17T14:32:10.205Z info: Reloading orgs config OK
+2026-02-17T14:32:10.211Z info: HTTP listen [8080]
+2026-02-17T14:32:18.280Z info: $OpenSafeByPin finished
+2026-02-17T14:32:18.321Z info: $OpenSafeById finished
+2026-02-17T14:37:27.469Z info: $OpenSafeByPin finished
+2026-02-17T14:37:27.508Z info: $OpenSafeById finished
+2026-02-17T14:39:01.843Z info: $OpenSafeByPin finished
+2026-02-17T14:39:01.876Z info: $OpenSafeById finished
+2026-02-17T14:41:22.570Z info: $OpenSafeByPin finished
+2026-02-17T14:41:22.626Z info: $OpenSafeById finished
+2026-02-17T14:44:10.734Z info: $OpenSafeByPin finished
+2026-02-17T14:44:10.771Z info: $OpenSafeById finished
+2026-02-17T14:46:04.458Z info: $OpenSafeById finished
+2026-02-17T14:49:11.847Z info: $OpenSafeByPin finished
+2026-02-17T14:49:11.892Z info: $OpenSafeById finished
+2026-02-17T14:51:07.312Z info: $OpenSafeByPin finished
+2026-02-17T14:51:07.347Z info: $OpenSafeById finished
+2026-02-17T14:52:39.914Z info: $OpenSafeByPin finished
+2026-02-17T14:52:39.953Z info: $OpenSafeById finished
+2026-02-17T14:57:15.823Z info: $OpenSafeByPin finished
+2026-02-17T14:57:15.861Z info: $OpenSafeById finished
+2026-02-17T14:59:41.152Z info: $OpenSafeByPin finished
+2026-02-17T14:59:41.190Z info: $OpenSafeById finished
+2026-02-17T15:00:22.661Z info: SetSrvStatus : 2026-02-17T15:00:19.198Z
+2026-02-17T15:00:58.518Z error: SetSrvStatus : 2026-02-17T15:00:19.198Z : TypeError: r is not iterable
+2026-02-17T15:00:58.520Z info: SetSrvStatus terminated on exception
+2026-02-17T15:00:58.530Z error: AppExc: 3001:unexpected exception["r is not iterable"]
+2026-02-17T15:00:58.537Z info: Reloading orgs config OK
+2026-02-17T15:02:24.275Z info: 9 operations registered
+2026-02-17T15:02:24.279Z info: 8 document classes
+2026-02-17T15:02:24.281Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:02:24.282Z info: Firestore connector
+2026-02-17T15:02:24.282Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:02:24.283Z info: 9 App operations registered
+2026-02-17T15:02:24.301Z info: Reloading orgs config OK
+2026-02-17T15:02:24.309Z info: HTTP listen [8080]
+2026-02-17T15:02:45.167Z info: SetSrvStatus : 2026-02-17T15:02:38.142Z
+2026-02-17T15:04:31.695Z info: AppExc: 1005:NON validated credential@SetSrvStatus:["*","admin",""]
+2026-02-17T15:04:31.698Z error: SetSrvStatus : 2026-02-17T15:02:38.142Z : AppExc: 1005:NON validated credential@SetSrvStatus:["*","admin",""]
+2026-02-17T15:04:31.699Z info: SetSrvStatus terminated on exception
+2026-02-17T15:05:13.278Z info: 9 operations registered
+2026-02-17T15:05:13.282Z info: 8 document classes
+2026-02-17T15:05:13.283Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:05:13.284Z info: Firestore connector
+2026-02-17T15:05:13.284Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:05:13.285Z info: 9 App operations registered
+2026-02-17T15:05:13.305Z info: Reloading orgs config OK
+2026-02-17T15:05:13.313Z info: HTTP listen [8080]
+2026-02-17T15:05:29.815Z info: SetSrvStatus : 2026-02-17T15:05:29.813Z
+2026-02-17T15:05:52.378Z error: SetSrvStatus : 2026-02-17T15:05:29.813Z : TypeError: r is not iterable
+2026-02-17T15:05:52.381Z info: SetSrvStatus terminated on exception
+2026-02-17T15:05:52.400Z error: AppExc: 3001:unexpected exception["r is not iterable"]
+2026-02-17T15:07:27.519Z info: 9 operations registered
+2026-02-17T15:07:27.522Z info: 8 document classes
+2026-02-17T15:07:27.522Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:07:27.523Z info: Firestore connector
+2026-02-17T15:07:27.523Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:07:27.524Z info: 9 App operations registered
+2026-02-17T15:07:27.541Z info: Reloading orgs config OK
+2026-02-17T15:07:27.549Z info: HTTP listen [8080]
+2026-02-17T15:07:34.391Z info: SetSrvStatus : 2026-02-17T15:07:34.388Z
+2026-02-17T15:08:31.870Z info: SetSrvStatus finished
+2026-02-17T15:09:33.224Z info: SetSrvStatus : 2026-02-17T15:09:33.224Z
+2026-02-17T15:09:41.215Z info: SetSrvStatus finished
+2026-02-17T15:33:04.081Z info: 8 operations registered
+2026-02-17T15:33:04.084Z info: 8 document classes
+2026-02-17T15:33:04.084Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:33:04.085Z info: Firestore connector
+2026-02-17T15:33:04.085Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:33:04.086Z info: 8 App operations registered
+2026-02-17T15:33:04.110Z info: Reloading orgs config OK
+2026-02-17T15:33:04.117Z info: HTTP listen [8080]
+2026-02-17T15:39:26.234Z info: $OpenSafeByPin finished
+2026-02-17T15:39:26.284Z info: $OpenSafeById finished
+2026-02-17T15:40:34.874Z info: SetSrvStatus : 2026-02-17T15:40:34.873Z
+2026-02-17T15:40:34.883Z info: Reloading orgs config OK
+2026-02-17T15:41:11.131Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771342865704,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:41:11.134Z info: AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342865704,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:41:11.135Z error: SetSrvStatus : 2026-02-17T15:41:05.678Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342865704,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:41:11.136Z info: SetSrvStatus terminated on exception
+2026-02-17T15:42:35.496Z info: SetSrvStatus : 2026-02-17T15:42:35.496Z
+2026-02-17T15:43:11.792Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771342986420,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:43:11.796Z info: AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342986420,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:43:11.799Z error: SetSrvStatus : 2026-02-17T15:43:06.402Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342986420,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:43:11.801Z info: SetSrvStatus terminated on exception
+2026-02-17T15:47:10.142Z info: 8 operations registered
+2026-02-17T15:47:10.146Z info: 8 document classes
+2026-02-17T15:47:10.147Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:47:10.147Z info: Firestore connector
+2026-02-17T15:47:10.148Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:47:10.149Z info: 8 App operations registered
+2026-02-17T15:47:10.162Z info: Reloading orgs config OK
+2026-02-17T15:47:10.168Z info: HTTP listen [8080]
+2026-02-17T15:48:01.009Z info: SetSrvStatus : 2026-02-17T15:48:01.004Z
+2026-02-17T15:48:37.307Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771343311873,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:48:37.310Z info: AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771343311873,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:48:37.311Z error: SetSrvStatus : 2026-02-17T15:48:31.855Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771343311873,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:48:37.313Z info: SetSrvStatus terminated on exception
+2026-02-17T15:51:14.734Z info: 8 operations registered
+2026-02-17T15:51:14.737Z info: 8 document classes
+2026-02-17T15:51:14.737Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:51:14.738Z info: Firestore connector
+2026-02-17T15:51:14.738Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T15:51:14.739Z info: 8 App operations registered
+2026-02-17T15:51:58.488Z info: Reloading orgs config OK
+2026-02-17T15:51:58.498Z info: HTTP listen [8080]
+2026-02-17T15:55:31.796Z info: SetSrvStatus : 2026-02-17T15:54:24.567Z
+2026-02-17T15:55:31.818Z info: SetSrvStatus finished
+2026-02-17T15:58:32.206Z info: SetSrvStatus : 2026-02-17T15:58:32.206Z
+2026-02-17T15:58:32.214Z info: Reloading orgs config OK
+2026-02-17T15:58:32.218Z info: SetSrvStatus finished
+2026-02-17T15:58:59.278Z info: 8 operations registered
+2026-02-17T15:58:59.281Z info: 8 document classes
+2026-02-17T15:58:59.282Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T15:58:59.283Z info: Firestore connector
+2026-02-17T15:59:22.591Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T16:01:17.834Z info: 8 App operations registered
+2026-02-17T16:01:17.853Z info: Reloading orgs config OK
+2026-02-17T16:01:17.862Z info: HTTP listen [8080]
+2026-02-17T16:03:01.656Z info: 8 operations registered
+2026-02-17T16:03:01.659Z info: 8 document classes
+2026-02-17T16:03:01.660Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T16:03:01.660Z info: Firestore connector
+2026-02-17T16:03:13.066Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T16:03:13.070Z info: 8 App operations registered
+2026-02-17T16:03:13.092Z info: Reloading orgs config OK
+2026-02-17T16:03:13.098Z info: HTTP listen [8080]
+2026-02-17T16:04:43.669Z info: SetSrvStatus : 2026-02-17T16:04:43.665Z
+2026-02-17T16:04:43.691Z info: SetSrvStatus finished
+2026-02-17T16:07:09.860Z info: SetSrvStatus : 2026-02-17T16:07:09.860Z
+2026-02-17T16:07:09.872Z info: SetSrvStatus finished
+2026-02-17T16:07:20.046Z info: 8 operations registered
+2026-02-17T16:07:20.049Z info: 8 document classes
+2026-02-17T16:07:20.050Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T16:07:20.050Z info: Firestore connector
+2026-02-17T16:07:20.051Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T16:07:20.052Z info: 8 App operations registered
+2026-02-17T16:07:20.064Z info: Reloading orgs config OK
+2026-02-17T16:07:20.071Z info: HTTP listen [8080]
+2026-02-17T16:07:40.818Z info: SetSrvStatus : 2026-02-17T16:07:40.814Z
+2026-02-17T16:07:40.845Z info: SetSrvStatus finished
+2026-02-17T16:14:53.508Z info: 8 operations registered
+2026-02-17T16:14:53.511Z info: 8 document classes
+2026-02-17T16:14:53.512Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-17T16:14:53.513Z info: Firestore connector
+2026-02-17T16:15:02.424Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-17T16:15:02.426Z info: 8 App operations registered
+2026-02-17T16:15:02.444Z info: Reloading orgs config OK
+2026-02-17T16:15:02.451Z info: HTTP listen [8080]

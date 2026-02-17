@@ -76,3 +76,50 @@ PRAGMA journal_mode = WAL
 2026-02-06T10:46:30.979Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
 2026-02-10T13:33:36.696Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
 2026-02-10T13:41:10.808Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
+2026-02-17T15:00:58.518Z error: SetSrvStatus : 2026-02-17T15:00:19.198Z : TypeError: r is not iterable
+2026-02-17T15:00:58.530Z error: AppExc: 3001:unexpected exception["r is not iterable"]
+2026-02-17T15:04:31.698Z error: SetSrvStatus : 2026-02-17T15:02:38.142Z : AppExc: 1005:NON validated credential@SetSrvStatus:["*","admin",""]
+2026-02-17T15:05:52.378Z error: SetSrvStatus : 2026-02-17T15:05:29.813Z : TypeError: r is not iterable
+2026-02-17T15:05:52.400Z error: AppExc: 3001:unexpected exception["r is not iterable"]
+2026-02-17T15:41:11.131Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771342865704,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:41:11.135Z error: SetSrvStatus : 2026-02-17T15:41:05.678Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342865704,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:43:11.792Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771342986420,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:43:11.799Z error: SetSrvStatus : 2026-02-17T15:43:06.402Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771342986420,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]
+2026-02-17T15:48:37.307Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.setSingleton (D:\git\asocial2-srv\src-sqlite\index.ts:372:22)
+    at SetSrvStatus.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:78:19)
+    at SetSrvStatus.transac (D:\git\asocial2-srv\src-fw\operation.ts:142:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:383:7)
+    at async SetSrvStatus.run (D:\git\asocial2-srv\src-fw\operation.ts:162:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:358:5)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:199:9)
+ROLLBACK
+INSERT INTO SINGLETONS (key, value) VALUES ('status', '{"at":1771343311873,"st":2,"txt"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value
+BEGIN
+2026-02-17T15:48:37.311Z error: SetSrvStatus : 2026-02-17T15:48:31.855Z : AppExc: 10:DB lock@SetSrvStatus:["SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.setSingleton (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:372:22)\n    at SetSrvStatus.phase2 (D:\\git\\asocial2-srv\\src-fw\\operations.ts:78:19)\n    at SetSrvStatus.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:142:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:383:7)\n    at async SetSrvStatus.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:162:30)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:358:5)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:199:9)\nROLLBACK\nINSERT INTO SINGLETONS (key, value) VALUES ('status', '{\"at\":1771343311873,\"st\":2,\"txt\"'/*+10 bytes*/) ON CONFLICT (key) DO UPDATE SET value = excluded.value\nBEGIN"]

@@ -37,16 +37,6 @@ class EchoText extends Operation {
 }
 Operation.register('EchoText', () => { return new EchoText()})
 
-// Test d'une phase 2 limitée à setAuths() *************************************
-class TestAuth extends Operation {
-  constructor () { super() }
-
-  // exécute une phase 2 vide, en fait juste un setAuths()
-  phase3 : null
-
-}
-Operation.register('TestAuth', () => { return new TestAuth()})
-
 /* GetSrvStatus retourne le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP
   at: time de dernière mise à jour
@@ -82,8 +72,7 @@ class SetSrvStatus extends Operation {
   }
 
   async phase2 () {
-    if (!this.auths.has('ADMIN'))
-      throw new AppExc(1010, 'ADMIN required', this, ['SetSrvStatus'])
+    const token = this.authRecord.getToken('admin', '')
     const now = Date.now()
     const value = { at: Date.now(), st: this._st, txt: this._txt }
     await this.db.setSingleton('status', JSON.stringify(value))

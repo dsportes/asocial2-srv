@@ -1,16 +1,47 @@
-import { Operation, AuthRecord } from '../src-fw/operation'
+import { AuthToken, AuthRecord, Operation } from '../src-fw/operation'
+import { Crypt, fromPem } from '../src-fw/crypt'
+import { config } from '../src-fw/config'
 
-export function factory (name: string, arg: any) {
-  switch (name) {
-  case 'AuthRecord' : return new AppAuthRecord(arg)
+export function factory (auth: AuthRecord, token: AuthToken) {
+  switch (token.role) {
+    case 'admin' : return new AdminVerify(auth, token)
+    case 'manager' : return new ManagerVerify(auth, token)
+  }
+  return null
+}
+
+class Verify {
+  op: Operation
+  auth: AuthRecord
+  token: AuthToken
+  constructor (auth: AuthRecord, token: AuthToken) {
+    this.op = auth.op
+    this.auth = auth
+    this.token = token
+  }
+
+  async check () : Promise<Object> {
+    return null
+  }
+
+}
+
+class AdminVerify extends Verify {
+
+  constructor (auth: AuthRecord, token: AuthToken) { super(auth, token)}
+
+  async check () : Promise<Object> {
+    const pem = config.ADMINPEM
+    const v = await this.auth.verify(pem, this.token)
+    return v ? { status: 'OK' } : null
   }
 }
 
-export class AppAuthRecord extends AuthRecord {
+class ManagerVerify extends Verify {
 
-  constructor (op: Operation) { super(op) }
+  constructor (auth: AuthRecord, token: AuthToken) { super(auth, token)}
 
-  async mtTEST1 (token: Object, auths: Set<string> ) {
-    if (token['toto'] === 'titi') auths.add('TOTO')
+  async check () : Promise<Object> {
+    return null
   }
 }

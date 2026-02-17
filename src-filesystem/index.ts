@@ -19,6 +19,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     this.rootpath = path.resolve(credentials['path'])
     if (!existsSync(this.rootpath))
       throw new AppExc(1030, 'FilesystemStorage path not found', null, [this.rootpath])
+    this.srvUrl = credentials['srvUrl']
     Log.info('FilesystemStorage - path:[' + this.rootpath) + ']'
   }
 

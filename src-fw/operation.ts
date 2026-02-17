@@ -8,8 +8,10 @@ import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
 import { Publisher } from './publisher'
 import { Util } from './util'
-import { Crypt } from './crypt'
+import { Crypt, fromPem } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
+
+const encoder = new TextEncoder()
 
 type conso = {
   ndr: number, // nombre de documents lus
@@ -134,7 +136,9 @@ export class Operation {
   }
 
   async transac (): Promise<void> {
-    await this.setAuths()
+    const authRecord = new AuthRecord(this)
+    await authRecord.process()
+    authRecord.log()
     await this.phase2(this.args)
     this.cache.commit()
     await this.db.commit()
@@ -215,14 +219,6 @@ export class Operation {
     }
   }
 
-  async setAuths (): Promise<void> {
-    const auth = config.factory('AuthRecord', this)
-    await auth.process()
-    this.setRes('auths', auth.listAuths)
-    if (config.debugLevel > 1)
-      Log.info('auths : ' + (this.authRecord.time || 0) + ' - ' + this.authRecord.listAuths)
-  }
-
   // Contrôle des types d'arguments
 
   type (par: string, req: boolean) : [boolean, any, string] { // absent, value, type
@@ -296,71 +292,86 @@ export class Operation {
   }
 }
 
-/* Authenticator générique *******************************
-  "authRecord" est un argument de l'opération
-  authRecord: {
-    sessionId : 'azerty',
-    devAppToken : 'bof', // fac
-    time: Date.now(),
-    tokens : [
-      { type: 'ADMIN', value: 'oKqMNB...'},
-      { type: 'TEST1', toto: 'titi'},
-      { type: 'TEST2', toto: 'titi'},
-    ]
-  }
-  Si "type" est une des entrées de "hckeys" dans config:
-    - c'est une clé d'accès pré-enregistrée par son sha
-  Sinon pour une entrée 'TEST1' il existe une méthode async 'mtTEST1'
-  qui prend en argument l'objet { type: 'TEST2', toto: 'titi'}
-  et ajoute à auths le code de l'autorisation si elle est accordée 
-*/
+export type AuthToken = {
+  id: string
+  role: string
+  entid: string
+  hpems: string
+  sign: Uint8Array
+  info: Object
+}
+
 export class AuthRecord {
-  op: Operation
-  sessionId: string
   // devAppToken: string // token identifiant l'exécution de l'application
+  op: Operation
+  org: string
+  sessionId: string
+  orguserId: string
   time: number // date-heure du authRecord dans l'application
-  tokens: Object[] // liste des tokens
+  // Object par role / entid
+  tokens: Object 
+  
+  get challenge() { return encoder.encode(this.orguserId + '/' + this.time)}
 
   constructor (op: Operation) {
     this.op = op
     this.op.authRecord = this
     const ar = op.args['authRecord']
     if (ar) {
-      // this.devAppToken = ar.devAppToken || ''
+      this.orguserId = ar.orguserId || ''
       this.op.sessionId = ar.sessionId
       this.sessionId = ar.sessionId
       this.time = ar.time
+      this.org = ar.org
       this.tokens = ar.tokens
     }
   }
 
-  get listAuths () : string {
-    return this.op.auths ? Array.from(this.op.auths).join(' ') : '?'
+  getToken(role: string, entid: string) : AuthToken {
+    const e = this.tokens[role]
+    if (!e) return null
+    return e[entid || ''] || null
+  }
+
+  async verify (pem: string, token: AuthToken) {
+    return await Crypt.verify(fromPem(pem, true), token.sign, this.challenge)
+  }
+
+  log () {
+    if (config.debugLevel > 1) {
+      const x = []
+      for (const role in this.tokens) {
+        const r = this.tokens[role]
+        for (const entid in r) {
+          const token = r[entid]
+          x.push(role + '.' + (entid || '') + ': ' + token.info.status)
+        }
+      }
+      console.log('Auth status: ' + x.join('\n'))
+    }
+  }
+
+  exc (token: AuthToken) {
+    //  EX_1005: 'Droit d\'accès NON validé - organisation [{0}] - role [{1}] - entid [{2}] ]',
+    throw new AppExc(1005, 'NON validated credential', this.op, [this.org,  token.role, token.entid || ''] )
   }
 
   async process () : Promise<void>{
-    const auths : Set<string> = new Set()// Set des codes d'autorisation accordés
-    const hck = config.keys['hckeys']
-    if (this.tokens && this.tokens.length) for (const token of this.tokens) {
-      const k = hck[token['type']]
-      if (k) {
-        // Autorisation cryptée en config
-        const h = Crypt.sha(token['value'])
-        if (h === k) auths.add(token['type'])
-      } else {
-        // Autorisation calculée
-        const fn = this['mt' + token['type']]
-        if (fn) await fn.apply(this, [token, auths])
+    for (const role in this.tokens) {
+      const r = this.tokens[role]
+      for (const entid in r) {
+        const token = r[entid]
+        const fn = config.factory
+        if (!fn) this.exc(token)
+        if (fn) {
+          const verifyer = fn(this, token)
+          if (!verifyer) this.exc(token)
+          token.info = await verifyer.check()
+          if (!token.info) this.exc(token)
+        }
       }
     }
-    this.op.auths = auths
   }
-
-  /* Exemple de fonction d'autorisation
-  async mtTEST1 (token: Object, auths: Set<string> ) {
-    if (token['toto'] === 'titi') auths.add('TOTO')
-  }
-  */
 
 }
 
