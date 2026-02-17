@@ -371,8 +371,8 @@ type UpdateCreds = {
   app: string
   userId: string
   shk: Uint8Array
-  creds: Object // clé: credId, valeur: Objet Credential sérialisé crypté
-  delcreds: string[] // liste des credIds à supprimer
+  creds: Object // clé: xid, valeur: Objet Credential sérialisé crypté
+  delcreds: string[] // liste des xid à supprimer
   profiles: Object // clé: profId, valeur: Objet Profile sérialisé crypté
   delprofs: string[] // liste des profIds à supprimer
   nosafe: boolean // ne pas retourner le safe mis à jour
@@ -401,14 +401,10 @@ class $UpdateCreds extends SafeOperation {
     if (Object.keys(safe.profiles).length === 0)
       delete safe.profiles
 
-    let appc = safe.creds[uc.app]
-    if (!appc) { appc = {}; safe.creds[uc.app] = appc}
-    for(const credId in uc.creds)
-      appc[credId] = uc.creds[credId]
-    for(const credId of uc.delcreds)
-      delete appc[credId]
-    if (Object.keys(safe.creds[uc.app]).length === 0) 
-      delete safe.creds[uc.app]
+    for(const xid in uc.creds)
+      safe.creds[xid] = uc.creds[xid]
+    for(const xid of uc.delcreds)
+      delete safe.creds[xid]
     if (Object.keys(safe.creds).length === 0)
       delete safe.creds
 
@@ -456,9 +452,8 @@ class $UpdatePrefs extends SafeOperation {
 SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
 
 type TransmitCred = {
-  app: string
   targetId: string // id ou p0 ou r0 du destinataire du credential
-  credId: string // id du credential
+  credXid: string // id du credential
   crpub: string // [cryptedCred, pubc] encodé et en base64
     // pubC: string // clé publique (PEM) de cryptage de l'émetteur
     // cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
@@ -483,11 +478,7 @@ class $TransmitCred extends SafeOperation {
 
     if (!safe.creds) safe.creds = {}
 
-    let appc = safe.creds[tc.app]
-    if (!appc) { appc = {}; safe.creds[tc.app] = appc}
-    appc['$' + tc.credId] = tc.crpub
-    if (Object.keys(safe.creds[tc.app]).length === 0) 
-      delete safe.creds[tc.app]
+    safe.creds['$' + tc.credXid] = tc.crpub
     if (Object.keys(safe.creds).length === 0)
       delete safe.creds
 
