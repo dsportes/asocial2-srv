@@ -13,6 +13,15 @@ import { encode, decode } from '@msgpack/msgpack'
 
 const encoder = new TextEncoder()
 
+export type CredObj = {
+  orguserId: string
+  role: string
+  entid: string
+  hpems: string
+  pemv: string
+  cond: Object
+}
+
 type conso = {
   ndr: number, // nombre de documents lus
   ndw: number, // nombre de documents écrits
@@ -327,10 +336,14 @@ export class AuthRecord {
     }
   }
 
-  getToken(role: string, entid: string) : AuthToken {
+  getToken(role: string, entid: string, noex?: boolean) : AuthToken {
     const e = this.tokens[role]
-    if (!e) return null
-    return e[entid || ''] || null
+    const x = e ? e[entid || ''] : null
+    if (!x) {
+      if (noex) return null
+      throw new AppExc(3002, 'missing credential', this.op, [this.org, role, entid || ''])
+    }
+    return x
   }
 
   async verify (pem: string, token: AuthToken) {

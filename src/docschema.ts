@@ -29,6 +29,15 @@ new DocType(
 )
 
 new DocType(
+  { name: 'Credential', sync: false, pk: ['orguserId', 'role', 'entid', 'hpems'] }, // header
+  null, // collections
+  new Map<string, idx>([
+    ['roleent', { type: propType.HASH, key: ['role', 'entid'] }],
+    ['hpems', { type: propType.STRING }],
+  ])
+)
+
+new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
     ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],

@@ -5714,3 +5714,81 @@ BEGIN
 2026-02-17T16:15:02.426Z info: 8 App operations registered
 2026-02-17T16:15:02.444Z info: Reloading orgs config OK
 2026-02-17T16:15:02.451Z info: HTTP listen [8080]
+2026-02-18T10:36:37.147Z info: 8 operations registered
+2026-02-18T10:36:37.150Z info: 9 document classes
+2026-02-18T10:36:37.151Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-18T10:36:37.151Z info: Firestore connector
+2026-02-18T10:36:37.152Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-18T10:36:37.152Z info: 8 App operations registered
+2026-02-18T15:43:40.429Z info: 11 operations registered
+2026-02-18T15:43:40.433Z info: 9 document classes
+2026-02-18T15:43:40.434Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-18T15:43:40.434Z info: Firestore connector
+2026-02-18T15:43:40.435Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-18T15:43:40.435Z info: 11 App operations registered
+2026-02-18T15:43:40.564Z info: Reloading orgs config OK
+2026-02-18T15:43:40.569Z info: HTTP listen [8080]
+2026-02-18T15:51:52.017Z info: $OpenSafeByPin finished
+2026-02-18T15:51:52.069Z info: $OpenSafeById finished
+2026-02-18T15:53:18.843Z info: $OpenSafeByPin finished
+2026-02-18T15:53:18.878Z info: $OpenSafeById finished
+2026-02-18T15:57:08.499Z info: $OpenSafeByPin finished
+2026-02-18T15:57:08.538Z info: $OpenSafeById finished
+2026-02-18T16:00:54.222Z info: $OpenSafeByPin finished
+2026-02-18T16:00:54.277Z info: $OpenSafeById finished
+2026-02-18T16:01:41.172Z info: $OpenSafeByPin finished
+2026-02-18T16:01:41.216Z info: $OpenSafeById finished
+2026-02-18T16:05:33.659Z info: $OpenSafeByPin finished
+2026-02-18T16:05:33.696Z info: $OpenSafeById finished
+2026-02-18T16:08:26.375Z info: $OpenSafeByPin finished
+2026-02-18T16:08:26.409Z info: $OpenSafeById finished
+2026-02-18T16:13:19.435Z info: $OpenSafeByPin finished
+2026-02-18T16:13:19.507Z info: $OpenSafeById finished
+2026-02-18T16:14:10.345Z info: $OpenSafeByPin finished
+2026-02-18T16:14:10.436Z info: $OpenSafeById finished
+2026-02-18T16:20:42.501Z info: $OpenSafeByPin finished
+2026-02-18T16:20:42.572Z info: $OpenSafeById finished
+2026-02-18T16:35:07.325Z info: $OpenSafeByPin finished
+2026-02-18T16:35:07.386Z info: $OpenSafeById finished
+2026-02-18T16:47:00.091Z info: $OpenSafeByPin finished
+2026-02-18T16:47:00.224Z info: $OpenSafeById finished
+2026-02-18T17:02:11.636Z info: $OpenSafeByPin finished
+2026-02-18T17:02:11.699Z info: $OpenSafeById finished
+2026-02-18T17:11:47.162Z info: $OpenSafeById finished
+2026-02-18T17:13:12.079Z info: $OpenSafeByPin finished
+2026-02-18T17:13:12.186Z info: $OpenSafeById finished
+2026-02-18T17:13:30.657Z info: $OpenSafeById finished
+2026-02-18T17:21:51.876Z info: $OpenSafeByPin finished
+2026-02-18T17:21:51.928Z info: $OpenSafeById finished
+2026-02-18T17:27:40.028Z info: $OpenSafeById finished
+2026-02-18T17:27:55.485Z info: $OpenSafeById finished
+2026-02-18T18:04:07.642Z info: $OpenSafeByPin finished
+2026-02-18T18:04:07.742Z info: $OpenSafeById finished
+2026-02-18T18:04:54.332Z info: $OpenSafeById finished
+2026-02-18T18:07:23.957Z info: $OpenSafeByPin finished
+2026-02-18T18:07:24.014Z info: $OpenSafeById finished
+2026-02-18T18:10:47.449Z info: $OpenSafeByPin finished
+2026-02-18T18:10:47.508Z info: $OpenSafeById finished
+2026-02-18T18:37:36.289Z info: $OpenSafeByPin finished
+2026-02-18T18:37:36.360Z info: $OpenSafeById finished
+2026-02-18T18:42:03.472Z info: $OpenSafeByPin finished
+2026-02-18T18:42:03.551Z info: $OpenSafeById finished
+2026-02-18T18:42:32.833Z info: $OpenSafeById finished
+2026-02-18T18:42:57.248Z info: $OpenSafeById finished
+2026-02-18T18:48:45.955Z info: $OpenSafeByPin finished
+2026-02-18T18:48:46.021Z info: $OpenSafeById finished
+2026-02-18T18:49:01.041Z info: $OpenSafeById finished
+2026-02-18T18:49:41.069Z info: $OpenSafeById finished
+2026-02-18T18:50:08.439Z info: $OpenSafeByPin finished
+2026-02-18T18:50:08.487Z info: $OpenSafeById finished
+2026-02-18T18:50:24.802Z info: $OpenSafeById finished
+2026-02-18T18:52:34.612Z info: $OpenSafeById finished
+2026-02-18T18:53:15.057Z info: $OpenSafeById finished
+2026-02-18T18:56:00.887Z info: $OpenSafeByPin finished
+2026-02-18T18:56:00.955Z info: $OpenSafeById finished
+2026-02-18T18:59:17.519Z info: $OpenSafeByPin finished
+2026-02-18T18:59:17.646Z info: $OpenSafeById finished
+2026-02-18T19:00:03.698Z info: $OpenSafeById finished
+2026-02-18T19:02:21.066Z info: $OpenSafeById finished
+2026-02-18T19:02:32.165Z info: $OpenSafeById finished
+2026-02-18T19:02:45.497Z info: $OpenSafeById finished

@@ -1,13 +1,17 @@
 import { encode, decode } from '@msgpack/msgpack'
-import { Operation, Cache } from './operation'
+import { Operation, Cache, CredObj } from './operation'
 import { AppExc } from './index'
+import { filter } from './iDbGeneric'
 import { Util } from './util'
 import { Log } from './log'
 import { Crypt } from './crypt'
 import { config } from './config'
-import { Subs, subscription, SubsItem } from './documents'
+import { Subs, subscription, SubsItem, Credential } from './documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
+
+const encoder = new TextEncoder()
+const decoder = new TextDecoder()
 
 export function register () {
   return Operation.nbOf()
@@ -231,7 +235,7 @@ class Sync extends Operation {
   }
 
   async phase2 () {
-    for (const { def, v } of this._toSync) {
+    for (const { def, v } of this._toSync) {Cache.getRow
       const item = def.split('/')
       // 0: subs classe 1: subs document 2:subs coll
       const type = item.length - 1
@@ -268,3 +272,80 @@ class Sync extends Operation {
 
 }
 Operation.register('Sync', () => { return new Sync()})
+
+/* GrantNewManager positionne la date de fin d'un Credential "manager" sous admin
+- comment: commentaire de l'AT. pseudo de l'utilisateur à qui le credential est transféré
+- pemv: PEM de vérification
+*/
+class GrantNewManager extends Operation {
+  constructor () { super() }
+
+  _comment: string 
+  _pemv: string 
+
+  init () {
+    super.init()
+    this._pemv = this.stringValue('pemv', true)
+    this._comment = this.stringValue('comment', true)
+  }
+
+  async phase2 () {
+    const token = this.authRecord.getToken('admin', '')
+    await Credential.newManager(this, this._pemv, this._comment, token.hpems)
+  }
+
+  phase3 : null
+}
+Operation.register('GrantNewManager', () => { return new GrantNewManager()})
+
+/* RevokeManager enregistre un Credential "manager" sous admin
+- comment: commentaire de l'AT. pseudo de l'utilisateur à qui le credential est transféré
+- pemv: PEM de vérification
+*/
+class RevokeManager extends Operation {
+  constructor () { super() }
+
+  _revoke: string 
+  _hpems: string
+
+  init () {
+    super.init()
+    this._revoke = this.stringValue('revoke', true)
+    this._hpems = this.stringValue('hpems', true)
+  }
+
+  async phase2 () {
+    const token = this.authRecord.getToken('admin', '')
+    await Credential.revokeManager(this, this._hpems, this._revoke)
+  }
+
+  phase3 : null
+}
+Operation.register('RevokeManager', () => { return new RevokeManager()})
+
+/* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
+Retourne une liste de : {
+  orguserId: obj.orguserId, 
+  hpems: obj.hpems, 
+  ctime: obj.cond['ctime'], 
+  dtime: obj.cond['dtime'], 
+  comment: obj.cond['comment']
+  revoke: obj.cond['revoke']
+}
+*/
+class ListManagers extends Operation {
+  constructor () { super() }
+
+  init () {
+    super.init()
+  }
+
+  async phase2 () {
+    const lst = await Credential.listManagers(this)
+    this.setRes('list', lst)
+  }
+
+  phase3 : null
+}
+Operation.register('ListManagers', () => { return new ListManagers()})
+

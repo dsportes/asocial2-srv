@@ -2,8 +2,11 @@ import { Document, DocStatus } from './document'
 import { Crypt } from './crypt'
 import { filter, IDbGeneric } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
-import { Operation } from './operation'
+import { Operation, CredObj } from './operation'
 import { config } from './config'
+
+const encoder = new TextEncoder()
+const decoder = new TextDecoder()
 
 export class Task extends Document {
   static release = 0
@@ -126,6 +129,104 @@ export class SubsItem extends Document {
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
         op.db.deleteRow('SubsItem', pk)
       })
+  }
+
+}
+
+/*
+Un document `Credential` traduit la validité d'un credential 
+et fixe ses conditions spécifiques d'exercice par les propriétés suivantes:
+- Groupe de propriétés identifiantes:
+  - `orguserId` : identifiant localisé de l'utilisateur.
+  - `credId`: identifiant du credential.
+  - `hpems`: hash du PEM de signature.
+- `role` : rôle du droit.
+- `entid` : identifiant de l'entité cible. 
+  Le couple `[role , entid]` est indexé afin de pouvoir retrouver tous les droits attribués à une entité donnée.
+- `pemv`: PEM de la clé de validation.
+- `cond`: conditions spécifiques d'exercice.
+
+export type AuthToken = {
+  id: string
+  role: string
+  entid: string
+  hpems: string
+  sign: Uint8Array
+  info: Object
+}
+
+export type CredObj = {
+  orguserId: string
+  role: string
+  entid: string
+  hpems: string
+  pemv: string
+  cond: Object
+}
+*/
+
+export class Credential extends Document {
+  static release = 0
+
+  orguserId: string
+  role: string
+  entid: string
+  hpems: string
+  pemv: string
+  cond: Object
+
+  /* static newCredential (op: Operation, initVals: CredObj) : Credential {
+    return op.cache.newDoc('Credential', initVals) as Credential
+  } */
+
+  static async newManager (op: Operation, pemv: string, comment: string, hpems: string) {
+    const credObj: CredObj = {
+      orguserId: op.authRecord.orguserId,
+      role: 'manager',
+      entid: '',
+      hpems: hpems,
+      pemv: pemv,
+      cond: {
+        ctime: op.now,
+        dtime: 0,
+        comment: comment,
+        revoke: ''
+      }
+    }
+    // enregistrement d'un nouveau Credential "manager"
+    op.cache.newDoc('Credential', credObj) as Credential
+  }
+
+  static async revokeManager (op: Operation, hpems: string, revoke: string ) {
+    let credobj
+    await op.db.selectDocs('Credential', 'hpems', filter.EQ, hpems, '', 0, 
+      async (data) => {
+        credobj = decode(data) as CredObj
+      })
+    const src = { orguserId: credobj.orguserId, role: 'manager', entid: '', hpems}
+    const c = await op.cache.getDoc('Credential', src) as Credential
+    c.cond['dtime'] = op.now
+    c.cond['revoke'] = revoke
+    c._status = DocStatus.UPD
+  }
+
+  static async listManagers (op: Operation) : Promise<Object[]> {
+    const val = Crypt.shaS(encoder.encode('manager.'))
+    const lst: Object[] = []
+    await op.db.selectDocs('Credential', 'roleent', filter.EQ, val, '', 0, 
+      async (data) => {
+        const obj = decode(data) as CredObj
+        const x = { 
+          orguserId: obj.orguserId, 
+          hpems: obj.hpems, 
+          ctime: obj.cond['ctime'], 
+          dtime: obj.cond['dtime'], 
+          comment: obj.cond['comment'],
+          revoke: obj.cond['revoke']
+        }
+        lst.push(x)
+      })
+    return lst
   }
 
 }
