@@ -5792,3 +5792,17 @@ BEGIN
 2026-02-18T19:02:21.066Z info: $OpenSafeById finished
 2026-02-18T19:02:32.165Z info: $OpenSafeById finished
 2026-02-18T19:02:45.497Z info: $OpenSafeById finished
+2026-02-19T09:19:22.493Z info: 11 operations registered
+2026-02-19T09:19:22.496Z info: 9 document classes
+2026-02-19T09:19:22.497Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-19T09:19:22.497Z info: Firestore connector
+2026-02-19T09:19:22.498Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-19T09:19:22.498Z info: 11 App operations registered
+2026-02-19T09:19:22.613Z info: Reloading orgs config OK
+2026-02-19T09:19:22.618Z info: HTTP listen [8080]
+2026-02-19T09:50:30.831Z info: AppExc: 1003:unknown organisation["GetSrvStatus","none"]
+2026-02-19T09:50:30.834Z info: GetSrvStatus terminated on exception
+2026-02-19T09:50:30.847Z info: Reloading orgs config OK
+2026-02-19T09:57:13.671Z info: AppExc: 1003:unknown organisation["GetSrvStatus","ADMIN"]
+2026-02-19T09:57:13.672Z info: GetSrvStatus terminated on exception
+2026-02-19T09:57:13.747Z info: Reloading orgs config OK
