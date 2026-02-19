@@ -1,6 +1,6 @@
 import { encode, decode } from '@msgpack/msgpack'
 import { Operation, Cache, CredObj } from './operation'
-import { AppExc } from './index'
+import { AppExc, OrgsConfig } from './index'
 import { filter } from './iDbGeneric'
 import { Util } from './util'
 import { Log } from './log'
@@ -88,6 +88,48 @@ class SetSrvStatus extends Operation {
   phase3 : null
 }
 Operation.register('SetSrvStatus', () => { return new SetSrvStatus()})
+
+/* SetOrg créé (ou non) une organisation (codes db et storage)
+  Si l'organisation est déjà existante, patch les codes db et storage
+  ADMINISTRATEUR
+*/
+class NewOrg extends Operation {
+  constructor () { super() }
+
+  _db: string
+  _st: string
+  _neworg: string
+
+  init () {
+    super.init()
+    this._neworg = this.stringValue('neworg', true, 3, 16) 
+    this._st = this.stringValue('st', true, 3, 16)
+    this._db = this.stringValue('db', true, 3, 16)
+  }
+
+  async phase2 () {
+    const token = this.authRecord.getToken('admin', '')
+    const val = await this.db.getSingleton('orgs') as string
+    const x = JSON.parse(val)
+    let e = x[this._neworg]
+    let cr = 0
+    if (!e) {
+      cr = 1
+      e = ['', '']
+      x[this._neworg] = e
+    }
+    e[0] = this._db
+    e[1] = this._st
+    const y = JSON.stringify(x, null, '\t')
+    await this.db.setSingleton('orgs', y)
+    this.setRes('status', cr)
+  }
+
+  async phase3 () {
+    OrgsConfig.doReload()
+  }
+}
+Operation.register('NewOrg', () => { return new NewOrg()})
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {

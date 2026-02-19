@@ -5806,3 +5806,143 @@ BEGIN
 2026-02-19T09:57:13.671Z info: AppExc: 1003:unknown organisation["GetSrvStatus","ADMIN"]
 2026-02-19T09:57:13.672Z info: GetSrvStatus terminated on exception
 2026-02-19T09:57:13.747Z info: Reloading orgs config OK
+2026-02-19T13:52:33.285Z info: 11 operations registered
+2026-02-19T13:52:33.288Z info: 9 document classes
+2026-02-19T13:52:33.290Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-19T13:52:33.290Z info: Firestore connector
+2026-02-19T13:52:33.291Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-19T13:52:33.292Z info: 11 App operations registered
+2026-02-19T13:52:33.324Z info: Reloading orgs config OK
+2026-02-19T13:52:33.331Z info: HTTP listen [8080]
+2026-02-19T14:09:41.093Z info: GetSrvStatus : 2026-02-19T14:09:41.089Z
+2026-02-19T14:09:41.111Z info: GetSrvStatus finished
+2026-02-19T14:17:55.924Z info: Reloading orgs config OK
+2026-02-19T14:18:00.714Z info: GetSrvStatus : 2026-02-19T14:18:00.714Z
+2026-02-19T14:18:00.720Z info: GetSrvStatus finished
+2026-02-19T14:18:30.536Z info: GetSrvStatus : 2026-02-19T14:18:30.528Z
+2026-02-19T14:18:30.594Z info: GetSrvStatus finished
+2026-02-19T14:20:07.358Z info: GetSrvStatus : 2026-02-19T14:20:07.358Z
+2026-02-19T14:20:07.369Z info: GetSrvStatus finished
+2026-02-19T14:21:10.599Z info: GetSrvStatus : 2026-02-19T14:21:10.599Z
+2026-02-19T14:21:10.617Z info: GetSrvStatus finished
+2026-02-19T14:21:14.568Z info: GetSrvStatus : 2026-02-19T14:21:14.568Z
+2026-02-19T14:21:14.579Z info: GetSrvStatus finished
+2026-02-19T15:01:08.271Z info: GetSrvStatus : 2026-02-19T15:01:08.270Z
+2026-02-19T15:01:08.283Z info: GetSrvStatus finished
+2026-02-19T15:01:08.324Z info: Reloading orgs config OK
+2026-02-19T15:04:09.668Z info: $OpenSafeByPin finished
+2026-02-19T15:04:45.889Z info: $OpenSafeByPR finished
+2026-02-19T15:12:49.901Z info: $OpenSafeByPR finished
+2026-02-19T15:13:02.894Z info: $TrustDevice finished
+2026-02-19T15:17:57.908Z info: $OpenSafeByPin finished
+2026-02-19T15:18:04.699Z info: $OpenSafeByPin finished
+2026-02-19T15:18:49.737Z info: $OpenSafeByPR finished
+2026-02-19T15:19:08.062Z info: $UntrustDevices finished
+2026-02-19T15:19:19.780Z info: $TrustDevice finished
+2026-02-19T15:36:45.329Z info: $OpenSafeByPin finished
+2026-02-19T15:36:45.441Z info: $OpenSafeById finished
+2026-02-19T15:41:17.470Z info: $OpenSafeByPin finished
+2026-02-19T15:41:17.581Z info: $OpenSafeById finished
+2026-02-19T15:41:36.061Z info: GetSrvStatus : 2026-02-19T15:41:36.061Z
+2026-02-19T15:41:36.069Z info: GetSrvStatus finished
+2026-02-19T15:41:36.112Z info: Reloading orgs config OK
+2026-02-19T15:46:51.448Z info: GetSrvStatus : 2026-02-19T15:46:51.448Z
+2026-02-19T15:46:51.453Z info: GetSrvStatus finished
+2026-02-19T15:46:51.501Z info: Reloading orgs config OK
+2026-02-19T15:53:20.395Z info: $OpenSafeByPin finished
+2026-02-19T15:53:20.522Z info: $OpenSafeById finished
+2026-02-19T15:53:32.028Z info: GetSrvStatus : 2026-02-19T15:53:32.024Z
+2026-02-19T15:53:32.034Z info: GetSrvStatus finished
+2026-02-19T15:53:32.075Z info: Reloading orgs config OK
+2026-02-19T15:58:00.287Z info: GetSrvStatus : 2026-02-19T15:58:00.286Z
+2026-02-19T15:58:00.295Z info: GetSrvStatus finished
+2026-02-19T15:59:34.551Z info: GetSrvStatus : 2026-02-19T15:59:34.551Z
+2026-02-19T15:59:34.556Z info: GetSrvStatus finished
+2026-02-19T15:59:34.621Z info: Reloading orgs config OK
+2026-02-19T16:03:37.211Z info: $OpenSafeByPin finished
+2026-02-19T16:03:37.325Z info: $OpenSafeById finished
+2026-02-19T16:12:47.030Z info: $OpenSafeByPin finished
+2026-02-19T16:12:47.147Z info: $OpenSafeById finished
+2026-02-19T16:14:52.546Z info: GetSrvStatus : 2026-02-19T16:14:52.546Z
+2026-02-19T16:14:52.557Z info: GetSrvStatus finished
+2026-02-19T16:14:52.598Z info: Reloading orgs config OK
+2026-02-19T16:15:54.540Z info: SetSrvStatus : 2026-02-19T16:15:54.534Z
+2026-02-19T16:15:54.546Z info: AppExc: 1010:invalid argument@SetSrvStatus:["st"]
+2026-02-19T16:15:54.549Z info: SetSrvStatus terminated on exception
+2026-02-19T16:18:47.570Z info: $OpenSafeByPin finished
+2026-02-19T16:18:47.681Z info: $OpenSafeById finished
+2026-02-19T16:22:06.169Z info: $OpenSafeByPin finished
+2026-02-19T16:22:06.258Z info: $OpenSafeById finished
+2026-02-19T16:28:33.346Z info: $OpenSafeByPin finished
+2026-02-19T16:28:33.472Z info: $OpenSafeById finished
+2026-02-19T16:30:42.526Z info: $OpenSafeByPin finished
+2026-02-19T16:30:42.643Z info: $OpenSafeById finished
+2026-02-19T16:36:24.093Z info: $OpenSafeByPin finished
+2026-02-19T16:36:24.218Z info: $OpenSafeById finished
+2026-02-19T16:37:36.552Z info: SetSrvStatus : 2026-02-19T16:37:36.552Z
+2026-02-19T16:37:45.133Z info: Reloading orgs config OK
+2026-02-19T16:38:04.328Z info: SetSrvStatus finished
+2026-02-19T16:38:55.029Z info: SetSrvStatus : 2026-02-19T16:38:55.029Z
+2026-02-19T16:38:55.058Z info: SetSrvStatus finished
+2026-02-19T17:44:28.278Z info: 12 operations registered
+2026-02-19T17:44:28.281Z info: 9 document classes
+2026-02-19T17:44:28.282Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-19T17:44:28.283Z info: Firestore connector
+2026-02-19T17:44:28.284Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-19T17:44:28.285Z info: 12 App operations registered
+2026-02-19T17:44:28.314Z info: Reloading orgs config OK
+2026-02-19T17:44:28.321Z info: HTTP listen [8080]
+2026-02-19T17:45:36.928Z info: $OpenSafeByPin finished
+2026-02-19T17:45:37.059Z info: $OpenSafeById finished
+2026-02-19T17:47:35.936Z info: $OpenSafeByPin finished
+2026-02-19T17:47:36.050Z info: $OpenSafeById finished
+2026-02-19T17:54:18.437Z info: $OpenSafeByPin finished
+2026-02-19T17:54:18.549Z info: $OpenSafeById finished
+2026-02-19T17:57:01.054Z info: $OpenSafeByPin finished
+2026-02-19T17:57:01.242Z info: $OpenSafeById finished
+2026-02-19T17:59:31.161Z info: $OpenSafeByPin finished
+2026-02-19T17:59:31.257Z info: $OpenSafeById finished
+2026-02-19T18:02:59.416Z info: $OpenSafeByPin finished
+2026-02-19T18:02:59.540Z info: $OpenSafeById finished
+2026-02-19T18:03:35.280Z info: $OpenSafeByPin finished
+2026-02-19T18:03:35.405Z info: $OpenSafeById finished
+2026-02-19T18:05:33.287Z info: NewOrg : 2026-02-19T18:05:28.298Z
+2026-02-19T18:05:45.298Z info: Reloading orgs config OK
+2026-02-19T18:07:38.889Z info: 12 operations registered
+2026-02-19T18:07:38.892Z info: 9 document classes
+2026-02-19T18:07:38.894Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-19T18:07:38.894Z info: Firestore connector
+2026-02-19T18:07:38.895Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-19T18:07:38.896Z info: 12 App operations registered
+2026-02-19T18:07:38.915Z info: Reloading orgs config OK
+2026-02-19T18:07:38.922Z info: HTTP listen [8080]
+2026-02-19T18:08:08.991Z info: NewOrg : 2026-02-19T18:08:08.977Z
+2026-02-19T18:09:06.477Z info: Reloading orgs config OK
+2026-02-19T18:09:06.478Z info: NewOrg finished
+2026-02-19T18:12:36.961Z info: NewOrg : 2026-02-19T18:12:36.960Z
+2026-02-19T18:14:29.377Z info: Reloading orgs config OK
+2026-02-19T18:14:29.381Z info: NewOrg finished
+2026-02-19T18:23:20.634Z info: 12 operations registered
+2026-02-19T18:23:20.638Z info: 9 document classes
+2026-02-19T18:23:20.640Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-19T18:23:20.641Z info: Firestore connector
+2026-02-19T18:23:20.641Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-19T18:23:20.642Z info: 12 App operations registered
+2026-02-19T18:23:20.659Z info: Reloading orgs config OK
+2026-02-19T18:23:20.665Z info: HTTP listen [8080]
+2026-02-19T18:28:02.654Z info: 12 operations registered
+2026-02-19T18:28:02.659Z info: 9 document classes
+2026-02-19T18:28:02.661Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-19T18:28:02.662Z info: Firestore connector
+2026-02-19T18:28:02.668Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-19T18:28:02.669Z info: 12 App operations registered
+2026-02-19T18:28:02.692Z info: Reloading orgs config OK
+2026-02-19T18:28:02.713Z info: HTTP listen [8080]
+2026-02-19T18:29:59.007Z info: $OpenSafeByPin finished
+2026-02-19T18:29:59.145Z info: $OpenSafeById finished
+2026-02-19T18:30:43.307Z info: NewOrg : 2026-02-19T18:30:43.306Z
+2026-02-19T18:30:48.441Z info: Reloading orgs config OK
+2026-02-19T18:30:48.443Z info: NewOrg finished
+2026-02-19T18:32:01.545Z info: NewOrg : 2026-02-19T18:32:01.544Z
+2026-02-19T18:32:01.561Z info: Reloading orgs config OK
+2026-02-19T18:32:01.563Z info: NewOrg finished
