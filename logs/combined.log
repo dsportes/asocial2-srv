@@ -5946,3 +5946,41 @@ BEGIN
 2026-02-19T18:32:01.545Z info: NewOrg : 2026-02-19T18:32:01.544Z
 2026-02-19T18:32:01.561Z info: Reloading orgs config OK
 2026-02-19T18:32:01.563Z info: NewOrg finished
+2026-02-20T10:12:51.456Z info: 12 operations registered
+2026-02-20T10:12:51.460Z info: 9 document classes
+2026-02-20T10:12:51.461Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-20T10:12:51.462Z info: Firestore connector
+2026-02-20T10:12:51.463Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-20T10:12:51.464Z info: 12 App operations registered
+2026-02-20T10:12:51.502Z info: Reloading orgs config OK
+2026-02-20T10:12:51.510Z info: HTTP listen [8080]
+2026-02-20T10:13:59.648Z info: $OpenSafeByPin finished
+2026-02-20T10:13:59.867Z info: $OpenSafeById finished
+2026-02-20T10:14:20.021Z info: $GetBinSafe finished
+2026-02-20T10:17:53.422Z info: $GetBinSafe finished
+2026-02-20T10:54:01.154Z info: $GetBinSafe finished
+2026-02-20T10:55:29.030Z info: $OpenSafeByPin finished
+2026-02-20T10:55:29.157Z info: $OpenSafeById finished
+2026-02-20T10:55:32.137Z info: $GetBinSafe finished
+2026-02-20T10:57:21.310Z info: $GetBinSafe finished
+2026-02-20T10:58:07.932Z info: $OpenSafeByPin finished
+2026-02-20T10:58:08.052Z info: $OpenSafeById finished
+2026-02-20T10:58:11.436Z info: $GetBinSafe finished
+2026-02-20T11:00:13.776Z info: $GetBinSafe finished
+2026-02-20T11:51:07.530Z info: 12 operations registered
+2026-02-20T11:51:07.533Z info: 9 document classes
+2026-02-20T11:51:07.534Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-20T11:51:07.535Z info: Firestore connector
+2026-02-20T11:51:07.536Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-20T11:51:07.538Z info: 12 App operations registered
+2026-02-20T11:51:07.565Z info: Reloading orgs config OK
+2026-02-20T11:51:07.572Z info: HTTP listen [8080]
+2026-02-20T11:52:01.987Z info: $OpenSafeByPin finished
+2026-02-20T11:52:02.101Z info: $OpenSafeById finished
+2026-02-20T11:53:04.651Z info: SetSrvStatus : 2026-02-20T11:53:04.650Z
+2026-02-20T11:54:13.517Z info: SetSrvStatus finished
+2026-02-20T11:54:54.747Z info: $OpenSafeById finished
+2026-02-20T12:11:44.963Z info: $OpenSafeByPin finished
+2026-02-20T12:15:36.253Z info: $OpenSafeByPin finished
+2026-02-20T16:20:11.254Z info: $OpenSafeByPin finished
+2026-02-20T16:20:11.369Z info: $OpenSafeById finished

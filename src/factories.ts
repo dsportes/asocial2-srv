@@ -37,6 +37,7 @@ class AdminVerify extends Verify {
   constructor (auth: AuthRecord, token: AuthToken) { super(auth, token)}
 
   async check () : Promise<Object> {
+    if (!config.ADMINUSERS.has(this.auth.orguserId)) return null
     const pem = config.ADMINPEM
     const v = await this.auth.verify(pem, this.token)
     return v ? { status: true } : null
