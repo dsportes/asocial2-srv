@@ -148,6 +148,19 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     // TODO
   }
 
+  /* Retourne le triplet [status, pemC, pemV] d'un utilisateur
+  status: 0 : OK, 1 : KO (utilisateur inconnu)
+  pemC et pemV sont null si status n'est pas 0
+  */
+  async safeGetPubKeys (userId: string) : Promise<[number, string, string]> {
+    return null
+  }
+  
+  /* Enregistre les pemC et pemV d'un utilisateur
+  dans le row spécifique */
+  async safeSetPubKeys (userId: string, pemC: string, pemV: string) : Promise<void> {
+  }
+
   /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
   null si non trouvé
   */

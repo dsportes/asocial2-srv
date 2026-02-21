@@ -96,6 +96,38 @@ class $CreateSafe extends SafeOperation {
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 
+/* Pour le Safe GENERIQUE seulement */
+class $GetPubKeys extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId'] as string
+
+    const [status, pemC, pemV] = await this.db.safeGetPubKeys(userId)
+    this.setRes('status', status)
+    if (status === 0) {
+      this.setRes('pemC', pemC)
+      this.setRes('pemV', pemV)
+    }
+  }
+}
+SafeOperation.register('$GetPubKeys', () => { return new $GetPubKeys()})
+
+/* Pour le Safe GENERIQUE seulement */
+class $SetPubKeys extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId'] as string
+    const pemC = this.args['pemC'] as string
+    const pemV = this.args['pemV'] as string
+
+    const status = await this.db.safeSetPubKeys(userId, pemC, pemV)
+    this.setRes('status', status)
+  }
+}
+SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})
+
 /* Restauration d'un Safe
 */
 class $RestoreSafe extends SafeOperation {
@@ -509,7 +541,7 @@ class $StatusSafe extends SafeOperation {
 }
 SafeOperation.register('$StatusSafe', () => { return new $StatusSafe()})
 
-/* Obtention des clés publique d'un safe donné par:
+/* Obtention des clés publiques d'un safe donné par:
 - son id, son pseudo principal ou secondaire
 - res.crypt: clé de cryptage
 - res.verif: clé de vérification

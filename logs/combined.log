@@ -5984,3 +5984,43 @@ BEGIN
 2026-02-20T12:15:36.253Z info: $OpenSafeByPin finished
 2026-02-20T16:20:11.254Z info: $OpenSafeByPin finished
 2026-02-20T16:20:11.369Z info: $OpenSafeById finished
+2026-02-21T10:47:21.601Z info: 12 operations registered
+2026-02-21T10:47:21.604Z info: 9 document classes
+2026-02-21T10:47:21.607Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-21T10:47:21.610Z info: Firestore connector
+2026-02-21T10:47:21.612Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-21T10:47:21.613Z info: 12 App operations registered
+2026-02-21T10:47:21.661Z info: Reloading orgs config OK
+2026-02-21T10:47:21.669Z info: HTTP listen [8080]
+2026-02-21T10:48:44.883Z info: $OpenSafeByPin finished
+2026-02-21T10:48:45.072Z info: $OpenSafeById finished
+2026-02-21T10:48:50.011Z info: $GetBinSafe finished
+2026-02-21T10:50:25.456Z info: $OpenSafeByPin finished
+2026-02-21T10:50:49.153Z info: $OpenSafeByPR finished
+2026-02-21T10:51:07.901Z info: $TrustDevice terminated on exception
+2026-02-21T10:51:07.935Z error: AppExc: 3001:unexpected exception["database is locked"]
+2026-02-21T10:51:27.256Z info: $TrustDevice finished
+2026-02-21T11:28:19.918Z info: $OpenSafeByPin finished
+2026-02-21T11:28:20.111Z info: $OpenSafeById finished
+2026-02-21T11:28:25.112Z info: $GetBinSafe finished
+2026-02-21T14:42:43.946Z info: 12 operations registered
+2026-02-21T14:42:43.950Z info: 9 document classes
+2026-02-21T14:42:43.952Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-21T14:42:43.953Z info: Firestore connector
+2026-02-21T14:42:43.954Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-21T14:42:43.955Z info: 12 App operations registered
+2026-02-21T14:42:43.992Z info: Reloading orgs config OK
+2026-02-21T14:42:44.003Z info: HTTP listen [8080]
+2026-02-21T14:48:01.318Z info: $SetPubKeys terminated on exception
+2026-02-21T14:48:01.350Z error: AppExc: 3001:unexpected exception["table SAFE has no column named pemC"]
+2026-02-21T14:49:20.476Z info: 12 operations registered
+2026-02-21T14:49:20.479Z info: 9 document classes
+2026-02-21T14:49:20.481Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-21T14:49:20.482Z info: Firestore connector
+2026-02-21T14:49:20.483Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-21T14:49:20.484Z info: 12 App operations registered
+2026-02-21T14:49:20.504Z info: Reloading orgs config OK
+2026-02-21T14:49:20.511Z info: HTTP listen [8080]
+2026-02-21T14:49:40.364Z info: $SetPubKeys finished
+2026-02-21T14:49:45.058Z info: $CreateSafe finished
+2026-02-21T14:52:15.771Z info: $OpenSafeById finished

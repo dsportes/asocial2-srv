@@ -36,6 +36,12 @@ CREATE INDEX IF NOT EXISTS "SAFE_hp0" ON "SAFE" ( "hp0" );
 CREATE INDEX IF NOT EXISTS "SAFE_hr0" ON "SAFE" ( "hr0" );
 CREATE INDEX IF NOT EXISTS "SAFE_lam" ON "SAFE" ( "lam" );
 
+CREATE TABLE IF NOT EXISTS "SAFEPEMS" (
+  "id" TEXT,
+  "pemC" TEXT,
+  "pemV" TEXT,
+PRIMARY KEY(id));
+
 `
 
 const t3 = `\t"data" BLOB,
@@ -212,6 +218,28 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   /******************************************************************************
   * Gestion des safe  
   ******************************************************************************/
+
+  /* Retourne le triplet [status, pemC, pemV] d'un utilisateur
+  status: 0 : OK, 1 : KO (utilisateur inconnu)
+  pemC et pemV sont null si status n'est pas 0
+  */
+  async safeGetPubKeys (userId: string) : Promise<[number, string, string]> {
+    const stmt = this.sql.prepare('SELECT pemC, pemV FROM SAFEPEMS WHERE id = @id')
+    let row = stmt.get({id: userId})
+    if (!row) return [1, null, null]
+    return [0, row.pemC, row.pemV]
+  }
+  
+  /* Enregistre les pemC et pemV d'un utilisateur
+  dans le row spécifique */
+  async safeSetPubKeys (userId: string, pemC: string, pemV: string) : Promise<void> {
+    let stmt = this.sql.prepare('SELECT pemC, pemV FROM SAFEPEMS WHERE id = @id')
+    let row = stmt.get({id: userId})
+    if (!row) {
+      stmt = this.sql.prepare('INSERT INTO SAFEPEMS (id, pemC, pemV) VALUES (@id, @pemC, @pemV)')
+      stmt.run({ id: userId, pemC, pemV })
+    }
+  }
 
   async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
     let m = 0
