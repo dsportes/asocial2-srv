@@ -552,6 +552,7 @@ class $GetPublicKeys extends SafeOperation {
   async doTheJob () : Promise<void> {
     const id = this.args['id']
     const [m, safe] = await this.db.getSafe(id)
+    this.setRes('userId', safe.id)
     this.setRes('crypt', safe ? safe.C : null)
     this.setRes('verify', safe ? safe.V : null)
   }

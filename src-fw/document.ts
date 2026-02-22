@@ -3,7 +3,7 @@ import { row } from './iDbGeneric'
 import { config } from './config'
 import { encode } from '@msgpack/msgpack'
 import { Crypt } from './crypt'
-import { Operation } from './operation'
+import { Operation, CredObj } from './operation'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 

@@ -2,7 +2,7 @@ import { Document, DocStatus } from './document'
 import { Crypt } from './crypt'
 import { filter, IDbGeneric } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
-import { Operation, CredObj } from './operation'
+import { Operation, CredRequest, CredObj } from './operation'
 import { config } from './config'
 
 const encoder = new TextEncoder()
@@ -156,11 +156,31 @@ export type AuthToken = {
 }
 
 export type CredObj = {
-  orguserId: string
+  id: string // hash court de `[role, org, entid]`.
+  role: string // un des codes de rôle connu du service.
+  org: string // le code de l'organisation.
+  entid: string // identifiant d'une entité interprétable pour le service.
+  pemv: string // clé publique (PEM) de vérification de signature,
+  hpems: string // hash court de `pems`.
+  setterId: string // id de l'utilisateur ayant enregistré le credential
+  infou: Uint8Array
+  infos: Uint8Array
+  ctime: number
+  dtime: number
+  cond: Object
+}
+
+export type CredRequest = {
+  userId: string
   role: string
   entid: string
   hpems: string
   pemv: string
+  ctime: number
+  dtime: number
+  infou: Uint8Array
+  infos: Uint8Array
+  setterId: string
   cond: Object
 }
 */
@@ -168,30 +188,40 @@ export type CredObj = {
 export class Credential extends Document {
   static release = 0
 
-  orguserId: string
+  id: string
   role: string
+  org: string
   entid: string
-  hpems: string
   pemv: string
+  hpems: string
+  setterId: string
+  ctime: number
+  dtime: number
+  infou: Uint8Array
+  infos: Uint8Array
   cond: Object
 
   /* static newCredential (op: Operation, initVals: CredObj) : Credential {
     return op.cache.newDoc('Credential', initVals) as Credential
   } */
 
-  static async newManager (op: Operation, pemv: string, comment: string, hpems: string) {
+  static async newManager (op: Operation, cr: CredRequest) {
     const credObj: CredObj = {
-      orguserId: op.authRecord.orguserId,
+      org: cr.org,
+
       role: 'manager',
       entid: '',
-      hpems: hpems,
-      pemv: pemv,
-      cond: {
-        ctime: op.now,
-        dtime: 0,
-        comment: comment,
-        revoke: ''
-      }
+      ctime: Date.now(),
+      setterId: op.authRecord.userId,
+      cond: null,
+
+      id: cr.userId,
+      hpems: cr.hpems,
+      pemv: cr.pemv,
+      dtime: cr.dtime || 0,
+      infou: cr.infou || null,
+      infous: cr.infous || null,
+      infos: cr.infos || null
     }
     // enregistrement d'un nouveau Credential "manager"
     op.cache.newDoc('Credential', credObj) as Credential
@@ -206,7 +236,6 @@ export class Credential extends Document {
     const src = { orguserId: credobj.orguserId, role: 'manager', entid: '', hpems}
     const c = await op.cache.getDoc('Credential', src) as Credential
     c.cond['dtime'] = op.now
-    c.cond['revoke'] = revoke
     c._status = DocStatus.UPD
   }
 
@@ -217,12 +246,15 @@ export class Credential extends Document {
       async (data) => {
         const obj = decode(data) as CredObj
         const x = { 
-          orguserId: obj.orguserId, 
+          userId: obj.id,
           hpems: obj.hpems, 
-          ctime: obj.cond['ctime'], 
-          dtime: obj.cond['dtime'], 
-          comment: obj.cond['comment'],
-          revoke: obj.cond['revoke']
+          ctime: obj.ctime,
+          dtime: obj.dtime, 
+          infou: obj.infou,
+          infous: obj.infous,
+          infos: obj.infos,
+          setterId: obj.setterId,
+          cond: obj.cond || null
         }
         lst.push(x)
       })

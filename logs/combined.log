@@ -6024,3 +6024,49 @@ BEGIN
 2026-02-21T14:49:40.364Z info: $SetPubKeys finished
 2026-02-21T14:49:45.058Z info: $CreateSafe finished
 2026-02-21T14:52:15.771Z info: $OpenSafeById finished
+2026-02-22T16:40:23.857Z info: 12 operations registered
+2026-02-22T16:40:23.862Z info: 9 document classes
+2026-02-22T16:40:23.863Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-22T16:40:23.864Z info: Firestore connector
+2026-02-22T16:40:23.865Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-22T16:40:23.866Z info: 12 App operations registered
+2026-02-22T16:40:23.937Z info: Reloading orgs config OK
+2026-02-22T16:40:23.954Z info: HTTP listen [8080]
+2026-02-22T16:44:46.517Z info: $OpenSafeByPin finished
+2026-02-22T16:44:46.674Z info: $OpenSafeById finished
+2026-02-22T16:54:02.375Z info: $GetPublicKeys finished
+2026-02-22T16:57:53.534Z info: $GetPublicKeys finished
+2026-02-22T16:59:03.446Z info: $OpenSafeByPin finished
+2026-02-22T16:59:03.560Z info: $OpenSafeById finished
+2026-02-22T17:02:20.071Z info: $GetPublicKeys finished
+2026-02-22T17:03:19.608Z info: $GetPublicKeys finished
+2026-02-22T17:05:03.612Z info: $OpenSafeByPin finished
+2026-02-22T17:05:03.741Z info: $OpenSafeById finished
+2026-02-22T17:05:32.807Z info: $GetPublicKeys finished
+2026-02-22T17:07:27.651Z info: $GetPublicKeys finished
+2026-02-22T17:18:47.900Z info: $OpenSafeByPin finished
+2026-02-22T17:18:48.017Z info: $OpenSafeById finished
+2026-02-22T17:19:22.185Z info: $GetPublicKeys finished
+2026-02-22T17:21:41.246Z info: $GetPublicKeys finished
+2026-02-22T17:21:59.036Z info: $OpenSafeByPin finished
+2026-02-22T17:21:59.142Z info: $OpenSafeById finished
+2026-02-22T17:22:24.098Z info: $GetPublicKeys finished
+2026-02-22T17:24:15.285Z info: $GetPublicKeys finished
+2026-02-22T17:24:36.964Z info: $OpenSafeByPin finished
+2026-02-22T17:24:37.068Z info: $OpenSafeById finished
+2026-02-22T17:25:00.076Z info: $GetPublicKeys finished
+2026-02-22T17:26:20.594Z info: $GetPublicKeys finished
+2026-02-22T17:32:43.742Z info: $GetPublicKeys finished
+2026-02-22T17:37:04.724Z info: $GetPublicKeys finished
+2026-02-22T17:38:25.937Z info: $OpenSafeByPin finished
+2026-02-22T17:38:26.040Z info: $OpenSafeById finished
+2026-02-22T17:38:47.275Z info: $GetPublicKeys finished
+2026-02-22T17:41:25.646Z info: $OpenSafeByPin finished
+2026-02-22T17:41:25.751Z info: $OpenSafeById finished
+2026-02-22T17:41:53.482Z info: $GetPublicKeys finished
+2026-02-22T17:43:44.193Z info: $OpenSafeByPin finished
+2026-02-22T17:43:44.354Z info: $OpenSafeById finished
+2026-02-22T17:44:05.313Z info: $GetPublicKeys finished
+2026-02-22T17:51:55.566Z info: $OpenSafeByPin finished
+2026-02-22T17:51:55.695Z info: $OpenSafeById finished
+2026-02-22T17:52:29.581Z info: $GetPublicKeys finished

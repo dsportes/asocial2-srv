@@ -1,5 +1,5 @@
 import { encode, decode } from '@msgpack/msgpack'
-import { Operation, Cache, CredObj } from './operation'
+import { Operation, Cache, CredRequest } from './operation'
 import { AppExc, OrgsConfig } from './index'
 import { filter } from './iDbGeneric'
 import { Util } from './util'
@@ -322,18 +322,16 @@ Operation.register('Sync', () => { return new Sync()})
 class GrantNewManager extends Operation {
   constructor () { super() }
 
-  _comment: string 
-  _pemv: string 
+  _cr: CredRequest
 
   init () {
     super.init()
-    this._pemv = this.stringValue('pemv', true)
-    this._comment = this.stringValue('comment', true)
+    this._cr = this.args['credRequest']
   }
 
   async phase2 () {
     const token = this.authRecord.getToken('admin', '')
-    await Credential.newManager(this, this._pemv, this._comment, token.hpems)
+    await Credential.newManager(this, this.args['credRequest'])
   }
 
   phase3 : null

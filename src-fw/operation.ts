@@ -13,12 +13,38 @@ import { encode, decode } from '@msgpack/msgpack'
 
 const encoder = new TextEncoder()
 
-export type CredObj = {
-  orguserId: string
+export type CredRequest = {
+  userId: string
   role: string
+  org: string
   entid: string
   hpems: string
   pemv: string
+  ctime: number
+  dtime: number
+  infou: Uint8Array
+  infous: Uint8Array
+  infos: Uint8Array
+  setterId: string
+  cond: Object
+}
+
+/* Quand destiné à la construction d'un document Credential,
+- id et hpems ne sont pas utilisé mais reconstruit
+*/
+export type CredObj = {
+  id: string // hash court de `[role, org, entid]`.
+  role: string // un des codes de rôle connu du service.
+  org: string // le code de l'organisation.
+  entid: string // identifiant d'une entité interprétable pour le service.
+  pemv: string // clé publique (PEM) de vérification de signature,
+  hpems: string // hash court de `pems`.
+  setterId: string // id de l'utilisateur ayant enregistré le credential
+  infou: Uint8Array
+  infous: Uint8Array
+  infos: Uint8Array
+  ctime: number
+  dtime: number
   cond: Object
 }
 
@@ -315,19 +341,19 @@ export class AuthRecord {
   op: Operation
   org: string
   sessionId: string
-  orguserId: string
+  userId: string
   time: number // date-heure du authRecord dans l'application
   // Object par role / entid
   tokens: Object 
   
-  get challenge() { return encoder.encode(this.orguserId + '/' + this.time)}
+  get challenge() { return encoder.encode(this.userId + '/' + this.time)}
 
   constructor (op: Operation) {
     this.op = op
     this.op.authRecord = this
     const ar = op.args['authRecord']
     if (ar) {
-      this.orguserId = ar.orguserId || ''
+      this.userId = ar.userId || ''
       this.op.sessionId = ar.sessionId
       this.sessionId = ar.sessionId
       this.time = ar.time
