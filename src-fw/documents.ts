@@ -198,6 +198,7 @@ export class Credential extends Document {
   ctime: number
   dtime: number
   infou: Uint8Array
+  infous: Uint8Array
   infos: Uint8Array
   cond: Object
 

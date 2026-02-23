@@ -5,7 +5,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, Safe} from '../src-fw/iDbGeneric'
+  row, rowQ, updType, vdata, Safe, safeTable} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
@@ -24,23 +24,6 @@ const t1 = `CREATE TABLE IF NOT EXISTS "SINGLETONS" (
   "key" TEXT,
   "value" TEXT,
 PRIMARY KEY(key));
-
-CREATE TABLE IF NOT EXISTS "SAFE" (
-  "id" TEXT,
-  "hp0" TEXT,
-  "hr0" TEXT,
-  "lam" INTEGER,
-	"data" BLOB,
-PRIMARY KEY(id));
-CREATE INDEX IF NOT EXISTS "SAFE_hp0" ON "SAFE" ( "hp0" );
-CREATE INDEX IF NOT EXISTS "SAFE_hr0" ON "SAFE" ( "hr0" );
-CREATE INDEX IF NOT EXISTS "SAFE_lam" ON "SAFE" ( "lam" );
-
-CREATE TABLE IF NOT EXISTS "SAFEPEMS" (
-  "id" TEXT,
-  "pemC" TEXT,
-  "pemV" TEXT,
-PRIMARY KEY(id));
 
 `
 
@@ -219,26 +202,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   * Gestion des safe  
   ******************************************************************************/
 
-  /* Retourne le triplet [status, pemC, pemV] d'un utilisateur
-  status: 0 : OK, 1 : KO (utilisateur inconnu)
-  pemC et pemV sont null si status n'est pas 0
-  */
-  async safeGetPubKeys (userId: string) : Promise<[number, string, string]> {
-    const stmt = this.sql.prepare('SELECT pemC, pemV FROM SAFEPEMS WHERE id = @id')
-    let row = stmt.get({id: userId})
-    if (!row) return [1, null, null]
-    return [0, row.pemC, row.pemV]
+  async safeGet (st: safeTable, key: string) : Promise<string> {
+    const stmt = this.sql.prepare('SELECT value FROM ' + st + ' WHERE key = @key')
+    let row = stmt.get({ key })
+    return row ? row.value : ''
   }
-  
-  /* Enregistre les pemC et pemV d'un utilisateur
-  dans le row spécifique */
-  async safeSetPubKeys (userId: string, pemC: string, pemV: string) : Promise<void> {
-    let stmt = this.sql.prepare('SELECT pemC, pemV FROM SAFEPEMS WHERE id = @id')
-    let row = stmt.get({id: userId})
-    if (!row) {
-      stmt = this.sql.prepare('INSERT INTO SAFEPEMS (id, pemC, pemV) VALUES (@id, @pemC, @pemV)')
-      stmt.run({ id: userId, pemC, pemV })
-    }
+
+  async safeSet (st: safeTable, key: string, value: string) : Promise<void> {
+    const stmt = this.sql.prepare('INSERT INTO ' + st + ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value')
+    stmt.run({key, value})
   }
 
   async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
@@ -397,7 +369,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async setSingleton (key: string, value: string) : Promise<void> {
     const stmt = this.sql.prepare('INSERT INTO SINGLETONS (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value')
-    const res = stmt.run({key, value})
+    stmt.run({key, value})
   }
 
   /******************************************************************************

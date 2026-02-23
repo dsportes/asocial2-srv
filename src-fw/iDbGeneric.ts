@@ -2,6 +2,11 @@ import { DbConnector } from './dbConnector'
 import { Operation } from './operation'
 
 /* Interface des services d'accès génériques à la DB */
+export enum safeTable { 
+  PEMS = 'SAFEPEMS',
+  URLS = 'SAFEURLS',
+  ORGS = 'SAFEORGS'
+}
 
 export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
 
@@ -94,15 +99,8 @@ export interface IDbGeneric {
   getSingleton (key: string) : Promise<string>
   setSingleton (key: string, value: string) : Promise<void>
 
-  /* Retourne le triplet [status, pemC, pemV] d'un utilisateur
-  status: 0 : OK, 1 : KO (utilisateur inconnu)
-  pemC et pemV sont null si status n'est pas 0
-  */
-  safeGetPubKeys (userId: string) : Promise<[number, string, string]>
-  
-  /* Enregistre les pemC et pemV d'un utilisateur
-  dans le row spécifique */
-  safeSetPubKeys (userId: string, pemC: string, pemV: string) : Promise<void>
+  safeGet (st: safeTable, key: string) : Promise<string> 
+  safeSet (st: safeTable, key: string, value: string) : Promise<void> 
 
   /* Retourne [r, safe]. safe est l'objet safe depuis,
   - soit son id (r=0)

@@ -3,7 +3,7 @@ import { AppExc } from './index'
 import { config } from './config'
 import { Crypt, fromPem } from './crypt'
 import { Util } from './util'
-import { Safe } from './iDbGeneric'
+import { Safe, safeTable } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
 type Device = {
@@ -103,11 +103,16 @@ class $GetPubKeys extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
 
-    const [status, pemC, pemV] = await this.db.safeGetPubKeys(userId)
-    this.setRes('status', status)
+    const value = await this.db.safeGet(safeTable.PEMS, userId)
+    let obj = null
+    if (value) try {
+      obj = JSON.parse(value)
+    } catch (e) {}
+    const status = !obj || !obj[0] || !obj[1] ? 1 : 0 
+    this.setRes('status', status )
     if (status === 0) {
-      this.setRes('pemC', pemC)
-      this.setRes('pemV', pemV)
+      this.setRes('pemC', obj[0])
+      this.setRes('pemV', obj[1])
     }
   }
 }
@@ -121,9 +126,9 @@ class $SetPubKeys extends SafeOperation {
     const userId = this.args['userId'] as string
     const pemC = this.args['pemC'] as string
     const pemV = this.args['pemV'] as string
-
-    const status = await this.db.safeSetPubKeys(userId, pemC, pemV)
-    this.setRes('status', status)
+    const obj = [pemC, pemV]
+    const value = JSON.stringify(obj)
+    await this.db.safeSet(safeTable.PEMS, userId, value)
   }
 }
 SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})

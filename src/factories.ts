@@ -26,7 +26,7 @@ class Verify {
   }
 
   async getCred () : Promise<Credential> {
-    const src = { orguserId: this.auth.orguserId, role: this.token.role, entid: this.token.entid, hpems: this.token.hpems }
+    const src = { orguserId: this.auth.userId, role: this.token.role, entid: this.token.entid, hpems: this.token.hpems }
     return await this.op.cache.getDoc('Credential', src) as Credential
   }
 
@@ -37,7 +37,7 @@ class AdminVerify extends Verify {
   constructor (auth: AuthRecord, token: AuthToken) { super(auth, token)}
 
   async check () : Promise<Object> {
-    if (!config.ADMINUSERS.has(this.auth.orguserId)) return null
+    if (!config.ADMINUSERS.has(this.auth.userId)) return null
     const pem = config.ADMINPEM
     const v = await this.auth.verify(pem, this.token)
     return v ? { status: true } : null
