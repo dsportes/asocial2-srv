@@ -1,13 +1,15 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 /* Classe abstraite : implémentée par filesystem, s3, googlecloud */
+
 export class StorageGeneric { // Classe abstraite
 
   public credentials: Object
-  public srvUrl: string
+  public name: string
 
-  constructor (credentials: Object) {
-    this.credentials = credentials
+  constructor (name, keys) {
+    this.name = name
+    this.credentials = keys[name]
   }
 
   encode3 (id1: string, id2: string, id3: string) : string {
@@ -20,7 +22,4 @@ export class StorageGeneric { // Classe abstraite
     return decode(x)
   }
 
-  storageUrlGenerique (id1: string, id2: string, id3: string) {
-    return this.srvUrl ? this.srvUrl + '/file/' + this.encode3(id1, id2, id3) : ''
-  }
 }

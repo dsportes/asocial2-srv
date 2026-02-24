@@ -150,8 +150,8 @@ class GetPutUrl extends Operation {
 
   async phase2 () {
     const url = this._isPut ? 
-      this.storage.putUrl(this._id1, this._id2, this._id3)
-      : this.storage.getUrl(this._id1, this._id2, this._id3)
+      this.storage.putUrl(this, this._id1, this._id2, this._id3)
+      : this.storage.getUrl(this, this._id1, this._id2, this._id3)
     this.setRes('url', url)
   }
   phase3 : null

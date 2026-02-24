@@ -239,32 +239,6 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
       await doc.ref.delete()
   }
 
-  async getUrl (org: string) : Promise<string> {
-    const dr = this.fs.doc('Urls/' + org)
-    const ds = await dr.get()
-    return ds.exists ? ds.get('url') : '$'
-  }
-
-  async getSrvStatus () :  Promise<srvStatus> {
-    let st = 0
-    let at = 0
-    let txt = '(none)'
-    const dr = this.fs.doc('Status/1')
-    const ds = await dr.get()
-    if (ds.exists) {
-      st = ds.get('st')
-      at = ds.get('at')
-      txt = ds.get('txt')
-    }
-    return { now: this.op.now, st, at, txt }
-  }
-  
-  async setSrvStatus (st: number, txt: string) :  Promise<srvStatus> {
-    const dr = this.fs.doc('Status/1')
-    await dr.set({ st, at: this.op.now, txt})
-    return { now: this.op.now, st, at: this.op.now, txt}
-  }
-
   setUpd (type: updType, dr: DocumentReference, row: row | rowQ ) {
     this.updates.push({type, dr, row})
   }

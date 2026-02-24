@@ -16,6 +16,7 @@ import { Util } from './util'
 
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
+// import { StorageGeneric } from './storageGeneric'
 
 export function init () {
   new Log(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
@@ -118,22 +119,16 @@ export function getExpressApp (): express.Application {
     res.send(new Date().toISOString() + ' ' + config.BUILD + ' [' + config.APIVERSIONS[0] + '/' + config.APIVERSIONS[1] + ']')
   })
 
-  /*
-  app.get('/url/:org', async (req, res) => {
-    const u = await getUrl(req.params.org)
-    res.send(u)
-  })
-  */
-
-  app.get('/file/:arg', async (req, res) => {
-    const st = config.storages[0][1] // TODO
+  app.get('/file/:name/:arg', async (req, res) => {
+    const name = req.params.name
+    const st: IStGeneric = config.storages[name]
     if (!st) {
       res.status(404).send('File not found')
       return
     }
     try {
       const [id1, id2, id3] = st.decode3(req.params.arg)
-      const bytes = await st.getFile(id1, id2, id3)
+      const bytes = await st.getFile(null, id1, id2, id3)
       if (bytes) res.status(200).type('application/octet-stream').send(bytes)
       else res.status(404).send('File not found')
     } catch (e) {
@@ -141,8 +136,9 @@ export function getExpressApp (): express.Application {
     }
   })
 
-  app.put('/file/:arg', async (req, res) => {
-    const st = config.storages[0][1] // TODO
+  app.put('/file/:name/:arg', async (req, res) => {
+    const name = req.params.name
+    const st: IStGeneric = config.storages[name]
     if (!config.GCLOUDLOGGING) {
       res.status(404).send('File not uploaded')
       return
@@ -154,7 +150,7 @@ export function getExpressApp (): express.Application {
       }).on('end', async () => {
         const bytes = Buffer.concat(bufs)
         const [id1, id2, id3] = st.decode3(req.params.arg)
-        await st.putFile(id1, id2, id3, bytes)
+        await st.putFile(null, id1, id2, id3, bytes)
         res.status(200).send('OK')
       })
     } catch (e) {
@@ -315,7 +311,7 @@ export async function doOp (
     todayEpoch = Math.floor(now / 86400000)
     today = Util.amj(now)
   }
-
+  
   const opName = req.params.operation as string
 
   try {
@@ -337,6 +333,7 @@ export async function doOp (
     if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
     const op = f()
     op.opName = opName
+    op.baseUrl = req.protocol + '://' + req.host
     op.org = req.params.org
     if (!op.noDB) {
       if (!dbConnector) 
@@ -375,7 +372,7 @@ export async function adminAlert (
 
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
-  const s = '[' + config.srvUrl + '] '  
+  const s = '[' + op.baseUrl + '] '  
     + (op && op.org ? 'org:' + op.org + ' - ' : '') 
     + (op ? 'op:' + op.opName + ' - ' : '') 
     + subject

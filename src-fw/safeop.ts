@@ -214,6 +214,7 @@ class $GetSvcOrgUrl extends SafeOperation {
     if (obj) {
       const oper = obj[SVC]
       if (oper) {
+        this.setRes('$OP', oper)
         const obj = SafeCache.get(this, safeTable.URLS, SVC)
         if (obj) url = obj[oper] || ''
       } 

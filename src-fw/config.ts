@@ -23,9 +23,6 @@ export interface BaseConfig {
   https: boolean
   origins: Set<string> // new Set<string>(['http://localhost:8080']),
 
-  // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
-  srvUrl: string
-
   databases: Map<string, DbConnector>
   storages: Map<string, IStGeneric>
   safeDB: DbConnector,

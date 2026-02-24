@@ -9,21 +9,21 @@ import { Log } from '../src-fw/log'
 
 import { StorageGeneric } from '../src-fw/storageGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
+import { Operation } from '../src-fw/operation'
 
 /*********************************************************************/
 export class FilesystemStorage extends StorageGeneric implements IStGeneric {
   public rootpath: string
 
-  constructor (credentials: string) {
-    super(credentials)
-    this.rootpath = path.resolve(credentials['path'])
+  constructor (name, keys) {
+    super(name, keys)
+    this.rootpath = path.resolve(this.credentials['path'])
     if (!existsSync(this.rootpath))
       throw new AppExc(1030, 'FilesystemStorage path not found', null, [this.rootpath])
-    this.srvUrl = credentials['srvUrl']
     Log.info('FilesystemStorage - path:[' + this.rootpath) + ']'
   }
 
-  async ping () : Promise<[number, string]> {
+  async ping (op: Operation) : Promise<[number, string]> {
     try {
       const txt = new Date().toISOString()
       const data = Buffer.from(txt)
@@ -35,15 +35,15 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  getUrl (id1: string, id2: string, id3: string) { 
-    return this.storageUrlGenerique(id1, id2, id3) 
+  getUrl (op: Operation, id1: string, id2: string, id3: string) { 
+    return op.baseUrl + '/file/' + this.name + '/' + this.encode3(id1, id2, id3)
   }
 
-  putUrl (id1: string, id2: string, id3: string) {
-    return this.storageUrlGenerique(id1, id2, id3) 
+  putUrl (op: Operation, id1: string, id2: string, id3: string) {
+    return op.baseUrl + '/file/'  + this.name + '/' + this.encode3(id1, id2, id3)
   }
 
-  async getFile (id1: string, id2: string, id3:string) : Promise<Buffer>{
+  async getFile (op: Operation, id1: string, id2: string, id3:string) : Promise<Buffer>{
     try {
       const p = path.resolve(this.rootpath, id1, id2, id3)
       return await readFile(p)
@@ -53,7 +53,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async putFile (id1: string, id2: string, id3:string, data: Buffer) : Promise<void> {
+  async putFile (op: Operation, id1: string, id2: string, id3:string, data: Buffer) : Promise<void> {
     try {
       const dir = path.resolve(this.rootpath, id1, id2)
       if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
@@ -65,7 +65,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async delFiles (id1: string, id2: string, lidf: string[]) : Promise<void> {
+  async delFiles (op: Operation, id1: string, id2: string, lidf: string[]) : Promise<void> {
     if (!lidf || !lidf.length) return
     try {
       const dir = path.resolve(this.rootpath, id1, id2)
@@ -84,7 +84,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async delId (id1: string, id2: string) : Promise<void> {
+  async delId (op: Operation, id1: string, id2: string) : Promise<void> {
     try {
       const dir = path.resolve(this.rootpath, id1, id2)
       if (existsSync(dir)) {
@@ -96,7 +96,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async delOrg (id1: string) : Promise<void>  {
+  async delOrg (op: Operation, id1: string) : Promise<void>  {
     try {
       const dir = path.resolve(this.rootpath, id1)
       if (existsSync(dir)) {
@@ -108,7 +108,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async listFiles (id1: string, id2: string) : Promise<string[]> {
+  async listFiles (op: Operation, id1: string, id2: string) : Promise<string[]> {
     try {
       const lst = []
       const dir = path.resolve(this.rootpath, id1, id2)
@@ -125,7 +125,7 @@ export class FilesystemStorage extends StorageGeneric implements IStGeneric {
     }
   }
 
-  async listIds (id1: string) : Promise<string[]> {
+  async listIds (op: Operation, id1: string) : Promise<string[]> {
     try {
       const lst = []
       const dir = path.resolve(this.rootpath, id1)

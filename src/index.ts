@@ -75,9 +75,6 @@ setConfig(
   https: false,
   origins: new Set<string>(/*['http://localhost:8080']*/),
 
-  // Informatif ET uitlisé par storage: File-System et GC en mode EMULATOR
-  srvUrl: 'http://localhost:8080',
-
   databases: new Map<string, DbConnector>(),
   storages: new Map<string, IStGeneric>(),
   safeDB: null,
@@ -106,7 +103,7 @@ config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'],
 config.safeDB = config.databases.get('sqlite_a')
 config.orgsDB = config.databases.get('sqlite_a')
 
-config.storages.set('storage_a', new FilesystemStorage(keys['storage_a']))
+config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))
 // config.storages.set('storage_b', new FilesystemStorage(keys['storage_b']))
 
 const nbOp = register()

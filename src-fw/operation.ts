@@ -104,6 +104,7 @@ export class Operation {
   }
 
   public opName: string
+  public baseUrl: string
   public noDB: boolean
   public org: string
   public result: any
