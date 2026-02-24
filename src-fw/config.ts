@@ -26,7 +26,7 @@ export interface BaseConfig {
   databases: Map<string, DbConnector>
   storages: Map<string, IStGeneric>
   safeDB: DbConnector,
-  orgsDB: DbConnector,
+  svcDB: DbConnector,
   dbConnectors: Object
   factory: Function
   documentClasses: Object

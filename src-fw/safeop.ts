@@ -197,7 +197,7 @@ class $GetSvcOpUrl extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const SVC = this.args['SVC'] as string
     const $OP = this.args['$OP'] as string
-    const obj = SafeCache.get(this, safeTable.URLS, SVC)
+    const obj = await SafeCache.get(this, safeTable.URLS, SVC)
     this.setRes('url', obj ? (obj[$OP] || '') : '')
   }
 }

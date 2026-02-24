@@ -6070,3 +6070,46 @@ BEGIN
 2026-02-22T17:51:55.566Z info: $OpenSafeByPin finished
 2026-02-22T17:51:55.695Z info: $OpenSafeById finished
 2026-02-22T17:52:29.581Z info: $GetPublicKeys finished
+2026-02-24T17:28:13.061Z info: 12 operations registered
+2026-02-24T17:28:13.065Z info: 9 document classes
+2026-02-24T17:28:13.066Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-24T17:28:13.067Z info: Firestore connector
+2026-02-24T17:28:13.068Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-24T17:28:13.069Z info: 12 App operations registered
+2026-02-24T17:28:13.119Z info: Reloading orgs config OK
+2026-02-24T17:28:13.130Z info: HTTP listen [8080]
+2026-02-24T17:53:35.416Z info: AppExc: 1002:unknown operation["$$GetSvcOpUrl"]
+2026-02-24T17:53:35.417Z info: $$GetSvcOpUrl terminated on exception
+2026-02-24T17:55:01.456Z info: AppExc: 1002:unknown operation["$$GetSvcOpUrl"]
+2026-02-24T17:55:01.459Z info: $$GetSvcOpUrl terminated on exception
+2026-02-24T18:07:53.272Z info: 12 operations registered
+2026-02-24T18:07:53.275Z info: 9 document classes
+2026-02-24T18:07:53.276Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-24T18:07:53.277Z info: Firestore connector
+2026-02-24T18:07:53.279Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-24T18:07:53.280Z info: 12 App operations registered
+2026-02-24T18:07:53.297Z info: Reloading orgs config OK
+2026-02-24T18:07:53.305Z info: HTTP listen [8080]
+2026-02-24T18:12:46.318Z info: $GetSvcOpUrl finished
+2026-02-24T18:25:09.883Z info: $GetSvcOpUrl finished
+2026-02-24T18:39:59.911Z info: 12 operations registered
+2026-02-24T18:39:59.914Z info: 9 document classes
+2026-02-24T18:39:59.915Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-24T18:39:59.916Z info: Firestore connector
+2026-02-24T18:39:59.917Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-24T18:39:59.917Z info: 12 App operations registered
+2026-02-24T18:39:59.931Z info: Reloading orgs config OK
+2026-02-24T18:39:59.937Z info: HTTP listen [8080]
+2026-02-24T18:42:41.667Z info: $GetSvcOpUrl finished
+2026-02-24T18:46:52.169Z info: GetSvcOpStatus terminated on exception
+2026-02-24T18:46:52.183Z error: AppExc: 3001:unexpected exception["Offset is outside the bounds of the DataView"]
+2026-02-24T18:46:52.195Z info: Reloading orgs config OK
+2026-02-24T18:48:07.360Z info: $GetSvcOpUrl finished
+2026-02-24T18:49:34.844Z info: GetSvcOpStatus : 2026-02-24T18:48:36.330Z
+2026-02-24T18:50:36.646Z info: GetSvcOpStatus finished
+2026-02-24T18:53:16.402Z info: GetSvcOpStatus : 2026-02-24T18:53:16.402Z
+2026-02-24T18:53:16.412Z info: GetSvcOpStatus finished
+2026-02-24T18:53:16.459Z info: Reloading orgs config OK
+2026-02-24T19:05:11.345Z info: GetSvcOpStatus : 2026-02-24T19:05:11.344Z
+2026-02-24T19:05:11.352Z info: GetSvcOpStatus finished
+2026-02-24T19:05:11.401Z info: Reloading orgs config OK

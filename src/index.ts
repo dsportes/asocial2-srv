@@ -78,7 +78,7 @@ setConfig(
   databases: new Map<string, DbConnector>(),
   storages: new Map<string, IStGeneric>(),
   safeDB: null,
-  orgsDB: null,
+  svcDB: null,
   dbConnectors: {
     sqlite: AppSQLiteConnector,
     firestore: AppFirestoreConnector,
@@ -101,7 +101,7 @@ config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['
 config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
 
 config.safeDB = config.databases.get('sqlite_a')
-config.orgsDB = config.databases.get('sqlite_a')
+config.svcDB = config.databases.get('sqlite_a')
 
 config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))
 // config.storages.set('storage_b', new FilesystemStorage(keys['storage_b']))

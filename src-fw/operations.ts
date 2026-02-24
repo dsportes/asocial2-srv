@@ -46,7 +46,7 @@ Operation.register('EchoText', () => { return new EchoText()})
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
-class GetSrvStatus extends Operation {
+class GetSvcOpStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
@@ -56,7 +56,7 @@ class GetSrvStatus extends Operation {
 
   phase3 : null
 }
-Operation.register('GetSrvStatus', () => { return new GetSrvStatus()})
+Operation.register('GetSvcOpStatus', () => { return new GetSvcOpStatus()})
 
 /* SetSrvStatus fixe le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP

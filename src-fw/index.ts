@@ -53,7 +53,7 @@ export class OrgsConfig {
       oc.orgs = new Map<string, [string, string]>()
       oc.dbs = new Map<string, Set<string>>()
       oc.storages = new Map<string, Set<string>>()
-      const dbConnector = config.orgsDB
+      const dbConnector = config.svcDB
       await dbConnector.getConnexion(op)
       const val = await op.db.getSingleton('orgs') as string
       const x = JSON.parse(val)
@@ -183,8 +183,14 @@ export function getExpressApp (): express.Application {
 
   //**** appels des opérations ****
   app.use('/op/:org/:operation', async (req, res) => {
-    const storage = OrgsConfig.getStorage(req.params.org)
-    const dbConnector = OrgsConfig.getDbConnector(req.params.org)
+    const org = req.params.org
+    let storage, dbConnector
+    if (org.startsWith('$')) {
+      dbConnector = config.svcDB
+    } else {
+      storage = OrgsConfig.getStorage(req.params.org)
+      dbConnector = OrgsConfig.getDbConnector(req.params.org)
+    }
 
     if (!req['rawBody']) {
       let chunks = [];
