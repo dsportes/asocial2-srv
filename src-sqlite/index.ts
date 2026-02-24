@@ -202,15 +202,19 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   * Gestion des safe  
   ******************************************************************************/
 
-  async safeGet (st: safeTable, key: string) : Promise<string> {
-    const stmt = this.sql.prepare('SELECT value FROM ' + st + ' WHERE key = @key')
-    let row = stmt.get({ key })
-    return row ? row.value : ''
+  async safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> {
+    const stmt = this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key' +
+      (st !== safeTable.PEMS ? ' AND v > @v;' : ';')
+    )
+    let row = stmt.get({ key, v })
+    return row ? [row.v, row.value] : null
   }
 
-  async safeSet (st: safeTable, key: string, value: string) : Promise<void> {
-    const stmt = this.sql.prepare('INSERT INTO ' + st + ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value')
-    stmt.run({key, value})
+  async safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> {
+    const stmt = st === safeTable.PEMS ?
+      this.sql.prepare('INSERT INTO ' + st + ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
+    : this.sql.prepare('INSERT INTO ' + st + ' (key, value, v) VALUES (@key, @value, @v) ON CONFLICT (key) DO UPDATE SET value = excluded.value, v = excluded.c;')
+      stmt.run({key, v, value})
   }
 
   async getBinSafe (id: string) : Promise<[number, Uint8Array]> {

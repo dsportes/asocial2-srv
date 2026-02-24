@@ -16,10 +16,12 @@ PRIMARY KEY(key));
 
 CREATE TABLE IF NOT EXISTS "SAFEURLS" (
   "key" TEXT,
+  "v" INTEGER,
 	"value" TEXT,
 PRIMARY KEY(key));
 
 CREATE TABLE IF NOT EXISTS "SAFEORGS" (
   "key" TEXT,
+  "v" INTEGER,
 	"value" TEXT,
 PRIMARY KEY(key));

@@ -99,8 +99,8 @@ export interface IDbGeneric {
   getSingleton (key: string) : Promise<string>
   setSingleton (key: string, value: string) : Promise<void>
 
-  safeGet (st: safeTable, key: string) : Promise<string> 
-  safeSet (st: safeTable, key: string, value: string) : Promise<void> 
+  safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> 
+  safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> 
 
   /* Retourne [r, safe]. safe est l'objet safe depuis,
   - soit son id (r=0)

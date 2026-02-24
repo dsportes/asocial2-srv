@@ -14,6 +14,64 @@ type Device = {
   nbe: number
 }
 
+/****************************************************** 
+ * Pour le Safe GENERIQUE seulement 
+*******************************************************/
+type Dobj = {
+  at: number,
+  v: number,
+  val: Object | [string, string]
+}
+
+class SafeCache {
+  static pems : Map<string, Dobj> = new Map()
+  static urls : Map<string, Dobj> = new Map()
+  static orgs : Map<string, Dobj> = new Map()
+  static maxLife = 3 * 60
+
+  static async get(op: Operation, st: safeTable, id: string)
+    : Promise<Object | [string, string]> {
+
+    const now = Math.floor(Date.now() / 1000)
+    let e: Dobj
+    switch (st) {
+      case safeTable.PEMS : { e = SafeCache.pems.get(id); break }
+      case safeTable.URLS : { e = SafeCache.urls.get(id); break }
+      case safeTable.ORGS : { e = SafeCache.orgs.get(id); break }
+    }
+    if (!e || e.at < now - SafeCache.maxLife) { // pas trouvé en cache ou trop vieux
+      const x = await op.db.safeGet(st, id, 0)
+      if (!x) {
+        e = { at: now, v: 0, val: null}
+      } else {
+        let y = null
+        try { y = JSON.parse(x[1]) } catch(e) {}
+        e = { at: now, v: y ? x[0] : 0, val: y }
+      }
+      switch (st) {
+        case safeTable.PEMS : { SafeCache.pems.set(id, e); break }
+        case safeTable.URLS : { SafeCache.urls.set(id, e); break }
+        case safeTable.ORGS : { SafeCache.orgs.set(id, e); break }
+      }
+    }
+    return e.val
+  }
+
+  static async set(op: Operation, st: safeTable, id: string, val: Object | [string, string])
+    : Promise<void> {
+
+    const now = Math.floor(Date.now() / 1000)
+    const e = { at: now, v: now, val }
+    const value: string = JSON.stringify(val)
+    await op.db.safeSet(st, id, now, value)
+    switch (st) {
+      case safeTable.PEMS : { SafeCache.pems.set(id, e); break }
+      case safeTable.URLS : { SafeCache.urls.set(id, e); break }
+      case safeTable.ORGS : { SafeCache.orgs.set(id, e); break }
+    }    
+  }
+}
+
 /* Appel direct d'une opération: 
   const result = await SafeOperation.doOp(opName, args)
 */
@@ -96,18 +154,15 @@ class $CreateSafe extends SafeOperation {
 }
 SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 
-/* Pour le Safe GENERIQUE seulement */
+/****************************************************** 
+ * Pour le Safe GENERIQUE seulement 
+*******************************************************/
 class $GetPubKeys extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
-
-    const value = await this.db.safeGet(safeTable.PEMS, userId)
-    let obj = null
-    if (value) try {
-      obj = JSON.parse(value)
-    } catch (e) {}
+    const obj = SafeCache.get(this, safeTable.PEMS, userId)
     const status = !obj || !obj[0] || !obj[1] ? 1 : 0 
     this.setRes('status', status )
     if (status === 0) {
@@ -118,7 +173,9 @@ class $GetPubKeys extends SafeOperation {
 }
 SafeOperation.register('$GetPubKeys', () => { return new $GetPubKeys()})
 
-/* Pour le Safe GENERIQUE seulement */
+/****************************************************** 
+ * Pour le Safe GENERIQUE seulement 
+*******************************************************/
 class $SetPubKeys extends SafeOperation {
   constructor () { super() }
 
@@ -126,12 +183,66 @@ class $SetPubKeys extends SafeOperation {
     const userId = this.args['userId'] as string
     const pemC = this.args['pemC'] as string
     const pemV = this.args['pemV'] as string
-    const obj = [pemC, pemV]
-    const value = JSON.stringify(obj)
-    await this.db.safeSet(safeTable.PEMS, userId, value)
+    await SafeCache.set(this, safeTable.PEMS, userId, [pemC, pemV])
   }
 }
 SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})
+
+/****************************************************** 
+ * Pour le Safe GENERIQUE seulement 
+*******************************************************/
+class $GetSvcOpUrl extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const SVC = this.args['SVC'] as string
+    const $OP = this.args['$OP'] as string
+    const obj = SafeCache.get(this, safeTable.URLS, SVC)
+    this.setRes('url', obj ? (obj[$OP] || '') : '')
+  }
+}
+SafeOperation.register('$GetSvcOpUrl', () => { return new $GetSvcOpUrl()})
+
+class $GetSvcOrgUrl extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const SVC = this.args['SVC'] as string
+    const org = this.args['org'] as string
+    const obj = SafeCache.get(this, safeTable.ORGS, org)
+    let url: string = ''
+    if (obj) {
+      const oper = obj[SVC]
+      if (oper) {
+        const obj = SafeCache.get(this, safeTable.URLS, SVC)
+        if (obj) url = obj[oper] || ''
+      } 
+    }
+    this.setRes('url', url)
+  }
+}
+SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
+
+class $SetOrgSvcOp extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const SVC = this.args['SVC'] as string
+    const org = this.args['org'] as string
+    const $OP = this.args['$OP'] as string
+    const obj = SafeCache.get(this, safeTable.URLS, SVC)
+    if (!obj || !obj[$OP]) {
+      this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
+      return
+    }
+    let obj2: Object = SafeCache.get(this, safeTable.ORGS, org) as Object
+    if (!obj2) obj2 = { }
+    obj2[SVC] = $OP
+    SafeCache.set(this, safeTable.ORGS, org, obj2)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
 
 /* Restauration d'un Safe
 */

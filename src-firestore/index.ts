@@ -1,21 +1,19 @@
 
 import { FieldPath, DocumentReference, Firestore, Query, QuerySnapshot, 
-  Timestamp, Transaction, WhereFilterOp, OrderByDirection } from '@google-cloud/firestore'
+  Timestamp, WhereFilterOp, OrderByDirection } from '@google-cloud/firestore'
 
 import { writeFileSync } from 'node:fs'
 import path from 'path'
 
-import { encode, decode } from '@msgpack/msgpack'
+import { encode } from '@msgpack/msgpack'
 import { DocType } from '../src-fw/doctypes'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
-  expList, expListQ, updType, vdata, Safe } from '../src-fw/iDbGeneric'
+  expList, expListQ, updType, vdata, Safe, safeTable } from '../src-fw/iDbGeneric'
 import { config } from '../src-fw/config'
-import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
 import { Crypt } from '../src-fw/crypt'
-import { Util } from '../src-fw/util'
 
 const schemaPath = './emulators/firestore.indexes.json'
 
@@ -148,17 +146,12 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     // TODO
   }
 
-  /* Retourne le triplet [status, pemC, pemV] d'un utilisateur
-  status: 0 : OK, 1 : KO (utilisateur inconnu)
-  pemC et pemV sont null si status n'est pas 0
-  */
-  async safeGetPubKeys (userId: string) : Promise<[number, string, string]> {
-    return null
+  async safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> {
+    return null // TODO
   }
-  
-  /* Enregistre les pemC et pemV d'un utilisateur
-  dans le row spécifique */
-  async safeSetPubKeys (userId: string, pemC: string, pemV: string) : Promise<void> {
+
+  async safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> {
+    // TODO
   }
 
   /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
