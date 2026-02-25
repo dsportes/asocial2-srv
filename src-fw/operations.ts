@@ -68,8 +68,9 @@ class GetSvcOrgStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
-    const orgDoc = await this.cache.getOrg()
-    this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
+    // const orgDoc = await this.cache.getOrg()
+    // this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
+    this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
   }
 
   phase3 : null

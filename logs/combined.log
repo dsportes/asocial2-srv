@@ -6256,3 +6256,35 @@ BEGIN
 2026-02-25T14:11:45.068Z error: GetSvcOrgStatus : 2026-02-25T14:11:19.737Z : TypeError: Cannot read properties of undefined (reading 'row')
 2026-02-25T14:11:45.070Z info: GetSvcOrgStatus terminated on exception
 2026-02-25T14:11:45.070Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-25T16:11:42.578Z info: 12 operations registered
+2026-02-25T16:11:42.581Z info: 9 document classes
+2026-02-25T16:11:42.582Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T16:11:42.583Z info: Firestore connector
+2026-02-25T16:11:42.583Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T16:11:42.584Z info: 12 App operations registered
+2026-02-25T16:11:42.597Z info: Reloading orgs config OK
+2026-02-25T16:11:42.605Z info: HTTP listen [8080]
+2026-02-25T16:12:32.832Z info: $GetSvcOpUrl finished
+2026-02-25T16:12:32.854Z info: GetSvcOpStatus : 2026-02-25T16:12:32.853Z
+2026-02-25T16:12:32.859Z info: GetSvcOpStatus finished
+2026-02-25T16:12:46.014Z info: GetSvcOpStatus : 2026-02-25T16:12:46.013Z
+2026-02-25T16:12:46.017Z info: GetSvcOpStatus finished
+2026-02-25T16:12:46.045Z info: $GetSvcOrgUrl finished
+2026-02-25T16:12:46.083Z info: GetSvcOrgStatus : 2026-02-25T16:12:46.083Z
+2026-02-25T16:12:46.088Z info: GetSvcOrgStatus finished
+2026-02-25T16:15:48.775Z info: $OpenSafeByPin finished
+2026-02-25T16:16:47.992Z info: $OpenSafeByPR finished
+2026-02-25T16:19:08.759Z info: $OpenSafeById finished
+2026-02-25T16:20:04.927Z info: $TrustDevice finished
+2026-02-25T16:20:38.476Z info: $OpenSafeByPin finished
+2026-02-25T16:20:38.534Z info: $OpenSafeById finished
+2026-02-25T16:31:22.837Z info: $UpdateCreds finished
+2026-02-25T16:32:26.321Z info: $GetBinSafe finished
+2026-02-25T17:21:06.384Z info: $OpenSafeByPin finished
+2026-02-25T17:21:06.439Z info: $OpenSafeById finished
+2026-02-25T17:22:19.443Z info: $OpenSafeByPin finished
+2026-02-25T17:22:19.510Z info: $OpenSafeById finished
+2026-02-25T17:25:57.043Z info: $OpenSafeByPin finished
+2026-02-25T17:25:57.148Z info: $OpenSafeById finished
+2026-02-25T17:28:36.876Z info: $OpenSafeByPin finished
+2026-02-25T17:28:36.955Z info: $OpenSafeById finished
