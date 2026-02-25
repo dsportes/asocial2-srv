@@ -209,17 +209,15 @@ class $GetSvcOrgUrl extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const SVC = this.args['SVC'] as string
     const org = this.args['org'] as string
-    const obj = SafeCache.get(this, safeTable.ORGS, org)
+    const obj = await SafeCache.get(this, safeTable.ORGS, org)
     let url: string = ''
-    if (obj) {
-      const oper = obj[SVC]
-      if (oper) {
-        this.setRes('$OP', oper)
-        const obj = SafeCache.get(this, safeTable.URLS, SVC)
-        if (obj) url = obj[oper] || ''
-      } 
-    }
-    this.setRes('url', url)
+    let $OP: string = ''
+    if (obj && obj[SVC]) {
+      $OP = obj[SVC]
+      const obj2 = await SafeCache.get(this, safeTable.URLS, SVC)
+      if (obj2) url = obj2[$OP] || ''
+    } 
+    this.setRes('urlOp', [url, $OP])
   }
 }
 SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})

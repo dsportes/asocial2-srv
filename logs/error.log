@@ -126,3 +126,9 @@ BEGIN
 2026-02-21T10:51:07.935Z error: AppExc: 3001:unexpected exception["database is locked"]
 2026-02-21T14:48:01.350Z error: AppExc: 3001:unexpected exception["table SAFE has no column named pemC"]
 2026-02-24T18:46:52.183Z error: AppExc: 3001:unexpected exception["Offset is outside the bounds of the DataView"]
+2026-02-25T14:09:39.606Z error: GetSvcOrgStatus : 2026-02-25T14:09:39.596Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:09:39.633Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-25T14:10:19.812Z error: GetSvcOrgStatus : 2026-02-25T14:10:19.806Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:10:19.823Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-25T14:11:45.068Z error: GetSvcOrgStatus : 2026-02-25T14:11:19.737Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:11:45.070Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]

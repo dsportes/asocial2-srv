@@ -17,7 +17,7 @@ export function register () {
   return Operation.nbOf()
 }
 
-// EchoText retourne le texte passé en argument (un peu modifié)
+/* EchoText retourne le texte passé en argument (un peu modifié)
 class EchoText extends Operation {
   constructor () { super(); this.noDB = true }
 
@@ -40,9 +40,10 @@ class EchoText extends Operation {
 
 }
 Operation.register('EchoText', () => { return new EchoText()})
+*/
 
-/* GetSrvStatus retourne le status du service: { st, at, txt }
-  st: code 0: DOWN, 1: UP
+/* GetSvcOpStatus retourne le status du service: { st, at, txt }
+  st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
@@ -50,13 +51,30 @@ class GetSvcOpStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
-    const srvStatus = await Cache.getSrvStatus(this)
-    this.setRes('srvStatus', srvStatus)
+    const svcStatus = await Cache.getSrvStatus(this)
+    this.setRes('svcStatus', svcStatus)
   }
 
   phase3 : null
 }
 Operation.register('GetSvcOpStatus', () => { return new GetSvcOpStatus()})
+
+/* GetSvcOrgStatus retourne le status du service: { st, at, txt }
+  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+*/
+class GetSvcOrgStatus extends Operation {
+  constructor () { super() }
+
+  async phase2 () {
+    const orgDoc = await this.cache.getOrg()
+    this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
+  }
+
+  phase3 : null
+}
+Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
 
 /* SetSrvStatus fixe le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP

@@ -6113,3 +6113,146 @@ BEGIN
 2026-02-24T19:05:11.345Z info: GetSvcOpStatus : 2026-02-24T19:05:11.344Z
 2026-02-24T19:05:11.352Z info: GetSvcOpStatus finished
 2026-02-24T19:05:11.401Z info: Reloading orgs config OK
+2026-02-25T11:36:33.685Z info: 12 operations registered
+2026-02-25T11:36:33.688Z info: 9 document classes
+2026-02-25T11:36:33.689Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T11:36:33.689Z info: Firestore connector
+2026-02-25T11:36:33.690Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T11:36:33.690Z info: 12 App operations registered
+2026-02-25T11:36:33.797Z info: Reloading orgs config OK
+2026-02-25T11:36:33.804Z info: HTTP listen [8080]
+2026-02-25T11:48:45.718Z info: $GetSvcOrgUrl finished
+2026-02-25T11:50:22.941Z info: $GetSvcOrgUrl finished
+2026-02-25T11:51:36.609Z info: $GetSvcOrgUrl finished
+2026-02-25T11:56:44.362Z info: $GetSvcOrgUrl finished
+2026-02-25T12:02:25.730Z info: $GetSvcOpUrl finished
+2026-02-25T12:02:35.160Z info: GetSvcOpStatus : 2026-02-25T12:02:35.159Z
+2026-02-25T12:02:40.241Z info: GetSvcOpStatus finished
+2026-02-25T12:02:40.247Z info: Reloading orgs config OK
+2026-02-25T12:10:45.294Z info: $GetSvcOpUrl finished
+2026-02-25T12:10:45.320Z info: GetSvcOpStatus : 2026-02-25T12:10:45.320Z
+2026-02-25T12:10:45.325Z info: GetSvcOpStatus finished
+2026-02-25T12:10:45.379Z info: Reloading orgs config OK
+2026-02-25T12:10:52.414Z info: $GetSvcOpUrl finished
+2026-02-25T12:13:05.257Z info: $GetSvcOpUrl finished
+2026-02-25T12:21:12.456Z info: 11 operations registered
+2026-02-25T12:21:12.459Z info: 9 document classes
+2026-02-25T12:21:12.460Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T12:21:12.460Z info: Firestore connector
+2026-02-25T12:21:12.461Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T12:21:12.462Z info: 11 App operations registered
+2026-02-25T12:21:12.476Z info: Reloading orgs config OK
+2026-02-25T12:21:12.484Z info: HTTP listen [8080]
+2026-02-25T12:40:19.594Z info: 11 operations registered
+2026-02-25T12:40:19.597Z info: 9 document classes
+2026-02-25T12:40:19.598Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T12:40:19.598Z info: Firestore connector
+2026-02-25T12:40:19.599Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T12:40:19.599Z info: 11 App operations registered
+2026-02-25T12:40:19.775Z info: Reloading orgs config OK
+2026-02-25T12:40:19.780Z info: HTTP listen [8080]
+2026-02-25T12:42:02.751Z info: $GetSvcOpUrl finished
+2026-02-25T12:44:19.604Z info: $GetSvcOpUrl finished
+2026-02-25T12:44:29.966Z info: $GetSvcOpUrl finished
+2026-02-25T12:44:37.704Z info: $GetSvcOpUrl finished
+2026-02-25T12:44:37.730Z info: GetSvcOpStatus : 2026-02-25T12:44:37.729Z
+2026-02-25T12:44:37.735Z info: GetSvcOpStatus finished
+2026-02-25T13:21:16.699Z info: 12 operations registered
+2026-02-25T13:21:16.702Z info: 9 document classes
+2026-02-25T13:21:16.703Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T13:21:16.704Z info: Firestore connector
+2026-02-25T13:21:16.704Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T13:21:16.705Z info: 12 App operations registered
+2026-02-25T13:21:16.717Z info: Reloading orgs config OK
+2026-02-25T13:21:16.724Z info: HTTP listen [8080]
+2026-02-25T13:32:48.660Z info: $GetSvcOpUrl finished
+2026-02-25T13:32:48.676Z info: GetSvcOpStatus : 2026-02-25T13:32:48.675Z
+2026-02-25T13:32:48.683Z info: GetSvcOpStatus finished
+2026-02-25T13:32:48.733Z info: Reloading orgs config OK
+2026-02-25T13:34:11.212Z info: GetSvcOpStatus : 2026-02-25T13:34:11.212Z
+2026-02-25T13:34:38.958Z info: GetSvcOpStatus finished
+2026-02-25T13:38:46.504Z info: $GetSvcOpUrl finished
+2026-02-25T13:38:46.523Z info: GetSvcOpStatus : 2026-02-25T13:38:46.523Z
+2026-02-25T13:38:53.630Z info: GetSvcOpStatus finished
+2026-02-25T13:38:53.635Z info: Reloading orgs config OK
+2026-02-25T13:40:16.453Z info: $GetSvcOpUrl finished
+2026-02-25T13:40:16.478Z info: GetSvcOpStatus : 2026-02-25T13:40:16.477Z
+2026-02-25T13:40:16.497Z info: GetSvcOpStatus finished
+2026-02-25T13:40:44.325Z info: GetSvcOpStatus : 2026-02-25T13:40:44.325Z
+2026-02-25T13:40:44.329Z info: GetSvcOpStatus finished
+2026-02-25T13:41:53.297Z info: GetSvcOpStatus : 2026-02-25T13:41:53.297Z
+2026-02-25T13:41:53.301Z info: GetSvcOpStatus finished
+2026-02-25T13:49:29.222Z info: $GetSvcOpUrl finished
+2026-02-25T13:49:29.237Z info: GetSvcOpStatus : 2026-02-25T13:49:29.237Z
+2026-02-25T13:49:29.243Z info: GetSvcOpStatus finished
+2026-02-25T13:49:29.300Z info: Reloading orgs config OK
+2026-02-25T13:49:38.709Z info: GetSvcOpStatus : 2026-02-25T13:49:38.709Z
+2026-02-25T13:49:38.714Z info: GetSvcOpStatus finished
+2026-02-25T13:49:47.220Z info: $GetSvcOrgUrl finished
+2026-02-25T13:52:12.960Z info: GetSvcOpStatus : 2026-02-25T13:52:12.959Z
+2026-02-25T13:52:12.966Z info: GetSvcOpStatus finished
+2026-02-25T13:54:04.836Z info: GetSvcOpStatus : 2026-02-25T13:54:04.835Z
+2026-02-25T13:54:04.842Z info: GetSvcOpStatus finished
+2026-02-25T13:57:25.600Z info: 12 operations registered
+2026-02-25T13:57:25.603Z info: 9 document classes
+2026-02-25T13:57:25.603Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T13:57:25.604Z info: Firestore connector
+2026-02-25T13:57:25.604Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T13:57:25.605Z info: 12 App operations registered
+2026-02-25T13:57:25.621Z info: Reloading orgs config OK
+2026-02-25T13:57:25.628Z info: HTTP listen [8080]
+2026-02-25T13:57:35.246Z info: GetSvcOpStatus : 2026-02-25T13:57:35.244Z
+2026-02-25T13:57:35.253Z info: GetSvcOpStatus finished
+2026-02-25T13:58:05.962Z info: $GetSvcOrgUrl finished
+2026-02-25T13:59:39.377Z info: $GetSvcOpUrl finished
+2026-02-25T13:59:39.396Z info: GetSvcOpStatus : 2026-02-25T13:59:39.395Z
+2026-02-25T13:59:39.401Z info: GetSvcOpStatus finished
+2026-02-25T13:59:46.178Z info: GetSvcOpStatus : 2026-02-25T13:59:46.178Z
+2026-02-25T13:59:46.183Z info: GetSvcOpStatus finished
+2026-02-25T14:00:07.897Z info: $GetSvcOrgUrl finished
+2026-02-25T14:00:52.536Z info: GetSvcOpStatus : 2026-02-25T14:00:52.536Z
+2026-02-25T14:00:52.540Z info: GetSvcOpStatus finished
+2026-02-25T14:01:01.423Z info: $GetSvcOrgUrl finished
+2026-02-25T14:01:50.554Z info: GetSvcOpStatus : 2026-02-25T14:01:50.553Z
+2026-02-25T14:01:50.558Z info: GetSvcOpStatus finished
+2026-02-25T14:03:11.173Z info: $GetSvcOrgUrl finished
+2026-02-25T14:03:16.807Z info: GetSvcOpStatus : 2026-02-25T14:03:16.806Z
+2026-02-25T14:03:16.811Z info: GetSvcOpStatus finished
+2026-02-25T14:05:00.326Z info: 12 operations registered
+2026-02-25T14:05:00.330Z info: 9 document classes
+2026-02-25T14:05:00.331Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T14:05:00.331Z info: Firestore connector
+2026-02-25T14:05:00.332Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T14:05:00.333Z info: 12 App operations registered
+2026-02-25T14:05:00.349Z info: Reloading orgs config OK
+2026-02-25T14:05:00.354Z info: HTTP listen [8080]
+2026-02-25T14:05:11.815Z info: GetSvcOpStatus : 2026-02-25T14:05:11.812Z
+2026-02-25T14:05:11.822Z info: GetSvcOpStatus finished
+2026-02-25T14:07:10.983Z info: $GetSvcOrgUrl finished
+2026-02-25T14:08:05.675Z info: 12 operations registered
+2026-02-25T14:08:05.679Z info: 9 document classes
+2026-02-25T14:08:05.681Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-25T14:08:05.681Z info: Firestore connector
+2026-02-25T14:08:05.682Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-25T14:08:05.683Z info: 12 App operations registered
+2026-02-25T14:08:05.716Z info: Reloading orgs config OK
+2026-02-25T14:08:05.721Z info: HTTP listen [8080]
+2026-02-25T14:08:08.040Z info: GetSvcOpStatus : 2026-02-25T14:08:08.038Z
+2026-02-25T14:08:08.045Z info: GetSvcOpStatus finished
+2026-02-25T14:09:39.574Z info: $GetSvcOrgUrl finished
+2026-02-25T14:09:39.597Z info: GetSvcOrgStatus : 2026-02-25T14:09:39.596Z
+2026-02-25T14:09:39.606Z error: GetSvcOrgStatus : 2026-02-25T14:09:39.596Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:09:39.608Z info: GetSvcOrgStatus terminated on exception
+2026-02-25T14:09:39.633Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-25T14:10:19.772Z info: GetSvcOpStatus : 2026-02-25T14:10:19.772Z
+2026-02-25T14:10:19.778Z info: GetSvcOpStatus finished
+2026-02-25T14:10:19.806Z info: GetSvcOrgStatus : 2026-02-25T14:10:19.806Z
+2026-02-25T14:10:19.812Z error: GetSvcOrgStatus : 2026-02-25T14:10:19.806Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:10:19.815Z info: GetSvcOrgStatus terminated on exception
+2026-02-25T14:10:19.823Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-25T14:10:37.835Z info: GetSvcOpStatus : 2026-02-25T14:10:37.835Z
+2026-02-25T14:10:37.839Z info: GetSvcOpStatus finished
+2026-02-25T14:11:19.737Z info: GetSvcOrgStatus : 2026-02-25T14:11:19.737Z
+2026-02-25T14:11:45.068Z error: GetSvcOrgStatus : 2026-02-25T14:11:19.737Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-02-25T14:11:45.070Z info: GetSvcOrgStatus terminated on exception
+2026-02-25T14:11:45.070Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
