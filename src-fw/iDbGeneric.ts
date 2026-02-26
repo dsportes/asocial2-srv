@@ -101,6 +101,7 @@ export interface IDbGeneric {
 
   safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> 
   safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> 
+  safeDel (st: safeTable, key: string) : Promise<void> 
 
   /* Retourne [r, safe]. safe est l'objet safe depuis,
   - soit son id (r=0)

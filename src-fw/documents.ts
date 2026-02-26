@@ -13,6 +13,22 @@ export class Task extends Document {
 
 }
 
+export type OrgStatus = {
+  st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
+  at: number // time de dernière mise à jour
+  txt: string // texte explicatif éventuel de l'administrateur
+}
+
+export class Org extends Document {
+  static release = 0
+  status: OrgStatus
+
+  get isUP () { return this.status && (this.status.st === 1 || this.status.st === 2) }
+  get isRO () { return this.status && this.status.st === 2 }
+  get isRW () { return this.status && this.status.st === 1 }
+
+}
+
 /* 
 - sessionId : shaS de subJSON clé primaire
 - subJSON : token web-push

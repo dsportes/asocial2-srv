@@ -6,6 +6,7 @@ import { IDbGeneric, row, srvStatus, rowQ, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
+import { Org } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt, fromPem } from './crypt'
@@ -561,11 +562,11 @@ export class Cache {
     this.docs = new Map<string, DocDescr>()
   }
 
-  // Retourne ou lit le Document Org cité
-  async getOrg (assert?: string, lazy?: boolean) : Promise<Document> {
+  // Retourne ou lit le Document Org de l'opération
+  async getOrg (assert?: string, lazy?: boolean) : Promise<Org> {
     const k = 'Org/' + this.op.org
     let dd = this.docs.get(k)
-    if (dd) return dd.doc
+    if (dd) return dd.doc as Org
     dd = await Cache.getRow(this.op, 'Org', null, 1)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', this.op.org])
@@ -573,7 +574,7 @@ export class Cache {
     }
     dd.init()
     if (!lazy) this.docs.set(k, dd)
-    return dd.doc
+    return dd.doc as Org
   }
 
   /* Retourne ou lit de la base le Document cité par src:

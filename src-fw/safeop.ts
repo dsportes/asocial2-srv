@@ -70,6 +70,18 @@ class SafeCache {
       case safeTable.ORGS : { SafeCache.orgs.set(id, e); break }
     }    
   }
+
+  static async del(op: Operation, st: safeTable, id: string)
+    : Promise<void> {
+
+    await op.db.safeDel(st, id)
+    switch (st) {
+      case safeTable.PEMS : { SafeCache.pems.delete(id); break }
+      case safeTable.URLS : { SafeCache.urls.delete(id); break }
+      case safeTable.ORGS : { SafeCache.orgs.delete(id); break }
+    }    
+  }
+
 }
 
 /* Appel direct d'une opération: 
@@ -222,13 +234,13 @@ class $GetSvcOrgUrl extends SafeOperation {
 }
 SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
 
-class $SetOrgSvcOp extends SafeOperation {
+class $GrantSvcOpOrg extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const SVC = this.args['SVC'] as string
-    const org = this.args['org'] as string
     const $OP = this.args['$OP'] as string
+    const org = this.args['org'] as string
     const obj = SafeCache.get(this, safeTable.URLS, SVC)
     if (!obj || !obj[$OP]) {
       this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
@@ -241,7 +253,24 @@ class $SetOrgSvcOp extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
+SafeOperation.register('$GrantSvcOpOrg', () => { return new $GrantSvcOpOrg()})
+
+class $RevokeSvcOrg extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const SVC = this.args['SVC'] as string
+    const org = this.args['org'] as string
+    let obj: Object = SafeCache.get(this, safeTable.ORGS, org) as Object
+    if (obj) delete obj[SVC]
+    if (Array.from(Object.keys(obj)).length)
+      SafeCache.set(this, safeTable.ORGS, org, obj)
+    else
+      SafeCache.del(this, safeTable.ORGS, org)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$RevokeSvcOrg', () => { return new $RevokeSvcOrg()})
 
 /* Restauration d'un Safe
 */

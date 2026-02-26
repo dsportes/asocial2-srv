@@ -217,6 +217,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       stmt.run({key, v, value})
   }
 
+  async safeDel (st: safeTable, key: string) : Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ' + st + ' WHERE key = @key')
+    stmt.run({ key })
+  }
+
   async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
     let m = 0
     let stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE id = @id')

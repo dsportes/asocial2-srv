@@ -17,31 +17,6 @@ export function register () {
   return Operation.nbOf()
 }
 
-/* EchoText retourne le texte passé en argument (un peu modifié)
-class EchoText extends Operation {
-  constructor () { super(); this.noDB = true }
-
-  _text: string
-
-  init () {
-    super.init()
-    this._text = this.stringValue('text', true, 1, 30)
-    if (this._text === 'KO1') throw Error('KO')
-    if (this._text === 'KO2') 
-      throw new AppExc(1001, 'Fake in EchoText', this)
-  }
-
-  phase2 : null
-  phase3 : null
-
-  async run () {
-    this.setRes('echo', 'echo >>>' + this._text + '<<< [' + new Date(this.now).toISOString() + ']')
-  }
-
-}
-Operation.register('EchoText', () => { return new EchoText()})
-*/
-
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
@@ -58,24 +33,6 @@ class GetSvcOpStatus extends Operation {
   phase3 : null
 }
 Operation.register('GetSvcOpStatus', () => { return new GetSvcOpStatus()})
-
-/* GetSvcOrgStatus retourne le status du service: { st, at, txt }
-  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-*/
-class GetSvcOrgStatus extends Operation {
-  constructor () { super() }
-
-  async phase2 () {
-    // const orgDoc = await this.cache.getOrg()
-    // this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
-    this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
-  }
-
-  phase3 : null
-}
-Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
 
 /* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
   st: code 0: DOWN, 1: UP
@@ -109,11 +66,58 @@ class SetSvcOpStatus extends Operation {
 }
 Operation.register('SetSvcOpStatus', () => { return new SetSvcOpStatus()})
 
+/* GetOrgStatus retourne le status de l'organisation: { st, at, txt }
+  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+*/
+class GetOrgStatus extends Operation {
+  constructor () { super() }
+
+  async phase2 () {
+    const orgDoc = await this.cache.getOrg()
+    this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
+    // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
+  }
+
+  phase3 : null
+}
+Operation.register('GetOrgStatus', () => { return new GetOrgStatus()})
+
+/* SetOrgStatus fixe le status de l'organisation: { st, at, txt }
+  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+*/
+class SetOrgStatus extends Operation {
+  constructor () { super() }
+
+  _st: number
+  _txt: string
+
+  init () {
+    super.init()
+    this._st = this.intValue('st', true, 0, 9)
+    this._txt = this.stringValue('txt', true)
+  }
+
+  async phase2 () {
+    const tokens = this.authRecord.getTokens('admin', '')
+    // tokens a toujours un élément, sinon ça serait sorti en exception
+    const orgDoc = await this.cache.getOrg()
+    orgDoc.status = { at: this.now, st: this._st, txt: this._txt }
+    orgDoc._status = DocStatus.UPD
+  }
+
+  phase3 : null
+}
+Operation.register('SetOrgStatus', () => { return new SetOrgStatus()})
+
 /* SetOrg créé (ou non) une organisation (codes db et storage)
   Si l'organisation est déjà existante, patch les codes db et storage
   ADMINISTRATEUR
 */
-class NewOrg extends Operation {
+class SetOrg extends Operation {
   constructor () { super() }
 
   _db: string
@@ -130,17 +134,18 @@ class NewOrg extends Operation {
   async phase2 () {
     const tokens = this.authRecord.getTokens('admin', '')
     const val = await this.db.getSingleton('orgs') as string
-    const x = JSON.parse(val)
-    let e = x[this._neworg]
+    let obj = {}
+    if (val) try { obj = JSON.parse(val) } catch(e) {}
+    let e = obj[this._neworg]
     let cr = 0
     if (!e) {
       cr = 1
       e = ['', '']
-      x[this._neworg] = e
+      obj[this._neworg] = e
     }
     e[0] = this._db
     e[1] = this._st
-    const y = JSON.stringify(x, null, '\t')
+    const y = JSON.stringify(obj, null, '\t')
     await this.db.setSingleton('orgs', y)
     this.setRes('status', cr)
   }
@@ -149,7 +154,39 @@ class NewOrg extends Operation {
     OrgsConfig.doReload()
   }
 }
-Operation.register('NewOrg', () => { return new NewOrg()})
+Operation.register('SetOrg', () => { return new SetOrg()})
+
+/* DelOrg supprime la référence (codes db et storage) à une organisation
+  Si l'organisation n'existe pas, ne fait rien
+  ADMINISTRATEUR
+*/
+class DelOrg extends Operation {
+  constructor () { super() }
+
+  _org: string
+
+  init () {
+    super.init()
+    this._org = this.stringValue('org', true, 3, 16) 
+  }
+
+  async phase2 () {
+    const tokens = this.authRecord.getTokens('admin', '')
+    const val = await this.db.getSingleton('orgs') as string
+    if (!val) return
+    let obj = {}
+    try { obj = JSON.parse(val) } catch(e) {}
+    if (obj[this._org]) return
+    delete(obj[this._org])
+    const y = JSON.stringify(obj, null, '\t')
+    await this.db.setSingleton('orgs', y)
+  }
+
+  async phase3 () {
+    OrgsConfig.doReload()
+  }
+}
+Operation.register('DelOrg', () => { return new DelOrg()})
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {

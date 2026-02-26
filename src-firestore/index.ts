@@ -154,6 +154,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     // TODO
   }
 
+  async safeDel (st: safeTable, key: string) : Promise<void> {
+    // TODO
+  }
+
   /* Retourne l'objet safe depuis soit son id, soit son p0, soit son r0
   null si non trouvé
   */
