@@ -77,12 +77,12 @@ class GetSvcOrgStatus extends Operation {
 }
 Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
 
-/* SetSrvStatus fixe le status du service: { st, at, txt }
+/* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
   st: code 0: DOWN, 1: UP
   txt: texte explicatif éventuel de l'administrateur
   ADMINISTRATEUR
 */
-class SetSrvStatus extends Operation {
+class SetSvcOpStatus extends Operation {
   constructor () { super() }
 
   _st: number
@@ -90,23 +90,24 @@ class SetSrvStatus extends Operation {
 
   init () {
     super.init()
-    this._st = this.intValue('st', true, 0, 2)
+    this._st = this.intValue('st', true, 0, 9)
     this._txt = this.stringValue('txt', true)
   }
 
   async phase2 () {
-    const token = this.authRecord.getToken('admin', '')
+    const tokens = this.authRecord.getTokens('admin', '')
+    // tokens a toujours un élément, sinon ça serait sorti en exception
     const now = Date.now()
     const value = { at: Date.now(), st: this._st, txt: this._txt }
     await this.db.setSingleton('status', JSON.stringify(value))
     value['now'] = now
     Cache.srvStatus = value
-    this.setRes('srvStatus', Cache.srvStatus)
+    this.setRes('svcOpStatus', Cache.srvStatus)
   }
 
   phase3 : null
 }
-Operation.register('SetSrvStatus', () => { return new SetSrvStatus()})
+Operation.register('SetSvcOpStatus', () => { return new SetSvcOpStatus()})
 
 /* SetOrg créé (ou non) une organisation (codes db et storage)
   Si l'organisation est déjà existante, patch les codes db et storage
@@ -127,7 +128,7 @@ class NewOrg extends Operation {
   }
 
   async phase2 () {
-    const token = this.authRecord.getToken('admin', '')
+    const tokens = this.authRecord.getTokens('admin', '')
     const val = await this.db.getSingleton('orgs') as string
     const x = JSON.parse(val)
     let e = x[this._neworg]
@@ -349,7 +350,7 @@ class GrantNewManager extends Operation {
   }
 
   async phase2 () {
-    const token = this.authRecord.getToken('admin', '')
+    const tokens = this.authRecord.getTokens('admin', '')
     await Credential.newManager(this, this.args['credRequest'])
   }
 
@@ -374,7 +375,7 @@ class RevokeManager extends Operation {
   }
 
   async phase2 () {
-    const token = this.authRecord.getToken('admin', '')
+    const tokens = this.authRecord.getTokens('admin', '')
     await Credential.revokeManager(this, this._hpems, this._revoke)
   }
 

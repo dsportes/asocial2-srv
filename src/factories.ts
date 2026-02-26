@@ -50,7 +50,7 @@ class ManagerVerify extends Verify {
 
   async check () : Promise<Object> {
     const cred = await this.getCred()
-    if (!cred) return null
+    if (!cred || !cred.dtime || (cred.dtime < this.op.now)) return null
     const cond = cred.cond
 
     return null // info : { status: true ... }

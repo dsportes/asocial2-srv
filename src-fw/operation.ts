@@ -174,8 +174,10 @@ export class Operation {
 
   async transac (): Promise<void> {
     const authRecord = new AuthRecord(this)
-    await authRecord.process()
-    authRecord.log()
+    if (authRecord.userId) {
+      await authRecord.process()
+      authRecord.log()
+    }
     await this.phase2(this.args)
     this.cache.commit()
     await this.db.commit()
@@ -360,17 +362,17 @@ export class AuthRecord {
       this.sessionId = ar.sessionId
       this.time = ar.time
       this.tokens = ar.tokens
-    }
+    } else this.userId = ''
   }
 
-  getToken(role: string, entid: string, noex?: boolean) : AuthToken {
+  getTokens(role: string, entid: string, noex?: boolean) : AuthToken {
     const e = this.tokens[role]
-    const x = e ? e[entid || ''] : null
-    if (!x) {
+    const tokens = e ? e[entid || ''] : null
+    if (!tokens) {
       if (noex) return null
       throw new AppExc(3002, 'missing credential', this.op, [this.org, role, entid || ''])
     }
-    return x
+    return tokens
   }
 
   async verify (pem: string, token: AuthToken) {
@@ -383,32 +385,35 @@ export class AuthRecord {
       for (const role in this.tokens) {
         const r = this.tokens[role]
         for (const entid in r) {
-          const token = r[entid]
-          x.push(role + '.' + (entid || '') + ': ' + token.info.status)
+          const lst = r[entid]
+          for(const token of lst)
+            x.push(role + '.' + (entid || '') + ': ' + token.info.status)
         }
       }
       console.log('Auth status: ' + x.join('\n'))
     }
   }
 
-  exc (token: AuthToken) {
+  exc (role: string, entid: string) {
     //  EX_1005: 'Droit d\'accès NON validé - organisation [{0}] - role [{1}] - entid [{2}] ]',
-    throw new AppExc(1005, 'NON validated credential', this.op, [this.org,  token.role, token.entid || ''] )
+    throw new AppExc(1005, 'NON validated credential', this.op, [this.org,  role, entid] )
   }
 
   async process () : Promise<void>{
     for (const role in this.tokens) {
       const r = this.tokens[role]
-      for (const xid in r) {
-        const token = r[xid]
-        const fn = config.factory
-        if (!fn) this.exc(token)
-        if (fn) {
-          const verifyer = fn(this, token)
-          if (!verifyer) this.exc(token)
+      for (const entid in r) {
+        const lst = r[entid]
+        const nlst = []
+        if (lst) for(const token of lst) {
+          const verifyer = config.factory(this, token)
+          if (!verifyer) this.exc(role, entid)
           token.info = await verifyer.check()
-          if (!token.info) this.exc(token)
+          if (token.info) nlst.push(token)
         }
+        if (nlst.length === 0) // aucun token n'est validé
+          this.exc(role, entid)
+        r[entid] = nlst
       }
     }
   }

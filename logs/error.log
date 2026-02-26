@@ -132,3 +132,9 @@ BEGIN
 2026-02-25T14:10:19.823Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
 2026-02-25T14:11:45.068Z error: GetSvcOrgStatus : 2026-02-25T14:11:19.737Z : TypeError: Cannot read properties of undefined (reading 'row')
 2026-02-25T14:11:45.070Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-02-26T14:20:29.134Z error: SetSvcOpStatus : 2026-02-26T14:18:56.600Z : TypeError: Cannot read properties of undefined (reading 'status')
+2026-02-26T14:20:29.138Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
+2026-02-26T14:24:06.773Z error: SetSvcOpStatus : 2026-02-26T14:22:50.167Z : TypeError: Cannot read properties of undefined (reading 'status')
+2026-02-26T14:24:06.776Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
+2026-02-26T14:27:16.309Z error: SetSvcOpStatus : 2026-02-26T14:26:37.788Z : TypeError: Cannot read properties of undefined (reading 'status')
+2026-02-26T14:27:16.313Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
