@@ -1,5 +1,5 @@
 import { AuthToken, AuthRecord, Operation } from '../src-fw/operation'
-import { Crypt, fromPem } from '../src-fw/crypt'
+// import { Crypt, fromPem } from '../src-fw/crypt'
 import { config } from '../src-fw/config'
 import { Credential } from '../src-fw/documents'
 
@@ -26,7 +26,7 @@ class Verify {
   }
 
   async getCred () : Promise<Credential> {
-    const src = { orguserId: this.auth.userId, role: this.token.role, entid: this.token.entid, hpems: this.token.hpems }
+    const src = { userId: this.auth.userId, role: this.token.role, entid: this.token.entid, hpems: this.token.hpems }
     return await this.op.cache.getDoc('Credential', src) as Credential
   }
 

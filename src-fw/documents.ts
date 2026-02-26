@@ -156,7 +156,7 @@ export type AuthToken = {
 }
 
 export type CredObj = {
-  id: string // hash court de `[role, org, entid]`.
+  userId: string // userId: utilisateur détenteur
   role: string // un des codes de rôle connu du service.
   org: string // le code de l'organisation.
   entid: string // identifiant d'une entité interprétable pour le service.
@@ -188,7 +188,7 @@ export type CredRequest = {
 export class Credential extends Document {
   static release = 0
 
-  id: string
+  userId: string
   role: string
   org: string
   entid: string
@@ -201,6 +201,8 @@ export class Credential extends Document {
   infous: Uint8Array
   infos: Uint8Array
   cond: Object
+
+  // pk: ['userId', 'role', 'entid', 'hpems']
 
   /* static newCredential (op: Operation, initVals: CredObj) : Credential {
     return op.cache.newDoc('Credential', initVals) as Credential
@@ -216,7 +218,7 @@ export class Credential extends Document {
       setterId: op.authRecord.userId,
       cond: null,
 
-      id: cr.userId,
+      userId: cr.userId,
       hpems: cr.hpems,
       pemv: cr.pemv,
       dtime: cr.dtime || 0,
@@ -247,7 +249,7 @@ export class Credential extends Document {
       async (data) => {
         const obj = decode(data) as CredObj
         const x = { 
-          userId: obj.id,
+          userId: obj.userId,
           hpems: obj.hpems, 
           ctime: obj.ctime,
           dtime: obj.dtime, 

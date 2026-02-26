@@ -31,9 +31,10 @@ export type CredRequest = {
 
 /* Quand destiné à la construction d'un document Credential,
 - id et hpems ne sont pas utilisé mais reconstruit
+- pk : ['userId', 'role', 'entid', 'hpems'] 
 */
 export type CredObj = {
-  id: string // hash court de `[role, org, entid]`.
+  userId: string // userId: utilisateur détenteur
   role: string // un des codes de rôle connu du service.
   org: string // le code de l'organisation.
   entid: string // identifiant d'une entité interprétable pour le service.
@@ -344,7 +345,7 @@ export class AuthRecord {
   sessionId: string
   userId: string
   time: number // date-heure du authRecord dans l'application
-  // Object par role / entid
+  // Object par "role", { xid: { role, entid, hpems, sign }
   tokens: Object 
   
   get challenge() { return encoder.encode(this.userId + '/' + this.time)}
@@ -354,11 +355,10 @@ export class AuthRecord {
     this.op.authRecord = this
     const ar = op.args['authRecord']
     if (ar) {
-      this.userId = ar.userId || ''
+      this.userId = ar.userId
       this.op.sessionId = ar.sessionId
       this.sessionId = ar.sessionId
       this.time = ar.time
-      this.org = ar.org
       this.tokens = ar.tokens
     }
   }
@@ -399,8 +399,8 @@ export class AuthRecord {
   async process () : Promise<void>{
     for (const role in this.tokens) {
       const r = this.tokens[role]
-      for (const entid in r) {
-        const token = r[entid]
+      for (const xid in r) {
+        const token = r[xid]
         const fn = config.factory
         if (!fn) this.exc(token)
         if (fn) {

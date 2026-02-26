@@ -29,7 +29,7 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Credential', sync: false, pk: ['orguserId', 'role', 'entid', 'hpems'] }, // header
+  { name: 'Credential', sync: false, pk: ['userId', 'role', 'entid', 'hpems'] }, // header
   null, // collections
   new Map<string, idx>([
     ['roleent', { type: propType.HASH, key: ['role', 'entid'] }],
