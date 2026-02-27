@@ -6566,3 +6566,43 @@ BEGIN
 2026-02-27T12:49:00.728Z info: $GetBinSafe finished
 2026-02-27T12:54:18.966Z info: $OpenSafeByPR finished
 2026-02-27T12:54:21.185Z info: $GetBinSafe finished
+2026-02-27T17:49:28.538Z info: 14 operations registered
+2026-02-27T17:49:28.543Z info: 9 document classes
+2026-02-27T17:49:28.544Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-27T17:49:28.545Z info: Firestore connector
+2026-02-27T17:49:28.545Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-27T17:49:28.546Z info: 14 App operations registered
+2026-02-27T17:49:28.578Z info: Reloading orgs config OK
+2026-02-27T17:49:28.587Z info: HTTP listen [8080]
+2026-02-27T17:54:41.085Z info: $OpenSafeByPin finished
+2026-02-27T17:54:41.212Z info: $OpenSafeById finished
+2026-02-27T17:57:37.120Z info: $OpenSafeByPin finished
+2026-02-27T17:57:37.233Z info: $OpenSafeById finished
+2026-02-27T17:59:28.843Z info: 14 operations registered
+2026-02-27T17:59:28.850Z info: 9 document classes
+2026-02-27T17:59:28.851Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-27T17:59:28.852Z info: Firestore connector
+2026-02-27T17:59:28.854Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-27T17:59:28.856Z info: 14 App operations registered
+2026-02-27T17:59:28.878Z info: Reloading orgs config OK
+2026-02-27T17:59:28.888Z info: HTTP listen [8080]
+2026-02-27T18:00:07.196Z info: $GrantSvcOpOrg finished
+2026-02-27T18:03:08.699Z info: $OpenSafeByPin finished
+2026-02-27T18:03:08.818Z info: $OpenSafeById finished
+2026-02-27T18:03:40.009Z info: AppExc: 1002:unknown operation["$RevokeSvcOpOrg"]
+2026-02-27T18:03:40.012Z info: $RevokeSvcOpOrg terminated on exception
+2026-02-27T18:04:40.763Z info: 14 operations registered
+2026-02-27T18:04:40.767Z info: 9 document classes
+2026-02-27T18:04:40.769Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-02-27T18:04:40.770Z info: Firestore connector
+2026-02-27T18:04:40.772Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-02-27T18:04:40.773Z info: 14 App operations registered
+2026-02-27T18:04:40.792Z info: Reloading orgs config OK
+2026-02-27T18:04:40.800Z info: HTTP listen [8080]
+2026-02-27T18:04:59.395Z info: $RevokeSvcOpOrg finished
+2026-02-27T18:23:21.403Z info: $OpenSafeByPin finished
+2026-02-27T18:23:21.585Z info: $OpenSafeById finished
+2026-02-27T18:23:55.864Z info: $OpenSafeByPin finished
+2026-02-27T18:23:56.030Z info: $OpenSafeById finished
+2026-02-27T18:31:02.337Z info: $OpenSafeByPin finished
+2026-02-27T18:31:02.481Z info: $OpenSafeById finished

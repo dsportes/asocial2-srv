@@ -173,41 +173,15 @@ export class SafeOperation extends Operation {
   }
 }
 
-export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
-  id: string // identifiant aléatoire.
-  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
-  hp0: string // index unique, `SH(p0)`.
-  hr0: string // index unique, `SH(r0)`.
-  hhp1: string // SHA de `SH(p1)`.
-  hhr1: string // SHA de `SH(r1)`.
-  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
-}
-
-/* Creation d'un nouveau Safe
-*/
-class $CreateSafe extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> { 
-    const safe = this.args['safe'] as Safe
-    const ret = await this.db.newSafe(safe)
-    if (ret !== 0) await Util.sleep(3000)
-    this.setRes('status', ret)
-  }
-}
-SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
-
 /****************************************************** 
- * Pour le Safe GENERIQUE seulement 
+ * Pour le StoreSafe GENERIQUE seulement 
 *******************************************************/
 
 /* Déclare l'URL d'un service pour un opérateur. args: 
-- userId
+- userId: un ADMINISTRATEUR du StoreSafe générique
 - params: [SVC, $OP, url]
 - time: date-heure de la requête
 - sign: signature par la clé S de userId de encode([time, params])
-ADMINISTRATEUR du dépôt générique des Safes
 */
 class $SetOpUrl extends SafeOperation {
   constructor () { super() }
@@ -224,12 +198,60 @@ class $SetOpUrl extends SafeOperation {
 }
 SafeOperation.register('$SetOpUrl', () => { return new $SetOpUrl()})
 
+/* Enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
+args:
+- userId: un ADMINISTRATEUR du StoreSafe générique
+- params: [SVC, $OP, org]
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])
+*/
+class $GrantSvcOpOrg extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const [SVC, $OP, org] = await this.getParams(this.args, false)
+    let obj = await SafeCache.get(this, safeTable.URLS, SVC)
+    if (!obj || !obj[$OP])
+      throw new AppExc(2004, 'not hosted org', this, [SVC, $OP, org])
+    obj = await SafeCache.get(this, safeTable.ORGS, org) as Object
+    if (!obj) obj = { }
+    obj[SVC] = $OP
+    await SafeCache.set(this, safeTable.ORGS, org, obj)
+  }
+}
+SafeOperation.register('$GrantSvcOpOrg', () => { return new $GrantSvcOpOrg()})
+
+/* Révoque une organisation pour l'opérateur $OP pour un service SVC
+args:
+- userId: un ADMINISTRATEUR du StoreSafe générique
+- params: [SVC, $OP, org]
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])
+*/
+class $RevokeSvcOpOrg extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const [SVC, $OP, org] = await this.getParams(this.args, false)
+    let obj = await SafeCache.get(this, safeTable.URLS, SVC)
+    if (!obj || !obj[$OP])
+      throw new AppExc(2004, 'not hosted org', this, [SVC, $OP, org])
+    obj = await SafeCache.get(this, safeTable.ORGS, org)
+    if (obj) delete obj[SVC]
+    if (Array.from(Object.keys(obj)).length)
+      await SafeCache.set(this, safeTable.ORGS, org, obj)
+    else
+      await SafeCache.del(this, safeTable.ORGS, org)
+  }
+}
+SafeOperation.register('$RevokeSvcOpOrg', () => { return new $RevokeSvcOpOrg()})
+
 /* Déclare / révoque un administateur d'un service pour un opérateur. args: 
 - userId
 - params: [SVC, $OP, admin] - #abcd... pour révoquer abcd, abcd pour déclarer abcd
 - time: date-heure de la requête
 - sign: signature par la clé S de userId de encode([time, params])ADMINISTRATEUR du dépôt générique des Safes
-*/
+
 class $SetOpAdmin extends SafeOperation {
   constructor () { super() }
 
@@ -251,6 +273,7 @@ class $SetOpAdmin extends SafeOperation {
   }
 }
 SafeOperation.register('$SetOpAdmin', () => { return new $SetOpAdmin()})
+*/
 
 /* Retourne les clés publiques de l'argument userId. Res:
 - status: 0 si trouvé, 1 sinon
@@ -262,7 +285,7 @@ class $GetPubKeys extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
-    const obj = SafeCache.get(this, safeTable.PEMS, userId)
+    const obj = await SafeCache.get(this, safeTable.PEMS, userId)
     const status = !obj || !obj[0] || !obj[1] ? 1 : 0 
     this.setRes('status', status )
     if (status === 0) {
@@ -290,7 +313,7 @@ class $SetPubKeys extends SafeOperation {
 }
 SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})
 
-/* Return url, l'URL d'accès à un service SVC hébergé par un opérateur $OP
+/* Retourne l'URL d'accès à un service SVC hébergé par un opérateur $OP
 */
 class $GetSvcOpUrl extends SafeOperation {
   constructor () { super() }
@@ -326,60 +349,33 @@ class $GetSvcOrgUrl extends SafeOperation {
 }
 SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
 
-/* Enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
-args:
-- userId: administrateur de $OP pour le service SVC
-- params: [SVC, $OP, org]
-- time: date-heure de la requête
-- sign: signature par la clé S de userId de encode([time, params])
+/***************************************************************
+ * Opérations applicables aussi aux SafeStore "spécifiques"
+ ***************************************************************/
+export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
+  id: string // identifiant aléatoire.
+  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
+  hp0: string // index unique, `SH(p0)`.
+  hr0: string // index unique, `SH(r0)`.
+  hhp1: string // SHA de `SH(p1)`.
+  hhr1: string // SHA de `SH(r1)`.
+  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
+  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
+}
+
+/* Creation d'un nouveau Safe
 */
-class $GrantSvcOpOrg extends SafeOperation {
+class $CreateSafe extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const [SVC, $OP, org] = await this.getParams(this.args, false)
-    const obj = SafeCache.get(this, safeTable.URLS, SVC)
-    if (!obj || !obj[$OP]) {
-      this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
-      return
-    }
-    let obj2: Object = SafeCache.get(this, safeTable.ORGS, org) as Object
-    if (!obj2) obj2 = { }
-    obj2[SVC] = $OP
-    SafeCache.set(this, safeTable.ORGS, org, obj2)
-    this.setRes('status', 0)
+    const safe = this.args['safe'] as Safe
+    const ret = await this.db.newSafe(safe)
+    if (ret !== 0) await Util.sleep(3000)
+    this.setRes('status', ret)
   }
 }
-SafeOperation.register('$GrantSvcOpOrg', () => { return new $GrantSvcOpOrg()})
-
-/* Révoque une organisation pour l'opérateur $OP pour un service SVC
-args:
-- userId: administrateur de $OP pour le service SVC
-- params: [SVC, $OP, org]
-- time: date-heure de la requête
-- sign: signature par la clé S de userId de encode([time, params])
-*/
-class $RevokeSvcOrg extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> { 
-    const [SVC, $OP, org] = await this.getParams(this.args, false)
-    let obj = SafeCache.get(this, safeTable.URLS, SVC)
-    if (!obj || !obj[$OP]) {
-      this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
-      return
-    }
-    obj = SafeCache.get(this, safeTable.ORGS, org)
-    if (obj) delete obj[SVC]
-    if (Array.from(Object.keys(obj)).length)
-      SafeCache.set(this, safeTable.ORGS, org, obj)
-    else
-      SafeCache.del(this, safeTable.ORGS, org)
-    this.setRes('status', 0)
-  }
-}
-SafeOperation.register('$RevokeSvcOrg', () => { return new $RevokeSvcOrg()})
-
+SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 /* Restauration d'un Safe
 */
 class $RestoreSafe extends SafeOperation {
