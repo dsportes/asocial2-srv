@@ -45,7 +45,9 @@ class SafeCache {
         e = { at: now, v: 0, val: null}
       } else {
         let y = null
-        try { y = JSON.parse(x[1]) } catch(e) {}
+        try { y = JSON.parse(x[1]) } catch(e) {
+          console.log(e)
+        }
         e = { at: now, v: y ? x[0] : 0, val: y }
       }
       switch (st) {
@@ -139,6 +141,36 @@ export class SafeOperation extends Operation {
 
   async doTheJob () : Promise<void> {  }
 
+  /* Retourne les paramètres d'une opération d'Administration du Safe
+  - userId doit être enregistré dans la configuration SAFEADMINUSERS ou ADMINUSERS
+  - params: string[] - Par exemple: [SVC, $OP, org] [SVC, $OP, url] ...
+  - time: date-heure de la requête
+  - sign: signature par la clé S de userId de encode([time, params])
+  Retourne "params" en cas de succès.
+  */
+  async getParams (args: Object, forSafe: boolean) : Promise<string[]> {
+    const userId = args['userId']
+    const time = args['time']
+    const now = Date.now()
+    // if (time < now - 3000 || time > now + 3000) throw new AppExc(2003, 'no safe admin', this)
+    if ((forSafe && config.SAFEADMINUSERS.has(userId)) 
+      || (!forSafe && config.ADMINUSERS.has(userId))) {
+      const params = args['params']
+      const sign = args['sign']
+      const obj = await SafeCache.get(this, safeTable.PEMS, userId)
+      const pemV = obj ? obj[1] : null
+      if (pemV) {
+        const ch = encode([time, params])
+        try {
+          const b = await Crypt.verify(fromPem(pemV, true), sign, ch)
+          if (b) return params
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
+    throw new AppExc(2002, 'no safe admin', this)
+  }
 }
 
 export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
@@ -169,6 +201,62 @@ SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
 /****************************************************** 
  * Pour le Safe GENERIQUE seulement 
 *******************************************************/
+
+/* Déclare l'URL d'un service pour un opérateur. args: 
+- userId
+- params: [SVC, $OP, url]
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])
+ADMINISTRATEUR du dépôt générique des Safes
+*/
+class $SetOpUrl extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const [SVC, $OP, url] = await this.getParams(this.args, true)
+    let obj = await SafeCache.get(this, safeTable.URLS, SVC) as Object
+    if (!obj) obj = { }
+    let e = obj[$OP]
+    if (!e) { e = { url: '', admins: [] }; obj[$OP] = e }
+    e.url = url
+    await SafeCache.set(this, safeTable.URLS, SVC, obj)
+  }
+}
+SafeOperation.register('$SetOpUrl', () => { return new $SetOpUrl()})
+
+/* Déclare / révoque un administateur d'un service pour un opérateur. args: 
+- userId
+- params: [SVC, $OP, admin] - #abcd... pour révoquer abcd, abcd pour déclarer abcd
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])ADMINISTRATEUR du dépôt générique des Safes
+*/
+class $SetOpAdmin extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> { 
+    const [SVC, $OP, admin] = await this.getParams(this.args, true)
+    let obj = await SafeCache.get(this, safeTable.URLS, SVC) as Object
+    if (!obj) obj = { }
+    let e = obj[$OP]
+    if (!e) { e = { url: '', admins: [] }; obj[$OP] = e }
+    if (admin.startsWith('#')) {
+      const a = admin.substring(1)
+      const i = e.admins.indexOf(a)
+      if (i !== -1) e.admins.splice(i, 1)
+    } else {
+      const i = e.admins.indexOf(admin)
+      if (i !== -1) e.admins.push(admin)
+    }
+    await SafeCache.set(this, safeTable.URLS, SVC, obj)
+  }
+}
+SafeOperation.register('$SetOpAdmin', () => { return new $SetOpAdmin()})
+
+/* Retourne les clés publiques de l'argument userId. Res:
+- status: 0 si trouvé, 1 sinon
+- pemC: PEM de cryptage
+- pemV: PEM de vérification
+*/
 class $GetPubKeys extends SafeOperation {
   constructor () { super() }
 
@@ -185,9 +273,11 @@ class $GetPubKeys extends SafeOperation {
 }
 SafeOperation.register('$GetPubKeys', () => { return new $GetPubKeys()})
 
-/****************************************************** 
- * Pour le Safe GENERIQUE seulement 
-*******************************************************/
+/* Enregistre dans le dépôt générique des Safes les clés publiques 
+d'un userId à sa création. Args: userId, pemC, pemV
+Opération NON gardée: suppose de n'être invoquée QUE par 
+l'opération de création d'un Safe.
+*/
 class $SetPubKeys extends SafeOperation {
   constructor () { super() }
 
@@ -200,9 +290,8 @@ class $SetPubKeys extends SafeOperation {
 }
 SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})
 
-/****************************************************** 
- * Pour le Safe GENERIQUE seulement 
-*******************************************************/
+/* Return url, l'URL d'accès à un service SVC hébergé par un opérateur $OP
+*/
 class $GetSvcOpUrl extends SafeOperation {
   constructor () { super() }
 
@@ -210,11 +299,14 @@ class $GetSvcOpUrl extends SafeOperation {
     const SVC = this.args['SVC'] as string
     const $OP = this.args['$OP'] as string
     const obj = await SafeCache.get(this, safeTable.URLS, SVC)
-    this.setRes('url', obj ? (obj[$OP] || '') : '')
+    this.setRes('url', obj ? (obj[$OP] ? obj[$OP].url : '') : '')
   }
 }
 SafeOperation.register('$GetSvcOpUrl', () => { return new $GetSvcOpUrl()})
 
+/* Retourne couple [url, $OP] d'accès à un service SVC hébergeant une organisation org
+- $OP est l'opértareur hébergeur de l'organisation pour ce service
+*/
 class $GetSvcOrgUrl extends SafeOperation {
   constructor () { super() }
 
@@ -227,20 +319,25 @@ class $GetSvcOrgUrl extends SafeOperation {
     if (obj && obj[SVC]) {
       $OP = obj[SVC]
       const obj2 = await SafeCache.get(this, safeTable.URLS, SVC)
-      if (obj2) url = obj2[$OP] || ''
+      if (obj2) url = (obj2[$OP] ? obj2[$OP].url : '')
     } 
     this.setRes('urlOp', [url, $OP])
   }
 }
 SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
 
+/* Enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
+args:
+- userId: administrateur de $OP pour le service SVC
+- params: [SVC, $OP, org]
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])
+*/
 class $GrantSvcOpOrg extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const SVC = this.args['SVC'] as string
-    const $OP = this.args['$OP'] as string
-    const org = this.args['org'] as string
+    const [SVC, $OP, org] = await this.getParams(this.args, false)
     const obj = SafeCache.get(this, safeTable.URLS, SVC)
     if (!obj || !obj[$OP]) {
       this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
@@ -255,13 +352,24 @@ class $GrantSvcOpOrg extends SafeOperation {
 }
 SafeOperation.register('$GrantSvcOpOrg', () => { return new $GrantSvcOpOrg()})
 
+/* Révoque une organisation pour l'opérateur $OP pour un service SVC
+args:
+- userId: administrateur de $OP pour le service SVC
+- params: [SVC, $OP, org]
+- time: date-heure de la requête
+- sign: signature par la clé S de userId de encode([time, params])
+*/
 class $RevokeSvcOrg extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const SVC = this.args['SVC'] as string
-    const org = this.args['org'] as string
-    let obj: Object = SafeCache.get(this, safeTable.ORGS, org) as Object
+    const [SVC, $OP, org] = await this.getParams(this.args, false)
+    let obj = SafeCache.get(this, safeTable.URLS, SVC)
+    if (!obj || !obj[$OP]) {
+      this.setRes('status', 1) // le service n'est pas assuré par cet opérateur
+      return
+    }
+    obj = SafeCache.get(this, safeTable.ORGS, org)
     if (obj) delete obj[SVC]
     if (Array.from(Object.keys(obj)).length)
       SafeCache.set(this, safeTable.ORGS, org, obj)

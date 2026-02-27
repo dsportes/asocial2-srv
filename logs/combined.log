@@ -6435,3 +6435,134 @@ BEGIN
 2026-02-26T14:36:50.044Z info: SetSvcOpStatus finished
 2026-02-26T14:36:50.075Z info: GetSvcOpStatus : 2026-02-26T14:36:50.075Z
 2026-02-26T14:36:50.082Z info: GetSvcOpStatus finished
+2026-02-27T11:16:24.148Z info: 14 operations registered
+2026-02-27T11:16:24.152Z info: 9 document classes
+2026-02-27T11:16:24.154Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T11:16:24.156Z info: Firestore connector
+2026-02-27T11:16:24.157Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T11:16:24.158Z info: 14 App operations registered
+2026-02-27T11:16:24.317Z info: Reloading orgs config OK
+2026-02-27T11:16:24.326Z info: HTTP listen [8080]
+2026-02-27T11:30:51.582Z info: $OpenSafeByPin finished
+2026-02-27T11:30:51.635Z info: $OpenSafeById finished
+2026-02-27T11:34:45.504Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T11:34:45.507Z info: $SetOpUrl terminated on exception
+2026-02-27T11:47:21.884Z info: $OpenSafeByPin finished
+2026-02-27T11:47:21.926Z info: $OpenSafeById finished
+2026-02-27T11:48:28.702Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T11:48:28.705Z info: $SetOpUrl terminated on exception
+2026-02-27T11:50:38.057Z info: 14 operations registered
+2026-02-27T11:50:38.061Z info: 9 document classes
+2026-02-27T11:50:38.061Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T11:50:38.062Z info: Firestore connector
+2026-02-27T11:50:38.063Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T11:50:38.063Z info: 14 App operations registered
+2026-02-27T11:50:38.082Z info: Reloading orgs config OK
+2026-02-27T11:50:38.091Z info: HTTP listen [8080]
+2026-02-27T11:50:45.858Z info: $OpenSafeByPin finished
+2026-02-27T11:50:45.900Z info: $OpenSafeById finished
+2026-02-27T11:54:22.321Z info: 14 operations registered
+2026-02-27T11:54:22.324Z info: 9 document classes
+2026-02-27T11:54:22.325Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T11:54:22.326Z info: Firestore connector
+2026-02-27T11:54:22.327Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T11:54:22.327Z info: 14 App operations registered
+2026-02-27T11:54:22.354Z info: Reloading orgs config OK
+2026-02-27T11:54:22.361Z info: HTTP listen [8080]
+2026-02-27T11:54:46.067Z info: $OpenSafeByPin finished
+2026-02-27T11:54:46.108Z info: $OpenSafeById finished
+2026-02-27T11:59:07.645Z info: 14 operations registered
+2026-02-27T11:59:07.648Z info: 9 document classes
+2026-02-27T11:59:07.649Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T11:59:07.649Z info: Firestore connector
+2026-02-27T11:59:07.650Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T11:59:07.650Z info: 14 App operations registered
+2026-02-27T11:59:07.667Z info: Reloading orgs config OK
+2026-02-27T11:59:07.674Z info: HTTP listen [8080]
+2026-02-27T12:02:23.464Z info: 14 operations registered
+2026-02-27T12:02:23.467Z info: 9 document classes
+2026-02-27T12:02:23.468Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:02:23.468Z info: Firestore connector
+2026-02-27T12:02:23.469Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:02:23.470Z info: 14 App operations registered
+2026-02-27T12:02:23.483Z info: Reloading orgs config OK
+2026-02-27T12:02:23.491Z info: HTTP listen [8080]
+2026-02-27T12:08:57.321Z info: $SetOpUrl terminated on exception
+2026-02-27T12:08:57.323Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-02-27T12:09:45.764Z info: 14 operations registered
+2026-02-27T12:09:45.768Z info: 9 document classes
+2026-02-27T12:09:45.769Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:09:45.770Z info: Firestore connector
+2026-02-27T12:09:45.771Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:09:45.772Z info: 14 App operations registered
+2026-02-27T12:09:45.791Z info: Reloading orgs config OK
+2026-02-27T12:09:45.800Z info: HTTP listen [8080]
+2026-02-27T12:12:40.411Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T12:12:40.413Z info: $SetOpUrl terminated on exception
+2026-02-27T12:13:08.076Z info: 14 operations registered
+2026-02-27T12:13:08.080Z info: 9 document classes
+2026-02-27T12:13:08.081Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:13:08.082Z info: Firestore connector
+2026-02-27T12:13:08.082Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:13:08.083Z info: 14 App operations registered
+2026-02-27T12:13:08.098Z info: Reloading orgs config OK
+2026-02-27T12:13:08.104Z info: HTTP listen [8080]
+2026-02-27T12:16:21.218Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T12:16:21.222Z info: $SetOpUrl terminated on exception
+2026-02-27T12:19:57.724Z info: $GetBinSafe finished
+2026-02-27T12:24:19.578Z info: $GetBinSafe finished
+2026-02-27T12:26:26.419Z info: 14 operations registered
+2026-02-27T12:26:26.422Z info: 9 document classes
+2026-02-27T12:26:26.423Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:26:26.424Z info: Firestore connector
+2026-02-27T12:26:26.424Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:26:26.425Z info: 14 App operations registered
+2026-02-27T12:26:26.438Z info: Reloading orgs config OK
+2026-02-27T12:26:26.446Z info: HTTP listen [8080]
+2026-02-27T12:29:59.190Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T12:29:59.193Z info: $SetOpUrl terminated on exception
+2026-02-27T12:33:38.685Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T12:33:38.688Z info: $SetOpUrl terminated on exception
+2026-02-27T12:33:58.355Z info: 14 operations registered
+2026-02-27T12:33:58.360Z info: 9 document classes
+2026-02-27T12:33:58.361Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:33:58.362Z info: Firestore connector
+2026-02-27T12:33:58.362Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:33:58.363Z info: 14 App operations registered
+2026-02-27T12:33:58.378Z info: Reloading orgs config OK
+2026-02-27T12:33:58.385Z info: HTTP listen [8080]
+2026-02-27T12:35:48.362Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-02-27T12:35:48.366Z info: $SetOpUrl terminated on exception
+2026-02-27T12:40:44.881Z info: 14 operations registered
+2026-02-27T12:40:44.884Z info: 9 document classes
+2026-02-27T12:40:44.885Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:40:44.886Z info: Firestore connector
+2026-02-27T12:40:44.886Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:40:44.887Z info: 14 App operations registered
+2026-02-27T12:40:44.902Z info: Reloading orgs config OK
+2026-02-27T12:40:44.910Z info: HTTP listen [8080]
+2026-02-27T12:40:56.690Z info: $OpenSafeByPin finished
+2026-02-27T12:40:56.729Z info: $OpenSafeById finished
+2026-02-27T12:42:26.838Z info: $SetOpUrl terminated on exception
+2026-02-27T12:42:26.840Z error: AppExc: 3001:unexpected exception["no such column: excluded.c"]
+2026-02-27T12:44:39.078Z info: 14 operations registered
+2026-02-27T12:44:39.081Z info: 9 document classes
+2026-02-27T12:44:39.082Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:44:39.083Z info: Firestore connector
+2026-02-27T12:44:39.083Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:44:39.084Z info: 14 App operations registered
+2026-02-27T12:44:39.096Z info: Reloading orgs config OK
+2026-02-27T12:44:39.102Z info: HTTP listen [8080]
+2026-02-27T12:44:57.003Z info: $SetOpUrl finished
+2026-02-27T12:48:35.240Z info: 14 operations registered
+2026-02-27T12:48:35.243Z info: 9 document classes
+2026-02-27T12:48:35.244Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-02-27T12:48:35.244Z info: Firestore connector
+2026-02-27T12:48:35.245Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-02-27T12:48:35.245Z info: 14 App operations registered
+2026-02-27T12:48:35.258Z info: Reloading orgs config OK
+2026-02-27T12:48:35.267Z info: HTTP listen [8080]
+2026-02-27T12:48:58.486Z info: $OpenSafeByPR finished
+2026-02-27T12:49:00.728Z info: $GetBinSafe finished
+2026-02-27T12:54:18.966Z info: $OpenSafeByPR finished
+2026-02-27T12:54:21.185Z info: $GetBinSafe finished

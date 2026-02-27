@@ -213,7 +213,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> {
     const stmt = st === safeTable.PEMS ?
       this.sql.prepare('INSERT INTO ' + st + ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
-    : this.sql.prepare('INSERT INTO ' + st + ' (key, value, v) VALUES (@key, @value, @v) ON CONFLICT (key) DO UPDATE SET value = excluded.value, v = excluded.c;')
+    : this.sql.prepare('INSERT INTO ' + st + ' (key, value, v) VALUES (@key, @value, @v) ON CONFLICT (key) DO UPDATE SET value = excluded.value, v = excluded.v;')
       stmt.run({key, v, value})
   }
 

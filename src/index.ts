@@ -48,13 +48,16 @@ try {
 const ADMINPEM = `-----BEGIN PUBLIC KEY-----
 MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAWvI4/v3MX1EyPM/7jNstr3TlRQzWbXrO5CXxE5Qy8qj/uYFCwlcqA+inkZZJwm3yU3RKnN+eN881aN62gbc4cSgBqNDxTODoZYExqDNjxnuc9QIF3Ldn3ohMvQtUEyold4OHgpqI+DEgUv52Zh3ktL0JCc5nLXrOOfFyT+++mL8Ixzg=
 -----END PUBLIC KEY-----`
-
+// Admins du service pour l'opérateur
 const ADMINUSERS = new Set(['95QdRCMuLN9eV31vlwUW'])
+// Admins du Safe: vide si le Safe généric n'est pas déployé ici
+const SAFEADMINUSERS = new Set(['95QdRCMuLN9eV31vlwUW'])
 
 setConfig(
   {
   ADMINPEM,
   ADMINUSERS,
+  SAFEADMINUSERS,
 
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,

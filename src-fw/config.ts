@@ -4,6 +4,7 @@ import { IStGeneric } from './iStGeneric'
 export interface BaseConfig {
   ADMINPEM: string
   ADMINUSERS: Set<string>
+  SAFEADMINUSERS: Set<string>
   PROD: boolean
   GCLOUDLOGGING: boolean
 

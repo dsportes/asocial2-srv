@@ -138,3 +138,5 @@ BEGIN
 2026-02-26T14:24:06.776Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
 2026-02-26T14:27:16.309Z error: SetSvcOpStatus : 2026-02-26T14:26:37.788Z : TypeError: Cannot read properties of undefined (reading 'status')
 2026-02-26T14:27:16.313Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
+2026-02-27T12:08:57.323Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-02-27T12:42:26.840Z error: AppExc: 3001:unexpected exception["no such column: excluded.c"]
