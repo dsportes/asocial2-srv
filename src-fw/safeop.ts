@@ -148,13 +148,12 @@ export class SafeOperation extends Operation {
   - sign: signature par la clé S de userId de encode([time, params])
   Retourne "params" en cas de succès.
   */
-  async getParams (args: Object, forSafe: boolean) : Promise<string[]> {
+  async getParams (args: Object) : Promise<string[]> {
     const userId = args['userId']
     const time = args['time']
     const now = Date.now()
     // if (time < now - 3000 || time > now + 3000) throw new AppExc(2003, 'no safe admin', this)
-    if ((forSafe && config.SAFEADMINUSERS.has(userId)) 
-      || (!forSafe && config.ADMINUSERS.has(userId))) {
+    if (config.MASTERDIRADMINUSERS.has(userId)) {
       const params = args['params']
       const sign = args['sign']
       const obj = await SafeCache.get(this, safeTable.PEMS, userId)
@@ -187,7 +186,7 @@ class $SetOpUrl extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const [SVC, $OP, url] = await this.getParams(this.args, true)
+    const [SVC, $OP, url] = await this.getParams(this.args)
     let obj = await SafeCache.get(this, safeTable.URLS, SVC) as Object
     if (!obj) obj = { }
     let e = obj[$OP]
@@ -209,7 +208,7 @@ class $GrantSvcOpOrg extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const [SVC, $OP, org] = await this.getParams(this.args, false)
+    const [SVC, $OP, org] = await this.getParams(this.args)
     let obj = await SafeCache.get(this, safeTable.URLS, SVC)
     if (!obj || !obj[$OP])
       throw new AppExc(2004, 'not hosted org', this, [SVC, $OP, org])
@@ -232,7 +231,7 @@ class $RevokeSvcOpOrg extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
-    const [SVC, $OP, org] = await this.getParams(this.args, false)
+    const [SVC, $OP, org] = await this.getParams(this.args)
     let obj = await SafeCache.get(this, safeTable.URLS, SVC)
     if (!obj || !obj[$OP])
       throw new AppExc(2004, 'not hosted org', this, [SVC, $OP, org])

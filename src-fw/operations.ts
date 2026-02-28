@@ -52,8 +52,9 @@ class SetSvcOpStatus extends Operation {
   }
 
   async phase2 () {
-    const tokens = this.authRecord.getTokens('admin', '')
+    // const tokens = this.authRecord.getTokens('admin', '')
     // tokens a toujours un élément, sinon ça serait sorti en exception
+    this.requireAdmin()
     const now = Date.now()
     const value = { at: Date.now(), st: this._st, txt: this._txt }
     await this.db.setSingleton('status', JSON.stringify(value))
@@ -102,8 +103,7 @@ class SetOrgStatus extends Operation {
   }
 
   async phase2 () {
-    const tokens = this.authRecord.getTokens('admin', '')
-    // tokens a toujours un élément, sinon ça serait sorti en exception
+    this.requireAdmin()
     const orgDoc = await this.cache.getOrg()
     orgDoc.status = { at: this.now, st: this._st, txt: this._txt }
     orgDoc._status = DocStatus.UPD
@@ -132,7 +132,7 @@ class SetOrg extends Operation {
   }
 
   async phase2 () {
-    const tokens = this.authRecord.getTokens('admin', '')
+    this.requireAdmin()
     const val = await this.db.getSingleton('orgs') as string
     let obj = {}
     if (val) try { obj = JSON.parse(val) } catch(e) {}
@@ -171,7 +171,7 @@ class DelOrg extends Operation {
   }
 
   async phase2 () {
-    const tokens = this.authRecord.getTokens('admin', '')
+    this.requireAdmin()
     const val = await this.db.getSingleton('orgs') as string
     if (!val) return
     let obj = {}

@@ -448,3 +448,42 @@ export class AppExc {
 
   toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
 }
+
+export class MasterDir {
+  static keys: Map<string, [string, string]> = new Map()
+
+  static async post (opName: string, args: Object) : Promise<Object> {
+    const url = config.MASTERDIR + '/' + opName
+    const body = new Uint8Array(encode(args))
+    try {
+      const response = await fetch(url , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/octet-stream',  // sent request
+          'Accept':       'application/octet-stream'   // expected data sent back
+        },
+        body,
+      })
+      const buf = await response.bytes()
+      const obj = decode(buf)
+      if (response.status === 200) return obj
+      throw new AppExc(3003, 'masterdir error', null, [opName, '' + response.status])
+    } catch(e) {
+      if (e instanceof AppExc) throw e
+      throw new AppExc(3003, 'masterdir error', null, [opName, e.message])
+    }
+  }
+
+  static async GetPubKeys (userId: string) : Promise<[string, string]> {
+    const e = MasterDir.keys.get(userId)
+    if (e) return e
+    const ret = await MasterDir.post('$GetPubKeys', { userId })
+    if (ret['status'] === 0) {
+      const e: [string, string] = [ret['pemC'], ret['pemV']]
+      MasterDir.keys.set(userId, e)
+      return e
+    }
+    return ['', '']
+  }
+
+}

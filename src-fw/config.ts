@@ -2,9 +2,9 @@ import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
 export interface BaseConfig {
-  ADMINPEM: string
   ADMINUSERS: Set<string>
-  SAFEADMINUSERS: Set<string>
+  MASTERDIRADMINUSERS: Set<string>
+  MASTERDIR: string
   PROD: boolean
   GCLOUDLOGGING: boolean
 

@@ -1,4 +1,4 @@
-import { AppExc } from './index'
+import { AppExc, MasterDir } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
@@ -171,6 +171,11 @@ export class Operation {
     let l = this.result[prop]; if (!l) { l = []; this.result[prop] = l }
     l.push(val)
     return val
+  }
+
+  requireAdmin () {
+    if (this.authRecord.isAdmin)
+      throw new AppExc(2007, 'admin required', this)
   }
 
   async transac (): Promise<void> {
@@ -348,11 +353,12 @@ export class AuthRecord {
   sessionId: string
   userId: string
   time: number // date-heure du authRecord dans l'application
+  userSign: Uint8Array
   // Object par "role", { xid: { role, entid, hpems, sign }
   tokens: Object 
+  challenge: Uint8Array
+  isAdmin: boolean
   
-  get challenge() { return encoder.encode(this.userId + '/' + this.time)}
-
   constructor (op: Operation) {
     this.op = op
     this.op.authRecord = this
@@ -362,7 +368,9 @@ export class AuthRecord {
       this.op.sessionId = ar.sessionId
       this.sessionId = ar.sessionId
       this.time = ar.time
+      this.userSign = ar.userSign
       this.tokens = ar.tokens
+      this.challenge = encoder.encode(this.userId + '/' + this.time)
     } else this.userId = ''
   }
 
@@ -401,6 +409,11 @@ export class AuthRecord {
   }
 
   async process () : Promise<void>{
+    const [pemC, pemV] = await MasterDir.GetPubKeys(this.userId)
+    if (!pemV) throw new AppExc(2005, 'no user pemV', this.op)
+    const ok = await Crypt.verify(fromPem(pemV, true), this.userSign, this.challenge)
+    if (!ok) throw new AppExc(2006, 'bad signature', this.op)
+    this.isAdmin = config.ADMINUSERS.has(this.userId)
     for (const role in this.tokens) {
       const r = this.tokens[role]
       for (const entid in r) {
