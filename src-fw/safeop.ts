@@ -549,6 +549,54 @@ class $OpenSafeByPin extends SafeOperation {
 }
 SafeOperation.register('$OpenSafeByPin', () => { return new $OpenSafeByPin()})
 
+type SetContact = {
+  userId: string
+  contact: string
+  hct: string
+  sh1p: string
+  sh1r: string
+}
+/* Changement du contact
+*/
+class $SetContact extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const sc = this.args['setContact'] as SetContact
+    const safe = await this.getSafe(sc)
+    if (!safe) return
+    safe.contact = sc.contact
+    safe.hct = sc.hct
+    await this.db.updHctSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$SetContact', () => { return new $SetContact()})
+
+type SetAdmins = {
+  userId: string
+  admins: string
+  sh1p: string
+  sh1r: string
+}
+
+class $SetAdmins extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const sa = this.args['setadmins'] as SetAdmins
+    const safe = await this.getSafe(sa)
+    if (!safe) return
+    safe.admins = sa.admins
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$SetAdmins', () => { return new $SetAdmins()})
+
+
 type TrustDev = {
   userId: string
   devId: string
@@ -599,7 +647,7 @@ class $UntrustDevices extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const td = this.args['untrustDev']
+    const td = this.args['untrustDev'] as UntrustDev
     const safe = await this.getSafe(td)
     if (!safe) return
 

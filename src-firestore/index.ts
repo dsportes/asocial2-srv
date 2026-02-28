@@ -216,6 +216,11 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
+  async   updHctSafe (safe: Safe) :  Promise<number> {
+    // TODO
+    return 0
+  }
+
   /* Met à jour ou insère un safe depuis son objet */
   async updSafe (safe: Object) :  Promise<void> {
     // A REVISER

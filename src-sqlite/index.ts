@@ -234,6 +234,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         m = 2
         stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hr0 = @id')
         row = stmt.get({id})
+        if (!row) {
+          m = 3
+          stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hct = @id')
+          row = stmt.get({id})
+        }
       }
       if (!row) return [m, null]
     }
@@ -286,6 +291,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
+    const hct = safe.hct
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
@@ -302,9 +308,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       if (row2) return 2
     }
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
-    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
-    stmt.run({ id, hp0, hr0, lam, data })
+    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
+    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, hp0, hr0, hct, lam, data })
     return 0
   }
 
@@ -312,6 +318,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
+    const hct = safe.hct
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
@@ -324,9 +331,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     row2 = stmt.get({hr0})
     if (row2 && row2.id !== id) return 2
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, lam, data) VALUES (@id, @hp0, @hr0, @lam, @data)')
-    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
-    stmt.run({ id, hp0, hr0, lam, data })
+    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
+    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, hp0, hr0, hct, lam, data })
     return 0
   }
 
@@ -345,6 +352,23 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const data = Crypt.syncCrypt(this.key, encode(safe))
     stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hp0, hr0, lam, data })
+    return 0
+  }
+
+  async updHctSafe (safe: Safe) :  Promise<number> {
+    const id = safe.id
+    const hct = safe.hct
+    safe.lm = Math.floor(Date.now() / 1000)
+    const lam = Util.currentMonth()
+    let stmt
+    if (hct !== '')  {
+      stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hct = @hct')
+      let row = stmt.get({hct})
+      if (row && row.id !== id) return 2
+    }
+    const data = Crypt.syncCrypt(this.key, encode(safe))
+    stmt = this.sql.prepare('UPDATE SAFE SET hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    stmt.run({ id, hct, lam, data })
     return 0
   }
 

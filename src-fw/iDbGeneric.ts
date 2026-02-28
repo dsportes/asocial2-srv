@@ -77,6 +77,9 @@ export type Safe = {
   DK: string // clé privée de decryptage cryptée par la clé K
   V : string // clé publique de vérification,
   SK: string // clé privée de signature cryptée par la clé K
+  contact: string // b64 du pseudo de contact temporaire crypté pa K
+  hct: string // SH du contact
+  admins: string // b64 du cryptage de la liste des couples SVC.$OP dont l'utilisateur est admin
 
   devices: Object
   creds: Object
@@ -135,10 +138,16 @@ export interface IDbGeneric {
 
   /* Met à jour le p0 / ro d'un safe. Retour:
   0: OK
-  1: un safe existe déjà avec ce p0
-  2: un safe existe déjà avec ce r0
+  1: un (autre) safe existe déjà avec ce p0
+  2: un (autre) safe existe déjà avec ce r0
   */
   updPRSafe (safe: Safe) :  Promise<number>
+
+  /* Met à jour le "contact" d'un safe
+  0: OK
+  1: un (autre) safe existe déjà avec ce contact
+  */
+  updHctSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour un safe depuis son objet */
   updSafe (safe: Safe) :  Promise<void>

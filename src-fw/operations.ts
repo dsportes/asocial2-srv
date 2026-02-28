@@ -17,6 +17,20 @@ export function register () {
   return Operation.nbOf()
 }
 
+/* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
+*/
+class SvcOpIsAdmin extends Operation {
+  constructor () { super() }
+
+  async phase2 () {
+    this.setRes('isadmin', this.authRecord.isAdmin)
+  }
+
+  phase3 : null
+}
+Operation.register('SvcOpIsAdmin', () => { return new SvcOpIsAdmin()})
+
+
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
