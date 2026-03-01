@@ -153,3 +153,7 @@ BEGIN
 2026-03-01T10:17:58.749Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
 2026-03-01T10:20:24.918Z error: SvcOpIsAdmin : 2026-03-01T10:19:46.866Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
 2026-03-01T10:20:24.922Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-01T13:30:36.783Z error: SetSvcOpStatus : 2026-03-01T13:30:36.508Z : AppExc: 2007:admin required@SetSvcOpStatus:[]
+2026-03-01T13:34:40.752Z error: SetSvcOpStatus : 2026-03-01T13:34:34.849Z : AppExc: 2007:admin required@SetSvcOpStatus:[]
+2026-03-01T13:55:02.260Z error: GetSvcOrgStatus : 2026-03-01T13:54:40.051Z : TypeError: Cannot read properties of undefined (reading 'row')
+2026-03-01T13:55:02.263Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]

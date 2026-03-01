@@ -174,7 +174,7 @@ export class Operation {
   }
 
   requireAdmin () {
-    if (this.authRecord.isAdmin)
+    if (!this.authRecord.isAdmin) 
       throw new AppExc(2007, 'admin required', this)
   }
 

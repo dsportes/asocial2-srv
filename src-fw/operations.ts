@@ -86,7 +86,7 @@ Operation.register('SetSvcOpStatus', () => { return new SetSvcOpStatus()})
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
-class GetOrgStatus extends Operation {
+class GetSvcOrgStatus extends Operation {
   constructor () { super() }
 
   async phase2 () {
@@ -97,7 +97,7 @@ class GetOrgStatus extends Operation {
 
   phase3 : null
 }
-Operation.register('GetOrgStatus', () => { return new GetOrgStatus()})
+Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
 
 /* SetOrgStatus fixe le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
