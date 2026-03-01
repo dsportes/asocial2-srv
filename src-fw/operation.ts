@@ -196,14 +196,14 @@ export class Operation {
           this.now = Date.now()
           this.today = Math.floor(this.now / 86400000)
         }
+        await this.dbConnector.getConnexion(this)
         this.msSlow = 0
         this.updates = []
         this.hasTasks = false
         this.cache = new Cache(this)
         this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
         this.result = { now: this.now, srvBUILD: config.BUILD }
-        await this.dbConnector.getConnexion(this)
-
+        
         const [st, detail] = await this.db.doTransaction() // Fait un appel à transac
 
         if (st === 0) {
@@ -511,7 +511,7 @@ export class Cache {
     }
 
     // Pas trouvé en cache - recherche en base
-    const row = await op.db.oneRow(clazz, pk, item.row.v)
+    const row = await op.db.oneRow(clazz, pk, item ? item.row.v : 0)
     if (row) { // trouvé en base, mis en cache
       row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       const item : cacheItem = { lru: now, time: now, row } 
@@ -666,9 +666,11 @@ export class Cache {
       const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
         row = doc.toRow(this.op.now)
+        dd.row = row
         this.db.writeRow(updType.UPDATE, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
         row = doc.toRow(this.op.now)
+        dd.row = row
         this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL
         if (doc.docType.sync) {
@@ -682,7 +684,7 @@ export class Cache {
   }
 
   manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
-    for (const [n, collection] of doc.docType.colls) {
+    if (doc.docType.colls) for (const [n, collection] of doc.docType.colls) {
       if (doc._status === DocStatus.DEL) {
         // Tous le ou les termes "before" quittent le document
         const b = doc._before[n]

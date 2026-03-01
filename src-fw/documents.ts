@@ -23,9 +23,10 @@ export class Org extends Document {
   static release = 0
   status: OrgStatus
 
-  get isUP () { return this.status && (this.status.st === 1 || this.status.st === 2) }
-  get isRO () { return this.status && this.status.st === 2 }
-  get isRW () { return this.status && this.status.st === 1 }
+  isUP () { return this.status && (this.status.st === 1 || this.status.st === 2) }
+  isRO () { return this.status && this.status.st === 2 }
+  isRW () { return this.status && this.status.st === 1 }
+  isDOWN () { return this.status && this.status.st === 9 }
 
 }
 

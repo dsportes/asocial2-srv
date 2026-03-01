@@ -157,3 +157,10 @@ BEGIN
 2026-03-01T13:34:40.752Z error: SetSvcOpStatus : 2026-03-01T13:34:34.849Z : AppExc: 2007:admin required@SetSvcOpStatus:[]
 2026-03-01T13:55:02.260Z error: GetSvcOrgStatus : 2026-03-01T13:54:40.051Z : TypeError: Cannot read properties of undefined (reading 'row')
 2026-03-01T13:55:02.263Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'row')"]
+2026-03-01T16:17:37.284Z error: SetSvcOrgStatus : 2026-03-01T16:16:51.760Z : TypeError: dt.colls is not iterable
+2026-03-01T16:17:37.403Z error: AppExc: 3001:unexpected exception["dt.colls is not iterable"]
+2026-03-01T16:23:21.215Z error: SetSvcOrgStatus : 2026-03-01T16:22:36.436Z : TypeError: Cannot read properties of undefined (reading 'writeRow')
+2026-03-01T16:23:21.218Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'writeRow')"]
+2026-03-01T16:29:54.806Z error: SetSvcOrgStatus : 2026-03-01T16:29:24.803Z : TypeError: doc.docType.colls is not iterable
+2026-03-01T16:50:49.333Z error: GetSvcOrgStatus : 2026-03-01T16:50:49.329Z : TypeError: Cannot read properties of undefined (reading 'v')
+2026-03-01T16:50:49.348Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'v')"]

@@ -117,7 +117,7 @@ export class Document {
       const [d, m] = cl.mutate(initVals)
       if (m) data = d
     }
-    for (const [key, value] of Object.entries(data)) this[key] = value
+    for (const [key, value] of Object.entries(data)) doc[key] = value
     if (doc.compile) doc.compile()
     if (!DocStatus.NONE) doc._before = doc.docType.extractColls(doc)
     return doc
@@ -137,8 +137,10 @@ export class Document {
     }
     const ml = this['maxLife']; if (ml) row.maxLife = ml
     const dt = this.docType
-    for (const [n, c] of dt.colls) row[n] = c.list ? this.collValue(n) : this.collValue(n)[0]
-    for (const [n, ] of dt.indexes) row[n] = this.idxValue(n)
+    if (dt.colls) for (const [n, c] of dt.colls) 
+      row[n] = c.list ? this.collValue(n) : this.collValue(n)[0]
+    if (dt.indexes) for (const [n, ] of dt.indexes) 
+      row[n] = this.idxValue(n)
     return row
   }
 

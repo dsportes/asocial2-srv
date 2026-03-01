@@ -6,7 +6,7 @@ import { Util } from './util'
 import { Log } from './log'
 import { Crypt } from './crypt'
 import { config } from './config'
-import { Subs, subscription, SubsItem, Credential } from './documents'
+import { Subs, subscription, SubsItem, Credential, Org } from './documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
 
@@ -104,7 +104,7 @@ Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
-class SetOrgStatus extends Operation {
+class SetSvcOrgStatus extends Operation {
   constructor () { super() }
 
   _st: number
@@ -118,14 +118,19 @@ class SetOrgStatus extends Operation {
 
   async phase2 () {
     this.requireAdmin()
-    const orgDoc = await this.cache.getOrg()
-    orgDoc.status = { at: this.now, st: this._st, txt: this._txt }
-    orgDoc._status = DocStatus.UPD
+    const status = { at: this.now, st: this._st, txt: this._txt }
+    let orgDoc = await this.cache.getOrg()
+    if (orgDoc) {
+      orgDoc.status = status
+      orgDoc._status = DocStatus.UPD
+    } else {
+      orgDoc = this.cache.newDoc('Org', { status }) as Org
+    }
   }
 
   phase3 : null
 }
-Operation.register('SetOrgStatus', () => { return new SetOrgStatus()})
+Operation.register('SetSvcOrgStatus', () => { return new SetSvcOrgStatus()})
 
 /* SetOrg créé (ou non) une organisation (codes db et storage)
   Si l'organisation est déjà existante, patch les codes db et storage

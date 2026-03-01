@@ -433,11 +433,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     pour recherche instr de SQL
   Retourne le row
   */
-  rowToDB (row: row, nocrypt?: boolean) : row {
+  rowToDB (clazz: string, row: row, nocrypt?: boolean) : row {
     if (!row.data) { // deleted
       row.ttl = Math.floor(row.v / 60000) + zombiLapse, 0
     } else {
-      const [, ll] = this.columns(row.clazz)
+      const [, ll] = this.columns(clazz)
       ll.forEach(p => {
         const a = row[p]
         row[p] = a && a.length ? ('$' + a.join('$')) : ''
@@ -511,7 +511,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
-    const r = this.rowToDB(row, true)
+    const r = this.rowToDB(clazz, row, true)
     const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
@@ -522,7 +522,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
       lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
-    const r = this.rowToDB(row, true)
+    const r = this.rowToDB(clazz, row, true)
     const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
@@ -537,7 +537,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
-    const r = this.rowToDB(row, true)
+    const r = this.rowToDB(clazz, row, true)
     const obj = { org: this.org, ttl: r.ttl || 0 }
     cols.forEach(c => { obj[c] = r[c] })
     stmt.run(obj)
@@ -546,7 +546,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async delRow (clazz: string, row: row) : Promise<void> {
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + 
     ' WHERE org = @org AND pk = @pk;')
-    const r = this.rowToDB(row, true)
+    const r = this.rowToDB(clazz, row, true)
     const obj = { org: this.org, pk: row.pk }
     stmt.run(obj)
   }
