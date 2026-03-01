@@ -6606,3 +6606,198 @@ BEGIN
 2026-02-27T18:23:56.030Z info: $OpenSafeById finished
 2026-02-27T18:31:02.337Z info: $OpenSafeByPin finished
 2026-02-27T18:31:02.481Z info: $OpenSafeById finished
+2026-03-01T08:42:03.186Z info: 15 operations registered
+2026-03-01T08:42:03.196Z info: 9 document classes
+2026-03-01T08:42:03.201Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-01T08:42:03.202Z info: Firestore connector
+2026-03-01T08:42:03.203Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-01T08:42:03.206Z info: 15 App operations registered
+2026-03-01T08:42:03.271Z info: Reloading orgs config OK
+2026-03-01T08:42:03.286Z info: HTTP listen [8080]
+2026-03-01T08:44:02.125Z info: $OpenSafeByPin finished
+2026-03-01T08:44:02.251Z info: $OpenSafeById finished
+2026-03-01T08:46:41.945Z info: $OpenSafeByPin finished
+2026-03-01T08:46:42.071Z info: $OpenSafeById finished
+2026-03-01T08:48:40.292Z info: $OpenSafeByPin finished
+2026-03-01T08:48:40.422Z info: $OpenSafeById finished
+2026-03-01T08:49:10.525Z info: $OpenSafeByPin finished
+2026-03-01T08:49:10.658Z info: $OpenSafeById finished
+2026-03-01T08:50:22.540Z info: $OpenSafeByPin finished
+2026-03-01T08:50:22.648Z info: $OpenSafeById finished
+2026-03-01T08:52:30.168Z info: $OpenSafeByPin finished
+2026-03-01T08:52:30.280Z info: $OpenSafeById finished
+2026-03-01T08:53:12.614Z info: $OpenSafeByPin finished
+2026-03-01T08:53:12.747Z info: $OpenSafeById finished
+2026-03-01T09:08:26.758Z info: $OpenSafeByPin finished
+2026-03-01T09:08:26.871Z info: $OpenSafeById finished
+2026-03-01T09:10:36.797Z info: $OpenSafeByPin finished
+2026-03-01T09:10:36.908Z info: $OpenSafeById finished
+2026-03-01T09:14:15.488Z info: $OpenSafeByPin finished
+2026-03-01T09:14:15.618Z info: $OpenSafeById finished
+2026-03-01T09:21:29.606Z info: 15 operations registered
+2026-03-01T09:21:29.612Z info: 9 document classes
+2026-03-01T09:21:29.613Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-01T09:21:29.614Z info: Firestore connector
+2026-03-01T09:21:29.616Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-01T09:21:29.617Z info: 15 App operations registered
+2026-03-01T09:21:29.639Z info: Reloading orgs config OK
+2026-03-01T09:21:29.647Z info: HTTP listen [8080]
+2026-03-01T09:21:48.674Z info: $OpenSafeByPin finished
+2026-03-01T09:21:48.787Z info: $OpenSafeById finished
+2026-03-01T09:23:36.580Z info: $OpenSafeByPin finished
+2026-03-01T09:23:36.692Z info: $OpenSafeById finished
+2026-03-01T09:25:36.101Z info: $SetContact terminated on exception
+2026-03-01T09:25:36.127Z error: AppExc: 3001:unexpected exception["no such column: hct"]
+2026-03-01T09:30:01.835Z info: 15 operations registered
+2026-03-01T09:30:01.841Z info: 9 document classes
+2026-03-01T09:30:01.842Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-01T09:30:01.843Z info: Firestore connector
+2026-03-01T09:30:01.844Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-01T09:30:01.846Z info: 15 App operations registered
+2026-03-01T09:30:01.866Z info: Reloading orgs config OK
+2026-03-01T09:30:01.881Z info: HTTP listen [8080]
+2026-03-01T09:31:19.059Z info: $SetContact finished
+2026-03-01T09:34:24.902Z info: $OpenSafeByPin finished
+2026-03-01T09:34:25.055Z info: $OpenSafeById finished
+2026-03-01T09:39:18.440Z info: $OpenSafeByPin finished
+2026-03-01T09:39:18.560Z info: $OpenSafeById finished
+2026-03-01T09:41:11.566Z info: $OpenSafeByPin finished
+2026-03-01T09:41:11.682Z info: $OpenSafeById finished
+2026-03-01T09:46:36.751Z info: $OpenSafeByPin finished
+2026-03-01T09:46:37.052Z info: $OpenSafeById finished
+2026-03-01T09:49:34.650Z info: $GetSvcOpUrl finished
+2026-03-01T09:49:34.697Z info: SvcOpIsAdmin : 2026-03-01T09:49:34.697Z
+2026-03-01T09:50:16.878Z info: SvcOpIsAdmin finished
+2026-03-01T09:50:16.882Z info: Reloading orgs config OK
+2026-03-01T09:53:36.658Z info: $OpenSafeByPin finished
+2026-03-01T09:53:36.804Z info: $OpenSafeById finished
+2026-03-01T09:56:00.400Z info: $OpenSafeByPin finished
+2026-03-01T09:56:00.524Z info: $OpenSafeById finished
+2026-03-01T09:57:48.636Z info: $GetSvcOpUrl finished
+2026-03-01T09:57:48.732Z info: SvcOpIsAdmin : 2026-03-01T09:57:48.731Z
+2026-03-01T09:58:52.264Z info: SvcOpIsAdmin finished
+2026-03-01T09:58:52.269Z info: Reloading orgs config OK
+2026-03-01T09:59:08.616Z info: SvcOpIsAdmin : 2026-03-01T09:59:08.616Z
+2026-03-01T10:04:34.680Z info: SvcOpIsAdmin finished
+2026-03-01T10:04:34.703Z info: $OpenSafeByPin finished
+2026-03-01T10:04:34.816Z info: $OpenSafeById finished
+2026-03-01T10:04:53.057Z info: $GetSvcOpUrl finished
+2026-03-01T10:04:53.161Z info: SvcOpIsAdmin : 2026-03-01T10:04:53.160Z
+2026-03-01T10:05:29.772Z info: Reloading orgs config OK
+2026-03-01T10:05:29.789Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:05:54.010Z error: SvcOpIsAdmin : 2026-03-01T10:04:53.160Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:05:54.011Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:07:06.938Z info: SvcOpIsAdmin : 2026-03-01T10:07:06.938Z
+2026-03-01T10:09:51.512Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:09:51.516Z error: SvcOpIsAdmin : 2026-03-01T10:07:06.938Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:09:51.518Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:09:51.536Z info: $OpenSafeByPin finished
+2026-03-01T10:09:51.654Z info: $OpenSafeById finished
+2026-03-01T10:11:38.316Z info: 15 operations registered
+2026-03-01T10:11:38.319Z info: 9 document classes
+2026-03-01T10:11:38.320Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-01T10:11:38.321Z info: Firestore connector
+2026-03-01T10:11:38.321Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-01T10:11:38.322Z info: 15 App operations registered
+2026-03-01T10:11:38.350Z info: Reloading orgs config OK
+2026-03-01T10:11:38.359Z info: HTTP listen [8080]
+2026-03-01T10:11:58.266Z info: $GetSvcOpUrl finished
+2026-03-01T10:11:58.319Z info: SvcOpIsAdmin : 2026-03-01T10:11:58.317Z
+2026-03-01T10:13:43.798Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:13:43.801Z error: SvcOpIsAdmin : 2026-03-01T10:11:58.317Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:13:43.802Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:15:31.017Z info: SvcOpIsAdmin : 2026-03-01T10:15:31.017Z
+2026-03-01T10:15:58.712Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:15:58.715Z error: SvcOpIsAdmin : 2026-03-01T10:15:31.017Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:15:58.715Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:16:38.713Z info: 15 operations registered
+2026-03-01T10:16:38.716Z info: 9 document classes
+2026-03-01T10:16:38.717Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-01T10:16:38.718Z info: Firestore connector
+2026-03-01T10:16:38.719Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-01T10:16:38.720Z info: 15 App operations registered
+2026-03-01T10:16:38.739Z info: Reloading orgs config OK
+2026-03-01T10:16:38.746Z info: HTTP listen [8080]
+2026-03-01T10:16:46.843Z info: SvcOpIsAdmin : 2026-03-01T10:16:46.834Z
+2026-03-01T10:17:03.398Z info: $GetPubKeys finished
+2026-03-01T10:17:58.735Z error: SvcOpIsAdmin : 2026-03-01T10:16:46.834Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-01T10:17:58.747Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:17:58.749Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-01T10:19:46.867Z info: SvcOpIsAdmin : 2026-03-01T10:19:46.866Z
+2026-03-01T10:20:24.918Z error: SvcOpIsAdmin : 2026-03-01T10:19:46.866Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-01T10:20:24.921Z info: SvcOpIsAdmin terminated on exception
+2026-03-01T10:20:24.922Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-01T10:28:05.566Z info: $OpenSafeByPin finished
+2026-03-01T10:28:05.636Z info: $OpenSafeById finished
+2026-03-01T10:28:29.169Z info: $OpenSafeByPin finished
+2026-03-01T10:28:29.297Z info: $OpenSafeById finished
+2026-03-01T10:31:57.367Z info: $OpenSafeByPin finished
+2026-03-01T10:31:57.467Z info: $OpenSafeById finished
+2026-03-01T10:32:43.090Z info: $GetSvcOpUrl finished
+2026-03-01T10:32:43.151Z info: SvcOpIsAdmin : 2026-03-01T10:32:43.150Z
+2026-03-01T10:33:44.186Z info: SvcOpIsAdmin finished
+2026-03-01T10:33:44.190Z info: Reloading orgs config OK
+2026-03-01T10:38:56.600Z info: $OpenSafeByPin finished
+2026-03-01T10:38:56.693Z info: $OpenSafeById finished
+2026-03-01T10:39:19.087Z info: $GetSvcOpUrl finished
+2026-03-01T10:39:19.127Z info: SvcOpIsAdmin : 2026-03-01T10:39:19.127Z
+2026-03-01T10:39:48.349Z info: Reloading orgs config OK
+2026-03-01T10:40:03.122Z info: SvcOpIsAdmin finished
+2026-03-01T10:41:34.633Z info: $OpenSafeByPin finished
+2026-03-01T10:41:34.772Z info: $OpenSafeById finished
+2026-03-01T10:41:49.172Z info: $GetSvcOpUrl finished
+2026-03-01T10:41:49.210Z info: SvcOpIsAdmin : 2026-03-01T10:41:49.209Z
+2026-03-01T10:41:59.843Z info: SvcOpIsAdmin finished
+2026-03-01T10:42:49.111Z info: $OpenSafeByPin finished
+2026-03-01T10:42:49.353Z info: $OpenSafeById finished
+2026-03-01T10:43:04.719Z info: $GetSvcOpUrl finished
+2026-03-01T10:43:04.774Z info: SvcOpIsAdmin : 2026-03-01T10:43:04.773Z
+2026-03-01T10:43:04.817Z info: SvcOpIsAdmin finished
+2026-03-01T10:43:42.521Z info: SvcOpIsAdmin : 2026-03-01T10:43:42.521Z
+2026-03-01T10:43:42.538Z info: SvcOpIsAdmin finished
+2026-03-01T10:45:13.840Z info: $GetSvcOpUrl finished
+2026-03-01T11:01:40.496Z info: $OpenSafeByPin finished
+2026-03-01T11:01:40.624Z info: $OpenSafeById finished
+2026-03-01T11:08:31.479Z info: $OpenSafeByPin finished
+2026-03-01T11:08:31.630Z info: $OpenSafeById finished
+2026-03-01T11:08:54.908Z info: $GetSvcOpUrl finished
+2026-03-01T11:08:54.984Z info: SvcOpIsAdmin : 2026-03-01T11:08:54.984Z
+2026-03-01T11:08:54.999Z info: SvcOpIsAdmin finished
+2026-03-01T11:08:55.051Z info: Reloading orgs config OK
+2026-03-01T11:13:12.041Z info: $GetSvcOpUrl finished
+2026-03-01T11:14:08.861Z info: SvcOpIsAdmin : 2026-03-01T11:14:08.853Z
+2026-03-01T11:14:08.871Z info: SvcOpIsAdmin finished
+2026-03-01T11:14:08.913Z info: Reloading orgs config OK
+2026-03-01T11:15:05.542Z info: SvcOpIsAdmin : 2026-03-01T11:15:05.541Z
+2026-03-01T11:15:05.556Z info: SvcOpIsAdmin finished
+2026-03-01T11:17:29.932Z info: $OpenSafeByPin finished
+2026-03-01T11:17:30.063Z info: $OpenSafeById finished
+2026-03-01T11:17:40.967Z info: $GetSvcOpUrl finished
+2026-03-01T11:17:41.051Z info: SvcOpIsAdmin : 2026-03-01T11:17:41.051Z
+2026-03-01T11:17:41.082Z info: $GetPubKeys finished
+2026-03-01T11:17:41.115Z info: SvcOpIsAdmin finished
+2026-03-01T11:17:57.899Z info: $OpenSafeByPin finished
+2026-03-01T11:17:58.018Z info: $OpenSafeById finished
+2026-03-01T11:18:09.418Z info: SvcOpIsAdmin : 2026-03-01T11:18:09.417Z
+2026-03-01T11:18:09.429Z info: SvcOpIsAdmin finished
+2026-03-01T11:20:22.922Z info: $SetAdmins finished
+2026-03-01T11:24:08.768Z info: $OpenSafeByPin finished
+2026-03-01T11:24:08.886Z info: $OpenSafeById finished
+2026-03-01T11:24:35.189Z info: $SetAdmins finished
+2026-03-01T11:27:57.072Z info: $OpenSafeByPin finished
+2026-03-01T11:27:57.180Z info: $OpenSafeById finished
+2026-03-01T11:28:10.033Z info: $GetSvcOpUrl finished
+2026-03-01T11:28:10.102Z info: SvcOpIsAdmin : 2026-03-01T11:28:10.101Z
+2026-03-01T11:28:10.123Z info: SvcOpIsAdmin finished
+2026-03-01T11:28:10.155Z info: Reloading orgs config OK
+2026-03-01T11:28:12.731Z info: $SetAdmins finished
+2026-03-01T11:36:31.911Z info: $OpenSafeByPin finished
+2026-03-01T11:36:32.032Z info: $OpenSafeById finished
+2026-03-01T11:36:52.880Z info: $SetContact finished
+2026-03-01T11:38:25.162Z info: $OpenSafeByPin finished
+2026-03-01T11:38:25.280Z info: $OpenSafeById finished
+2026-03-01T11:41:29.267Z info: $OpenSafeByPin finished
+2026-03-01T11:41:29.389Z info: $OpenSafeById finished
+2026-03-01T11:43:56.913Z info: $SetContact finished
+2026-03-01T11:45:16.376Z info: $SetContact finished
+2026-03-01T11:45:22.461Z info: $SetContact finished

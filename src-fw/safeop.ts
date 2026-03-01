@@ -553,8 +553,7 @@ type SetContact = {
   userId: string
   contact: string
   hct: string
-  sh1p: string
-  sh1r: string
+  shk: string
 }
 /* Changement du contact
 */
@@ -562,7 +561,7 @@ class $SetContact extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const sc = this.args['setContact'] as SetContact
+    const sc = this.args['setcontact'] as SetContact
     const safe = await this.getSafe(sc)
     if (!safe) return
     safe.contact = sc.contact
@@ -577,8 +576,7 @@ SafeOperation.register('$SetContact', () => { return new $SetContact()})
 type SetAdmins = {
   userId: string
   admins: string
-  sh1p: string
-  sh1r: string
+  shk: string
 }
 
 class $SetAdmins extends SafeOperation {
@@ -595,7 +593,6 @@ class $SetAdmins extends SafeOperation {
   }
 }
 SafeOperation.register('$SetAdmins', () => { return new $SetAdmins()})
-
 
 type TrustDev = {
   userId: string

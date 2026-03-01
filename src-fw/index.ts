@@ -453,7 +453,7 @@ export class MasterDir {
   static keys: Map<string, [string, string]> = new Map()
 
   static async post (opName: string, args: Object) : Promise<Object> {
-    const url = config.MASTERDIR + '/' + opName
+    const url = config.MASTERDIR + '/safe/' + opName
     const body = new Uint8Array(encode(args))
     try {
       const response = await fetch(url , {

@@ -140,3 +140,16 @@ BEGIN
 2026-02-26T14:27:16.313Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'status')"]
 2026-02-27T12:08:57.323Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
 2026-02-27T12:42:26.840Z error: AppExc: 3001:unexpected exception["no such column: excluded.c"]
+2026-03-01T09:25:36.127Z error: AppExc: 3001:unexpected exception["no such column: hct"]
+2026-03-01T10:05:29.789Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:05:54.010Z error: SvcOpIsAdmin : 2026-03-01T10:04:53.160Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:09:51.512Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:09:51.516Z error: SvcOpIsAdmin : 2026-03-01T10:07:06.938Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:13:43.798Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:13:43.801Z error: SvcOpIsAdmin : 2026-03-01T10:11:58.317Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:15:58.712Z error: AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:15:58.715Z error: SvcOpIsAdmin : 2026-03-01T10:15:31.017Z : AppExc: 3003:masterdir error["$GetPubKeys","fetch failed"]
+2026-03-01T10:17:58.735Z error: SvcOpIsAdmin : 2026-03-01T10:16:46.834Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-01T10:17:58.749Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-01T10:20:24.918Z error: SvcOpIsAdmin : 2026-03-01T10:19:46.866Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-01T10:20:24.922Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
