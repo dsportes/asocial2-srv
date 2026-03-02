@@ -98,6 +98,7 @@ if (docTypeErrors.length) {
 Log.info(DocType.docTypes.size + ' document classes')
 
 config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
+// config.databases.set('sqlite_b', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A']))
 config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
 
 config.safeDB = config.databases.get('sqlite_a')

@@ -7110,3 +7110,114 @@ BEGIN
 2026-03-02T08:36:37.838Z info: 16 App operations registered
 2026-03-02T08:36:37.880Z info: Reloading orgs config OK
 2026-03-02T08:36:37.888Z info: HTTP listen [8080]
+2026-03-02T11:03:13.654Z info: 17 operations registered
+2026-03-02T11:03:13.657Z info: 9 document classes
+2026-03-02T11:03:13.659Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T11:03:13.659Z info: Firestore connector
+2026-03-02T11:03:13.660Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T11:03:13.661Z info: 17 App operations registered
+2026-03-02T11:03:13.676Z info: Reloading orgs config OK
+2026-03-02T11:03:13.683Z info: HTTP listen [8080]
+2026-03-02T11:07:36.571Z info: $OpenSafeByPin finished
+2026-03-02T11:07:36.720Z info: $OpenSafeById finished
+2026-03-02T11:09:47.954Z info: $OpenSafeByPin finished
+2026-03-02T11:09:48.062Z info: $OpenSafeById finished
+2026-03-02T11:10:47.485Z info: $OpenSafeByPin finished
+2026-03-02T11:10:47.583Z info: $OpenSafeById finished
+2026-03-02T11:11:18.449Z info: $GetSvcOpUrl finished
+2026-03-02T11:11:18.495Z info: GetSvcOpStatus : 2026-03-02T11:11:18.491Z
+2026-03-02T11:11:18.500Z info: GetSvcOpStatus finished
+2026-03-02T11:11:18.550Z info: Reloading orgs config OK
+2026-03-02T11:11:18.595Z info: $GetSvcOrgUrl finished
+2026-03-02T11:11:34.087Z info: GetSvcOpStatus : 2026-03-02T11:11:34.087Z
+2026-03-02T11:11:34.092Z info: GetSvcOpStatus finished
+2026-03-02T11:11:34.131Z info: $GetSvcOrgUrl finished
+2026-03-02T11:11:34.181Z info: GetSvcOrgStatus : 2026-03-02T11:11:34.173Z
+2026-03-02T11:11:34.187Z info: GetSvcOrgStatus finished
+2026-03-02T11:13:43.167Z info: GetSvcOpStatus : 2026-03-02T11:13:43.167Z
+2026-03-02T11:13:43.172Z info: GetSvcOpStatus finished
+2026-03-02T11:13:43.251Z info: GetSvcOrgStatus : 2026-03-02T11:13:43.250Z
+2026-03-02T11:13:43.255Z info: GetSvcOrgStatus finished
+2026-03-02T11:16:46.982Z info: 17 operations registered
+2026-03-02T11:16:46.986Z info: 9 document classes
+2026-03-02T11:16:46.987Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T11:16:46.988Z info: Firestore connector
+2026-03-02T11:16:46.989Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T11:16:46.989Z info: 17 App operations registered
+2026-03-02T11:17:59.141Z info: Reloading orgs config OK
+2026-03-02T11:18:03.733Z info: HTTP listen [8080]
+2026-03-02T11:26:53.641Z info: GetOrgConfig : 2026-03-02T11:26:53.628Z
+2026-03-02T11:27:27.705Z info: Reloading orgs config OK
+2026-03-02T11:27:27.743Z info: $GetPubKeys finished
+2026-03-02T11:29:56.264Z info: 17 operations registered
+2026-03-02T11:29:56.268Z info: 9 document classes
+2026-03-02T11:29:56.269Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T11:29:56.270Z info: Firestore connector
+2026-03-02T11:29:56.271Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T11:29:56.273Z info: 17 App operations registered
+2026-03-02T11:29:56.291Z info: Reloading orgs config OK
+2026-03-02T11:29:56.298Z info: HTTP listen [8080]
+2026-03-02T11:30:19.203Z info: GetOrgConfig : 2026-03-02T11:30:19.199Z
+2026-03-02T11:30:19.360Z info: $GetPubKeys finished
+2026-03-02T11:30:48.294Z info: GetOrgConfig finished
+2026-03-02T11:32:55.981Z info: GetOrgConfig : 2026-03-02T11:32:55.980Z
+2026-03-02T11:32:55.996Z info: GetOrgConfig finished
+2026-03-02T11:33:02.913Z info: SetOrgConfig : 2026-03-02T11:33:02.912Z
+2026-03-02T11:34:07.465Z info: SetOrgConfig finished
+2026-03-02T11:38:24.712Z info: 17 operations registered
+2026-03-02T11:38:24.715Z info: 9 document classes
+2026-03-02T11:38:24.716Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T11:38:24.717Z info: Firestore connector
+2026-03-02T11:38:24.718Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T11:38:24.719Z info: 17 App operations registered
+2026-03-02T11:38:24.733Z info: Reloading orgs config OK
+2026-03-02T11:38:24.738Z info: HTTP listen [8080]
+2026-03-02T11:38:58.356Z info: GetOrgConfig : 2026-03-02T11:38:58.353Z
+2026-03-02T11:38:58.535Z info: $GetPubKeys finished
+2026-03-02T11:39:59.134Z info: GetOrgConfig finished
+2026-03-02T11:43:45.091Z info: $OpenSafeByPin finished
+2026-03-02T11:43:45.211Z info: $OpenSafeById finished
+2026-03-02T11:44:01.008Z info: $GetSvcOrgUrl finished
+2026-03-02T11:44:01.071Z info: GetOrgConfig : 2026-03-02T11:44:01.069Z
+2026-03-02T11:44:06.032Z info: GetOrgConfig finished
+2026-03-02T11:44:06.038Z info: Reloading orgs config OK
+2026-03-02T11:45:35.002Z info: $OpenSafeByPin finished
+2026-03-02T11:45:35.128Z info: $OpenSafeById finished
+2026-03-02T11:45:48.086Z info: $GetSvcOrgUrl finished
+2026-03-02T11:45:48.145Z info: GetOrgConfig : 2026-03-02T11:45:48.145Z
+2026-03-02T11:45:48.184Z info: GetOrgConfig finished
+2026-03-02T11:46:44.849Z info: GetOrgConfig : 2026-03-02T11:46:44.849Z
+2026-03-02T11:46:44.864Z info: GetOrgConfig finished
+2026-03-02T11:47:40.559Z info: GetOrgConfig : 2026-03-02T11:47:40.559Z
+2026-03-02T11:47:40.581Z info: GetOrgConfig finished
+2026-03-02T11:47:50.367Z info: SetOrgConfig : 2026-03-02T11:47:50.367Z
+2026-03-02T11:47:55.613Z info: SetOrgConfig finished
+2026-03-02T11:48:15.812Z info: GetOrgConfig : 2026-03-02T11:48:15.812Z
+2026-03-02T11:48:15.829Z info: GetOrgConfig finished
+2026-03-02T11:53:23.805Z info: 15 operations registered
+2026-03-02T11:53:23.810Z info: 9 document classes
+2026-03-02T11:53:23.815Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T11:53:23.818Z info: Firestore connector
+2026-03-02T11:53:23.820Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T11:53:23.821Z info: 15 App operations registered
+2026-03-02T11:53:23.848Z info: Reloading orgs config OK
+2026-03-02T11:53:23.858Z info: HTTP listen [8080]
+2026-03-02T11:53:36.030Z info: $OpenSafeByPin finished
+2026-03-02T11:53:36.144Z info: $OpenSafeById finished
+2026-03-02T11:53:49.927Z info: $GetSvcOrgUrl finished
+2026-03-02T11:53:49.973Z info: GetOrgConfig : 2026-03-02T11:53:49.971Z
+2026-03-02T11:53:50.172Z info: $GetPubKeys finished
+2026-03-02T11:53:50.214Z info: GetOrgConfig finished
+2026-03-02T11:53:58.113Z info: SetOrgConfig : 2026-03-02T11:53:58.111Z
+2026-03-02T11:53:58.127Z info: SetOrgConfig finished
+2026-03-02T11:58:01.764Z info: $OpenSafeByPin finished
+2026-03-02T11:58:01.908Z info: $OpenSafeById finished
+2026-03-02T11:58:55.484Z info: $GetSvcOrgUrl finished
+2026-03-02T11:58:55.524Z info: GetOrgConfig : 2026-03-02T11:58:55.524Z
+2026-03-02T11:58:55.544Z info: GetOrgConfig finished
+2026-03-02T11:59:06.250Z info: $GetSvcOpUrl finished
+2026-03-02T11:59:06.302Z info: GetSvcOpStatus : 2026-03-02T11:59:06.301Z
+2026-03-02T11:59:06.320Z info: GetSvcOpStatus finished
+2026-03-02T11:59:06.354Z info: Reloading orgs config OK
+2026-03-02T11:59:06.396Z info: GetSvcOrgStatus : 2026-03-02T11:59:06.396Z
+2026-03-02T11:59:06.411Z info: GetSvcOrgStatus finished

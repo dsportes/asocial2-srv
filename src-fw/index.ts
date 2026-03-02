@@ -36,15 +36,24 @@ export class OrgsConfig {
   dbs : Map<string, Set<string>>
   storages : Map<string, Set<string>>
 
-  constructor () {  }
+  constructor (x: Object) { // { org1:[db1, st1], ...}
+    this.orgs = new Map<string, [string, string]>()
+    this.dbs = new Map<string, Set<string>>()
+    this.storages = new Map<string, Set<string>>()
+    for (const org in x) {
+      const [db, st] = x[org]
+      this.orgs.set(org, [db, st])
+      let e = this.dbs.get(db); if (!e) e = new Set<string>(); this.dbs.set(db, e)
+      e.add(org)
+      e = this.storages.get(st); if (!e) e = new Set<string>(); this.storages.set(st, e)
+      e.add(org)
+    }
+  }
 
   static getDbSt (org: string) {
     OrgsConfig.reload()
     const c = OrgsConfig.current
-    if (!c) return null
-    const db = c.dbs.get(org) || ''
-    const st = c.storages.get(org) || ''
-    return [db, st]
+    return !c ? null : c.orgs.get(org)
   }
 
   static reload () {
@@ -54,37 +63,28 @@ export class OrgsConfig {
     setTimeout(OrgsConfig.doReload, 50)
   }
 
-  static async saveCfg (op: Operation, org: string, db: string, st: string) {
+  static async save (op: Operation, org: string, db: string, st: string) {
     const val = await op.db.getSingleton('orgs') as string
     const x = JSON.parse(val)
     if (!db) delete(x[org])
     else x[org] = [db, st]
     const nval = JSON.stringify(x, null, '\t')
+    const oc = new OrgsConfig(x)
+    OrgsConfig.current = oc
+    OrgsConfig.updating = false
+    OrgsConfig.lastLoading = Date.now()
     await op.db.setSingleton('orgs', nval)
-  // TODO reload
   }
 
   static async doReload (init?: boolean) : Promise<boolean> {
     const op = new Operation()
     op.now = Date.now()
     try {
-      const oc = new OrgsConfig()
-      oc.orgs = new Map<string, [string, string]>()
-      oc.dbs = new Map<string, Set<string>>()
-      oc.storages = new Map<string, Set<string>>()
       const dbConnector = config.svcDB
       await dbConnector.getConnexion(op)
       const val = await op.db.getSingleton('orgs') as string
       const x = JSON.parse(val)
-      /* { org1:[db1, st1], ...} */
-      for (const org in x) {
-        const [db, st] = x[org]
-        oc.orgs.set(org, [db, st])
-        let e = oc.dbs.get(db); if (!e) e = new Set<string>(); oc.dbs.set(db, e)
-        e.add(org)
-        e = oc.storages.get(st); if (!e) e = new Set<string>(); oc.storages.set(st, e)
-        e.add(org)
-      }
+      const oc = new OrgsConfig(x)
       op.db.disconnect()
       OrgsConfig.current = oc
       OrgsConfig.updating = false

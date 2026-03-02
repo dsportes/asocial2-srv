@@ -132,7 +132,7 @@ class SetSvcOrgStatus extends Operation {
 }
 Operation.register('SetSvcOrgStatus', () => { return new SetSvcOrgStatus()})
 
-class GetOrgConfig extends Operation {
+class SetOrgConfig extends Operation {
   constructor () { super() }
   _st: string
   _db: string
@@ -145,14 +145,15 @@ class GetOrgConfig extends Operation {
 
   async phase2 () {
     this.requireAdmin()
-    OrgsConfig.saveCfg(this, this.org, this._db, this._st)
+    OrgsConfig.save(this, this.org, this._db, this._st)
+    this.setRes('orgconfig', { db: this._db, st: this._st })
   }
 
   phase3 : null
 }
-Operation.register('GetOrgConfig', () => { return new GetOrgConfig()})
+Operation.register('SetOrgConfig', () => { return new SetOrgConfig()})
 
-class SetOrgConfig extends Operation {
+class GetOrgConfig extends Operation {
   constructor () { super() }
 
   async phase2 () {
@@ -165,82 +166,7 @@ class SetOrgConfig extends Operation {
 
   phase3 : null
 }
-Operation.register('SetOrgConfig', () => { return new SetOrgConfig()})
-
-/* SetOrg créé (ou non) une organisation (codes db et storage)
-  Si l'organisation est déjà existante, patch les codes db et storage
-  ADMINISTRATEUR
-*/
-class SetOrg extends Operation {
-  constructor () { super() }
-
-  _db: string
-  _st: string
-  _neworg: string
-
-  init () {
-    super.init()
-    this._neworg = this.stringValue('neworg', true, 3, 16) 
-    this._st = this.stringValue('st', true, 3, 16)
-    this._db = this.stringValue('db', true, 3, 16)
-  }
-
-  async phase2 () {
-    this.requireAdmin()
-    const val = await this.db.getSingleton('orgs') as string
-    let obj = {}
-    if (val) try { obj = JSON.parse(val) } catch(e) {}
-    let e = obj[this._neworg]
-    let cr = 0
-    if (!e) {
-      cr = 1
-      e = ['', '']
-      obj[this._neworg] = e
-    }
-    e[0] = this._db
-    e[1] = this._st
-    const y = JSON.stringify(obj, null, '\t')
-    await this.db.setSingleton('orgs', y)
-    this.setRes('status', cr)
-  }
-
-  async phase3 () {
-    OrgsConfig.doReload()
-  }
-}
-Operation.register('SetOrg', () => { return new SetOrg()})
-
-/* DelOrg supprime la référence (codes db et storage) à une organisation
-  Si l'organisation n'existe pas, ne fait rien
-  ADMINISTRATEUR
-*/
-class DelOrg extends Operation {
-  constructor () { super() }
-
-  _org: string
-
-  init () {
-    super.init()
-    this._org = this.stringValue('org', true, 3, 16) 
-  }
-
-  async phase2 () {
-    this.requireAdmin()
-    const val = await this.db.getSingleton('orgs') as string
-    if (!val) return
-    let obj = {}
-    try { obj = JSON.parse(val) } catch(e) {}
-    if (obj[this._org]) return
-    delete(obj[this._org])
-    const y = JSON.stringify(obj, null, '\t')
-    await this.db.setSingleton('orgs', y)
-  }
-
-  async phase3 () {
-    OrgsConfig.doReload()
-  }
-}
-Operation.register('DelOrg', () => { return new DelOrg()})
+Operation.register('GetOrgConfig', () => { return new GetOrgConfig()})
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
