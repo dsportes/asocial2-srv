@@ -7102,3 +7102,11 @@ BEGIN
 2026-03-01T17:03:06.578Z info: GetSvcOpStatus finished
 2026-03-01T17:03:06.672Z info: GetSvcOrgStatus : 2026-03-01T17:03:06.671Z
 2026-03-01T17:03:12.801Z info: GetSvcOrgStatus finished
+2026-03-02T08:36:37.832Z info: 16 operations registered
+2026-03-02T08:36:37.835Z info: 9 document classes
+2026-03-02T08:36:37.836Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-03-02T08:36:37.837Z info: Firestore connector
+2026-03-02T08:36:37.837Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-03-02T08:36:37.838Z info: 16 App operations registered
+2026-03-02T08:36:37.880Z info: Reloading orgs config OK
+2026-03-02T08:36:37.888Z info: HTTP listen [8080]

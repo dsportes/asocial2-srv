@@ -38,11 +38,30 @@ export class OrgsConfig {
 
   constructor () {  }
 
+  static getDbSt (org: string) {
+    OrgsConfig.reload()
+    const c = OrgsConfig.current
+    if (!c) return null
+    const db = c.dbs.get(org) || ''
+    const st = c.storages.get(org) || ''
+    return [db, st]
+  }
+
   static reload () {
     if (OrgsConfig.updating) return
     if (Date.now() - OrgsConfig.lastLoading < 300000) return
     OrgsConfig.updating = true
     setTimeout(OrgsConfig.doReload, 50)
+  }
+
+  static async saveCfg (op: Operation, org: string, db: string, st: string) {
+    const val = await op.db.getSingleton('orgs') as string
+    const x = JSON.parse(val)
+    if (!db) delete(x[org])
+    else x[org] = [db, st]
+    const nval = JSON.stringify(x, null, '\t')
+    await op.db.setSingleton('orgs', nval)
+  // TODO reload
   }
 
   static async doReload (init?: boolean) : Promise<boolean> {

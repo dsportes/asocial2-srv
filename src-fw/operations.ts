@@ -132,6 +132,41 @@ class SetSvcOrgStatus extends Operation {
 }
 Operation.register('SetSvcOrgStatus', () => { return new SetSvcOrgStatus()})
 
+class GetOrgConfig extends Operation {
+  constructor () { super() }
+  _st: string
+  _db: string
+
+  init () {
+    super.init()
+    this._st = this.stringValue('st', true, 0, 9)
+    this._db = this.stringValue('db', true)
+  }
+
+  async phase2 () {
+    this.requireAdmin()
+    OrgsConfig.saveCfg(this, this.org, this._db, this._st)
+  }
+
+  phase3 : null
+}
+Operation.register('GetOrgConfig', () => { return new GetOrgConfig()})
+
+class SetOrgConfig extends Operation {
+  constructor () { super() }
+
+  async phase2 () {
+    this.requireAdmin()
+    const [db, st] = OrgsConfig.getDbSt(this.org)
+    const dbs = Array.from(config.databases.keys())
+    const sts = Array.from(config.storages.keys())
+    this.setRes('orgconfig', { dbs, sts, db, st })
+  }
+
+  phase3 : null
+}
+Operation.register('SetOrgConfig', () => { return new SetOrgConfig()})
+
 /* SetOrg créé (ou non) une organisation (codes db et storage)
   Si l'organisation est déjà existante, patch les codes db et storage
   ADMINISTRATEUR
