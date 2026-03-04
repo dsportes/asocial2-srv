@@ -777,13 +777,13 @@ SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
 
 type TransmitCred = {
   targetId: string // id ou p0 ou r0 du destinataire du credential
-  credXid: string // id du credential
+  credid: string // id du credential
   crpub: string // [cryptedCred, pubc] encodé et en base64
     // pubC: string // clé publique (PEM) de cryptage de l'émetteur
     // cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
 }
-/* Tranmission d'un credentialpar user "émetteur" à un user "target
-- target est donné par son id ou l'un de ses pseudos p0 ou r0
+/* Tranmission d'un credential par user A "attributeur" à un user U "target"
+- target est donné par son id, l'un de ses pseudos p0 ou r0 ou son contact
 - la clé publique de cryptage de l'émetteur est donnée dans pubC
 - l'objet credential a été sérialisé puis crypté par la clé AES obtenue depuis
 la clé privée de l'émetteur et la clé publique du destinataire target
@@ -802,7 +802,7 @@ class $TransmitCred extends SafeOperation {
 
     if (!safe.creds) safe.creds = {}
 
-    safe.creds['$' + tc.credXid] = tc.crpub
+    safe.creds['$' + tc.credid] = tc.crpub
     if (Object.keys(safe.creds).length === 0)
       delete safe.creds
 
