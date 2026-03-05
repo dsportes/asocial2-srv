@@ -512,8 +512,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
     const r = this.rowToDB(clazz, row, true)
-    const obj = { org: this.org, ttl: r.ttl || 0 }
+    const obj = { }
     cols.forEach(c => { obj[c] = r[c] })
+    obj['org'] = this.org
+    if (!obj['ttl']) obj['ttl'] = 0
     stmt.run(obj)
   }
 
@@ -523,8 +525,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
       lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
     const r = this.rowToDB(clazz, row, true)
-    const obj = { org: this.org, ttl: r.ttl || 0 }
+    const obj = { }
     cols.forEach(c => { obj[c] = r[c] })
+    obj['org'] = this.org
+    if (!obj['ttl']) obj['ttl'] = 0
     stmt.run(obj)
   }
 
@@ -538,8 +542,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
     const r = this.rowToDB(clazz, row, true)
-    const obj = { org: this.org, ttl: r.ttl || 0 }
+    const obj = { }
     cols.forEach(c => { obj[c] = r[c] })
+    obj['org'] = this.org
+    if (!obj['ttl']) obj['ttl'] = 0
     stmt.run(obj)
   }
 

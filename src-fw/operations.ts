@@ -377,10 +377,6 @@ class GrantNewManager extends Operation {
 
   async phase2 () {
     this.requireAdmin()
-    this._cr.role = 'Org.manager/'
-    this._cr.docId = ''
-    this._cr.limit = 0
-    this._cr.cond = null
     // enregistrement d'un nouveau Credential "manager"
     const cred = this.cache.newDoc('Credential', this._cr) as Credential
   }

@@ -1,5 +1,5 @@
 import { Document } from '../src-fw/document'
-import { Task, Subs, SubsItem } from '../src-fw/documents'
+import { Task, Subs, SubsItem, Credential } from '../src-fw/documents'
 
 class Hdr extends Document {
   static release = 0
@@ -21,7 +21,10 @@ class Org extends Document {
 }
 
 export const documentClasses = {
-  Task: Task, Subs, SubsItem,
+  Task: Task, 
+  Subs: Subs, 
+  SubsItem: SubsItem,
   Hdr: Hdr,
   Org: Org,
+  Credential: Credential
 }

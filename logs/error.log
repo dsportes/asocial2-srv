@@ -164,3 +164,5 @@ BEGIN
 2026-03-01T16:29:54.806Z error: SetSvcOrgStatus : 2026-03-01T16:29:24.803Z : TypeError: doc.docType.colls is not iterable
 2026-03-01T16:50:49.333Z error: GetSvcOrgStatus : 2026-03-01T16:50:49.329Z : TypeError: Cannot read properties of undefined (reading 'v')
 2026-03-01T16:50:49.348Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'v')"]
+2026-03-05T18:49:29.310Z error: GrantNewManager : 2026-03-05T18:48:28.063Z : TypeError: Cannot read properties of null (reading '_status')
+2026-03-05T18:49:29.371Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '_status')"]
