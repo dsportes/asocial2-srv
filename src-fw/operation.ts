@@ -6,49 +6,14 @@ import { IDbGeneric, row, srvStatus, rowQ, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
+import { Credential } from './documents'
 import { Org } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
-import { Crypt, fromPem } from './crypt'
+import { Crypt, fromPem, keyToB64, keyFromB64 } from './crypt'
 import { encode, decode } from '@msgpack/msgpack'
 
 const encoder = new TextEncoder()
-
-export type CredRequest = {
-  userId: string
-  role: string
-  org: string
-  entid: string
-  hpems: string
-  pemv: string
-  ctime: number
-  dtime: number
-  infou: Uint8Array
-  infous: Uint8Array
-  infos: Uint8Array
-  setterId: string
-  cond: Object
-}
-
-/* Quand destiné à la construction d'un document Credential,
-- id et hpems ne sont pas utilisé mais reconstruit
-- pk : ['userId', 'role', 'entid', 'hpems'] 
-*/
-export type CredObj = {
-  userId: string // userId: utilisateur détenteur
-  role: string // un des codes de rôle connu du service.
-  org: string // le code de l'organisation.
-  entid: string // identifiant d'une entité interprétable pour le service.
-  pemv: string // clé publique (PEM) de vérification de signature,
-  hpems: string // hash court de `pems`.
-  setterId: string // id de l'utilisateur ayant enregistré le credential
-  infou: Uint8Array
-  infous: Uint8Array
-  infos: Uint8Array
-  ctime: number
-  dtime: number
-  cond: Object
-}
 
 type conso = {
   ndr: number, // nombre de documents lus
@@ -178,12 +143,24 @@ export class Operation {
       throw new AppExc(2007, 'admin required', this)
   }
 
+  requireAuth () {
+    if (!this.authRecord.userId) 
+      throw new AppExc(2009, 'authentication required', this)
+  }
+
+  /* Retourne le Credential le plus récent dont la signature a été vérifié
+  et relatif à ce rôle ('docClass.role') et cet id de document.
+  Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
+  */
+  getCred (role: string, docId: string, noex: boolean) : Credential {
+    this.requireAuth()
+    return this.authRecord.getCred(role, docId, noex)
+  }
+
   async transac (): Promise<void> {
     const authRecord = new AuthRecord(this)
-    if (authRecord.userId) {
+    if (authRecord.userId)
       await authRecord.process()
-      authRecord.log()
-    }
     await this.phase2(this.args)
     this.cache.commit()
     await this.db.commit()
@@ -337,99 +314,101 @@ export class Operation {
   }
 }
 
-export type AuthToken = {
-  id: string
-  role: string
-  entid: string
-  hpems: string
-  sign: Uint8Array
-  info: Object
-}
-
 export class AuthRecord {
   // devAppToken: string // token identifiant l'exécution de l'application
   op: Operation
   org: string
-  sessionId: string
+
+  svc: string
+  args: Object
   userId: string
-  time: number // date-heure du authRecord dans l'application
+  sessionId: string
+  time: number
   userSign: Uint8Array
-  // Object par "role", { xid: { role, entid, hpems, sign }
-  tokens: Object 
+  signatures: Object
   challenge: Uint8Array
   isAdmin: boolean
+
+  /* Clé: docClass.role/docId */
+  roles: Map<string, Credential>
+  okRoles: Set<string>
   
   constructor (op: Operation) {
     this.op = op
     this.op.authRecord = this
     const ar = op.args['authRecord']
-    if (ar) {
+    if (ar && ar.userId) {
       this.userId = ar.userId
       this.op.sessionId = ar.sessionId
       this.sessionId = ar.sessionId
       this.time = ar.time
       this.userSign = ar.userSign
-      this.tokens = ar.tokens
+      this.signatures = ar.signatures
       this.challenge = encoder.encode(this.userId + '/' + this.time)
-    } else this.userId = ''
-  }
-
-  getTokens(role: string, entid: string, noex?: boolean) : AuthToken {
-    const e = this.tokens[role]
-    const tokens = e ? e[entid || ''] : null
-    if (!tokens) {
-      if (noex) return null
-      throw new AppExc(3002, 'missing credential', this.op, [this.org, role, entid || ''])
-    }
-    return tokens
-  }
-
-  async verify (pem: string, token: AuthToken) {
-    return await Crypt.verify(fromPem(pem, true), token.sign, this.challenge)
-  }
-
-  log () {
-    if (config.debugLevel > 1) {
-      const x = []
-      for (const role in this.tokens) {
-        const r = this.tokens[role]
-        for (const entid in r) {
-          const lst = r[entid]
-          for(const token of lst)
-            x.push(role + '.' + (entid || '') + ': ' + token.info.status)
-        }
-      }
-      console.log('Auth status: ' + x.join('\n'))
+      this.isAdmin = config.ADMINUSERS.has(this.userId)
+      this.roles = new Map()
+      this.okRoles = new Set()
+    } else {
+      this.userId = ''
+      this.isAdmin = false
     }
   }
 
-  exc (role: string, entid: string) {
-    //  EX_1005: 'Droit d\'accès NON validé - organisation [{0}] - role [{1}] - entid [{2}] ]',
-    throw new AppExc(1005, 'NON validated credential', this.op, [this.org,  role, entid] )
+  getCred(role: string, objId: string, noex?: boolean) : Credential {
+    const cr = this.roles[role + '/' + (objId || '')]
+    if (cr) return cr
+    if (noex) return null
+    throw new AppExc(3002, 'missing credential', this.op, [this.org, role, objId || ''])
   }
 
-  async process () : Promise<void>{
+  async process () : Promise<void> {
+    if (!this.signatures) return
     const [pemC, pemV] = await MasterDir.GetPubKeys(this.userId)
     if (!pemV) throw new AppExc(2005, 'no user pemV', this.op)
     const ok = await Crypt.verify(fromPem(pemV, true), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)
-    this.isAdmin = config.ADMINUSERS.has(this.userId)
-    for (const role in this.tokens) {
-      const r = this.tokens[role]
-      for (const entid in r) {
-        const lst = r[entid]
-        const nlst = []
-        if (lst) for(const token of lst) {
-          const verifyer = config.factory(this, token)
-          if (!verifyer) this.exc(role, entid)
-          token.info = await verifyer.check()
-          if (token.info) nlst.push(token)
+    
+    for (const id in this.signatures) {
+      const sign = this.signatures[id]
+      const cred = await this.op.cache.getDoc('Credential', { id }) as Credential
+      if (!cred) continue
+      const ok = await Crypt.verify(keyFromB64(cred.pemv), sign, this.challenge)
+      const ref = cred.role + '/' + (cred.docId || '')
+      const cr = this.roles.get(ref)
+      if (!ok) {
+        if (cr) continue // une autre version a déjà été acceptée ou rejetée
+        this.roles.set(ref, cred)
+      } else {
+        if (cr) {
+          const st = this.okRoles.has(ref)
+          if (st) {
+            if (cr.time < cred.time) this.roles.set(ref, cred)
+          } else {
+            this.roles.set(ref, cred)
+            this.okRoles.add(ref)
+          }
+        } else {
+          this.roles.set(ref, cred)
+          this.okRoles.add(ref)
         }
-        if (nlst.length === 0) // aucun token n'est validé
-          this.exc(role, entid)
-        r[entid] = nlst
       }
     }
+
+    const lst = []
+    let dbg = config.debugLevel > 1 ? [] : null
+    if (dbg) {
+      if (!this.userId) dbg.push('NONE')
+      else if (this.isAdmin) dbg.push('ADMIN')
+    }
+    for (const [ref, r] of this.roles) {
+      const b = this.okRoles.has(ref)
+      if (!b) lst.push(ref)
+      if (dbg) dbg.push('Status:[' + (b ? 'OK' : 'KO') + '] - [' + ref + ']')
+    }
+    if (dbg)
+      console.log('Auth status: ' + dbg.join('\n'))
+    if (lst.length) 
+      throw new AppExc(2008, 'bad credential(s)', this.op, [lst.join('\n')])
   }
 
 }

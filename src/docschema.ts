@@ -29,11 +29,12 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Credential', sync: false, pk: ['userId', 'role', 'entid', 'hpems'] }, // header
-  null, // collections
+  { name: 'Credential', sync: false, pk: ['id'] }, // header
+  new Map<string, collection>([
+    ['userId', { key: ['userId'], mutable: false }]
+  ]), // collections
   new Map<string, idx>([
-    ['roleent', { type: propType.HASH, key: ['role', 'entid'] }],
-    ['hpems', { type: propType.STRING }],
+    ['roles', { type: propType.HASH, key: ['role', 'docId'] }],
   ])
 )
 

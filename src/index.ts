@@ -13,7 +13,6 @@ import { init, getExpressApp, startSRV } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { docTypeErrors } from './docschema'
 import { DocType } from '../src-fw/doctypes'
-import { factory } from './factories'
 import { documentClasses } from './documents'
 import { register } from './operations'
 import { Tools } from '../src-fw/tools'
@@ -84,7 +83,6 @@ setConfig(
     firestore: AppFirestoreConnector,
   },
   directoryDB: null,
-  factory: factory,
   documentClasses: documentClasses ,
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60]
   } as BaseConfig)

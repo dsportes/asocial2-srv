@@ -29,7 +29,6 @@ export interface BaseConfig {
   safeDB: DbConnector,
   svcDB: DbConnector,
   dbConnectors: Object
-  factory: Function
   documentClasses: Object
 
   messaging?: any

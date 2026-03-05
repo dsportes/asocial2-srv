@@ -2,7 +2,8 @@ import { Document, DocStatus } from './document'
 import { Crypt } from './crypt'
 import { filter, IDbGeneric } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
-import { Operation, CredRequest, CredObj } from './operation'
+import { Operation } from './operation'
+import { CredRequest } from './operations'
 import { config } from './config'
 
 const encoder = new TextEncoder()
@@ -150,131 +151,30 @@ export class SubsItem extends Document {
 
 }
 
-/*
-Un document `Credential` traduit la validité d'un credential 
-et fixe ses conditions spécifiques d'exercice par les propriétés suivantes:
-- Groupe de propriétés identifiantes:
-  - `orguserId` : identifiant localisé de l'utilisateur.
-  - `credId`: identifiant du credential.
-  - `hpems`: hash du PEM de signature.
-- `role` : rôle du droit.
-- `entid` : identifiant de l'entité cible. 
-  Le couple `[role , entid]` est indexé afin de pouvoir retrouver tous les droits attribués à une entité donnée.
-- `pemv`: PEM de la clé de validation.
-- `cond`: conditions spécifiques d'exercice.
-
-export type AuthToken = {
-  id: string
-  role: string
-  entid: string
-  hpems: string
-  sign: Uint8Array
-  info: Object
-}
-
-export type CredObj = {
-  userId: string // userId: utilisateur détenteur
-  role: string // un des codes de rôle connu du service.
-  org: string // le code de l'organisation.
-  entid: string // identifiant d'une entité interprétable pour le service.
-  pemv: string // clé publique (PEM) de vérification de signature,
-  hpems: string // hash court de `pems`.
-  setterId: string // id de l'utilisateur ayant enregistré le credential
-  infou: Uint8Array
-  infos: Uint8Array
-  ctime: number
-  dtime: number
-  cond: Object
-}
-
-export type CredRequest = {
-  userId: string
-  role: string
-  entid: string
-  hpems: string
-  pemv: string
-  ctime: number
-  dtime: number
-  infou: Uint8Array
-  infos: Uint8Array
-  setterId: string
-  cond: Object
-}
-*/
-
 export class Credential extends Document {
   static release = 0
 
+  id: string
   userId: string
   role: string
   org: string
-  entid: string
+  docId: string
+  time: number
   pemv: string
-  hpems: string
-  setterId: string
-  ctime: number
-  dtime: number
-  infou: Uint8Array
-  infous: Uint8Array
-  infos: Uint8Array
+  limit: number
   cond: Object
 
-  // pk: ['userId', 'role', 'entid', 'hpems']
-
-  /* static newCredential (op: Operation, initVals: CredObj) : Credential {
-    return op.cache.newDoc('Credential', initVals) as Credential
-  } */
-
-  static async newManager (op: Operation, cr: CredRequest) {
-    const credObj: CredObj = {
-      org: cr.org,
-
-      role: 'manager',
-      entid: '',
-      ctime: Date.now(),
-      setterId: op.authRecord.userId,
-      cond: null,
-
-      userId: cr.userId,
-      hpems: cr.hpems,
-      pemv: cr.pemv,
-      dtime: cr.dtime || 0,
-      infou: cr.infou || null,
-      infous: cr.infous || null,
-      infos: cr.infos || null
-    }
-    // enregistrement d'un nouveau Credential "manager"
-    op.cache.newDoc('Credential', credObj) as Credential
-  }
-
-  static async revokeManager (op: Operation, hpems: string, revoke: string ) {
-    let credobj
-    await op.db.selectDocs('Credential', 'hpems', filter.EQ, hpems, '', 0, 
-      async (data) => {
-        credobj = decode(data) as CredObj
-      })
-    const src = { orguserId: credobj.orguserId, role: 'manager', entid: '', hpems}
-    const c = await op.cache.getDoc('Credential', src) as Credential
-    c.cond['dtime'] = op.now
-    c._status = DocStatus.UPD
-  }
-
   static async listManagers (op: Operation) : Promise<Object[]> {
-    const val = Crypt.shaS(encoder.encode('manager.'))
+    const val = Crypt.shaS(encoder.encode('Org.manager/'))
     const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'roleent', filter.EQ, val, '', 0, 
+    await op.db.selectDocs('Credential', 'roles', filter.EQ, val, '', 0, 
       async (data) => {
-        const obj = decode(data) as CredObj
+        const obj = decode(data) as Credential
         const x = { 
+          id: obj.id,
           userId: obj.userId,
-          hpems: obj.hpems, 
-          ctime: obj.ctime,
-          dtime: obj.dtime, 
-          infou: obj.infou,
-          infous: obj.infous,
-          infos: obj.infos,
-          setterId: obj.setterId,
-          cond: obj.cond || null
+          time: obj.time, 
+          limit: obj.limit
         }
         lst.push(x)
       })

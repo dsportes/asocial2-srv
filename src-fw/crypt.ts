@@ -56,6 +56,14 @@ export function fromPem(pem: string, pub?: boolean) : Buffer {
   return Buffer.from(pemContents, 'base64')
 }
 
+export function keyToB64(key: Buffer) : string {
+  return Buffer.from(key).toString('base64')
+}
+
+export function keyFromB64 (key: string) : Buffer{
+  return Buffer.from(key, 'base64')
+}
+
 export type KeyPair = {
   pub: any,
   priv: any
