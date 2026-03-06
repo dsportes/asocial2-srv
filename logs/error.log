@@ -166,3 +166,24 @@ BEGIN
 2026-03-01T16:50:49.348Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'v')"]
 2026-03-05T18:49:29.310Z error: GrantNewManager : 2026-03-05T18:48:28.063Z : TypeError: Cannot read properties of null (reading '_status')
 2026-03-05T18:49:29.371Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '_status')"]
+2026-03-06T16:50:08.277Z error: ListManagers : 2026-03-06T16:49:39.131Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T16:50:08.281Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T16:51:11.150Z error: ListManagers : 2026-03-06T16:50:44.060Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T16:51:11.153Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T17:04:20.912Z error: GrantNewManager : 2026-03-06T17:03:40.792Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:04:20.914Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:08:40.983Z error: GrantNewManager : 2026-03-06T17:05:23.308Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:08:40.986Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:10:55.988Z error: GrantNewManager : 2026-03-06T17:09:08.321Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:10:55.991Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:14:09.725Z error: GrantNewManager : 2026-03-06T17:13:11.697Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:14:09.729Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:19:00.720Z error: AppExc: 3001:unexpected exception["database is locked"]
+2026-03-06T17:25:29.815Z error: GrantNewManager : 2026-03-06T17:25:09.492Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:25:29.819Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T18:00:42.649Z error: ListManagers : 2026-03-06T17:57:17.442Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:00:42.668Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T18:02:07.130Z error: ListManagers : 2026-03-06T18:00:56.086Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:02:07.134Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T18:03:25.008Z error: ListManagers : 2026-03-06T18:02:56.599Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:03:25.011Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]

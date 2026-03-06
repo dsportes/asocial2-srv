@@ -115,6 +115,7 @@ export class Crypt {
     const authTag = cipher.getAuthTag()
     // console.log('crypt authTag  ', authTag)
     return Buffer.concat([iv, b1, b2, authTag])
+    // const bz = Crypt.syncDecrypt(key, bx)
   }
   
   /* NODE

@@ -7437,3 +7437,270 @@ BEGIN
 2026-03-05T19:28:30.007Z info: $TransmitCred finished
 2026-03-05T19:28:30.069Z info: GrantNewManager : 2026-03-05T19:28:30.065Z
 2026-03-05T19:29:35.293Z info: GrantNewManager finished
+2026-03-06T12:54:53.373Z info: 15 operations registered
+2026-03-06T12:54:53.376Z info: 9 document classes
+2026-03-06T12:54:53.377Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T12:54:53.377Z info: Firestore connector
+2026-03-06T12:54:53.378Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T12:54:53.378Z info: 15 App operations registered
+2026-03-06T12:54:53.473Z info: Reloading orgs config OK
+2026-03-06T12:54:53.478Z info: HTTP listen [8080]
+2026-03-06T13:07:18.793Z info: 15 operations registered
+2026-03-06T13:07:18.797Z info: 9 document classes
+2026-03-06T13:07:18.799Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T13:07:18.799Z info: Firestore connector
+2026-03-06T13:07:18.800Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T13:07:18.801Z info: 15 App operations registered
+2026-03-06T13:07:18.820Z info: Reloading orgs config OK
+2026-03-06T13:07:18.829Z info: HTTP listen [8080]
+2026-03-06T14:00:35.687Z info: 15 operations registered
+2026-03-06T14:00:35.691Z info: 9 document classes
+2026-03-06T14:00:35.693Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T14:00:35.695Z info: Firestore connector
+2026-03-06T14:00:35.696Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T14:00:35.697Z info: 15 App operations registered
+2026-03-06T14:00:35.756Z info: Reloading orgs config OK
+2026-03-06T14:00:35.799Z info: HTTP listen [8080]
+2026-03-06T14:00:58.017Z info: $OpenSafeByPin finished
+2026-03-06T14:00:58.058Z info: $OpenSafeById finished
+2026-03-06T14:02:18.779Z info: $GetSvcOpUrl finished
+2026-03-06T14:05:01.238Z info: $GetSvcOpUrl finished
+2026-03-06T14:05:56.071Z info: $OpenSafeByPin finished
+2026-03-06T14:05:56.112Z info: $OpenSafeById finished
+2026-03-06T14:06:10.460Z info: $GetSvcOpUrl finished
+2026-03-06T14:06:10.478Z info: GetSvcOpStatus : 2026-03-06T14:06:10.477Z
+2026-03-06T14:06:24.194Z info: GetSvcOpStatus finished
+2026-03-06T14:06:24.200Z info: Reloading orgs config OK
+2026-03-06T14:07:23.513Z info: $GetPublicKeys finished
+2026-03-06T14:09:43.035Z info: $TransmitCred finished
+2026-03-06T14:09:51.428Z info: $GetSvcOrgUrl finished
+2026-03-06T14:09:51.451Z info: GrantNewManager : 2026-03-06T14:09:51.450Z
+2026-03-06T14:12:44.160Z info: GrantNewManager finished
+2026-03-06T14:17:47.659Z info: $OpenSafeByPR finished
+2026-03-06T14:18:38.989Z info: $UpdateCreds finished
+2026-03-06T14:30:09.624Z info: $UpdateCreds finished
+2026-03-06T14:34:42.305Z info: $OpenSafeByPR finished
+2026-03-06T14:35:16.013Z info: $UntrustDevices finished
+2026-03-06T14:35:29.264Z info: $TrustDevice finished
+2026-03-06T14:54:47.205Z info: $OpenSafeByPin finished
+2026-03-06T14:54:47.241Z info: $OpenSafeById finished
+2026-03-06T14:55:18.744Z info: $UpdateCreds finished
+2026-03-06T15:00:58.236Z info: $OpenSafeByPin finished
+2026-03-06T15:00:58.285Z info: $OpenSafeById finished
+2026-03-06T15:18:09.618Z info: $OpenSafeByPin finished
+2026-03-06T15:18:09.657Z info: $OpenSafeById finished
+2026-03-06T15:19:43.183Z info: $OpenSafeByPin finished
+2026-03-06T15:19:43.228Z info: $OpenSafeById finished
+2026-03-06T15:30:33.542Z info: $OpenSafeByPin finished
+2026-03-06T15:30:33.583Z info: $OpenSafeById finished
+2026-03-06T15:31:21.088Z info: $UpdateCreds finished
+2026-03-06T16:22:57.635Z info: 15 operations registered
+2026-03-06T16:22:57.638Z info: 9 document classes
+2026-03-06T16:22:57.639Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T16:22:57.640Z info: Firestore connector
+2026-03-06T16:22:57.640Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T16:22:57.641Z info: 15 App operations registered
+2026-03-06T16:22:57.662Z info: Reloading orgs config OK
+2026-03-06T16:22:57.668Z info: HTTP listen [8080]
+2026-03-06T16:25:39.912Z info: $OpenSafeByPin finished
+2026-03-06T16:25:39.956Z info: $OpenSafeById finished
+2026-03-06T16:30:51.965Z info: $OpenSafeByPin finished
+2026-03-06T16:30:52.011Z info: $OpenSafeById finished
+2026-03-06T16:37:57.738Z info: $OpenSafeByPin finished
+2026-03-06T16:37:57.781Z info: $OpenSafeById finished
+2026-03-06T16:38:28.505Z info: $GetSvcOrgUrl finished
+2026-03-06T16:38:28.547Z info: ListManagers : 2026-03-06T16:38:28.545Z
+2026-03-06T16:38:54.642Z info: ListManagers finished
+2026-03-06T16:38:54.648Z info: Reloading orgs config OK
+2026-03-06T16:40:31.334Z info: ListManagers : 2026-03-06T16:40:31.333Z
+2026-03-06T16:42:30.619Z info: ListManagers finished
+2026-03-06T16:49:26.066Z info: 15 operations registered
+2026-03-06T16:49:26.070Z info: 9 document classes
+2026-03-06T16:49:26.070Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T16:49:26.071Z info: Firestore connector
+2026-03-06T16:49:26.071Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T16:49:26.072Z info: 15 App operations registered
+2026-03-06T16:49:26.086Z info: Reloading orgs config OK
+2026-03-06T16:49:26.094Z info: HTTP listen [8080]
+2026-03-06T16:49:39.134Z info: ListManagers : 2026-03-06T16:49:39.131Z
+2026-03-06T16:50:08.277Z error: ListManagers : 2026-03-06T16:49:39.131Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T16:50:08.280Z info: ListManagers terminated on exception
+2026-03-06T16:50:08.281Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T16:50:44.061Z info: ListManagers : 2026-03-06T16:50:44.060Z
+2026-03-06T16:51:11.150Z error: ListManagers : 2026-03-06T16:50:44.060Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T16:51:11.152Z info: ListManagers terminated on exception
+2026-03-06T16:51:11.153Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T17:03:11.103Z info: 15 operations registered
+2026-03-06T17:03:11.106Z info: 9 document classes
+2026-03-06T17:03:11.107Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:03:11.108Z info: Firestore connector
+2026-03-06T17:03:11.108Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:03:11.109Z info: 15 App operations registered
+2026-03-06T17:03:11.125Z info: Reloading orgs config OK
+2026-03-06T17:03:11.131Z info: HTTP listen [8080]
+2026-03-06T17:03:31.517Z info: $GetPublicKeys finished
+2026-03-06T17:03:40.764Z info: $TransmitCred finished
+2026-03-06T17:03:40.793Z info: GrantNewManager : 2026-03-06T17:03:40.792Z
+2026-03-06T17:04:20.912Z error: GrantNewManager : 2026-03-06T17:03:40.792Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:04:20.913Z info: GrantNewManager terminated on exception
+2026-03-06T17:04:20.914Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:05:23.257Z info: $GetPublicKeys finished
+2026-03-06T17:05:23.284Z info: $TransmitCred finished
+2026-03-06T17:05:23.309Z info: GrantNewManager : 2026-03-06T17:05:23.308Z
+2026-03-06T17:08:40.983Z error: GrantNewManager : 2026-03-06T17:05:23.308Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:08:40.984Z info: GrantNewManager terminated on exception
+2026-03-06T17:08:40.986Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:09:08.276Z info: $GetPublicKeys finished
+2026-03-06T17:09:08.296Z info: $TransmitCred finished
+2026-03-06T17:09:08.321Z info: GrantNewManager : 2026-03-06T17:09:08.321Z
+2026-03-06T17:10:55.988Z error: GrantNewManager : 2026-03-06T17:09:08.321Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:10:55.990Z info: GrantNewManager terminated on exception
+2026-03-06T17:10:55.991Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:10:55.996Z info: Reloading orgs config OK
+2026-03-06T17:12:52.622Z info: $GetPublicKeys finished
+2026-03-06T17:13:11.664Z info: $TransmitCred finished
+2026-03-06T17:13:11.697Z info: GrantNewManager : 2026-03-06T17:13:11.697Z
+2026-03-06T17:14:09.725Z error: GrantNewManager : 2026-03-06T17:13:11.697Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:14:09.727Z info: GrantNewManager terminated on exception
+2026-03-06T17:14:09.729Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:18:17.228Z info: 15 operations registered
+2026-03-06T17:18:17.232Z info: 9 document classes
+2026-03-06T17:18:17.233Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:18:17.234Z info: Firestore connector
+2026-03-06T17:18:17.235Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:18:17.236Z info: 15 App operations registered
+2026-03-06T17:18:17.252Z info: Reloading orgs config OK
+2026-03-06T17:18:17.260Z info: HTTP listen [8080]
+2026-03-06T17:18:38.252Z info: $GetPublicKeys finished
+2026-03-06T17:19:00.718Z info: $TransmitCred terminated on exception
+2026-03-06T17:19:00.720Z error: AppExc: 3001:unexpected exception["database is locked"]
+2026-03-06T17:19:00.767Z info: GrantNewManager : 2026-03-06T17:19:00.766Z
+2026-03-06T17:23:09.389Z info: 15 operations registered
+2026-03-06T17:23:09.394Z info: 9 document classes
+2026-03-06T17:23:09.395Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:23:09.396Z info: Firestore connector
+2026-03-06T17:23:09.397Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:23:09.399Z info: 15 App operations registered
+2026-03-06T17:23:09.417Z info: Reloading orgs config OK
+2026-03-06T17:23:09.424Z info: HTTP listen [8080]
+2026-03-06T17:23:19.630Z info: $OpenSafeByPin finished
+2026-03-06T17:23:19.673Z info: $OpenSafeById finished
+2026-03-06T17:24:37.841Z info: $GetPublicKeys finished
+2026-03-06T17:25:09.434Z info: $TransmitCred finished
+2026-03-06T17:25:09.462Z info: $GetSvcOrgUrl finished
+2026-03-06T17:25:09.493Z info: GrantNewManager : 2026-03-06T17:25:09.492Z
+2026-03-06T17:25:29.815Z error: GrantNewManager : 2026-03-06T17:25:09.492Z : Error: Unsupported state or unable to authenticate data
+2026-03-06T17:25:29.817Z info: GrantNewManager terminated on exception
+2026-03-06T17:25:29.819Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-06T17:26:52.404Z info: 15 operations registered
+2026-03-06T17:26:52.409Z info: 9 document classes
+2026-03-06T17:26:52.410Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:26:52.410Z info: Firestore connector
+2026-03-06T17:26:52.411Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:26:52.412Z info: 15 App operations registered
+2026-03-06T17:26:52.438Z info: Reloading orgs config OK
+2026-03-06T17:26:52.444Z info: HTTP listen [8080]
+2026-03-06T17:27:08.061Z info: $GetPublicKeys finished
+2026-03-06T17:27:35.582Z info: $TransmitCred finished
+2026-03-06T17:27:35.616Z info: GrantNewManager : 2026-03-06T17:27:35.615Z
+2026-03-06T17:29:18.175Z info: GrantNewManager finished
+2026-03-06T17:31:09.905Z info: 15 operations registered
+2026-03-06T17:31:09.909Z info: 9 document classes
+2026-03-06T17:31:09.910Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:31:09.911Z info: Firestore connector
+2026-03-06T17:31:09.911Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:31:09.912Z info: 15 App operations registered
+2026-03-06T17:31:09.925Z info: Reloading orgs config OK
+2026-03-06T17:31:09.932Z info: HTTP listen [8080]
+2026-03-06T17:31:55.892Z info: $GetPublicKeys finished
+2026-03-06T17:32:13.265Z info: $TransmitCred finished
+2026-03-06T17:32:13.308Z info: GrantNewManager : 2026-03-06T17:32:13.306Z
+2026-03-06T17:33:37.127Z info: GrantNewManager finished
+2026-03-06T17:37:04.105Z info: 15 operations registered
+2026-03-06T17:37:04.108Z info: 9 document classes
+2026-03-06T17:37:04.108Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:37:04.109Z info: Firestore connector
+2026-03-06T17:37:04.109Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:37:04.110Z info: 15 App operations registered
+2026-03-06T17:37:04.131Z info: Reloading orgs config OK
+2026-03-06T17:37:04.137Z info: HTTP listen [8080]
+2026-03-06T17:37:31.091Z info: $GetPublicKeys finished
+2026-03-06T17:37:37.350Z info: $TransmitCred finished
+2026-03-06T17:37:37.388Z info: GrantNewManager : 2026-03-06T17:37:37.387Z
+2026-03-06T17:41:17.546Z info: 15 operations registered
+2026-03-06T17:41:17.549Z info: 9 document classes
+2026-03-06T17:41:17.550Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:41:17.551Z info: Firestore connector
+2026-03-06T17:41:17.552Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:41:17.552Z info: 15 App operations registered
+2026-03-06T17:41:17.567Z info: Reloading orgs config OK
+2026-03-06T17:41:17.576Z info: HTTP listen [8080]
+2026-03-06T17:41:29.055Z info: $GetPublicKeys finished
+2026-03-06T17:41:38.466Z info: $TransmitCred finished
+2026-03-06T17:41:38.494Z info: GrantNewManager : 2026-03-06T17:41:38.492Z
+2026-03-06T17:41:50.444Z info: GrantNewManager finished
+2026-03-06T17:46:19.246Z info: 15 operations registered
+2026-03-06T17:46:19.250Z info: 9 document classes
+2026-03-06T17:46:19.251Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:46:19.252Z info: Firestore connector
+2026-03-06T17:46:19.253Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:46:19.254Z info: 15 App operations registered
+2026-03-06T17:46:19.282Z info: Reloading orgs config OK
+2026-03-06T17:46:19.291Z info: HTTP listen [8080]
+2026-03-06T17:46:51.037Z info: $GetPublicKeys finished
+2026-03-06T17:46:59.048Z info: $TransmitCred finished
+2026-03-06T17:46:59.086Z info: GrantNewManager : 2026-03-06T17:46:59.085Z
+2026-03-06T17:50:13.838Z info: 15 operations registered
+2026-03-06T17:50:13.841Z info: 9 document classes
+2026-03-06T17:50:13.842Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:50:13.843Z info: Firestore connector
+2026-03-06T17:50:13.843Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:50:13.844Z info: 15 App operations registered
+2026-03-06T17:50:13.857Z info: Reloading orgs config OK
+2026-03-06T17:50:13.863Z info: HTTP listen [8080]
+2026-03-06T17:50:20.129Z info: $GetPublicKeys finished
+2026-03-06T17:50:25.779Z info: $TransmitCred finished
+2026-03-06T17:50:25.840Z info: GrantNewManager : 2026-03-06T17:50:25.838Z
+2026-03-06T17:54:00.500Z info: 15 operations registered
+2026-03-06T17:54:00.505Z info: 9 document classes
+2026-03-06T17:54:00.507Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:54:00.509Z info: Firestore connector
+2026-03-06T17:54:00.510Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:54:00.512Z info: 15 App operations registered
+2026-03-06T17:54:00.539Z info: Reloading orgs config OK
+2026-03-06T17:54:00.551Z info: HTTP listen [8080]
+2026-03-06T17:54:11.021Z info: $GetPublicKeys finished
+2026-03-06T17:54:15.566Z info: $TransmitCred finished
+2026-03-06T17:54:15.594Z info: GrantNewManager : 2026-03-06T17:54:15.592Z
+2026-03-06T17:55:25.408Z info: GrantNewManager finished
+2026-03-06T17:57:01.968Z info: 15 operations registered
+2026-03-06T17:57:01.971Z info: 9 document classes
+2026-03-06T17:57:01.971Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T17:57:01.972Z info: Firestore connector
+2026-03-06T17:57:01.972Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T17:57:01.973Z info: 15 App operations registered
+2026-03-06T17:57:01.989Z info: Reloading orgs config OK
+2026-03-06T17:57:01.997Z info: HTTP listen [8080]
+2026-03-06T17:57:17.444Z info: ListManagers : 2026-03-06T17:57:17.442Z
+2026-03-06T18:00:42.649Z error: ListManagers : 2026-03-06T17:57:17.442Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:00:42.651Z info: ListManagers terminated on exception
+2026-03-06T18:00:42.668Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T18:00:56.086Z info: ListManagers : 2026-03-06T18:00:56.086Z
+2026-03-06T18:02:07.130Z error: ListManagers : 2026-03-06T18:00:56.086Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:02:07.132Z info: ListManagers terminated on exception
+2026-03-06T18:02:07.134Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T18:02:56.599Z info: ListManagers : 2026-03-06T18:02:56.599Z
+2026-03-06T18:03:25.008Z error: ListManagers : 2026-03-06T18:02:56.599Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-06T18:03:25.010Z info: ListManagers terminated on exception
+2026-03-06T18:03:25.011Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-06T18:03:25.017Z info: Reloading orgs config OK
+2026-03-06T18:03:43.331Z info: 15 operations registered
+2026-03-06T18:03:43.335Z info: 9 document classes
+2026-03-06T18:03:43.336Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-06T18:03:43.337Z info: Firestore connector
+2026-03-06T18:03:43.338Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-06T18:03:43.341Z info: 15 App operations registered
+2026-03-06T18:03:43.358Z info: Reloading orgs config OK
+2026-03-06T18:03:43.365Z info: HTTP listen [8080]
+2026-03-06T18:03:52.712Z info: ListManagers : 2026-03-06T18:03:52.711Z
+2026-03-06T18:05:27.192Z info: ListManagers finished

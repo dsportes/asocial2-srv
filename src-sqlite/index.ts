@@ -448,7 +448,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         delete row.maxLife
       }
     }
-    if (!nocrypt && row.data) row.data = Crypt.syncCrypt(this.key, row.data)
+    if (!nocrypt && row.data) {
+      const x = Crypt.syncCrypt(this.key, row.data)
+      row.data = x
+    }
     return row
   }
 
@@ -471,7 +474,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       return row
     }
     if (sec) row.maxLife = Math.floor(sec / 60)
-    if (!nodecrypt) row.data = Crypt.syncDecrypt(this.key, row.data)
+    if (!nodecrypt) {
+      const x = Crypt.syncDecrypt(this.key, row.data)
+      row.data = x
+    }
     return row
   }
 
@@ -511,11 +517,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
-    const r = this.rowToDB(clazz, row, true)
-    const obj = { }
-    cols.forEach(c => { obj[c] = r[c] })
-    obj['org'] = this.org
-    if (!obj['ttl']) obj['ttl'] = 0
+    const r = this.rowToDB(clazz, row)
+    const obj = { org: this.org, ttl: 0 }; 
+    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
     stmt.run(obj)
   }
 
@@ -524,11 +528,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
       lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
-    const r = this.rowToDB(clazz, row, true)
-    const obj = { }
-    cols.forEach(c => { obj[c] = r[c] })
-    obj['org'] = this.org
-    if (!obj['ttl']) obj['ttl'] = 0
+    const r = this.rowToDB(clazz, row)
+    const obj = { org: this.org, ttl: 0 }; 
+    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
     stmt.run(obj)
   }
 
@@ -541,11 +543,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
       ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
-    const r = this.rowToDB(clazz, row, true)
-    const obj = { }
-    cols.forEach(c => { obj[c] = r[c] })
-    obj['org'] = this.org
-    if (!obj['ttl']) obj['ttl'] = 0
+    const r = this.rowToDB(clazz, row)
+    const obj = { org: this.org, ttl: 0 }; 
+    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
     stmt.run(obj)
   }
 

@@ -329,9 +329,10 @@ export class AuthRecord {
   challenge: Uint8Array
   isAdmin: boolean
 
-  /* Clé: docClass.role/docId */
+  /* Clé: ref : docClass.role/docId - Credential dont la signature est ok*/
   roles: Map<string, Credential>
-  okRoles: Set<string>
+  /* ref SANS Credential OU dont la signature est KO */
+  koRoles: Set<string>
   
   constructor (op: Operation) {
     this.op = op
@@ -347,7 +348,7 @@ export class AuthRecord {
       this.challenge = encoder.encode(this.userId + '/' + this.time)
       this.isAdmin = config.ADMINUSERS.has(this.userId)
       this.roles = new Map()
-      this.okRoles = new Set()
+      this.koRoles = new Set()
     } else {
       this.userId = ''
       this.isAdmin = false
@@ -368,47 +369,33 @@ export class AuthRecord {
     const ok = await Crypt.verify(fromPem(pemV, true), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)
     
-    for (const id in this.signatures) {
-      const sign = this.signatures[id]
-      const cred = await this.op.cache.getDoc('Credential', { id }) as Credential
-      if (!cred) continue
-      const ok = await Crypt.verify(keyFromB64(cred.pemv), sign, this.challenge)
-      const ref = cred.role + '/' + (cred.docId || '')
-      const cr = this.roles.get(ref)
-      if (!ok) {
-        if (cr) continue // une autre version a déjà été acceptée ou rejetée
-        this.roles.set(ref, cred)
-      } else {
-        if (cr) {
-          const st = this.okRoles.has(ref)
-          if (st) {
-            if (cr.time < cred.time) this.roles.set(ref, cred)
-          } else {
-            this.roles.set(ref, cred)
-            this.okRoles.add(ref)
-          }
-        } else {
-          this.roles.set(ref, cred)
-          this.okRoles.add(ref)
-        }
+    for (const ref in this.signatures) {
+      const sign = this.signatures[ref]
+      const i = ref.indexOf('/')
+      const role = i === -1 ? ref : ref.substring(0, i)
+      const docId = i === -1 ? '' : ref.substring(i + 1)
+      // Recherche du Credential par sa pk
+      const cred = await this.op.cache.getDoc('Credential', { userId: this.userId, role, docId }) as Credential
+      let ok = false
+      if (cred) {
+        if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', cred.pk)
+        else ok = await Crypt.verify(keyFromB64(cred.pemv), sign, this.challenge)
       }
+      if (ok) this.roles.set(ref, cred)
+      else this.koRoles.add(ref)
     }
 
-    const lst = []
-    let dbg = config.debugLevel > 1 ? [] : null
-    if (dbg) {
+    if (config.debugLevel > 1) {
+      const dbg = []
       if (!this.userId) dbg.push('NONE')
       else if (this.isAdmin) dbg.push('ADMIN')
-    }
-    for (const [ref, r] of this.roles) {
-      const b = this.okRoles.has(ref)
-      if (!b) lst.push(ref)
-      if (dbg) dbg.push('Status:[' + (b ? 'OK' : 'KO') + '] - [' + ref + ']')
-    }
-    if (dbg)
+      for (const [ref, r] of this.roles)
+        dbg.push('Status:[' + (this.koRoles.has(ref) ? 'KO' : 'OK') + '] - [' + ref + ']')
       console.log('Auth status: ' + dbg.join('\n'))
-    if (lst.length) 
-      throw new AppExc(2008, 'bad credential(s)', this.op, [lst.join('\n')])
+    }
+      
+    if (this.koRoles.size) 
+      throw new AppExc(2008, 'bad credential(s)', this.op, [Array.from(this.koRoles).join('\n')])
   }
 
 }

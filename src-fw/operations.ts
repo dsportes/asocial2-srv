@@ -377,8 +377,12 @@ class GrantNewManager extends Operation {
 
   async phase2 () {
     this.requireAdmin()
-    // enregistrement d'un nouveau Credential "manager"
-    const cred = this.cache.newDoc('Credential', this._cr) as Credential
+    const c = await this.cache.getDoc('Credential', this._cr)
+    if (!c) // enregistrement d'un nouveau Credential "manager"
+      this.cache.newDoc('Credential', this._cr) as Credential
+    else {
+      c._status = DocStatus.UPD
+    }
   }
 
   phase3 : null
@@ -429,4 +433,3 @@ class ListManagers extends Operation {
   phase3 : null
 }
 Operation.register('ListManagers', () => { return new ListManagers()})
-
