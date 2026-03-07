@@ -245,35 +245,6 @@ class $RevokeSvcOpOrg extends SafeOperation {
 }
 SafeOperation.register('$RevokeSvcOpOrg', () => { return new $RevokeSvcOpOrg()})
 
-/* Déclare / révoque un administateur d'un service pour un opérateur. args: 
-- userId
-- params: [SVC, $OP, admin] - #abcd... pour révoquer abcd, abcd pour déclarer abcd
-- time: date-heure de la requête
-- sign: signature par la clé S de userId de encode([time, params])ADMINISTRATEUR du dépôt générique des Safes
-
-class $SetOpAdmin extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> { 
-    const [SVC, $OP, admin] = await this.getParams(this.args, true)
-    let obj = await SafeCache.get(this, safeTable.URLS, SVC) as Object
-    if (!obj) obj = { }
-    let e = obj[$OP]
-    if (!e) { e = { url: '', admins: [] }; obj[$OP] = e }
-    if (admin.startsWith('#')) {
-      const a = admin.substring(1)
-      const i = e.admins.indexOf(a)
-      if (i !== -1) e.admins.splice(i, 1)
-    } else {
-      const i = e.admins.indexOf(admin)
-      if (i !== -1) e.admins.push(admin)
-    }
-    await SafeCache.set(this, safeTable.URLS, SVC, obj)
-  }
-}
-SafeOperation.register('$SetOpAdmin', () => { return new $SetOpAdmin()})
-*/
-
 /* Retourne les clés publiques de l'argument userId. Res:
 - status: 0 si trouvé, 1 sinon
 - pemC: PEM de cryptage

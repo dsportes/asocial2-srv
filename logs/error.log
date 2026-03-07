@@ -187,3 +187,42 @@ BEGIN
 2026-03-06T18:02:07.134Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
 2026-03-06T18:03:25.008Z error: ListManagers : 2026-03-06T18:02:56.599Z : TypeError: Cannot read properties of null (reading '0')
 2026-03-06T18:03:25.011Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-07T08:46:38.253Z error: GetSvcOrgStatus : 2026-03-07T08:46:38.246Z : DecodeError: The type of key must be string or number but object
+2026-03-07T08:46:38.260Z error: AppExc: 3001:unexpected exception["The type of key must be string or number but object"]
+2026-03-07T08:48:09.655Z error: GetSvcOrgStatus : 2026-03-07T08:48:09.651Z : DecodeError: The type of key must be string or number but object
+2026-03-07T08:48:09.657Z error: AppExc: 3001:unexpected exception["The type of key must be string or number but object"]
+2026-03-07T08:56:17.911Z error: GetSvcOrgStatus : 2026-03-07T08:49:22.979Z : DecodeError: The type of key must be string or number but object
+2026-03-07T08:56:17.914Z error: AppExc: 3001:unexpected exception["The type of key must be string or number but object"]
+2026-03-07T09:26:52.842Z error: GetSvcOrgStatus : 2026-03-07T09:25:32.477Z : RangeError: Extra 134 of 135 byte(s) found at buffer[1]
+2026-03-07T09:26:52.854Z error: AppExc: 3001:unexpected exception["Extra 134 of 135 byte(s) found at buffer[1]"]
+2026-03-07T09:32:07.891Z error: GetSvcOrgStatus : 2026-03-07T09:32:03.198Z : RangeError: Extra 132 of 135 byte(s) found at buffer[3]
+2026-03-07T09:32:07.906Z error: AppExc: 3001:unexpected exception["Extra 132 of 135 byte(s) found at buffer[3]"]
+2026-03-07T09:38:40.706Z error: GetSvcOrgStatus : 2026-03-07T09:38:02.897Z : RangeError: Extra 134 of 135 byte(s) found at buffer[1]
+2026-03-07T09:38:40.721Z error: AppExc: 3001:unexpected exception["Extra 134 of 135 byte(s) found at buffer[1]"]
+2026-03-07T10:26:24.187Z error: SetSvcOrgStatus : 2026-03-07T10:26:20.208Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T10:26:25.109Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T10:41:15.162Z error: GetSvcOrgStatus : 2026-03-07T10:40:15.779Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T10:41:24.823Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T10:44:52.170Z error: GetSvcOrgStatus : 2026-03-07T10:44:14.742Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T10:44:53.958Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T10:56:11.084Z error: GetSvcOrgStatus : 2026-03-07T10:56:03.553Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T10:56:30.480Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T11:17:48.205Z error: GetSvcOrgStatus : 2026-03-07T11:16:18.641Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T11:17:48.209Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T14:53:31.985Z error: AppExc: 3002:missing credential@ListManagers:[null,"Org.manager",""]
+2026-03-07T14:53:31.989Z error: ListManagers : 2026-03-07T14:53:22.278Z : AppExc: 3002:missing credential@ListManagers:[null,"Org.manager",""]
+2026-03-07T15:08:02.224Z error: ListManagers : 2026-03-07T15:08:02.085Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-07T15:08:02.237Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-07T15:12:42.794Z error: ListManagers : 2026-03-07T15:12:27.298Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-07T15:12:42.797Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-07T15:19:17.023Z error: ListManagers : 2026-03-07T15:14:44.826Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-07T15:19:17.027Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-07T15:22:01.701Z error: ListManagers : 2026-03-07T15:20:11.833Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-03-07T15:22:01.704Z error: AppExc: 3001:unexpected exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-03-07T15:24:15.855Z error: ListManagers : 2026-03-07T15:23:00.184Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T15:24:15.858Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T15:30:42.534Z error: ListManagers : 2026-03-07T15:28:48.528Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T15:30:42.536Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T15:46:28.289Z error: ListManagers : 2026-03-07T15:46:00.972Z : Error: Unsupported state or unable to authenticate data
+2026-03-07T15:46:28.292Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
+2026-03-07T16:01:49.849Z error: GetOrgConfig : 2026-03-07T16:01:49.843Z : AppExc: 2007:admin required@GetOrgConfig:[]

@@ -128,12 +128,14 @@ export class Document {
   toRow (now: number) {
     const d = {}
     for (const k of Object.keys(this))
-      if (k.charAt[0] !== '_') d[k] = this[k]
+      if (k.charAt(0) !== '_') d[k] = this[k]
     d['v'] = now
+    const x = encode(d)
     const row: row = {
       v: now,
       pk: this.pk,
-      data: encode(d)
+      data: x,
+      dataORIG: new Uint8Array(x)
     }
     const ml = this['maxLife']; if (ml) row.maxLife = ml
     const dt = this.docType

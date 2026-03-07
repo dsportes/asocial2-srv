@@ -152,9 +152,9 @@ export class Operation {
   et relatif à ce rôle ('docClass.role') et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (role: string, docId: string, noex: boolean) : Credential {
+  getCred (role: string, docId: string, noex?: boolean) : Credential {
     this.requireAuth()
-    return this.authRecord.getCred(role, docId, noex)
+    return this.authRecord.getCred(role, docId, noex || false)
   }
 
   async transac (): Promise<void> {
@@ -345,7 +345,7 @@ export class AuthRecord {
       this.time = ar.time
       this.userSign = ar.userSign
       this.signatures = ar.signatures
-      this.challenge = encoder.encode(this.userId + '/' + this.time)
+      this.challenge = Buffer.from(this.userId + '/' + this.time)
       this.isAdmin = config.ADMINUSERS.has(this.userId)
       this.roles = new Map()
       this.koRoles = new Set()
@@ -356,7 +356,7 @@ export class AuthRecord {
   }
 
   getCred(role: string, objId: string, noex?: boolean) : Credential {
-    const cr = this.roles[role + '/' + (objId || '')]
+    const cr = this.roles.get(role + '/' + (objId || ''))
     if (cr) return cr
     if (noex) return null
     throw new AppExc(3002, 'missing credential', this.op, [this.org, role, objId || ''])
@@ -471,7 +471,7 @@ export class Cache {
       // lecture pour recherche d'un éventuel plus récent
       const row = await op.db.oneRow(clazz, pk, item.row.v)
       if (row && row.v > item.row.v) // celui lu est plus récent
-        item.row.data = Crypt.syncDecrypt(op.db.key, row['data'])
+        item.row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
       item.lru = now
       return new DocDescr(clazz, pk, item.row)
     }
@@ -479,7 +479,6 @@ export class Cache {
     // Pas trouvé en cache - recherche en base
     const row = await op.db.oneRow(clazz, pk, item ? item.row.v : 0)
     if (row) { // trouvé en base, mis en cache
-      row.data = Crypt.syncDecrypt(op.db.key, row['data'])
       const item : cacheItem = { lru: now, time: now, row } 
       oc.set(k, item)
       return new DocDescr(clazz, pk, row)
@@ -510,6 +509,9 @@ export class Cache {
       if (item) oc.delete(k)
       return
     }
+    // Rétablissement du data NON encrypté
+    dd.row.data = dd.row.dataORIG
+    delete dd.row.dataORIG
     if (item) { // remplacement éventuel
       if (dd.row.v > item.row.v) {
         item.row = dd.row

@@ -418,7 +418,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       this.transaction = false
       return [0, '']
     } catch (e) {
-      try { this.sql.prepare('ROLLBACK').run() } catch (e2) { /* */ }
+      try { 
+        this.sql.prepare('ROLLBACK').run() 
+      } catch (e2) { 
+        console.log('ROLLBACK exc :' + e2)
+      }
       this.transaction = false
       return this.trap(e)
     }
@@ -475,7 +479,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     }
     if (sec) row.maxLife = Math.floor(sec / 60)
     if (!nodecrypt) {
-      const x = Crypt.syncDecrypt(this.key, row.data)
+      const x = Crypt.syncDecrypt(this.key, Buffer.from(row.data))
       row.data = x
     }
     return row
@@ -711,7 +715,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
-      if (!row.deleted) fn(row)
+      if (!row.deleted) fn(row.data)
     }
   }
 

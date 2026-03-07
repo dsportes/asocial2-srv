@@ -101,13 +101,18 @@ export class DocType {
     if (!i) return null
     const v = src[name]
     switch (i.type) {
-      case propType.STRING : { return v || '' }
-      case propType.INTEGER : { return v || 0 }
-      case propType.FLOAT : { return v || 0 }
-      case propType.HASH : { return Crypt.shaS(v || '') }
+      case propType.STRING : { return src[name] || '' }
+      case propType.INTEGER : { return src[name] || 0 }
+      case propType.FLOAT : { return src[name] || 0 }
+      case propType.HASH : { 
+        const x = []
+        i.key.forEach(p => { x.push(src[p] || '') })
+        return Crypt.shaS(x.join('/'))
+      }
       case propType.LIST : {         
         const x = []
-        if (v as string[]) (v as string[]).forEach(t => { if (t) x.push(Crypt.shaS(t))})
+        const v = src[name] as string[]
+        v.forEach(t => { if (t) x.push(Crypt.shaS(t))})
         return x
       }
     }

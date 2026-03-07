@@ -426,8 +426,16 @@ class ListManagers extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    const lst = await Credential.listManagers(this)
+    let status = 0
+    let lst = []
+    if (!this.authRecord.isAdmin) {
+      const cr = this.getCred('Org.manager', '', true)
+      if (!cr) status = 1
+    }
+    if (!status)
+      lst = await Credential.listManagers(this)
     this.setRes('list', lst)
+    this.setRes('status', status)
   }
 
   phase3 : null

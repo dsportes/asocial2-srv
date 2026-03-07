@@ -48,6 +48,7 @@ export type row = {
   maxLife?: number, // time de fin de vie programmée par l'application (EPOCH en MINUTES)
   ttl?: any, // DB seulement - TTL pour purge automatique par la DB
   data: Uint8Array, // null si DELETED
+  dataORIG?: Uint8Array, // data AVANT encryption pour DB
   [index: string]:any
 }
 

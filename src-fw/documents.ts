@@ -168,18 +168,22 @@ export class Credential extends Document {
   static async listManagers (op: Operation) : Promise<Object[]> {
     const dd = DocType.get('Credential')
     const val2 = dd.getIdx({ role: 'Org.manager', docId: ''}, 'roles')
-    // const val = Crypt.shaS(encoder.encode('Org.manager/'))
+    const val = Crypt.shaS(encoder.encode('Org.manager/'))
     const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'roles', filter.EQ, val2[0], '', 0, 
+    await op.db.selectDocs('Credential', 'roles', filter.EQ, val2, '', 0, 
       async (data) => {
-        const obj = decode(data) as Credential
-        const x = { 
-          userId: obj.userId,
-          time: obj.time, 
-          limit: obj.limit,
-          cond: obj.cond
+        try {
+          const obj = decode(data) as Credential
+          const x = { 
+            userId: obj.userId,
+            time: obj.time, 
+            limit: obj.limit,
+            cond: obj.cond
+          }
+          lst.push(x)
+        } catch(e) {
+          console.log(e)
         }
-        lst.push(x)
       })
     return lst
   }

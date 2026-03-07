@@ -123,7 +123,7 @@ export class Crypt {
   On l'extrait et on decipher le texte SANS le authTag
   MAIS en lui donnant explicitement par setAuthTag
   */
-  static syncDecrypt (key: Uint8Array, buf: Uint8Array) {
+  static syncDecrypt (key: Uint8Array, buf: Buffer) {
     const iv = buf.subarray(0, 12)
     const enc = buf.subarray(12, buf.byteLength - 16)
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
