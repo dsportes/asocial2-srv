@@ -836,3 +836,13 @@ class $DelSafe extends SafeOperation {
   }
 }
 SafeOperation.register('$DelSafe', () => { return new $DelSafe()})
+
+/* Ping */
+class $Ping extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    this.setRes('ping', true)
+  }
+}
+SafeOperation.register('$Ping', () => { return new $Ping()})
