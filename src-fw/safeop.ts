@@ -324,7 +324,6 @@ SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
  ***************************************************************/
 export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   id: string // identifiant aléatoire.
-  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
   hp0: string // index unique, `SH(p0)`.
   hr0: string // index unique, `SH(r0)`.
   hhp1: string // SHA de `SH(p1)`.
@@ -393,7 +392,7 @@ class $UpdCodesSafe extends SafeOperation {
       await Util.sleep(3000)
       return
     }
-    safe.pseudo = safeNew.pseudo
+
     safe.hp0 = safeNew.hp0
     safe.hr0 = safeNew.hr0
     safe.hhp1 = safeNew.hhp1
@@ -574,6 +573,7 @@ type TrustDev = {
   Va: string
   cy: string
   sign: Uint8Array
+  pseudo: string
 }
 
 type UntrustDev = {
@@ -592,6 +592,8 @@ class $TrustDevice extends SafeOperation {
     const td = this.args['trustDev'] as TrustDev
     const safe = await this.getSafe(td)
     if (!safe) return
+
+    safe.pseudo = td.pseudo || ''
 
     const d: Device = {
       devName: td.devName,
