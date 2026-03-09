@@ -8461,3 +8461,21 @@ BEGIN
 2026-03-07T16:05:01.364Z info: ListManagers : 2026-03-07T16:05:01.364Z
 2026-03-07T16:05:01.368Z info: ListManagers finished
 2026-03-07T16:05:10.479Z info: $OpenSafeById finished
+2026-03-09T16:39:18.276Z info: 15 operations registered
+2026-03-09T16:39:18.279Z info: 9 document classes
+2026-03-09T16:39:18.280Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-09T16:39:18.280Z info: Firestore connector
+2026-03-09T16:39:18.281Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-09T16:39:18.281Z info: 15 App operations registered
+2026-03-09T16:39:18.385Z info: Reloading orgs config OK
+2026-03-09T16:39:18.392Z info: HTTP listen [8080]
+2026-03-09T16:39:19.901Z info: $OpenSafeByPR finished
+2026-03-09T17:18:14.644Z info: $OpenSafeByPR finished
+2026-03-09T17:19:10.749Z info: $OpenSafeByPR finished
+2026-03-09T17:21:40.635Z info: $OpenSafeByPR finished
+2026-03-09T17:32:48.955Z info: $OpenSafeByPR finished
+2026-03-09T18:14:46.272Z info: $OpenSafeByPR finished
+2026-03-09T18:15:42.932Z info: $OpenSafeByPR finished
+2026-03-09T18:19:26.523Z info: $OpenSafeByPR finished
+2026-03-09T18:20:50.546Z info: $OpenSafeByPR finished
+2026-03-09T18:21:28.831Z info: $TrustDevice finished
