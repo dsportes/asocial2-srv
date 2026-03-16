@@ -86,6 +86,7 @@ export type Safe = {
   creds: Object
   profiles: Object
   prefs: Object
+  invits: Object
 }
 
 export interface IDbGeneric {

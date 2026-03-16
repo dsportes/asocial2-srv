@@ -8732,3 +8732,40 @@ BEGIN
 2026-03-14T10:38:25.743Z info: $OpenSafeById finished
 2026-03-14T10:45:25.564Z info: $OpenSafeByPin finished
 2026-03-14T10:45:25.607Z info: $OpenSafeById finished
+2026-03-14T14:55:16.904Z info: 15 operations registered
+2026-03-14T14:55:16.907Z info: 9 document classes
+2026-03-14T14:55:16.907Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-14T14:55:16.908Z info: Firestore connector
+2026-03-14T14:55:16.908Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-14T14:55:16.908Z info: 15 App operations registered
+2026-03-14T14:55:17.009Z info: Reloading orgs config OK
+2026-03-14T14:55:17.014Z info: HTTP listen [8080]
+2026-03-14T15:01:21.557Z info: $OpenSafeByPin finished
+2026-03-14T15:01:21.614Z info: $OpenSafeById finished
+2026-03-14T15:05:53.297Z info: $OpenSafeByPin finished
+2026-03-14T15:05:53.348Z info: $OpenSafeById finished
+2026-03-14T15:10:54.667Z info: $OpenSafeByPin finished
+2026-03-14T15:10:54.715Z info: $OpenSafeById finished
+2026-03-14T15:25:45.917Z info: $OpenSafeByPin finished
+2026-03-14T15:25:45.969Z info: $OpenSafeById finished
+2026-03-14T15:35:09.639Z info: $OpenSafeByPin finished
+2026-03-14T15:35:09.690Z info: $OpenSafeById finished
+2026-03-14T15:36:46.675Z info: $OpenSafeByPin finished
+2026-03-14T15:36:46.722Z info: $OpenSafeById finished
+2026-03-14T15:38:59.193Z info: $GetSvcOpUrl finished
+2026-03-14T15:38:59.222Z info: GetSvcOpStatus : 2026-03-14T15:38:59.220Z
+2026-03-14T15:38:59.227Z info: GetSvcOpStatus finished
+2026-03-14T15:38:59.285Z info: Reloading orgs config OK
+2026-03-14T15:39:19.763Z info: SetSvcOpStatus : 2026-03-14T15:39:19.763Z
+2026-03-14T15:39:19.772Z info: SetSvcOpStatus finished
+2026-03-14T15:39:32.467Z info: GetSvcOpStatus : 2026-03-14T15:39:32.467Z
+2026-03-14T15:39:32.471Z info: GetSvcOpStatus finished
+2026-03-14T15:39:32.502Z info: $GetSvcOrgUrl finished
+2026-03-14T15:39:32.525Z info: GetSvcOrgStatus : 2026-03-14T15:39:32.525Z
+2026-03-14T15:39:32.532Z info: GetSvcOrgStatus finished
+2026-03-14T15:39:53.405Z info: SetSvcOrgStatus : 2026-03-14T15:39:53.404Z
+2026-03-14T15:39:53.418Z info: SetSvcOrgStatus finished
+2026-03-14T15:39:53.440Z info: GetSvcOpStatus : 2026-03-14T15:39:53.440Z
+2026-03-14T15:39:53.445Z info: GetSvcOpStatus finished
+2026-03-14T15:39:53.477Z info: GetSvcOrgStatus : 2026-03-14T15:39:53.477Z
+2026-03-14T15:39:53.481Z info: GetSvcOrgStatus finished

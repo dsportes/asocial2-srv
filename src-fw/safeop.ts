@@ -114,6 +114,19 @@ export class SafeOperation extends Operation {
     }
   }
 
+  cleanInvits (safe) {
+    if (!safe.invits) return safe
+    const d = Math.floor(Date.now() / 86400000)
+    let b = false
+    for(const xid of Array.from(Object.keys(safe.invits))) {
+      const x = safe.invits[xid]
+      if (Math.floor(x.time / 86400) < (d - 7)) delete(safe.invits[xid])
+        else b = true
+    }
+    if (!b) delete safe.invits
+    return safe
+  }
+
   async getSafe (arg: Object): Promise<Safe> {
     const [m, safe] = await this.db.getSafe(arg['userId'])
     if (!safe) {
@@ -352,6 +365,7 @@ class $RestoreSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
+    this.cleanInvits(safe)
     const ret = await this.db.restoreSafe(safe)
     if (ret !== 0) await Util.sleep(3000)
     this.setRes('status', ret)
@@ -370,6 +384,7 @@ class $GetBinSafe extends SafeOperation {
     const safe = decode(bin) as Safe
     if (safe && hhk === safe.hhk) {
       this.setRes('status', 0)
+      this.cleanInvits(safe)
       this.setRes('safe', safe)
     } else {
       this.setRes('status', 1)
@@ -399,6 +414,7 @@ class $UpdCodesSafe extends SafeOperation {
     safe.hhr1 = safeNew.hhr1
     safe.Ka = safeNew.Ka
     safe.Kr = safeNew.Kr
+    this.cleanInvits(safe)
     const ret = await this.db.updPRSafe(safe)
     this.setRes('status', ret)
     if (ret !== 0) await Util.sleep(3000)
@@ -440,6 +456,7 @@ class $OpenSafeByPR extends SafeOperation {
         safe = null
       }
     }
+    this.cleanInvits(safe)
     this.setRes('status', status)
     this.setRes('safe', safe)
     this.setRes('byP', byP)
@@ -457,6 +474,7 @@ class $OpenSafeById extends SafeOperation {
     const [m, safe] = await this.db.getSafe(this.args['userId'])
     const hhk = Crypt.shaS(Util.b64ToU8(this.args['shk']))
     if (safe && hhk === safe.hhk) {
+      this.cleanInvits(safe)
       this.setRes('status', 0)
       this.setRes('safe', safe)
     } else {
@@ -498,6 +516,7 @@ class $OpenSafeByPin extends SafeOperation {
     const s1 = Util.b64ToU8(dev.sign)
     const sign = Crypt.signFromAsn1(s1)
     const ok = await Crypt.verify(V, sign, Util.b64ToU8(pincx))
+    this.cleanInvits(safe)
     if (!ok) {
       dev.nbe++
       if (dev.nbe > 2) {
@@ -536,6 +555,7 @@ class $SetContact extends SafeOperation {
     if (!safe) return
     safe.contact = sc.contact
     safe.hct = sc.hct
+    this.cleanInvits(safe)
     await this.db.updHctSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
@@ -557,6 +577,7 @@ class $SetAdmins extends SafeOperation {
     const safe = await this.getSafe(sa)
     if (!safe) return
     safe.admins = sa.admins
+    this.cleanInvits(safe)
     await this.db.updSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
@@ -604,6 +625,7 @@ class $TrustDevice extends SafeOperation {
     }
     if (!safe.devices) safe.devices = {}
     safe.devices[td.devId] = d
+    this.cleanInvits(safe)
     await this.db.updSafe(safe)
     this.setRes('status', 0)
     this.setRes('safe', safe)
@@ -621,6 +643,7 @@ class $UntrustDevices extends SafeOperation {
     const safe = await this.getSafe(td)
     if (!safe) return
 
+    this.cleanInvits(safe)
     if (safe.devices) {
       for (const id of td.devIds)
         delete safe.devices[id]
@@ -651,6 +674,7 @@ class $SetAboutProfile extends SafeOperation {
     const ab = this.args['aboutProfile'] as SetAboutProfile
     const safe = await this.getSafe(ab)
     if (!safe) return
+    this.cleanInvits(safe)
 
     if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
       const prf = decode(Util.b64ToU8(safe.profiles[ab.app][ab.profId]))
@@ -683,6 +707,7 @@ class $UpdateCreds extends SafeOperation {
     const uc = this.args['updateCreds'] as UpdateCreds
     const safe = await this.getSafe(uc)
     if (!safe) return
+    this.cleanInvits(safe)
 
     if (!safe.profiles) safe.profiles = {}
     if (!safe.creds) safe.creds = {}
@@ -727,6 +752,7 @@ class $UpdatePrefs extends SafeOperation {
     const up = this.args['updatePrefs'] as UpdatePrefs
     const safe = await this.getSafe(up)
     if (!safe) return
+    this.cleanInvits(safe)
 
     if (!safe.prefs) safe.prefs = {}
 
@@ -747,6 +773,62 @@ class $UpdatePrefs extends SafeOperation {
   }
 }
 SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
+
+type AddInvit = {
+  userId: string
+  shk: string
+  invitId: string
+  status: number
+  time: number
+  invit: string // Objet invit sérialisé crypté en base64
+}
+
+type StatusInvit = {
+  targetId: string
+  invitId: string
+  status: number
+}
+
+class $AddInvit extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const inv = this.args['addInvit'] as AddInvit
+    const safe = await this.getSafe(inv)
+    if (!safe) return
+
+    if (!safe.invits) safe.invits = {}
+
+    safe.invits[inv.invitId] = { status: inv.status, time: inv.time, invit: inv.invit }
+    this.cleanInvits(safe)
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$AddInvit', () => { return new $AddInvit()})
+
+class $StatusInvit extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const st = this.args['addInvit'] as StatusInvit
+    const [m, safe] = await this.db.getSafe(st.targetId)
+    if (!safe || !safe.invits) {
+      this.setRes('status', 1)
+      return
+    }
+
+    const inv = safe.invits[st.invitId]
+    inv.st = st.status
+    this.cleanInvits(safe)
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$StatusInvit', () => { return new $StatusInvit()})
 
 type TransmitCred = {
   targetId: string // id ou p0 ou r0 du destinataire du credential
@@ -772,6 +854,7 @@ class $TransmitCred extends SafeOperation {
       this.setRes('status', 1)
       return
     }
+    this.cleanInvits(safe)
 
     if (!safe.creds) safe.creds = {}
 
