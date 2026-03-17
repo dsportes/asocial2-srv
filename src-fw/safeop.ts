@@ -120,11 +120,11 @@ export class SafeOperation extends Operation {
     let b = false
     for(const xid of Array.from(Object.keys(safe.invits))) {
       const x = safe.invits[xid]
-      if (Math.floor(x.time / 86400) < (d - 7)) delete(safe.invits[xid])
-        else b = true
+      const d2 = Math.floor(x.time / 86400)
+      if (d2 < (d - 7)) delete(safe.invits[xid])
+      else b = true
     }
     if (!b) delete safe.invits
-    return safe
   }
 
   async getSafe (arg: Object): Promise<Safe> {

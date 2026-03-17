@@ -8769,3 +8769,156 @@ BEGIN
 2026-03-14T15:39:53.445Z info: GetSvcOpStatus finished
 2026-03-14T15:39:53.477Z info: GetSvcOrgStatus : 2026-03-14T15:39:53.477Z
 2026-03-14T15:39:53.481Z info: GetSvcOrgStatus finished
+2026-03-17T16:11:00.864Z info: 16 operations registered
+2026-03-17T16:11:00.867Z info: 10 document classes
+2026-03-17T16:11:00.868Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T16:11:00.869Z info: Firestore connector
+2026-03-17T16:11:00.869Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T16:11:00.870Z info: 16 App operations registered
+2026-03-17T16:11:00.882Z info: Reloading orgs config OK
+2026-03-17T16:11:00.890Z info: HTTP listen [8080]
+2026-03-17T16:13:33.053Z info: $OpenSafeByPin finished
+2026-03-17T16:13:33.153Z info: $OpenSafeById finished
+2026-03-17T16:14:24.014Z info: $GetSvcOrgUrl finished
+2026-03-17T16:14:24.050Z info: CreateInvit : 2026-03-17T16:14:24.049Z
+2026-03-17T16:14:34.560Z info: CreateInvit finished
+2026-03-17T16:18:38.440Z info: 16 operations registered
+2026-03-17T16:18:38.443Z info: 10 document classes
+2026-03-17T16:18:38.444Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T16:18:38.444Z info: Firestore connector
+2026-03-17T16:18:38.445Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T16:18:38.445Z info: 16 App operations registered
+2026-03-17T16:18:38.461Z info: Reloading orgs config OK
+2026-03-17T16:18:38.469Z info: HTTP listen [8080]
+2026-03-17T16:19:45.893Z info: $OpenSafeByPin finished
+2026-03-17T16:19:45.993Z info: $OpenSafeById finished
+2026-03-17T16:20:27.540Z info: $OpenSafeByPin finished
+2026-03-17T16:20:27.618Z info: $OpenSafeById finished
+2026-03-17T16:21:09.917Z info: $GetSvcOrgUrl finished
+2026-03-17T16:21:09.950Z info: CreateInvit : 2026-03-17T16:21:09.948Z
+2026-03-17T16:21:09.972Z info: CreateInvit finished
+2026-03-17T16:26:28.667Z info: 16 operations registered
+2026-03-17T16:26:28.670Z info: 10 document classes
+2026-03-17T16:26:28.671Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T16:26:28.672Z info: Firestore connector
+2026-03-17T16:26:28.672Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T16:26:28.673Z info: 16 App operations registered
+2026-03-17T16:26:28.685Z info: Reloading orgs config OK
+2026-03-17T16:26:28.691Z info: HTTP listen [8080]
+2026-03-17T16:26:43.970Z info: CreateInvit : 2026-03-17T16:26:43.966Z
+2026-03-17T16:26:43.990Z info: CreateInvit finished
+2026-03-17T16:30:22.724Z info: 16 operations registered
+2026-03-17T16:30:22.727Z info: 10 document classes
+2026-03-17T16:30:22.728Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T16:30:22.729Z info: Firestore connector
+2026-03-17T16:30:22.729Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T16:30:22.729Z info: 16 App operations registered
+2026-03-17T16:30:22.744Z info: Reloading orgs config OK
+2026-03-17T16:30:22.751Z info: HTTP listen [8080]
+2026-03-17T16:30:53.323Z info: $OpenSafeByPin finished
+2026-03-17T16:30:53.400Z info: $OpenSafeById finished
+2026-03-17T16:31:32.080Z info: $GetSvcOrgUrl finished
+2026-03-17T16:31:32.119Z info: CreateInvit : 2026-03-17T16:31:32.117Z
+2026-03-17T16:31:32.135Z info: CreateInvit finished
+2026-03-17T16:32:23.884Z info: $AddInvit finished
+2026-03-17T16:35:18.354Z info: $OpenSafeByPin finished
+2026-03-17T16:35:18.478Z info: $OpenSafeById finished
+2026-03-17T16:36:24.733Z info: $OpenSafeByPin finished
+2026-03-17T16:36:24.793Z info: $OpenSafeById finished
+2026-03-17T16:37:24.612Z info: $OpenSafeByPin finished
+2026-03-17T16:37:24.679Z info: $OpenSafeById finished
+2026-03-17T16:41:02.068Z info: 16 operations registered
+2026-03-17T16:41:02.071Z info: 10 document classes
+2026-03-17T16:41:02.072Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T16:41:02.072Z info: Firestore connector
+2026-03-17T16:41:02.073Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T16:41:02.073Z info: 16 App operations registered
+2026-03-17T16:41:02.099Z info: Reloading orgs config OK
+2026-03-17T16:41:02.106Z info: HTTP listen [8080]
+2026-03-17T16:41:34.198Z info: $OpenSafeByPin finished
+2026-03-17T16:41:34.264Z info: $OpenSafeById finished
+2026-03-17T16:42:06.713Z info: $GetSvcOrgUrl finished
+2026-03-17T16:42:06.754Z info: CreateInvit : 2026-03-17T16:42:06.753Z
+2026-03-17T17:47:16.424Z info: 16 operations registered
+2026-03-17T17:47:16.427Z info: 10 document classes
+2026-03-17T17:47:16.428Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T17:47:16.428Z info: Firestore connector
+2026-03-17T17:47:16.429Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T17:47:16.429Z info: 16 App operations registered
+2026-03-17T17:47:16.445Z info: Reloading orgs config OK
+2026-03-17T17:47:16.451Z info: HTTP listen [8080]
+2026-03-17T17:49:07.344Z info: CreateInvit : 2026-03-17T17:49:07.341Z
+2026-03-17T17:52:48.210Z info: 16 operations registered
+2026-03-17T17:52:48.213Z info: 10 document classes
+2026-03-17T17:52:48.214Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T17:52:48.214Z info: Firestore connector
+2026-03-17T17:52:48.215Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T17:52:48.216Z info: 16 App operations registered
+2026-03-17T17:52:48.231Z info: Reloading orgs config OK
+2026-03-17T17:52:48.240Z info: HTTP listen [8080]
+2026-03-17T17:52:52.998Z info: CreateInvit : 2026-03-17T17:52:52.995Z
+2026-03-17T18:04:47.304Z info: 16 operations registered
+2026-03-17T18:04:47.307Z info: 10 document classes
+2026-03-17T18:04:47.308Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:04:47.309Z info: Firestore connector
+2026-03-17T18:04:47.309Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:04:47.310Z info: 16 App operations registered
+2026-03-17T18:04:47.326Z info: Reloading orgs config OK
+2026-03-17T18:04:47.339Z info: HTTP listen [8080]
+2026-03-17T18:04:49.955Z info: CreateInvit : 2026-03-17T18:04:49.952Z
+2026-03-17T18:05:35.983Z info: 16 operations registered
+2026-03-17T18:05:35.987Z info: 10 document classes
+2026-03-17T18:05:35.988Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:05:35.989Z info: Firestore connector
+2026-03-17T18:05:35.989Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:05:35.990Z info: 16 App operations registered
+2026-03-17T18:05:36.003Z info: Reloading orgs config OK
+2026-03-17T18:05:36.010Z info: HTTP listen [8080]
+2026-03-17T18:05:39.917Z info: CreateInvit : 2026-03-17T18:05:39.913Z
+2026-03-17T18:07:54.461Z info: 16 operations registered
+2026-03-17T18:07:54.465Z info: 10 document classes
+2026-03-17T18:07:54.466Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:07:54.466Z info: Firestore connector
+2026-03-17T18:07:54.467Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:07:54.467Z info: 16 App operations registered
+2026-03-17T18:07:54.480Z info: Reloading orgs config OK
+2026-03-17T18:07:54.487Z info: HTTP listen [8080]
+2026-03-17T18:07:59.604Z info: CreateInvit : 2026-03-17T18:07:59.601Z
+2026-03-17T18:18:49.007Z info: 16 operations registered
+2026-03-17T18:18:49.010Z info: 10 document classes
+2026-03-17T18:18:49.011Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:18:49.011Z info: Firestore connector
+2026-03-17T18:18:49.012Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:18:49.012Z info: 16 App operations registered
+2026-03-17T18:18:49.027Z info: Reloading orgs config OK
+2026-03-17T18:18:49.036Z info: HTTP listen [8080]
+2026-03-17T18:18:57.015Z info: CreateInvit : 2026-03-17T18:18:57.012Z
+2026-03-17T18:25:00.692Z info: 16 operations registered
+2026-03-17T18:25:00.696Z info: 10 document classes
+2026-03-17T18:25:00.697Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:25:00.698Z info: Firestore connector
+2026-03-17T18:25:00.698Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:25:00.699Z info: 16 App operations registered
+2026-03-17T18:25:00.726Z info: Reloading orgs config OK
+2026-03-17T18:25:00.731Z info: HTTP listen [8080]
+2026-03-17T18:25:09.425Z info: CreateInvit : 2026-03-17T18:25:09.422Z
+2026-03-17T18:33:09.757Z info: 16 operations registered
+2026-03-17T18:33:09.760Z info: 10 document classes
+2026-03-17T18:33:09.761Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:33:09.762Z info: Firestore connector
+2026-03-17T18:33:09.762Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:33:09.763Z info: 16 App operations registered
+2026-03-17T18:33:09.779Z info: Reloading orgs config OK
+2026-03-17T18:33:09.786Z info: HTTP listen [8080]
+2026-03-17T18:33:26.840Z info: CreateInvit : 2026-03-17T18:33:26.837Z
+2026-03-17T18:42:29.853Z info: 16 operations registered
+2026-03-17T18:42:29.856Z info: 10 document classes
+2026-03-17T18:42:29.857Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-17T18:42:29.858Z info: Firestore connector
+2026-03-17T18:42:29.859Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-17T18:42:29.860Z info: 16 App operations registered
+2026-03-17T18:42:29.875Z info: Reloading orgs config OK
+2026-03-17T18:42:29.882Z info: HTTP listen [8080]
+2026-03-17T18:42:38.961Z info: CreateInvit : 2026-03-17T18:42:38.958Z
+2026-03-17T18:43:46.263Z info: CreateInvit finished
+2026-03-17T18:43:46.336Z info: $AddInvit finished

@@ -192,10 +192,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   private trap (e: any) : [number, string] { // 1: busy, 2: autre
     if (e.constructor.name !== 'SqliteError') throw e
+    if (e.code && !e.code.startsWith('SQLITE_BUSY')) throw e
     const s = (e.code || '???') + '\n' + (e.message || '') + '\n' + 
       (e.stack ? e.stack + '\n' : '') + this.lastSql.join('\n')
-    if (e.code && e.code.startsWith('SQLITE_BUSY')) return [1, s]
-    return [2, s]
+    return [1, s]
   }
 
   /******************************************************************************

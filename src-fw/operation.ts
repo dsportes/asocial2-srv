@@ -194,11 +194,6 @@ export class Operation {
           break 
         }
 
-        if (st === 2) {
-          this.trace ('Op.run.phase2', 'DB error', detail, true)
-          throw new AppExc(11, 'DB error', this, [detail]) // DB error
-        }
-
         // st === 1 - DB lock / contention
         if (retry === 2) {
           this.trace ('Op.run.phase2', 'DB lock', detail, true)
@@ -653,35 +648,39 @@ export class Cache {
 
   manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
     if (doc.docType.colls) for (const [n, collection] of doc.docType.colls) {
+      const b = doc._before ? doc._before[n] : null
+      if (b) is.setColl(n, b)
       if (doc._status === DocStatus.DEL) {
-        // Tous le ou les termes "before" quittent le document
-        const b = doc._before[n]
-        is.setColl(n, b)
-        if (collection.list) for (const x of b) {
-          this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: x })
-        } else {
-          is.setColl(n, b)
-          this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: b })
+        if (b) { // le ou les termes "before" quittent le document
+          if (collection.list) for (const x of b) {
+            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
+          } else {
+            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: b[0] })
+          }
         }
       } else {
-        const b = doc._before[n]
         const a = doc.collValue(n)
         is.setColl(n, a)
-        is.setColl(n, b)
+        const bs : Set<string> = collection.list && b ? new Set(b) : null
+        const as : Set<string> = collection.list ? new Set(a) : null
         if (doc._status === DocStatus.UPD) {
-          // Tous le ou les termes "before" 
-          // qui y étaient AVANT et ne le sont plus MAINTENANT
-          // quittent le document
+          // Tous le ou les termes "before" qui y étaient AVANT et ne le sont plus MAINTENANT quittent le document
           if (collection.list) {
-            const bs : Set<string> = new Set(b)
-            const as = new Set(a)
-            for (const x of bs) {
+            if (bs) for (const x of bs) {
               if (!as.has(x))
-                this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: x })
+                this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
             }
-          } else if (a !== b) 
-            this.db.writeRowQ(dd.clazz, n, { v: row.v,  col: b })
+          } else if (a[0] !== b[0]) 
+            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: b[0] })
         }
+        // Tous les nouveaux sont ajoutés
+        if (collection.list) {
+          for (const x of as) {
+            if (!bs || !bs.has(x))
+              this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
+          }
+        } else if (!b || (a[0] !== b[0]))
+          this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: a[0] })
       }
     }
   }

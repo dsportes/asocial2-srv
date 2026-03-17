@@ -134,9 +134,9 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
 
   private trap (e: any) : [number, string] { // 1: busy, 2: autre
     if (e.constructor.name !== 'FirestoreError') throw e
+    if (e.code && e.code !== 'ABORTED') throw e
     const s = (e.code || '???') + ' - ' + (e.message || '?')
-    if (e.code && e.code === 'ABORTED') return [1, s]
-    return [2, s]
+    return [1, s]
   }
 
   async getSingleton (key: string) : Promise<string> {
@@ -222,14 +222,14 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Met à jour ou insère un safe depuis son objet */
-  async updSafe (safe: Object) :  Promise<void> {
+  async updSafe (safe: Safe) :  Promise<void> {
     // A REVISER
     const id = safe['id']
     const r0 = safe['r0']
     const p0 = safe['p0']
     safe['maxLife'] = Math.floor(Date.now() / 86400) + safeLapse
     const ttl = new Timestamp(Math.floor(safe['maxLife']), 0)
-    const data = Crypt.syncDecrypt(this.key, encode(safe))
+    const data = Crypt.syncCrypt(this.key, encode(safe))
     this.fs.doc('Safe/' + id).set( { p0, r0, ttl, data })
   }
 
@@ -323,7 +323,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
       return row
     }
     if (sec) row.maxLife = Math.floor(sec / 60)
-    if (!nodecrypt) row.data = Crypt.syncDecrypt(this.key, row.data)
+    if (!nodecrypt) {
+      const x = Crypt.syncDecrypt(this.key, Buffer.from(row.data))
+      row.data = x
+    }
     return row
   }
 
