@@ -189,3 +189,34 @@ export class Credential extends Document {
   }
 
 }
+
+export class Invitation extends Document {
+  static release = 0
+
+  ttl: number // ttl (en minutes)
+
+  invitId: string // ID de l'invitation
+  major: string //code majeur 
+  minor: string // code mineur
+  time: number // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
+  status: number // 1: déposée, 2: validée, 3: rejetée, 4: acceptée, 5: déclinée
+  userId: string // ID de U (demandeur)
+  safeStore: string // URL du store hébergeant le safe de U
+  skeyK: Uint8Array // clé symétrique générée par U, cryptée par sa clé K. Requise ou non selon le `major`.
+  pemU: string // clé publique C de U.
+  txtm: string // texte de motivation de la demande d'invitation (en clair).
+  txtx: string // quand déclinée, texte d'explication de U (en clair).
+  label: string // pour les codes `major` qui en exige un, _label_ en clair à faire figurer dans le document à créer.
+  // Données fixées par le sponsor**
+  pemS: string // clé publique du sponsor traitant l'invitation.
+  txti: string | Uint8Array // texte de réponse du sponsor, crypté par pemS / U.
+      // - si acceptation: termes explicatifs des conditions.
+      // - si rejet: justificatif textuel de rejet par le sponsor.
+  role: string // rôle du credential associé (et classe du document associé).
+  docId: string // `docId` du credential associé (et du document associé le cas échéant).
+  cond: any // données à faire figurer en `cond` du credential.
+  etc: any // autres données nécessaires pour créer le document associé. U n'a pas à connaître ni interpréter `etc` (_opaque_ pour lui) et qui ne sert qu'à l'opération de création de l'objet / enregistrement du credential.
+
+  // Reçues sur create: ['ttl', 'invitId', 'major', 'minor', 'time', 'status', 'userId', 'safeStore', 'skeyK', 'pemU', 'txtm', 'label']
+
+}

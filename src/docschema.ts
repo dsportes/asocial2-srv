@@ -39,6 +39,15 @@ new DocType(
 )
 
 new DocType(
+  { name: 'Invitation', sync: true, pk: ['inviId'] }, // header
+  new Map<string, collection>([
+    ['major', { key: ['major'], mutable: false }],
+    ['majorminor', { key: ['major', 'minor'], mutable: false }]
+  ]), // collections
+  null
+)
+
+new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
     ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],

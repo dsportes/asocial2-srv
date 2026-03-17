@@ -6,7 +6,7 @@ import { Util } from './util'
 import { Log } from './log'
 import { Crypt } from './crypt'
 import { config } from './config'
-import { Subs, subscription, SubsItem, Credential, Org } from './documents'
+import { Subs, subscription, SubsItem, Credential, Org, Invitation } from './documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
 
@@ -441,3 +441,23 @@ class ListManagers extends Operation {
   phase3 : null
 }
 Operation.register('ListManagers', () => { return new ListManagers()})
+
+/* CreateInvit: création d'une invitation
+- org
+- invObj
+*/
+class CreateInvit extends Operation {
+  constructor () { super() }
+
+  init () {
+    super.init()
+  }
+
+  async phase2 () {
+    const inv: Invitation = this.cache.newDoc('Invitation', this.args['invObj']) as Invitation
+    console.log('OK CreateInvit')
+  }
+
+  phase3 : null
+}
+Operation.register('CreateInvit', () => { return new CreateInvit()})

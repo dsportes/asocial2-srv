@@ -2,6 +2,7 @@ import { DocType } from './doctypes'
 import { row } from './iDbGeneric'
 import { config } from './config'
 import { encode } from '@msgpack/msgpack'
+import { AppExc } from '../src-fw/index'
 import { Crypt } from './crypt'
 import { Operation } from './operation'
 
@@ -106,7 +107,7 @@ export class Document {
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
     const cl = config.documentClasses[clazz]
-    if (!cl) return null
+    if (!cl) throw new AppExc(3004, 'documentClasses', null, [clazz])
     const doc = new cl()
     doc._clazz = clazz
     doc._status = status
