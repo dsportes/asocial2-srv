@@ -8922,3 +8922,114 @@ BEGIN
 2026-03-17T18:42:38.961Z info: CreateInvit : 2026-03-17T18:42:38.958Z
 2026-03-17T18:43:46.263Z info: CreateInvit finished
 2026-03-17T18:43:46.336Z info: $AddInvit finished
+2026-03-18T09:38:49.927Z info: 17 operations registered
+2026-03-18T09:38:49.930Z info: 10 document classes
+2026-03-18T09:38:49.931Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-18T09:38:49.932Z info: Firestore connector
+2026-03-18T09:38:49.933Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-18T09:38:49.933Z info: 17 App operations registered
+2026-03-18T09:38:50.043Z info: Reloading orgs config OK
+2026-03-18T09:38:50.050Z info: HTTP listen [8080]
+2026-03-18T09:38:52.929Z info: $GetSvcOrgUrl finished
+2026-03-18T09:41:03.438Z info: 17 operations registered
+2026-03-18T09:41:03.442Z info: 10 document classes
+2026-03-18T09:41:03.442Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-18T09:41:03.443Z info: Firestore connector
+2026-03-18T09:41:03.443Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-18T09:41:03.444Z info: 17 App operations registered
+2026-03-18T09:41:03.465Z info: Reloading orgs config OK
+2026-03-18T09:41:03.471Z info: HTTP listen [8080]
+2026-03-18T09:52:41.366Z info: $GetSvcOrgUrl finished
+2026-03-18T09:53:12.000Z info: Bug : 2026-03-18T09:53:03.170Z
+2026-03-18T09:53:23.057Z info: Bug finished
+2026-03-18T09:53:23.085Z info: Reloading orgs config OK
+2026-03-18T09:54:22.074Z info: Bug : 2026-03-18T09:54:22.073Z
+2026-03-18T09:55:03.798Z error: Bug : 2026-03-18T09:54:22.073Z : SqliteError: UNIQUE constraint failed: bug.key
+2026-03-18T09:55:03.800Z info: Bug terminated on exception
+2026-03-18T09:55:03.802Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: bug.key"]
+2026-03-18T09:56:06.715Z info: Bug : 2026-03-18T09:56:06.714Z
+2026-03-18T09:56:29.022Z error: Bug : 2026-03-18T09:56:06.714Z : SqliteError: UNIQUE constraint failed: bug.key
+2026-03-18T09:56:29.024Z info: Bug terminated on exception
+2026-03-18T09:56:29.025Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: bug.key"]
+2026-03-18T10:17:42.027Z info: $OpenSafeByPin finished
+2026-03-18T10:17:42.081Z info: $OpenSafeById finished
+2026-03-18T10:20:35.515Z info: $OpenSafeByPin finished
+2026-03-18T10:20:35.566Z info: $OpenSafeById finished
+2026-03-18T10:24:56.087Z info: $OpenSafeByPin finished
+2026-03-18T10:24:56.143Z info: $OpenSafeById finished
+2026-03-18T10:27:08.424Z info: $OpenSafeByPin finished
+2026-03-18T10:27:08.466Z info: $OpenSafeById finished
+2026-03-18T10:28:40.839Z info: $OpenSafeByPin finished
+2026-03-18T10:28:40.888Z info: $OpenSafeById finished
+2026-03-18T10:29:42.907Z info: $OpenSafeById finished
+2026-03-18T10:29:52.256Z info: $OpenSafeByPin finished
+2026-03-18T10:29:52.296Z info: $OpenSafeById finished
+2026-03-18T10:32:13.192Z info: $GetSvcOrgUrl finished
+2026-03-18T10:32:13.217Z info: ListManagers : 2026-03-18T10:32:13.217Z
+2026-03-18T10:32:13.275Z info: Reloading orgs config OK
+2026-03-18T10:32:13.297Z info: $GetPubKeys finished
+2026-03-18T10:32:13.321Z info: ListManagers finished
+2026-03-18T11:15:53.779Z info: $OpenSafeByPin finished
+2026-03-18T11:15:53.831Z info: $OpenSafeById finished
+2026-03-18T11:17:31.311Z info: $GetSvcOrgUrl finished
+2026-03-18T11:17:31.336Z info: ListManagers : 2026-03-18T11:17:31.336Z
+2026-03-18T11:17:31.347Z info: ListManagers finished
+2026-03-18T11:17:31.396Z info: Reloading orgs config OK
+2026-03-18T11:31:34.400Z info: $OpenSafeByPin finished
+2026-03-18T11:31:34.450Z info: $OpenSafeById finished
+2026-03-18T11:35:25.205Z info: $OpenSafeByPin finished
+2026-03-18T11:35:25.252Z info: $OpenSafeById finished
+2026-03-18T12:39:06.741Z info: 18 operations registered
+2026-03-18T12:39:06.744Z info: 10 document classes
+2026-03-18T12:39:06.745Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-18T12:39:06.745Z info: Firestore connector
+2026-03-18T12:39:06.746Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-18T12:39:06.747Z info: 18 App operations registered
+2026-03-18T12:39:06.889Z info: Reloading orgs config OK
+2026-03-18T12:39:06.895Z info: HTTP listen [8080]
+2026-03-18T13:21:45.592Z info: $OpenSafeByPin finished
+2026-03-18T13:21:45.653Z info: $OpenSafeById finished
+2026-03-18T13:24:32.471Z info: $OpenSafeByPin finished
+2026-03-18T13:24:32.521Z info: $OpenSafeById finished
+2026-03-18T13:45:53.732Z info: $OpenSafeByPin finished
+2026-03-18T13:45:53.775Z info: $OpenSafeById finished
+2026-03-18T13:52:46.170Z info: $OpenSafeByPin finished
+2026-03-18T13:52:46.213Z info: $OpenSafeById finished
+2026-03-18T13:54:34.818Z info: $GetSvcOrgUrl finished
+2026-03-18T13:54:34.869Z info: ListInvits : 2026-03-18T13:54:34.867Z
+2026-03-18T13:54:34.978Z info: Reloading orgs config OK
+2026-03-18T13:54:34.999Z info: $GetPubKeys finished
+2026-03-18T13:54:54.155Z error: ListInvits : 2026-03-18T13:54:34.867Z : SqliteError: no such column: colName
+2026-03-18T13:54:54.156Z info: ListInvits terminated on exception
+2026-03-18T13:54:54.157Z error: AppExc: 3001:unexpected exception["no such column: colName"]
+2026-03-18T14:02:49.889Z info: 18 operations registered
+2026-03-18T14:02:49.892Z info: 10 document classes
+2026-03-18T14:02:49.892Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-18T14:02:49.893Z info: Firestore connector
+2026-03-18T14:02:49.893Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-18T14:02:49.894Z info: 18 App operations registered
+2026-03-18T14:02:49.909Z info: Reloading orgs config OK
+2026-03-18T14:02:49.916Z info: HTTP listen [8080]
+2026-03-18T14:02:59.584Z info: ListInvits : 2026-03-18T14:02:59.580Z
+2026-03-18T14:02:59.663Z info: $GetPubKeys finished
+2026-03-18T14:03:14.011Z error: ListInvits : 2026-03-18T14:02:59.580Z : SqliteError: no such column: major
+2026-03-18T14:03:14.013Z info: ListInvits terminated on exception
+2026-03-18T14:03:14.032Z error: AppExc: 3001:unexpected exception["no such column: major"]
+2026-03-18T14:08:29.686Z info: ListInvits : 2026-03-18T14:08:29.685Z
+2026-03-18T14:08:43.807Z info: Reloading orgs config OK
+2026-03-18T14:09:05.236Z error: ListInvits : 2026-03-18T14:08:29.685Z : SqliteError: no such column: major
+2026-03-18T14:09:05.238Z info: ListInvits terminated on exception
+2026-03-18T14:09:05.239Z error: AppExc: 3001:unexpected exception["no such column: major"]
+2026-03-18T14:10:40.420Z info: 18 operations registered
+2026-03-18T14:10:40.423Z info: 10 document classes
+2026-03-18T14:10:40.424Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-18T14:10:40.425Z info: Firestore connector
+2026-03-18T14:10:40.425Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-18T14:10:40.426Z info: 18 App operations registered
+2026-03-18T14:10:40.442Z info: Reloading orgs config OK
+2026-03-18T14:10:40.451Z info: HTTP listen [8080]
+2026-03-18T14:10:48.572Z info: ListInvits : 2026-03-18T14:10:48.566Z
+2026-03-18T14:10:48.696Z info: $GetPubKeys finished
+2026-03-18T14:11:26.826Z error: ListInvits : 2026-03-18T14:10:48.566Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-03-18T14:11:26.829Z info: ListInvits terminated on exception
+2026-03-18T14:11:26.830Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]

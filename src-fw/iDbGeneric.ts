@@ -171,6 +171,8 @@ export interface IDbGeneric {
 
   commit () : Promise<void>
 
+  bug () : Promise<void>
+
   /* Exportation des rows n'ayant pas dépassé leur TTL
   mark: dont les pk sont > pk
   limit: nombre max de rows lus

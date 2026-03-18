@@ -28,6 +28,14 @@ export type CredRequest = {
   cond: Object
 }
 
+class Bug extends Operation {
+  constructor () { super() }
+  init () { super.init() }
+  async phase2 () { await this.db.bug(); console.log('Bug op') }
+  phase3 : null
+}
+Operation.register('Bug', () => { return new Bug()})
+
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
 class SvcOpIsAdmin extends Operation {
@@ -461,3 +469,35 @@ class CreateInvit extends Operation {
   phase3 : null
 }
 Operation.register('CreateInvit', () => { return new CreateInvit()})
+
+/* ListInvits liste les invitations enregistrées pour un "major"
+- soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
+- soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
+Retourne une liste d'invitations 
+*/
+class ListInvits extends Operation {
+  constructor () { super() }
+
+  _major: string
+
+  init () {
+    super.init()
+    this._major = this.args['major']
+  }
+
+  async phase2 () {
+    this.requireAuth()
+    // TODO - à affiner pour les sponsors major / minor
+    const cr = this.getCred('Org.manager', '', true)
+    if (!cr) {
+      this.setRes('status', 1)
+      return
+    }
+    const lst = await Invitation.listInvits(this, this._major)
+    this.setRes('list', lst)
+    this.setRes('status', 0)
+  }
+
+  phase3 : null
+}
+Operation.register('ListInvits', () => { return new ListInvits()})

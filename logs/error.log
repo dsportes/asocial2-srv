@@ -226,3 +226,15 @@ BEGIN
 2026-03-07T15:46:28.289Z error: ListManagers : 2026-03-07T15:46:00.972Z : Error: Unsupported state or unable to authenticate data
 2026-03-07T15:46:28.292Z error: AppExc: 3001:unexpected exception["Unsupported state or unable to authenticate data"]
 2026-03-07T16:01:49.849Z error: GetOrgConfig : 2026-03-07T16:01:49.843Z : AppExc: 2007:admin required@GetOrgConfig:[]
+2026-03-18T09:55:03.798Z error: Bug : 2026-03-18T09:54:22.073Z : SqliteError: UNIQUE constraint failed: bug.key
+2026-03-18T09:55:03.802Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: bug.key"]
+2026-03-18T09:56:29.022Z error: Bug : 2026-03-18T09:56:06.714Z : SqliteError: UNIQUE constraint failed: bug.key
+2026-03-18T09:56:29.025Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: bug.key"]
+2026-03-18T13:54:54.155Z error: ListInvits : 2026-03-18T13:54:34.867Z : SqliteError: no such column: colName
+2026-03-18T13:54:54.157Z error: AppExc: 3001:unexpected exception["no such column: colName"]
+2026-03-18T14:03:14.011Z error: ListInvits : 2026-03-18T14:02:59.580Z : SqliteError: no such column: major
+2026-03-18T14:03:14.032Z error: AppExc: 3001:unexpected exception["no such column: major"]
+2026-03-18T14:09:05.236Z error: ListInvits : 2026-03-18T14:08:29.685Z : SqliteError: no such column: major
+2026-03-18T14:09:05.239Z error: AppExc: 3001:unexpected exception["no such column: major"]
+2026-03-18T14:11:26.826Z error: ListInvits : 2026-03-18T14:10:48.566Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-03-18T14:11:26.830Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]

@@ -190,7 +190,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     try { this.sql.close() } catch (e2) { /* */ }
   }
 
-  private trap (e: any) : [number, string] { // 1: busy, 2: autre
+  private trap (e: any) : [number, string] { // 1: busy, 0: OK - sinon exception
     if (e.constructor.name !== 'SqliteError') throw e
     if (e.code && !e.code.startsWith('SQLITE_BUSY')) throw e
     const s = (e.code || '???') + '\n' + (e.message || '') + '\n' + 
@@ -430,6 +430,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async commit () : Promise<void> {}
 
+  async  bug () : Promise<void> {
+    const stmt = this.sql.prepare('INSERT INTO BUG (key, value) VALUES (@key, @value)')
+    stmt.run({key: '1', value: '1'})
+  }
+
   /* Transforme un row APP en row DB
   - calcul du TTL éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
@@ -659,7 +664,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
     let stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
       + ' WHERE org = @org AND ' 
-      + (isList ? ('instr(' + colName + ', @col') : ('colName = @col') )
+      + (isList ? ('instr(' + colName + ', @col') : (colName + ' = @col') )
       + (!vs ? ';' : ' AND v > @vs ;'))
     let docs = stmt.all({org: this.org, vs : vs || 0, col })
     for (let doc of docs) {

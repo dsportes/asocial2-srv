@@ -219,4 +219,10 @@ export class Invitation extends Document {
 
   // Reçues sur create: ['ttl', 'invitId', 'major', 'minor', 'time', 'status', 'userId', 'safeStore', 'skeyK', 'pemU', 'txtm', 'label']
 
+  static async listInvits (op: Operation, major: string) : Promise<Uint8Array[]> {
+    const val = Crypt.shaS(encoder.encode(major))
+    // async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) : Promise<Uint8Array[]>
+    return await op.db.getColl('Invitation', 'major', val, false, 0)
+  }
+
 }
