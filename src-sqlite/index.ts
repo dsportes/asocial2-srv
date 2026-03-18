@@ -677,7 +677,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
     const ttl = Math.round(this.op.now / 60000)
     stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
-      + ' WHERE org = @org AND colName = @col AND v > @vs AND ttl > @ttl;')
+      + ' WHERE org = @org AND col = @col AND v > @vs AND ttl > @ttl;')
     docs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
     for (let doc of docs) {
       if (doc.ttl * 60000 > this.op.now) {
