@@ -482,7 +482,7 @@ class ListInvits extends Operation {
 
   init () {
     super.init()
-    this._major = this.args['major']
+    this._major = this.stringValue('major', true)
   }
 
   async phase2 () {
@@ -501,3 +501,34 @@ class ListInvits extends Operation {
   phase3 : null
 }
 Operation.register('ListInvits', () => { return new ListInvits()})
+
+/* ListInvits liste les invitations enregistrées pour un "major"
+- soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
+- soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
+Retourne une liste d'invitations 
+*/
+class GetInvit extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+
+  init () {
+    super.init()
+    this._invitId = this.stringValue('invitId', true)
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else {
+      if (invit.userId !== this.authRecord.userId) s = 1
+      else this.setRes('invitation', invit)
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('GetInvit', () => { return new GetInvit()})
