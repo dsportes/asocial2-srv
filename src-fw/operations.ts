@@ -524,7 +524,7 @@ class GetInvit extends Operation {
     if (!invit) s = 1
     else {
       if (invit.userId !== this.authRecord.userId) s = 1
-      else this.setRes('invitation', invit)
+      else this.setRes('invitation', encode(invit))
     }
     this.setRes('status', s)
   }
