@@ -454,7 +454,7 @@ Operation.register('ListManagers', () => { return new ListManagers()})
 - org
 - invObj
 */
-class CreateInvit extends Operation {
+class InvitCreate extends Operation {
   constructor () { super() }
 
   init () {
@@ -468,14 +468,14 @@ class CreateInvit extends Operation {
 
   phase3 : null
 }
-Operation.register('CreateInvit', () => { return new CreateInvit()})
+Operation.register('InvitCreate', () => { return new InvitCreate()})
 
-/* ListInvits liste les invitations enregistrées pour un "major"
+/* InvitList liste les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
 - soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
 Retourne une liste d'invitations 
 */
-class ListInvits extends Operation {
+class InvitList extends Operation {
   constructor () { super() }
 
   _major: string
@@ -500,14 +500,12 @@ class ListInvits extends Operation {
 
   phase3 : null
 }
-Operation.register('ListInvits', () => { return new ListInvits()})
+Operation.register('InvitList', () => { return new InvitList()})
 
-/* ListInvits liste les invitations enregistrées pour un "major"
-- soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
-- soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
-Retourne une liste d'invitations 
+/* InvitGet retourne une invitation d'après son ID. 
+Le demandeur doit être l'utilisateur ayant demandé l'invitation.
 */
-class GetInvit extends Operation {
+class InvitGet extends Operation {
   constructor () { super() }
 
   _invitId: string
@@ -531,4 +529,161 @@ class GetInvit extends Operation {
 
   phase3 : null
 }
-Operation.register('GetInvit', () => { return new GetInvit()})
+Operation.register('InvitGet', () => { return new InvitGet()})
+
+/* InvitDC marque le status d'une invitation comme déclinée ou annulée 
+Le demandeur doit être l'utilisateur ayant demandé l'invitation
+et en status 2.
+*/
+class InvitDC extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+  _txtx: string
+
+  init () {
+    super.init()
+    this._invitId = this.stringValue('invitId', true)
+    this._txtx = this.stringValue('dec', false)
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else {
+      if (invit.userId !== this.authRecord.userId) s = 2
+      else if ((this._txtx === null && invit.status !== 1) // cancel
+          || (this._txtx !== null && invit.status !== 2)) s = 3 // decline
+    }
+    if (s === 0) {
+      invit.status = this._txtx === null ? 6 : 5
+      if (this._txtx !== null) invit.txtx = this._txtx
+      invit._status = DocStatus.UPD
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('InvitDC', () => { return new InvitDC()})
+
+type Accept = {
+  role: string // rôle du credential associé (et classe du document associé).
+  docId: string // `docId` du credential associé (et du document associé le cas échéant).
+  cond: any // données à faire figurer en `cond` du credential.
+  etc: any // autres données nécessaires pour créer le document associé. 
+    // U n'a pas à connaître ni interpréter `etc` (_opaque_ pour lui)
+    // ne sert qu'à l'opération de création de l'objet / enregistrement du credential.
+}
+
+/* InvitAR
+- soit marque le status d'une invitation en status 1 comme rejetée (3).
+- soit enregistre les données d'acceptation utilisable à la validation par U (status 2 acceptée).
+Le demandeur doit être un sponsor habilité. 
+Logique applicative choisie ici:
+- un "manager" est toujours un sponsor valide.
+- un utilisateur qui a un credential Sponsor pour le "major" de l'invitation
+  est un sponsor valide (quelque soit le "minor").
+- un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
+  est un sponsor valide (à condition bien sur que l'invitation ait un minor).
+*/
+class InvitAR extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+  _txti: Uint8Array // justification de rejet crypté par le sponsor (clé privSP / pubU)
+  _accept: Accept // NON nul si "accept"
+
+  init () {
+    super.init()
+    this._accept = this.args['accept'] as Accept
+    this._invitId = this.stringValue('invitId', true)
+    if (!this._accept) {
+      const [absent, value, type] = this.type('txti', true)
+      if (type !== 'Uint8Array') this.invalid('txti')
+      this._txti = value as Uint8Array
+    }
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    // const sponsor = this.authRecord.userId
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    if (invit.status !== 1) s = 2
+    else {
+      let c: Credential = this.authRecord.getCred('Org.manager', '' ,true)
+      if (!c) c = this.authRecord.getCred('Sponsor.', invit.major ,true)
+      if (!c) c = this.authRecord.getCred('Sponsor.', invit.major + '.' + invit.minor ,true)
+      if (!c) s = 3
+      else {
+        if (this._accept) {
+          invit.status = 2
+          invit.role = this._accept.role
+          invit.docId = this._accept.docId
+          invit.cond = this._accept.cond
+          invit.etc = this._accept.etc
+        } else {
+          invit.status = 3
+          invit.txti = this._txti
+        }
+        invit.pemS = this.authRecord.pemC
+        invit._status = DocStatus.UPD
+      }
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('InvitAR', () => { return new InvitAR()})
+
+/* InvitValidateA (abstract) marque le status d'une invitation en status 4 (acceptée). 
+Le demandeur doit être l'utilisateur.
+Le traitement conduit à une importante logique spécifique:
+- création éventuelle d'un ou plusieurs documents "de position" (compte, abonné, employé ...)
+- enregistrement d'un ou plusieurs credentials.
+Tout ceci s'effectue depuis les données role / docId / cond / etc du document invitation.
+Côté application, les credentials sont à enregistrer en Safe et des subscriptions
+sont à gérer sur le / les documents de "position".
+*/
+export class InvitValidateA extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+  invit: Invitation
+
+  init () {
+    super.init()
+    this._invitId = this.stringValue('invitId', true)
+  }
+
+  async doIt() {
+
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    // const sp = this.authRecord.userId
+    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!this.invit) s = 1
+    else {
+      if (this.invit.userId !== this.authRecord.userId) s = 2
+      else if (this.invit.status !== 2) s = 3
+      else {
+        // Do the job: logique spécifique de l'application
+        await this.doIt()
+        this.invit.status = 4
+        this.invit._status = DocStatus.UPD
+      }
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('InvitValidateA', () => { return new InvitValidateA()})

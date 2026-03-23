@@ -323,6 +323,8 @@ export class AuthRecord {
   signatures: Object
   challenge: Uint8Array
   isAdmin: boolean
+  pemC: string // clé publique de cryptage du userId
+  pemV: string // clé publique de vérification du userId
 
   /* Clé: ref : docClass.role/docId - Credential dont la signature est ok*/
   roles: Map<string, Credential>
@@ -360,6 +362,8 @@ export class AuthRecord {
   async process () : Promise<void> {
     if (!this.signatures) return
     const [pemC, pemV] = await MasterDir.GetPubKeys(this.userId)
+    this.pemC = pemC
+    this.pemV = pemV
     if (!pemV) throw new AppExc(2005, 'no user pemV', this.op)
     const ok = await Crypt.verify(fromPem(pemV, true), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)
