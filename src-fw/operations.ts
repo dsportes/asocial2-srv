@@ -1,14 +1,15 @@
 import { encode, decode } from '@msgpack/msgpack'
 import { Operation, Cache } from './operation'
 import { AppExc, OrgsConfig } from './index'
-import { filter } from './iDbGeneric'
-import { Util } from './util'
-import { Log } from './log'
+// import { filter } from './iDbGeneric'
+// import { Util } from './util'
+// import { Log } from './log'
 import { Crypt } from './crypt'
 import { config } from './config'
 import { Subs, subscription, SubsItem, Credential, Org, Invitation } from './documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
+import { MasterDir } from './index'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
@@ -450,9 +451,12 @@ class ListManagers extends Operation {
 }
 Operation.register('ListManagers', () => { return new ListManagers()})
 
-/* CreateInvit: création d'une invitation
+/* CreateInvit: création d'une invitation.
+Enregistrement en base seulement.
 - org
 - invObj
+L'enregistrement dans le SafeStore du user U a été faite
+par l'application elle-même.
 */
 class InvitCreate extends Operation {
   constructor () { super() }
@@ -534,12 +538,18 @@ Operation.register('InvitGet', () => { return new InvitGet()})
 /* InvitDC marque le status d'une invitation comme déclinée ou annulée 
 Le demandeur doit être l'utilisateur ayant demandé l'invitation
 et en status 2.
+EN PHASE 3, le status est mis à jour dans le SafeStore du user U
 */
 class InvitDC extends Operation {
   constructor () { super() }
 
   _invitId: string
   _txtx: string
+
+  // Pour update du status en SafeStore de U
+  status: number
+  safeStore: string
+  userId: string
 
   init () {
     super.init()
@@ -561,11 +571,18 @@ class InvitDC extends Operation {
       invit.status = this._txtx === null ? 6 : 5
       if (this._txtx !== null) invit.txtx = this._txtx
       invit._status = DocStatus.UPD
-    }
+      this.status = invit.status
+      this.safeStore = invit.safeStore
+      this.userId = invit.userId
+    } else this.status = 0
     this.setRes('status', s)
   }
 
-  phase3 : null
+  async phase3 () {
+    if (this.status === 0) return
+    // 
+    await MasterDir.post()
+  }
 }
 Operation.register('InvitDC', () => { return new InvitDC()})
 

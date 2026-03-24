@@ -468,11 +468,16 @@ export class AppExc {
   toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
 }
 
+/* La méthode static "post" soumet une opération à un SafeStore.
+PAR DEFAUT c'est le MASTERDIR dont l'URL est en configuration.
+SINON l'url est passée en arguments afin qu'une opération puisse 
+soumettre des appels au SafeStore pour le compte d'un utilisateur "cible".
+*/
 export class MasterDir {
   static keys: Map<string, [string, string]> = new Map()
 
-  static async post (opName: string, args: Object) : Promise<Object> {
-    const url = config.MASTERDIR + '/safe/' + opName
+  static async post (opName: string, args: Object, safeStoreUrl?: string) : Promise<Object> {
+    const url = (safeStoreUrl || config.MASTERDIR) + '/safe/' + opName
     const body = new Uint8Array(encode(args))
     try {
       const response = await fetch(url , {

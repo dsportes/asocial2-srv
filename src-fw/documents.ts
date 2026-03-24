@@ -201,7 +201,7 @@ export class Invitation extends Document {
   time: number // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
   status: number // 1: déposée, 2: validée, 3: rejetée, 4: acceptée, 5: déclinée
   userId: string // ID de U (demandeur)
-  safeStore: string // URL du store hébergeant le safe de U
+  safeStore: string // URL du store hébergeant le safe de U (ou '' si c'est le MASTER)
   skeyK: Uint8Array // clé symétrique générée par U, cryptée par sa clé K. Requise ou non selon le `major`.
   pemU: string // clé publique C de U.
   txtm: string // texte de motivation de la demande d'invitation (en clair).

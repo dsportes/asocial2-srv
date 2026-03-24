@@ -813,7 +813,7 @@ class $StatusInvit extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> {
-    const st = this.args['addInvit'] as StatusInvit
+    const st = this.args['statusInvit'] as StatusInvit
     const [m, safe] = await this.db.getSafe(st.targetId)
     if (!safe || !safe.invits) {
       this.setRes('status', 1)
