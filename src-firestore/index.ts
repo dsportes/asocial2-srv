@@ -287,6 +287,10 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     }
   }
 
+  async  bug () : Promise<void> {
+    // TODO
+  }
+
   /* Transforme un row APP en row DB
   - calcul du TTL éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt

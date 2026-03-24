@@ -10,6 +10,7 @@ import { Subs, subscription, SubsItem, Credential, Org, Invitation } from './doc
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
 import { MasterDir } from './index'
+import { StatusInvit } from './safeop'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
@@ -494,7 +495,7 @@ class InvitList extends Operation {
     // TODO - à affiner pour les sponsors major / minor
     const cr = this.getCred('Org.manager', '', true)
     if (!cr) {
-      this.setRes('status', 1)
+      this.setRes('status', 2)
       return
     }
     const lst = await Invitation.listInvits(this, this._major)
@@ -525,7 +526,7 @@ class InvitGet extends Operation {
     const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (!invit) s = 1
     else {
-      if (invit.userId !== this.authRecord.userId) s = 1
+      if (invit.userId !== this.authRecord.userId) s = 3
       else this.setRes('invitation', encode(invit))
     }
     this.setRes('status', s)
@@ -538,18 +539,12 @@ Operation.register('InvitGet', () => { return new InvitGet()})
 /* InvitDC marque le status d'une invitation comme déclinée ou annulée 
 Le demandeur doit être l'utilisateur ayant demandé l'invitation
 et en status 2.
-EN PHASE 3, le status est mis à jour dans le SafeStore du user U
 */
 class InvitDC extends Operation {
   constructor () { super() }
 
   _invitId: string
   _txtx: string
-
-  // Pour update du status en SafeStore de U
-  status: number
-  safeStore: string
-  userId: string
 
   init () {
     super.init()
@@ -563,30 +558,23 @@ class InvitDC extends Operation {
     const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (!invit) s = 1
     else {
-      if (invit.userId !== this.authRecord.userId) s = 2
+      if (invit.userId !== this.authRecord.userId) s = 3
       else if ((this._txtx === null && invit.status !== 1) // cancel
-          || (this._txtx !== null && invit.status !== 2)) s = 3 // decline
+          || (this._txtx !== null && invit.status !== 2)) s = 4 // decline
     }
     if (s === 0) {
       invit.status = this._txtx === null ? 6 : 5
       if (this._txtx !== null) invit.txtx = this._txtx
       invit._status = DocStatus.UPD
-      this.status = invit.status
-      this.safeStore = invit.safeStore
-      this.userId = invit.userId
-    } else this.status = 0
+    }
     this.setRes('status', s)
   }
 
-  async phase3 () {
-    if (this.status === 0) return
-    // 
-    await MasterDir.post()
-  }
+  phase3 : null
 }
 Operation.register('InvitDC', () => { return new InvitDC()})
 
-type Accept = {
+export type Accept = {
   role: string // rôle du credential associé (et classe du document associé).
   docId: string // `docId` du credential associé (et du document associé le cas échéant).
   cond: any // données à faire figurer en `cond` du credential.
@@ -605,6 +593,7 @@ Logique applicative choisie ici:
   est un sponsor valide (quelque soit le "minor").
 - un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
   est un sponsor valide (à condition bien sur que l'invitation ait un minor).
+EN PHASE 3, le status est mis à jour dans le SafeStore du user U
 */
 class InvitAR extends Operation {
   constructor () { super() }
@@ -612,6 +601,10 @@ class InvitAR extends Operation {
   _invitId: string
   _txti: Uint8Array // justification de rejet crypté par le sponsor (clé privSP / pubU)
   _accept: Accept // NON nul si "accept"
+  _pemS: string
+  s: number // status de retour
+
+  invit: Invitation
 
   init () {
     super.init()
@@ -625,36 +618,45 @@ class InvitAR extends Operation {
   }
 
   async phase2 () {
-    let s = 0
+    this.s = 0
     this.requireAuth()
     // const sponsor = this.authRecord.userId
-    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!invit) s = 1
-    if (invit.status !== 1) s = 2
+    this.invit = await this.cache.getDoc('this.invitation', { invitId: this._invitId}) as Invitation
+    if (!this.invit) this.s = 1
+    if (this.invit.status !== 1) this.s = 4
     else {
       let c: Credential = this.authRecord.getCred('Org.manager', '' ,true)
-      if (!c) c = this.authRecord.getCred('Sponsor.', invit.major ,true)
-      if (!c) c = this.authRecord.getCred('Sponsor.', invit.major + '.' + invit.minor ,true)
-      if (!c) s = 3
+      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major ,true)
+      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major + '.' + this.invit.minor ,true)
+      if (!c) this.s = 2
       else {
         if (this._accept) {
-          invit.status = 2
-          invit.role = this._accept.role
-          invit.docId = this._accept.docId
-          invit.cond = this._accept.cond
-          invit.etc = this._accept.etc
+          this.invit.status = 2
+          this.invit.role = this._accept.role
+          this.invit.docId = this._accept.docId
+          this.invit.cond = this._accept.cond
+          this.invit.etc = this._accept.etc
         } else {
-          invit.status = 3
-          invit.txti = this._txti
+          this.invit.status = 3
+          this.invit.txti = this._txti
         }
-        invit.pemS = this.authRecord.pemC
-        invit._status = DocStatus.UPD
+        this.invit.pemS = this.authRecord.pemC
+        this.invit._status = DocStatus.UPD
       }
     }
-    this.setRes('status', s)
+    this.setRes('status', this.s)
   }
 
-  phase3 : null
+  async phase3 () {
+    if (this.s === 0) {
+      const statusInvit: StatusInvit = {
+        status: this.invit.status,
+        targetId: this.invit.userId,
+        invitId: this.invit.invitId
+      }
+      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
+    }
+  }
 }
 Operation.register('InvitAR', () => { return new InvitAR()})
 
@@ -678,9 +680,8 @@ export class InvitValidateA extends Operation {
     this._invitId = this.stringValue('invitId', true)
   }
 
-  async doIt() {
-
-  }
+  // Méthode abstraite systématiquement surchargée
+  async doIt() { }
 
   async phase2 () {
     let s = 0
@@ -689,8 +690,8 @@ export class InvitValidateA extends Operation {
     this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (!this.invit) s = 1
     else {
-      if (this.invit.userId !== this.authRecord.userId) s = 2
-      else if (this.invit.status !== 2) s = 3
+      if (this.invit.userId !== this.authRecord.userId) s = 3
+      else if (this.invit.status !== 2) s = 4
       else {
         // Do the job: logique spécifique de l'application
         await this.doIt()

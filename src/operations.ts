@@ -1,8 +1,10 @@
 // import { BaseConfig } from '../src-fw/index'
 import { Operation } from '../src-fw/operation'
 import { InvitValidateA } from '../src-fw/operations'
-import { DocStatus } from '../src-fw/document'
-import { Invitation } from '../src-fw/documents'
+import { Crypt, toPem } from '../src-fw/crypt'
+import { config } from '../src-fw/config'
+// import { DocStatus } from '../src-fw/document'
+import { Credential } from '../src-fw/documents'
 
 export function register () {
   return Operation.nbOf()
@@ -20,12 +22,53 @@ sont à gérer sur le / les documents de "position".
 class InvitValidate extends InvitValidateA {
   constructor () { super() }
 
+  /* _accept: Accept // NON nul si "accept" {
+    role: string // rôle du credential associé (et classe du document associé).
+    docId: string // `docId` du credential associé (et du document associé le cas échéant).
+    cond: any // données à faire figurer en `cond` du credential.
+    etc: any // autres données nécessaires pour créer le document associé. 
+      // U n'a pas à connaître ni interpréter `etc` (_opaque_ pour lui)
+      // ne sert qu'à l'opération de création de l'objet / enregistrement du credential.
+  }
+  */
+
   init () {
     super.init()
   }
 
-  async doIt() {
+  /* Enregistrement:
+    - d'un document 'Auteur' 
+      - docId: tiré de invit (généré par "accept")
+      - nom: label saisi dans la demande invit.
+    - d'un Credential sur cet auteur avec un pemV
+      - issu de la génération du couple pemS et pemV 
+  */
+  async doIt_writer () {
+    const { pub, priv } = await Crypt.getSVKeyPair()
+    this.invit.etc.credPemS = priv
+    this.invit.etc.credTime = this.now
+    const cr = {
+      id: '',
+      userId: this.invit.userId,
+      role: this.invit.role,
+      org: this.org,
+      docId: this.invit.docId,
+      name: this.invit.label,
+      time: this.now,
+      pemv: toPem(pub, true),
+      limit: 0,
+      cond: null
+    }
+    cr.id = Credential.getId(config.SVC, cr)
+    this.invit.etc.credTime = cr.id
+    this.cache.newDoc('Auteur', { id: this.invit.docId, nom: this.invit.label })
+    this.cache.newDoc('Credential', cr)
+  }
 
+  async doIt() {
+    switch (this.invit.major) {
+      case 'writer' : { await this.doIt_writer(); break }
+    }
   }
 
   async phase2 () {

@@ -51,6 +51,7 @@ const MASTERDIRADMINUSERS = new Set(['95QdRCMuLN9eV31vlwUW'])
 
 setConfig(
   {
+  SVC: 'AS2',
   ADMINUSERS,
   MASTERDIRADMINUSERS,
   MASTERDIR: 'http://localhost:8080',

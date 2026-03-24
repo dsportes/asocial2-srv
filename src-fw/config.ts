@@ -2,6 +2,7 @@ import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
 export interface BaseConfig {
+  SVC: string // code service
   ADMINUSERS: Set<string>
   MASTERDIRADMINUSERS: Set<string>
   MASTERDIR: string

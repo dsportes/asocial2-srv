@@ -783,12 +783,6 @@ type AddInvit = {
   invit: string // Objet invit sérialisé crypté en base64
 }
 
-type StatusInvit = {
-  targetId: string
-  invitId: string
-  status: number
-}
-
 class $AddInvit extends SafeOperation {
   constructor () { super() }
 
@@ -808,6 +802,12 @@ class $AddInvit extends SafeOperation {
   }
 }
 SafeOperation.register('$AddInvit', () => { return new $AddInvit()})
+
+export type StatusInvit = {
+  targetId: string
+  invitId: string
+  status: number
+}
 
 class $StatusInvit extends SafeOperation {
   constructor () { super() }

@@ -188,6 +188,12 @@ export class Credential extends Document {
     return lst
   }
 
+  static idStr (svc: string, cr: {org: string, docId: string, role: string}) { 
+    return svc + '/' + cr.org + '/' + cr.role + '/' + (cr.docId || '') 
+  }
+  static getId (svc: string, cr: {org: string, docId: string, role: string}) { 
+    return Crypt.shaS(encoder.encode(Credential.idStr(svc, cr)))
+  }
 }
 
 export class Invitation extends Document {
