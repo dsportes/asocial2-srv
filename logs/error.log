@@ -238,3 +238,7 @@ BEGIN
 2026-03-18T14:09:05.239Z error: AppExc: 3001:unexpected exception["no such column: major"]
 2026-03-18T14:11:26.826Z error: ListInvits : 2026-03-18T14:10:48.566Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
 2026-03-18T14:11:26.830Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-03-25T14:14:31.004Z error: InvitCreate : 2026-03-25T14:14:01.773Z : SqliteError: UNIQUE constraint failed: INVITATION.org, INVITATION.pk
+2026-03-25T14:14:31.007Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: INVITATION.org, INVITATION.pk"]
+2026-03-25T14:16:22.427Z error: InvitCreate : 2026-03-25T14:15:58.768Z : SqliteError: UNIQUE constraint failed: INVITATION.org, INVITATION.pk
+2026-03-25T14:16:22.431Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: INVITATION.org, INVITATION.pk"]

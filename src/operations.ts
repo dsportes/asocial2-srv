@@ -43,31 +43,46 @@ class InvitValidate extends InvitValidateA {
     - d'un Credential sur cet auteur avec un pemV
       - issu de la génération du couple pemS et pemV 
   */
-  async doIt_writer () {
+  async doIt_auteur () {
+    // Création de Auteur
+    this.cache.newDoc('Auteur', { autid: this.invit.docId, nom: this.invit.label })
+
+    // MAJ de Invit
+    const id = Credential.getId(config.SVC, this.org, this.invit.role, this.invit.docId)
     const { pub, priv } = await Crypt.getSVKeyPair()
-    this.invit.etc.credPemS = priv
-    this.invit.etc.credTime = this.now
-    const cr = {
-      id: '',
-      userId: this.invit.userId,
-      role: this.invit.role,
-      org: this.org,
-      docId: this.invit.docId,
-      name: this.invit.label,
+    this.invit.etc.credA = {
+      pemS: priv,
       time: this.now,
-      pemv: toPem(pub, true),
-      limit: 0,
-      cond: null
+      id: id
     }
-    cr.id = Credential.getId(config.SVC, cr)
-    this.invit.etc.credTime = cr.id
-    this.cache.newDoc('Auteur', { id: this.invit.docId, nom: this.invit.label })
-    this.cache.newDoc('Credential', cr)
+
+    /* Création du Credential
+      id: string
+      userId: string
+      role: string
+      org: string
+      docId: string
+      time: number
+      pemv: string
+      limit: number
+      cond: Object
+    */
+    this.cache.newDoc('Credential', {
+        id,
+        userId: this.invit.userId,
+        role: this.invit.role,
+        org: this.org,
+        docId: this.invit.docId,
+        time: this.now,
+        pemv: toPem(pub, true),
+        limit: 0,
+        cond: { p: 'A', name: this.invit.label }
+      })
   }
 
   async doIt() {
     switch (this.invit.major) {
-      case 'writer' : { await this.doIt_writer(); break }
+      case 'auteur' : { await this.doIt_auteur(); break }
     }
   }
 

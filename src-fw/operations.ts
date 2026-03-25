@@ -549,7 +549,7 @@ class InvitDC extends Operation {
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
-    this._txtx = this.stringValue('dec', false)
+    this._txtx = this.stringValue('txtx', false)
   }
 
   async phase2 () {
@@ -599,9 +599,8 @@ class InvitAR extends Operation {
   constructor () { super() }
 
   _invitId: string
-  _txti: Uint8Array // justification de rejet crypté par le sponsor (clé privSP / pubU)
-  _accept: Accept // NON nul si "accept"
-  _pemS: string
+  _txti: Uint8Array // REJECT : justification de rejet crypté par le sponsor (clé privSP / pubU)
+  _accept: Accept // ACCEPT: NON null - { role, docId, cond, etc }
   s: number // status de retour
 
   invit: Invitation

@@ -412,14 +412,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async doTransaction () : Promise<[number, string]> {
     try {
       this.transaction = true
-      this.sql.prepare('BEGIN').run()
+      this.sql.exec('BEGIN;')
       await this.op.transac()
-      this.sql.prepare('COMMIT').run()
+      this.sql.exec('COMMIT;')
       this.transaction = false
       return [0, '']
     } catch (e) {
       try { 
-        this.sql.prepare('ROLLBACK').run() 
+        this.sql.exec('ROLLBACK;')
       } catch (e2) { 
         console.log('ROLLBACK exc :' + e2)
       }
@@ -521,7 +521,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     for(const row of rows) await this.insRow(clazz, row)
   }
 
-  async insRow (clazz: string, row: row) : Promise<void> {
+  insRow (clazz: string, row: row) : void {
     const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + clazz.toUpperCase() + 
@@ -532,7 +532,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run(obj)
   }
 
-  async updRow (clazz: string, row: row) : Promise<void> {
+  updRow (clazz: string, row: row) : void {
     const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
     const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
@@ -543,7 +543,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run(obj)
   }
 
-  async setRow (clazz: string, row: row) : Promise<void> {
+  setRow (clazz: string, row: row) : void {
     const [cols, ] = this.columns(clazz)
     const lx = []; cols.forEach(c => { lx.push('@' + c)})
     const ly = []; cols.forEach(c => { 
@@ -558,13 +558,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run(obj)
   }
 
-  async delRow (clazz: string, row: row) : Promise<void> {
+  /*
+  delRow (clazz: string, row: row) : Promise<void> {
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() + 
     ' WHERE org = @org AND pk = @pk;')
     const r = this.rowToDB(clazz, row, true)
     const obj = { org: this.org, pk: row.pk }
     stmt.run(obj)
   }
+  */
 
   async exportRowsQ (clazz: string, colName: string, mark: string, limit: number) 
     : Promise<expListQ> { 
@@ -596,7 +598,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       await this.writeRowQ (clazz, colName, row)
   }
 
-  async writeRow (ut: updType, clazz: string, row: row) : Promise<void> {
+  writeRow (ut: updType, clazz: string, row: row) : void {
     switch (ut) {
       case updType.CREATE : { this.insRow(clazz, row); return }
       case updType.UPDATE : { this.updRow(clazz, row); return }
@@ -604,13 +606,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     }
   }
 
-  async deleteRow (clazz: string, pk: string) : Promise<void> {
+  deleteRow (clazz: string, pk: string) : void {
     const stmt = this.sql.prepare('DELETE FROM ' + clazz.toUpperCase() +
      ' WHERE org = @org AND pk = @pk;')
     stmt.run({ org: this.org, pk })
   }
 
-  async writeRowQ (clazz: string, colName: string, row: rowQ) : Promise<void> {
+  writeRowQ (clazz: string, colName: string, row: rowQ) : void {
     const stmt = this.sql.prepare('INSERT INTO "' + clazz.toUpperCase() + '@' + colName +
       '" (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
