@@ -620,7 +620,7 @@ class InvitAR extends Operation {
     this.s = 0
     this.requireAuth()
     // const sponsor = this.authRecord.userId
-    this.invit = await this.cache.getDoc('this.invitation', { invitId: this._invitId}) as Invitation
+    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (!this.invit) this.s = 1
     if (this.invit.status !== 1) this.s = 4
     else {
