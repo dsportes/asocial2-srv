@@ -48,36 +48,61 @@ class InvitValidate extends InvitValidateA {
     this.cache.newDoc('Auteur', { autid: this.invit.docId, nom: this.invit.label })
 
     // MAJ de Invit
-    const id = Credential.getId(config.SVC, this.org, this.invit.role, this.invit.docId)
-    const { pub, priv } = await Crypt.getSVKeyPair()
-    this.invit.etc.credA = {
-      pemS: priv,
-      time: this.now,
-      id: id
-    }
-
-    /* Création du Credential
-      id: string
-      userId: string
-      role: string
-      org: string
-      docId: string
-      time: number
-      pemv: string
-      limit: number
-      cond: Object
-    */
-    this.cache.newDoc('Credential', {
-        id,
-        userId: this.invit.userId,
-        role: this.invit.role,
-        org: this.org,
-        docId: this.invit.docId,
+    {
+      const id = Credential.getId(config.SVC, this.org, this.invit.role, this.invit.docId)
+      const { pub, priv } = await Crypt.getSVKeyPair()
+      this.invit.etc.credA = {
+        pemS: priv,
         time: this.now,
-        pemv: toPem(pub, true),
-        limit: 0,
-        cond: { p: 'A', name: this.invit.label }
-      })
+        id: id
+      }
+
+      /* Création du Credential
+        id: string
+        userId: string
+        role: string
+        org: string
+        docId: string
+        time: number
+        pemv: string
+        limit: number
+        cond: Object
+      */
+      this.cache.newDoc('Credential', {
+          id,
+          userId: this.invit.userId,
+          role: this.invit.role,
+          org: this.org,
+          docId: this.invit.docId,
+          time: this.now,
+          pemv: toPem(pub, true),
+          limit: 0,
+          cond: { p: 'A', name: this.invit.label }
+        })
+    }
+    
+    if (this.invit.etc.option > 1) {
+      // accorde un credential "Sponsor" - 'auteur' ou 'auteur.categ' (etc.categ)
+      const docId = 'auteur' + (this.invit.etc.option === 2 ? '' : ('.' + this.invit.etc.categ))
+      const id = Credential.getId(config.SVC, this.org, 'Sponsor', docId)
+      const { pub, priv } = await Crypt.getSVKeyPair()
+      this.invit.etc.credS = {
+        pemS: priv,
+        time: this.now,
+        id: id
+      }
+      this.cache.newDoc('Credential', {
+          id,
+          userId: this.invit.userId,
+          role: 'Sponsor',
+          org: this.org,
+          docId: docId,
+          time: this.now,
+          pemv: toPem(pub, true),
+          limit: 0,
+          cond: { name: this.invit.label }
+        })
+    }
   }
 
   async doIt() {
