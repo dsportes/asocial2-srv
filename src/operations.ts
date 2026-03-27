@@ -5,6 +5,7 @@ import { Crypt, toPem } from '../src-fw/crypt'
 import { config } from '../src-fw/config'
 // import { DocStatus } from '../src-fw/document'
 import { Credential } from '../src-fw/documents'
+import { DocStatus } from '../src-fw/document'
 
 export function register () {
   return Operation.nbOf()

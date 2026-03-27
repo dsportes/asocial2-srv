@@ -609,11 +609,7 @@ class InvitAR extends Operation {
     super.init()
     this._accept = this.args['accept'] as Accept
     this._invitId = this.stringValue('invitId', true)
-    if (!this._accept) {
-      const [absent, value, type] = this.type('txti', true)
-      if (type !== 'Uint8Array') this.invalid('txti')
-      this._txti = value as Uint8Array
-    }
+    this._txti = this.binValue('txti', true)
   }
 
   async phase2 () {
@@ -637,8 +633,8 @@ class InvitAR extends Operation {
           this.invit.etc = this._accept.etc
         } else {
           this.invit.status = 3
-          this.invit.txti = this._txti
         }
+        this.invit.txti = this._txti
         this.invit.pemS = this.authRecord.pemC
         this.invit._status = DocStatus.UPD
       }

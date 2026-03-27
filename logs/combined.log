@@ -9610,3 +9610,349 @@ BEGIN
 2026-03-26T18:45:13.407Z info: ListManagers finished
 2026-03-26T18:45:15.062Z info: InvitList : 2026-03-26T18:45:15.061Z
 2026-03-26T18:45:15.075Z info: InvitList finished
+2026-03-27T12:45:06.124Z info: 22 operations registered
+2026-03-27T12:45:06.127Z info: 10 document classes
+2026-03-27T12:45:06.128Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T12:45:06.129Z info: Firestore connector
+2026-03-27T12:45:06.130Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T12:45:06.130Z info: 22 App operations registered
+2026-03-27T12:45:06.226Z info: Reloading orgs config OK
+2026-03-27T12:45:06.234Z info: HTTP listen [8080]
+2026-03-27T12:45:39.366Z info: $OpenSafeByPin finished
+2026-03-27T12:45:39.422Z info: $OpenSafeById finished
+2026-03-27T12:45:47.989Z info: $GetSvcOrgUrl finished
+2026-03-27T12:45:48.021Z info: ListManagers : 2026-03-27T12:45:48.020Z
+2026-03-27T12:45:48.094Z info: $GetPubKeys finished
+2026-03-27T12:45:48.116Z info: ListManagers finished
+2026-03-27T12:45:50.152Z info: InvitList : 2026-03-27T12:45:50.152Z
+2026-03-27T12:45:50.214Z info: InvitList finished
+2026-03-27T12:59:05.408Z info: $OpenSafeByPin finished
+2026-03-27T12:59:05.450Z info: $OpenSafeById finished
+2026-03-27T12:59:16.263Z info: $GetSvcOrgUrl finished
+2026-03-27T12:59:16.301Z info: ListManagers : 2026-03-27T12:59:16.301Z
+2026-03-27T12:59:16.312Z info: ListManagers finished
+2026-03-27T12:59:16.366Z info: Reloading orgs config OK
+2026-03-27T12:59:18.256Z info: InvitList : 2026-03-27T12:59:18.256Z
+2026-03-27T12:59:18.276Z info: InvitList finished
+2026-03-27T13:07:35.818Z info: $OpenSafeByPin finished
+2026-03-27T13:07:35.865Z info: $OpenSafeById finished
+2026-03-27T13:08:02.589Z info: $OpenSafeByPin finished
+2026-03-27T13:08:02.642Z info: $OpenSafeById finished
+2026-03-27T13:08:09.805Z info: $GetSvcOrgUrl finished
+2026-03-27T13:08:09.839Z info: ListManagers : 2026-03-27T13:08:09.839Z
+2026-03-27T13:08:09.852Z info: ListManagers finished
+2026-03-27T13:08:09.895Z info: Reloading orgs config OK
+2026-03-27T13:08:11.542Z info: InvitList : 2026-03-27T13:08:11.541Z
+2026-03-27T13:08:11.553Z info: InvitList finished
+2026-03-27T13:09:47.118Z info: $OpenSafeByPin finished
+2026-03-27T13:09:47.164Z info: $OpenSafeById finished
+2026-03-27T13:09:55.271Z info: $GetSvcOrgUrl finished
+2026-03-27T13:09:55.303Z info: ListManagers : 2026-03-27T13:09:55.303Z
+2026-03-27T13:09:55.313Z info: ListManagers finished
+2026-03-27T13:09:57.336Z info: InvitList : 2026-03-27T13:09:57.335Z
+2026-03-27T13:09:57.349Z info: InvitList finished
+2026-03-27T13:15:57.460Z info: $OpenSafeByPin finished
+2026-03-27T13:15:57.505Z info: $OpenSafeById finished
+2026-03-27T13:16:19.970Z info: $OpenSafeByPin finished
+2026-03-27T13:16:20.018Z info: $OpenSafeById finished
+2026-03-27T13:16:28.470Z info: $GetSvcOrgUrl finished
+2026-03-27T13:16:28.510Z info: ListManagers : 2026-03-27T13:16:28.510Z
+2026-03-27T13:16:28.525Z info: ListManagers finished
+2026-03-27T13:16:28.574Z info: Reloading orgs config OK
+2026-03-27T13:16:30.801Z info: InvitList : 2026-03-27T13:16:30.801Z
+2026-03-27T13:16:30.836Z info: InvitList finished
+2026-03-27T13:20:13.761Z info: $OpenSafeByPin finished
+2026-03-27T13:20:13.806Z info: $OpenSafeById finished
+2026-03-27T13:20:22.021Z info: $GetSvcOrgUrl finished
+2026-03-27T13:20:22.058Z info: ListManagers : 2026-03-27T13:20:22.058Z
+2026-03-27T13:20:22.070Z info: ListManagers finished
+2026-03-27T13:20:24.010Z info: InvitList : 2026-03-27T13:20:24.010Z
+2026-03-27T13:20:24.026Z info: InvitList finished
+2026-03-27T13:21:22.395Z info: InvitAR : 2026-03-27T13:21:17.826Z
+2026-03-27T13:27:09.214Z info: 22 operations registered
+2026-03-27T13:27:09.217Z info: 10 document classes
+2026-03-27T13:27:09.217Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T13:27:09.218Z info: Firestore connector
+2026-03-27T13:27:09.218Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T13:27:09.219Z info: 22 App operations registered
+2026-03-27T13:27:09.233Z info: Reloading orgs config OK
+2026-03-27T13:27:09.241Z info: HTTP listen [8080]
+2026-03-27T13:27:31.698Z info: $OpenSafeByPin finished
+2026-03-27T13:27:31.744Z info: $OpenSafeById finished
+2026-03-27T13:27:39.521Z info: $GetSvcOrgUrl finished
+2026-03-27T13:27:39.560Z info: ListManagers : 2026-03-27T13:27:39.559Z
+2026-03-27T13:27:39.627Z info: $GetPubKeys finished
+2026-03-27T13:27:39.648Z info: ListManagers finished
+2026-03-27T13:27:41.536Z info: InvitList : 2026-03-27T13:27:41.536Z
+2026-03-27T13:27:41.551Z info: InvitList finished
+2026-03-27T13:28:04.709Z info: InvitAR : 2026-03-27T13:27:58.971Z
+2026-03-27T13:30:41.704Z info: 22 operations registered
+2026-03-27T13:30:41.708Z info: 10 document classes
+2026-03-27T13:30:41.709Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T13:30:41.710Z info: Firestore connector
+2026-03-27T13:30:41.710Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T13:30:41.711Z info: 22 App operations registered
+2026-03-27T13:30:41.729Z info: Reloading orgs config OK
+2026-03-27T13:30:41.735Z info: HTTP listen [8080]
+2026-03-27T13:30:58.103Z info: InvitAR : 2026-03-27T13:30:58.101Z
+2026-03-27T13:43:23.244Z info: 22 operations registered
+2026-03-27T13:43:23.247Z info: 10 document classes
+2026-03-27T13:43:23.248Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T13:43:23.249Z info: Firestore connector
+2026-03-27T13:43:23.250Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T13:43:23.251Z info: 22 App operations registered
+2026-03-27T13:43:23.269Z info: Reloading orgs config OK
+2026-03-27T13:43:23.275Z info: HTTP listen [8080]
+2026-03-27T13:43:55.637Z info: $OpenSafeByPin finished
+2026-03-27T13:43:55.690Z info: $OpenSafeById finished
+2026-03-27T13:44:04.641Z info: $GetSvcOrgUrl finished
+2026-03-27T13:44:04.676Z info: ListManagers : 2026-03-27T13:44:04.675Z
+2026-03-27T13:44:04.741Z info: $GetPubKeys finished
+2026-03-27T13:44:04.763Z info: ListManagers finished
+2026-03-27T13:44:07.668Z info: InvitList : 2026-03-27T13:44:07.668Z
+2026-03-27T13:44:20.165Z info: InvitList finished
+2026-03-27T13:44:41.626Z info: InvitAR : 2026-03-27T13:44:41.625Z
+2026-03-27T13:46:10.540Z info: InvitAR finished
+2026-03-27T13:46:17.988Z info: InvitList : 2026-03-27T13:46:17.987Z
+2026-03-27T13:46:18.000Z info: InvitList finished
+2026-03-27T14:23:01.266Z info: $OpenSafeByPin finished
+2026-03-27T14:23:01.319Z info: $OpenSafeById finished
+2026-03-27T14:23:11.092Z info: $GetSvcOrgUrl finished
+2026-03-27T14:23:11.126Z info: ListManagers : 2026-03-27T14:23:11.126Z
+2026-03-27T14:23:11.137Z info: ListManagers finished
+2026-03-27T14:23:11.192Z info: Reloading orgs config OK
+2026-03-27T14:23:14.245Z info: InvitList : 2026-03-27T14:23:14.245Z
+2026-03-27T14:23:14.259Z info: InvitList finished
+2026-03-27T14:23:28.758Z info: InvitAR : 2026-03-27T14:23:28.758Z
+2026-03-27T14:24:46.757Z info: $StatusInvit finished
+2026-03-27T14:24:46.765Z info: InvitAR finished
+2026-03-27T14:24:47.331Z info: InvitList : 2026-03-27T14:24:47.331Z
+2026-03-27T14:24:47.346Z info: InvitList finished
+2026-03-27T14:26:08.216Z info: InvitList : 2026-03-27T14:26:08.215Z
+2026-03-27T14:26:08.229Z info: InvitList finished
+2026-03-27T14:26:11.993Z info: InvitList : 2026-03-27T14:26:11.993Z
+2026-03-27T14:26:12.007Z info: InvitList finished
+2026-03-27T14:27:40.018Z info: InvitList : 2026-03-27T14:27:40.017Z
+2026-03-27T14:27:40.033Z info: InvitList finished
+2026-03-27T14:27:44.467Z info: InvitList : 2026-03-27T14:27:44.467Z
+2026-03-27T14:27:44.483Z info: InvitList finished
+2026-03-27T14:37:07.602Z info: $OpenSafeByPin finished
+2026-03-27T14:37:07.648Z info: $OpenSafeById finished
+2026-03-27T14:37:16.519Z info: $GetSvcOrgUrl finished
+2026-03-27T14:37:16.551Z info: ListManagers : 2026-03-27T14:37:16.551Z
+2026-03-27T14:37:27.496Z info: ListManagers finished
+2026-03-27T14:37:27.502Z info: Reloading orgs config OK
+2026-03-27T14:37:27.511Z info: InvitList : 2026-03-27T14:37:27.510Z
+2026-03-27T14:37:30.302Z info: InvitList finished
+2026-03-27T14:37:56.957Z info: InvitAR : 2026-03-27T14:37:56.957Z
+2026-03-27T14:40:03.141Z info: $StatusInvit finished
+2026-03-27T14:40:03.147Z info: InvitAR finished
+2026-03-27T14:40:03.716Z info: InvitList : 2026-03-27T14:40:03.716Z
+2026-03-27T14:40:16.985Z info: InvitList finished
+2026-03-27T14:40:48.593Z info: InvitAR : 2026-03-27T14:40:48.593Z
+2026-03-27T14:46:51.994Z info: 22 operations registered
+2026-03-27T14:46:51.996Z info: 10 document classes
+2026-03-27T14:46:51.997Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T14:46:51.998Z info: Firestore connector
+2026-03-27T14:46:51.998Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T14:46:51.999Z info: 22 App operations registered
+2026-03-27T14:46:52.087Z info: Reloading orgs config OK
+2026-03-27T14:46:52.093Z info: HTTP listen [8080]
+2026-03-27T14:49:30.735Z info: $OpenSafeByPin finished
+2026-03-27T14:49:30.790Z info: $OpenSafeById finished
+2026-03-27T14:49:39.035Z info: $GetSvcOrgUrl finished
+2026-03-27T14:49:39.074Z info: ListManagers : 2026-03-27T14:49:39.073Z
+2026-03-27T14:49:39.140Z info: $GetPubKeys finished
+2026-03-27T14:49:46.964Z info: InvitList : 2026-03-27T14:49:46.963Z
+2026-03-27T14:49:48.223Z info: ListManagers finished
+2026-03-27T14:49:50.091Z info: InvitList finished
+2026-03-27T14:50:14.478Z info: InvitAR : 2026-03-27T14:50:14.477Z
+2026-03-27T14:50:56.119Z error: InvitAR : 2026-03-27T14:50:14.477Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-27T14:50:56.121Z info: InvitAR terminated on exception
+2026-03-27T14:50:56.122Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-27T14:50:56.684Z info: InvitList : 2026-03-27T14:50:56.683Z
+2026-03-27T14:51:42.977Z info: InvitList finished
+2026-03-27T14:55:24.988Z info: 22 operations registered
+2026-03-27T14:55:24.991Z info: 10 document classes
+2026-03-27T14:55:24.992Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T14:55:24.993Z info: Firestore connector
+2026-03-27T14:55:24.993Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T14:55:24.994Z info: 22 App operations registered
+2026-03-27T14:55:25.007Z info: Reloading orgs config OK
+2026-03-27T14:55:25.013Z info: HTTP listen [8080]
+2026-03-27T14:55:40.396Z info: $OpenSafeByPin finished
+2026-03-27T14:55:40.441Z info: $OpenSafeById finished
+2026-03-27T14:55:47.899Z info: $GetSvcOrgUrl finished
+2026-03-27T14:55:47.935Z info: ListManagers : 2026-03-27T14:55:47.934Z
+2026-03-27T14:55:48.001Z info: $GetPubKeys finished
+2026-03-27T14:55:59.552Z info: ListManagers finished
+2026-03-27T14:55:59.555Z info: InvitList : 2026-03-27T14:55:59.555Z
+2026-03-27T14:56:01.880Z info: InvitList finished
+2026-03-27T14:56:28.536Z info: InvitAR : 2026-03-27T14:56:28.535Z
+2026-03-27T15:02:52.411Z info: 22 operations registered
+2026-03-27T15:02:52.414Z info: 10 document classes
+2026-03-27T15:02:52.415Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T15:02:52.415Z info: Firestore connector
+2026-03-27T15:02:52.416Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T15:02:52.416Z info: 22 App operations registered
+2026-03-27T15:02:52.431Z info: Reloading orgs config OK
+2026-03-27T15:02:52.437Z info: HTTP listen [8080]
+2026-03-27T15:03:24.986Z info: $OpenSafeByPin finished
+2026-03-27T15:03:25.042Z info: $OpenSafeById finished
+2026-03-27T15:03:33.756Z info: $GetSvcOrgUrl finished
+2026-03-27T15:03:33.793Z info: ListManagers : 2026-03-27T15:03:33.793Z
+2026-03-27T15:03:33.857Z info: $GetPubKeys finished
+2026-03-27T15:05:15.110Z info: 22 operations registered
+2026-03-27T15:05:15.113Z info: 10 document classes
+2026-03-27T15:05:15.114Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T15:05:15.115Z info: Firestore connector
+2026-03-27T15:05:15.115Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T15:05:15.116Z info: 22 App operations registered
+2026-03-27T15:05:15.131Z info: Reloading orgs config OK
+2026-03-27T15:05:15.138Z info: HTTP listen [8080]
+2026-03-27T15:05:26.616Z info: $OpenSafeByPin finished
+2026-03-27T15:05:26.656Z info: $OpenSafeById finished
+2026-03-27T15:05:33.563Z info: $GetSvcOrgUrl finished
+2026-03-27T15:05:33.594Z info: ListManagers : 2026-03-27T15:05:33.593Z
+2026-03-27T15:05:33.664Z info: $GetPubKeys finished
+2026-03-27T15:06:03.554Z info: ListManagers finished
+2026-03-27T15:06:03.560Z info: InvitList : 2026-03-27T15:06:03.560Z
+2026-03-27T15:06:34.370Z info: InvitList finished
+2026-03-27T15:07:03.392Z info: InvitAR : 2026-03-27T15:07:03.391Z
+2026-03-27T15:10:26.353Z info: $StatusInvit finished
+2026-03-27T15:10:26.363Z info: InvitAR finished
+2026-03-27T15:10:26.917Z info: InvitList : 2026-03-27T15:10:26.916Z
+2026-03-27T15:10:33.507Z info: Reloading orgs config OK
+2026-03-27T15:10:35.417Z info: InvitList finished
+2026-03-27T15:16:03.865Z info: InvitList : 2026-03-27T15:16:03.865Z
+2026-03-27T15:16:14.792Z info: Reloading orgs config OK
+2026-03-27T15:16:34.763Z info: InvitList finished
+2026-03-27T15:16:42.187Z info: InvitList : 2026-03-27T15:16:42.187Z
+2026-03-27T15:16:42.202Z info: InvitList finished
+2026-03-27T15:19:01.276Z info: $OpenSafeByPin finished
+2026-03-27T15:19:01.317Z info: $OpenSafeById finished
+2026-03-27T15:19:08.861Z info: $GetSvcOrgUrl finished
+2026-03-27T15:19:08.896Z info: ListManagers : 2026-03-27T15:19:08.896Z
+2026-03-27T15:19:08.908Z info: ListManagers finished
+2026-03-27T15:19:11.567Z info: InvitList : 2026-03-27T15:19:11.567Z
+2026-03-27T15:19:11.578Z info: InvitList finished
+2026-03-27T15:26:08.245Z info: $OpenSafeByPin finished
+2026-03-27T15:26:08.291Z info: $OpenSafeById finished
+2026-03-27T15:26:16.409Z info: $GetSvcOrgUrl finished
+2026-03-27T15:26:16.446Z info: ListManagers : 2026-03-27T15:26:16.446Z
+2026-03-27T15:26:16.458Z info: ListManagers finished
+2026-03-27T15:26:16.505Z info: Reloading orgs config OK
+2026-03-27T15:26:18.278Z info: InvitList : 2026-03-27T15:26:18.277Z
+2026-03-27T15:26:18.292Z info: InvitList finished
+2026-03-27T15:27:34.745Z info: $OpenSafeByPin finished
+2026-03-27T15:27:34.784Z info: $OpenSafeById finished
+2026-03-27T15:27:42.140Z info: InvitGet : 2026-03-27T15:27:42.139Z
+2026-03-27T15:27:42.143Z info: InvitGet finished
+2026-03-27T15:28:54.460Z info: $OpenSafeByPin finished
+2026-03-27T15:28:54.509Z info: $OpenSafeById finished
+2026-03-27T15:29:00.428Z info: $GetSvcOrgUrl finished
+2026-03-27T15:29:00.448Z info: InvitGet : 2026-03-27T15:29:00.448Z
+2026-03-27T15:29:00.452Z info: InvitGet finished
+2026-03-27T15:29:39.715Z info: InvitGet : 2026-03-27T15:29:39.715Z
+2026-03-27T15:29:39.718Z info: InvitGet finished
+2026-03-27T15:32:25.308Z info: $OpenSafeByPin finished
+2026-03-27T15:32:25.352Z info: $OpenSafeById finished
+2026-03-27T15:32:31.171Z info: $GetSvcOrgUrl finished
+2026-03-27T15:32:31.191Z info: InvitGet : 2026-03-27T15:32:31.191Z
+2026-03-27T15:32:31.195Z info: InvitGet finished
+2026-03-27T15:32:31.248Z info: Reloading orgs config OK
+2026-03-27T15:35:12.009Z info: InvitGet : 2026-03-27T15:35:12.008Z
+2026-03-27T15:35:12.013Z info: InvitGet finished
+2026-03-27T15:38:37.144Z info: $OpenSafeByPin finished
+2026-03-27T15:38:37.189Z info: $OpenSafeById finished
+2026-03-27T15:38:38.991Z info: $GetSvcOrgUrl finished
+2026-03-27T15:38:39.015Z info: InvitGet : 2026-03-27T15:38:39.015Z
+2026-03-27T15:38:39.021Z info: InvitGet finished
+2026-03-27T15:38:39.078Z info: Reloading orgs config OK
+2026-03-27T15:40:31.187Z info: $OpenSafeByPin finished
+2026-03-27T15:40:31.231Z info: $OpenSafeById finished
+2026-03-27T15:44:02.199Z info: 22 operations registered
+2026-03-27T15:44:02.202Z info: 10 document classes
+2026-03-27T15:44:02.203Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T15:44:02.204Z info: Firestore connector
+2026-03-27T15:44:02.205Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T15:44:02.205Z info: 22 App operations registered
+2026-03-27T15:44:02.219Z info: Reloading orgs config OK
+2026-03-27T15:44:02.227Z info: HTTP listen [8080]
+2026-03-27T15:44:15.128Z info: $OpenSafeByPin finished
+2026-03-27T15:44:15.174Z info: $OpenSafeById finished
+2026-03-27T15:44:24.638Z info: $GetSvcOrgUrl finished
+2026-03-27T15:44:24.671Z info: ListManagers : 2026-03-27T15:44:24.670Z
+2026-03-27T15:44:24.735Z info: $GetPubKeys finished
+2026-03-27T15:44:24.754Z info: ListManagers finished
+2026-03-27T15:44:26.876Z info: InvitList : 2026-03-27T15:44:26.876Z
+2026-03-27T15:44:26.892Z info: InvitList finished
+2026-03-27T15:44:52.394Z info: InvitAR : 2026-03-27T15:44:52.393Z
+2026-03-27T15:45:19.160Z info: $StatusInvit finished
+2026-03-27T15:45:19.167Z info: InvitAR finished
+2026-03-27T15:45:19.700Z info: InvitList : 2026-03-27T15:45:19.700Z
+2026-03-27T15:45:19.713Z info: InvitList finished
+2026-03-27T15:47:17.565Z info: $OpenSafeByPin finished
+2026-03-27T15:47:17.611Z info: $OpenSafeById finished
+2026-03-27T15:47:25.283Z info: $GetSvcOrgUrl finished
+2026-03-27T15:47:25.303Z info: InvitGet : 2026-03-27T15:47:25.303Z
+2026-03-27T15:47:25.308Z info: InvitGet finished
+2026-03-27T15:49:11.660Z info: 22 operations registered
+2026-03-27T15:49:11.663Z info: 10 document classes
+2026-03-27T15:49:11.664Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T15:49:11.665Z info: Firestore connector
+2026-03-27T15:49:11.665Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T15:49:11.666Z info: 22 App operations registered
+2026-03-27T15:49:11.679Z info: Reloading orgs config OK
+2026-03-27T15:49:11.687Z info: HTTP listen [8080]
+2026-03-27T15:51:49.520Z info: $OpenSafeByPin finished
+2026-03-27T15:51:49.573Z info: $OpenSafeById finished
+2026-03-27T15:51:55.841Z info: $GetSvcOrgUrl finished
+2026-03-27T15:51:55.862Z info: InvitGet : 2026-03-27T15:51:55.861Z
+2026-03-27T15:51:55.867Z info: InvitGet finished
+2026-03-27T15:51:58.436Z info: InvitValidate : 2026-03-27T15:51:58.435Z
+2026-03-27T15:51:58.439Z error: AppExc: 3004:documentClasses["Auteur"]
+2026-03-27T15:51:58.440Z error: InvitValidate : 2026-03-27T15:51:58.435Z : AppExc: 3004:documentClasses["Auteur"]
+2026-03-27T15:51:58.441Z info: InvitValidate terminated on exception
+2026-03-27T15:51:58.978Z info: InvitGet : 2026-03-27T15:51:58.977Z
+2026-03-27T15:51:58.982Z info: InvitGet finished
+2026-03-27T15:54:51.302Z info: 22 operations registered
+2026-03-27T15:54:51.304Z info: 10 document classes
+2026-03-27T15:54:51.305Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T15:54:51.306Z info: Firestore connector
+2026-03-27T15:54:51.306Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T15:54:51.307Z info: 22 App operations registered
+2026-03-27T15:54:51.321Z info: Reloading orgs config OK
+2026-03-27T15:54:51.328Z info: HTTP listen [8080]
+2026-03-27T15:54:58.706Z info: InvitValidate : 2026-03-27T15:54:58.702Z
+2026-03-27T15:57:34.833Z info: InvitValidate finished
+2026-03-27T16:00:46.970Z info: 22 operations registered
+2026-03-27T16:00:46.974Z info: 10 document classes
+2026-03-27T16:00:46.975Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T16:00:46.976Z info: Firestore connector
+2026-03-27T16:00:46.976Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T16:00:46.977Z info: 22 App operations registered
+2026-03-27T16:00:46.989Z info: Reloading orgs config OK
+2026-03-27T16:00:47.050Z info: HTTP listen [8080]
+2026-03-27T16:00:56.674Z info: $OpenSafeByPin finished
+2026-03-27T16:00:56.720Z info: $OpenSafeById finished
+2026-03-27T16:01:04.186Z info: $GetSvcOrgUrl finished
+2026-03-27T16:01:04.207Z info: InvitGet : 2026-03-27T16:01:04.206Z
+2026-03-27T16:01:04.215Z info: InvitGet finished
+2026-03-27T16:01:06.304Z info: InvitValidate : 2026-03-27T16:01:06.303Z
+2026-03-27T16:01:13.218Z info: InvitValidate finished
+2026-03-27T16:02:53.817Z info: 22 operations registered
+2026-03-27T16:02:53.821Z info: 10 document classes
+2026-03-27T16:02:53.822Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-27T16:02:53.823Z info: Firestore connector
+2026-03-27T16:02:53.823Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-27T16:02:53.824Z info: 22 App operations registered
+2026-03-27T16:02:53.845Z info: Reloading orgs config OK
+2026-03-27T16:02:53.854Z info: HTTP listen [8080]
+2026-03-27T16:03:05.040Z info: $OpenSafeByPin finished
+2026-03-27T16:03:05.083Z info: $OpenSafeById finished
+2026-03-27T16:03:12.247Z info: $GetSvcOrgUrl finished
+2026-03-27T16:03:12.266Z info: InvitGet : 2026-03-27T16:03:12.265Z
+2026-03-27T16:03:12.273Z info: InvitGet finished
+2026-03-27T16:03:13.931Z info: InvitValidate : 2026-03-27T16:03:13.930Z
+2026-03-27T16:06:38.473Z info: InvitValidate finished

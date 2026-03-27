@@ -120,7 +120,7 @@ export class Document {
     }
     for (const [key, value] of Object.entries(data)) doc[key] = value
     if (doc.compile) doc.compile()
-    doc._before = DocStatus.NEW ? null : doc.docType.extractColls(doc)
+    doc._before = doc._status === DocStatus.NEW ? null : doc.docType.extractColls(doc)
     return doc
   }
 

@@ -238,7 +238,7 @@ export class Operation {
 
   // Contrôle des types d'arguments
 
-  type (par: string, req: boolean) : [boolean, any, string] { // absent, value, type
+  type (par: string, req: boolean) : [boolean, any, string] { // present, value, type
     if (par === undefined) throw new AppExc(8001, 'unknown argument', null, ['?'])
     const v = this.args[par]
     if (v === undefined) {
@@ -254,6 +254,14 @@ export class Operation {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return null
     if (present && type !== 'object')
+      throw new AppExc(1010, 'invalid argument', this, [par])
+    return value
+  }
+
+  binValue (par: string, req: boolean) : Uint8Array {
+    const [present, value, type] = this.type(par, req)
+    if (!present && !req) return null
+    if (present && type !== 'object' && !(value instanceof Uint8Array))
       throw new AppExc(1010, 'invalid argument', this, [par])
     return value
   }
@@ -571,6 +579,7 @@ export class Cache {
       return null
     }
     dd.init()
+    this.docs.set(k, dd)
     return dd.doc
   }
 

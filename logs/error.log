@@ -242,3 +242,7 @@ BEGIN
 2026-03-25T14:14:31.007Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: INVITATION.org, INVITATION.pk"]
 2026-03-25T14:16:22.427Z error: InvitCreate : 2026-03-25T14:15:58.768Z : SqliteError: UNIQUE constraint failed: INVITATION.org, INVITATION.pk
 2026-03-25T14:16:22.431Z error: AppExc: 3001:unexpected exception["UNIQUE constraint failed: INVITATION.org, INVITATION.pk"]
+2026-03-27T14:50:56.119Z error: InvitAR : 2026-03-27T14:50:14.477Z : TypeError: Cannot read properties of null (reading '0')
+2026-03-27T14:50:56.122Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
+2026-03-27T15:51:58.439Z error: AppExc: 3004:documentClasses["Auteur"]
+2026-03-27T15:51:58.440Z error: InvitValidate : 2026-03-27T15:51:58.435Z : AppExc: 3004:documentClasses["Auteur"]

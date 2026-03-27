@@ -821,7 +821,7 @@ class $StatusInvit extends SafeOperation {
     }
 
     const inv = safe.invits[st.invitId]
-    inv.st = st.status
+    inv.status = st.status
     this.cleanInvits(safe)
 
     await this.db.updSafe(safe)

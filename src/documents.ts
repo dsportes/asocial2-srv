@@ -20,6 +20,17 @@ class Org extends Document {
 
 }
 
+class Auteur extends Document {
+  static release = 0
+
+  static mutateCl (data: object, options?: Object) : [Object, boolean] {
+    return [data, false]
+  }
+
+  compile () { return this }
+
+}
+
 export const documentClasses = {
   Task: Task, 
   Subs: Subs, 
@@ -27,5 +38,6 @@ export const documentClasses = {
   Hdr: Hdr,
   Org: Org,
   Credential: Credential,
-  Invitation: Invitation
+  Invitation: Invitation,
+  Auteur: Auteur
 }
