@@ -545,6 +545,8 @@ class InvitDC extends Operation {
 
   _invitId: string
   _txtx: string
+  s: number
+  invit: Invitation
 
   init () {
     super.init()
@@ -553,24 +555,33 @@ class InvitDC extends Operation {
   }
 
   async phase2 () {
-    let s = 0
+    this.s = 0
     this.requireAuth()
-    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!invit) s = 1
+    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!this.invit) this.s = 1
     else {
-      if (invit.userId !== this.authRecord.userId) s = 3
-      else if ((this._txtx === null && invit.status !== 1) // cancel
-          || (this._txtx !== null && invit.status !== 2)) s = 4 // decline
+      if (this.invit.userId !== this.authRecord.userId) this.s = 3
+      else if ((!this._txtx && this.invit.status !== 1) // cancel
+          || (this._txtx && this.invit.status !== 2)) this.s = 4 // decline
     }
-    if (s === 0) {
-      invit.status = this._txtx === null ? 6 : 5
-      if (this._txtx !== null) invit.txtx = this._txtx
-      invit._status = DocStatus.UPD
+    if (this.s === 0) {
+      this.invit.status = !this._txtx ? 6 : 5
+      if (this._txtx) this.invit.txtx = this._txtx
+      this.invit._status = DocStatus.UPD
     }
-    this.setRes('status', s)
+    this.setRes('status', this.s)
   }
 
-  phase3 : null
+  async phase3 () {
+    if (this.s === 0) {
+      const statusInvit: StatusInvit = {
+        status: this.invit.status,
+        targetId: this.invit.userId,
+        invitId: this.invit.invitId
+      }
+      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
+    }
+  }
 }
 Operation.register('InvitDC', () => { return new InvitDC()})
 
