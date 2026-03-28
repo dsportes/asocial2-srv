@@ -669,6 +669,7 @@ export class InvitValidateA extends Operation {
 
   _invitId: string
   invit: Invitation
+  s: number
 
   init () {
     super.init()
@@ -679,14 +680,14 @@ export class InvitValidateA extends Operation {
   async doIt() { }
 
   async phase2 () {
-    let s = 0
+    this.s = 0
     this.requireAuth()
     // const sp = this.authRecord.userId
     this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!this.invit) s = 1
+    if (!this.invit) this.s = 1
     else {
-      if (this.invit.userId !== this.authRecord.userId) s = 3
-      else if (this.invit.status !== 2) s = 4
+      if (this.invit.userId !== this.authRecord.userId) this.s = 3
+      else if (this.invit.status !== 2) this.s = 4
       else {
         // Do the job: logique spécifique de l'application
         await this.doIt()
@@ -694,9 +695,18 @@ export class InvitValidateA extends Operation {
         this.invit._status = DocStatus.UPD
       }
     }
-    this.setRes('status', s)
+    this.setRes('status', this.s)
   }
 
-  phase3 : null
+  async phase3 () {
+    if (this.s === 0) {
+      const statusInvit: StatusInvit = {
+        status: this.invit.status,
+        targetId: this.invit.userId,
+        invitId: this.invit.invitId
+      }
+      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
+    }
+  }
 }
 Operation.register('InvitValidateA', () => { return new InvitValidateA()})

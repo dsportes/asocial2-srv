@@ -821,11 +821,12 @@ class $StatusInvit extends SafeOperation {
     }
 
     const inv = safe.invits[st.invitId]
-    inv.status = st.status
-    this.cleanInvits(safe)
-
-    await this.db.updSafe(safe)
-    this.setRes('status', 0)
+    if (inv) {
+      inv.status = st.status
+      this.cleanInvits(safe)
+      await this.db.updSafe(safe)
+      this.setRes('status', 0)
+    } else this.setRes('status', 2)
   }
 }
 SafeOperation.register('$StatusInvit', () => { return new $StatusInvit()})
