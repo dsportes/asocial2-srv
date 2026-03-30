@@ -10234,3 +10234,325 @@ BEGIN
 2026-03-28T16:32:33.071Z info: InvitGet finished
 2026-03-28T16:32:35.822Z info: InvitGet : 2026-03-28T16:32:35.822Z
 2026-03-28T16:32:35.828Z info: InvitGet finished
+2026-03-29T08:03:47.221Z info: 22 operations registered
+2026-03-29T08:03:47.224Z info: 10 document classes
+2026-03-29T08:03:47.225Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-29T08:03:47.226Z info: Firestore connector
+2026-03-29T08:03:47.227Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-29T08:03:47.227Z info: 22 App operations registered
+2026-03-29T08:03:47.334Z info: Reloading orgs config OK
+2026-03-29T08:03:47.340Z info: HTTP listen [8080]
+2026-03-29T08:04:49.477Z info: $OpenSafeByPin finished
+2026-03-29T08:04:49.535Z info: $OpenSafeById finished
+2026-03-29T08:46:41.808Z info: $OpenSafeByPin finished
+2026-03-29T08:46:41.864Z info: $OpenSafeById finished
+2026-03-29T08:51:49.080Z info: $OpenSafeByPin finished
+2026-03-29T08:51:49.126Z info: $OpenSafeById finished
+2026-03-29T09:16:28.275Z info: $OpenSafeByPin finished
+2026-03-29T09:16:28.324Z info: $OpenSafeById finished
+2026-03-29T09:20:22.992Z info: $OpenSafeByPin finished
+2026-03-29T09:20:23.039Z info: $OpenSafeById finished
+2026-03-29T09:24:05.557Z info: $OpenSafeByPin finished
+2026-03-29T09:24:05.600Z info: $OpenSafeById finished
+2026-03-29T09:35:49.320Z info: $OpenSafeByPin finished
+2026-03-29T09:35:49.370Z info: $OpenSafeById finished
+2026-03-29T12:44:12.613Z info: $OpenSafeByPin finished
+2026-03-29T12:44:12.660Z info: $OpenSafeById finished
+2026-03-29T15:17:48.061Z info: $OpenSafeByPin finished
+2026-03-29T15:17:48.108Z info: $OpenSafeById finished
+2026-03-29T15:40:57.501Z info: $OpenSafeByPin finished
+2026-03-29T15:40:57.547Z info: $OpenSafeById finished
+2026-03-29T15:42:36.996Z info: $OpenSafeByPin finished
+2026-03-29T15:42:37.047Z info: $OpenSafeById finished
+2026-03-29T16:08:09.461Z info: $OpenSafeByPin finished
+2026-03-29T16:08:09.521Z info: $OpenSafeById finished
+2026-03-29T16:08:23.500Z info: $GetSvcOrgUrl finished
+2026-03-29T16:08:23.524Z info: InvitGet : 2026-03-29T16:08:23.523Z
+2026-03-29T16:08:23.537Z info: InvitGet finished
+2026-03-29T16:08:23.577Z info: Reloading orgs config OK
+2026-03-29T16:08:29.106Z info: InvitGet : 2026-03-29T16:08:29.105Z
+2026-03-29T16:08:29.112Z info: InvitGet finished
+2026-03-29T16:08:31.035Z info: InvitGet : 2026-03-29T16:08:31.035Z
+2026-03-29T16:08:31.040Z info: InvitGet finished
+2026-03-29T16:08:31.859Z info: InvitGet : 2026-03-29T16:08:31.859Z
+2026-03-29T16:08:31.865Z info: InvitGet finished
+2026-03-29T16:08:35.714Z info: InvitGet : 2026-03-29T16:08:35.714Z
+2026-03-29T16:08:35.720Z info: InvitGet finished
+2026-03-29T16:15:24.397Z info: $OpenSafeByPin finished
+2026-03-29T16:15:24.441Z info: $OpenSafeById finished
+2026-03-29T16:15:40.219Z info: InvitList : 2026-03-29T16:15:40.219Z
+2026-03-29T16:15:40.291Z info: Reloading orgs config OK
+2026-03-29T16:15:40.315Z info: $GetPubKeys finished
+2026-03-29T16:15:40.337Z info: InvitList finished
+2026-03-29T16:19:31.441Z info: InvitList : 2026-03-29T16:19:31.440Z
+2026-03-29T16:19:31.454Z info: InvitList finished
+2026-03-29T16:20:06.894Z info: InvitList : 2026-03-29T16:20:06.894Z
+2026-03-29T16:20:06.909Z info: InvitList finished
+2026-03-29T16:20:10.236Z info: InvitList : 2026-03-29T16:20:10.235Z
+2026-03-29T16:20:10.247Z info: InvitList finished
+2026-03-29T16:29:54.891Z info: $OpenSafeByPin finished
+2026-03-29T16:29:54.939Z info: $OpenSafeById finished
+2026-03-29T16:30:12.117Z info: $GetSvcOrgUrl finished
+2026-03-29T16:30:12.153Z info: InvitList : 2026-03-29T16:30:12.152Z
+2026-03-29T16:30:12.165Z info: InvitList finished
+2026-03-29T16:30:12.217Z info: Reloading orgs config OK
+2026-03-29T16:36:19.052Z info: $OpenSafeByPin finished
+2026-03-29T16:36:19.168Z info: $OpenSafeById finished
+2026-03-29T16:36:33.846Z info: $GetSvcOrgUrl finished
+2026-03-29T16:36:33.897Z info: InvitList : 2026-03-29T16:36:33.897Z
+2026-03-29T16:36:33.961Z info: InvitList finished
+2026-03-29T16:36:33.982Z info: Reloading orgs config OK
+2026-03-29T16:38:50.967Z info: InvitList : 2026-03-29T16:38:50.967Z
+2026-03-29T16:38:50.981Z info: InvitList finished
+2026-03-29T16:57:54.472Z info: $OpenSafeByPin finished
+2026-03-29T16:57:54.556Z info: $OpenSafeById finished
+2026-03-29T16:58:06.843Z info: $GetSvcOrgUrl finished
+2026-03-29T16:58:06.888Z info: InvitList : 2026-03-29T16:58:06.888Z
+2026-03-29T16:58:06.909Z info: InvitList finished
+2026-03-29T16:58:06.953Z info: Reloading orgs config OK
+2026-03-29T16:58:14.077Z info: InvitList : 2026-03-29T16:58:14.077Z
+2026-03-29T16:58:14.091Z info: InvitList finished
+2026-03-29T16:58:16.881Z info: InvitList : 2026-03-29T16:58:16.880Z
+2026-03-29T16:58:16.894Z info: InvitList finished
+2026-03-29T16:59:10.289Z info: $OpenSafeByPin finished
+2026-03-29T16:59:10.450Z info: $OpenSafeById finished
+2026-03-29T17:01:52.164Z info: $OpenSafeByPin finished
+2026-03-29T17:01:52.244Z info: $OpenSafeById finished
+2026-03-29T17:06:17.608Z info: $OpenSafeByPin finished
+2026-03-29T17:06:17.702Z info: $OpenSafeById finished
+2026-03-29T17:18:16.105Z info: $GetSvcOrgUrl finished
+2026-03-29T17:18:16.145Z info: ListManagers : 2026-03-29T17:18:16.144Z
+2026-03-29T17:18:16.156Z info: ListManagers finished
+2026-03-29T17:18:16.205Z info: Reloading orgs config OK
+2026-03-29T17:20:07.134Z info: $OpenSafeByPin finished
+2026-03-29T17:20:07.203Z info: $OpenSafeById finished
+2026-03-29T17:20:25.979Z info: ListManagers : 2026-03-29T17:20:25.978Z
+2026-03-29T17:20:25.995Z info: ListManagers finished
+2026-03-29T17:22:54.639Z info: $OpenSafeByPin finished
+2026-03-29T17:22:54.721Z info: $OpenSafeById finished
+2026-03-29T17:23:39.840Z info: ListManagers : 2026-03-29T17:23:39.839Z
+2026-03-29T17:23:39.846Z info: ListManagers finished
+2026-03-29T17:23:39.904Z info: Reloading orgs config OK
+2026-03-29T17:25:40.044Z info: ListManagers : 2026-03-29T17:25:40.044Z
+2026-03-29T17:25:40.050Z info: ListManagers finished
+2026-03-29T17:52:44.602Z info: $OpenSafeByPin finished
+2026-03-29T17:52:44.687Z info: $OpenSafeById finished
+2026-03-29T17:53:19.309Z info: $GetSvcOrgUrl finished
+2026-03-29T17:53:19.354Z info: ListManagers : 2026-03-29T17:53:19.354Z
+2026-03-29T17:53:19.358Z info: ListManagers finished
+2026-03-29T17:53:19.412Z info: Reloading orgs config OK
+2026-03-29T17:58:56.646Z info: $OpenSafeByPin finished
+2026-03-29T17:58:56.726Z info: $OpenSafeById finished
+2026-03-29T17:59:28.319Z info: $GetSvcOrgUrl finished
+2026-03-29T18:11:27.553Z info: $GetSvcOrgUrl finished
+2026-03-29T18:11:27.645Z info: ListManagers : 2026-03-29T18:11:27.645Z
+2026-03-29T18:11:27.650Z info: ListManagers finished
+2026-03-29T18:11:27.705Z info: Reloading orgs config OK
+2026-03-29T18:15:11.039Z info: ListManagers : 2026-03-29T18:15:11.039Z
+2026-03-29T18:15:11.045Z info: ListManagers finished
+2026-03-29T18:15:36.375Z info: ListManagers : 2026-03-29T18:15:36.374Z
+2026-03-29T18:15:36.381Z info: ListManagers finished
+2026-03-29T18:15:53.843Z info: $OpenSafeByPin finished
+2026-03-29T18:15:53.907Z info: $OpenSafeById finished
+2026-03-29T18:19:49.789Z info: ListManagers : 2026-03-29T18:19:49.789Z
+2026-03-29T18:19:49.794Z info: ListManagers finished
+2026-03-29T18:19:49.852Z info: Reloading orgs config OK
+2026-03-29T18:28:09.276Z info: ListManagers : 2026-03-29T18:28:09.276Z
+2026-03-29T18:28:09.289Z info: ListManagers finished
+2026-03-29T18:28:09.338Z info: Reloading orgs config OK
+2026-03-29T18:37:39.525Z info: ListManagers : 2026-03-29T18:37:39.525Z
+2026-03-29T18:37:39.556Z info: ListManagers finished
+2026-03-29T18:37:39.588Z info: Reloading orgs config OK
+2026-03-29T18:37:56.127Z info: ListManagers : 2026-03-29T18:37:56.127Z
+2026-03-29T18:37:56.141Z info: ListManagers finished
+2026-03-29T18:38:03.767Z info: ListManagers : 2026-03-29T18:38:03.767Z
+2026-03-29T18:38:03.780Z info: ListManagers finished
+2026-03-29T18:38:30.715Z info: ListManagers : 2026-03-29T18:38:30.715Z
+2026-03-29T18:38:30.732Z info: ListManagers finished
+2026-03-29T18:40:55.310Z info: $OpenSafeByPin finished
+2026-03-29T18:40:55.387Z info: $OpenSafeById finished
+2026-03-29T19:06:07.970Z info: $GetSvcOpUrl finished
+2026-03-29T19:06:07.994Z info: GetSvcOpStatus : 2026-03-29T19:06:07.994Z
+2026-03-29T19:06:08.000Z info: GetSvcOpStatus finished
+2026-03-29T19:06:08.050Z info: Reloading orgs config OK
+2026-03-30T06:00:40.627Z info: 22 operations registered
+2026-03-30T06:00:40.630Z info: 10 document classes
+2026-03-30T06:00:40.631Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-30T06:00:40.632Z info: Firestore connector
+2026-03-30T06:00:40.632Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-30T06:00:40.633Z info: 22 App operations registered
+2026-03-30T06:00:40.770Z info: Reloading orgs config OK
+2026-03-30T06:00:40.777Z info: HTTP listen [8080]
+2026-03-30T06:13:55.658Z info: $GetSvcOpUrl finished
+2026-03-30T06:13:55.671Z info: GetSvcOpStatus : 2026-03-30T06:13:55.670Z
+2026-03-30T06:13:55.677Z info: GetSvcOpStatus finished
+2026-03-30T06:13:55.728Z info: Reloading orgs config OK
+2026-03-30T06:14:20.660Z info: GetSvcOpStatus : 2026-03-30T06:14:20.660Z
+2026-03-30T06:14:20.665Z info: GetSvcOpStatus finished
+2026-03-30T06:14:20.692Z info: $GetSvcOrgUrl finished
+2026-03-30T06:14:20.708Z info: GetSvcOrgStatus : 2026-03-30T06:14:20.708Z
+2026-03-30T06:14:20.713Z info: GetSvcOrgStatus finished
+2026-03-30T06:16:51.104Z info: GetSvcOpStatus : 2026-03-30T06:16:51.103Z
+2026-03-30T06:16:51.108Z info: GetSvcOpStatus finished
+2026-03-30T06:18:46.091Z info: GetSvcOpStatus : 2026-03-30T06:18:46.090Z
+2026-03-30T06:18:46.105Z info: GetSvcOpStatus finished
+2026-03-30T06:18:47.713Z info: GetSvcOpStatus : 2026-03-30T06:18:47.712Z
+2026-03-30T06:18:47.718Z info: GetSvcOpStatus finished
+2026-03-30T06:20:21.642Z info: $OpenSafeByPin finished
+2026-03-30T06:20:21.695Z info: $OpenSafeById finished
+2026-03-30T06:20:38.985Z info: GetSvcOpStatus : 2026-03-30T06:20:38.985Z
+2026-03-30T06:20:38.990Z info: GetSvcOpStatus finished
+2026-03-30T06:20:39.044Z info: Reloading orgs config OK
+2026-03-30T06:21:02.265Z info: SetSvcOpStatus : 2026-03-30T06:21:02.264Z
+2026-03-30T06:21:02.277Z info: SetSvcOpStatus finished
+2026-03-30T06:21:17.788Z info: GetSvcOpStatus : 2026-03-30T06:21:17.788Z
+2026-03-30T06:21:17.793Z info: GetSvcOpStatus finished
+2026-03-30T06:23:32.438Z info: SetSvcOpStatus : 2026-03-30T06:23:32.437Z
+2026-03-30T06:23:32.447Z info: SetSvcOpStatus finished
+2026-03-30T06:23:32.463Z info: GetSvcOpStatus : 2026-03-30T06:23:32.463Z
+2026-03-30T06:23:32.467Z info: GetSvcOpStatus finished
+2026-03-30T06:23:36.031Z info: GetSvcOpStatus : 2026-03-30T06:23:36.031Z
+2026-03-30T06:23:36.036Z info: GetSvcOpStatus finished
+2026-03-30T06:39:40.853Z info: 22 operations registered
+2026-03-30T06:39:40.857Z info: 10 document classes
+2026-03-30T06:39:40.858Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-03-30T06:39:40.859Z info: Firestore connector
+2026-03-30T06:39:40.860Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-03-30T06:39:40.861Z info: 22 App operations registered
+2026-03-30T06:39:40.974Z info: Reloading orgs config OK
+2026-03-30T06:39:40.982Z info: HTTP listen [8080]
+2026-03-30T06:41:20.851Z info: $OpenSafeByPin finished
+2026-03-30T06:41:20.910Z info: $OpenSafeById finished
+2026-03-30T06:41:36.386Z info: $GetSvcOpUrl finished
+2026-03-30T06:41:36.402Z info: GetSvcOpStatus : 2026-03-30T06:41:36.401Z
+2026-03-30T06:41:36.409Z info: GetSvcOpStatus finished
+2026-03-30T06:41:44.451Z info: GetSvcOpStatus : 2026-03-30T06:41:44.451Z
+2026-03-30T06:41:44.457Z info: GetSvcOpStatus finished
+2026-03-30T06:42:40.574Z info: GetSvcOpStatus : 2026-03-30T06:42:40.574Z
+2026-03-30T06:42:40.579Z info: GetSvcOpStatus finished
+2026-03-30T06:42:40.603Z info: $GetSvcOrgUrl finished
+2026-03-30T06:42:40.621Z info: GetSvcOrgStatus : 2026-03-30T06:42:40.620Z
+2026-03-30T06:42:40.628Z info: GetSvcOrgStatus finished
+2026-03-30T06:42:50.300Z info: GetOrgConfig : 2026-03-30T06:42:50.299Z
+2026-03-30T06:42:50.306Z info: GetOrgConfig finished
+2026-03-30T06:55:20.340Z info: GetSvcOpStatus : 2026-03-30T06:55:20.340Z
+2026-03-30T06:55:20.346Z info: GetSvcOpStatus finished
+2026-03-30T06:55:20.371Z info: GetSvcOrgStatus : 2026-03-30T06:55:20.371Z
+2026-03-30T06:55:20.377Z info: GetSvcOrgStatus finished
+2026-03-30T06:55:20.397Z info: Reloading orgs config OK
+2026-03-30T06:59:52.888Z info: GetSvcOpStatus : 2026-03-30T06:59:52.887Z
+2026-03-30T06:59:52.893Z info: GetSvcOpStatus finished
+2026-03-30T06:59:52.924Z info: GetSvcOrgStatus : 2026-03-30T06:59:52.923Z
+2026-03-30T06:59:52.929Z info: GetSvcOrgStatus finished
+2026-03-30T07:08:09.089Z info: $OpenSafeByPin finished
+2026-03-30T07:08:09.134Z info: $OpenSafeById finished
+2026-03-30T07:08:52.064Z info: $GetSvcOpUrl finished
+2026-03-30T07:08:52.082Z info: GetSvcOpStatus : 2026-03-30T07:08:52.082Z
+2026-03-30T07:08:52.087Z info: GetSvcOpStatus finished
+2026-03-30T07:08:52.104Z info: $GetSvcOrgUrl finished
+2026-03-30T07:08:52.120Z info: GetSvcOrgStatus : 2026-03-30T07:08:52.119Z
+2026-03-30T07:08:52.126Z info: GetSvcOrgStatus finished
+2026-03-30T07:08:52.148Z info: Reloading orgs config OK
+2026-03-30T07:13:51.507Z info: $OpenSafeByPin finished
+2026-03-30T07:13:51.553Z info: $OpenSafeById finished
+2026-03-30T07:14:12.253Z info: $GetSvcOrgUrl finished
+2026-03-30T07:14:12.317Z info: ListManagers : 2026-03-30T07:14:12.316Z
+2026-03-30T07:14:12.324Z info: ListManagers finished
+2026-03-30T07:14:12.368Z info: Reloading orgs config OK
+2026-03-30T07:15:27.615Z info: $GetSvcOpUrl finished
+2026-03-30T07:15:27.643Z info: GetSvcOpStatus : 2026-03-30T07:15:27.643Z
+2026-03-30T07:15:27.650Z info: GetSvcOpStatus finished
+2026-03-30T07:15:29.476Z info: GetSvcOpStatus : 2026-03-30T07:15:29.476Z
+2026-03-30T07:15:29.481Z info: GetSvcOpStatus finished
+2026-03-30T07:22:57.372Z info: ListManagers : 2026-03-30T07:22:57.372Z
+2026-03-30T07:22:57.379Z info: ListManagers finished
+2026-03-30T07:22:57.427Z info: Reloading orgs config OK
+2026-03-30T07:23:21.155Z info: ListManagers : 2026-03-30T07:23:21.155Z
+2026-03-30T07:23:21.161Z info: ListManagers finished
+2026-03-30T07:25:48.638Z info: ListManagers : 2026-03-30T07:25:48.638Z
+2026-03-30T07:25:48.647Z info: ListManagers finished
+2026-03-30T07:28:04.663Z info: ListManagers : 2026-03-30T07:28:04.662Z
+2026-03-30T07:28:04.667Z info: ListManagers finished
+2026-03-30T07:28:04.718Z info: Reloading orgs config OK
+2026-03-30T07:28:49.694Z info: ListManagers : 2026-03-30T07:28:49.693Z
+2026-03-30T07:28:49.698Z info: ListManagers finished
+2026-03-30T07:30:05.257Z info: ListManagers : 2026-03-30T07:30:05.256Z
+2026-03-30T07:30:05.262Z info: ListManagers finished
+2026-03-30T07:30:50.866Z info: ListManagers : 2026-03-30T07:30:50.866Z
+2026-03-30T07:30:50.872Z info: ListManagers finished
+2026-03-30T07:35:28.254Z info: ListManagers : 2026-03-30T07:35:28.254Z
+2026-03-30T07:35:28.259Z info: ListManagers finished
+2026-03-30T07:35:28.319Z info: Reloading orgs config OK
+2026-03-30T07:41:15.122Z info: $OpenSafeByPin finished
+2026-03-30T07:41:15.172Z info: $OpenSafeById finished
+2026-03-30T07:41:38.885Z info: $GetSvcOrgUrl finished
+2026-03-30T07:42:50.057Z info: ListManagers : 2026-03-30T07:42:50.056Z
+2026-03-30T07:42:50.069Z info: ListManagers finished
+2026-03-30T07:42:50.109Z info: Reloading orgs config OK
+2026-03-30T07:43:33.209Z info: ListManagers : 2026-03-30T07:43:33.209Z
+2026-03-30T07:43:33.214Z info: ListManagers finished
+2026-03-30T07:44:01.810Z info: $OpenSafeByPin finished
+2026-03-30T07:44:01.853Z info: $OpenSafeById finished
+2026-03-30T07:44:08.502Z info: ListManagers : 2026-03-30T07:44:08.502Z
+2026-03-30T07:44:08.585Z info: $GetPubKeys finished
+2026-03-30T07:44:08.607Z info: ListManagers finished
+2026-03-30T07:52:05.492Z info: ListManagers : 2026-03-30T07:52:05.492Z
+2026-03-30T07:52:05.510Z info: ListManagers finished
+2026-03-30T07:52:05.549Z info: Reloading orgs config OK
+2026-03-30T07:52:29.829Z info: $GetSvcOpUrl finished
+2026-03-30T07:52:29.845Z info: GetSvcOpStatus : 2026-03-30T07:52:29.845Z
+2026-03-30T07:52:29.850Z info: GetSvcOpStatus finished
+2026-03-30T07:52:32.350Z info: GetSvcOpStatus : 2026-03-30T07:52:32.350Z
+2026-03-30T07:52:32.355Z info: GetSvcOpStatus finished
+2026-03-30T07:52:46.011Z info: GetSvcOpStatus : 2026-03-30T07:52:46.011Z
+2026-03-30T07:52:46.016Z info: GetSvcOpStatus finished
+2026-03-30T07:52:46.035Z info: GetSvcOrgStatus : 2026-03-30T07:52:46.035Z
+2026-03-30T07:52:46.040Z info: GetSvcOrgStatus finished
+2026-03-30T07:55:33.589Z info: GetSvcOpStatus : 2026-03-30T07:55:33.588Z
+2026-03-30T07:55:33.594Z info: GetSvcOpStatus finished
+2026-03-30T07:55:42.683Z info: GetSvcOpStatus : 2026-03-30T07:55:42.682Z
+2026-03-30T07:55:42.688Z info: GetSvcOpStatus finished
+2026-03-30T07:55:42.708Z info: GetSvcOrgStatus : 2026-03-30T07:55:42.708Z
+2026-03-30T07:55:42.714Z info: GetSvcOrgStatus finished
+2026-03-30T07:56:37.277Z info: $OpenSafeByPin finished
+2026-03-30T07:56:37.323Z info: $OpenSafeById finished
+2026-03-30T08:20:53.826Z info: $OpenSafeByPin finished
+2026-03-30T08:20:53.874Z info: $OpenSafeById finished
+2026-03-30T08:30:08.380Z info: $UpdateCreds finished
+2026-03-30T08:56:18.526Z info: $OpenSafeByPin finished
+2026-03-30T08:56:18.573Z info: $OpenSafeById finished
+2026-03-30T08:58:59.959Z info: $UpdateCreds finished
+2026-03-30T09:02:02.203Z info: $OpenSafeByPin finished
+2026-03-30T09:02:02.250Z info: $OpenSafeById finished
+2026-03-30T09:05:01.221Z info: $OpenSafeByPin finished
+2026-03-30T09:05:01.269Z info: $OpenSafeById finished
+2026-03-30T09:13:04.165Z info: $OpenSafeByPin finished
+2026-03-30T09:13:04.211Z info: $OpenSafeById finished
+2026-03-30T09:16:32.106Z info: $OpenSafeByPin finished
+2026-03-30T09:16:32.152Z info: $OpenSafeById finished
+2026-03-30T09:20:22.389Z info: $OpenSafeByPin finished
+2026-03-30T09:20:22.432Z info: $OpenSafeById finished
+2026-03-30T09:23:36.725Z info: $OpenSafeByPin finished
+2026-03-30T09:23:36.770Z info: $OpenSafeById finished
+2026-03-30T09:29:46.387Z info: $UpdateCreds finished
+2026-03-30T09:52:32.198Z info: $UpdateCreds finished
+2026-03-30T09:55:51.868Z info: $OpenSafeByPin finished
+2026-03-30T09:55:51.913Z info: $OpenSafeById finished
+2026-03-30T09:56:31.542Z info: $UpdateCreds finished
+2026-03-30T10:06:00.189Z info: $OpenSafeByPin finished
+2026-03-30T10:06:00.234Z info: $OpenSafeById finished
+2026-03-30T10:08:14.726Z info: $OpenSafeByPin finished
+2026-03-30T10:08:14.773Z info: $OpenSafeById finished
+2026-03-30T10:11:04.828Z info: $OpenSafeByPin finished
+2026-03-30T10:11:04.876Z info: $OpenSafeById finished
+2026-03-30T10:11:42.786Z info: $UpdateCreds finished
+2026-03-30T10:14:47.553Z info: $UpdateCreds finished
+2026-03-30T10:15:36.733Z info: $UpdateCreds finished
+2026-03-30T10:21:22.794Z info: $OpenSafeByPin finished
+2026-03-30T10:21:22.839Z info: $OpenSafeById finished
+2026-03-30T10:21:50.888Z info: $UpdateCreds finished
+2026-03-30T10:25:44.809Z info: $OpenSafeByPin finished
+2026-03-30T10:25:44.857Z info: $OpenSafeById finished
+2026-03-30T10:26:25.345Z info: $UpdateCreds finished
+2026-03-30T10:27:22.233Z info: $UpdateCreds finished
+2026-03-30T10:27:53.762Z info: $UpdateCreds finished
