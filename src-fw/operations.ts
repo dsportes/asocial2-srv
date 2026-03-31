@@ -484,21 +484,29 @@ class InvitList extends Operation {
   constructor () { super() }
 
   _major: string
+  _minor: string
+  _isSp: boolean
 
   init () {
     super.init()
     this._major = this.stringValue('major', true)
+    this._minor = this.stringValue('minor', true)
+    this._isSp = this.boolValue('isSp', true)
   }
 
   async phase2 () {
     this.requireAuth()
-    // TODO - à affiner pour les sponsors major / minor
-    const cr = this.getCred('Org.manager', '', true)
+    let cr: any
+    if (!this._isSp) this.getCred('Org.manager', '', true)
+    else {
+      cr = this.getCred('Sponsor.', this._major, true)
+      if (!cr) cr = this.getCred('Sponsor.', this._major + '.' + this._minor, true)
+    }
     if (!cr) {
       this.setRes('status', 2)
       return
     }
-    const lst = await Invitation.listInvits(this, this._major)
+    const lst = await Invitation.listInvits(this, this._major, this._minor)
     this.setRes('list', lst)
     this.setRes('status', 0)
   }
