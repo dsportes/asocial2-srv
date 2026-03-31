@@ -72,7 +72,6 @@ export class Operation {
 
   public opName: string
   public baseUrl: string
-  public noDB: boolean
   public org: string
   public result: any
   public args: any // arguments bruts de l'opération
@@ -210,7 +209,7 @@ export class Operation {
         await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
       }
 
-      if (this.impactedSubs.all.size) {
+      if (this.impactedSubs && this.impactedSubs.all.size) {
         const publisher = new Publisher(this)
         for(const [,is] of this.impactedSubs.all) await publisher.publish(this, is)
         // notification : { title body url defs: 'def1 def2 ...' }

@@ -45,9 +45,9 @@ try {
 }
 
 // Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['95QdRCMuLN9eV31vlwUW'])
+const ADMINUSERS = new Set(['H-BNhJHdiC8YLaPsRl4A'])
 // Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['95QdRCMuLN9eV31vlwUW'])
+const MASTERDIRADMINUSERS = new Set(['H-BNhJHdiC8YLaPsRl4A'])
 
 setConfig(
   {

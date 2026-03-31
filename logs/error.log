@@ -246,3 +246,21 @@ BEGIN
 2026-03-27T14:50:56.122Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading '0')"]
 2026-03-27T15:51:58.439Z error: AppExc: 3004:documentClasses["Auteur"]
 2026-03-27T15:51:58.440Z error: InvitValidate : 2026-03-27T15:51:58.435Z : AppExc: 3004:documentClasses["Auteur"]
+2026-03-31T13:03:33.439Z error: AppExc: 3001:unexpected exception["no such column: hct"]
+2026-03-31T14:13:09.106Z error: AppExc: 3001:unexpected exception["table SAFE has no column named hct"]
+2026-03-31T14:37:30.714Z error: AppExc: 3001:unexpected exception["no such column: v"]
+2026-03-31T14:41:54.868Z error: AppExc: 3001:unexpected exception["no such column: v"]
+2026-03-31T16:21:58.291Z error: GetOrgConfig : 2026-03-31T16:21:58.285Z : TypeError: Cannot read properties of undefined (reading 'getConnexion')
+2026-03-31T16:21:58.295Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'getConnexion')"]
+2026-03-31T16:24:15.033Z error: GetOrgConfig : 2026-03-31T16:23:38.782Z : TypeError: Cannot read properties of undefined (reading 'getConnexion')
+2026-03-31T16:24:15.036Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'getConnexion')"]
+2026-03-31T16:29:29.545Z error: GetOrgConfig : 2026-03-31T16:29:15.571Z : TypeError: Cannot read properties of undefined (reading 'doTransaction')
+2026-03-31T16:29:29.557Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'doTransaction')"]
+2026-03-31T16:44:10.241Z error: GetOrgConfig : 2026-03-31T16:43:47.269Z : TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+2026-03-31T16:44:10.259Z error: AppExc: 3001:unexpected exception["undefined is not iterable (cannot read property Symbol(Symbol.iterator))"]
+2026-03-31T16:50:39.371Z error: GetOrgConfig : 2026-03-31T16:50:16.434Z : TypeError: Cannot read properties of undefined (reading 'all')
+2026-03-31T16:50:39.383Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]
+2026-03-31T16:54:33.831Z error: GetOrgConfig : 2026-03-31T16:53:25.811Z : TypeError: Cannot read properties of undefined (reading 'all')
+2026-03-31T16:54:33.836Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]
+2026-03-31T16:55:40.688Z error: GetOrgConfig : 2026-03-31T16:54:50.460Z : TypeError: Cannot read properties of undefined (reading 'all')
+2026-03-31T16:55:40.690Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]

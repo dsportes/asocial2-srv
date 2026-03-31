@@ -57,7 +57,7 @@ Operation.register('SvcOpIsAdmin', () => { return new SvcOpIsAdmin()})
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
-class GetSvcOpStatus extends Operation {
+class GetSvcOpStatus$ extends Operation {
   constructor () { super() }
 
   async phase2 () {
@@ -67,14 +67,14 @@ class GetSvcOpStatus extends Operation {
 
   phase3 : null
 }
-Operation.register('GetSvcOpStatus', () => { return new GetSvcOpStatus()})
+Operation.register('GetSvcOpStatus$', () => { return new GetSvcOpStatus$()})
 
 /* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
   st: code 0: DOWN, 1: UP
   txt: texte explicatif éventuel de l'administrateur
   ADMINISTRATEUR
 */
-class SetSvcOpStatus extends Operation {
+class SetSvcOpStatus$ extends Operation {
   constructor () { super() }
 
   _st: number
@@ -100,7 +100,7 @@ class SetSvcOpStatus extends Operation {
 
   phase3 : null
 }
-Operation.register('SetSvcOpStatus', () => { return new SetSvcOpStatus()})
+Operation.register('SetSvcOpStatus$', () => { return new SetSvcOpStatus$()})
 
 /* GetOrgStatus retourne le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -153,7 +153,7 @@ class SetSvcOrgStatus extends Operation {
 }
 Operation.register('SetSvcOrgStatus', () => { return new SetSvcOrgStatus()})
 
-class SetOrgConfig extends Operation {
+class SetOrgConfig$ extends Operation {
   constructor () { super() }
   _st: string
   _db: string
@@ -172,22 +172,32 @@ class SetOrgConfig extends Operation {
 
   phase3 : null
 }
-Operation.register('SetOrgConfig', () => { return new SetOrgConfig()})
+Operation.register('SetOrgConfig$', () => { return new SetOrgConfig$()})
 
-class GetOrgConfig extends Operation {
+class GetOrgConfig$ extends Operation {
   constructor () { super() }
 
   async phase2 () {
     this.requireAdmin()
-    const [db, st] = OrgsConfig.getDbSt(this.org)
+    /*
+    const ar = this.args['authRecord']
+    const isAdmin = config.ADMINUSERS.has(ar.userId)
+    if (!isAdmin) 
+      throw new AppExc(2007, 'admin required', this)
+    */
     const dbs = Array.from(config.databases.keys())
     const sts = Array.from(config.storages.keys())
-    this.setRes('orgconfig', { dbs, sts, db, st })
+    const x = OrgsConfig.getDbSt(this.org)
+    if (x) {
+      const [db, st] = x
+      this.setRes('orgconfig', { dbs, sts, db, st })
+    } else 
+      this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
   }
 
   phase3 : null
 }
-Operation.register('GetOrgConfig', () => { return new GetOrgConfig()})
+Operation.register('GetOrgConfig$', () => { return new GetOrgConfig$()})
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {

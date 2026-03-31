@@ -65,7 +65,7 @@ export class OrgsConfig {
 
   static async save (op: Operation, org: string, db: string, st: string) {
     const val = await op.db.getSingleton('orgs') as string
-    const x = JSON.parse(val)
+    const x = val ? JSON.parse(val) : {}
     if (!db) delete(x[org])
     else x[org] = [db, st]
     const nval = JSON.stringify(x, null, '\t')
@@ -83,7 +83,7 @@ export class OrgsConfig {
       const dbConnector = config.svcDB
       await dbConnector.getConnexion(op)
       const val = await op.db.getSingleton('orgs') as string
-      const x = JSON.parse(val)
+      const x = JSON.parse(val || '{}')
       const oc = new OrgsConfig(x)
       op.db.disconnect()
       OrgsConfig.current = oc
@@ -202,9 +202,8 @@ export function getExpressApp (): express.Application {
 
   //**** appels des opérations ****
   app.use('/op/:org/:operation', async (req, res) => {
-    const org = req.params.org
     let storage, dbConnector
-    if (org.startsWith('$')) {
+    if (req.params.operation.endsWith('$')) {
       dbConnector = config.svcDB
     } else {
       storage = OrgsConfig.getStorage(req.params.org)
@@ -360,12 +359,11 @@ export async function doOp (
     op.opName = opName
     op.baseUrl = req.protocol + '://' + req.host
     op.org = req.params.org
-    if (!op.noDB) {
-      if (!dbConnector) 
-        throw new AppExc(1003, 'unknown organisation', null, [opName, op.org])
-      op.storage = storage
-      op.dbConnector = dbConnector
-    }
+    if (!dbConnector) 
+      throw new AppExc(1003, 'unknown organisation', null, [opName, op.org])
+    op.storage = storage
+    op.dbConnector = dbConnector
+    
     op.now = now
     op.today = today
     op.args = decode(body)

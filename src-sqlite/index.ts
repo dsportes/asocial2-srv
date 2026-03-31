@@ -203,9 +203,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   ******************************************************************************/
 
   async safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> {
-    const stmt = this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key' +
-      (st !== safeTable.PEMS ? ' AND v > @v;' : ';')
-    )
+    const stmt = st !== safeTable.PEMS ?
+      this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key AND v > @v;')
+    : this.sql.prepare('SELECT value FROM ' + st + ' WHERE key = @key;')
     let row = stmt.get({ key, v })
     return row ? [row.v, row.value] : null
   }
