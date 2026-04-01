@@ -869,6 +869,36 @@ class $TransmitCred extends SafeOperation {
 }
 SafeOperation.register('$TransmitCred', () => { return new $TransmitCred()})
 
+type RevokeCreds = {
+  userId: string
+  shk: string
+  ids: string[] 
+}
+class $AutoRevokeCreds extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const rc = this.args['revokeCreds'] as RevokeCreds
+    const safe = await this.getSafe(rc)
+
+    if (!safe) {
+      this.setRes('status', 1)
+      return
+    }
+    this.cleanInvits(safe)
+
+    if (safe.creds) {
+      for(const id of rc.ids) delete safe.creds[id]
+      if (Object.keys(safe.creds).length === 0)
+        delete safe.creds
+    }
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+  }
+}
+SafeOperation.register('$AutoRevokeCreds', () => { return new $AutoRevokeCreds()})
+
 /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
 - id, hp0, hr0 : id et accès externe 
 Retour : { lm, xp, xr }

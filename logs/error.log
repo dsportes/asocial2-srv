@@ -264,3 +264,4 @@ BEGIN
 2026-03-31T16:54:33.836Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]
 2026-03-31T16:55:40.688Z error: GetOrgConfig : 2026-03-31T16:54:50.460Z : TypeError: Cannot read properties of undefined (reading 'all')
 2026-03-31T16:55:40.690Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]
+2026-04-01T14:38:24.968Z error: ListManagers : 2026-04-01T14:38:24.827Z : AppExc: 2008:bad credential(s)@ListManagers:["Org.manager/"]

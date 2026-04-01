@@ -31,7 +31,7 @@ Gestion de fin de session: souscription de "background" et son longLife
 Contexte d'ouverture de session: auths, sessionState
 
 # DB from scratch
-- safe.sql schema.sql
+- safe.sql schema.sql >>> 1 a
 
 - création du compte daniel
 
@@ -48,7 +48,8 @@ Sous daniel
   - déclarer org. doda
 - dans Menu >>> Données de sécurité >>> Certifier mon terminal
 
-Création de domi et terminal certifié
+Création de domi et terminal certifié >>> 2 a
 
-Daniel : setting de Domi comme "manager"
+Daniel : setting de Domi comme "manager" >>> 3 a
+(et testS grant / revoke / auto-revoke)
 

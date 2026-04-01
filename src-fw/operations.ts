@@ -397,10 +397,12 @@ class GrantNewManager extends Operation {
 
   async phase2 () {
     this.requireAdmin()
-    const c = await this.cache.getDoc('Credential', this._cr)
+    const c = await this.cache.getDoc('Credential', this._cr) as Credential
     if (!c) // enregistrement d'un nouveau Credential "manager"
       this.cache.newDoc('Credential', this._cr) as Credential
-    else {
+    else { // réactivation (après une révocation)
+      c.pemv = this._cr.pemv
+      c.limit = 0
       c._status = DocStatus.UPD
     }
   }
@@ -409,30 +411,43 @@ class GrantNewManager extends Operation {
 }
 Operation.register('GrantNewManager', () => { return new GrantNewManager()})
 
-/* RevokeManager marque la fin de validité d'un Credential "manager" sous admin
+type RevokeReq = {
+  userId: string
+  role: string
+  docId: string
+}
+
+/* RevokeCred marque la fin de validité d'un Credential 
+par admin ou l'utilisateur lui-même (auto-revocation)
 */
-class RevokeManager extends Operation {
+class RevokeCred extends Operation {
   constructor () { super() }
 
-  _credId: string 
+  _rr: RevokeReq 
 
   init () {
     super.init()
-    this._credId = this.stringValue('credId', true)
+    this._rr = this.args['revokeReq']
   }
 
   async phase2 () {
-    this.requireAdmin()
-    const c = await this.cache.getDoc('Credential', { id: this._credId}) as Credential
+    // this.requireAdmin()
+    this.requireAuth()
+    const c = await this.cache.getDoc('Credential', this._rr) as Credential
     if (c) {
-      c.limit = this.now
-      c._status = DocStatus.UPD
-    }
+      if (!this.authRecord.isAdmin && this.authRecord.userId !== c.userId)
+        this.setRes('status', 2)
+      else {
+        c.limit = this.now
+        this.setRes('status', 0)
+        c._status = DocStatus.UPD
+      }
+    } else this.setRes('status', 1)
   }
 
   phase3 : null
 }
-Operation.register('RevokeManager', () => { return new RevokeManager()})
+Operation.register('RevokeCred', () => { return new RevokeCred()})
 
 /* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
 Retourne une liste de : { id, userId, time, limit }
@@ -448,10 +463,14 @@ class ListManagers extends Operation {
     this.requireAuth()
     let status = 0
     let lst = []
+    /* Finalement ouverte pour permettre à un ex manager de relire la liste
+    et pouvoir auto-nettoyer ses credentials dans son safe */
+    /*
     if (!this.authRecord.isAdmin) {
       const cr = this.getCred('Org.manager', '', true)
       if (!cr) status = 1
     }
+    */
     if (!status)
       lst = await Credential.listManagers(this)
     this.setRes('list', lst)
