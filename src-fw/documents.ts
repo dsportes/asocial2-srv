@@ -227,7 +227,7 @@ export class Invitation extends Document {
   // Reçues sur create: ['ttl', 'invitId', 'major', 'minor', 'time', 'status', 'userId', 'safeStore', 'skeyK', 'pemU', 'txtm', 'label']
 
   static async listInvits (op: Operation, major: string, minor: string) : Promise<Uint8Array[]> {
-    const val = Crypt.shaS(encoder.encode(!minor ? major : major + '.' + minor))
+    const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
     const crit = !minor ? 'major' : 'majorminor'
     return await op.db.getColl('Invitation', crit, val, false, 0)
   }

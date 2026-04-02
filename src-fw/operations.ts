@@ -526,10 +526,10 @@ class InvitList extends Operation {
   async phase2 () {
     this.requireAuth()
     let cr: any
-    if (!this._isSp) this.getCred('Org.manager', '', true)
+    if (!this._isSp) cr = this.getCred('Org.manager', '', true)
     else {
       cr = this.getCred('Sponsor.', this._major, true)
-      if (!cr) cr = this.getCred('Sponsor.', this._major + '.' + this._minor, true)
+      if (!cr) cr = this.getCred('Sponsor.', this._major + '/' + this._minor, true)
     }
     if (!cr) {
       this.setRes('status', 2)
@@ -670,7 +670,7 @@ class InvitAR extends Operation {
     else {
       let c: Credential = this.authRecord.getCred('Org.manager', '' ,true)
       if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major ,true)
-      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major + '.' + this.invit.minor ,true)
+      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major + '/' + this.invit.minor ,true)
       if (!c) this.s = 2
       else {
         if (this._accept) {

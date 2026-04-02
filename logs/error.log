@@ -265,3 +265,14 @@ BEGIN
 2026-03-31T16:55:40.688Z error: GetOrgConfig : 2026-03-31T16:54:50.460Z : TypeError: Cannot read properties of undefined (reading 'all')
 2026-03-31T16:55:40.690Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'all')"]
 2026-04-01T14:38:24.968Z error: ListManagers : 2026-04-01T14:38:24.827Z : AppExc: 2008:bad credential(s)@ListManagers:["Org.manager/"]
+2026-04-02T11:07:20.748Z error: InvitList : 2026-04-02T11:07:20.728Z : AppExc: 2008:bad credential(s)@InvitList:["Sponsor./Auteur.science"]
+2026-04-02T11:13:57.035Z error: InvitList : 2026-04-02T11:13:57.021Z : AppExc: 2008:bad credential(s)@InvitList:["Sponsor./Auteur.science"]
+2026-04-02T11:17:57.352Z error: InvitList : 2026-04-02T11:15:12.207Z : AppExc: 2008:bad credential(s)@InvitList:["Sponsor./Auteur.science"]
+2026-04-02T11:18:53.858Z error: InvitList : 2026-04-02T11:18:25.170Z : AppExc: 2008:bad credential(s)@InvitList:["Sponsor./Auteur.science"]
+2026-04-02T11:23:36.232Z error: InvitList : 2026-04-02T11:19:17.210Z : AppExc: 2008:bad credential(s)@InvitList:["Sponsor./Auteur.science"]
+2026-04-02T11:38:50.272Z error: InvitList : 2026-04-02T11:38:50.252Z : DataError: Invalid keyData
+2026-04-02T11:38:50.285Z error: AppExc: 3001:unexpected exception["Invalid keyData"]
+2026-04-02T11:40:26.313Z error: InvitList : 2026-04-02T11:40:26.290Z : DataError: Invalid keyData
+2026-04-02T11:40:26.315Z error: AppExc: 3001:unexpected exception["Invalid keyData"]
+2026-04-02T13:06:42.278Z error: InvitList : 2026-04-02T13:06:42.048Z : DataError: Invalid keyData
+2026-04-02T13:06:42.295Z error: AppExc: 3001:unexpected exception["Invalid keyData"]

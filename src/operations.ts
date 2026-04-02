@@ -53,12 +53,13 @@ class InvitValidate extends InvitValidateA {
   async doIt_auteur () {
     const iv = this.objectValue('invVal', true) as InvVal
 
-    // Création de Auteur sauf si existait déjà (retry)
-    const a = await this.cache.getDoc('Auteur', { autid: this.invit.docId })
-    if (!a)
-      this.cache.newDoc('Auteur', { autid: this.invit.docId, nom: this.invit.label })
-
-    { // Enregistrement du credential d'accès à Auteur
+    if (this.invit.etc.newA === 1) {
+      // Création de Auteur sauf si existait déjà (retry)
+      const a = await this.cache.getDoc('Auteur', { autid: this.invit.docId })
+      if (!a)
+        this.cache.newDoc('Auteur', { autid: this.invit.docId, nom: this.invit.label })
+    
+      // Enregistrement du credential d'accès à Auteur
       const obj = {
         id: Credential.getId(config.SVC, this.org, this.invit.role, this.invit.docId),
         userId: this.invit.userId,
@@ -79,12 +80,12 @@ class InvitValidate extends InvitValidateA {
     }
     
     if (this.invit.etc.option > 1) {
-      const docId = 'Auteur' + (this.invit.etc.option === 2 ? '' : ('.' + this.invit.etc.categ))
-      const id = Credential.getId(config.SVC, this.org, 'Sponsor', docId)
+      const docId = 'Auteur' + (this.invit.etc.option === 2 ? '' : ('/' + this.invit.etc.categ))
+      const id = Credential.getId(config.SVC, this.org, 'Sponsor.', docId)
       const obj = {
         id,
         userId: this.invit.userId,
-        role: 'Sponsor',
+        role: 'Sponsor.',
         org: this.org,
         docId: docId,
         time: this.now,
@@ -103,7 +104,7 @@ class InvitValidate extends InvitValidateA {
 
   async doIt() {
     switch (this.invit.major) {
-      case 'auteur' : { await this.doIt_auteur(); break }
+      case 'Auteur' : { await this.doIt_auteur(); break }
     }
   }
 
