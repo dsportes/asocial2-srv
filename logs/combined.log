@@ -11851,3 +11851,11 @@ BEGIN
 2026-04-02T13:56:02.932Z info: $UpdateCreds finished
 2026-04-02T13:56:08.569Z info: InvitList : 2026-04-02T13:56:08.568Z
 2026-04-02T13:56:08.595Z info: InvitList finished
+2026-04-03T08:16:30.395Z info: 22 operations registered
+2026-04-03T08:16:30.398Z info: 10 document classes
+2026-04-03T08:16:30.400Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-03T08:16:30.400Z info: Firestore connector
+2026-04-03T08:16:30.401Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-03T08:16:30.402Z info: 22 App operations registered
+2026-04-03T08:16:30.474Z info: Reloading orgs config OK
+2026-04-03T08:16:30.480Z info: HTTP listen [8080]

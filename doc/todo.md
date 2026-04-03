@@ -4,7 +4,12 @@ Testé OK.
 - Gérer la mise à jour du volume des sessions par l'application.
 - Gérer dans l'application l'arrivée d'une mise à jour de credential.
 
+- gestion de la non régression du time d'une signature dans un service.
+- récupération de l'URL du safe dans le query string.
+
 # Serveur
+
+Report des credentials: rapprochement _safe / service_.
 
 GetLock : hors transaction.
 
@@ -38,7 +43,7 @@ Contexte d'ouverture de session: auths, sessionState
 Sous daniel
 - récupération de son ID (en session normale)
 - inscription dans src/index.ts en ADMINUSERS et relance du serveur
-- dans Settings / Outils Techniques / Hot
+- dans Settings >>> Outils Techniques >>> Hot
   - déclarer le service AS2 pour l'opérateur $RED
   - ASSO2 pou $RED
   - Autoriser "doda" et "demo"
