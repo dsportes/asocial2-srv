@@ -481,6 +481,26 @@ class ListManagers extends Operation {
 }
 Operation.register('ListManagers', () => { return new ListManagers()})
 
+/* ListUserCreds liste les credential enregistrés du user (qu'ils soient valides ou non)
+Retourne une liste de : { id, role, docId, time, limit, cond }
+*/
+class ListUserCreds extends Operation {
+  constructor () { super() }
+
+  init () {
+    super.init()
+  }
+
+  async phase2 () {
+    this.requireAuth()
+    const lst = await Credential.listUserCreds(this)
+    this.setRes('list', lst)
+  }
+
+  phase3 : null
+}
+Operation.register('ListUserCreds', () => { return new ListUserCreds()})
+
 /* CreateInvit: création d'une invitation.
 Enregistrement en base seulement.
 - org

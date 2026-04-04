@@ -11859,3 +11859,39 @@ BEGIN
 2026-04-03T08:16:30.402Z info: 22 App operations registered
 2026-04-03T08:16:30.474Z info: Reloading orgs config OK
 2026-04-03T08:16:30.480Z info: HTTP listen [8080]
+2026-04-04T07:18:27.445Z info: 22 operations registered
+2026-04-04T07:18:27.448Z info: 10 document classes
+2026-04-04T07:18:27.449Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T07:18:27.449Z info: Firestore connector
+2026-04-04T07:18:27.450Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T07:18:27.450Z info: 22 App operations registered
+2026-04-04T07:18:27.521Z info: Reloading orgs config OK
+2026-04-04T07:18:27.527Z info: HTTP listen [8080]
+2026-04-04T07:25:29.377Z info: $OpenSafeByPin finished
+2026-04-04T07:25:29.432Z info: $OpenSafeById finished
+2026-04-04T07:40:13.872Z info: $OpenSafeByPin finished
+2026-04-04T07:40:13.919Z info: $OpenSafeById finished
+2026-04-04T07:46:51.286Z info: $OpenSafeByPin finished
+2026-04-04T07:46:51.331Z info: $OpenSafeById finished
+2026-04-04T07:52:00.576Z info: $OpenSafeByPin finished
+2026-04-04T07:52:00.622Z info: $OpenSafeById finished
+2026-04-04T08:16:51.393Z info: 23 operations registered
+2026-04-04T08:16:51.396Z info: 10 document classes
+2026-04-04T08:16:51.397Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T08:16:51.398Z info: Firestore connector
+2026-04-04T08:16:51.398Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T08:16:51.399Z info: 23 App operations registered
+2026-04-04T08:16:51.415Z info: Reloading orgs config OK
+2026-04-04T08:16:51.421Z info: HTTP listen [8080]
+2026-04-04T09:30:55.152Z info: $OpenSafeByPin finished
+2026-04-04T09:30:55.210Z info: $OpenSafeById finished
+2026-04-04T09:33:16.393Z info: $OpenSafeByPin finished
+2026-04-04T09:33:16.440Z info: $OpenSafeById finished
+2026-04-04T09:37:28.400Z info: $OpenSafeByPin finished
+2026-04-04T09:37:28.448Z info: $OpenSafeById finished
+2026-04-04T10:03:59.393Z info: $OpenSafeByPin finished
+2026-04-04T10:03:59.462Z info: $OpenSafeById finished
+2026-04-04T10:27:02.291Z info: $OpenSafeByPin finished
+2026-04-04T10:27:02.364Z info: $OpenSafeById finished
+2026-04-04T10:40:37.518Z info: $OpenSafeByPin finished
+2026-04-04T10:40:37.568Z info: $OpenSafeById finished
