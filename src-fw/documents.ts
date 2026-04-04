@@ -191,9 +191,9 @@ export class Credential extends Document {
 
   static async listUserCreds (op: Operation) : Promise<Object[]> {
     const dd = DocType.get('Credential')
-    const val = dd.getIdx({ userId: op.authRecord.userId }, 'userId')
+    const val = dd.getCollId({ userId: op.authRecord.userId }, 'userId')
     const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'userId', filter.EQ, val, '', 0, 
+    await op.db.selectDocs('Credential', 'userId', filter.EQ, val[0], '', 0, 
       async (data) => {
         try {
           const obj = decode(data) as Credential

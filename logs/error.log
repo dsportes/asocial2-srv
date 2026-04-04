@@ -276,3 +276,5 @@ BEGIN
 2026-04-02T11:40:26.315Z error: AppExc: 3001:unexpected exception["Invalid keyData"]
 2026-04-02T13:06:42.278Z error: InvitList : 2026-04-02T13:06:42.048Z : DataError: Invalid keyData
 2026-04-02T13:06:42.295Z error: AppExc: 3001:unexpected exception["Invalid keyData"]
+2026-04-04T15:55:54.155Z error: ListUserCreds : 2026-04-04T15:53:03.813Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-04-04T15:55:54.159Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]

@@ -11895,3 +11895,66 @@ BEGIN
 2026-04-04T10:27:02.364Z info: $OpenSafeById finished
 2026-04-04T10:40:37.518Z info: $OpenSafeByPin finished
 2026-04-04T10:40:37.568Z info: $OpenSafeById finished
+2026-04-04T15:42:56.436Z info: 23 operations registered
+2026-04-04T15:42:56.439Z info: 10 document classes
+2026-04-04T15:42:56.439Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T15:42:56.440Z info: Firestore connector
+2026-04-04T15:42:56.441Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T15:42:56.441Z info: 23 App operations registered
+2026-04-04T15:42:56.514Z info: Reloading orgs config OK
+2026-04-04T15:42:56.520Z info: HTTP listen [8080]
+2026-04-04T15:44:30.377Z info: $OpenSafeByPin finished
+2026-04-04T15:44:30.468Z info: $OpenSafeById finished
+2026-04-04T15:46:42.908Z info: $GetSvcOrgUrl finished
+2026-04-04T15:46:42.944Z info: ListUserCreds : 2026-04-04T15:46:42.942Z
+2026-04-04T15:47:01.185Z info: ListUserCreds finished
+2026-04-04T15:47:36.342Z info: ListUserCreds : 2026-04-04T15:47:36.342Z
+2026-04-04T15:50:00.164Z info: ListUserCreds finished
+2026-04-04T15:50:16.488Z info: ListUserCreds : 2026-04-04T15:50:16.488Z
+2026-04-04T15:52:56.917Z info: 23 operations registered
+2026-04-04T15:52:56.920Z info: 10 document classes
+2026-04-04T15:52:56.920Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T15:52:56.921Z info: Firestore connector
+2026-04-04T15:52:56.921Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T15:52:56.922Z info: 23 App operations registered
+2026-04-04T15:52:56.945Z info: Reloading orgs config OK
+2026-04-04T15:52:56.954Z info: HTTP listen [8080]
+2026-04-04T15:53:03.817Z info: ListUserCreds : 2026-04-04T15:53:03.813Z
+2026-04-04T15:55:54.155Z error: ListUserCreds : 2026-04-04T15:53:03.813Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-04-04T15:55:54.157Z info: ListUserCreds terminated on exception
+2026-04-04T15:55:54.159Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-04T15:57:29.588Z info: 23 operations registered
+2026-04-04T15:57:29.591Z info: 10 document classes
+2026-04-04T15:57:29.592Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T15:57:29.592Z info: Firestore connector
+2026-04-04T15:57:29.593Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T15:57:29.593Z info: 23 App operations registered
+2026-04-04T15:57:29.607Z info: Reloading orgs config OK
+2026-04-04T15:57:29.612Z info: HTTP listen [8080]
+2026-04-04T15:57:57.923Z info: ListUserCreds : 2026-04-04T15:57:57.921Z
+2026-04-04T15:58:29.431Z info: ListUserCreds finished
+2026-04-04T17:07:58.394Z info: 23 operations registered
+2026-04-04T17:07:58.399Z info: 10 document classes
+2026-04-04T17:07:58.400Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-04T17:07:58.400Z info: Firestore connector
+2026-04-04T17:07:58.401Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-04T17:07:58.402Z info: 23 App operations registered
+2026-04-04T17:07:58.419Z info: Reloading orgs config OK
+2026-04-04T17:07:58.429Z info: HTTP listen [8080]
+2026-04-04T17:10:16.506Z info: $OpenSafeByPin finished
+2026-04-04T17:10:16.612Z info: $OpenSafeById finished
+2026-04-04T17:11:01.766Z info: $OpenSafeByPin finished
+2026-04-04T17:11:01.824Z info: $OpenSafeById finished
+2026-04-04T17:11:34.120Z info: $GetSvcOrgUrl finished
+2026-04-04T17:11:34.164Z info: ListUserCreds : 2026-04-04T17:11:34.162Z
+2026-04-04T17:11:34.170Z info: ListUserCreds finished
+2026-04-04T17:16:39.437Z info: ListUserCreds : 2026-04-04T17:16:39.436Z
+2026-04-04T17:16:39.442Z info: ListUserCreds finished
+2026-04-04T17:16:39.489Z info: Reloading orgs config OK
+2026-04-04T17:17:47.356Z info: $OpenSafeByPin finished
+2026-04-04T17:17:47.427Z info: $OpenSafeById finished
+2026-04-04T17:17:57.727Z info: $GetSvcOrgUrl finished
+2026-04-04T17:17:57.751Z info: ListUserCreds : 2026-04-04T17:17:57.751Z
+2026-04-04T17:17:57.755Z info: ListUserCreds finished
+2026-04-04T17:18:26.817Z info: ListUserCreds : 2026-04-04T17:18:26.817Z
+2026-04-04T17:18:26.823Z info: ListUserCreds finished
