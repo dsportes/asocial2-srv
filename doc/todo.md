@@ -1,5 +1,5 @@
 # Safe
-Testé OK.
+Testé OK
 
 - Gérer la mise à jour du volume des sessions par l'application.
 - Gérer dans l'application l'arrivée d'une mise à jour de credential.
