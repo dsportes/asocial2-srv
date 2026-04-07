@@ -649,13 +649,135 @@ class $UntrustDevices extends SafeOperation {
         delete safe.devices[id]
       if (Object.keys(safe.devices).length === 0)
         delete safe.devices
-      await this.db.updSafe(safe)
     }
+    await this.db.updSafe(safe)
+
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
 }
 SafeOperation.register('$UntrustDevices', () => { return new $UntrustDevices()})
+
+
+/* Creds ***************************************************************/
+type SetCred = {
+  userId: string //
+  shk: string // shaS de la clé K en base 64
+  credid: string // id du credential
+  comment: string // comment crypté par K et en base 64
+  cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
+}
+
+class $CreateCred extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const sc = this.args['setCred'] as SetCred
+    const safe = await this.getSafe(sc)
+    if (!safe) return
+    this.cleanInvits(safe)
+
+    if (!safe.creds) safe.creds = {}
+    const x = [sc.comment, sc.cred]
+    safe.creds[sc.credid] = x
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$CreateCred', () => { return new $CreateCred()})
+
+class $UpdateCredComment extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const sc = this.args['setCred'] as SetCred
+    const safe = await this.getSafe(sc)
+    if (!safe) return
+    this.cleanInvits(safe)
+
+    if (safe.creds) {
+      const x = safe.creds[sc.credid]
+      if (x) {
+        x[0] = sc.comment
+        safe.creds[sc.credid] = x
+      }
+    }
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$UpdateCredComment', () => { return new $UpdateCredComment()})
+
+type RevokeCreds = {
+  userId: string
+  shk: string
+  ids: string[] 
+}
+
+class $AutoRevokeCreds extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const rc = this.args['revokeCreds'] as RevokeCreds
+    const safe = await this.getSafe(rc)
+
+    if (!safe) return
+    this.cleanInvits(safe)
+
+    if (safe.creds) {
+      for(const id of rc.ids) delete safe.creds[id]
+      if (Object.keys(safe.creds).length === 0)
+        delete safe.creds
+    }
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$AutoRevokeCreds', () => { return new $AutoRevokeCreds()})
+/****************************************************************/
+
+/* Profiles *****************************************************/
+type SetProfiles = {
+  app: string
+  userId: string
+  shk: string
+  profiles: Object | null // clé: profId, valeur: Objet Profile sérialisé crypté
+  delprofs: string[] // liste des profIds à supprimer
+}
+class $UpdateProfiles extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const sp = this.args['setProfiles'] as SetProfiles
+    const safe = await this.getSafe(sp)
+    if (!safe) return
+    this.cleanInvits(safe)
+
+    if (!safe.profiles) safe.profiles = {}
+
+    let appp = safe.profiles[sp.app]
+    if (!appp) { appp = {}; safe.profiles[sp.app] = appp }
+    for(const profId in sp.profiles)
+      appp[profId] = sp.profiles[profId]
+    for(const profId of sp.delprofs)
+      delete appp[profId]
+    if (Object.keys(safe.profiles[sp.app]).length === 0)
+      delete safe.profiles[sp.app]
+    if (Object.keys(safe.profiles).length === 0)
+      delete safe.profiles
+
+    await this.db.updSafe(safe)
+    this.setRes('status', 0)
+    this.setRes('safe', safe)
+  }
+}
+SafeOperation.register('$UpdateProfiles', () => { return new $UpdateProfiles()})
 
 type SetAboutProfile = {
   app: string
@@ -664,9 +786,7 @@ type SetAboutProfile = {
   profId: string
   about: Uint8Array
 }
-
-/* Sauvegarde de la maj de l'about du profil
-ou crée un profil avec about et creds vide s'il n'existait pas */
+/* Maj de l'about d'un profil */
 class $SetAboutProfile extends SafeOperation {
   constructor () { super() }
 
@@ -680,63 +800,17 @@ class $SetAboutProfile extends SafeOperation {
       const prf = decode(Util.b64ToU8(safe.profiles[ab.app][ab.profId]))
       prf['about'] = ab.about
       safe.profiles[ab.app][ab.profId] = Util.u8ToB64(encode(prf))
-      await this.db.updSafe(safe)
     }
+    await this.db.updSafe(safe)
+
     this.setRes('status', 0)
     this.setRes('safe', safe)
   }
 }
 SafeOperation.register('$SetAboutProfile', () => { return new $SetAboutProfile()})
+/***********************************************************************/
 
-type UpdateCreds = {
-  app: string
-  userId: string
-  shk: Uint8Array
-  creds: Object // clé: xid, valeur: Objet Credential sérialisé crypté
-  delcreds: string[] // liste des xid à supprimer
-  profiles: Object // clé: profId, valeur: Objet Profile sérialisé crypté
-  delprofs: string[] // liste des profIds à supprimer
-  nosafe: boolean // ne pas retourner le safe mis à jour
-}
-
-/* Mise à jour des credentials et profiles */
-class $UpdateCreds extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> {
-    const uc = this.args['updateCreds'] as UpdateCreds
-    const safe = await this.getSafe(uc)
-    if (!safe) return
-    this.cleanInvits(safe)
-
-    if (!safe.profiles) safe.profiles = {}
-    if (!safe.creds) safe.creds = {}
-
-    let appp = safe.profiles[uc.app]
-    if (!appp) { appp = {}; safe.profiles[uc.app] = appp }
-    for(const profId in uc.profiles)
-      appp[profId] = uc.profiles[profId]
-    for(const profId of uc.delprofs)
-      delete appp[profId]
-    if (Object.keys(safe.profiles[uc.app]).length === 0)
-      delete safe.profiles[uc.app]
-    if (Object.keys(safe.profiles).length === 0)
-      delete safe.profiles
-
-    for(const xid in uc.creds)
-      safe.creds[xid] = uc.creds[xid]
-    for(const xid of uc.delcreds)
-      delete safe.creds[xid]
-    if (Object.keys(safe.creds).length === 0)
-      delete safe.creds
-
-    await this.db.updSafe(safe)
-    this.setRes('status', 0)
-    if (!uc.nosafe) this.setRes('safe', safe)
-  }
-}
-SafeOperation.register('$UpdateCreds', () => { return new $UpdateCreds()})
-
+/* Prefs ***************************************************************/
 type UpdatePrefs = {
   app: string
   userId: string
@@ -773,6 +847,7 @@ class $UpdatePrefs extends SafeOperation {
   }
 }
 SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
+/*****************************************************************************/
 
 type AddInvit = {
   userId: string
@@ -831,6 +906,7 @@ class $StatusInvit extends SafeOperation {
 }
 SafeOperation.register('$StatusInvit', () => { return new $StatusInvit()})
 
+/*
 type TransmitCred = {
   targetId: string // id ou p0 ou r0 du destinataire du credential
   credid: string // id du credential
@@ -838,12 +914,7 @@ type TransmitCred = {
     // pubC: string // clé publique (PEM) de cryptage de l'émetteur
     // cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
 }
-/* Tranmission d'un credential par user A "attributeur" à un user U "target"
-- target est donné par son id, l'un de ses pseudos p0 ou r0 ou son contact
-- la clé publique de cryptage de l'émetteur est donnée dans pubC
-- l'objet credential a été sérialisé puis crypté par la clé AES obtenue depuis
-la clé privée de l'émetteur et la clé publique du destinataire target
-*/
+
 class $TransmitCred extends SafeOperation {
   constructor () { super() }
 
@@ -868,36 +939,8 @@ class $TransmitCred extends SafeOperation {
   }
 }
 SafeOperation.register('$TransmitCred', () => { return new $TransmitCred()})
+*/
 
-type RevokeCreds = {
-  userId: string
-  shk: string
-  ids: string[] 
-}
-class $AutoRevokeCreds extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> {
-    const rc = this.args['revokeCreds'] as RevokeCreds
-    const safe = await this.getSafe(rc)
-
-    if (!safe) {
-      this.setRes('status', 1)
-      return
-    }
-    this.cleanInvits(safe)
-
-    if (safe.creds) {
-      for(const id of rc.ids) delete safe.creds[id]
-      if (Object.keys(safe.creds).length === 0)
-        delete safe.creds
-    }
-
-    await this.db.updSafe(safe)
-    this.setRes('status', 0)
-  }
-}
-SafeOperation.register('$AutoRevokeCreds', () => { return new $AutoRevokeCreds()})
 
 /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
 - id, hp0, hr0 : id et accès externe 
@@ -938,8 +981,7 @@ class $GetPublicKeys extends SafeOperation {
 }
 SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})
 
-/* Suppression d'un safe - auth "forte" requise
-*/
+/* Suppression d'un safe - auth "forte" requise */
 class $DelSafe extends SafeOperation {
   constructor () { super() }
 
