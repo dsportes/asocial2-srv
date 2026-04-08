@@ -17,7 +17,7 @@ export type changedColl = {
 export class Document {
   _clazz: string
   _status?: DocStatus
-  _before?: Object
+  _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
   v: number
   release: number // numéro de release de la structure de l'objet
@@ -120,7 +120,13 @@ export class Document {
     }
     for (const [key, value] of Object.entries(data)) doc[key] = value
     if (doc.compile) doc.compile()
-    doc._before = doc._status === DocStatus.NEW ? null : doc.docType.extractColls(doc)
+    /* _before: Map: traçant les collections
+      - clé: nom de la collection
+      - valeur: valeur de la propriété clé de la collection dans le document 
+        AVANT mise à jour éventuelle de cette valeur
+    */
+   if (doc._status === DocStatus.NEW && doc.docType.hasColls)
+      doc._before = doc.docType.extractColls(doc)
     return doc
   }
 

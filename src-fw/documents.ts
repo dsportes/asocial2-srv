@@ -161,7 +161,7 @@ export class Credential extends Document {
   org: string
   docId: string
   time: number
-  pemv: string
+  pubv: string
   limit: number
   cond: Object
 

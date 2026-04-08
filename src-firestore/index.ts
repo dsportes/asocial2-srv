@@ -485,18 +485,17 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   - org: code l'organisation - 'demo'
   - colName: nom de la propriété de sous-collection - 'auteurs'
   - pk: identifiant du document "quitté"
-  - row APP: { v, col, pk }
+  - pk, v, col
   Path: Org/demo/Article@auteurs/a5@Hugo
   Hugo a quitté la propriété auteurs du document a5 de classe Article 
   row DB: { v, col, ttl }
   */
-  writeRowQ (clazz: string, colName: string, row: rowQ) : void {
-    const r : rowQ = { 
-      col: row.col, 
-      v: row.v,
-      ttl: new Timestamp(Math.floor(row.v / 1000) + zombiLapse, 0)
+  writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void {
+    const r : rowQ = {
+      col, v,
+      ttl: new Timestamp(Math.floor(v / 1000) + zombiLapse, 0)
     }
-    this.setUpd(updType.SET, this.docRefQ(clazz, colName, row.pk || '', row.col), r)
+    this.setUpd(updType.SET, this.docRefQ(clazz, colName, pk, col), r)
   }
 
   /* Retourne les data sérialisés de tous les rows de la classe indiquée:

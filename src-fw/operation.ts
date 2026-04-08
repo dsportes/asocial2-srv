@@ -385,7 +385,7 @@ export class AuthRecord {
       let ok = false
       if (cred) {
         if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', cred.pk)
-        else ok = await Crypt.verify(keyFromB64(cred.pemv), sign, this.challenge)
+        else ok = await Crypt.verify(keyFromB64(cred.pubv), sign, this.challenge)
       }
       if (ok) this.roles.set(ref, cred)
       else this.koRoles.add(ref)
@@ -654,57 +654,62 @@ export class Cache {
         }
         else this.db.deleteRow(dd.clazz, dd.pk)
       }
-      if (doc.docType.sync) this.manageRowQ(dd, doc, row, is)
+      if (doc.docType.sync && doc.docType.colls) 
+        this.manageColls(dd, doc, row, is)
     }
   }
 
-  manageRowQ (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
-    if (doc.docType.colls) for (const [n, collection] of doc.docType.colls) {
-      const b = doc._before ? doc._before[n] : null
+  /* Traitement des collections créées / modifiées / supprimées:
+    - inscription dans impactedSubs
+    - création des rowQ : trace des disparitions des collections "mutables"
+  */
+  manageColls (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
+    for (const [n, collection] of doc.docType.colls) {
+    
+      // b, a : valeurs de la propriété clé de la collection n AVANT / APRES mise à jour éventuelle
+
+      // Si null, la propriété n'avait pas de valeur AVANT
+      const b = doc._before ? doc._before.get(n) : null
       if (b) is.setColl(n, b)
-      if (doc._status === DocStatus.DEL) {
-        if (b) { // le ou les termes "before" quittent le document
-          if (collection.list) for (const x of b) {
-            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
-          } else {
-            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: b[0] })
-          }
-        }
-      } else {
-        const a = doc.collValue(n)
-        is.setColl(n, a)
-        const bs : Set<string> = collection.list && b ? new Set(b) : null
-        const as : Set<string> = collection.list ? new Set(a) : null
-        if (doc._status === DocStatus.UPD) {
-          // Tous le ou les termes "before" qui y étaient AVANT et ne le sont plus MAINTENANT quittent le document
-          if (collection.list) {
-            if (bs) for (const x of bs) {
-              if (!as.has(x))
-                this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
-            }
-          } else if (a[0] !== b[0]) 
-            this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: b[0] })
-        }
-        // Tous les nouveaux sont ajoutés
-        if (collection.list) {
-          for (const x of as) {
-            if (!bs || !bs.has(x))
-              this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: x })
-          }
-        } else if (!b || (a[0] !== b[0]))
-          this.db.writeRowQ(dd.clazz, n, { v: row.v, pk: row.pk, ttl: row.ttl, col: a[0] })
+
+      // Si null, la propriété n'a pas de valeur APRES
+      const a = doc._status !== DocStatus.DEL ? doc.collValue(n) : null
+      is.setColl(n, a)
+      
+      if (!collection.mutable) continue
+      if (doc._status === DocStatus.NEW) continue
+
+      // Inscription dans les rowQ : seulement pour les mutables ayant changé (pouvant avoir quitté)
+      // Ceux qui n'étaient pas AVANT n'ont pas à être inscrit en rowQ
+      if (!b) continue
+
+      if (doc._status === DocStatus.DEL) { // le ou les termes "before" quittent le document
+        if (collection.list) for (const x of b) this.db.writeRowQ(dd.clazz, n, row.pk, row.v, x)
+        else this.db.writeRowQ(dd.clazz, n, row.pk, row.v, b[0])
+        continue
       }
+
+      // Il y avait une valeur AVANT (b existe): diffère-t-elle de celle APRES ?
+      // Tous les termes "before" qui y étaient AVANT 
+      // et ne le sont plus MAINTENANT quittent le document
+      if (collection.list) {
+        const as = a ? new Set(a) : new Set()
+        for (const x of b) 
+          if (!as.has(x))
+            this.db.writeRowQ(dd.clazz, n, row.pk, row.v, x)
+      } else if (a && (a[0] !== b[0])) 
+        this.db.writeRowQ(dd.clazz, n, row.pk, row.v, b[0])
     }
   }
 } 
 
 /* Contient la liste des documents créés / mis à jour / supprimés d'une opération
 afin que le publisher rechercher les souscriptions correspondantes à notifier.
-Voir manageRowQ() ci-dessus.
+Voir manageColls() ci-dessus.
 Map : 
-- key: clazz/pk - identifiant du document
+- key: clazz/pk - identifiant du document impacté
 - value: ImpactedSub { clazz, pk, colls }
-  - colls:  Map: 
+  - colls:  Map de ses collections impactées (s'il en a)
     - key: nom collection (colName) 
     - value: colValues 
 */
@@ -732,8 +737,7 @@ export class ImpactedSub {
   pk: string // du document 
   colls: Map<string, Set<string>> 
   /* key: nom de la collection (colName)
-    value: colValues - set des valeurs impactées par le document
-      ajoutées et retirées
+    value: colValues - set des valeurs impactées (ajoutées et retirées)
   */
 
   constructor (clazz: string, pk: string) {

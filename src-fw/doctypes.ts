@@ -118,13 +118,18 @@ export class DocType {
     }
   }
 
-  extractColls (src: Object) : Object {
-    const t = {}
-    if (this.hasColls) this.colls.forEach((v, k) => {
-      const x = this.getCollId(src, k)
-      if (x) t[k] = x
-    })
-    return t
+  /* Map: traçant les collections
+    - clé: nom de la collection
+    - valeur: valeur de la propriété clé de la collection dans le document 
+  */
+  extractColls (src: Object) : Map<string, string[]> {
+    const m = new Map()
+    if (this.hasColls) return m
+    for(const [colName, ] of this.colls) {
+      const val = this.getCollId(src, colName)
+      if (val) m.set(colName, val)
+    }
+    return m
   }
 
   readonly n: number

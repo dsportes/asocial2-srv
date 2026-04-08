@@ -54,7 +54,7 @@ new DocType(
     ['auteurs', { key: ['autid'], mutable: true, list: true }]
   ]), // collections
   new Map<string, idx>([
-    ['volume',  { type: propType.FLOAT, global: true }]
+    ['volume',  { type: propType.FLOAT }]
   ]) // index 
 )
 

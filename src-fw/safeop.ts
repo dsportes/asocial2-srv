@@ -272,8 +272,9 @@ class $GetPubKeys extends SafeOperation {
     const status = !obj || !obj[0] || !obj[1] ? 1 : 0 
     this.setRes('status', status )
     if (status === 0) {
-      this.setRes('pemC', obj[0])
-      this.setRes('pemV', obj[1])
+      this.setRes('userId', userId)
+      this.setRes('pubC', obj[0])
+      this.setRes('pubV', obj[1])
     }
   }
 }
@@ -289,9 +290,9 @@ class $SetPubKeys extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
-    const pemC = this.args['pemC'] as string
-    const pemV = this.args['pemV'] as string
-    await SafeCache.set(this, safeTable.PEMS, userId, [pemC, pemV])
+    const pubC = this.args['pubC'] as string
+    const pubV = this.args['pubV'] as string
+    await SafeCache.set(this, safeTable.PEMS, userId, [pubC, pubV])
   }
 }
 SafeOperation.register('$SetPubKeys', () => { return new $SetPubKeys()})
@@ -851,11 +852,13 @@ SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
 
 type AddInvit = {
   userId: string
-  shk: string
   invitId: string
   status: number
   time: number
   invit: string // Objet invit sérialisé crypté en base64
+  shk?: string // Cas d'une création pour U par U
+  pubC ?: string // Cas d'une création pour U par X
+    //  invit est à décrypter par le couple U/X (et non keyK)
 }
 
 class $AddInvit extends SafeOperation {
@@ -863,12 +866,22 @@ class $AddInvit extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
-    const safe = await this.getSafe(inv)
+    let safe 
+    if (inv.shk) safe = await this.getSafe(inv)
+    else {
+      if (inv.pubC) {
+        const [m, s] = await this.db.getSafe(inv.userId)
+        if (s) safe = s
+      }
+      if (!safe) this.setRes('status', 3)
+    }
     if (!safe) return
 
     if (!safe.invits) safe.invits = {}
 
-    safe.invits[inv.invitId] = { status: inv.status, time: inv.time, invit: inv.invit }
+    const x = { status: inv.status, time: inv.time, invit: inv.invit }
+    if (inv.pubC) x['pubC'] = inv.pubC
+    safe.invits[inv.invitId] = x
     this.cleanInvits(safe)
 
     await this.db.updSafe(safe)

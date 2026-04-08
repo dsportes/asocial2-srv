@@ -4,7 +4,7 @@ import Database from 'better-sqlite3'
 import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, zombiLapse, srvStatus, filter, expList, expListQ, 
+import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, safeTable} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { AppExc } from '../src-fw/index'
@@ -105,7 +105,9 @@ export class SQLiteConnector extends DbConnector {
       if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t5(cl, n))
       if (dt.hasIndexes) for (const [n, x] of dt.indexes) l.push(t5(cl, n))
 
-      if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t6(cl, n))
+      if (dt.hasColls) 
+        for (const [n, c] of dt.colls) 
+          if (c.mutable) l.push(t6(cl, n))
     }
     const t = l.join('\n')
     writeFileSync(path.resolve(schemaPath), Buffer.from(t, 'utf8'))
@@ -575,8 +577,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if (!mark) mark = '1'
     const rows: rowQ[] = []
     const ttl = Math.floor(this.op.now / 60000)
-    const stmt = this.sql.prepare('SELECT * FROM "' + clazz.toUpperCase() + '@' + colName +
-     '" WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
+    const stmt = this.sql.prepare('SELECT * FROM "' + 
+      clazz.toUpperCase() + '@' + colName +
+      '" WHERE org = @org AND pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
     const docs = stmt.all({ org: this.org, mark, ttl, limit }) as rowQ[]
     for (let doc of docs) {
       n++
@@ -595,7 +598,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async importRowsQ (clazz: string, colName: string, rows: rowQ[]) : Promise<void> {
     for(const row of rows)
-      await this.writeRowQ (clazz, colName, row)
+      this.writeRowQ (clazz, colName, row.pk, row.v, row.col)
   }
 
   writeRow (ut: updType, clazz: string, row: row) : void {
@@ -612,15 +615,18 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ org: this.org, pk })
   }
 
-  writeRowQ (clazz: string, colName: string, row: rowQ) : void {
-    const stmt = this.sql.prepare('INSERT INTO "' + clazz.toUpperCase() + '@' + colName +
+  writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void {
+    const stmt = this.sql.prepare('INSERT INTO "' + 
+      clazz.toUpperCase() + '@' + colName +
       '" (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
       'v = excluded.v, col = excluded.col, ttl = excluded.ttl;')
-    const r = { ...row }
-    r['org'] = this.org
-    r.ttl = Math.floor(row.v / 60000) + Math.floor(zombiLapse / 60)
-    stmt.run(r)
+    const x = { 
+      pk, v, col, 
+      org: this.org,
+      ttl: Math.floor(v / 60000) + Math.floor(zombiLapse / 60)
+    }
+    stmt.run(x)
   }
 
   /* Retourne les data sérialisés de tous les rows de la classe indiquée:
@@ -664,27 +670,31 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const m: Map<string, vdata> = new Map<string, vdata>()
     const datas: Uint8Array[] = []
 
-    let stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase()
-      + ' WHERE org = @org AND ' 
-      + (isList ? ('instr(' + colName + ', @col') : (colName + ' = @col') )
-      + (!vs ? ';' : ' AND v > @vs ;'))
-    let docs = stmt.all({org: this.org, vs : vs || 0, col })
+    let stmt = this.sql.prepare('SELECT * FROM ' + 
+      clazz.toUpperCase() +
+      ' WHERE org = @org AND ' +
+      (isList ? ('instr(' + colName + ', @col') : (colName + ' = @col') ) +
+      (!vs ? ';' : ' AND v > @vs ;'))
+    const docs = stmt.all({org: this.org, vs : vs || 0, col })
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
       if (!vs) {
         if (!row.deleted) datas.push(row.data)
-      } else if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
+      } else {
+        if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
+      }
     }
     if (!vs) return datas
 
     const ttl = Math.round(this.op.now / 60000)
-    stmt = this.sql.prepare('SELECT pk, v FROM ' + clazz.toUpperCase() + '@' + colName
-      + ' WHERE org = @org AND col = @col AND v > @vs AND ttl > @ttl;')
-    docs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
-    for (let doc of docs) {
-      if (doc.ttl * 60000 > this.op.now) {
-        const v = doc.v
-        const pk = doc.pk
+    stmt = this.sql.prepare('SELECT pk, v FROM ' + 
+      clazz.toUpperCase() + '@' + colName +
+      ' WHERE org = @org AND col = @col AND v > @vs AND ttl > @ttl;')
+    const rowqs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
+    for (const rowq of rowqs) {
+      if (rowq.ttl * 60000 > this.op.now) {
+        const v = rowq.v
+        const pk = rowq.pk
         const vd = m.get(pk)
         if (!vd || (v > vd.v)) {
           const r = await this.oneRow(clazz, pk, vs)

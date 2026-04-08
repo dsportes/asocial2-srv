@@ -384,7 +384,6 @@ class Sync extends Operation {
 Operation.register('Sync', () => { return new Sync()})
 
 /* GrantNewManager positionne la date de fin d'un Credential "manager" sous admin
-*/
 class GrantNewManager extends Operation {
   constructor () { super() }
 
@@ -410,6 +409,7 @@ class GrantNewManager extends Operation {
   phase3 : null
 }
 Operation.register('GrantNewManager', () => { return new GrantNewManager()})
+*/
 
 type RevokeReq = {
   userId: string
@@ -511,13 +511,18 @@ par l'application elle-même.
 class InvitCreate extends Operation {
   constructor () { super() }
 
+  _obj: any
+
   init () {
     super.init()
+    this._obj = this.args['invObj']
   }
 
   async phase2 () {
-    const inv: Invitation = this.cache.newDoc('Invitation', this.args['invObj']) as Invitation
-    console.log('OK CreateInvit')
+    if (this._obj.major === 'Org.manager')
+      this.requireAdmin()
+    this.cache.newDoc('Invitation', this._obj) as Invitation
+    // console.log('OK CreateInvit')
   }
 
   phase3 : null

@@ -226,12 +226,12 @@ export interface IDbGeneric {
   partie de la collection clazz/col à partir de v.
   - clazz: classe du document - 'Article'
   - org: code l'organisation - 'demo'
-  - colName: nom de la propriété de sous-collection 
-  - row APP: { v, col, pk }
+  - colName: nom de la propriété de sous-collection -'auteurs' 
+  - pk, v, col (valeur de la propriété: 'Zola')
   Path: Org/demo/Article@auteurs/a5@Hugo
   row DB: { v, col, ttl }
   */
-  writeRowQ (clazz: string, colName: string, row: rowQ) : void
+  writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void
 
   /* Retourne tous les rows de la classe indiquée:
   - si v = 0: tous ceux existant réellement à l'instant t.
@@ -257,7 +257,6 @@ export interface IDbGeneric {
   */
   getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
     : Promise<Uint8Array[]>
-
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.

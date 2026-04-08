@@ -501,7 +501,7 @@ export class MasterDir {
     if (e) return e
     const ret = await MasterDir.post('$GetPubKeys', { userId })
     if (ret['status'] === 0) {
-      const e: [string, string] = [ret['pemC'], ret['pemV']]
+      const e: [string, string] = [ret['pubC'], ret['pubV']]
       MasterDir.keys.set(userId, e)
       return e
     }
