@@ -11,7 +11,7 @@ import { Log } from './log'
 import { config } from './config'
 import { Operation } from './operation'
 import { register } from './operations'
-import { SafeOperation } from './safeop'
+import { SafeOperation, CVO } from './safeop'
 import { Util } from './util'
 
 import { DbConnector } from './dbConnector'
@@ -27,14 +27,21 @@ export function init () {
   webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 }
 
+/* Configuration des organisations *****************************************
+- depuis le SINGLETON 'orgs': { org1:[db1, st1], org2:[db1, st2], ...}
+- une configuration courante 'current' : remplacement atomique (global)
+- rechargement périodique
+- évite les rechargements simultannés
+*/
 export class OrgsConfig {
-  static updating: boolean = false
-  static current: OrgsConfig = null
-  static lastLoading: number = 0
+  static current: OrgsConfig = null // configuration courante
 
-  orgs : Map<string, [string, string]>
-  dbs : Map<string, Set<string>>
-  storages : Map<string, Set<string>>
+  static updating: boolean = false // verrou de chargement en cours
+  static lastLoading: number = 0 // date-heure de la configuartion courante
+
+  orgs : Map<string, [string, string]> // Map par org => [db, storage]
+  dbs : Map<string, Set<string>> // Map par db => Set des orgs
+  storages : Map<string, Set<string>> // Map par storage => Set des orgs
 
   constructor (x: Object) { // { org1:[db1, st1], ...}
     this.orgs = new Map<string, [string, string]>()
@@ -50,12 +57,14 @@ export class OrgsConfig {
     }
   }
 
-  static getDbSt (org: string) {
+  // Retourne le couple db, storage d'une organisation
+  static getDbSt (org: string) : [string, string] {
     OrgsConfig.reload()
     const c = OrgsConfig.current
     return !c ? null : c.orgs.get(org)
   }
 
+  // Rechargement périodique de la configuration des organisations
   static reload () {
     if (OrgsConfig.updating) return
     if (Date.now() - OrgsConfig.lastLoading < 300000) return
@@ -63,6 +72,7 @@ export class OrgsConfig {
     setTimeout(OrgsConfig.doReload, 50)
   }
 
+  // Sauvegarde la configuration d'une organisation
   static async save (op: Operation, org: string, db: string, st: string) {
     const val = await op.db.getSingleton('orgs') as string
     const x = val ? JSON.parse(val) : {}
@@ -76,6 +86,10 @@ export class OrgsConfig {
     await op.db.setSingleton('orgs', nval)
   }
 
+  /* Rechargement de la configuration
+  En cas d'échec, relance 1 minute plus tard
+  Si 'init' est spécifié, pas de relance mais retourne false
+  */
   static async doReload (init?: boolean) : Promise<boolean> {
     const op = new Operation()
     op.now = Date.now()
@@ -89,18 +103,18 @@ export class OrgsConfig {
       OrgsConfig.current = oc
       OrgsConfig.updating = false
       OrgsConfig.lastLoading = Date.now()
-      if (config.debugLevel > 0) 
-        Log.debug('Reloading orgs config OK')
-      return true
+      if (config.debugLevel > 0) Log.debug('Reloading orgs config OK')
+        return true
     } catch (e) {
       if (op && op.db) op.db.disconnect()
       Log.error('Reloading orgs config KO: ' + e.toString())
       if (!init) setTimeout(OrgsConfig.doReload, 60000)
-      return false 
+      return false
     }
   }
 
-  static getDbConnector (org: string) : DbConnector {
+  // Retourne le DbConnector à la base configurée pour l'organisation org
+  static getDbConnector (org: string) : DbConnector | null {
     OrgsConfig.reload()
     const c = OrgsConfig.current
     if (!c) return null
@@ -109,7 +123,8 @@ export class OrgsConfig {
     return config.databases.get(e[0]) || null
   }
 
-  static getStorage (org: string) : IStGeneric {
+  // Retourne le Storage configuré pour l'organisation org
+  static getStorage (org: string) : IStGeneric | null {
     OrgsConfig.reload()
     const c = OrgsConfig.current
     if (!c) return null
@@ -118,7 +133,9 @@ export class OrgsConfig {
     return config.storages.get(e[1]) || null
   }
 }
+/**********************************************************************/
 
+/** ExpressApp ********************************************************/
 export function getExpressApp (): express.Application {
   const app = express()
   app.use(cors({}))
@@ -200,7 +217,7 @@ export function getExpressApp (): express.Application {
     }
   })
 
-  //**** appels des opérations ****
+  /* Appels des opérations *************************************************/
   app.use('/op/:org/:operation', async (req, res) => {
     let storage, dbConnector
     if (req.params.operation.endsWith('$')) {
@@ -222,7 +239,7 @@ export function getExpressApp (): express.Application {
       await doOp(storage, dbConnector, req, res, req['rawBody'])
   })
 
-  //**** appels des opérations du module safe****
+  /* Appels des opérations sur le SAFE store *****************************/
   app.use('/safe/:operation', async (req, res) => {
     let result: Object
     const opName = req.params.operation as string
@@ -270,7 +287,8 @@ function ExcOp (exc: any, opName: string, res: any) {
   res.status(st).type('application/octet-stream').send(b)
 }
 
-export function startSRV (app : any) : Promise<void>{
+/* Lancement du serveur **************************************************/
+export function startSRV (app : any) : Promise<void> {
   return new Promise(async (resolve, reject) => {
     if (!await OrgsConfig.doReload(true)) reject('Cannot get orgs config')
 
@@ -303,7 +321,7 @@ export function startSRV (app : any) : Promise<void>{
   })
 }
 
-/****************************************************************/
+/* Exécution d'une opération ************************************************/
 function checkOrigin(req: express.Request, origins: Set<string>) {
   let origin = req.headers['origin']
   if (origins.has(origin)) return true
@@ -385,14 +403,10 @@ export async function doOp (
   }
 }
 
-/*****************************************************/
+/* Envoi d'une alerte d'administration **************************************/
 interface admin_alerts { url: string, pwd: string, to: string }
 
-export async function adminAlert (
-    op: Operation, 
-    subject: string, 
-    text: string) {
-
+export async function adminAlert ( op: Operation, subject: string, text: string) {
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
   const s = '[' + op.baseUrl + '] '  
@@ -426,17 +440,18 @@ export async function adminAlert (
   }
 }
 
-/* code
+/* Classe AppExc ********************************************************/
+export class AppExc {
+  public code: number
+  /*
   1000: erreurs fonctionnelles FW
   2000: erreurs fonctionnelles APP
   3000: asserions FW
   4000: asserions APP
   5000: asserions FW - transmises à l'administrateur
   6000: asserions APP - transmises à l'administrateur
-*/
+  */
 
-export class AppExc {
-  public code: number
   public label: string
   public opName: string
   public org: string
@@ -472,7 +487,7 @@ SINON l'url est passée en arguments afin qu'une opération puisse
 soumettre des appels au SafeStore pour le compte d'un utilisateur "cible".
 */
 export class MasterDir {
-  static keys: Map<string, [string, string]> = new Map()
+  static cvos: Map<string, CVO> = new Map()
 
   static async post (opName: string, args: Object, safeStoreUrl?: string) : Promise<Object> {
     const url = (safeStoreUrl || config.MASTERDIR) + '/safe/' + opName
@@ -496,16 +511,16 @@ export class MasterDir {
     }
   }
 
-  static async GetPubKeys (userId: string) : Promise<[string, string]> {
-    const e = MasterDir.keys.get(userId)
+  static async GetUserCVO (userId: string) : Promise<CVO | null> {
+    const e = MasterDir.cvos.get(userId)
     if (e) return e
-    const ret = await MasterDir.post('$GetPubKeys', { userId })
-    if (ret['status'] === 0) {
-      const e: [string, string] = [ret['pubC'], ret['pubV']]
-      MasterDir.keys.set(userId, e)
-      return e
+    const ret = await MasterDir.post('$GetUserCVO', { userId })
+    const cvo = ret['cvo']
+    if (cvo) {
+      MasterDir.cvos.set(userId, cvo)
+      return cvo
     }
-    return ['', '']
+    return null
   }
 
 }

@@ -3,9 +3,9 @@ import { Operation } from './operation'
 
 /* Interface des services d'accès génériques à la DB */
 export enum safeTable { 
-  PEMS = 'SAFEPEMS',
-  URLS = 'SAFEURLS',
-  ORGS = 'SAFEORGS'
+  ORGS = 'ZZORGS',
+  USERS = 'ZZUSERS',
+  SVCOPS = 'ZZSVCOPS'
 }
 
 export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
