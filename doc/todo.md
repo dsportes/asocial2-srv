@@ -1,5 +1,5 @@
 # Safe
-Testé OK
+Gestion des invitations en cours (app, service OK ?)
 
 - Gérer la mise à jour du volume des sessions par l'application.
 - Gérer dans l'application l'arrivée d'une mise à jour de credential.
@@ -15,15 +15,11 @@ GetLock : hors transaction.
 
 Non régression de v pour un document à gérer.
 
-Sous-collection sur propriétés immuables: ne pas gérer de rowQ.
-
 Export Db: fait ? à vérifier
 
 Export FS
 
 Operation sync colls: fait ? à vérifier 
-
-AuthRecord
 
 Tasks
 
