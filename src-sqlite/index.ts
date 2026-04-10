@@ -435,7 +435,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Transforme un row APP en row DB
-  - calcul du TTL éventuel selon deleted et maxLife / now
+  - calcul du TTL (EPOCH en MINUTES) éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
   - transforme les propriétés "list" en string avec séparateur $
     pour recherche instr de SQL
@@ -451,7 +451,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         row[p] = a && a.length ? ('$' + a.join('$')) : ''
       })
       if (row.maxLife) {
-        if (row.maxLife > this.op.now)
+        if (row.maxLife * 60000 > this.op.now)
           row.ttl = row.maxLife
         delete row.maxLife
       }

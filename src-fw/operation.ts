@@ -1,4 +1,4 @@
-import { AppExc, MasterDir } from './index'
+import { AppExc } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
@@ -10,8 +10,9 @@ import { Credential } from './documents'
 import { Org } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
-import { Crypt, fromPem, keyToB64, keyFromB64 } from './crypt'
-import { encode, decode } from '@msgpack/msgpack'
+import { Crypt, keyFromB64 } from './crypt'
+import { decode } from '@msgpack/msgpack'
+import { SafeOperation, ICVO } from './safeop'
 
 const encoder = new TextEncoder()
 
@@ -368,9 +369,9 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const cvo = await MasterDir.GetUserCVO(this.userId)
-    if (!cvo) throw new AppExc(2005, 'no user cvo', this.op)
-    const ok = await Crypt.verify(keyFromB64(cvo.v), this.userSign, this.challenge)
+    const icvo: ICVO = await SafeOperation.userICVO(this.op, this.userId)
+    if (!icvo) throw new AppExc(2005, 'no user icvo', this.op)
+    const ok = await Crypt.verify(keyFromB64(icvo.v), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)
     
     for (const ref in this.signatures) {
@@ -564,7 +565,7 @@ export class Cache {
   /* Retourne ou lit de la base le Document cité par src:
   - src : objet contenant les proipriétés de la pk
   */
-  async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document> {
+  async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document | null> {
     const pk = DocType.getPk(clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
@@ -576,7 +577,7 @@ export class Cache {
     }
     dd.init()
     this.docs.set(k, dd)
-    return dd.doc
+    return dd.doc as Document
   }
 
   /* Met en cache un row issu de la lecture en mode "report" de la DB.

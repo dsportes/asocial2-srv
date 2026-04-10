@@ -6,11 +6,10 @@ import { AppExc, OrgsConfig } from './index'
 // import { Log } from './log'
 import { Crypt } from './crypt'
 import { config } from './config'
-import { Subs, subscription, SubsItem, Credential, Org, Invitation } from './documents'
+import { Subs, subscription, SubsItem, Credential, Org, InvitationA } from './documents'
+import { Invitation } from '../src/documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
-import { MasterDir } from './index'
-import { StatusInvit } from './safeop'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
@@ -501,34 +500,6 @@ class ListUserCreds extends Operation {
 }
 Operation.register('ListUserCreds', () => { return new ListUserCreds()})
 
-/* CreateInvit: création d'une invitation.
-Enregistrement en base seulement.
-- org
-- invObj
-L'enregistrement dans le SafeStore du user U a été faite
-par l'application elle-même.
-*/
-class InvitCreate extends Operation {
-  constructor () { super() }
-
-  _obj: any
-
-  init () {
-    super.init()
-    this._obj = this.args['invObj']
-  }
-
-  async phase2 () {
-    if (this._obj.major === 'Org.manager')
-      this.requireAdmin()
-    this.cache.newDoc('Invitation', this._obj) as Invitation
-    // console.log('OK CreateInvit')
-  }
-
-  phase3 : null
-}
-Operation.register('InvitCreate', () => { return new InvitCreate()})
-
 /* InvitList liste les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
 - soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
@@ -560,7 +531,7 @@ class InvitList extends Operation {
       this.setRes('status', 2)
       return
     }
-    const lst = await Invitation.listInvits(this, this._major, this._minor)
+    const lst = await InvitationA.listInvits(this, this._major, this._minor)
     this.setRes('list', lst)
     this.setRes('status', 0)
   }
@@ -598,188 +569,216 @@ class InvitGet extends Operation {
 }
 Operation.register('InvitGet', () => { return new InvitGet()})
 
-/* InvitDC marque le status d'une invitation comme déclinée ou annulée 
-Le demandeur doit être l'utilisateur ayant demandé l'invitation
-et en status 2.
+/* CreateInvit: création d'une invitation. Enregistrement en base seulement.
+- invObj
+L'enregistrement dans le SafeStore du user U a été faite par l'application avant cette opération.
 */
-class InvitDC extends Operation {
+class InvitCreate extends Operation {
+  constructor () { super() }
+
+  _invObj: any
+
+  init () {
+    super.init()
+    this._invObj = this.args['invObj']
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    let invit = await this.cache.getDoc('Invitation', this._invObj) as Invitation
+    if (!invit) {
+      invit = this.cache.newDoc('Invitation', this._invObj) as Invitation
+      if (!invit.checkSponsor(this)) s = 1
+      else {
+        s = await invit.checkEtc(this)
+        if (s === 0) invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
+      }
+      if (s !== 0) this.cache.delDoc('Invitation', invit.pk)
+    }
+  }
+
+  phase3 : null
+}
+Operation.register('InvitCreate', () => { return new InvitCreate()})
+
+/* InvitDecline marque le status d'une invitation comme déclinée ou annulée 
+Le demandeur doit être l'utilisateur ayant demandé l'invitation
+et celle-ci en status 2.
+*/
+class InvitDecline extends Operation {
   constructor () { super() }
 
   _invitId: string
-  _txtx: string
-  s: number
+  _txt: string // raison invoquée (crypté par U/S en base64)
+
+
+  init () {
+    super.init()
+    this._invitId = this.stringValue('invitId', true)
+    this._txt = this.stringValue('txt', false)
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else {
+      if (invit.userId !== this.authRecord.userId) s = 2
+      else if (invit.status !== 2) s = 3
+      else {
+        invit.txt = this._txt
+        invit.status = 6
+        invit._status = DocStatus.UPD
+      }
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('InvitDecline', () => { return new InvitDecline()})
+
+class InvitCancel extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+
+  init () {
+    super.init()
+    this._invitId = this.stringValue('invitId', true)
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else {
+      if (invit.userId !== this.authRecord.userId) s = 2
+      else if (invit.status !== 2) s = 3 
+      else {
+        invit.status = 4
+        invit._status = DocStatus.UPD
+      }
+    }
+    this.setRes('status', s)
+  }
+
+  phase3 : null
+}
+Operation.register('InvitCancel', () => { return new InvitCancel()})
+
+/* InvitAccept
+- marque le status d'une invitation en status 1.
+- enregistre "etc" les données d'acceptation utilisable à la validation par U.
+- la validité de "etc" est vérifiée spécifiquement selon l'invitation
+Le demandeur doit être a minima authentifié. 
+*/
+class InvitAccept extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+  _etc: any
+
+  init () {
+    super.init()
+    this._etc = this.objectValue('etc', true)
+    this._invitId = this.stringValue('invitId', true)
+  }
+
+  async phase2 () {
+    let s = 0
+    this.requireAuth()
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else if (invit.status !== 1) s = 2
+    else if (!invit.checkSponsor(this)) s = 3
+    else {
+      invit.etc = this._etc
+      s = await invit.checkEtc(this)
+    }
+    if (s === 0) invit._status = DocStatus.UPD
+    this.setRes('status', s)
+  }
+}
+Operation.register('InvitAccept', () => { return new InvitAccept()})
+
+/* InvitReject
+- marque le status d'une invitation en status 1 comme rejetée (3).
+*/
+class InvitReject extends Operation {
+  constructor () { super() }
+
+  _invitId: string
+  _txt: string // REJECT : justification de rejet crypté par le sponsor (clé privSP / pubU) en base64
+
   invit: Invitation
 
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
-    this._txtx = this.stringValue('txtx', false)
+    this._txt = this.stringValue('txt', true)
   }
 
   async phase2 () {
-    this.s = 0
+    let s = 0
     this.requireAuth()
-    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!this.invit) this.s = 1
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
+    else if (invit.status !== 1) s = 2
+    else if (!invit.checkSponsor(this)) s = 3
     else {
-      if (this.invit.userId !== this.authRecord.userId) this.s = 3
-      else if ((!this._txtx && this.invit.status !== 1) // cancel
-          || (this._txtx && this.invit.status !== 2)) this.s = 4 // decline
-    }
-    if (this.s === 0) {
-      this.invit.status = !this._txtx ? 6 : 5
-      if (this._txtx) this.invit.txtx = this._txtx
+      invit.txt = this._txt
       this.invit._status = DocStatus.UPD
     }
-    this.setRes('status', this.s)
+    this.setRes('status', s)
   }
 
-  async phase3 () {
-    if (this.s === 0) {
-      const statusInvit: StatusInvit = {
-        status: this.invit.status,
-        targetId: this.invit.userId,
-        invitId: this.invit.invitId
-      }
-      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
-    }
-  }
+  phase3 = null
 }
-Operation.register('InvitDC', () => { return new InvitDC()})
+Operation.register('InvitReject', () => { return new InvitReject()})
 
-export type Accept = {
-  role: string // rôle du credential associé (et classe du document associé).
-  docId: string // `docId` du credential associé (et du document associé le cas échéant).
-  cond: any // données à faire figurer en `cond` du credential.
-  etc: any // autres données nécessaires pour créer le document associé. 
-    // U n'a pas à connaître ni interpréter `etc` (_opaque_ pour lui)
-    // ne sert qu'à l'opération de création de l'objet / enregistrement du credential.
-}
-
-/* InvitAR
-- soit marque le status d'une invitation en status 1 comme rejetée (3).
-- soit enregistre les données d'acceptation utilisable à la validation par U (status 2 acceptée).
-Le demandeur doit être un sponsor habilité. 
-Logique applicative choisie ici:
-- un "manager" est toujours un sponsor valide.
-- un utilisateur qui a un credential Sponsor pour le "major" de l'invitation
-  est un sponsor valide (quelque soit le "minor").
-- un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
-  est un sponsor valide (à condition bien sur que l'invitation ait un minor).
-EN PHASE 3, le status est mis à jour dans le SafeStore du user U
-*/
-class InvitAR extends Operation {
-  constructor () { super() }
-
-  _invitId: string
-  _txti: Uint8Array // REJECT : justification de rejet crypté par le sponsor (clé privSP / pubU)
-  _accept: Accept // ACCEPT: NON null - { role, docId, cond, etc }
-  s: number // status de retour
-
-  invit: Invitation
-
-  init () {
-    super.init()
-    this._accept = this.args['accept'] as Accept
-    this._invitId = this.stringValue('invitId', true)
-    this._txti = this.binValue('txti', true)
-  }
-
-  async phase2 () {
-    this.s = 0
-    this.requireAuth()
-    // const sponsor = this.authRecord.userId
-    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!this.invit) this.s = 1
-    if (this.invit.status !== 1) this.s = 4
-    else {
-      let c: Credential = this.authRecord.getCred('Org.manager', '' ,true)
-      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major ,true)
-      if (!c) c = this.authRecord.getCred('Sponsor.', this.invit.major + '/' + this.invit.minor ,true)
-      if (!c) this.s = 2
-      else {
-        if (this._accept) {
-          this.invit.status = 2
-          this.invit.role = this._accept.role
-          this.invit.docId = this._accept.docId
-          this.invit.cond = this._accept.cond
-          this.invit.etc = this._accept.etc
-        } else {
-          this.invit.status = 3
-        }
-        this.invit.txti = this._txti
-        this.invit.pemS = this.authRecord.pemC
-        this.invit._status = DocStatus.UPD
-      }
-    }
-    this.setRes('status', this.s)
-  }
-
-  async phase3 () {
-    if (this.s === 0) {
-      const statusInvit: StatusInvit = {
-        status: this.invit.status,
-        targetId: this.invit.userId,
-        invitId: this.invit.invitId
-      }
-      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
-    }
-  }
-}
-Operation.register('InvitAR', () => { return new InvitAR()})
-
-/* InvitValidateA (abstract) marque le status d'une invitation en status 4 (acceptée). 
+/* InvitValidate marque le status d'une invitation en status 4 (acceptée). 
 Le demandeur doit être l'utilisateur.
 Le traitement conduit à une importante logique spécifique:
 - création éventuelle d'un ou plusieurs documents "de position" (compte, abonné, employé ...)
 - enregistrement d'un ou plusieurs credentials.
-Tout ceci s'effectue depuis les données role / docId / cond / etc du document invitation.
-Côté application, les credentials sont à enregistrer en Safe et des subscriptions
-sont à gérer sur le / les documents de "position".
+Tout ceci s'effectue depuis les données (dont etc) du document invitation.
+Côté application, 
+- les credentials ont déjà été enregistrés en Safe.
+- des subscriptions sont à gérer sur le / les documents de "position".
 */
-export class InvitValidateA extends Operation {
+export class InvitValidate extends Operation {
   constructor () { super() }
 
   _invitId: string
-  invit: Invitation
-  s: number
+  _validArgs: any
 
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
+    this._validArgs = this.objectValue('validArgs', true)
   }
-
-  // Méthode abstraite systématiquement surchargée
-  async doIt() { }
 
   async phase2 () {
-    this.s = 0
+    let s = 0
     this.requireAuth()
-    // const sp = this.authRecord.userId
-    this.invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!this.invit) this.s = 1
+    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
+    if (!invit) s = 1
     else {
-      if (this.invit.userId !== this.authRecord.userId) this.s = 3
-      else if (this.invit.status !== 2) this.s = 4
+      if (invit.userId !== this.authRecord.userId) s = 2
+      else if (invit.status !== 2) s = 3
       else {
         // Do the job: logique spécifique de l'application
-        await this.doIt()
-        this.invit.status = 4
-        this.invit._status = DocStatus.UPD
+        await invit.validate(this, this._validArgs)
+        invit.status = 4
+        invit._status = DocStatus.UPD
       }
     }
-    this.setRes('status', this.s)
+    this.setRes('status', s)
   }
 
-  async phase3 () {
-    if (this.s === 0) {
-      const statusInvit: StatusInvit = {
-        status: this.invit.status,
-        targetId: this.invit.userId,
-        invitId: this.invit.invitId
-      }
-      await MasterDir.post('$StatusInvit', { statusInvit }, this.invit.safeStore)
-    }
-  }
 }
-Operation.register('InvitValidateA', () => { return new InvitValidateA()})
+Operation.register('InvitValidate', () => { return new InvitValidate()})

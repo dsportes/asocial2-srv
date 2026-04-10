@@ -35,6 +35,7 @@ export interface BaseConfig {
   messaging?: any
 
   SUBSMAXLIFEINMINUTES: number[]
+  INVITMAXLIFE: number // En minutes - typiquement 10*1440
 }
 
 export let config : BaseConfig = null

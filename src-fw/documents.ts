@@ -1,11 +1,9 @@
-import { Document, DocStatus } from './document'
+import { Document } from './document'
 import { Crypt } from './crypt'
-import { filter, IDbGeneric } from './iDbGeneric'
-import { encode, decode } from '@msgpack/msgpack'
+import { filter } from './iDbGeneric'
+import { decode } from '@msgpack/msgpack'
 import { Operation } from './operation'
 import { DocType } from './doctypes'
-import { CredRequest } from './operations'
-import { config } from './config'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
@@ -213,47 +211,70 @@ export class Credential extends Document {
     return lst
   }
 
-  static idStr (svc: string, org: string, docId: string, role: string) { 
+  static idStr (svc: string, org: string, role: string, docId: string) { 
     return svc + '/' + org + '/' + role + '/' + docId || ''
   }
-  static getId (svc: string, org: string, docId: string, role: string) { 
+  static getId (svc: string, org: string, role: string, docId: string) { 
     return Crypt.shaS(encoder.encode(Credential.idStr(svc, org, role, docId)))
   }
 }
 
-export class Invitation extends Document {
-  static release = 0
+export class InvitationA extends Document {
 
-  ttl: number // ttl (en minutes)
+  maxLife: number // epoch en MINUTES
 
-  invitId: string // ID de l'invitation
-  major: string //code majeur 
-  minor: string // code mineur
-  time: number // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
-  status: number // 1: déposée, 2: validée, 3: rejetée, 4: acceptée, 5: déclinée
-  userId: string // ID de U (demandeur)
-  safeStore: string // URL du store hébergeant le safe de U (ou '' si c'est le MASTER)
-  skeyK: Uint8Array // clé symétrique générée par U, cryptée par sa clé K. Requise ou non selon le `major`.
-  pemU: string // clé publique C de U.
-  txtm: string // texte de motivation de la demande d'invitation (en clair).
-  txtx: string // quand déclinée, texte d'explication de U (en clair).
-  label: string // pour les codes `major` qui en exige un, _label_ en clair à faire figurer dans le document à créer.
-  // Données fixées par le sponsor**
-  pemS: string // clé publique du sponsor traitant l'invitation.
-  txti: string | Uint8Array // texte de réponse du sponsor, crypté par pemS / U.
-      // - si acceptation: termes explicatifs des conditions.
-      // - si rejet: justificatif textuel de rejet par le sponsor.
-  role: string // rôle du credential associé (et classe du document associé).
-  docId: string // `docId` du credential associé (et du document associé le cas échéant).
-  cond: any // données à faire figurer en `cond` du credential.
-  etc: any // autres données nécessaires pour créer le document associé. U n'a pas à connaître ni interpréter `etc` (_opaque_ pour lui) et qui ne sert qu'à l'opération de création de l'objet / enregistrement du credential.
+  // Toujours présentes, dès la création de l'invitation
+  invitId: string = '' // ID de l'invitation générée aléatoirement à sa création
+  major: string = '' //code majeur 
+  minor: string = '' // code mineur
+  time: number = 0 // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
+  status: number = 0 // traduit l'état d'avancement dans le temps SEULE PROPRIETE NON immuable
+  /*
+  - (1) : demande déposée par U,
+  - (2) : proposition faite par S,
+  - (3) : proposition validée par U,
+  - (4) : demande de U annulée par U,
+  - (5) : demande de U rejetée par S,
+  - (6) : proposition de S déclinée par U.
+  */
+  userId: string = '' // ID de U (demandeur)
+  safeStore: string = '' // de la cible / demandeur U
+  pubu: string = '' // clé publique C de cryptage de U en base64
 
-  // Reçues sur create: ['ttl', 'invitId', 'major', 'minor', 'time', 'status', 'userId', 'safeStore', 'skeyK', 'pemU', 'txtm', 'label']
+  // Dès la "demande" (pour un cycle complet seulement)
+  req ?: string // texte en clair fourni par U pour exprimer ses souhaits / exigences / motivation.
+
+  // Dès la phase "proposition" (première en cycle court et seconde en cycle complet) ou "rejet"
+  pubs ?: string // clé publique C de cryptage du sponsor en base 64
+
+  // Dès la phase "proposition" (première en cycle court et seconde en cycle complet)
+  etc ?: any // Objet contenant les données nécessaires à la validation.
+
+  txt ?: string // texte humainement lisible 
+  /*
+  - soit Phase rejet : S explicite les raisons de son refus de faire une proposition à U.
+  - soit Phase déclinaison: U explicite les raisons qui rendent les conditions (dans etc) non acceptables pour lui. 
+  - crypté par la clé AES obtenu du couple de clés `pub-U/priv-S` (ou `pub-S/pub-U`, c'est la même)
+  */
 
   static async listInvits (op: Operation, major: string, minor: string) : Promise<Uint8Array[]> {
     const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
     const crit = !minor ? 'major' : 'majorminor'
     return await op.db.getColl('Invitation', crit, val, false, 0)
+  }
+
+  /* A surcharger. Qui peut "proposer / rejeter" une invitation ? Qui est un "sponsor" possible ? */
+  checkSponsor (op: Operation) : boolean {
+    return true
+  }
+
+  /* A surcharger selon le type d'invitation. Retourne un status !== 0 si refus */
+  async checkEtc (op: Operation) : Promise<number> {
+    return 0
+  }
+
+  /* A surcharger selon le type d'invitation. */
+  async validate (op: Operation, args: any) : Promise<void> {
   }
 
 }

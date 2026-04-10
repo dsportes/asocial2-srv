@@ -11,7 +11,7 @@ import { Log } from './log'
 import { config } from './config'
 import { Operation } from './operation'
 import { register } from './operations'
-import { SafeOperation, CVO } from './safeop'
+import { SafeOperation, ICVO } from './safeop'
 import { Util } from './util'
 
 import { DbConnector } from './dbConnector'
@@ -479,48 +479,4 @@ export class AppExc {
   }
 
   toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
-}
-
-/* La méthode static "post" soumet une opération à un SafeStore.
-PAR DEFAUT c'est le MASTERDIR dont l'URL est en configuration.
-SINON l'url est passée en arguments afin qu'une opération puisse 
-soumettre des appels au SafeStore pour le compte d'un utilisateur "cible".
-*/
-export class MasterDir {
-  static cvos: Map<string, CVO> = new Map()
-
-  static async post (opName: string, args: Object, safeStoreUrl?: string) : Promise<Object> {
-    const url = (safeStoreUrl || config.MASTERDIR) + '/safe/' + opName
-    const body = new Uint8Array(encode(args))
-    try {
-      const response = await fetch(url , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/octet-stream',  // sent request
-          'Accept':       'application/octet-stream'   // expected data sent back
-        },
-        body,
-      })
-      const buf = await response.bytes()
-      const obj = decode(buf)
-      if (response.status === 200) return obj
-      throw new AppExc(3003, 'masterdir error', null, [opName, '' + response.status])
-    } catch(e) {
-      if (e instanceof AppExc) throw e
-      throw new AppExc(3003, 'masterdir error', null, [opName, e.message])
-    }
-  }
-
-  static async GetUserCVO (userId: string) : Promise<CVO | null> {
-    const e = MasterDir.cvos.get(userId)
-    if (e) return e
-    const ret = await MasterDir.post('$GetUserCVO', { userId })
-    const cvo = ret['cvo']
-    if (cvo) {
-      MasterDir.cvos.set(userId, cvo)
-      return cvo
-    }
-    return null
-  }
-
 }

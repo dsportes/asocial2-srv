@@ -14,6 +14,13 @@ type Device = {
   nbe: number
 }
 
+export type ICVO = { // Clé: userId
+  i: string // userId
+  c: string // clé publique C de cryptage en base64
+  v: string // clé publique V de vérification en base64
+  o: string // code de l'opérateur hébergeant son safe
+}
+
 /****************************************************** 
  * Pour le Safe GENERIQUE seulement 
 *******************************************************/
@@ -103,6 +110,54 @@ export class SafeOperation extends Operation {
     SafeOperation.factories.set(opName, factory)
   }
 
+  static cacheIcvo: Map<string, ICVO> = new Map()
+
+  /* Depuis l'intérieur d'une opération, soumet une opération (opName, args) de safe
+  au safe 'safeStore'*/
+  static async postToSafe (op: Operation, opName: string, args: Object, safeStore?: string)
+   : Promise<Object> {
+    let u = config.MASTERDIR
+    if (safeStore) {
+      const x = await SafeCache.get(op, safeTable.SVCOPS, 'SAFE') as Object
+      u = x ? x[safeStore] : null
+    }
+    if (!u)
+      throw new AppExc(3005, 'postToSafe error', null, [op.opName, safeStore])
+    const url = u + '/safe/' + opName
+    const body = new Uint8Array(encode(args))
+    try {
+      const response = await fetch(url , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/octet-stream',  // sent request
+          'Accept':       'application/octet-stream'   // expected data sent back
+        },
+        body,
+      })
+      const buf = await response.bytes()
+      const obj = decode(buf)
+      if (response.status === 200) return obj
+      throw new AppExc(3003, 'masterdir error', null, [op.opName, opName, '' + response.status])
+    } catch(e) {
+      if (e instanceof AppExc) throw e
+      throw new AppExc(3003, 'masterdir error', null, [op.opName, opName, e.message])
+    }
+  }
+
+  // Obtient le icvo d'un userId depuis le MASTERDIR ou un SafeStore explicitement cité
+  static async userICVO (op: Operation, userId: string, safeStore?: string) 
+    : Promise<ICVO | null> {
+    const e = SafeOperation.cacheIcvo.get(userId)
+    if (e) return e
+    const ret = await SafeOperation.postToSafe(op, '$GetUserICVO', { userId }, safeStore)
+    const icvo = ret['icvo']
+    if (icvo) {
+      SafeOperation.cacheIcvo.set(userId, icvo)
+      return icvo
+    }
+    return null
+  }
+  
   static async doOp (opName: string, args: Object) : Promise<Object> {
     const f = SafeOperation.factories.get(opName)
     if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
@@ -306,16 +361,16 @@ Opération NON gardée: suppose de n'être invoquée QUE par
 l'opération de création d'un Safe ou de changement d'opérateur de Safe.
 o est '' (pas null) si c'est le Safe Store standard.
 */
-class $SetUserCVO extends SafeOperation {
+class $SetUserICVO extends SafeOperation {
   constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
-    const cvo = this.args['cvo'] as CVO
-    await SafeCache.set(this, safeTable.USERS, userId, cvo)
+    const icvo = this.args['icvo'] as CVO
+    await SafeCache.set(this, safeTable.USERS, userId, icvo)
   }
 }
-SafeOperation.register('$SetUserCVO', () => { return new $SetUserCVO()})
+SafeOperation.register('$SetUserICVO', () => { return new $SetUserICVO()})
 
 /* Retourne l'URL d'accès à un service SVC hébergé par un opérateur $OP
 class $GetSvcOpUrl extends SafeOperation {
@@ -903,14 +958,14 @@ SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
 /*****************************************************************************/
 
 type AddInvit = {
-  userId: string
+  userId: string // Attention: userId ou pseudo 1 2 ou contact
   invitId: string
   status: number
   time: number
   invit: string // Objet invit sérialisé crypté en base64
   shk?: string // Cas d'une création pour U par U
-  pubC ?: string // Cas d'une création pour U par X
-    //  invit est à décrypter par le couple U/X (et non keyK)
+  pubC?: string // Cas d'une création pour U par X
+                // invit est à décrypter par le couple U/X (et non keyK)
 }
 
 class $AddInvit extends SafeOperation {
@@ -918,16 +973,15 @@ class $AddInvit extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
-    let safe 
-    if (inv.shk) safe = await this.getSafe(inv)
-    else {
-      if (inv.pubC) {
-        const [m, s] = await this.db.getSafe(inv.userId)
-        if (s) safe = s
-      }
-      if (!safe) this.setRes('status', 3)
+    const [m, safe] = await this.db.getSafe(inv.userId)
+    if (!safe) {
+      this.setRes('status', 1)
+      return
     }
-    if (!safe) return
+    if (inv.shk && safe.hhk !== Crypt.shaS(Util.b64ToU8(inv.shk))) {
+      this.setRes('status', 2)
+      return
+    }
 
     if (!safe.invits) safe.invits = {}
 
@@ -938,7 +992,8 @@ class $AddInvit extends SafeOperation {
 
     await this.db.updSafe(safe)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
+    // le safe n'est pas retourné dans la cas d'une création par X
+    if (inv.shk) this.setRes('safe', safe)
   }
 }
 SafeOperation.register('$AddInvit', () => { return new $AddInvit()})
@@ -1032,7 +1087,7 @@ SafeOperation.register('$StatusSafe', () => { return new $StatusSafe()})
 - son id, son pseudo principal ou secondaire
 - res.crypt: clé de cryptage
 - res.verif: clé de vérification
-*/
+
 class $GetPublicKeys extends SafeOperation {
   constructor () { super() }
 
@@ -1045,6 +1100,22 @@ class $GetPublicKeys extends SafeOperation {
   }
 }
 SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})
+*/
+
+/* Obtention des clés publiques et id d'un safe donné par:
+- son id, son pseudo principal ou secondaire, son contact
+*/
+class $GetUserICVO extends SafeOperation {
+  constructor () { super() }
+
+  async doTheJob () : Promise<void> {
+    const id = this.args['id']
+    const [m, safe] = await this.db.getSafe(id)
+    this.setRes('icvo', {i: safe.id, c: safe.C, v: safe.V, o: '' })
+  }
+}
+SafeOperation.register('$GetUserICVO', () => { return new $GetUserICVO()})
+
 
 /* Suppression d'un safe - auth "forte" requise */
 class $DelSafe extends SafeOperation {

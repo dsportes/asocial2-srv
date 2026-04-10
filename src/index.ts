@@ -85,7 +85,8 @@ setConfig(
   },
   directoryDB: null,
   documentClasses: documentClasses ,
-  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60]
+  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
+  INVITMAXLIFE: 10 * 1440 // 10 jours
   } as BaseConfig)
 
 init()
