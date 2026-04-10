@@ -205,18 +205,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   ******************************************************************************/
 
   async safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> {
-    const stmt = st !== safeTable.PEMS ?
-      this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key AND v > @v;')
-    : this.sql.prepare('SELECT value FROM ' + st + ' WHERE key = @key;')
+    const stmt = this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key AND v > @v;')
     let row = stmt.get({ key, v })
     return row ? [row.v, row.value] : null
   }
 
   async safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> {
-    const stmt = st === safeTable.PEMS ?
-      this.sql.prepare('INSERT INTO ' + st + ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
-    : this.sql.prepare('INSERT INTO ' + st + ' (key, value, v) VALUES (@key, @value, @v) ON CONFLICT (key) DO UPDATE SET value = excluded.value, v = excluded.v;')
-      stmt.run({key, v, value})
+    const stmt = this.sql.prepare('INSERT INTO ' + st +
+      ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
+    stmt.run({key, v, value})
   }
 
   async safeDel (st: safeTable, key: string) : Promise<void> {
