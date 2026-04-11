@@ -1,7 +1,11 @@
 import { Document } from '../src-fw/document'
-import { Task, Subs, SubsItem, Credential, InvitationA } from '../src-fw/documents'
-import { Operation } from '../src-fw/operation'
-import { config } from '../src-fw/config'
+import { Credential, InvitationA, OrgA } from '../src-fw/documents'
+import { OperationWC } from '../src-fw/index'
+import { config, Classes } from '../src-fw/config'
+
+export function loadingDA () {
+  console.log('app documents loading: ', Classes.sizeD())
+}
 
 class Hdr extends Document {
   static release = 0
@@ -10,8 +14,9 @@ class Hdr extends Document {
   }
 
 }
+Classes.registerD(Hdr)
 
-class Org extends Document {
+class Org extends OrgA {
   static release = 0
 
   static mutateCl (data: object, options?: Object) : [Object, boolean] {
@@ -21,6 +26,7 @@ class Org extends Document {
   compile () { return this }
 
 }
+Classes.registerD(Org)
 
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
   time: number // date-heure des credentials associés, etc.
@@ -39,7 +45,7 @@ export class Invitation extends InvitationA {
   - un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
     est un sponsor valide (à condition bien sur que l'invitation ait un minor).
   */
-  checkSponsor (op: Operation) : boolean {
+  checkSponsor (op: OperationWC) : boolean {
     if (this.major === 'Org.manager' && !op.authRecord.isAdmin) return false
     let c: Credential = op.authRecord.getCred('Org.manager', '', true)
     if (!c) c = op.authRecord.getCred('Sponsor.', this.major ,true)
@@ -47,9 +53,8 @@ export class Invitation extends InvitationA {
     return c !== null
   }
 
-
   // invoquée seulement dans les status 1 et 2
-  async checkEtc (op: Operation) : Promise<number> {
+  async checkEtc (op: OperationWC) : Promise<number> {
     if (this.status === 1 && this.etc !== null) return 10
     if (this.status === 2) {
       if (this.major === 'Org.manager' && this.etc !== null) return 11
@@ -57,14 +62,14 @@ export class Invitation extends InvitationA {
     return 0
   }
 
-  async validate (op: Operation, args: any) {
+  async validate (op: OperationWC, args: any) {
     switch (this.major) {
       case 'Org.manager' : { await this.validate_orgManager(op, args); break }
       case 'Auteur' : { await this.validate_auteur(op, args); break }
     }
   }
 
-  async validate_orgManager (op: Operation, args: InvitValOM) {
+  async validate_orgManager (op: OperationWC, args: InvitValOM) {
     // Enregistrement du credential
     const obj = {
       id: Credential.getId(config.SVC, op.org, 'Org.manager', ''),
@@ -86,7 +91,7 @@ export class Invitation extends InvitationA {
   - d'un Credential sur cet auteur avec un pemv / time passé en argument invVal
   - optionnellement d'un Credential de Sponsor sur 'Auteur' avec un pemv / time passé en argument invVal
   */
-  async validate_auteur (op: Operation, args: any) {
+  async validate_auteur (op: OperationWC, args: any) {
     /*
     const iv = this.objectValue('invVal', true) as InvVal
 
@@ -139,8 +144,8 @@ export class Invitation extends InvitationA {
     }
     */
   }
-
 }
+Classes.registerD(Invitation)
 
 class Auteur extends Document {
   static release = 0
@@ -152,14 +157,4 @@ class Auteur extends Document {
   compile () { return this }
 
 }
-
-export const documentClasses = {
-  Task: Task, 
-  Subs: Subs, 
-  SubsItem: SubsItem,
-  Hdr: Hdr,
-  Org: Org,
-  Credential: Credential,
-  Invitation: Invitation,
-  Auteur: Auteur
-}
+Classes.registerD(Auteur)

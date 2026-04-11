@@ -1,8 +1,4 @@
-import { AppExc } from './index'
-import { Operation } from './operation'
-import { DocType } from './doctypes'
-import { encode, decode } from '@msgpack/msgpack'
-import { Crypt } from './crypt'
+import { AppExc, AbstractOperation } from './index'
 import { IDbGeneric } from './iDbGeneric'
 
 export class DbConnector {
@@ -20,9 +16,9 @@ export class DbConnector {
     this.credentials = credentials
   }
 
-  async getConnexion (op: Operation, org?: string, cryptKey?: string) {
+  async getConnexion (op: AbstractOperation, org?: string, cryptKey?: string) {
     const cnx = this.factory(this, op, cryptKey) as IDbGeneric
-    cnx.org = org || op.org 
+    cnx.org = org || '' 
     await cnx.connect()
     op.db = cnx
     return cnx
@@ -31,12 +27,12 @@ export class DbConnector {
 
 export class DbConnexion {
   public connector: DbConnector
-  public op: Operation
+  public op: AbstractOperation
   public key: Buffer
   public org: string
   public transaction: any
 
-  constructor (connector: DbConnector, op: Operation, cryptKey?: string) {
+  constructor (connector: DbConnector, op: AbstractOperation, cryptKey?: string) {
     this.connector = connector
     this.key = !cryptKey ? this.connector.key : Buffer.from(cryptKey, 'base64')
     this.op = op

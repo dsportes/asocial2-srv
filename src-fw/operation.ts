@@ -1,13 +1,12 @@
-import { AppExc } from './index'
+import { AppExc, OperationWC } from './index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
-import { IDbGeneric, row, srvStatus, rowQ, updType } from './iDbGeneric'
+import { IDbGeneric, row, srvStatus, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
-import { Credential } from './documents'
-import { Org } from './documents'
+import { Credential, OrgA } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt, keyFromB64 } from './crypt'
@@ -55,7 +54,7 @@ export class DocDescr {
 
 }
 
-export class Operation {
+export class Operation implements OperationWC {
   public static factories = new Map<string, Function>()
 
   static nbOf () { 
@@ -71,17 +70,19 @@ export class Operation {
     Operation.factories.set(opName, factory)
   }
 
-  public opName: string
+  opName: string
+  result: any
+  args: any 
+  org: string
+  now: number
+
+  public hasPhase3 : boolean = false
   public baseUrl: string
-  public org: string
-  public result: any
-  public args: any // arguments bruts de l'opération
-  public now: number
   public today: number
   public msSlow : number
 
-  public storage: IStGeneric
   public dbConnector: DbConnector
+  public storage: IStGeneric
   public authRecord : AuthRecord
   public auths: Set<string> // Set des codes des autorisations accordées
   public sessionId: string
@@ -93,8 +94,6 @@ export class Operation {
   public hasTasks : boolean
 
   public cache : Cache
-
-  constructor () {  }
 
   get SUBSSHORTMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[0] }
   get SUBSLONGMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[1] }
@@ -122,11 +121,9 @@ export class Operation {
       Log.info(this.opName + ' : ' + new Date(this.now).toISOString())
   }
 
-  async phase2 (args: any) {
-  }
+  async phase2 (args: any) { }
 
-  async phase3 (args: any) {
-  }
+  async phase3 (args: any) { }
 
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
@@ -548,10 +545,10 @@ export class Cache {
   }
 
   // Retourne ou lit le Document Org de l'opération
-  async getOrg (assert?: string, lazy?: boolean) : Promise<Org> {
+  async getOrg (assert?: string, lazy?: boolean) : Promise<OrgA> {
     const k = 'Org/' + this.op.org
     let dd = this.docs.get(k)
-    if (dd) return dd.doc as Org
+    if (dd) return dd.doc as OrgA
     dd = await Cache.getRow(this.op, 'Org', null, 1)
     if (!dd) {
       if (assert) this.op.assertKO(assert, 25, ['Org', this.op.org])
@@ -559,7 +556,7 @@ export class Cache {
     }
     dd.init()
     if (!lazy) this.docs.set(k, dd)
-    return dd.doc as Org
+    return dd.doc as OrgA
   }
 
   /* Retourne ou lit de la base le Document cité par src:

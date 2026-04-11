@@ -1,6 +1,28 @@
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
+export class Classes {
+  static regDoc = new Map()
+  static sizeD () { return Classes.regDoc.size }
+
+  static regOp = new Map()
+  static sizeOp () { return Classes.regOp.size }
+
+
+  static registerD (cl: Function) { Classes.regDoc.set(cl.name, cl) }
+  static getD (name: string) { return Classes.regDoc.get(name) }
+  static newD (name: string) {
+    const cl = Classes.regDoc.get(name)
+    return cl ? new cl() : null
+  }
+
+  static registerOp (cl: Function) { Classes.regOp.set(cl.name, cl) }
+  static newOp (name: string) {
+    const cl = Classes.regOp.get(name)
+    return cl ? new cl() : null
+  }
+}
+
 export interface BaseConfig {
   SVC: string // code service
   ADMINUSERS: Set<string>
@@ -27,10 +49,10 @@ export interface BaseConfig {
 
   databases: Map<string, DbConnector>
   storages: Map<string, IStGeneric>
-  safeDB: DbConnector,
-  svcDB: DbConnector,
+  safeDB: DbConnector
+  svcDB: DbConnector
   dbConnectors: Object
-  documentClasses: Object
+  directoryDB: Object
 
   messaging?: any
 
@@ -40,4 +62,6 @@ export interface BaseConfig {
 
 export let config : BaseConfig = null
 
-export function setConfig (cfg: BaseConfig) { config = cfg }
+export function setConfig (cfg: BaseConfig) { 
+  config = cfg 
+}

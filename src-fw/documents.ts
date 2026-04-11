@@ -2,16 +2,22 @@ import { Document } from './document'
 import { Crypt } from './crypt'
 import { filter } from './iDbGeneric'
 import { decode } from '@msgpack/msgpack'
-import { Operation } from './operation'
+import { OperationWC } from './index'
+import { Classes } from './config'
 import { DocType } from './doctypes'
 
-const encoder = new TextEncoder()
-const decoder = new TextDecoder()
+export function loadingDF () {
+  console.log('fw documents loading: ', Classes.sizeD())
+}
 
-export class Task extends Document {
+const encoder = new TextEncoder()
+// const decoder = new TextDecoder()
+
+class Task extends Document {
   static release = 0
 
 }
+Classes.registerD(Task)
 
 export type OrgStatus = {
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -19,7 +25,7 @@ export type OrgStatus = {
   txt: string // texte explicatif éventuel de l'administrateur
 }
 
-export class Org extends Document {
+export class OrgA extends Document {
   static release = 0
   status: OrgStatus
 
@@ -60,7 +66,7 @@ export class Subs extends Document {
   title: string
   maxLife: number
 
-  static newSubs (op: Operation, subs: subscription, maxLife: number) : Document {
+  static newSubs (op: OperationWC, subs: subscription, maxLife: number) : Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
@@ -71,8 +77,8 @@ export class Subs extends Document {
     }
     return op.cache.newDoc('Subs', initVals)
   }
-  
 }
+Classes.registerD(Subs)
 
 /* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
 et peut avoir trois formes:
@@ -112,7 +118,7 @@ export class SubsItem extends Document {
     return clazz + '/' + colName + '/' + val
   }
 
-  static newSubsItem (op: Operation, sessionId: string, def: string, maxLife: number) : Document {
+  static newSubsItem (op: OperationWC, sessionId: string, def: string, maxLife: number) : Document {
     const initVals = {
       sessionId: sessionId,
       def: def,
@@ -124,7 +130,7 @@ export class SubsItem extends Document {
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
   (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
-  static async getSessionIds (op: Operation, def: string) : Promise<string[]> {
+  static async getSessionIds (op: OperationWC, def: string) : Promise<string[]> {
     /*
     selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
       order: string, limit: number, fn: Function)  : Promise<void>
@@ -138,7 +144,7 @@ export class SubsItem extends Document {
     return sids
   }
 
-  static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
+  static async deleteSessionId (op: OperationWC, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
     op.db.selectDocs('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
@@ -149,6 +155,7 @@ export class SubsItem extends Document {
   }
 
 }
+Classes.registerD(SubsItem)
 
 export class Credential extends Document {
   static release = 0
@@ -163,7 +170,7 @@ export class Credential extends Document {
   limit: number
   cond: Object
 
-  static async listManagers (op: Operation) : Promise<Object[]> {
+  static async listManagers (op: OperationWC) : Promise<Object[]> {
     const dd = DocType.get('Credential')
     const val = dd.getIdx({ role: 'Org.manager', docId: ''}, 'roles')
     // const val = Crypt.shaS(encoder.encode('Org.manager/'))
@@ -187,7 +194,7 @@ export class Credential extends Document {
     return lst
   }
 
-  static async listUserCreds (op: Operation) : Promise<Object[]> {
+  static async listUserCreds (op: OperationWC) : Promise<Object[]> {
     const dd = DocType.get('Credential')
     const val = dd.getCollId({ userId: op.authRecord.userId }, 'userId')
     const lst: Object[] = []
@@ -218,6 +225,7 @@ export class Credential extends Document {
     return Crypt.shaS(encoder.encode(Credential.idStr(svc, org, role, docId)))
   }
 }
+Classes.registerD(Credential)
 
 export class InvitationA extends Document {
 
@@ -257,24 +265,24 @@ export class InvitationA extends Document {
   - crypté par la clé AES obtenu du couple de clés `pub-U/priv-S` (ou `pub-S/pub-U`, c'est la même)
   */
 
-  static async listInvits (op: Operation, major: string, minor: string) : Promise<Uint8Array[]> {
+  static async listInvits (op: OperationWC, major: string, minor: string) : Promise<Uint8Array[]> {
     const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
     const crit = !minor ? 'major' : 'majorminor'
     return await op.db.getColl('Invitation', crit, val, false, 0)
   }
 
   /* A surcharger. Qui peut "proposer / rejeter" une invitation ? Qui est un "sponsor" possible ? */
-  checkSponsor (op: Operation) : boolean {
+  checkSponsor (op: OperationWC) : boolean {
     return true
   }
 
   /* A surcharger selon le type d'invitation. Retourne un status !== 0 si refus */
-  async checkEtc (op: Operation) : Promise<number> {
+  async checkEtc (op: OperationWC) : Promise<number> {
     return 0
   }
 
   /* A surcharger selon le type d'invitation. */
-  async validate (op: Operation, args: any) : Promise<void> {
+  async validate (op: OperationWC, args: any) : Promise<void> {
   }
 
 }

@@ -5,27 +5,17 @@ import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
-import webpush from 'web-push'
 
 import { Log } from './log'
-import { config } from './config'
-import { Operation } from './operation'
-import { register } from './operations'
-import { SafeOperation, ICVO } from './safeop'
+import { config, Classes } from './config'
 import { Util } from './util'
 
-import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
+// import { IDbGeneric } from './iDbGeneric'
 // import { StorageGeneric } from './storageGeneric'
-
-export function init () {
-  new Log(config.PROD, config.GCLOUDLOGGING, config['logsPath'])
-
-  const nbOp = register()
-  if (config.debugLevel > 0) Log.debug(nbOp + ' operations registered')
-
-  webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
-}
+import { Operation } from './operation'
+import { SafeOperation } from './safeop'
+import { DbConnector } from './dbConnector'
 
 /* Configuration des organisations *****************************************
 - depuis le SINGLETON 'orgs': { org1:[db1, st1], org2:[db1, st2], ...}
@@ -73,7 +63,7 @@ export class OrgsConfig {
   }
 
   // Sauvegarde la configuration d'une organisation
-  static async save (op: Operation, org: string, db: string, st: string) {
+  static async save (op: AbstractOperation, org: string, db: string, st: string) {
     const val = await op.db.getSingleton('orgs') as string
     const x = val ? JSON.parse(val) : {}
     if (!db) delete(x[org])
@@ -371,12 +361,12 @@ export async function doOp (
       return
     }
     
-    const f = Operation.factories.get(opName)
-    if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
-    const op = f()
+    const op = Classes.newOp(opName) as Operation
+    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
     op.opName = opName
     op.baseUrl = req.protocol + '://' + req.host
-    op.org = req.params.org
+    op.org = req.params.org as string
+
     if (!dbConnector) 
       throw new AppExc(1003, 'unknown organisation', null, [opName, op.org])
     op.storage = storage
@@ -406,11 +396,11 @@ export async function doOp (
 /* Envoi d'une alerte d'administration **************************************/
 interface admin_alerts { url: string, pwd: string, to: string }
 
-export async function adminAlert ( op: Operation, subject: string, text: string) {
+export async function adminAlert ( op: AbstractOperation, subject: string, text: string) {
+  const org = op && op['org'] ? op['org'] : ''
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
-  const s = '[' + op.baseUrl + '] '  
-    + (op && op.org ? 'org:' + op.org + ' - ' : '') 
+  const s = (org ? 'org:' + org + ' - ' : '') 
     + (op ? 'op:' + op.opName + ' - ' : '') 
     + subject
   Log.info('Mail sent to:' + al.to + ' subject:' + s + (text ? '\n' + text : ''))
@@ -459,11 +449,11 @@ export class AppExc {
   public args: string[]
   public message: string
 
-  constructor (code: number, label: string, op: Operation, args?: string[], stack?: string) {
+  constructor (code: number, label: string, op: AbstractOperation, args?: string[], stack?: string) {
     this.label = label
     this.code = code
     this.opName = op ? op.opName : ''
-    this.org = op && op.org ? op.org : ''
+    this.org = op && op['org'] ? op['org'] : ''
     this.args = args || []
     this.stack = stack || ''
     this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
@@ -479,4 +469,22 @@ export class AppExc {
   }
 
   toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
+}
+
+export interface AbstractOperation {
+  opName: string
+  result: any
+  args: any 
+  db: any
+
+
+  /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
+  setRes(prop: string, val: any) : void
+}
+
+export interface OperationWC extends AbstractOperation {
+  org: string
+  now: number
+  cache: any
+  authRecord: any
 }

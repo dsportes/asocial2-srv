@@ -1,10 +1,8 @@
 import { DocType } from './doctypes'
 import { row } from './iDbGeneric'
-import { config } from './config'
+import { config, Classes } from './config'
 import { encode } from '@msgpack/msgpack'
 import { AppExc } from '../src-fw/index'
-import { Crypt } from './crypt'
-import { Operation } from './operation'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 
@@ -30,7 +28,7 @@ export class Document {
   et de l'indicateur de mutation (false si inchangé)
   */
   static mutate (clazz: string, data: any, options?: Object) : [any, boolean] {
-    const cl = config.documentClasses[clazz]
+    const cl = Classes.getD(clazz)
     if (!cl) return [data, false]
     const f = cl.mutateCl
     return f ? f(data, options) : [data, false]
@@ -38,7 +36,7 @@ export class Document {
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = config.documentClasses[this._clazz]
+    const cl = Classes.getD(this._clazz)
     return cl ? cl.release : 0
   }
 
@@ -92,7 +90,7 @@ export class Document {
   - transmet org et clazz et 
   - toutes les propriétés du document dont le nom ne commencent pas par _
   */
-  serialForApp (op: Operation, clazz: string) : Uint8Array { 
+  serialForApp (clazz: string) : Uint8Array { 
     const d = { clazz }
     for (const k of Object.keys(this)) if (k.charAt[0] !== '_') d[k] = this[k]
     return encode(d)
@@ -106,9 +104,9 @@ export class Document {
   Retourne le Document.
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
-    const cl = config.documentClasses[clazz]
-    if (!cl) throw new AppExc(3004, 'documentClasses', null, [clazz])
-    const doc = new cl()
+    const cl = Classes.getD(clazz)
+    if (!cl) throw new AppExc(3004, 'document Class not registred', null, [clazz])
+    const doc = Classes.newD(clazz)
     doc._clazz = clazz
     doc._status = status
     doc.release = cl.release

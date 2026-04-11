@@ -1,7 +1,6 @@
 import { config } from './config'
-import { AppExc } from './index'
+import { AbstractOperation } from '../src-fw/index'
 import { Log } from './log'
-import { Operation } from './operation'
 import { testECDH, testSH } from './crypt'
 import { DocType } from '../src-fw/doctypes'
 
@@ -19,6 +18,18 @@ import { IDbGeneric } from './iDbGeneric'
 
 /***************************************************************** */
 
+class ToolOperation implements AbstractOperation {
+  opName: string
+  result: any
+  args: any 
+  db: any
+  org: string
+  now: number
+
+  /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
+  setRes(prop: string, val: any) : void {}
+}
+
 type eltCnx = {
   name: string
   dbc: DbConnector
@@ -30,7 +41,7 @@ export class Tools {
   tool: string
   simu: boolean
   connectors: Map<string, eltCnx>
-  op: Operation
+  op: ToolOperation
   cnxIn: IDbGeneric
   cnxOut: IDbGeneric
 
@@ -84,7 +95,7 @@ export class Tools {
           break
         }
         case 'export-db' : {
-          this.op = new Operation()
+          this.op = new ToolOperation()
           this.op.now = Date.now()
           this.getDbs()
           this.cnxIn = await this.setCfgDb('in')

@@ -1,10 +1,13 @@
-import { Operation } from './operation'
-import { AppExc } from './index'
-import { config } from './config'
+import { AppExc, AbstractOperation } from './index'
+import { config, Classes } from './config'
 import { Crypt, keyFromB64 } from './crypt'
 import { Util } from './util'
 import { Safe, safeTable } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
+
+export function loadingOS () {
+  console.log('safe operations loading: ', Classes.sizeOp())
+}
 
 type Device = {
   devName: string | Uint8Array
@@ -51,7 +54,7 @@ class SafeCache {
   - soit trouvé en cache et d'age correct
   - soit (re)lu de la table et gardé en cache
   */
-  static async get(op: Operation, st: safeTable, id: string) 
+  static async get(op: AbstractOperation, st: safeTable, id: string) 
   : Promise<Object | CVO | null> {
     const now = Math.floor(Date.now() / 1000)
     let e: Dobj
@@ -83,7 +86,7 @@ class SafeCache {
   Toutefois en cache l'entrée existe toujours avec une val null pour évier une relecture
   en base en cas de redemande.
   */
-  static async set(op: Operation, st: safeTable, id: string, val: Object | CVO)
+  static async set(op: AbstractOperation, st: safeTable, id: string, val: Object | CVO)
     : Promise<void> {
 
     const now = Math.floor(Date.now() / 1000)
@@ -103,18 +106,22 @@ class SafeCache {
 /* Appel direct d'une opération: 
   const result = await SafeOperation.doOp(opName, args)
 */
-export class SafeOperation extends Operation {
-  static factories = new Map<string, Function>()
+export class SafeOperation implements AbstractOperation {
+  opName: string
+  result: any
+  args: any 
+  db: any
+  // org: string
+  // now: number
 
-  static register (opName: string, factory: Function) {
-    SafeOperation.factories.set(opName, factory)
-  }
+  /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
+  setRes(prop: string, val: any) { this.result[prop] = val; return val }
 
   static cacheIcvo: Map<string, ICVO> = new Map()
 
   /* Depuis l'intérieur d'une opération, soumet une opération (opName, args) de safe
   au safe 'safeStore'*/
-  static async postToSafe (op: Operation, opName: string, args: Object, safeStore?: string)
+  static async postToSafe (op: AbstractOperation, opName: string, args: Object, safeStore?: string)
    : Promise<Object> {
     let u = config.MASTERDIR
     if (safeStore) {
@@ -145,7 +152,7 @@ export class SafeOperation extends Operation {
   }
 
   // Obtient le icvo d'un userId depuis le MASTERDIR ou un SafeStore explicitement cité
-  static async userICVO (op: Operation, userId: string, safeStore?: string) 
+  static async userICVO (op: AbstractOperation, userId: string, safeStore?: string) 
     : Promise<ICVO | null> {
     const e = SafeOperation.cacheIcvo.get(userId)
     if (e) return e
@@ -159,12 +166,11 @@ export class SafeOperation extends Operation {
   }
   
   static async doOp (opName: string, args: Object) : Promise<Object> {
-    const f = SafeOperation.factories.get(opName)
-    if (!f) throw new AppExc(1002, 'unknown operation', null, [opName])
-    const op = f()
+    const op = Classes.newOp(opName)
+    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
     op.opName = opName
+    op.now = Date.now()
     op.args = args
-    op.result = { }
     try {
       await config.safeDB.getConnexion(op)
       await op.doTheJob()
@@ -212,8 +218,6 @@ export class SafeOperation extends Operation {
     return null
   }
 
-  constructor () { super() }
-
   async doTheJob () : Promise<void> {  }
 
   /* Retourne les paramètres d'une opération d'Administration du Safe
@@ -257,7 +261,6 @@ export class SafeOperation extends Operation {
 - sign: signature par la clé S de userId de encode([time, params])
 */
 class $SetOpUrl extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const [SVC, $OP, url] = await this.getParams(this.args)
@@ -274,7 +277,7 @@ class $SetOpUrl extends SafeOperation {
     await SafeCache.set(this, safeTable.SVCOPS, SVC, obj)
   }
 }
-SafeOperation.register('$SetOpUrl', () => { return new $SetOpUrl()})
+Classes.registerOp($SetOpUrl)
 
 /* Enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
 Si $OP est null, l'organisation est révoquée pour ce service.
@@ -285,7 +288,6 @@ args:
 - sign: signature par la clé S de userId de encode([time, params])
 */
 class $GrantSvcOpOrg extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const [SVC, $OP, org] = await this.getParams(this.args)
@@ -307,7 +309,7 @@ class $GrantSvcOpOrg extends SafeOperation {
     await SafeCache.set(this, safeTable.ORGS, org, obj)
   }
 }
-SafeOperation.register('$GrantSvcOpOrg', () => { return new $GrantSvcOpOrg()})
+Classes.registerOp($GrantSvcOpOrg)
 
 /* Révoque une organisation pour l'opérateur $OP pour un service SVC
 args:
@@ -332,7 +334,7 @@ class $RevokeSvcOpOrg extends SafeOperation {
       await SafeCache.del(this, safeTable.ORGS, org)
   }
 }
-SafeOperation.register('$RevokeSvcOpOrg', () => { return new $RevokeSvcOpOrg()})
+Classes.registerOp($RevokeSvcOpOrg', () => { return new $RevokeSvcOpOrg()})
 */
 
 /* Retourne les clés publiques et l'opérateur hébergeant le safe
@@ -344,7 +346,6 @@ de l'argument userId. Retour: cvo ou rien si non trouvé
 }
 */
 class $GetUserCVO extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
@@ -352,7 +353,7 @@ class $GetUserCVO extends SafeOperation {
     if (cvo) this.setRes('cvo', cvo)
   }
 }
-SafeOperation.register('$GetUserCVO', () => { return new $GetUserCVO()})
+Classes.registerOp($GetUserCVO)
 
 /* Enregistre dans le dépôt générique des Safes 
 les clés publiques et l'opérateur gérant le safe d'un userId à sa création. 
@@ -362,7 +363,6 @@ l'opération de création d'un Safe ou de changement d'opérateur de Safe.
 o est '' (pas null) si c'est le Safe Store standard.
 */
 class $SetUserICVO extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
@@ -370,7 +370,7 @@ class $SetUserICVO extends SafeOperation {
     await SafeCache.set(this, safeTable.USERS, userId, icvo)
   }
 }
-SafeOperation.register('$SetUserICVO', () => { return new $SetUserICVO()})
+Classes.registerOp($SetUserICVO)
 
 /* Retourne l'URL d'accès à un service SVC hébergé par un opérateur $OP
 class $GetSvcOpUrl extends SafeOperation {
@@ -383,14 +383,13 @@ class $GetSvcOpUrl extends SafeOperation {
     this.setRes('url', obj ? (obj[$OP] ? obj[$OP].url : '') : '')
   }
 }
-SafeOperation.register('$GetSvcOpUrl', () => { return new $GetSvcOpUrl()})
+Classes.registerOp($GetSvcOpUrl', () => { return new $GetSvcOpUrl()})
 */
 
 /* Pour une liste de services, retrourne une map avec une entrée par service:
 Cette entrée est une map donnant par opérateur, son URL
 */
 class $GetSvcUrls extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const l = this.args['lsvc'] as string[]
@@ -402,13 +401,12 @@ class $GetSvcUrls extends SafeOperation {
     this.setRes('urls', urls)
   }
 }
-SafeOperation.register('$GetSvcUrls', () => { return new $GetSvcUrls()})
+Classes.registerOp($GetSvcUrls)
 
 /* Pour une organisation donnée, retrourne une map avec une entrée par service
 donnant l'opérateur qui en assure l'hébergement.
 */
 class $GetOrgSvcs extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const org = this.args['org'] as string
@@ -416,7 +414,7 @@ class $GetOrgSvcs extends SafeOperation {
     if (svcs) this.setRes('svcs', svcs)
   }
 }
-SafeOperation.register('$GetOrgSvcs', () => { return new $GetOrgSvcs()})
+Classes.registerOp($GetOrgSvcs)
 
 /* Retourne couple [url, $OP] d'accès à un service SVC hébergeant une organisation org
 - $OP est l'opérateur hébergeur de l'organisation pour ce service
@@ -437,7 +435,7 @@ class $GetSvcOrgUrl extends SafeOperation {
     this.setRes('urlOp', [url, $OP])
   }
 }
-SafeOperation.register('$GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
+Classes.registerOp($GetSvcOrgUrl', () => { return new $GetSvcOrgUrl()})
 */
 
 /***************************************************************
@@ -456,7 +454,6 @@ export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
 /* Creation d'un nouveau Safe
 */
 class $CreateSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
@@ -465,11 +462,10 @@ class $CreateSafe extends SafeOperation {
     this.setRes('status', ret)
   }
 }
-SafeOperation.register('$CreateSafe', () => { return new $CreateSafe()})
+Classes.registerOp($CreateSafe)
 /* Restauration d'un Safe
 */
 class $RestoreSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
@@ -479,12 +475,11 @@ class $RestoreSafe extends SafeOperation {
     this.setRes('status', ret)
   }
 }
-SafeOperation.register('$RestoreSafe', () => { return new $RestoreSafe()})
+Classes.registerOp($RestoreSafe)
 
 /* Copie binaire du Safe args: userId shk
 */
 class $GetBinSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const [m, bin] = await this.db.getBinSafe(this.args['userId'])
@@ -500,12 +495,11 @@ class $GetBinSafe extends SafeOperation {
     }
   }
 }
-SafeOperation.register('$GetBinSafe', () => { return new $GetBinSafe()})
+Classes.registerOp($GetBinSafe)
 
 /* Mise à jour des codes d'accès d'un Safe
 */
 class $UpdCodesSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> { 
     const safeNew = this.args['safeCodes'] as SafeCodes
@@ -529,7 +523,7 @@ class $UpdCodesSafe extends SafeOperation {
     else this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UpdCodesSafe', () => { return new $UpdCodesSafe()})
+Classes.registerOp($UpdCodesSafe)
 
 /* Ouverture d'un Safe
 - sh0: sh (binaire) de la partie pseudo
@@ -539,7 +533,6 @@ byP: quand status 0, true si accès "primaire" (sinon "secondaire")
 safe: quand status 0, le safe
 */
 class $OpenSafeByPR extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     let byP = false
@@ -571,12 +564,11 @@ class $OpenSafeByPR extends SafeOperation {
     if (status !== 0) await Util.sleep(3000)
   }
 }
-SafeOperation.register('$OpenSafeByPR', () => { return new $OpenSafeByPR()})
+Classes.registerOp($OpenSafeByPR)
 
 /* Ouverture d'un Safe
 */
 class $OpenSafeById extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const [m, safe] = await this.db.getSafe(this.args['userId'])
@@ -591,7 +583,7 @@ class $OpenSafeById extends SafeOperation {
     }
   }
 }
-SafeOperation.register('$OpenSafeById', () => { return new $OpenSafeById()})
+Classes.registerOp($OpenSafeById)
 
 /* Ouverture d'un Safe
   - accède au _safe_ dont l'id est `userId`.
@@ -599,7 +591,6 @@ SafeOperation.register('$OpenSafeById', () => { return new $OpenSafeById()})
   ce qui lui donne les propriétés `Va cy sign nbe`. 
 */
 class $OpenSafeByPin extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const userId: string = this.args['userId']
@@ -644,7 +635,7 @@ class $OpenSafeByPin extends SafeOperation {
     this.setRes('cy', dev.cy)
   }
 }
-SafeOperation.register('$OpenSafeByPin', () => { return new $OpenSafeByPin()})
+Classes.registerOp($OpenSafeByPin)
 
 type SetContact = {
   userId: string
@@ -655,7 +646,6 @@ type SetContact = {
 /* Changement du contact
 */
 class $SetContact extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const sc = this.args['setcontact'] as SetContact
@@ -669,7 +659,7 @@ class $SetContact extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$SetContact', () => { return new $SetContact()})
+Classes.registerOp($SetContact)
 
 type SetAdmins = {
   userId: string
@@ -678,7 +668,6 @@ type SetAdmins = {
 }
 
 class $SetAdmins extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const sa = this.args['setadmins'] as SetAdmins
@@ -691,7 +680,7 @@ class $SetAdmins extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$SetAdmins', () => { return new $SetAdmins()})
+Classes.registerOp($SetAdmins)
 
 type TrustDev = {
   userId: string
@@ -715,7 +704,6 @@ type UntrustDev = {
 /* Trust d'un device
 */
 class $TrustDevice extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const td = this.args['trustDev'] as TrustDev
@@ -739,12 +727,11 @@ class $TrustDevice extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$TrustDevice', () => { return new $TrustDevice()})
+Classes.registerOp($TrustDevice)
 
 /* Trust d'un device
 */
 class $UntrustDevices extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const td = this.args['untrustDev'] as UntrustDev
@@ -764,7 +751,7 @@ class $UntrustDevices extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UntrustDevices', () => { return new $UntrustDevices()})
+Classes.registerOp($UntrustDevices)
 
 
 /* Creds ***************************************************************/
@@ -777,7 +764,6 @@ type SetCred = {
 }
 
 class $CreateCred extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
@@ -794,10 +780,9 @@ class $CreateCred extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$CreateCred', () => { return new $CreateCred()})
+Classes.registerOp($CreateCred)
 
 class $UpdateCredComment extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
@@ -818,7 +803,7 @@ class $UpdateCredComment extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UpdateCredComment', () => { return new $UpdateCredComment()})
+Classes.registerOp($UpdateCredComment)
 
 type RevokeCreds = {
   userId: string
@@ -827,7 +812,6 @@ type RevokeCreds = {
 }
 
 class $AutoRevokeCreds extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const rc = this.args['revokeCreds'] as RevokeCreds
@@ -847,7 +831,7 @@ class $AutoRevokeCreds extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$AutoRevokeCreds', () => { return new $AutoRevokeCreds()})
+Classes.registerOp($AutoRevokeCreds)
 /****************************************************************/
 
 /* Profiles *****************************************************/
@@ -859,7 +843,6 @@ type SetProfiles = {
   delprofs: string[] // liste des profIds à supprimer
 }
 class $UpdateProfiles extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const sp = this.args['setProfiles'] as SetProfiles
@@ -885,7 +868,7 @@ class $UpdateProfiles extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UpdateProfiles', () => { return new $UpdateProfiles()})
+Classes.registerOp($UpdateProfiles)
 
 type SetAboutProfile = {
   app: string
@@ -896,7 +879,6 @@ type SetAboutProfile = {
 }
 /* Maj de l'about d'un profil */
 class $SetAboutProfile extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const ab = this.args['aboutProfile'] as SetAboutProfile
@@ -915,7 +897,7 @@ class $SetAboutProfile extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$SetAboutProfile', () => { return new $SetAboutProfile()})
+Classes.registerOp($SetAboutProfile)
 /***********************************************************************/
 
 /* Prefs ***************************************************************/
@@ -928,7 +910,6 @@ type UpdatePrefs = {
 }
 
 class $UpdatePrefs extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const up = this.args['updatePrefs'] as UpdatePrefs
@@ -954,7 +935,7 @@ class $UpdatePrefs extends SafeOperation {
     this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$UpdatePrefs', () => { return new $UpdatePrefs()})
+Classes.registerOp($UpdatePrefs)
 /*****************************************************************************/
 
 type AddInvit = {
@@ -969,7 +950,6 @@ type AddInvit = {
 }
 
 class $AddInvit extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
@@ -996,7 +976,7 @@ class $AddInvit extends SafeOperation {
     if (inv.shk) this.setRes('safe', safe)
   }
 }
-SafeOperation.register('$AddInvit', () => { return new $AddInvit()})
+Classes.registerOp($AddInvit)
 
 export type StatusInvit = {
   targetId: string
@@ -1005,7 +985,6 @@ export type StatusInvit = {
 }
 
 class $StatusInvit extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const st = this.args['statusInvit'] as StatusInvit
@@ -1024,7 +1003,7 @@ class $StatusInvit extends SafeOperation {
     } else this.setRes('status', 2)
   }
 }
-SafeOperation.register('$StatusInvit', () => { return new $StatusInvit()})
+Classes.registerOp($StatusInvit)
 
 /*
 type TransmitCred = {
@@ -1058,7 +1037,7 @@ class $TransmitCred extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-SafeOperation.register('$TransmitCred', () => { return new $TransmitCred()})
+Classes.registerOp($TransmitCred', () => { return new $TransmitCred()})
 */
 
 
@@ -1071,7 +1050,6 @@ hp0 comme clé p0
 - xr : idem pour hr0
 */
 class $StatusSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const id = this.args['id']
@@ -1081,7 +1059,7 @@ class $StatusSafe extends SafeOperation {
     this.setRes('statusSafe', ret)
   }
 }
-SafeOperation.register('$StatusSafe', () => { return new $StatusSafe()})
+Classes.registerOp($StatusSafe)
 
 /* Obtention des clés publiques d'un safe donné par:
 - son id, son pseudo principal ou secondaire
@@ -1099,14 +1077,13 @@ class $GetPublicKeys extends SafeOperation {
     this.setRes('verify', safe ? safe.V : null)
   }
 }
-SafeOperation.register('$GetPublicKeys', () => { return new $GetPublicKeys()})
+Classes.registerOp($GetPublicKeys', () => { return new $GetPublicKeys()})
 */
 
 /* Obtention des clés publiques et id d'un safe donné par:
 - son id, son pseudo principal ou secondaire, son contact
 */
 class $GetUserICVO extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const id = this.args['id']
@@ -1114,12 +1091,11 @@ class $GetUserICVO extends SafeOperation {
     this.setRes('icvo', {i: safe.id, c: safe.C, v: safe.V, o: '' })
   }
 }
-SafeOperation.register('$GetUserICVO', () => { return new $GetUserICVO()})
+Classes.registerOp($GetUserICVO)
 
 
 /* Suppression d'un safe - auth "forte" requise */
 class $DelSafe extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     const userId = this.args['userId']
@@ -1129,14 +1105,13 @@ class $DelSafe extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-SafeOperation.register('$DelSafe', () => { return new $DelSafe()})
+Classes.registerOp($DelSafe)
 
 /* Ping */
 class $Ping extends SafeOperation {
-  constructor () { super() }
 
   async doTheJob () : Promise<void> {
     this.setRes('ping', true)
   }
 }
-SafeOperation.register('$Ping', () => { return new $Ping()})
+Classes.registerOp($Ping)

@@ -1,4 +1,5 @@
 import { env, exit } from 'process' 
+import webpush from 'web-push'
 // Pour appel en tant que gcloud function
 // import { HttpFunction } from '@google-cloud/functions-framework'
 
@@ -9,21 +10,32 @@ import { encryptedKeys } from './keys'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, setConfig, config } from '../src-fw/config'
-import { init, getExpressApp, startSRV } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { docTypeErrors } from './docschema'
 import { DocType } from '../src-fw/doctypes'
-import { documentClasses } from './documents'
-import { register } from './operations'
+import { getExpressApp, startSRV } from '../src-fw/index'
 import { Tools } from '../src-fw/tools'
-
 import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
-
 // import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
 import { DbConnector } from '../src-fw/dbConnector'
 import { IStGeneric } from '../src-fw/iStGeneric'
 import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
 import { AppFirestoreConnector } from './firestore' // extension spécifique de App
+
+import { loadingDF } from '../src-fw/documents'
+loadingDF()
+
+import { loadingDA } from './documents'
+loadingDA()
+
+import { loadingOF } from '../src-fw/operations'
+loadingOF()
+
+import { loadingOA } from './operations'
+loadingOA()
+
+import { loadingOS } from '../src-fw/safeop'
+loadingOS()
 
 const emulator = true
 if (emulator) {
@@ -73,7 +85,7 @@ setConfig(
   logsPath: './logs', // Test et serveur Node
   port: env['PORT'] || 8080,
   https: false,
-  origins: new Set<string>(/*['http://localhost:8080']*/),
+  origins: new Set<string>(),
 
   databases: new Map<string, DbConnector>(),
   storages: new Map<string, IStGeneric>(),
@@ -84,12 +96,12 @@ setConfig(
     firestore: AppFirestoreConnector,
   },
   directoryDB: null,
-  documentClasses: documentClasses ,
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
   INVITMAXLIFE: 10 * 1440 // 10 jours
   } as BaseConfig)
 
-init()
+new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)
+webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 
 if (docTypeErrors.length) {
   Log.error(docTypeErrors.join('\n'))
@@ -106,10 +118,6 @@ config.svcDB = config.databases.get('sqlite_a')
 
 config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))
 // config.storages.set('storage_b', new FilesystemStorage(keys['storage_b']))
-
-const nbOp = register()
-if (config.debugLevel > 0)
-  Log.debug(nbOp + ' App operations registered')
 
 export const asocialgcf = getExpressApp()
 
@@ -130,3 +138,4 @@ if (process.argv.length > 2) {
     exit()
   })
 }
+// console.log('Fini')

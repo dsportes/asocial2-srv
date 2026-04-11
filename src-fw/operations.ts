@@ -1,21 +1,15 @@
-import { encode, decode } from '@msgpack/msgpack'
+import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from './operation'
 import { AppExc, OrgsConfig } from './index'
-// import { filter } from './iDbGeneric'
-// import { Util } from './util'
-// import { Log } from './log'
 import { Crypt } from './crypt'
-import { config } from './config'
-import { Subs, subscription, SubsItem, Credential, Org, InvitationA } from './documents'
+import { config, Classes } from './config'
+import { Subs, subscription, SubsItem, Credential, InvitationA } from './documents'
 import { Invitation } from '../src/documents'
 import { DocStatus } from './document'
 import { DocType } from './doctypes'
 
-const encoder = new TextEncoder()
-const decoder = new TextDecoder()
-
-export function register () {
-  return Operation.nbOf()
+export function loadingOF () {
+  console.log('fw operations loading: ', Classes.sizeOp())
 }
 
 export type CredRequest = {
@@ -30,25 +24,21 @@ export type CredRequest = {
 }
 
 class Bug extends Operation {
-  constructor () { super() }
   init () { super.init() }
   async phase2 () { await this.db.bug(); console.log('Bug op') }
-  phase3 : null
 }
-Operation.register('Bug', () => { return new Bug()})
+Classes.registerOp(Bug)
 
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
 class SvcOpIsAdmin extends Operation {
-  constructor () { super() }
-
   async phase2 () {
     this.setRes('isadmin', this.authRecord.isAdmin)
   }
 
-  phase3 : null
+  
 }
-Operation.register('SvcOpIsAdmin', () => { return new SvcOpIsAdmin()})
+Classes.registerOp(SvcOpIsAdmin)
 
 
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
@@ -57,16 +47,16 @@ Operation.register('SvcOpIsAdmin', () => { return new SvcOpIsAdmin()})
   txt: texte explicatif éventuel de l'administrateur
 */
 class GetSvcOpStatus$ extends Operation {
-  constructor () { super() }
+  
 
   async phase2 () {
     const svcStatus = await Cache.getSrvStatus(this)
     this.setRes('svcStatus', svcStatus)
   }
 
-  phase3 : null
+  
 }
-Operation.register('GetSvcOpStatus$', () => { return new GetSvcOpStatus$()})
+Classes.registerOp(GetSvcOpStatus$)
 
 /* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
   st: code 0: DOWN, 1: UP
@@ -74,7 +64,7 @@ Operation.register('GetSvcOpStatus$', () => { return new GetSvcOpStatus$()})
   ADMINISTRATEUR
 */
 class SetSvcOpStatus$ extends Operation {
-  constructor () { super() }
+  
 
   _st: number
   _txt: string
@@ -97,9 +87,9 @@ class SetSvcOpStatus$ extends Operation {
     this.setRes('svcOpStatus', Cache.srvStatus)
   }
 
-  phase3 : null
+  
 }
-Operation.register('SetSvcOpStatus$', () => { return new SetSvcOpStatus$()})
+Classes.registerOp(SetSvcOpStatus$)
 
 /* GetOrgStatus retourne le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -107,7 +97,7 @@ Operation.register('SetSvcOpStatus$', () => { return new SetSvcOpStatus$()})
   txt: texte explicatif éventuel de l'administrateur
 */
 class GetSvcOrgStatus extends Operation {
-  constructor () { super() }
+  
 
   async phase2 () {
     const orgDoc = await this.cache.getOrg()
@@ -115,9 +105,9 @@ class GetSvcOrgStatus extends Operation {
     // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
   }
 
-  phase3 : null
+  
 }
-Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
+Classes.registerOp(GetSvcOrgStatus)
 
 /* SetOrgStatus fixe le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -125,7 +115,7 @@ Operation.register('GetSvcOrgStatus', () => { return new GetSvcOrgStatus()})
   txt: texte explicatif éventuel de l'administrateur
 */
 class SetSvcOrgStatus extends Operation {
-  constructor () { super() }
+  
 
   _st: number
   _txt: string
@@ -144,16 +134,16 @@ class SetSvcOrgStatus extends Operation {
       orgDoc.status = status
       orgDoc._status = DocStatus.UPD
     } else {
-      orgDoc = this.cache.newDoc('Org', { status }) as Org
+      this.cache.newDoc('Org', { status })
     }
   }
 
-  phase3 : null
+  
 }
-Operation.register('SetSvcOrgStatus', () => { return new SetSvcOrgStatus()})
+Classes.registerOp(SetSvcOrgStatus)
 
 class SetOrgConfig$ extends Operation {
-  constructor () { super() }
+  
   _st: string
   _db: string
 
@@ -169,12 +159,12 @@ class SetOrgConfig$ extends Operation {
     this.setRes('orgconfig', { db: this._db, st: this._st })
   }
 
-  phase3 : null
+  
 }
-Operation.register('SetOrgConfig$', () => { return new SetOrgConfig$()})
+Classes.registerOp(SetOrgConfig$)
 
 class GetOrgConfig$ extends Operation {
-  constructor () { super() }
+  
 
   async phase2 () {
     this.requireAdmin()
@@ -194,13 +184,13 @@ class GetOrgConfig$ extends Operation {
       this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
   }
 
-  phase3 : null
+  
 }
-Operation.register('GetOrgConfig$', () => { return new GetOrgConfig$()})
+Classes.registerOp(GetOrgConfig$)
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
-  constructor () { super() }
+  
 
   _id1 : string
   _id2 : string
@@ -221,17 +211,17 @@ class GetPutUrl extends Operation {
       : this.storage.getUrl(this, this._id1, this._id2, this._id3)
     this.setRes('url', url)
   }
-  phase3 : null
+  
 
 }
-Operation.register('GetPutUrl', () => { return new GetPutUrl()})
+Classes.registerOp(GetPutUrl)
 
 /* SetSubscription enregistre la sousciption d'une session *************************
 - Supprime la précédente s'il y en avait une
 - Créé une nouvelle si l'argument subscription n'est pas null
 */
 class SetSubscription extends Operation {
-  constructor () { super() }
+  
 
   _subs: subscription
   _life: number
@@ -254,17 +244,17 @@ class SetSubscription extends Operation {
     }
   }
 
-  phase3 : null
+  
 
 }
-Operation.register('SetSubscription', () => { return new SetSubscription()})
+Classes.registerOp(SetSubscription)
 
 /* UpdateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
 Maj éventuelle de title / url
 Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
 */
 class UpdateSubscription extends Operation {
-  constructor () { super() }
+  
 
   _title: string
   _url: string
@@ -308,10 +298,10 @@ class UpdateSubscription extends Operation {
     }
   }
 
-  phase3 : null
+  
 
 }
-Operation.register('UpdateSubscription', () => { return new UpdateSubscription()})
+Classes.registerOp(UpdateSubscription)
 
 type subsToSync = {
   def: string, 
@@ -334,7 +324,7 @@ Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des docum
   - data: data du document s'il est dans la collection
 */
 class Sync extends Operation {
-  constructor () { super() }
+  
 
   _toSync : subsToSync[]
 
@@ -377,14 +367,14 @@ class Sync extends Operation {
     }
   }
 
-  phase3 : null
+  
 
 }
-Operation.register('Sync', () => { return new Sync()})
+Classes.registerOp(Sync)
 
 /* GrantNewManager positionne la date de fin d'un Credential "manager" sous admin
 class GrantNewManager extends Operation {
-  constructor () { super() }
+  
 
   _cr: CredRequest
 
@@ -405,9 +395,9 @@ class GrantNewManager extends Operation {
     }
   }
 
-  phase3 : null
+  
 }
-Operation.register('GrantNewManager', () => { return new GrantNewManager()})
+Classes.registerOp(GrantNewManager', () => { return new GrantNewManager()})
 */
 
 type RevokeReq = {
@@ -420,7 +410,7 @@ type RevokeReq = {
 par admin ou l'utilisateur lui-même (auto-revocation)
 */
 class RevokeCred extends Operation {
-  constructor () { super() }
+  
 
   _rr: RevokeReq 
 
@@ -444,15 +434,15 @@ class RevokeCred extends Operation {
     } else this.setRes('status', 1)
   }
 
-  phase3 : null
+  
 }
-Operation.register('RevokeCred', () => { return new RevokeCred()})
+Classes.registerOp(RevokeCred)
 
 /* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
 Retourne une liste de : { id, userId, time, limit }
 */
 class ListManagers extends Operation {
-  constructor () { super() }
+  
 
   init () {
     super.init()
@@ -476,15 +466,15 @@ class ListManagers extends Operation {
     this.setRes('status', status)
   }
 
-  phase3 : null
+  
 }
-Operation.register('ListManagers', () => { return new ListManagers()})
+Classes.registerOp(ListManagers)
 
 /* ListUserCreds liste les credential enregistrés du user (qu'ils soient valides ou non)
 Retourne une liste de : { id, role, docId, time, limit, cond }
 */
 class ListUserCreds extends Operation {
-  constructor () { super() }
+  
 
   init () {
     super.init()
@@ -496,9 +486,9 @@ class ListUserCreds extends Operation {
     this.setRes('list', lst)
   }
 
-  phase3 : null
+  
 }
-Operation.register('ListUserCreds', () => { return new ListUserCreds()})
+Classes.registerOp(ListUserCreds)
 
 /* InvitList liste les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
@@ -506,7 +496,7 @@ Operation.register('ListUserCreds', () => { return new ListUserCreds()})
 Retourne une liste d'invitations 
 */
 class InvitList extends Operation {
-  constructor () { super() }
+  
 
   _major: string
   _minor: string
@@ -536,15 +526,15 @@ class InvitList extends Operation {
     this.setRes('status', 0)
   }
 
-  phase3 : null
+  
 }
-Operation.register('InvitList', () => { return new InvitList()})
+Classes.registerOp(InvitList)
 
 /* InvitGet retourne une invitation d'après son ID. 
 Le demandeur doit être l'utilisateur ayant demandé l'invitation.
 */
 class InvitGet extends Operation {
-  constructor () { super() }
+  
 
   _invitId: string
 
@@ -565,16 +555,16 @@ class InvitGet extends Operation {
     this.setRes('status', s)
   }
 
-  phase3 : null
+  
 }
-Operation.register('InvitGet', () => { return new InvitGet()})
+Classes.registerOp(InvitGet)
 
 /* CreateInvit: création d'une invitation. Enregistrement en base seulement.
 - invObj
 L'enregistrement dans le SafeStore du user U a été faite par l'application avant cette opération.
 */
 class InvitCreate extends Operation {
-  constructor () { super() }
+  
 
   _invObj: any
 
@@ -598,16 +588,16 @@ class InvitCreate extends Operation {
     }
   }
 
-  phase3 : null
+  
 }
-Operation.register('InvitCreate', () => { return new InvitCreate()})
+Classes.registerOp(InvitCreate)
 
 /* InvitDecline marque le status d'une invitation comme déclinée ou annulée 
 Le demandeur doit être l'utilisateur ayant demandé l'invitation
 et celle-ci en status 2.
 */
 class InvitDecline extends Operation {
-  constructor () { super() }
+  
 
   _invitId: string
   _txt: string // raison invoquée (crypté par U/S en base64)
@@ -636,12 +626,12 @@ class InvitDecline extends Operation {
     this.setRes('status', s)
   }
 
-  phase3 : null
+  
 }
-Operation.register('InvitDecline', () => { return new InvitDecline()})
+Classes.registerOp(InvitDecline)
 
 class InvitCancel extends Operation {
-  constructor () { super() }
+  
 
   _invitId: string
 
@@ -666,9 +656,9 @@ class InvitCancel extends Operation {
     this.setRes('status', s)
   }
 
-  phase3 : null
+  
 }
-Operation.register('InvitCancel', () => { return new InvitCancel()})
+Classes.registerOp(InvitCancel)
 
 /* InvitAccept
 - marque le status d'une invitation en status 1.
@@ -677,7 +667,7 @@ Operation.register('InvitCancel', () => { return new InvitCancel()})
 Le demandeur doit être a minima authentifié. 
 */
 class InvitAccept extends Operation {
-  constructor () { super() }
+  
 
   _invitId: string
   _etc: any
@@ -703,14 +693,13 @@ class InvitAccept extends Operation {
     this.setRes('status', s)
   }
 }
-Operation.register('InvitAccept', () => { return new InvitAccept()})
+Classes.registerOp(InvitAccept)
 
 /* InvitReject
 - marque le status d'une invitation en status 1 comme rejetée (3).
 */
 class InvitReject extends Operation {
-  constructor () { super() }
-
+  
   _invitId: string
   _txt: string // REJECT : justification de rejet crypté par le sponsor (clé privSP / pubU) en base64
 
@@ -736,9 +725,8 @@ class InvitReject extends Operation {
     this.setRes('status', s)
   }
 
-  phase3 = null
 }
-Operation.register('InvitReject', () => { return new InvitReject()})
+Classes.registerOp(InvitReject)
 
 /* InvitValidate marque le status d'une invitation en status 4 (acceptée). 
 Le demandeur doit être l'utilisateur.
@@ -751,7 +739,7 @@ Côté application,
 - des subscriptions sont à gérer sur le / les documents de "position".
 */
 export class InvitValidate extends Operation {
-  constructor () { super() }
+  
 
   _invitId: string
   _validArgs: any
@@ -781,4 +769,4 @@ export class InvitValidate extends Operation {
   }
 
 }
-Operation.register('InvitValidate', () => { return new InvitValidate()})
+Classes.registerOp(InvitValidate)

@@ -11958,3 +11958,48 @@ BEGIN
 2026-04-04T17:17:57.755Z info: ListUserCreds finished
 2026-04-04T17:18:26.817Z info: ListUserCreds : 2026-04-04T17:18:26.817Z
 2026-04-04T17:18:26.823Z info: ListUserCreds finished
+2026-04-11T12:18:51.415Z info: 23 operations registered
+2026-04-11T12:18:51.419Z info: 10 document classes
+2026-04-11T12:18:51.420Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T12:18:51.420Z info: Firestore connector
+2026-04-11T12:18:51.421Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T12:18:51.421Z info: 23 App operations registered
+2026-04-11T13:06:43.231Z info: 23 operations registered
+2026-04-11T13:06:43.234Z info: 10 document classes
+2026-04-11T13:06:43.234Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T13:06:43.235Z info: Firestore connector
+2026-04-11T13:06:43.235Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T13:06:43.236Z info: 23 App operations registered
+2026-04-11T13:13:30.797Z info: 23 operations registered
+2026-04-11T13:13:30.799Z info: 10 document classes
+2026-04-11T13:13:30.800Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T13:13:30.801Z info: Firestore connector
+2026-04-11T13:13:30.802Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T13:13:30.802Z info: 23 App operations registered
+2026-04-11T13:42:39.251Z info: 23 operations registered
+2026-04-11T13:42:39.254Z info: 10 document classes
+2026-04-11T13:42:39.255Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T13:42:39.255Z info: Firestore connector
+2026-04-11T13:42:39.256Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T13:42:39.256Z info: 23 App operations registered
+2026-04-11T13:43:20.416Z info: 23 operations registered
+2026-04-11T13:43:20.420Z info: 10 document classes
+2026-04-11T13:43:20.421Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T13:43:20.421Z info: Firestore connector
+2026-04-11T13:43:20.422Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T13:43:20.423Z info: 23 App operations registered
+2026-04-11T14:25:48.856Z info: 0 operations registered
+2026-04-11T14:25:48.860Z info: 10 document classes
+2026-04-11T14:25:48.861Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T14:25:48.861Z info: Firestore connector
+2026-04-11T14:25:48.862Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T14:32:04.413Z info: 10 document classes
+2026-04-11T14:32:04.416Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T14:32:04.417Z info: Firestore connector
+2026-04-11T14:32:04.418Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T14:41:53.461Z info: 10 document classes
+2026-04-11T14:41:53.464Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-11T14:41:53.465Z info: Firestore connector
+2026-04-11T14:41:53.466Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-11T14:41:53.488Z info: Reloading orgs config OK
+2026-04-11T14:41:53.497Z info: HTTP listen [8080]
