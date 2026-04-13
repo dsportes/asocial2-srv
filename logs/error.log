@@ -278,3 +278,7 @@ BEGIN
 2026-04-02T13:06:42.295Z error: AppExc: 3001:unexpected exception["Invalid keyData"]
 2026-04-04T15:55:54.155Z error: ListUserCreds : 2026-04-04T15:53:03.813Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
 2026-04-04T15:55:54.159Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-12T13:27:54.515Z error: AppExc: 3001:unexpected exception["no such table: SAFE"]
+2026-04-12T17:14:20.163Z error: AppExc: 3001:unexpected exception["Cannot set properties of undefined (setting 'status')"]
+2026-04-12T18:06:33.015Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading 'invits')"]
+2026-04-13T15:23:19.581Z error: AppExc: 3001:unexpected exception["database is locked"]

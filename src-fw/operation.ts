@@ -1,4 +1,4 @@
-import { AppExc, OperationWC } from './index'
+import { AppExc, OperationWC } from '../src-fw/index'
 import { config } from './config'
 import { Log } from './log'
 import { DbConnector } from './dbConnector'
@@ -11,7 +11,7 @@ import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt, keyFromB64 } from './crypt'
 import { decode } from '@msgpack/msgpack'
-import { SafeOperation, ICVO } from './safeop'
+import { MDOperation, ICVO } from '../src-fw/masterdir'
 
 const encoder = new TextEncoder()
 
@@ -56,10 +56,6 @@ export class DocDescr {
 
 export class Operation implements OperationWC {
   public static factories = new Map<string, Function>()
-
-  static nbOf () { 
-    return Operation.factories.size 
-  }
 
   static new (opName: string) {
     const f = Operation.factories.get(opName)
@@ -366,7 +362,8 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const icvo: ICVO = await SafeOperation.userICVO(this.op, this.userId)
+    const result = await MDOperation.doOp('$GetUserICVO', { userId: this.userId })
+    const icvo: ICVO = result['icvo']
     if (!icvo) throw new AppExc(2005, 'no user icvo', this.op)
     const ok = await Crypt.verify(keyFromB64(icvo.v), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)

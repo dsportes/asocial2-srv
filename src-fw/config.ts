@@ -16,7 +16,9 @@ export class Classes {
     return cl ? new cl() : null
   }
 
-  static registerOp (cl: Function) { Classes.regOp.set(cl.name, cl) }
+  static registerOp (cl: Function) { 
+    Classes.regOp.set(cl.name, cl)
+  }
   static newOp (name: string) {
     const cl = Classes.regOp.get(name)
     return cl ? new cl() : null
@@ -50,6 +52,7 @@ export interface BaseConfig {
   databases: Map<string, DbConnector>
   storages: Map<string, IStGeneric>
   safeDB: DbConnector
+  masterDB: DbConnector
   svcDB: DbConnector
   dbConnectors: Object
   directoryDB: Object

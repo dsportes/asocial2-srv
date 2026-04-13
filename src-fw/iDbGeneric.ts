@@ -1,8 +1,8 @@
-import { DbConnector } from './dbConnector'
-import { Operation } from './operation'
+
+import { AbstractOperation, DbConnector } from '../src-fw/index'
 
 /* Interface des services d'accès génériques à la DB */
-export enum safeTable { 
+export enum MDTable { 
   ORGS = 'ZZORGS',
   USERS = 'ZZUSERS',
   SVCOPS = 'ZZSVCOPS'
@@ -91,7 +91,7 @@ export type Safe = {
 
 export interface IDbGeneric {
   connector: DbConnector
-  op: Operation
+  op: AbstractOperation
   key: Buffer
   org: string
 
@@ -104,9 +104,9 @@ export interface IDbGeneric {
   getSingleton (key: string) : Promise<string>
   setSingleton (key: string, value: string) : Promise<void>
 
-  safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> 
-  safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> 
-  safeDel (st: safeTable, key: string) : Promise<void> 
+  mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> 
+  mdSet (st: MDTable, key: string, v: number, value: string) : Promise<void> 
+  mdDel (st: MDTable, key: string) : Promise<void> 
 
   /* Retourne [r, safe]. safe est l'objet safe depuis,
   - soit son id (r=0)

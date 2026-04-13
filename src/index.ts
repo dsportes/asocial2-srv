@@ -37,6 +37,9 @@ loadingOA()
 import { loadingOS } from '../src-fw/safeop'
 loadingOS()
 
+import { loadingOM } from '../src-fw/masterdir'
+loadingOM()
+
 const emulator = true
 if (emulator) {
   env['STORAGE_EMULATOR_HOST'] = 'http://127.0.0.1:9199', // 'http://' est REQUIS
@@ -57,9 +60,9 @@ try {
 }
 
 // Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['H-BNhJHdiC8YLaPsRl4A'])
+const ADMINUSERS = new Set(['zH9-YI-Pj3RX4TzYtYDf'])
 // Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['H-BNhJHdiC8YLaPsRl4A'])
+const MASTERDIRADMINUSERS = new Set(['zH9-YI-Pj3RX4TzYtYDf'])
 
 setConfig(
   {
@@ -90,6 +93,7 @@ setConfig(
   databases: new Map<string, DbConnector>(),
   storages: new Map<string, IStGeneric>(),
   safeDB: null,
+  masterDB: null,
   svcDB: null,
   dbConnectors: {
     sqlite: AppSQLiteConnector,
@@ -114,6 +118,7 @@ config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['
 config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
 
 config.safeDB = config.databases.get('sqlite_a')
+config.masterDB = config.databases.get('sqlite_a')
 config.svcDB = config.databases.get('sqlite_a')
 
 config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))

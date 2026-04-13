@@ -1,15 +1,12 @@
 import Database from 'better-sqlite3'
-// import { Database } from './loadreq.js'
 
 import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
-import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, Safe, safeTable} from '../src-fw/iDbGeneric'
+  row, rowQ, updType, vdata, Safe, MDTable} from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
-import { AppExc } from '../src-fw/index'
 import { Log } from '../src-fw/log'
-import { Operation } from '../src-fw/operation'
+import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { Util } from '../src-fw/util'
 
@@ -131,7 +128,7 @@ export class SQLiteConnector extends DbConnector {
 const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN1', 'IN2']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
-  public static newConnexion (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
+  public static newConnexion (connector: SQLiteConnector, op: AbstractOperation, cryptKey?: string) {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
 
@@ -160,7 +157,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return e
   }
 
-  constructor (connector: SQLiteConnector, op: Operation, cryptKey?: string) {
+  constructor (connector: SQLiteConnector, op: AbstractOperation, cryptKey?: string) {
     super(connector, op, cryptKey)
     this.path = connector.path
     this.lastSql = []
@@ -201,41 +198,45 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /******************************************************************************
-  * Gestion des safe  
+  * Gestion du MesterDir  
   ******************************************************************************/
 
-  async safeGet (st: safeTable, key: string, v: number) : Promise<[number, string]> {
+  async mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> {
     const stmt = this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key AND v > @v;')
     let row = stmt.get({ key, v })
     return row ? [row.v, row.value] : null
   }
 
-  async safeSet (st: safeTable, key: string, v: number, value: string) : Promise<void> {
+  async mdSet (st: MDTable, key: string, v: number, value: string) : Promise<void> {
     const stmt = this.sql.prepare('INSERT INTO ' + st +
-      ' (key, value) VALUES (@key, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
+      ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
     stmt.run({key, v, value})
   }
 
-  async safeDel (st: safeTable, key: string) : Promise<void> {
+  async mdDel (st: MDTable, key: string) : Promise<void> {
     const stmt = this.sql.prepare('DELETE FROM ' + st + ' WHERE key = @key')
     stmt.run({ key })
   }
 
+  /******************************************************************************
+  * Gestion des safe  
+  ******************************************************************************/
+
   async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
     let m = 0
-    let stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE id = @id')
+    let stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE id = @id')
     let row = stmt.get({id})
     if (!row) {
       m = 1
-      stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hp0 = @id')
+      stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hp0 = @id')
       row = stmt.get({id})
       if (!row) {
         m = 2
-        stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hr0 = @id')
+        stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hr0 = @id')
         row = stmt.get({id})
         if (!row) {
           m = 3
-          stmt = this.sql.prepare('SELECT id, lam, data FROM SAFE WHERE hct = @id')
+          stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hct = @id')
           row = stmt.get({id})
         }
       }
@@ -244,7 +245,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const data = Crypt.syncDecrypt(this.key, row.data)
     const cm = Util.currentMonth()
     if (row.lam !== cm) {
-      const upd = this.sql.prepare('UPDATE SAFE SET lam = @lam WHERE id = @id')
+      const upd = this.sql.prepare('UPDATE ZZSAFE SET lam = @lam WHERE id = @id')
       upd.run({ id: row.id, lam: cm })
     }
     return [m, data]
@@ -257,29 +258,29 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
     const r = { lm: -1, xp: true, xr: true }
-    const stmt = this.sql.prepare('SELECT id, data FROM SAFE WHERE id = @id')
+    const stmt = this.sql.prepare('SELECT id, data FROM ZZSAFE WHERE id = @id')
     const row = stmt.get({id})
     if (row) {
       const data = decode(Crypt.syncDecrypt(this.key, row.data))
       r.lm = data['lm'] || 0
       if (data['hp0'] === hp0) r.xp = true
       else {
-        const stmt2 = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+        const stmt2 = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hp0 = @hp0')
         const row2 = stmt2.get({hp0})
         r.xp = row2 ? false : true
       }
       if (data['hr0'] === hr0) r.xr = true
       else {
-        const stmt3 = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+        const stmt3 = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hr0 = @hr0')
         const row3 = stmt3.get({hr0})
         r.xr = row3 ? false : true
       }
     } else {
       r.lm = -1
-      const stmt2 = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+      const stmt2 = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hp0 = @hp0')
       const row2 = stmt2.get({hp0})
       r.xp = row2 ? false : true
-      const stmt3 = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+      const stmt3 = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hr0 = @hr0')
       const row3 = stmt3.get({hr0})
       r.xr = row3 ? false : true
     }
@@ -293,22 +294,22 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const hct = safe.hct
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
+    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM ZZSAFE WHERE id = @id')
     let row0, row1, row2
     row0 = stmt.get({id})
     if ((row0 && row0['hp0'] !== hp0) || !row0) {
-      stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+      stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hp0 = @hp0')
       row1 = stmt.get({hp0})
       if (row1) return 1
     }
     if ((row0 && row0['hr0'] !== hr0) || !row0) {
-      stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+      stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hr0 = @hr0')
       row2 = stmt.get({hr0})
       if (row2) return 2
     }
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
-    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    if (!row0) stmt = this.sql.prepare('INSERT INTO ZZSAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
+    else stmt = this.sql.prepare('UPDATE ZZSAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hp0, hr0, hct, lam, data })
     return 0
   }
@@ -320,18 +321,18 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const hct = safe.hct
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM SAFE WHERE id = @id')
+    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM ZZSAFE WHERE id = @id')
     let row0, row1, row2
     row0 = stmt.get({id})
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hp0 = @hp0')
+    stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hp0 = @hp0')
     row1 = stmt.get({hp0})
     if (row1 && row1.id !== id) return 1
-    stmt = this.sql.prepare('SELECT id FROM SAFE WHERE hr0 = @hr0')
+    stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hr0 = @hr0')
     row2 = stmt.get({hr0})
     if (row2 && row2.id !== id) return 2
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    if (!row0) stmt = this.sql.prepare('INSERT INTO SAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
-    else stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    if (!row0) stmt = this.sql.prepare('INSERT INTO ZZSAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
+    else stmt = this.sql.prepare('UPDATE ZZSAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hp0, hr0, hct, lam, data })
     return 0
   }
@@ -342,14 +343,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const hr0 = safe.hr0
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hp0 = @hp0')
+    let stmt = this.sql.prepare('SELECT id FROM "ZZSAFE" WHERE hp0 = @hp0')
     let row = stmt.get({hp0})
     if (row && row.id !== id) return 2
-    stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hr0 = @hr0')
+    stmt = this.sql.prepare('SELECT id FROM "ZZSAFE" WHERE hr0 = @hr0')
     row = stmt.get({hr0})
     if (row && row.id !== id) return 3
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    stmt = this.sql.prepare('UPDATE SAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
+    stmt = this.sql.prepare('UPDATE ZZSAFE SET hp0 = @hp0, hr0 = @hr0, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hp0, hr0, lam, data })
     return 0
   }
@@ -361,12 +362,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const lam = Util.currentMonth()
     let stmt
     if (hct !== '')  {
-      stmt = this.sql.prepare('SELECT id FROM "SAFE" WHERE hct = @hct')
+      stmt = this.sql.prepare('SELECT id FROM "ZZSAFE" WHERE hct = @hct')
       let row = stmt.get({hct})
       if (row && row.id !== id) return 2
     }
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    stmt = this.sql.prepare('UPDATE SAFE SET hct = @hct, lam = @lam, data = @data WHERE id = @id')
+    stmt = this.sql.prepare('UPDATE ZZSAFE SET hct = @hct, lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, hct, lam, data })
     return 0
   }
@@ -376,17 +377,17 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     safe.lm = Math.floor(Date.now() / 1000)
     const lam = Util.currentMonth()
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    const stmt = this.sql.prepare('UPDATE SAFE SET lam = @lam, data = @data WHERE id = @id')
+    const stmt = this.sql.prepare('UPDATE ZZSAFE SET lam = @lam, data = @data WHERE id = @id')
     stmt.run({ id, lam, data })
   }
 
   async delSafe (id: string) :  Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE id = @id')
+    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE id = @id')
     stmt.run({ id })
   }
 
   async purgeSafes (lam: number) :  Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM SAFE WHERE lam < @lam')
+    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE lam < @lam')
     stmt.run({ lam })
   }
 
@@ -410,9 +411,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async doTransaction () : Promise<[number, string]> {
     try {
+      const opx = this.op as OperationWC
       this.transaction = true
       this.sql.exec('BEGIN;')
-      await this.op.transac()
+      await opx.transac()
       this.sql.exec('COMMIT;')
       this.transaction = false
       return [0, '']

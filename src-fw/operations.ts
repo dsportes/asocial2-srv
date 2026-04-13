@@ -31,14 +31,12 @@ Classes.registerOp(Bug)
 
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
-class SvcOpIsAdmin extends Operation {
+class SvcOpIsAdmin$ extends Operation {
   async phase2 () {
     this.setRes('isadmin', this.authRecord.isAdmin)
   }
-
-  
 }
-Classes.registerOp(SvcOpIsAdmin)
+Classes.registerOp(SvcOpIsAdmin$)
 
 
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }

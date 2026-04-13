@@ -11,11 +11,50 @@ import { config, Classes } from './config'
 import { Util } from './util'
 
 import { IStGeneric } from './iStGeneric'
-// import { IDbGeneric } from './iDbGeneric'
+import { IDbGeneric } from './iDbGeneric'
 // import { StorageGeneric } from './storageGeneric'
 import { Operation } from './operation'
 import { SafeOperation } from './safeop'
-import { DbConnector } from './dbConnector'
+import { MDOperation } from './masterdir'
+
+export class DbConnector {
+
+  public key: Buffer
+  public credentials: any
+  public factory: Function
+
+  constructor (credentials: Object, cryptKey: string) {
+    if (!credentials)
+      throw new AppExc(1022, 'DbConnector : credentials not found', null)
+    if (!cryptKey) 
+      throw new AppExc(1024, 'DbConnector : crypt key ', null)
+    this.key = Buffer.from(cryptKey, 'base64')
+    this.credentials = credentials
+  }
+
+  async getConnexion (op: AbstractOperation, org?: string, cryptKey?: string) {
+    const cnx = this.factory(this, op, cryptKey) as IDbGeneric
+    cnx.org = org || '' 
+    await cnx.connect()
+    op.db = cnx
+    return cnx
+  }
+}
+
+export class DbConnexion {
+  public connector: DbConnector
+  public op: AbstractOperation
+  public key: Buffer
+  public org: string
+  public transaction: any
+
+  constructor (connector: DbConnector, op: AbstractOperation, cryptKey?: string) {
+    this.connector = connector
+    this.key = !cryptKey ? this.connector.key : Buffer.from(cryptKey, 'base64')
+    this.op = op
+  }
+
+}
 
 /* Configuration des organisations *****************************************
 - depuis le SINGLETON 'orgs': { org1:[db1, st1], org2:[db1, st2], ...}
@@ -59,7 +98,7 @@ export class OrgsConfig {
     if (OrgsConfig.updating) return
     if (Date.now() - OrgsConfig.lastLoading < 300000) return
     OrgsConfig.updating = true
-    setTimeout(OrgsConfig.doReload, 50)
+    setTimeout(async () => OrgsConfig.doReload(), 50)
   }
 
   // Sauvegarde la configuration d'une organisation
@@ -231,7 +270,6 @@ export function getExpressApp (): express.Application {
 
   /* Appels des opérations sur le SAFE store *****************************/
   app.use('/safe/:operation', async (req, res) => {
-    let result: Object
     const opName = req.params.operation as string
     if (!req['rawBody']) {
       let chunks = [];
@@ -239,22 +277,49 @@ export function getExpressApp (): express.Application {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         const body = Buffer.concat(chunks)
-        await doSafeOp(opName, body, res)
+        await doSOp(opName, body, res)
       })
     } else // Cloud functions
-      result = doSafeOp(opName, req['rawBody'], res)
+      await doSOp(opName, req['rawBody'], res)
     })
-  
+
+  /* Appels des opérations sur le SAFE store *****************************/
+  app.use('/master/:operation', async (req, res) => {
+    const opName = req.params.operation as string
+    if (!req['rawBody']) {
+      let chunks = [];
+      req.on('data', (chunk) => {
+        chunks.push(Buffer.from(chunk))
+      }).on('end', async () => {
+        const body = Buffer.concat(chunks)
+        await doMDOp(opName, body, res)
+      })
+    } else // Cloud functions
+      await doMDOp(opName, req['rawBody'], res)
+  })
+
   return app
 }
 
-async function doSafeOp(opName: string, body: Buffer, res) {
+// Opérations MasterDir
+async function doMDOp(opName: string, body: Buffer, res: any) {
+  try {
+    const result = await MDOperation.doOp(opName, decode(body))
+    const b = encode(result) as Buffer
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+    if (config.debugLevel === 2) Log.info(opName + ' finished')
+  } catch (exc: any) {
+    ExcOp(exc, opName, res)
+  }
+}
+
+async function doSOp(opName: string, body: Buffer, res: any) {
   try {
     const result = await SafeOperation.doOp(opName, decode(body))
-    if (config.debugLevel === 2) Log.info(opName + ' finished')
-    const b = encode(result || {})
+    const b = encode(result) as Buffer
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
-  } catch(exc) { 
+    if (config.debugLevel === 2) Log.info(opName + ' finished')
+  } catch (exc: any) {
     ExcOp(exc, opName, res)
   }
 }
@@ -476,6 +541,7 @@ export interface AbstractOperation {
   result: any
   args: any 
   db: any
+  now: number
 
 
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
@@ -484,7 +550,8 @@ export interface AbstractOperation {
 
 export interface OperationWC extends AbstractOperation {
   org: string
-  now: number
   cache: any
   authRecord: any
+
+  transac () : Promise<void>
 }

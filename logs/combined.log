@@ -12003,3 +12003,305 @@ BEGIN
 2026-04-11T14:41:53.466Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-04-11T14:41:53.488Z info: Reloading orgs config OK
 2026-04-11T14:41:53.497Z info: HTTP listen [8080]
+2026-04-12T09:41:53.396Z info: 10 document classes
+2026-04-12T09:41:53.407Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T09:41:53.409Z info: Firestore connector
+2026-04-12T09:41:53.410Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T09:41:53.530Z info: Reloading orgs config OK
+2026-04-12T09:41:53.539Z info: HTTP listen [8080]
+2026-04-12T13:17:53.437Z info: AppExc: 1002:unknown operation["$SetUserCVO"]
+2026-04-12T13:17:53.441Z info: $SetUserCVO terminated on exception
+2026-04-12T13:22:33.953Z info: 10 document classes
+2026-04-12T13:22:33.957Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T13:22:33.957Z info: Firestore connector
+2026-04-12T13:22:33.958Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T13:22:34.067Z info: Reloading orgs config OK
+2026-04-12T13:22:34.073Z info: HTTP listen [8080]
+2026-04-12T13:25:32.632Z info: $SetUserICVO finished
+2026-04-12T13:27:54.513Z info: $CreateSafe terminated on exception
+2026-04-12T13:27:54.515Z error: AppExc: 3001:unexpected exception["no such table: SAFE"]
+2026-04-12T17:08:34.363Z info: 10 document classes
+2026-04-12T17:08:34.365Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:08:34.366Z info: Firestore connector
+2026-04-12T17:08:34.367Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:08:34.391Z info: Reloading orgs config OK
+2026-04-12T17:08:34.398Z info: HTTP listen [8080]
+2026-04-12T17:13:31.623Z info: 10 document classes
+2026-04-12T17:13:31.627Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:13:31.628Z info: Firestore connector
+2026-04-12T17:13:31.629Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:13:31.652Z info: Reloading orgs config OK
+2026-04-12T17:13:31.658Z info: HTTP listen [8080]
+2026-04-12T17:14:06.397Z info: $SetUserICVO finished
+2026-04-12T17:14:20.149Z info: $CreateSafe terminated on exception
+2026-04-12T17:14:20.163Z error: AppExc: 3001:unexpected exception["Cannot set properties of undefined (setting 'status')"]
+2026-04-12T17:19:24.462Z info: 10 document classes
+2026-04-12T17:19:24.492Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:19:24.493Z info: Firestore connector
+2026-04-12T17:19:24.495Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:19:24.528Z info: Reloading orgs config OK
+2026-04-12T17:19:24.535Z info: HTTP listen [8080]
+2026-04-12T17:19:59.487Z info: $SetUserICVO finished
+2026-04-12T17:20:20.816Z info: $CreateSafe finished
+2026-04-12T17:21:54.654Z info: 10 document classes
+2026-04-12T17:21:54.658Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:21:54.660Z info: Firestore connector
+2026-04-12T17:21:54.660Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:21:54.682Z info: Reloading orgs config OK
+2026-04-12T17:21:54.688Z info: HTTP listen [8080]
+2026-04-12T17:22:51.849Z info: $SetUserICVO finished
+2026-04-12T17:24:19.114Z info: $CreateSafe finished
+2026-04-12T17:25:35.578Z info: 10 document classes
+2026-04-12T17:25:35.584Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:25:35.586Z info: Firestore connector
+2026-04-12T17:25:35.588Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:25:35.635Z info: Reloading orgs config OK
+2026-04-12T17:25:35.648Z info: HTTP listen [8080]
+2026-04-12T17:26:32.087Z info: $SetUserICVO finished
+2026-04-12T17:26:58.716Z info: $CreateSafe finished
+2026-04-12T17:29:29.602Z info: 10 document classes
+2026-04-12T17:29:29.605Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:29:29.606Z info: Firestore connector
+2026-04-12T17:29:29.606Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:29:29.622Z info: Reloading orgs config OK
+2026-04-12T17:29:29.630Z info: HTTP listen [8080]
+2026-04-12T17:30:12.804Z info: $OpenSafeByPR finished
+2026-04-12T17:32:53.577Z info: $GetSvcUrls finished
+2026-04-12T17:34:53.900Z info: $SetOpUrl finished
+2026-04-12T17:41:35.041Z info: $SetOpUrl finished
+2026-04-12T17:42:03.226Z info: $GetSvcUrls finished
+2026-04-12T17:49:52.158Z info: $SetOpUrl finished
+2026-04-12T17:51:18.781Z info: $SetOpUrl finished
+2026-04-12T17:52:31.463Z info: 10 document classes
+2026-04-12T17:52:31.467Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-12T17:52:31.467Z info: Firestore connector
+2026-04-12T17:52:31.468Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-12T17:52:31.491Z info: Reloading orgs config OK
+2026-04-12T17:52:31.497Z info: HTTP listen [8080]
+2026-04-12T17:53:00.312Z info: $OpenSafeByPR finished
+2026-04-12T17:53:48.064Z info: $SetOpUrl finished
+2026-04-12T18:06:32.987Z info: $OpenSafeByPR terminated on exception
+2026-04-12T18:06:33.015Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading 'invits')"]
+2026-04-12T18:08:09.212Z info: $OpenSafeByPR finished
+2026-04-12T18:09:26.300Z info: $OpenSafeByPR finished
+2026-04-12T18:10:10.721Z info: $GetSvcUrls finished
+2026-04-12T18:17:16.943Z info: $OpenSafeByPR finished
+2026-04-12T18:17:50.250Z info: $GetSvcUrls finished
+2026-04-12T18:25:44.333Z info: $OpenSafeByPR finished
+2026-04-12T18:25:59.699Z info: $GetSvcUrls finished
+2026-04-12T18:26:39.957Z info: AppExc: 1003:unknown organisation["SvcOpIsAdmin","$RED"]
+2026-04-12T18:26:39.958Z info: SvcOpIsAdmin terminated on exception
+2026-04-12T18:26:40.016Z info: Reloading orgs config OK
+2026-04-12T18:31:54.006Z info: AppExc: 1003:unknown organisation["SvcOpIsAdmin","$RED"]
+2026-04-12T18:31:56.494Z info: SvcOpIsAdmin terminated on exception
+2026-04-12T18:36:39.058Z info: GetSvcOpStatus$ : 2026-04-12T18:36:39.058Z
+2026-04-12T18:36:39.064Z info: GetSvcOpStatus$ finished
+2026-04-12T18:36:39.124Z info: Reloading orgs config OK
+2026-04-12T18:37:41.507Z info: GetSvcOpStatus$ : 2026-04-12T18:37:41.507Z
+2026-04-12T18:37:41.511Z info: GetSvcOpStatus$ finished
+2026-04-12T18:38:16.363Z info: GetSvcOpStatus$ : 2026-04-12T18:38:16.363Z
+2026-04-12T18:38:16.366Z info: GetSvcOpStatus$ finished
+2026-04-12T18:38:16.382Z info: $GetOrgSvcs finished
+2026-04-12T18:38:49.870Z info: $GrantSvcOpOrg finished
+2026-04-12T18:38:59.484Z info: $GrantSvcOpOrg finished
+2026-04-12T18:39:10.298Z info: GetSvcOpStatus$ : 2026-04-12T18:39:10.298Z
+2026-04-12T18:39:10.302Z info: GetSvcOpStatus$ finished
+2026-04-12T18:39:20.182Z info: GetSvcOpStatus$ : 2026-04-12T18:39:20.182Z
+2026-04-12T18:39:20.186Z info: GetSvcOpStatus$ finished
+2026-04-13T08:02:03.881Z info: 10 document classes
+2026-04-13T08:02:03.884Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T08:02:03.885Z info: Firestore connector
+2026-04-13T08:02:03.885Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T08:02:03.990Z info: Reloading orgs config OK
+2026-04-13T08:02:03.996Z info: HTTP listen [8080]
+2026-04-13T08:03:02.230Z info: $OpenSafeByPR finished
+2026-04-13T08:10:28.486Z info: $GrantSvcOpOrg finished
+2026-04-13T08:11:37.238Z info: 10 document classes
+2026-04-13T08:11:37.243Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T08:11:37.244Z info: Firestore connector
+2026-04-13T08:11:37.245Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T08:11:37.283Z info: Reloading orgs config OK
+2026-04-13T08:11:37.288Z info: HTTP listen [8080]
+2026-04-13T08:13:59.249Z info: $OpenSafeByPR finished
+2026-04-13T08:14:36.707Z info: $GetSvcUrls finished
+2026-04-13T08:14:39.692Z info: AppExc: 1003:unknown organisation["SvcOpIsAdmin","$RED"]
+2026-04-13T08:14:39.693Z info: SvcOpIsAdmin terminated on exception
+2026-04-13T08:21:39.246Z info: 10 document classes
+2026-04-13T08:21:39.253Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T08:21:39.255Z info: Firestore connector
+2026-04-13T08:21:39.257Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T08:21:39.287Z info: Reloading orgs config OK
+2026-04-13T08:21:39.302Z info: HTTP listen [8080]
+2026-04-13T08:21:59.414Z info: $OpenSafeByPR finished
+2026-04-13T08:22:16.261Z info: $GetSvcUrls finished
+2026-04-13T08:23:21.131Z info: AppExc: 1003:unknown organisation["SvcOpIsAdmin","$RED"]
+2026-04-13T08:23:21.133Z info: SvcOpIsAdmin terminated on exception
+2026-04-13T08:24:18.127Z info: AppExc: 1003:unknown organisation["SvcOpIsAdmin","$RED"]
+2026-04-13T08:24:18.128Z info: SvcOpIsAdmin terminated on exception
+2026-04-13T08:25:40.830Z info: 10 document classes
+2026-04-13T08:25:40.834Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T08:25:40.835Z info: Firestore connector
+2026-04-13T08:25:40.836Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T08:26:36.878Z info: Reloading orgs config OK
+2026-04-13T08:26:46.701Z info: HTTP listen [8080]
+2026-04-13T08:29:59.195Z info: 10 document classes
+2026-04-13T08:29:59.198Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T08:29:59.199Z info: Firestore connector
+2026-04-13T08:29:59.199Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T08:29:59.217Z info: Reloading orgs config OK
+2026-04-13T08:29:59.226Z info: HTTP listen [8080]
+2026-04-13T08:30:19.603Z info: SvcOpIsAdmin$ : 2026-04-13T08:30:19.599Z
+2026-04-13T08:30:28.622Z info: SvcOpIsAdmin$ finished
+2026-04-13T08:56:23.458Z info: $OpenSafeByPR finished
+2026-04-13T08:56:42.419Z info: $GetSvcUrls finished
+2026-04-13T08:56:51.689Z info: SvcOpIsAdmin$ : 2026-04-13T08:56:51.689Z
+2026-04-13T08:56:57.312Z info: SvcOpIsAdmin$ finished
+2026-04-13T08:56:57.319Z info: Reloading orgs config OK
+2026-04-13T08:56:57.355Z info: $SetAdmins finished
+2026-04-13T08:57:12.473Z info: $SetAdmins finished
+2026-04-13T09:02:13.157Z info: $OpenSafeByPR finished
+2026-04-13T09:02:25.869Z info: $SetAdmins finished
+2026-04-13T09:05:35.390Z info: $SetAdmins finished
+2026-04-13T09:11:15.962Z info: $SetAdmins finished
+2026-04-13T09:13:25.453Z info: $SetAdmins finished
+2026-04-13T09:14:03.859Z info: $SetAdmins finished
+2026-04-13T09:15:18.986Z info: $GetSvcUrls finished
+2026-04-13T09:15:19.012Z info: SvcOpIsAdmin$ : 2026-04-13T09:15:19.012Z
+2026-04-13T09:15:19.016Z info: SvcOpIsAdmin$ finished
+2026-04-13T09:15:19.114Z info: Reloading orgs config OK
+2026-04-13T09:15:30.508Z info: $SetAdmins finished
+2026-04-13T14:23:38.743Z info: 10 document classes
+2026-04-13T14:23:38.748Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:23:38.749Z info: Firestore connector
+2026-04-13T14:23:38.750Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:23:38.960Z info: Reloading orgs config OK
+2026-04-13T14:23:38.981Z info: HTTP listen [8080]
+2026-04-13T14:24:37.487Z info: AppExc: 1002:unknown operation["$SetUserICVO$SetUserICVO"]
+2026-04-13T14:38:14.383Z info: 10 document classes
+2026-04-13T14:38:14.386Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:38:14.387Z info: Firestore connector
+2026-04-13T14:38:14.388Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:38:14.405Z info: Reloading orgs config OK
+2026-04-13T14:38:14.413Z info: HTTP listen [8080]
+2026-04-13T14:38:31.144Z info: AppExc: 1002:unknown operation["xx$SetUserICVO"]
+2026-04-13T14:38:42.063Z info: 10 document classes
+2026-04-13T14:38:42.066Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:38:42.067Z info: Firestore connector
+2026-04-13T14:38:42.067Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:38:42.083Z info: Reloading orgs config OK
+2026-04-13T14:38:42.092Z info: HTTP listen [8080]
+2026-04-13T14:39:13.085Z info: AppExc: 1002:unknown operation["xx$SetUserICVO"]
+2026-04-13T14:41:05.390Z info: 10 document classes
+2026-04-13T14:41:05.393Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:41:05.394Z info: Firestore connector
+2026-04-13T14:41:05.395Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:41:05.410Z info: Reloading orgs config OK
+2026-04-13T14:41:05.418Z info: HTTP listen [8080]
+2026-04-13T14:41:20.788Z info: AppExc: 1002:unknown operation["xx$SetUserICVO"]
+2026-04-13T14:41:24.068Z info: xx$SetUserICVO terminated on exception
+2026-04-13T14:42:54.664Z info: $SetUserICVO finished
+2026-04-13T14:42:54.688Z info: $CreateSafe finished
+2026-04-13T14:53:54.485Z info: 10 document classes
+2026-04-13T14:53:54.489Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:53:54.490Z info: Firestore connector
+2026-04-13T14:53:54.490Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:53:54.525Z info: Reloading orgs config OK
+2026-04-13T14:53:54.530Z info: HTTP listen [8080]
+2026-04-13T14:54:46.340Z info: $SetUserICVO finished
+2026-04-13T14:54:49.871Z info: $CreateSafe finished
+2026-04-13T14:57:39.813Z info: 10 document classes
+2026-04-13T14:57:39.815Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T14:57:39.816Z info: Firestore connector
+2026-04-13T14:57:39.817Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T14:57:39.832Z info: Reloading orgs config OK
+2026-04-13T14:57:39.839Z info: HTTP listen [8080]
+2026-04-13T15:00:22.582Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-04-13T15:00:22.583Z info: $SetOpUrl terminated on exception
+2026-04-13T15:06:54.631Z info: AppExc: 2002:no safe admin@$SetOpUrl:[]
+2026-04-13T15:06:54.633Z info: $SetOpUrl terminated on exception
+2026-04-13T15:11:40.130Z info: $OpenSafeByPR finished
+2026-04-13T15:13:27.138Z info: 10 document classes
+2026-04-13T15:13:27.142Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T15:13:27.142Z info: Firestore connector
+2026-04-13T15:13:27.143Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T15:13:27.160Z info: Reloading orgs config OK
+2026-04-13T15:13:27.169Z info: HTTP listen [8080]
+2026-04-13T15:14:35.364Z info: $SetOpUrl finished
+2026-04-13T15:15:31.819Z info: $SetOpUrl finished
+2026-04-13T15:16:26.203Z info: AppExc: 2004:svc unkown or not implemented by $OP@$GrantSvcOpOrg:["AS2","$RED","doda"]
+2026-04-13T15:16:26.205Z info: $GrantSvcOpOrg terminated on exception
+2026-04-13T15:20:19.010Z info: $SetOpUrl finished
+2026-04-13T15:22:04.426Z info: $OpenSafeByPR finished
+2026-04-13T15:23:19.560Z info: $SetOpUrl terminated on exception
+2026-04-13T15:23:19.581Z error: AppExc: 3001:unexpected exception["database is locked"]
+2026-04-13T15:23:55.633Z info: $SetOpUrl finished
+2026-04-13T15:26:21.575Z info: 10 document classes
+2026-04-13T15:26:21.578Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T15:26:21.578Z info: Firestore connector
+2026-04-13T15:26:21.579Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T15:26:21.601Z info: Reloading orgs config OK
+2026-04-13T15:26:21.607Z info: HTTP listen [8080]
+2026-04-13T15:27:19.939Z info: $SetOpUrl finished
+2026-04-13T15:28:40.462Z info: 10 document classes
+2026-04-13T15:28:40.466Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T15:28:40.467Z info: Firestore connector
+2026-04-13T15:28:40.468Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T15:28:40.494Z info: Reloading orgs config OK
+2026-04-13T15:28:40.500Z info: HTTP listen [8080]
+2026-04-13T15:28:59.137Z info: $SetOpUrl finished
+2026-04-13T15:31:03.119Z info: 10 document classes
+2026-04-13T15:31:03.126Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-13T15:31:03.127Z info: Firestore connector
+2026-04-13T15:31:03.129Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-13T15:31:03.156Z info: Reloading orgs config OK
+2026-04-13T15:31:03.168Z info: HTTP listen [8080]
+2026-04-13T15:31:42.021Z info: AppExc: 2004:svc unkown or not implemented by $OP@$GrantSvcOpOrg:["ASSO2","$RED","doda"]
+2026-04-13T15:31:42.022Z info: $GrantSvcOpOrg terminated on exception
+2026-04-13T15:32:02.867Z info: $GrantSvcOpOrg finished
+2026-04-13T15:32:20.193Z info: $SetOpUrl finished
+2026-04-13T15:32:33.255Z info: $GrantSvcOpOrg finished
+2026-04-13T15:33:08.090Z info: $GetSvcUrls finished
+2026-04-13T15:37:45.578Z info: $OpenSafeByPR finished
+2026-04-13T15:38:09.509Z info: $GetSvcUrls finished
+2026-04-13T15:39:44.344Z info: $OpenSafeByPR finished
+2026-04-13T15:40:05.976Z info: $GetSvcUrls finished
+2026-04-13T15:40:38.275Z info: SvcOpIsAdmin$ : 2026-04-13T15:40:38.275Z
+2026-04-13T15:40:46.812Z info: SvcOpIsAdmin$ finished
+2026-04-13T15:40:46.821Z info: Reloading orgs config OK
+2026-04-13T15:40:46.867Z info: $SetAdmins finished
+2026-04-13T15:41:30.392Z info: SvcOpIsAdmin$ : 2026-04-13T15:41:30.392Z
+2026-04-13T15:41:30.395Z info: SvcOpIsAdmin$ finished
+2026-04-13T15:41:30.433Z info: $SetAdmins finished
+2026-04-13T15:41:36.233Z info: $SetAdmins finished
+2026-04-13T15:41:56.196Z info: GetSvcOpStatus$ : 2026-04-13T15:41:56.196Z
+2026-04-13T15:41:56.200Z info: GetSvcOpStatus$ finished
+2026-04-13T15:42:16.612Z info: SetSvcOpStatus$ : 2026-04-13T15:42:16.611Z
+2026-04-13T15:42:16.616Z info: SetSvcOpStatus$ finished
+2026-04-13T15:42:16.632Z info: GetSvcOpStatus$ : 2026-04-13T15:42:16.632Z
+2026-04-13T15:42:16.636Z info: GetSvcOpStatus$ finished
+2026-04-13T15:42:42.585Z info: GetSvcOpStatus$ : 2026-04-13T15:42:42.585Z
+2026-04-13T15:42:42.590Z info: GetSvcOpStatus$ finished
+2026-04-13T15:42:42.612Z info: $GetOrgSvcs finished
+2026-04-13T15:42:56.963Z info: AppExc: 1003:unknown organisation["GetSvcOrgStatus","doda"]
+2026-04-13T15:42:56.965Z info: GetSvcOrgStatus terminated on exception
+2026-04-13T16:04:39.209Z info: GetOrgConfig$ : 2026-04-13T16:04:39.208Z
+2026-04-13T16:04:39.214Z info: GetOrgConfig$ finished
+2026-04-13T16:04:39.265Z info: Reloading orgs config OK
+2026-04-13T16:04:51.807Z info: SetOrgConfig$ : 2026-04-13T16:04:51.807Z
+2026-04-13T16:04:51.812Z info: SetOrgConfig$ finished
+2026-04-13T16:04:57.615Z info: GetSvcOpStatus$ : 2026-04-13T16:04:57.615Z
+2026-04-13T16:04:57.620Z info: GetSvcOpStatus$ finished
+2026-04-13T16:04:57.640Z info: GetSvcOrgStatus : 2026-04-13T16:04:57.640Z
+2026-04-13T16:04:57.645Z info: GetSvcOrgStatus finished
+2026-04-13T16:05:16.250Z info: SetSvcOrgStatus : 2026-04-13T16:05:16.250Z
+2026-04-13T16:05:16.258Z info: SetSvcOrgStatus finished
+2026-04-13T16:05:16.276Z info: GetSvcOpStatus$ : 2026-04-13T16:05:16.276Z
+2026-04-13T16:05:16.281Z info: GetSvcOpStatus$ finished
+2026-04-13T16:05:16.314Z info: GetSvcOrgStatus : 2026-04-13T16:05:16.314Z
+2026-04-13T16:05:16.317Z info: GetSvcOrgStatus finished
+2026-04-13T16:06:53.408Z info: GetSvcOpStatus$ : 2026-04-13T16:06:53.407Z
+2026-04-13T16:06:53.411Z info: GetSvcOpStatus$ finished
+2026-04-13T16:06:53.435Z info: $GetOrgSvcs finished
+2026-04-13T16:10:39.585Z info: $TrustDevice finished
+2026-04-13T16:20:09.895Z info: $OpenSafeByPin finished
+2026-04-13T16:20:09.955Z info: $OpenSafeById finished
