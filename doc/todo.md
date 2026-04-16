@@ -1,3 +1,6 @@
+Sur srv:
+- IDBgeneric à reprendre pour gérer le master dir, et sqlite avec.
+
 # Safe
 Gestion des invitations en cours (app, service OK ?)
 

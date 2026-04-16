@@ -11,7 +11,7 @@ import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt, keyFromB64 } from './crypt'
 import { decode } from '@msgpack/msgpack'
-import { MDOperation, ICVO } from '../src-fw/masterdir'
+import { MDOperation } from '../src-fw/masterdir'
 
 const encoder = new TextEncoder()
 
@@ -362,10 +362,9 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const result = await MDOperation.doOp('$GetUserICVO', { userId: this.userId })
-    const icvo: ICVO = result['icvo']
-    if (!icvo) throw new AppExc(2005, 'no user icvo', this.op)
-    const ok = await Crypt.verify(keyFromB64(icvo.v), this.userSign, this.challenge)
+    const cv = await MDOperation.doOp('$GetMDuserCV', { userId: this.userId })
+    if (!cv) throw new AppExc(2005, 'no user cv', this.op)
+    const ok = await Crypt.verify(keyFromB64(cv[1]), this.userSign, this.challenge)
     if (!ok) throw new AppExc(2006, 'bad signature', this.op)
     
     for (const ref in this.signatures) {

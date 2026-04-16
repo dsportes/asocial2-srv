@@ -9,19 +9,28 @@ export function loadingOM () {
   console.log('masterdir operations loading: ', Classes.sizeOp())
 }
 
-export type ICVO = { // Clé: userId
-  i: string // userId
-  c: string // clé publique C de cryptage en base64
-  v: string // clé publique V de vérification en base64
-  o: string // code de l'opérateur hébergeant son safe
+export type ICVS = {
+  userId: string // ID de l'utilisateur`
+  c: string // clé publique de cryptage de U. En base 64.
+  v: string // clé publique de vérification de U. En base 64.
+  store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
+}
+
+export type MDuser = {
+  userId: string // ID de l'utilisateur`
+  hsha1: string // SHA raccourci du Strong Hash de l'alias 1 (s'il existe). En base 64.
+  hsha2: string // SHA raccourci du Strong Hash de l'alias 2 (s'il existe). En base 64.
+  c: string // clé publique de cryptage de U. En base 64.
+  v: string // clé publique de vérification de U. En base 64.
+  llq: number // _last quarter login_. Numéro du trimestre de dernier login, 0 étant le premier de l'an 2000.
+  store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
 }
 
 type Dobj = {
   at: number, // date-heure de lecture
   v: number, // version: date-heure de dernière mise à jour
-  val: ICVO | Object // selon la table
+  val: Object // selon la table
   /* 
-    users => ICVO
     orgs: Clé org => { svc1:OP1, svc2:OP2 ...}
     svcops: clé svc => { OP1:url1, OP2: url2 ...}
   */
@@ -29,21 +38,20 @@ type Dobj = {
 
 /* Cache du MasterDir ************************************************/
 class MDCache {
-  static users : Map<string, Dobj> = new Map()
+  static cvs : Map<string, [string, string]> = new Map()
   static svcops : Map<string, Dobj> = new Map()
   static orgs : Map<string, Dobj> = new Map()
   static maxLife = 3 * 60
 
-  /* Retourne l'objet associé à la table USERS / SVCOPS / ORGS
+  /* Retourne l'objet associé à la table SVCOPS / ORGS
   - soit trouvé en cache et d'age correct
   - soit (re)lu de la table et gardé en cache
   */
   static async get(op: AbstractOperation, st: MDTable, id: string) 
-  : Promise<Object | ICVO | null> {
+  : Promise<Object | null> {
     const now = Math.floor(Date.now() / 1000)
     let e: Dobj
     switch (st) {
-      case MDTable.USERS : { e = MDCache.users.get(id); break }
       case MDTable.SVCOPS : { e = MDCache.svcops.get(id); break }
       case MDTable.ORGS : { e = MDCache.orgs.get(id); break }
     }
@@ -57,7 +65,6 @@ class MDCache {
         e = { at: now, v: y ? x[0] : 0, val: y }
       }
       switch (st) {
-        case MDTable.USERS : { MDCache.users.set(id, e); break }
         case MDTable.SVCOPS : { MDCache.svcops.set(id, e); break }
         case MDTable.ORGS : { MDCache.orgs.set(id, e); break }
       }
@@ -65,12 +72,12 @@ class MDCache {
     return e.val
   }
 
-  /* Sauvegarde l'objet associé à la table USERS / SVCOPS / ORGS pour la table et l'ID spéciées.
+  /* Sauvegarde l'objet associé à la table SVCOPS / ORGS pour la table et l'ID spéciées.
   Si val est null, supprime l'entrée. 
   Toutefois en cache l'entrée existe toujours avec une val null pour évier une relecture
   en base en cas de redemande.
   */
-  static async set(op: AbstractOperation, st: MDTable, id: string, val: Object | ICVO)
+  static async set(op: AbstractOperation, st: MDTable, id: string, val: Object)
     : Promise<void> {
 
     const now = Math.floor(Date.now() / 1000)
@@ -80,21 +87,21 @@ class MDCache {
       await op.db.mdSet(st, id, now, value)
     } else await op.db.mdDel(st, id)
     switch (st) {
-      case MDTable.USERS : { MDCache.users.set(id, e); break }
       case MDTable.SVCOPS : { MDCache.svcops.set(id, e); break }
       case MDTable.ORGS : { MDCache.orgs.set(id, e); break }
     }    
   }
 }
 
-/* Appel direct DEPUIS UNE OPERATION d'une opération sur MasterDir 
+/* Appel direct (pas par HTTP post) DEPUIS UNE OPERATION d'un service
+  d'une opération sur MasterDir: 
   const result = await MDOperation.doOp(opName, args)
 */
 export class MDOperation implements AbstractOperation {
   opName: string
   result: any
   args: any 
-  db: any
+  db: any // accès à _Master Directory_
   now: number
   
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
@@ -119,6 +126,20 @@ export class MDOperation implements AbstractOperation {
     }
   }
 
+  /* Méthode de convenance d'usage interne
+  Accès NON transactionnel de consultation simple à l'instant t */
+  async getCV (userId: string) {
+    let cv = MDCache.cvs.get(userId)
+    if (!cv) {
+      const icvs = await this.db.$GetMSuserICVS(userId) as ICVS | null
+      if (icvs) {
+        cv = [icvs.c, icvs.v]
+        MDCache.cvs.set(userId, cv)
+      }
+    }
+    return cv || null
+  }
+
   /* Retourne les paramètres d'une opération d'Administration du Safe
   - userId doit être enregistré dans la configuration SAFEADMINUSERS ou ADMINUSERS
   - params: string[] - Par exemple: [SVC, $OP, org] [SVC, $OP, url] ...
@@ -134,11 +155,11 @@ export class MDOperation implements AbstractOperation {
     if (config.MASTERDIRADMINUSERS.has(userId)) {
       const params = args['params']
       const sign = args['sign']
-      const obj = await MDCache.get(this, MDTable.USERS, userId) as ICVO
-      if (obj) {
+      const cv = await this.getCV(userId)
+      if (cv) {
         const ch = encode([time, params])
         try {
-          const b = await Crypt.verify(keyFromB64(obj.v), sign, ch)
+          const b = await Crypt.verify(keyFromB64(cv[1]), sign, ch)
           if (b) return params
         } catch (e) {
           console.log(e)
@@ -149,33 +170,157 @@ export class MDOperation implements AbstractOperation {
   }
 }
 
-/* Obtient le icvo d'un userId depuis le MASTERDIR
+/* Opérations sur _Master Directory 'users' ***********************
+Transactionnelles:
+- $NewMDuser $SetMDuserAA $SetMDuserS $SetMDuserLLQ : mise à jour depuis un safe (shK fourni)
+NON transactionnelles : jamais invoquée dans une transaction.
+- $GetMDuserAAS : depuis un safe (shK founi).
+- $GetMDuserICVS $GetMDuserCV: depuis une opération ou un safe
+******************************************************************/
+/* $NewMDuser : création d'une entrée dans 'users' pour un nouvel utilisateur.
+S'il existe déjà avec le même contenu, OK.
+Arguments: 
+- mdUser: MDuser
+- shK: Strong Hash de la clé K du safe
+Result 'status':
+- 0 OK.
+- 1 alias 1 déjà utilisé
+- 2 alias 2 déjà utilisé
+- 3 user déjà déclaré avec des valeurs différentes
 */
-class $GetUserICVO extends MDOperation {
+class $NewMDuser extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const userId = this.args['userId'] as string
-    const icvo = await MDCache.get(this, MDTable.USERS, userId)
-    this.setRes('icvo', icvo)
+    const mdUser = this.args['mdUser'] as MDuser
+    const status = await this.db.$NewMDUser(mdUser)
+    this.setRes('status', status)
   }
 }
-Classes.registerOp($GetUserICVO)
+Classes.registerOp($NewMDuser)
 
-/* Enregistre dans le MasterDir 
-les clés publiques et l'opérateur gérant le safe d'un userId 
-à sa création et quand il change d'opérateur de Safe store.
-Args: userId, { i, c, v, o }
+/* $SetMDuserAA : change les alias d'un user.
+OK et ne fais rien si déjà enregistré
+Argument: 
+- userId
+- shK: Strong Hash de la clé K du safe
+- hsha1 : hash court du Strong Hash de l'alias 1
+- hsha2 : hash court du Strong Hash de l'alias 2
+Result 'status':
+- 0 OK
+- 1 user inconnu
+- 2 shK non reconnu
+- 3 alias 1 déjà utilisé
+- 4 alias 2 déjà utilisé
 */
-class $SetUserICVO extends MDOperation {
+class $SetMDuserAA extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const userId = this.args['userId'] as string
-    const icvo = this.args['icvo'] as ICVO
-    await MDCache.set(this, MDTable.USERS, userId, icvo)
+    const userId = this.args['userId']
+    const shK = this.args['shK']
+    const hsha1 = this.args['hsha1']
+    const hsha2 = this.args['hsha2']
+    const status = await this.db.$NewMDUserAA(userId, shK, hsha1, hsha2)
+    this.setRes('status', status)
   }
 }
-Classes.registerOp($SetUserICVO)
+Classes.registerOp($SetMDuserAA)
 
-/* Déclare l'URL d'un service pour un opérateur. args: 
-- userId: un ADMINISTRATEUR du StoreSafe générique
+/* $SetMDuserS : change le store d'un user.
+Argument: 
+- userId
+- shK: Strong Hash de la clé K du safe
+- store : code du nouveau store gérant
+Result 'status':
+- 0 OK
+- 1 user inconnu
+- 2 shK non reconnu
+*/
+class $SetMDuserS extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId']
+    const shK = this.args['shK']
+    const store = this.args['store']
+    const status = await this.db.$NewMDUserS(userId, shK, store)
+    this.setRes('status', status)
+  }
+}
+Classes.registerOp($SetMDuserS)
+
+/* $SetMDuserLLQ : change le _last login quarter_ d'un user.
+Argument: 
+- userId
+- shK: Strong Hash de la clé K du safe
+Result 'status':
+- 0 OK
+- 1 user inconnu
+- 2 shK non reconnu
+*/
+class $SetMDuserLLQ extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId']
+    const shK = this.args['shK']
+    const llq = 0
+    const status = await this.db.$NewMDUserS(userId, shK, llq)
+    this.setRes('status', status)
+  }
+}
+Classes.registerOp($SetMDuserLLQ)
+
+/* $GetUserAAS : retourne les propriétés dynamiques d'un user.
+Appel depuis un safe.
+Arguments:
+- userId
+- shk: Strong Hash de la clé K du safe
+Result 'aas': [hsha1, hsha2, store]
+- hsha1 : hash court du Strong Hash de l'alias 1
+- hsha2 : hash court du Strong Hash de l'alias 2
+- store: code de l'opérateur assurant la gestion du safe.
+- absent si user inconnu ou erreur de shK
+*/
+class $GetMDuserAAS extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId'] as string
+    const shK = this.args['shK']
+    const mdUser = await this.db.$GetMDuser(userId, shK) as MDuser | null
+    if (mdUser) this.setRes('aas', [mdUser.hsha1, mdUser.hsha2, mdUser.store])
+  }
+}
+Classes.registerOp($GetMDuserAAS)
+
+/* $GetMDuserICVS : retourne l'ID et le store d'user cité par un alias ou son ID
+Appel NON transactionnel (consultation simple à l'instant t).
+Argument:
+- id: userId ou un alias de l'utilisateur
+Result 'icvs' : [userId, c, v, store]
+null si l'alias ne correspond à aucune entrée
+*/
+class $GetMDuserICVS extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const alias = this.args['userId'] as string
+    const icvs = await this.db.$GetMSuserICVS(alias) as ICVS | null
+    if (icvs) this.setRes('icvs', icvs)
+  }
+}
+Classes.registerOp($GetMDuserICVS)
+
+/* $GetMDuserCV : retourne les clés publiques d'un user connu par son ID
+Argument:
+- userId: userId de l'utilisateur
+Result 'cv' : [c, v]
+null si le userId ne correspond à aucune entrée
+*/
+class $GetMDuserCV extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId'] as string
+    const cv = await this.getCV(userId)
+    if (cv) this.setRes('cv', cv)
+  }
+}
+Classes.registerOp($GetMDuserCV)
+
+/* Opérations d'administration sur SVCOPS et ORGS ****************
+Les arguments sont signés.
+*/
+/* $SetOpUrl : déclare l'URL d'un service pour un opérateur. args: 
+- userId: un ADMINISTRATEUR du _Master Directory_
 - params: [SVC, $OP, url] - url vide, supprime l'entrée
 - time: date-heure de la requête
 - sign: signature par la clé S de userId de encode([time, params])
@@ -198,7 +343,7 @@ class $SetOpUrl extends MDOperation {
 }
 Classes.registerOp($SetOpUrl)
 
-/* Enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
+/* $GrantSvcOpOrg : enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
 Si $OP est null, l'organisation est révoquée pour ce service.
 args:
 - userId: un ADMINISTRATEUR du StoreSafe générique
@@ -229,11 +374,13 @@ class $GrantSvcOpOrg extends MDOperation {
 }
 Classes.registerOp($GrantSvcOpOrg)
 
-/* Pour une liste de services, retrourne une map avec une entrée par service:
+/* Opérations de simple lecture des configuration des services / organisations
+Pas de contrôle d'accès.
+*****************************************************************************/
+/* $GetSvcUrls: pour une liste de services, retrourne une map avec une entrée par service:
 Cette entrée est une map donnant par opérateur, son URL
 */
 class $GetSvcUrls extends MDOperation {
-
   async doTheJob () : Promise<void> { 
     const l = this.args['lsvc'] as string[]
     const urls = {}
@@ -246,7 +393,7 @@ class $GetSvcUrls extends MDOperation {
 }
 Classes.registerOp($GetSvcUrls)
 
-/* Pour une organisation donnée, retrourne une map avec une entrée par service
+/* $GetOrgSvcs: pour une organisation donnée, retrourne une map avec une entrée par service
 donnant l'opérateur qui en assure l'hébergement.
 */
 class $GetOrgSvcs extends MDOperation {
