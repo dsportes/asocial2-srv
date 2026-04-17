@@ -2,7 +2,7 @@ import { AppExc, AbstractOperation } from './index'
 import { config, Classes } from './config'
 import { Crypt, keyFromB64 } from './crypt'
 import { Util } from './util'
-import { Safe } from './iDbGeneric'
+import { Safe, Auth, Alias } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
 export function loadingOS () {
@@ -30,8 +30,6 @@ export class SafeOperation implements AbstractOperation {
   
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
-
-  // static cacheIcvo: Map<string, ICVO> = new Map()
 
   /* Depuis l'intérieur d'une opération, soumet une opération (opName, args) de safe
   au safe 'safeStore'
@@ -84,75 +82,47 @@ export class SafeOperation implements AbstractOperation {
     }
   }
 
-  cleanInvits (safe: any) {
-    if (!safe.invits) return safe
-    const d = Math.floor(Date.now() / 86400000)
-    let b = false
-    for(const xid of Array.from(Object.keys(safe.invits))) {
-      const x = safe.invits[xid]
-      const d2 = Math.floor(x.time / 86400)
-      if (d2 < (d - 7)) delete(safe.invits[xid])
-      else b = true
+  async cleanAndSave (safe: any, updated?: boolean) {
+    let u = updated || false
+    if (safe.invits) {
+      const d = Math.floor(Date.now() / 86400000)
+      let b = false
+      for(const xid of Array.from(Object.keys(safe.invits))) {
+        const x = safe.invits[xid]
+        const d2 = Math.floor(x.time / 86400)
+        if (d2 < (d - 7)) { delete(safe.invits[xid]); u = true }
+        else b = true
+      }
+      if (!b) delete safe.invits
     }
-    if (!b) delete safe.invits
+    const d = new Date()
+    const q = Util.quarter(d)
+    if (safe.auth.llq < q) {
+      safe.auth.llq = q
+      u = true
+    }
+    if (u) {
+      safe.auth.lm = d.getTime()
+      await this.db.setSafe(safe)
+    }
+    this.setRes('safe', safe)
   }
 
   async getSafe (arg: Object): Promise<Safe> {
-    const [m, safe] = await this.db.getSafe(arg['userId'])
-    if (!safe) {
+    const bin = await this.db.getSafe(arg['userId'])
+    if (!bin) {
       this.setRes('status', 1)
-      await Util.sleep(3000)
       return null
     }
-
-    if (arg['shk'] && safe.hhk === Crypt.shaS(Util.b64ToU8(arg['shk'])))
-      return safe
-
-    let ok = false
-    const sh1p = Util.b64ToU8(arg['sh1p'])
-    const sh1r = Util.b64ToU8(arg['sh1r'])
-    if (sh1p && safe.hhp1 === Crypt.shaS(sh1p)) ok = true
-    else if (sh1r && safe.hhr1 === Crypt.shaS(sh1r)) ok = true
-    if (ok) return safe
-    
-    this.setRes('status', 2)
-    await Util.sleep(3000)
-    return null
+    const safe = decode(bin) as Safe
+    return arg['shk'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shk'])) ?
+      safe : null
   }
 
   async doTheJob () : Promise<void> {  }
-
-  /* Retourne les paramètres d'une opération d'Administration du Safe
-  - userId doit être enregistré dans la configuration SAFEADMINUSERS ou ADMINUSERS
-  - params: string[] - Par exemple: [SVC, $OP, org] [SVC, $OP, url] ...
-  - time: date-heure de la requête
-  - sign: signature par la clé S de userId de encode([time, params])
-  Retourne "params" en cas de succès.
-  
-  async getParams (args: Object) : Promise<string[]> {
-    const userId = args['userId']
-    const time = args['time']
-    // const now = Date.now()
-    // if (time < now - 3000 || time > now + 3000) throw new AppExc(2003, 'no safe admin', this)
-    if (config.MASTERDIRADMINUSERS.has(userId)) {
-      const params = args['params']
-      const sign = args['sign']
-      const obj = await SafeCache.get(this, safeTable.USERS, userId) as CVO
-      if (obj) {
-        const ch = encode([time, params])
-        try {
-          const b = await Crypt.verify(keyFromB64(obj.v), sign, ch)
-          if (b) return params
-        } catch (e) {
-          console.log(e)
-        }
-      }
-    }
-    throw new AppExc(2002, 'no safe admin', this)
-  }
-  */
 }
 
+/*
 export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   id: string // identifiant aléatoire.
   hp0: string // index unique, `SH(p0)`.
@@ -162,21 +132,18 @@ export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
   Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
   Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
 }
-
-/* Creation d'un nouveau Safe
 */
-class $CreateSafe extends SafeOperation {
 
+/* Creation d'un nouveau Safe */
+class $CreateSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
-    const ret = await this.db.newSafe(safe)
-    if (ret !== 0) await Util.sleep(3000)
-    this.setRes('status', ret)
+    await this.db.newSafe(safe)
   }
 }
 Classes.registerOp($CreateSafe)
+
 /* Restauration d'un Safe
-*/
 class $RestoreSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
@@ -188,54 +155,89 @@ class $RestoreSafe extends SafeOperation {
   }
 }
 Classes.registerOp($RestoreSafe)
-
-/* Copie binaire du Safe args: userId shk
 */
-class $GetBinSafe extends SafeOperation {
 
+/* Login (ou refresh) - Retourne le Safe depuis son id + preuve 
+args: userId + ...
+- soit shK: Strong Hash de la clé K - pour mise à jour
+- soit shp : Strong Hash de la phrase 1 ou 2  - login "fort"
+*/
+class $GetSafe extends SafeOperation {
   async doTheJob () : Promise<void> {
-    const [m, bin] = await this.db.getBinSafe(this.args['userId'])
-    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shk']))
-    const safe = decode(bin) as Safe
-    if (safe && hhk === safe.hhk) {
-      this.setRes('status', 0)
-      this.cleanInvits(safe)
-      this.setRes('safe', safe)
-    } else {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-    }
-  }
-}
-Classes.registerOp($GetBinSafe)
-
-/* Mise à jour des codes d'accès d'un Safe
-*/
-class $UpdCodesSafe extends SafeOperation {
-
-  async doTheJob () : Promise<void> { 
-    const safeNew = this.args['safeCodes'] as SafeCodes
-    const [m, safe] = await this.db.getSafe(safeNew.id)
-    if (!safe) {
+    const bin = await this.db.getBinSafe(this.args['userId'])
+    if (!bin) {
       this.setRes('status', 1)
       await Util.sleep(3000)
       return
+    } 
+    const safe = decode(bin) as Safe
+    let ok = false
+    if (this.args['shK']) {
+      if (Crypt.shaS(Util.b64ToU8(this.args['shK'])) === safe.auth.hshK) ok = true
+      else return this.setRes('status', 2)
+    } else if (!ok && this.args['shp']) {
+      const hshp = Crypt.shaS(Util.b64ToU8(this.args['shp']))
+      if (hshp !== safe.auth.hshp1 && hshp !== safe.auth.hshp2)
+        return this.setRes('status', 2)
     }
-
-    safe.hp0 = safeNew.hp0
-    safe.hr0 = safeNew.hr0
-    safe.hhp1 = safeNew.hhp1
-    safe.hhr1 = safeNew.hhr1
-    safe.Ka = safeNew.Ka
-    safe.Kr = safeNew.Kr
-    this.cleanInvits(safe)
-    const ret = await this.db.updPRSafe(safe)
-    this.setRes('status', ret)
-    if (ret !== 0) await Util.sleep(3000)
-    else this.setRes('safe', safe)
+    this.setRes('status', 0)
+    await this.cleanAndSave(safe)
   }
 }
-Classes.registerOp($UpdCodesSafe)
+Classes.registerOp($GetSafe)
+
+/* Mise à jour des alias d'un Safe. 
+Args: userId, shk, 
+- actual : alias actuel (n'est jamais null)
+- future: futur alias (null quand validation)
+*/
+class $SetAliasSafe extends SafeOperation {
+  async doTheJob () : Promise<void> { 
+    const actual = this.args['actual'] as Alias
+    const future = this.args['future'] as Alias
+    const safe = await this.getSafe(this.args)
+    if (!safe) return
+    safe.auth.actual = actual
+    safe.auth.future = future || null
+    await this.cleanAndSave(safe, true)
+  }
+}
+Classes.registerOp($SetAliasSafe)
+
+/* Mise à jour des phrases secretes d'un Safe. p1 jamais null
+Args: userId, shk, 
+- hshp1: string // SHA raccourci du Strong Hash de la phrase 1 (en base 64).
+- K1: string // clé K cryptée par le Strong Hash de la phrase 1.
+- hshp2: string
+- K2: string
+*/
+class $SetPhraseSafe extends SafeOperation {
+  async doTheJob () : Promise<void> { 
+    const hshp1 = this.args['hshp1'] as string
+    const hshp2 = this.args['hshp2'] || '' as string
+    const K1 = this.args['K1'] as string
+    const K2 = this.args['K2'] || '' as string
+    if (!hshp1 || !K1) {
+      this.setRes('status', 9)
+      return
+    }
+    const safe = await this.getSafe(this.args)
+    if (!safe) return
+    let u = false
+    if (hshp1 !== safe.auth.hshp1) {
+      safe.auth.hshp1 = hshp1
+      safe.auth.K1 = K1
+      u = true
+    }
+    if (hshp2 !== safe.auth.hshp2) {
+      safe.auth.hshp2 = hshp2
+      safe.auth.K2 = K2
+      u = true
+    }
+    await this.cleanAndSave(safe, u)
+  }
+}
+Classes.registerOp($SetPhraseSafe)
 
 /* Ouverture d'un Safe
 - sh0: sh (binaire) de la partie pseudo
@@ -243,7 +245,7 @@ Classes.registerOp($UpdCodesSafe)
 status 0: OK, 1:pseudo non reconnu
 byP: quand status 0, true si accès "primaire" (sinon "secondaire")
 safe: quand status 0, le safe
-*/
+
 class $OpenSafeByPR extends SafeOperation {
 
   async doTheJob () : Promise<void> {
@@ -277,9 +279,9 @@ class $OpenSafeByPR extends SafeOperation {
   }
 }
 Classes.registerOp($OpenSafeByPR)
+*/
 
 /* Ouverture d'un Safe
-*/
 class $OpenSafeById extends SafeOperation {
 
   async doTheJob () : Promise<void> {
@@ -296,28 +298,28 @@ class $OpenSafeById extends SafeOperation {
   }
 }
 Classes.registerOp($OpenSafeById)
+*/
 
-/* Ouverture d'un Safe
+/* Ouverture d'un Safe par PIN
   - accède au _safe_ dont l'id est `userId`.
   - accède dans la section `devices` à l'entrée `devId` 
   ce qui lui donne les propriétés `Va cy sign nbe`. 
 */
 class $OpenSafeByPin extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const userId: string = this.args['userId']
     const devId: string = this.args['devId']
     const pincx: string = this.args['pincx']
 
-    const [m, safe] = await this.db.getSafe(userId)
+    const safe = await this.db.getSafe(userId)
     if (!safe) {
-      this.setRes('status', 2)
+      this.setRes('status', 1)
       return
     }
     if (!safe.devices) safe.devices = {}
     const dev = safe.devices[devId]
     if (!dev) {
-      this.setRes('status', 3)
+      this.setRes('status', 2)
       return
     }
     /* vérifie par `Va` que `sign` est bien la signature de pincx 
@@ -327,7 +329,7 @@ class $OpenSafeByPin extends SafeOperation {
     const s1 = Util.b64ToU8(dev.sign)
     const sign = Crypt.signFromAsn1(s1)
     const ok = await Crypt.verify(V, sign, Util.b64ToU8(pincx))
-    this.cleanInvits(safe)
+    
     if (!ok) {
       dev.nbe++
       if (dev.nbe > 2) {
@@ -336,12 +338,13 @@ class $OpenSafeByPin extends SafeOperation {
       } else this.setRes('status', 4)
       if (Object.keys(safe.devices).length === 0)
         delete safe.devices
-      await this.db.updSafe(safe)
+      await this.cleanAndSave(safe, true)
       return
     }
+
     if (dev.nbe) {
       dev.nbe = 0
-      await this.db.updSafe(safe)
+      await this.cleanAndSave(safe, true)
     }
     this.setRes('status', 0)
     this.setRes('cy', dev.cy)

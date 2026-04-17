@@ -3,27 +3,11 @@ import { encode, decode } from '@msgpack/msgpack'
 import { AppExc, AbstractOperation } from './index'
 import { Crypt, keyFromB64 } from './crypt'
 import { config, Classes } from './config'
-import { MDTable } from './iDbGeneric'
+import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDsetLLQ } from './iDbGeneric'
+import { Util } from '../src-fw/util'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Classes.sizeOp())
-}
-
-export type ICVS = {
-  userId: string // ID de l'utilisateur`
-  c: string // clé publique de cryptage de U. En base 64.
-  v: string // clé publique de vérification de U. En base 64.
-  store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
-}
-
-export type MDuser = {
-  userId: string // ID de l'utilisateur`
-  hsha1: string // SHA raccourci du Strong Hash de l'alias 1 (s'il existe). En base 64.
-  hsha2: string // SHA raccourci du Strong Hash de l'alias 2 (s'il existe). En base 64.
-  c: string // clé publique de cryptage de U. En base 64.
-  v: string // clé publique de vérification de U. En base 64.
-  llq: number // _last quarter login_. Numéro du trimestre de dernier login, 0 étant le premier de l'an 2000.
-  store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
 }
 
 type Dobj = {
@@ -131,9 +115,9 @@ export class MDOperation implements AbstractOperation {
   async getCV (userId: string) {
     let cv = MDCache.cvs.get(userId)
     if (!cv) {
-      const icvs = await this.db.$GetMSuserICVS(userId) as ICVS | null
-      if (icvs) {
-        cv = [icvs.c, icvs.v]
+      const mdUser = await this.db.mdUserGet(userId) as MDuser | null
+      if (mdUser) {
+        cv = [mdUser.C, mdUser.V]
         MDCache.cvs.set(userId, cv)
       }
     }
@@ -177,33 +161,33 @@ NON transactionnelles : jamais invoquée dans une transaction.
 - $GetMDuserAAS : depuis un safe (shK founi).
 - $GetMDuserICVS $GetMDuserCV: depuis une opération ou un safe
 ******************************************************************/
-/* $NewMDuser : création d'une entrée dans 'users' pour un nouvel utilisateur.
+
+/* $mdNewUser : création d'une entrée dans 'users' pour un nouvel utilisateur.
 S'il existe déjà avec le même contenu, OK.
 Arguments: 
 - mdUser: MDuser
-- shK: Strong Hash de la clé K du safe
 Result 'status':
 - 0 OK.
 - 1 alias 1 déjà utilisé
 - 2 alias 2 déjà utilisé
 - 3 user déjà déclaré avec des valeurs différentes
 */
-class $NewMDuser extends MDOperation {
+class $mdNewUser extends MDOperation {
   async doTheJob () : Promise<void> { 
     const mdUser = this.args['mdUser'] as MDuser
-    const status = await this.db.$NewMDUser(mdUser)
+    const status = await this.db.mdUserSet(MDopn.new, mdUser)
     this.setRes('status', status)
   }
 }
-Classes.registerOp($NewMDuser)
+Classes.registerOp($mdNewUser)
 
-/* $SetMDuserAA : change les alias d'un user.
+/* $mdUserSetAA : change les alias d'un user.
 OK et ne fais rien si déjà enregistré
 Argument: 
 - userId
 - shK: Strong Hash de la clé K du safe
-- hsha1 : hash court du Strong Hash de l'alias 1
-- hsha2 : hash court du Strong Hash de l'alias 2
+- sha1 : Strong Hash de l'alias 1
+- sha2 : Strong Hash de l'alias 2
 Result 'status':
 - 0 OK
 - 1 user inconnu
@@ -211,19 +195,22 @@ Result 'status':
 - 3 alias 1 déjà utilisé
 - 4 alias 2 déjà utilisé
 */
-class $SetMDuserAA extends MDOperation {
+class $mdUserSetAA extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const hsha1 = this.args['hsha1']
-    const hsha2 = this.args['hsha2']
-    const status = await this.db.$NewMDUserAA(userId, shK, hsha1, hsha2)
+    const sshK = Crypt.shaS(Util.b64ToU8(shK))
+    const sha1 = this.args['sha1']
+    const hsha1 = Crypt.shaS(Util.b64ToU8(sha1))
+    const sha2 = this.args['sha2']
+    const hsha2 = Crypt.shaS(Util.b64ToU8(sha2))
+    const status = await this.db.mdUserSet(MDopn.setAA, {userId, sshK, hsha1, hsha2} as MDsetAA)
     this.setRes('status', status)
   }
 }
-Classes.registerOp($SetMDuserAA)
+Classes.registerOp($mdUserSetAA)
 
-/* $SetMDuserS : change le store d'un user.
+/* $mdUserSetS : change le store d'un user.
 Argument: 
 - userId
 - shK: Strong Hash de la clé K du safe
@@ -233,18 +220,19 @@ Result 'status':
 - 1 user inconnu
 - 2 shK non reconnu
 */
-class $SetMDuserS extends MDOperation {
+class $mdUserSetS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
+    const sshK = Crypt.shaS(Util.b64ToU8(shK))
     const store = this.args['store']
-    const status = await this.db.$NewMDUserS(userId, shK, store)
+    const status = await this.db.mdUserSetS(MDopn.setS, { userId, sshK, store } as MDsetS)
     this.setRes('status', status)
   }
 }
-Classes.registerOp($SetMDuserS)
+Classes.registerOp($mdUserSetS)
 
-/* $SetMDuserLLQ : change le _last login quarter_ d'un user.
+/* $mdUserSetLLQ : change le _last login quarter_ d'un user.
 Argument: 
 - userId
 - shK: Strong Hash de la clé K du safe
@@ -253,18 +241,19 @@ Result 'status':
 - 1 user inconnu
 - 2 shK non reconnu
 */
-class $SetMDuserLLQ extends MDOperation {
+class $mdUserSetLLQ extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const llq = 0
-    const status = await this.db.$NewMDUserS(userId, shK, llq)
+    const sshK = Crypt.shaS(Util.b64ToU8(shK))
+    const llq = this.args['llq']
+    const status = await this.db.mdUserSetLLQ(MDopn.setLLQ, {userId, sshK, llq} as MDsetLLQ)
     this.setRes('status', status)
   }
 }
-Classes.registerOp($SetMDuserLLQ)
+Classes.registerOp($mdUserSetLLQ)
 
-/* $GetUserAAS : retourne les propriétés dynamiques d'un user.
+/* $mdUserGetAAS : retourne les propriétés dynamiques d'un user.
 Appel depuis un safe.
 Arguments:
 - userId
@@ -275,46 +264,50 @@ Result 'aas': [hsha1, hsha2, store]
 - store: code de l'opérateur assurant la gestion du safe.
 - absent si user inconnu ou erreur de shK
 */
-class $GetMDuserAAS extends MDOperation {
+class $mdUserGetAAS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
     const shK = this.args['shK']
-    const mdUser = await this.db.$GetMDuser(userId, shK) as MDuser | null
-    if (mdUser) this.setRes('aas', [mdUser.hsha1, mdUser.hsha2, mdUser.store])
+    const hshK = Crypt.shaS(Util.b64ToU8(shK))
+    const mdUser = await this.db.mdUserGet(userId, false) as MDuser | null
+    if (mdUser && mdUser.hshK === hshK)
+      this.setRes('aas', [mdUser.hsha1, mdUser.hsha2, mdUser.store])
   }
 }
-Classes.registerOp($GetMDuserAAS)
+Classes.registerOp($mdUserGetAAS)
 
-/* $GetMDuserICVS : retourne l'ID et le store d'user cité par un alias ou son ID
+/* $mdUserGetICVS : retourne l'ID et le store d'user cité par 
+un alias ou son ID
 Appel NON transactionnel (consultation simple à l'instant t).
 Argument:
 - id: userId ou un alias de l'utilisateur
 Result 'icvs' : [userId, c, v, store]
 null si l'alias ne correspond à aucune entrée
 */
-class $GetMDuserICVS extends MDOperation {
+class $mdUserGetICVS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const alias = this.args['userId'] as string
-    const icvs = await this.db.$GetMSuserICVS(alias) as ICVS | null
-    if (icvs) this.setRes('icvs', icvs)
+    const mdUser = await this.db.mdUserGet(alias, true) as MDuser | null
+    if (mdUser) 
+      this.setRes('icvs', [mdUser.userId, mdUser.C, mdUser.V, mdUser.store])
   }
 }
-Classes.registerOp($GetMDuserICVS)
+Classes.registerOp($mdUserGetICVS)
 
-/* $GetMDuserCV : retourne les clés publiques d'un user connu par son ID
+/* $mdUserGetCV : retourne les clés publiques d'un user connu par son ID
 Argument:
 - userId: userId de l'utilisateur
 Result 'cv' : [c, v]
 null si le userId ne correspond à aucune entrée
 */
-class $GetMDuserCV extends MDOperation {
+class $mdUserGetCV extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
     const cv = await this.getCV(userId)
     if (cv) this.setRes('cv', cv)
   }
 }
-Classes.registerOp($GetMDuserCV)
+Classes.registerOp($mdUserGetCV)
 
 /* Opérations d'administration sur SVCOPS et ORGS ****************
 Les arguments sont signés.

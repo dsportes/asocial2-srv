@@ -4,8 +4,39 @@ import { AbstractOperation, DbConnector } from '../src-fw/index'
 /* Interface des services d'accès génériques à la DB */
 export enum MDTable { 
   ORGS = 'ZZORGS',
-  USERS = 'ZZUSERS',
   SVCOPS = 'ZZSVCOPS'
+}
+
+export enum MDopn { new, setAA, setS, setLLQ }
+
+export type MDuser = {
+  userId: string // ID de l'utilisateur`
+  hshK: string // SHA raccourci du Strong Hash de la clé K
+  hsha1: string // SHA raccourci du Strong Hash de l'alias 1 (s'il existe). En base 64.
+  hsha2: string // SHA raccourci du Strong Hash de l'alias 2 (s'il existe). En base 64.
+  C: string // clé publique de cryptage de U. En base 64.
+  V: string // clé publique de vérification de U. En base 64.
+  llq: number // _last quarter login_. Numéro du trimestre de dernier login, 0 étant le premier de l'an 2000.
+  store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
+}
+
+export type MDsetAA = {
+  userId: string
+  sshK: string
+  hsha1: string
+  hsha2: string
+}
+
+export type MDsetS = {
+  userId: string
+  sshK: string
+  store: string
+}
+
+export type MDsetLLQ = {
+  userId: string
+  sshK: string
+  llq: number
 }
 
 export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
@@ -59,34 +90,41 @@ export type srvStatus = {
   txt: string
 }
 
+export type Alias = {
+  a1K: string // alias 1 crypté par la clé K (en base 64).
+  hsha1: string // SHA raccourci du Strong Hash de l'alias 1.
+  a2K: string
+  hsha2: string
+}
+
+export type Auth = {
+  llq: number //_last login quarter_, trimestre du dernier login. Permet une _purge_ périodique des _safe_ obsolètes / fantômes.
+  lm: number // _epoch_ en secondes de dernière mise à jour.
+  C: string // clé de cryptage en clair (en base 64).
+  D: string // clé de décryptage cryptée par la clé `K` (en base 64).
+  S: string // clé de signature cryptée par la clé `K` (en base 64).
+  V: string // clé de vérification en clair (en base 64).
+  hshK: string // SHA raccourci du Strong Hash de la clé K.
+  admins: string // liste des couples `SVC1.$OP1 / SVC2.$OP2 / ...` dont l'utilisateur a _déclaré_ être l'administrateur (cryptée par sa clé K et en base 64). La véracité de la _déclaration_ est vérifiée mais l'utilisateur peut se voir retiré cette qualité par l'opérateur sans que cette liste ne change.
+  pseudo: string // dernier pseudo crypté par la clé K du _safe_ (en base 64) utilisé à la certification d'un terminal.
+
+  hshp1: string // SHA raccourci du Strong Hash de la phrase 1 (en base 64).
+  K1: string // clé K cryptée par le Strong Hash de la phrase 1.
+  hshp2: string
+  K2: string
+
+  actual: Alias
+  future: Alias | null
+}
+
 export type Safe = {
-  id: string // identifiant.
-
-  lam: number // dernier mois d'accès
-  lm: number // date-heure de dernière mise à jour
-
-  pseudo: string // pseudo / trigramme crypté par la clé K du _safe_.
-  hp0: string // index unique, `SH(p0)`.
-  hr0: string // index unique, `SH(r0)`.
-  hhp1: string // SHA court de `SH(p1)`.
-  hhr1: string // SHA court de `SH(r1)`.
-  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
-  
-  hhk: string // SHA court de `SH(K)`.
-  C : string // clé publique de cryptage,
-  DK: string // clé privée de decryptage cryptée par la clé K
-  V : string // clé publique de vérification,
-  SK: string // clé privée de signature cryptée par la clé K
-  contact: string // b64 du pseudo de contact temporaire crypté pa K
-  hct: string // SH du contact
-  admins: string // b64 du cryptage de la liste des couples SVC.$OP dont l'utilisateur est admin
-
-  devices: Object
-  creds: Object
-  profiles: Object
-  prefs: Object
-  invits: Object
+  userId: string
+  auth: Auth
+  devices: Object | null
+  creds: Object | null
+  profiles: Object | null
+  prefs: Object | null // pour chaque application, liste des préférences déclarées (ordonnée par date d'utilisation)
+  invits: Object | null// une propriété par invitation
 }
 
 export interface IDbGeneric {
@@ -101,21 +139,27 @@ export interface IDbGeneric {
   /* Déconnexion de la DB */
   disconnect () : Promise<void>
 
-  getSingleton (key: string) : Promise<string>
-  setSingleton (key: string, value: string) : Promise<void>
+  /* Master Directory ************************************************/
 
   mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> 
   mdSet (st: MDTable, key: string, v: number, value: string) : Promise<void> 
   mdDel (st: MDTable, key: string) : Promise<void> 
 
-  /* Retourne [r, safe]. safe est l'objet safe depuis,
-  - soit son id (r=0)
-  - soit son p0 (r=1)
-  - soit son r0 (r=1)
-  safe est null si non trouvé
+  /* ACID - Création / maj d'une entrée du Mester Directory
+  - opn: code opération. new setAA setS setLLQ
+  - args: arguments - MDuser MDsetAA MDsetS MDsetLLQ
+  Return : status
   */
-  getSafe (id: string) : Promise<[number, Safe]>
-  getBinSafe (id: string) : Promise<[number, Uint8Array]>
+  mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS | MDsetLLQ ) : Promise<number>
+
+  /* NON ACID - consultation simple */
+  mdUserGet(userId: string, alias?: boolean) : Promise<MDuser | null>
+
+  getSingleton (key: string) : Promise<string>
+  setSingleton (key: string, value: string) : Promise<void>
+
+  /* Retourne le binaire du safe (décrypté, pas désencodé) */
+  getBinSafe (userId: string) : Promise<Uint8Array | null>
 
   /* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
   - id, hp0, hr0 : id et accès externe 
@@ -124,38 +168,18 @@ export interface IDbGeneric {
   - xp : true si aucun safe n'a hp0 comme cl& externe OU si le safe d'id existe et a 
   hp0 comme clé p0
   - xr : idem pour hr0
-  */
   statusSafe (id: string, hp0: string, hr0: string) : Promise<Object>
-
-  /* Créé un nouveau safe. 
-  Si le safe existait déjà avec cet id et qu'aucun autre d'id différente
-  existait pour p0 / r0, il est RECREE (en fait mis à jour / écrasé)
-  Retour:
-  0: OK
-  1: un safe d'id différent existe avec ce p0
-  2: un safe d'id différent existe avec ce r0
   */
+
+  /* Créé un nouveau safe. Insertion brute */
   newSafe (safe: Safe) :  Promise<number>
-  restoreSafe (safe: Safe) :  Promise<number>
-
-  /* Met à jour le p0 / ro d'un safe. Retour:
-  0: OK
-  1: un (autre) safe existe déjà avec ce p0
-  2: un (autre) safe existe déjà avec ce r0
-  */
-  updPRSafe (safe: Safe) :  Promise<number>
-
-  /* Met à jour le "contact" d'un safe
-  0: OK
-  1: un (autre) safe existe déjà avec ce contact
-  */
-  updHctSafe (safe: Safe) :  Promise<number>
+  // restoreSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour un safe depuis son objet */
   updSafe (safe: Safe) :  Promise<void>
 
   /* Supprime un safe depuis son id */
-  delSafe (id: string) :  Promise<void>
+  delSafe (userId: string) :  Promise<void>
 
   /* Purge les safes obsolètes */
   purgeSafes (lam: number) :  Promise<void>

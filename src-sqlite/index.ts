@@ -3,7 +3,8 @@ import Database from 'better-sqlite3'
 import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, Safe, MDTable} from '../src-fw/iDbGeneric'
+  row, rowQ, updType, vdata, Safe, MDTable, 
+  MDopn, MDuser, MDsetAA, MDsetS, MDsetLLQ } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
@@ -218,44 +219,139 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ key })
   }
 
+  async mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS | MDsetLLQ ) : Promise<number> {
+    try {
+      this.sql.exec('BEGIN;')
+      let status = 0
+      switch (opn) {
+        case MDopn.new : { status = await this.mdUserNew(args as MDuser); break}
+        case MDopn.setAA : { status = await this.mdUserSetAA(args as MDsetAA); break}
+        case MDopn.setS : { status = await this.mdUserSetS(args as MDsetS); break}
+        case MDopn.setLLQ : { status = await this.mdUserSetLLQ(args as MDsetLLQ); break}
+      }
+      this.sql.exec('COMMIT;')
+      return status
+    } catch (e: any) {
+      try { 
+        this.sql.exec('ROLLBACK;')
+      } catch (e2) { 
+        console.log('ROLLBACK exc :' + e2)
+      }
+      throw e
+    }
+  }
+
+  normRow (row: any) : MDuser{
+    const x = {}; for(const p of this.USERSCOLS) x[p] = row[p]
+    if (!x['hsha1']) x['hsha1'] = ''
+    if (!x['hsha2']) x['hsha2'] = ''
+    return x as MDuser
+  }
+
+  async mdUserGet(userId: string, alias?: boolean) : Promise<MDuser | null> {
+    let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
+    let row = stmt.get( {userId: userId} )
+    if (row) return this.normRow(row)
+    if (!alias) return null
+    stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE hsha1 = @userId')
+    row = stmt.get( {userId: userId} )
+    if (row) return this.normRow(row)
+    stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE hsha2 = @userId')
+    row = stmt.get( {userId: userId} )
+    if (row) return this.normRow(row)
+    return null
+  }
+
+  /* Méthodes privées ************************************/
+  eqObj (a: any, b: any, lp: string[]) {
+    for (const p of lp) if (a[p] !== b[p]) return false
+    return true
+  }
+
+  readonly USERSCOLS = ['userId', 'sshk', 'hsha1', 'hsha2', 'c', 'd', 'llq', 'store']
+
+  /* création d'une entrée dans 'users' pour un nouvel utilisateur.
+  S'il existe déjà avec le même contenu, OK.
+  Les alias ne doivent avoir déjà été attribués
+  */
+  async mdUserNew (mdUser: MDuser) : Promise<number> {
+    let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
+    let row = stmt.get( {userId: mdUser.userId} )
+    if (row) { 
+      if (this.eqObj(mdUser, row, this.USERSCOLS))
+        return 0
+      return 3
+    }
+    stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
+    row = stmt.get( {hsha1: mdUser.hsha1} )
+    if (row) return 1
+    stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha2 OR hsha2 = @hsha2')
+    row = stmt.get( {hsha2: mdUser.hsha2} )
+    if (row) return 2
+    const s1 = this.USERSCOLS.join(',')
+    const s2 = this.USERSCOLS.join(', @')
+    stmt = this.sql.prepare('INSERT INTO ZZUSERS (' + s1 + ') VALUES (@' + s2 + ');')
+    const x = {}
+    for(const p of this.USERSCOLS) x[p] = mdUser[p]
+    if (x['hsha1'] === '') x['hsha1'] = null
+    if (x['hsha2'] === '') x['hsha2'] = null
+    stmt.run(x)
+    return 0
+  }
+
+  mdUserId (args: any) : number {
+    let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
+    let row = stmt.get( {userId: args.userId} )
+    if (!row) return 1
+    if (row.sshK !== args.sshK) return 2
+    return 0
+  }
+
+  async mdUserSetAA(args: MDsetAA) : Promise<number> {
+    const status = this.mdUserId(args); if (status) return status
+    let stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
+    let row = stmt.get( {hsha1: args.hsha1} )
+    if (row && row.userId !== args.userId) return 3
+    stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha2 OR hsha2 = @hsha2')
+    row = stmt.get( {hsha2: args.hsha2} )
+    if (row && row.userId !== args.userId) return 4
+
+    stmt = this.sql.prepare('UPDATE ZZUSERS SET ssha1 = @ssha1, ssha2 = @ssha2 ' +
+      ' WHERE userId = @userId;')
+    if (args['hsha1'] === '') args['hsha1'] = null
+    if (args['hsha2'] === '') args['hsha2'] = null
+    stmt.run(args)
+    return 0
+  }
+
+  async mdUserSetS(args: MDsetS) : Promise<number> {
+    const status = this.mdUserId(args); if (status) return status
+    const stmt = this.sql.prepare('UPDATE ZZUSERS SET store = @store ' +
+      ' WHERE userId = @userId;')
+    stmt.run(args)
+    return 0
+  }
+
+  async mdUserSetLLQ(args: MDsetLLQ) : Promise<number> {
+    const status = this.mdUserId(args); if (status) return status
+    const stmt = this.sql.prepare('UPDATE ZZUSERS SET llq = @llq ' +
+      ' WHERE userId = @userId;')
+    stmt.run(args)
+    return 0
+  }
+
   /******************************************************************************
   * Gestion des safe  
   ******************************************************************************/
 
-  async getBinSafe (id: string) : Promise<[number, Uint8Array]> {
-    let m = 0
-    let stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE id = @id')
-    let row = stmt.get({id})
-    if (!row) {
-      m = 1
-      stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hp0 = @id')
-      row = stmt.get({id})
-      if (!row) {
-        m = 2
-        stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hr0 = @id')
-        row = stmt.get({id})
-        if (!row) {
-          m = 3
-          stmt = this.sql.prepare('SELECT id, lam, data FROM ZZSAFE WHERE hct = @id')
-          row = stmt.get({id})
-        }
-      }
-      if (!row) return [m, null]
-    }
-    const data = Crypt.syncDecrypt(this.key, row.data)
-    const cm = Util.currentMonth()
-    if (row.lam !== cm) {
-      const upd = this.sql.prepare('UPDATE ZZSAFE SET lam = @lam WHERE id = @id')
-      upd.run({ id: row.id, lam: cm })
-    }
-    return [m, data]
+  async getBinSafe (userId: string) : Promise<Uint8Array | null> {
+    const stmt = this.sql.prepare('SELECT data FROM ZZSAFE WHERE userId = @userId')
+    const row = stmt.get({userId})
+    if (!row) return null
+    return Crypt.syncDecrypt(this.key, row.data)
   }
 
-  async getSafe (id: string) : Promise<[number, Safe]> {
-    const [m, bin] = await this.getBinSafe(id)
-    return [m, bin ? decode(bin) as Safe : null]
-  }
-
+  /*
   async statusSafe (id: string, hp0: string, hr0: string) : Promise<Object> {
     const r = { lm: -1, xp: true, xr: true }
     const stmt = this.sql.prepare('SELECT id, data FROM ZZSAFE WHERE id = @id')
@@ -286,34 +382,18 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     }
     return r
   }
+  */
 
   async newSafe (safe: Safe) :  Promise<number> {
-    const id = safe.id
-    const hp0 = safe.hp0
-    const hr0 = safe.hr0
-    const hct = safe.hct
-    safe.lm = Math.floor(Date.now() / 1000)
-    const lam = Util.currentMonth()
-    let stmt = this.sql.prepare('SELECT id, hp0, hr0 FROM ZZSAFE WHERE id = @id')
-    let row0, row1, row2
-    row0 = stmt.get({id})
-    if ((row0 && row0['hp0'] !== hp0) || !row0) {
-      stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hp0 = @hp0')
-      row1 = stmt.get({hp0})
-      if (row1) return 1
-    }
-    if ((row0 && row0['hr0'] !== hr0) || !row0) {
-      stmt = this.sql.prepare('SELECT id FROM ZZSAFE WHERE hr0 = @hr0')
-      row2 = stmt.get({hr0})
-      if (row2) return 2
-    }
+    const userId = safe.userId
+    const llq = safe.auth.llq
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    if (!row0) stmt = this.sql.prepare('INSERT INTO ZZSAFE (id, hp0, hr0, hct, lam, data) VALUES (@id, @hp0, @hr0, @hct, @lam, @data)')
-    else stmt = this.sql.prepare('UPDATE ZZSAFE SET hp0 = @hp0, hr0 = @hr0, hct = @hct, lam = @lam, data = @data WHERE id = @id')
-    stmt.run({ id, hp0, hr0, hct, lam, data })
+    const stmt = this.sql.prepare('INSERT INTO ZZSAFE (userId, llq, data) VALUES (@userId, @llq, @data)')
+    stmt.run({ userId, llq, data })
     return 0
   }
 
+  /*
   async restoreSafe (safe: Safe) :  Promise<number> {
     const id = safe.id
     const hp0 = safe.hp0
@@ -336,8 +416,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ id, hp0, hr0, hct, lam, data })
     return 0
   }
-
-  async updPRSafe (safe: Safe) :  Promise<number> {
+  */
+/*
+  async updAliasSafe (safe: Safe) :  Promise<number> {
     const id = safe.id
     const hp0 = safe.hp0
     const hr0 = safe.hr0
@@ -371,24 +452,24 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ id, hct, lam, data })
     return 0
   }
+    */
 
   async updSafe (safe: Safe) :  Promise<void> {
-    const id = safe.id
-    safe.lm = Math.floor(Date.now() / 1000)
-    const lam = Util.currentMonth()
+    const userId = safe.userId
+    const llq = safe.auth.llq
     const data = Crypt.syncCrypt(this.key, encode(safe))
-    const stmt = this.sql.prepare('UPDATE ZZSAFE SET lam = @lam, data = @data WHERE id = @id')
-    stmt.run({ id, lam, data })
+    const stmt = this.sql.prepare('UPDATE ZZSAFE SET llq = @llq, data = @data WHERE userId = @userId')
+    stmt.run({ userId, llq, data })
   }
 
-  async delSafe (id: string) :  Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE id = @id')
-    stmt.run({ id })
+  async delSafe (userId: string) :  Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE userId = @userId')
+    stmt.run({ userId })
   }
 
-  async purgeSafes (lam: number) :  Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE lam < @lam')
-    stmt.run({ lam })
+  async purgeSafes (llq: number) :  Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ZZSAFE WHERE llq < @llq')
+    stmt.run({ llq })
   }
 
   /******************************************************************************

@@ -55,6 +55,12 @@ static clone (obj: any) : any {
   return Util.b64ToObj(Util.objToB64(obj))
 }
 
+static quarter (d: Date) : number {
+  const y = d.getUTCFullYear() % 2000
+  const q = Math.floor(d.getUTCMonth() / 4)
+  return (y * 4) + q
+}
+
 static currentMonth () : number {
   const d = new Date()
   const y = d.getFullYear()
