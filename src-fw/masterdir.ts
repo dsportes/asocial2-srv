@@ -3,7 +3,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { AppExc, AbstractOperation } from './index'
 import { Crypt, keyFromB64 } from './crypt'
 import { config, Classes } from './config'
-import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDsetLLQ } from './iDbGeneric'
+import { MDTable, MDopn, MDuser, MDsetAA, MDsetS } from './iDbGeneric'
 import { Util } from '../src-fw/util'
 
 export function loadingOM () {
@@ -231,27 +231,6 @@ class $mdUserSetS extends MDOperation {
   }
 }
 Classes.registerOp($mdUserSetS)
-
-/* $mdUserSetLLQ : change le _last login quarter_ d'un user.
-Argument: 
-- userId
-- shK: Strong Hash de la clé K du safe
-Result 'status':
-- 0 OK
-- 1 user inconnu
-- 2 shK non reconnu
-*/
-class $mdUserSetLLQ extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const userId = this.args['userId']
-    const shK = this.args['shK']
-    const sshK = Crypt.shaS(Util.b64ToU8(shK))
-    const llq = this.args['llq']
-    const status = await this.db.mdUserSetLLQ(MDopn.setLLQ, {userId, sshK, llq} as MDsetLLQ)
-    this.setRes('status', status)
-  }
-}
-Classes.registerOp($mdUserSetLLQ)
 
 /* $mdUserGetAAS : retourne les propriétés dynamiques d'un user.
 Appel depuis un safe.

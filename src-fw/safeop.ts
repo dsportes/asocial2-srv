@@ -10,10 +10,10 @@ export function loadingOS () {
 }
 
 type Device = {
-  devName: string | Uint8Array
+  devName: string
   Va: string
   cy: string
-  sign: Uint8Array
+  sign: string
   nbe: number
 }
 
@@ -30,6 +30,8 @@ export class SafeOperation implements AbstractOperation {
   
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
+
+  delRes(prop: string) { delete this.result[prop] }
 
   /* Depuis l'intérieur d'une opération, soumet une opération (opName, args) de safe
   au safe 'safeStore'
@@ -115,7 +117,7 @@ export class SafeOperation implements AbstractOperation {
       return null
     }
     const safe = decode(bin) as Safe
-    return arg['shk'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shk'])) ?
+    return arg['shK'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shK'])) ?
       safe : null
   }
 
@@ -175,11 +177,12 @@ class $GetSafe extends SafeOperation {
     if (this.args['shK']) {
       if (Crypt.shaS(Util.b64ToU8(this.args['shK'])) === safe.auth.hshK) ok = true
       else return this.setRes('status', 2)
-    } else if (!ok && this.args['shp']) {
-      const hshp = Crypt.shaS(Util.b64ToU8(this.args['shp']))
-      if (hshp !== safe.auth.hshp1 && hshp !== safe.auth.hshp2)
-        return this.setRes('status', 2)
     }
+    if (!ok && this.args['shp']) {
+      const hshp = Crypt.shaS(Util.b64ToU8(this.args['shp']))
+      if (hshp === safe.auth.hshp1 || hshp == safe.auth.hshp2) ok = true
+    }
+    if (!ok) return this.setRes('status', 2)
     this.setRes('status', 0)
     await this.cleanAndSave(safe)
   }
@@ -187,7 +190,7 @@ class $GetSafe extends SafeOperation {
 Classes.registerOp($GetSafe)
 
 /* Mise à jour des alias d'un Safe. 
-Args: userId, shk, 
+Args: userId, shK, 
 - actual : alias actuel (n'est jamais null)
 - future: futur alias (null quand validation)
 */
@@ -204,8 +207,8 @@ class $SetAliasSafe extends SafeOperation {
 }
 Classes.registerOp($SetAliasSafe)
 
-/* Mise à jour des phrases secretes d'un Safe. p1 jamais null
-Args: userId, shk, 
+/* Mise à jour des phrases secretes d'un Safe. p1 et p2 jamais null ensemble
+Args: userId, shK, 
 - hshp1: string // SHA raccourci du Strong Hash de la phrase 1 (en base 64).
 - K1: string // clé K cryptée par le Strong Hash de la phrase 1.
 - hshp2: string
@@ -217,7 +220,7 @@ class $SetPhraseSafe extends SafeOperation {
     const hshp2 = this.args['hshp2'] || '' as string
     const K1 = this.args['K1'] as string
     const K2 = this.args['K2'] || '' as string
-    if (!hshp1 || !K1) {
+    if (!hshp1 && !hshp2) {
       this.setRes('status', 9)
       return
     }
@@ -286,7 +289,7 @@ class $OpenSafeById extends SafeOperation {
 
   async doTheJob () : Promise<void> {
     const [m, safe] = await this.db.getSafe(this.args['userId'])
-    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shk']))
+    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shK']))
     if (safe && hhk === safe.hhk) {
       this.cleanInvits(safe)
       this.setRes('status', 0)
@@ -316,14 +319,12 @@ class $OpenSafeByPin extends SafeOperation {
       this.setRes('status', 1)
       return
     }
-    if (!safe.devices) safe.devices = {}
-    const dev = safe.devices[devId]
+    const dev = safe.devices ? safe.devices[devId] as Device : null
     if (!dev) {
       this.setRes('status', 2)
       return
     }
-    /* vérifie par `Va` que `sign` est bien la signature de pincx 
-    */
+    // vérifie par `Va` que `sign` est bien la signature de pincx 
     const V = keyFromB64(dev.Va)
     // Rétablit la signature en EC - ce que ne fait pas la version PHP
     const s1 = Util.b64ToU8(dev.sign)
@@ -352,14 +353,13 @@ class $OpenSafeByPin extends SafeOperation {
 }
 Classes.registerOp($OpenSafeByPin)
 
+/* Changement du contact
 type SetContact = {
   userId: string
   contact: string
   hct: string
-  shk: string
+  shK: string
 }
-/* Changement du contact
-*/
 class $SetContact extends SafeOperation {
 
   async doTheJob () : Promise<void> {
@@ -375,11 +375,12 @@ class $SetContact extends SafeOperation {
   }
 }
 Classes.registerOp($SetContact)
+*/
 
 type SetAdmins = {
   userId: string
+  shK: string
   admins: string
-  shk: string
 }
 
 class $SetAdmins extends SafeOperation {
@@ -388,44 +389,36 @@ class $SetAdmins extends SafeOperation {
     const sa = this.args['setadmins'] as SetAdmins
     const safe = await this.getSafe(sa)
     if (!safe) return
-    safe.admins = sa.admins
-    this.cleanInvits(safe)
-    await this.db.updSafe(safe)
+    let u = false
+    if (safe.auth.admins !== sa.admins) {
+      safe.auth.admins = sa.admins
+      u = true
+    }
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($SetAdmins)
 
 type TrustDev = {
   userId: string
+  shK: string
   devId: string
-  sh1p: Uint8Array
-  sh1r: Uint8Array
-  devName: Uint8Array
+  devName: string
   Va: string
   cy: string
-  sign: Uint8Array
+  sign: string
   pseudo: string
 }
 
-type UntrustDev = {
-  userId: string
-  devIds: string[]
-  sh1p: Uint8Array
-  sh1r: Uint8Array
-}
-
-/* Trust d'un device
-*/
+/* Trust d'un device (certification) */
 class $TrustDevice extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const td = this.args['trustDev'] as TrustDev
     const safe = await this.getSafe(td)
     if (!safe) return
 
-    safe.pseudo = td.pseudo || ''
+    safe.auth.pseudo = td.pseudo || ''
 
     const d: Device = {
       devName: td.devName,
@@ -436,43 +429,40 @@ class $TrustDevice extends SafeOperation {
     }
     if (!safe.devices) safe.devices = {}
     safe.devices[td.devId] = d
-    this.cleanInvits(safe)
-    await this.db.updSafe(safe)
+    await this.cleanAndSave(safe, true)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($TrustDevice)
 
-/* Trust d'un device
-*/
-class $UntrustDevices extends SafeOperation {
 
+type UntrustDev = {
+  userId: string
+  shK: string
+  devIds: string[]
+}
+/* Trust d'une liste de devices */
+class $UntrustDevices extends SafeOperation {
   async doTheJob () : Promise<void> {
     const td = this.args['untrustDev'] as UntrustDev
     const safe = await this.getSafe(td)
     if (!safe) return
 
-    this.cleanInvits(safe)
+    let u = false
     if (safe.devices) {
-      for (const id of td.devIds)
-        delete safe.devices[id]
-      if (Object.keys(safe.devices).length === 0)
-        delete safe.devices
+      for (const id of td.devIds) { delete safe.devices[id]; u = true }
+      if (Object.keys(safe.devices).length === 0) delete safe.devices
     }
-    await this.db.updSafe(safe)
-
+    await this.cleanAndSave(safe, true)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($UntrustDevices)
 
-
 /* Creds ***************************************************************/
 type SetCred = {
-  userId: string //
-  shk: string // shaS de la clé K en base 64
+  userId: string
+  shK: string 
   credid: string // id du credential
   comment: string // comment crypté par K et en base 64
   cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
@@ -484,45 +474,40 @@ class $CreateCred extends SafeOperation {
     const sc = this.args['setCred'] as SetCred
     const safe = await this.getSafe(sc)
     if (!safe) return
-    this.cleanInvits(safe)
 
     if (!safe.creds) safe.creds = {}
     const x = [sc.comment, sc.cred]
     safe.creds[sc.credid] = x
 
-    await this.db.updSafe(safe)
+    await this.cleanAndSave(safe, true)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($CreateCred)
 
 class $UpdateCredComment extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
     const safe = await this.getSafe(sc)
     if (!safe) return
-    this.cleanInvits(safe)
-
+    let u = false
     if (safe.creds) {
       const x = safe.creds[sc.credid]
       if (x) {
         x[0] = sc.comment
         safe.creds[sc.credid] = x
+        u = true
       }
     }
-
-    await this.db.updSafe(safe)
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($UpdateCredComment)
 
 type RevokeCreds = {
   userId: string
-  shk: string
+  shK: string
   ids: string[] 
 }
 
@@ -531,85 +516,68 @@ class $AutoRevokeCreds extends SafeOperation {
   async doTheJob () : Promise<void> {
     const rc = this.args['revokeCreds'] as RevokeCreds
     const safe = await this.getSafe(rc)
-
     if (!safe) return
-    this.cleanInvits(safe)
-
+    let u = false
     if (safe.creds) {
-      for(const id of rc.ids) delete safe.creds[id]
-      if (Object.keys(safe.creds).length === 0)
-        delete safe.creds
+      for(const id of rc.ids) { delete safe.creds[id]; u = true }
+      if (Object.keys(safe.creds).length === 0) delete safe.creds
     }
-
-    await this.db.updSafe(safe)
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($AutoRevokeCreds)
-/****************************************************************/
 
 /* Profiles *****************************************************/
 type SetProfiles = {
-  app: string
   userId: string
-  shk: string
+  shK: string
+  app: string
   profiles: Object | null // clé: profId, valeur: Objet Profile sérialisé crypté
   delprofs: string[] // liste des profIds à supprimer
 }
 class $UpdateProfiles extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const sp = this.args['setProfiles'] as SetProfiles
     const safe = await this.getSafe(sp)
     if (!safe) return
-    this.cleanInvits(safe)
+    let u = false
 
     if (!safe.profiles) safe.profiles = {}
-
     let appp = safe.profiles[sp.app]
     if (!appp) { appp = {}; safe.profiles[sp.app] = appp }
-    for(const profId in sp.profiles)
-      appp[profId] = sp.profiles[profId]
-    for(const profId of sp.delprofs)
-      delete appp[profId]
-    if (Object.keys(safe.profiles[sp.app]).length === 0)
-      delete safe.profiles[sp.app]
-    if (Object.keys(safe.profiles).length === 0)
-      delete safe.profiles
-
-    await this.db.updSafe(safe)
+    for(const profId in sp.profiles) { appp[profId] = sp.profiles[profId]; u = true }
+    for(const profId of sp.delprofs) { delete appp[profId]; u = true }
+    if (Object.keys(safe.profiles[sp.app]).length === 0) delete safe.profiles[sp.app]
+    if (Object.keys(safe.profiles).length === 0) delete safe.profiles
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($UpdateProfiles)
 
 type SetAboutProfile = {
-  app: string
   userId: string
-  shk: Uint8Array
+  shK: string
+  app: string
   profId: string
-  about: Uint8Array
+  about: string
 }
 /* Maj de l'about d'un profil */
 class $SetAboutProfile extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const ab = this.args['aboutProfile'] as SetAboutProfile
     const safe = await this.getSafe(ab)
     if (!safe) return
-    this.cleanInvits(safe)
-
+    let u = false
     if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
       const prf = decode(Util.b64ToU8(safe.profiles[ab.app][ab.profId]))
       prf['about'] = ab.about
       safe.profiles[ab.app][ab.profId] = Util.u8ToB64(encode(prf))
+      u = true
     }
-    await this.db.updSafe(safe)
-
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($SetAboutProfile)
@@ -617,63 +585,55 @@ Classes.registerOp($SetAboutProfile)
 
 /* Prefs ***************************************************************/
 type UpdatePrefs = {
-  app: string
   userId: string
-  shk: string    
+  shK: string
+  app: string   
   prefs: Object // clé: crId, valeur: Objet Credential sérialisé crypté
   delprefs: string[] // liste des crIds à supprimer
 }
 
 class $UpdatePrefs extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const up = this.args['updatePrefs'] as UpdatePrefs
     const safe = await this.getSafe(up)
     if (!safe) return
-    this.cleanInvits(safe)
+    let u = false
 
     if (!safe.prefs) safe.prefs = {}
-
     let appp = safe.prefs[up.app]
     if (!appp) { appp = {}; safe.prefs[up.app] = appp }
-    for(const code in up.prefs)
-      appp[code] = up.prefs[code]
-    for(const code of up.delprefs)
-      delete appp[code]
-    if (Object.keys(safe.prefs[up.app]).length === 0)
-      delete safe.prefs[up.app]
-    if (Object.keys(safe.prefs).length === 0)
-      delete safe.prefs
+    for(const code in up.prefs) { appp[code] = up.prefs[code]; u = true }
+    for(const code of up.delprefs) { delete appp[code]; u = true }
+    if (Object.keys(safe.prefs[up.app]).length === 0) delete safe.prefs[up.app]
+    if (Object.keys(safe.prefs).length === 0) delete safe.prefs
 
-    await this.db.updSafe(safe)
+    await this.cleanAndSave(safe, u)
     this.setRes('status', 0)
-    this.setRes('safe', safe)
   }
 }
 Classes.registerOp($UpdatePrefs)
 /*****************************************************************************/
 
 type AddInvit = {
-  userId: string // Attention: userId ou pseudo 1 2 ou contact
+  userId: string
   invitId: string
   status: number
   time: number
   invit: string // Objet invit sérialisé crypté en base64
-  shk?: string // Cas d'une création pour U par U
+  shK?: string // Cas d'une création pour U par U
   pubC?: string // Cas d'une création pour U par X
                 // invit est à décrypter par le couple U/X (et non keyK)
 }
 
 class $AddInvit extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
-    const [m, safe] = await this.db.getSafe(inv.userId)
+    const safe = await this.db.getSafe(inv.userId)
     if (!safe) {
       this.setRes('status', 1)
       return
     }
-    if (inv.shk && safe.hhk !== Crypt.shaS(Util.b64ToU8(inv.shk))) {
+    if (inv.shK && safe.auth.hshK !== Crypt.shaS(Util.b64ToU8(inv.shK))) {
       this.setRes('status', 2)
       return
     }
@@ -683,12 +643,10 @@ class $AddInvit extends SafeOperation {
     const x = { status: inv.status, time: inv.time, invit: inv.invit }
     if (inv.pubC) x['pubC'] = inv.pubC
     safe.invits[inv.invitId] = x
-    this.cleanInvits(safe)
-
-    await this.db.updSafe(safe)
+    this.cleanAndSave(safe, true)
     this.setRes('status', 0)
     // le safe n'est pas retourné dans la cas d'une création par X
-    if (inv.shk) this.setRes('safe', safe)
+    if (inv.pubC) this.delRes('safe')
   }
 }
 Classes.registerOp($AddInvit)
@@ -700,20 +658,18 @@ export type StatusInvit = {
 }
 
 class $StatusInvit extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const st = this.args['statusInvit'] as StatusInvit
-    const [m, safe] = await this.db.getSafe(st.targetId)
+    const safe = await this.db.getSafe(st.targetId)
     if (!safe || !safe.invits) {
       this.setRes('status', 1)
       return
     }
-
     const inv = safe.invits[st.invitId]
     if (inv) {
       inv.status = st.status
-      this.cleanInvits(safe)
-      await this.db.updSafe(safe)
+      await this.cleanAndSave(safe)
+      this.delRes('safe')
       this.setRes('status', 0)
     } else this.setRes('status', 2)
   }
@@ -763,7 +719,7 @@ Retour : { lm, xp, xr }
 - xp : true si aucun safe n'a hp0 comme cl& externe OU si le safe d'id existe et a 
 hp0 comme clé p0
 - xr : idem pour hr0
-*/
+
 class $StatusSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> {
@@ -775,6 +731,7 @@ class $StatusSafe extends SafeOperation {
   }
 }
 Classes.registerOp($StatusSafe)
+*/
 
 /* Obtention des clés publiques d'un safe donné par:
 - son id, son pseudo principal ou secondaire
@@ -797,7 +754,7 @@ Classes.registerOp($GetPublicKeys', () => { return new $GetPublicKeys()})
 
 /* Obtention des clés publiques et id d'un safe donné par:
 - son id, son pseudo principal ou secondaire, son contact
-*/
+
 class $GetUserICVO extends SafeOperation {
 
   async doTheJob () : Promise<void> {
@@ -807,11 +764,13 @@ class $GetUserICVO extends SafeOperation {
   }
 }
 Classes.registerOp($GetUserICVO)
+*/
 
 
-/* Suppression d'un safe - auth "forte" requise */
+/* Suppression d'un safe -
+Args: userId, shK
+*/
 class $DelSafe extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const userId = this.args['userId']
     const safe = await this.getSafe(this.args)
@@ -824,7 +783,6 @@ Classes.registerOp($DelSafe)
 
 /* Ping */
 class $Ping extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     this.setRes('ping', true)
   }

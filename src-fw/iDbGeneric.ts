@@ -7,7 +7,7 @@ export enum MDTable {
   SVCOPS = 'ZZSVCOPS'
 }
 
-export enum MDopn { new, setAA, setS, setLLQ }
+export enum MDopn { new, setAA, setS }
 
 export type MDuser = {
   userId: string // ID de l'utilisateur`
@@ -31,12 +31,6 @@ export type MDsetS = {
   userId: string
   sshK: string
   store: string
-}
-
-export type MDsetLLQ = {
-  userId: string
-  sshK: string
-  llq: number
 }
 
 export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
@@ -150,9 +144,11 @@ export interface IDbGeneric {
   - args: arguments - MDuser MDsetAA MDsetS MDsetLLQ
   Return : status
   */
-  mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS | MDsetLLQ ) : Promise<number>
+  mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS ) : Promise<number>
 
-  /* NON ACID - consultation simple */
+  /* NON ACID - consultation simple 
+  MAIS met à jour llq si nécessaire (sans transaction).
+  */
   mdUserGet(userId: string, alias?: boolean) : Promise<MDuser | null>
 
   getSingleton (key: string) : Promise<string>

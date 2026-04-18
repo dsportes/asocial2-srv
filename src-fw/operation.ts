@@ -124,6 +124,8 @@ export class Operation implements OperationWC {
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
 
+  delRes(prop: string) { delete this.result[prop] }
+
   /* AJOUTE la valeur en fin de la propriété Array 'prop' du résultat (et la retourne)*/
   addRes(prop: string, val) {
     let l = this.result[prop]; if (!l) { l = []; this.result[prop] = l }

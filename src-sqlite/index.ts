@@ -4,7 +4,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, MDTable, 
-  MDopn, MDuser, MDsetAA, MDsetS, MDsetLLQ } from '../src-fw/iDbGeneric'
+  MDopn, MDuser, MDsetAA, MDsetS } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
@@ -219,7 +219,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({ key })
   }
 
-  async mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS | MDsetLLQ ) : Promise<number> {
+  async mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS ) : Promise<number> {
     try {
       this.sql.exec('BEGIN;')
       let status = 0
@@ -227,7 +227,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         case MDopn.new : { status = await this.mdUserNew(args as MDuser); break}
         case MDopn.setAA : { status = await this.mdUserSetAA(args as MDsetAA); break}
         case MDopn.setS : { status = await this.mdUserSetS(args as MDsetS); break}
-        case MDopn.setLLQ : { status = await this.mdUserSetLLQ(args as MDsetLLQ); break}
       }
       this.sql.exec('COMMIT;')
       return status
@@ -245,6 +244,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const x = {}; for(const p of this.USERSCOLS) x[p] = row[p]
     if (!x['hsha1']) x['hsha1'] = ''
     if (!x['hsha2']) x['hsha2'] = ''
+    const llq = Util.quarter(new Date())
+    if (llq > x['llq']) {
+      const stmt = this.sql.prepare('UPDATE ZZUSERS SET llq = @llq WHERE userId = @userId')
+      stmt.run({ userId: row['userId'], llq })
+      x['llq'] = llq
+    }
     return x as MDuser
   }
 
@@ -327,14 +332,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async mdUserSetS(args: MDsetS) : Promise<number> {
     const status = this.mdUserId(args); if (status) return status
     const stmt = this.sql.prepare('UPDATE ZZUSERS SET store = @store ' +
-      ' WHERE userId = @userId;')
-    stmt.run(args)
-    return 0
-  }
-
-  async mdUserSetLLQ(args: MDsetLLQ) : Promise<number> {
-    const status = this.mdUserId(args); if (status) return status
-    const stmt = this.sql.prepare('UPDATE ZZUSERS SET llq = @llq ' +
       ' WHERE userId = @userId;')
     stmt.run(args)
     return 0
