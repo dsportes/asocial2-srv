@@ -166,11 +166,7 @@ NON transactionnelles : jamais invoquée dans une transaction.
 S'il existe déjà avec le même contenu, OK.
 Arguments: 
 - mdUser: MDuser
-Result 'status':
-- 0 OK.
-- 1 alias 1 déjà utilisé
-- 2 alias 2 déjà utilisé
-- 3 user déjà déclaré avec des valeurs différentes
+Status: 10 11 12
 */
 class $mdNewUser extends MDOperation {
   async doTheJob () : Promise<void> { 

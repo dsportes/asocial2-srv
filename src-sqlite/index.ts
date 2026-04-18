@@ -283,16 +283,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
     let row = stmt.get( {userId: mdUser.userId} )
     if (row) { 
-      if (this.eqObj(mdUser, row, this.USERSCOLS))
-        return 0
-      return 3
+      if (this.eqObj(mdUser, row, this.USERSCOLS)) return 0
+      return 12
     }
     stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
     row = stmt.get( {hsha1: mdUser.hsha1} )
-    if (row) return 1
+    if (row) return 11
     stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha2 OR hsha2 = @hsha2')
     row = stmt.get( {hsha2: mdUser.hsha2} )
-    if (row) return 2
+    if (row) return 12
     const s1 = this.USERSCOLS.join(',')
     const s2 = this.USERSCOLS.join(', @')
     stmt = this.sql.prepare('INSERT INTO ZZUSERS (' + s1 + ') VALUES (@' + s2 + ');')
@@ -316,10 +315,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const status = this.mdUserId(args); if (status) return status
     let stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
     let row = stmt.get( {hsha1: args.hsha1} )
-    if (row && row.userId !== args.userId) return 3
+    if (row && row.userId !== args.userId) return 10
     stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha2 OR hsha2 = @hsha2')
     row = stmt.get( {hsha2: args.hsha2} )
-    if (row && row.userId !== args.userId) return 4
+    if (row && row.userId !== args.userId) return 11
 
     stmt = this.sql.prepare('UPDATE ZZUSERS SET ssha1 = @ssha1, ssha2 = @ssha2 ' +
       ' WHERE userId = @userId;')
@@ -381,13 +380,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
   */
 
-  async newSafe (safe: Safe) :  Promise<number> {
+  async newSafe (safe: Safe) : Promise<void> {
     const userId = safe.userId
     const llq = safe.auth.llq
     const data = Crypt.syncCrypt(this.key, encode(safe))
     const stmt = this.sql.prepare('INSERT INTO ZZSAFE (userId, llq, data) VALUES (@userId, @llq, @data)')
     stmt.run({ userId, llq, data })
-    return 0
   }
 
   /*

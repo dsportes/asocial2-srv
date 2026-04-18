@@ -168,7 +168,7 @@ export interface IDbGeneric {
   */
 
   /* Créé un nouveau safe. Insertion brute */
-  newSafe (safe: Safe) :  Promise<number>
+  newSafe (safe: Safe) :  Promise<void>
   // restoreSafe (safe: Safe) :  Promise<number>
 
   /* Met à jour un safe depuis son objet */

@@ -117,8 +117,12 @@ export class SafeOperation implements AbstractOperation {
       return null
     }
     const safe = decode(bin) as Safe
-    return arg['shK'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shK'])) ?
-      safe : null
+    if (arg['shK'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shK'])))
+      return safe
+    else {
+      this.setRes('status', 2)
+      return null
+    }
   }
 
   async doTheJob () : Promise<void> {  }
@@ -136,7 +140,9 @@ export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
 }
 */
 
-/* Creation d'un nouveau Safe */
+/* Creation d'un nouveau Safe.
+Pas de status.
+*/
 class $CreateSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
@@ -163,6 +169,7 @@ Classes.registerOp($RestoreSafe)
 args: userId + ...
 - soit shK: Strong Hash de la clé K - pour mise à jour
 - soit shp : Strong Hash de la phrase 1 ou 2  - login "fort"
+Status: 1 2 3
 */
 class $GetSafe extends SafeOperation {
   async doTheJob () : Promise<void> {
@@ -182,7 +189,7 @@ class $GetSafe extends SafeOperation {
       const hshp = Crypt.shaS(Util.b64ToU8(this.args['shp']))
       if (hshp === safe.auth.hshp1 || hshp == safe.auth.hshp2) ok = true
     }
-    if (!ok) return this.setRes('status', 2)
+    if (!ok) return this.setRes('status', 3)
     this.setRes('status', 0)
     await this.cleanAndSave(safe)
   }
@@ -193,6 +200,7 @@ Classes.registerOp($GetSafe)
 Args: userId, shK, 
 - actual : alias actuel (n'est jamais null)
 - future: futur alias (null quand validation)
+Status: 1 2
 */
 class $SetAliasSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
@@ -213,6 +221,7 @@ Args: userId, shK,
 - K1: string // clé K cryptée par le Strong Hash de la phrase 1.
 - hshp2: string
 - K2: string
+Status: 1 2
 */
 class $SetPhraseSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
@@ -220,10 +229,8 @@ class $SetPhraseSafe extends SafeOperation {
     const hshp2 = this.args['hshp2'] || '' as string
     const K1 = this.args['K1'] as string
     const K2 = this.args['K2'] || '' as string
-    if (!hshp1 && !hshp2) {
-      this.setRes('status', 9)
-      return
-    }
+    if (!hshp1 && !hshp2) 
+      throw new AppExc(3006, 'missing p1 and p2', this)
     const safe = await this.getSafe(this.args)
     if (!safe) return
     let u = false
@@ -307,6 +314,7 @@ Classes.registerOp($OpenSafeById)
   - accède au _safe_ dont l'id est `userId`.
   - accède dans la section `devices` à l'entrée `devId` 
   ce qui lui donne les propriétés `Va cy sign nbe`. 
+Status: 1 4 5 6
 */
 class $OpenSafeByPin extends SafeOperation {
   async doTheJob () : Promise<void> {
@@ -321,7 +329,7 @@ class $OpenSafeByPin extends SafeOperation {
     }
     const dev = safe.devices ? safe.devices[devId] as Device : null
     if (!dev) {
-      this.setRes('status', 2)
+      this.setRes('status', 4)
       return
     }
     // vérifie par `Va` que `sign` est bien la signature de pincx 
@@ -336,7 +344,7 @@ class $OpenSafeByPin extends SafeOperation {
       if (dev.nbe > 2) {
         delete safe.devices[devId]
         this.setRes('status', 5)
-      } else this.setRes('status', 4)
+      } else this.setRes('status', 6)
       if (Object.keys(safe.devices).length === 0)
         delete safe.devices
       await this.cleanAndSave(safe, true)
@@ -382,9 +390,10 @@ type SetAdmins = {
   shK: string
   admins: string
 }
-
+/* Enregistrement de la liste admins.
+Status: 1 2
+*/
 class $SetAdmins extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const sa = this.args['setadmins'] as SetAdmins
     const safe = await this.getSafe(sa)
@@ -411,7 +420,9 @@ type TrustDev = {
   pseudo: string
 }
 
-/* Trust d'un device (certification) */
+/* Trust d'un device (certification) 
+Status: 1 2
+*/
 class $TrustDevice extends SafeOperation {
   async doTheJob () : Promise<void> {
     const td = this.args['trustDev'] as TrustDev
@@ -435,19 +446,19 @@ class $TrustDevice extends SafeOperation {
 }
 Classes.registerOp($TrustDevice)
 
-
 type UntrustDev = {
   userId: string
   shK: string
   devIds: string[]
 }
-/* Trust d'une liste de devices */
+/* Untrust d'une liste de devices 
+Status: 1 2
+*/
 class $UntrustDevices extends SafeOperation {
   async doTheJob () : Promise<void> {
     const td = this.args['untrustDev'] as UntrustDev
     const safe = await this.getSafe(td)
     if (!safe) return
-
     let u = false
     if (safe.devices) {
       for (const id of td.devIds) { delete safe.devices[id]; u = true }
@@ -467,9 +478,10 @@ type SetCred = {
   comment: string // comment crypté par K et en base 64
   cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
 }
-
+/* Enregistrement d'un credential
+Status: 1 2
+*/
 class $CreateCred extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
     const safe = await this.getSafe(sc)
@@ -485,6 +497,9 @@ class $CreateCred extends SafeOperation {
 }
 Classes.registerOp($CreateCred)
 
+/* Maj du commentaire d'un credential
+Status: 1 2
+*/
 class $UpdateCredComment extends SafeOperation {
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
@@ -510,9 +525,10 @@ type RevokeCreds = {
   shK: string
   ids: string[] 
 }
-
+/* Auto révocation d'un credential.
+Status: 1 2
+*/
 class $AutoRevokeCreds extends SafeOperation {
-
   async doTheJob () : Promise<void> {
     const rc = this.args['revokeCreds'] as RevokeCreds
     const safe = await this.getSafe(rc)
@@ -536,6 +552,9 @@ type SetProfiles = {
   profiles: Object | null // clé: profId, valeur: Objet Profile sérialisé crypté
   delprofs: string[] // liste des profIds à supprimer
 }
+/* Déclaration de profils et suppressions de profils
+Status: 1 2
+*/
 class $UpdateProfiles extends SafeOperation {
   async doTheJob () : Promise<void> {
     const sp = this.args['setProfiles'] as SetProfiles
@@ -563,7 +582,9 @@ type SetAboutProfile = {
   profId: string
   about: string
 }
-/* Maj de l'about d'un profil */
+/* Maj de l'about d'un profil
+Status: 1 2
+*/
 class $SetAboutProfile extends SafeOperation {
   async doTheJob () : Promise<void> {
     const ab = this.args['aboutProfile'] as SetAboutProfile
@@ -581,7 +602,6 @@ class $SetAboutProfile extends SafeOperation {
   }
 }
 Classes.registerOp($SetAboutProfile)
-/***********************************************************************/
 
 /* Prefs ***************************************************************/
 type UpdatePrefs = {
@@ -591,7 +611,9 @@ type UpdatePrefs = {
   prefs: Object // clé: crId, valeur: Objet Credential sérialisé crypté
   delprefs: string[] // liste des crIds à supprimer
 }
-
+/* Eneristrement / suppression de préférences
+Status: 1 2
+*/
 class $UpdatePrefs extends SafeOperation {
   async doTheJob () : Promise<void> {
     const up = this.args['updatePrefs'] as UpdatePrefs
@@ -624,7 +646,9 @@ type AddInvit = {
   pubC?: string // Cas d'une création pour U par X
                 // invit est à décrypter par le couple U/X (et non keyK)
 }
-
+/* Enregistrement d'une invitation
+Status: 1 2
+*/
 class $AddInvit extends SafeOperation {
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
@@ -656,7 +680,9 @@ export type StatusInvit = {
   invitId: string
   status: number
 }
-
+/* Maj du status d'une invitation
+Status: 1 2
+*/
 class $StatusInvit extends SafeOperation {
   async doTheJob () : Promise<void> {
     const st = this.args['statusInvit'] as StatusInvit
@@ -671,7 +697,7 @@ class $StatusInvit extends SafeOperation {
       await this.cleanAndSave(safe)
       this.delRes('safe')
       this.setRes('status', 0)
-    } else this.setRes('status', 2)
+    } else this.setRes('status', 7)
   }
 }
 Classes.registerOp($StatusInvit)
@@ -769,6 +795,7 @@ Classes.registerOp($GetUserICVO)
 
 /* Suppression d'un safe -
 Args: userId, shK
+Status: 1 2
 */
 class $DelSafe extends SafeOperation {
   async doTheJob () : Promise<void> {
