@@ -284,6 +284,17 @@ class $mdUserGetCV extends MDOperation {
 }
 Classes.registerOp($mdUserGetCV)
 
+/* Test si un alias est libre 
+- 'aliasfree' : true / false
+*/
+class $mdUserFree extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const alias = this.args['alias'] as string
+    this.setRes('aliasfree', await this.db.mdUserFree(alias))
+  }
+}
+Classes.registerOp($mdUserFree)
+
 /* Opérations d'administration sur SVCOPS et ORGS ****************
 Les arguments sont signés.
 */

@@ -199,7 +199,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /******************************************************************************
-  * Gestion du MesterDir  
+  * Gestion du MAster Directory  
   ******************************************************************************/
 
   async mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> {
@@ -253,7 +253,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return x as MDuser
   }
 
-  async mdUserGet(userId: string, alias?: boolean) : Promise<MDuser | null> {
+  async mdAliasFree (alias: string) : Promise<boolean> {
+    const stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
+    const row = stmt.get( {userId: alias} )
+    return !row
+  }
+
+  async mdUserGet (userId: string, alias?: boolean) : Promise<MDuser | null> {
     let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
     let row = stmt.get( {userId: userId} )
     if (row) return this.normRow(row)

@@ -146,6 +146,9 @@ export interface IDbGeneric {
   */
   mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS ) : Promise<number>
 
+  /* NON ACID - Test si un alias est attribué */
+  mdAliasFree (alias: string) : Promise<boolean>
+
   /* NON ACID - consultation simple 
   MAIS met à jour llq si nécessaire (sans transaction).
   */
