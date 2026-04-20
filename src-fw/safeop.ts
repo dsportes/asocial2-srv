@@ -84,9 +84,11 @@ export class SafeOperation implements AbstractOperation {
     }
   }
 
-  async cleanAndSave (safe: any, updated?: boolean) {
-    let u = updated || false
-    if (safe.invits) {
+  /* Nettoir les invitations obsolètes. 
+  Return true en cas de modification effective */
+  cleanInvits (safe) : boolean {
+    let u = false
+    if (safe && safe.invits) {
       const d = Math.floor(Date.now() / 86400000)
       let b = false
       for(const xid of Array.from(Object.keys(safe.invits))) {
@@ -97,6 +99,11 @@ export class SafeOperation implements AbstractOperation {
       }
       if (!b) delete safe.invits
     }
+    return u
+  }
+
+  async save (safe: any, updated?: boolean) {
+    let u = updated || false
     const d = new Date()
     const q = Util.quarter(d)
     if (safe.auth.llq < q) {
@@ -191,7 +198,7 @@ class $GetSafe extends SafeOperation {
     }
     if (!ok) return this.setRes('status', 3)
     this.setRes('status', 0)
-    await this.cleanAndSave(safe)
+    await this.save(safe)
   }
 }
 Classes.registerOp($GetSafe)
@@ -206,11 +213,13 @@ class $SetAliasSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const actual = this.args['actual'] as Alias
     const future = this.args['future'] as Alias
+    const nosafe = this.args['nosafe'] as boolean
     const safe = await this.getSafe(this.args)
     if (!safe) return
     safe.auth.actual = actual
     safe.auth.future = future || null
-    await this.cleanAndSave(safe, true)
+    await this.save(safe, true)
+    if (nosafe) this.delRes('safe')
   }
 }
 Classes.registerOp($SetAliasSafe)
@@ -244,7 +253,7 @@ class $SetPhraseSafe extends SafeOperation {
       safe.auth.K2 = K2
       u = true
     }
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
   }
 }
 Classes.registerOp($SetPhraseSafe)
@@ -347,13 +356,13 @@ class $OpenSafeByPin extends SafeOperation {
       } else this.setRes('status', 6)
       if (Object.keys(safe.devices).length === 0)
         delete safe.devices
-      await this.cleanAndSave(safe, true)
+      await this.save(safe, true)
       return
     }
 
     if (dev.nbe) {
       dev.nbe = 0
-      await this.cleanAndSave(safe, true)
+      await this.save(safe, true)
     }
     this.setRes('status', 0)
     this.setRes('cy', dev.cy)
@@ -403,7 +412,7 @@ class $SetAdmins extends SafeOperation {
       safe.auth.admins = sa.admins
       u = true
     }
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -440,7 +449,7 @@ class $TrustDevice extends SafeOperation {
     }
     if (!safe.devices) safe.devices = {}
     safe.devices[td.devId] = d
-    await this.cleanAndSave(safe, true)
+    await this.save(safe, true)
     this.setRes('status', 0)
   }
 }
@@ -464,7 +473,7 @@ class $UntrustDevices extends SafeOperation {
       for (const id of td.devIds) { delete safe.devices[id]; u = true }
       if (Object.keys(safe.devices).length === 0) delete safe.devices
     }
-    await this.cleanAndSave(safe, true)
+    await this.save(safe, true)
     this.setRes('status', 0)
   }
 }
@@ -491,7 +500,7 @@ class $CreateCred extends SafeOperation {
     const x = [sc.comment, sc.cred]
     safe.creds[sc.credid] = x
 
-    await this.cleanAndSave(safe, true)
+    await this.save(safe, true)
     this.setRes('status', 0)
   }
 }
@@ -514,7 +523,7 @@ class $UpdateCredComment extends SafeOperation {
         u = true
       }
     }
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -538,7 +547,7 @@ class $AutoRevokeCreds extends SafeOperation {
       for(const id of rc.ids) { delete safe.creds[id]; u = true }
       if (Object.keys(safe.creds).length === 0) delete safe.creds
     }
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -569,7 +578,7 @@ class $UpdateProfiles extends SafeOperation {
     for(const profId of sp.delprofs) { delete appp[profId]; u = true }
     if (Object.keys(safe.profiles[sp.app]).length === 0) delete safe.profiles[sp.app]
     if (Object.keys(safe.profiles).length === 0) delete safe.profiles
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -597,7 +606,7 @@ class $SetAboutProfile extends SafeOperation {
       safe.profiles[ab.app][ab.profId] = Util.u8ToB64(encode(prf))
       u = true
     }
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -629,7 +638,7 @@ class $UpdatePrefs extends SafeOperation {
     if (Object.keys(safe.prefs[up.app]).length === 0) delete safe.prefs[up.app]
     if (Object.keys(safe.prefs).length === 0) delete safe.prefs
 
-    await this.cleanAndSave(safe, u)
+    await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
@@ -667,7 +676,8 @@ class $AddInvit extends SafeOperation {
     const x = { status: inv.status, time: inv.time, invit: inv.invit }
     if (inv.pubC) x['pubC'] = inv.pubC
     safe.invits[inv.invitId] = x
-    this.cleanAndSave(safe, true)
+    this.cleanInvits(safe)
+    await this.save(safe, true)
     this.setRes('status', 0)
     // le safe n'est pas retourné dans la cas d'une création par X
     if (inv.pubC) this.delRes('safe')
@@ -683,24 +693,26 @@ export type StatusInvit = {
 /* Maj du status d'une invitation
 Status: 1 2
 */
-class $StatusInvit extends SafeOperation {
+class $SetStatusInvit extends SafeOperation {
   async doTheJob () : Promise<void> {
     const st = this.args['statusInvit'] as StatusInvit
     const safe = await this.db.getSafe(st.targetId)
-    if (!safe || !safe.invits) {
-      this.setRes('status', 1)
-      return
-    }
-    const inv = safe.invits[st.invitId]
-    if (inv) {
-      inv.status = st.status
-      await this.cleanAndSave(safe)
-      this.delRes('safe')
-      this.setRes('status', 0)
+    let u = this.cleanInvits(safe)
+    if (safe && safe.invits) {
+      const inv = safe.invits[st.invitId]
+      if (inv) {
+        inv.status = st.status
+        u = true
+        this.setRes('status', 0)
+      } 
     } else this.setRes('status', 7)
+    if (u) {
+      await this.save(safe)
+      this.delRes('safe')
+    }
   }
 }
-Classes.registerOp($StatusInvit)
+Classes.registerOp($SetStatusInvit)
 
 /*
 type TransmitCred = {

@@ -255,16 +255,16 @@ Classes.registerOp($mdUserGetAAS)
 un alias ou son ID
 Appel NON transactionnel (consultation simple à l'instant t).
 Argument:
-- id: userId ou un alias de l'utilisateur
-Result 'icvs' : [userId, c, v, store]
-null si l'alias ne correspond à aucune entrée
+-userId: userId ou un alias de l'utilisateur
+Result 'icvs' : { i:userId, c:C, v:V, c:store }
+null si l'alias / userId ne correspond à aucune entrée
 */
 class $mdUserGetICVS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const alias = this.args['userId'] as string
     const mdUser = await this.db.mdUserGet(alias, true) as MDuser | null
     if (mdUser) 
-      this.setRes('icvs', [mdUser.userId, mdUser.C, mdUser.V, mdUser.store])
+      this.setRes('icvs', { i: mdUser.userId, c: mdUser.C, v: mdUser.V, s: mdUser.store })
   }
 }
 Classes.registerOp($mdUserGetICVS)
