@@ -183,7 +183,6 @@ class $GetSafe extends SafeOperation {
     const bin = await this.db.getBinSafe(this.args['userId'])
     if (!bin) {
       this.setRes('status', 1)
-      await Util.sleep(3000)
       return
     } 
     const safe = decode(bin) as Safe
@@ -258,67 +257,6 @@ class $SetPhraseSafe extends SafeOperation {
 }
 Classes.registerOp($SetPhraseSafe)
 
-/* Ouverture d'un Safe
-- sh0: sh (binaire) de la partie pseudo
-- sh1: sh (binaire) de la partie phrase
-status 0: OK, 1:pseudo non reconnu
-byP: quand status 0, true si accès "primaire" (sinon "secondaire")
-safe: quand status 0, le safe
-
-class $OpenSafeByPR extends SafeOperation {
-
-  async doTheJob () : Promise<void> {
-    let byP = false
-    let status = 1
-    const s0 = this.args['sh0']
-    let [m, safe] = await this.db.getSafe(s0)
-    if (!safe) {
-      status = 3
-      byP = false
-      safe = null
-    } else {
-      const hh1 = Crypt.shaS(Util.b64ToU8(this.args['sh1']))
-      if (m === 1 && safe.hhp1 === hh1) {
-        byP = true
-        status = 0
-      } else if (m === 2 && safe.hhr1 === hh1) {
-        byP = false
-        status = 0
-      } else {
-        status = 3
-        byP = false
-        safe = null
-      }
-    }
-    this.cleanInvits(safe)
-    this.setRes('status', status)
-    this.setRes('safe', safe)
-    this.setRes('byP', byP)
-    if (status !== 0) await Util.sleep(3000)
-  }
-}
-Classes.registerOp($OpenSafeByPR)
-*/
-
-/* Ouverture d'un Safe
-class $OpenSafeById extends SafeOperation {
-
-  async doTheJob () : Promise<void> {
-    const [m, safe] = await this.db.getSafe(this.args['userId'])
-    const hhk = Crypt.shaS(Util.b64ToU8(this.args['shK']))
-    if (safe && hhk === safe.hhk) {
-      this.cleanInvits(safe)
-      this.setRes('status', 0)
-      this.setRes('safe', safe)
-    } else {
-      this.setRes('status', 1)
-      await Util.sleep(3000)
-    }
-  }
-}
-Classes.registerOp($OpenSafeById)
-*/
-
 /* Ouverture d'un Safe par PIN
   - accède au _safe_ dont l'id est `userId`.
   - accède dans la section `devices` à l'entrée `devId` 
@@ -369,30 +307,6 @@ class $OpenSafeByPin extends SafeOperation {
   }
 }
 Classes.registerOp($OpenSafeByPin)
-
-/* Changement du contact
-type SetContact = {
-  userId: string
-  contact: string
-  hct: string
-  shK: string
-}
-class $SetContact extends SafeOperation {
-
-  async doTheJob () : Promise<void> {
-    const sc = this.args['setcontact'] as SetContact
-    const safe = await this.getSafe(sc)
-    if (!safe) return
-    safe.contact = sc.contact
-    safe.hct = sc.hct
-    this.cleanInvits(safe)
-    await this.db.updHctSafe(safe)
-    this.setRes('status', 0)
-    this.setRes('safe', safe)
-  }
-}
-Classes.registerOp($SetContact)
-*/
 
 type SetAdmins = {
   userId: string
@@ -470,7 +384,8 @@ class $UntrustDevices extends SafeOperation {
     if (!safe) return
     let u = false
     if (safe.devices) {
-      for (const id of td.devIds) { delete safe.devices[id]; u = true }
+      for (const id of td.devIds) 
+        if (safe.devices[id]) { delete safe.devices[id]; u = true }
       if (Object.keys(safe.devices).length === 0) delete safe.devices
     }
     await this.save(safe, true)
@@ -713,97 +628,6 @@ class $SetStatusInvit extends SafeOperation {
   }
 }
 Classes.registerOp($SetStatusInvit)
-
-/*
-type TransmitCred = {
-  targetId: string // id ou p0 ou r0 du destinataire du credential
-  credid: string // id du credential
-  crpub: string // [cryptedCred, pubc] encodé et en base64
-    // pubC: string // clé publique (PEM) de cryptage de l'émetteur
-    // cryptedCred: string // Objet Credential sérialisé crypté pour le destinataire
-}
-
-class $TransmitCred extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> {
-    const tc = this.args['transmitCred'] as TransmitCred
-    const [m, safe] = await this.db.getSafe(tc.targetId)
-
-    if (!safe) {
-      this.setRes('status', 1)
-      return
-    }
-    this.cleanInvits(safe)
-
-    if (!safe.creds) safe.creds = {}
-
-    safe.creds['$' + tc.credid] = tc.crpub
-    if (Object.keys(safe.creds).length === 0)
-      delete safe.creds
-
-    await this.db.updSafe(safe)
-    this.setRes('status', 0)
-  }
-}
-Classes.registerOp($TransmitCred', () => { return new $TransmitCred()})
-*/
-
-
-/* Status de création d'un safe - Permet de savoir dans quelles conditions le safe pourrait être "recréé".
-- id, hp0, hr0 : id et accès externe 
-Retour : { lm, xp, xr }
-- lm : last modifidication time du safe d' id donnée. -1 si ce safe n'existe pas.
-- xp : true si aucun safe n'a hp0 comme cl& externe OU si le safe d'id existe et a 
-hp0 comme clé p0
-- xr : idem pour hr0
-
-class $StatusSafe extends SafeOperation {
-
-  async doTheJob () : Promise<void> {
-    const id = this.args['id']
-    const hp0 = this.args['hp0']
-    const hr0 = this.args['hr0']
-    const ret = await this.db.statusSafe(id, hp0, hr0)
-    this.setRes('statusSafe', ret)
-  }
-}
-Classes.registerOp($StatusSafe)
-*/
-
-/* Obtention des clés publiques d'un safe donné par:
-- son id, son pseudo principal ou secondaire
-- res.crypt: clé de cryptage
-- res.verif: clé de vérification
-
-class $GetPublicKeys extends SafeOperation {
-  constructor () { super() }
-
-  async doTheJob () : Promise<void> {
-    const id = this.args['id']
-    const [m, safe] = await this.db.getSafe(id)
-    this.setRes('userId', safe.id)
-    this.setRes('crypt', safe ? safe.C : null)
-    this.setRes('verify', safe ? safe.V : null)
-  }
-}
-Classes.registerOp($GetPublicKeys', () => { return new $GetPublicKeys()})
-*/
-
-/* Obtention des clés publiques et id d'un safe donné par:
-- son id, son pseudo principal ou secondaire, son contact
-
-class $GetUserICVO extends SafeOperation {
-
-  async doTheJob () : Promise<void> {
-    const id = this.args['id']
-    const [m, safe] = await this.db.getSafe(id)
-    this.setRes('icvo', {i: safe.id, c: safe.C, v: safe.V, o: '' })
-  }
-}
-Classes.registerOp($GetUserICVO)
-*/
-
 
 /* Suppression d'un safe -
 Args: userId, shK
