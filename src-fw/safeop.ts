@@ -154,6 +154,7 @@ class $CreateSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
     await this.db.newSafe(safe)
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp($CreateSafe)

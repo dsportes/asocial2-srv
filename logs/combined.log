@@ -12394,3 +12394,21 @@ BEGIN
 2026-04-21T14:56:42.337Z info: $mdAliasFree finished
 2026-04-21T14:57:51.627Z info: $mdUserNew finished
 2026-04-21T15:01:00.254Z info: $CreateSafe finished
+2026-04-21T15:06:08.088Z info: $mdAliasFree finished
+2026-04-21T15:06:57.045Z info: $mdUserNew finished
+2026-04-21T15:06:57.103Z info: $CreateSafe finished
+2026-04-21T15:07:19.979Z info: $mdAliasFree finished
+2026-04-21T15:07:45.317Z info: $mdUserNew finished
+2026-04-21T15:07:45.359Z info: $CreateSafe finished
+2026-04-21T15:09:12.949Z info: $mdAliasFree finished
+2026-04-21T15:09:31.027Z info: $mdUserNew finished
+2026-04-21T15:09:31.076Z info: $CreateSafe finished
+2026-04-21T15:11:33.672Z info: 10 document classes
+2026-04-21T15:11:33.686Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T15:11:33.690Z info: Firestore connector
+2026-04-21T15:11:33.692Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T15:11:33.748Z info: Reloading orgs config OK
+2026-04-21T15:11:33.770Z info: HTTP listen [8080]
+2026-04-21T15:11:59.582Z info: $mdAliasFree finished
+2026-04-21T15:12:30.171Z info: $mdUserNew finished
+2026-04-21T15:12:30.227Z info: $CreateSafe finished
