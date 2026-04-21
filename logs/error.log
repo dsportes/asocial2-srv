@@ -282,3 +282,8 @@ BEGIN
 2026-04-12T17:14:20.163Z error: AppExc: 3001:unexpected exception["Cannot set properties of undefined (setting 'status')"]
 2026-04-12T18:06:33.015Z error: AppExc: 3001:unexpected exception["Cannot read properties of null (reading 'invits')"]
 2026-04-13T15:23:19.581Z error: AppExc: 3001:unexpected exception["database is locked"]
+2026-04-21T10:41:02.420Z error: AppExc: 3001:unexpected exception["Missing named parameter \"ualias\""]
+2026-04-21T10:51:54.837Z error: AppExc: 3001:unexpected exception["Missing named parameter \"ualias\""]
+2026-04-21T14:28:29.090Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named sshk"]
+2026-04-21T14:38:40.716Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named sshk"]
+2026-04-21T14:46:43.434Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named d"]

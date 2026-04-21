@@ -12305,3 +12305,92 @@ BEGIN
 2026-04-13T16:10:39.585Z info: $TrustDevice finished
 2026-04-13T16:20:09.895Z info: $OpenSafeByPin finished
 2026-04-13T16:20:09.955Z info: $OpenSafeById finished
+2026-04-21T09:21:21.221Z info: 10 document classes
+2026-04-21T09:21:21.225Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T09:21:21.226Z info: Firestore connector
+2026-04-21T09:21:21.227Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T09:21:21.280Z info: Reloading orgs config OK
+2026-04-21T09:21:21.287Z info: HTTP listen [8080]
+2026-04-21T09:42:55.714Z info: $GetSvcUrls finished
+2026-04-21T09:43:54.818Z info: $GetSvcUrls finished
+2026-04-21T09:46:26.988Z info: $GetSvcUrls finished
+2026-04-21T10:39:58.227Z info: 10 document classes
+2026-04-21T10:39:58.232Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T10:39:58.234Z info: Firestore connector
+2026-04-21T10:39:58.235Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T10:39:58.260Z info: Reloading orgs config OK
+2026-04-21T10:39:58.267Z info: HTTP listen [8080]
+2026-04-21T10:41:02.413Z info: $mdUserFree terminated on exception
+2026-04-21T10:41:02.420Z error: AppExc: 3001:unexpected exception["Missing named parameter \"ualias\""]
+2026-04-21T10:44:37.574Z info: AppExc: 1002:unknown operation["$mdAliasFree"]
+2026-04-21T10:44:37.577Z info: $mdAliasFree terminated on exception
+2026-04-21T10:48:55.112Z info: AppExc: 1002:unknown operation["$mdAliasFree"]
+2026-04-21T10:48:55.115Z info: $mdAliasFree terminated on exception
+2026-04-21T10:50:27.754Z info: 10 document classes
+2026-04-21T10:50:27.761Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T10:50:27.763Z info: Firestore connector
+2026-04-21T10:50:27.764Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T10:50:27.787Z info: Reloading orgs config OK
+2026-04-21T10:50:27.800Z info: HTTP listen [8080]
+2026-04-21T10:51:54.812Z info: $mdAliasFree terminated on exception
+2026-04-21T10:51:54.837Z error: AppExc: 3001:unexpected exception["Missing named parameter \"ualias\""]
+2026-04-21T10:52:51.488Z info: 10 document classes
+2026-04-21T10:52:51.498Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T10:52:51.500Z info: Firestore connector
+2026-04-21T10:52:51.502Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T10:52:51.532Z info: Reloading orgs config OK
+2026-04-21T10:52:51.547Z info: HTTP listen [8080]
+2026-04-21T10:54:15.349Z info: $mdAliasFree finished
+2026-04-21T11:46:42.595Z info: $mdAliasFree finished
+2026-04-21T12:04:47.913Z info: $mdAliasFree finished
+2026-04-21T12:05:27.121Z info: $mdAliasFree finished
+2026-04-21T12:05:59.922Z info: $mdAliasFree finished
+2026-04-21T12:07:01.639Z info: $mdAliasFree finished
+2026-04-21T12:08:55.021Z info: $mdAliasFree finished
+2026-04-21T12:09:13.810Z info: $mdAliasFree finished
+2026-04-21T12:09:28.691Z info: $mdAliasFree finished
+2026-04-21T12:10:00.588Z info: $mdAliasFree finished
+2026-04-21T12:17:39.448Z info: $mdAliasFree finished
+2026-04-21T12:17:59.120Z info: $mdAliasFree finished
+2026-04-21T12:31:21.523Z info: $mdAliasFree finished
+2026-04-21T12:33:47.344Z info: $mdAliasFree finished
+2026-04-21T13:52:38.046Z info: $mdAliasFree finished
+2026-04-21T14:11:18.445Z info: $mdAliasFree finished
+2026-04-21T14:18:07.048Z info: $mdAliasFree finished
+2026-04-21T14:25:16.413Z info: $mdAliasFree finished
+2026-04-21T14:28:29.084Z info: $mdNewUser terminated on exception
+2026-04-21T14:28:29.090Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named sshk"]
+2026-04-21T14:33:06.885Z info: 10 document classes
+2026-04-21T14:33:06.890Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T14:33:06.892Z info: Firestore connector
+2026-04-21T14:33:06.895Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T14:33:06.934Z info: Reloading orgs config OK
+2026-04-21T14:33:06.940Z info: HTTP listen [8080]
+2026-04-21T14:36:36.111Z info: $mdAliasFree finished
+2026-04-21T14:38:40.715Z info: $mdUserNew terminated on exception
+2026-04-21T14:38:40.716Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named sshk"]
+2026-04-21T14:42:17.485Z info: 10 document classes
+2026-04-21T14:42:17.489Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T14:42:17.490Z info: Firestore connector
+2026-04-21T14:42:17.493Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T14:42:17.538Z info: Reloading orgs config OK
+2026-04-21T14:42:17.553Z info: HTTP listen [8080]
+2026-04-21T14:45:48.702Z info: $mdAliasFree finished
+2026-04-21T14:46:43.406Z info: $mdUserNew terminated on exception
+2026-04-21T14:46:43.434Z error: AppExc: 3001:unexpected exception["table ZZUSERS has no column named d"]
+2026-04-21T14:47:50.643Z info: 10 document classes
+2026-04-21T14:47:50.646Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T14:47:50.647Z info: Firestore connector
+2026-04-21T14:47:50.648Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T14:47:50.666Z info: Reloading orgs config OK
+2026-04-21T14:47:50.673Z info: HTTP listen [8080]
+2026-04-21T14:48:49.787Z info: $mdAliasFree finished
+2026-04-21T14:53:19.491Z info: 10 document classes
+2026-04-21T14:53:19.499Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-04-21T14:53:19.500Z info: Firestore connector
+2026-04-21T14:53:19.502Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-04-21T14:53:19.524Z info: Reloading orgs config OK
+2026-04-21T14:53:19.531Z info: HTTP listen [8080]
+2026-04-21T14:56:42.337Z info: $mdAliasFree finished
+2026-04-21T14:57:51.627Z info: $mdUserNew finished
+2026-04-21T15:01:00.254Z info: $CreateSafe finished

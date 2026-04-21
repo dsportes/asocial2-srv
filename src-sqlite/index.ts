@@ -254,9 +254,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async mdAliasFree (alias: string) : Promise<boolean> {
-    const stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
-    const row = stmt.get( {userId: alias} )
-    return !row
+    let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE hsha1 = @alias')
+    let row = stmt.get( {alias} )
+    if (row) return false
+    stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE hsha2 = @alias')
+    row = stmt.get( {alias} )
+    if (row) return false
+    return true
   }
 
   async mdUserGet (userId: string, alias?: boolean) : Promise<MDuser | null> {
@@ -279,7 +283,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return true
   }
 
-  readonly USERSCOLS = ['userId', 'sshk', 'hsha1', 'hsha2', 'c', 'd', 'llq', 'store']
+  readonly USERSCOLS = ['userId', 'hshK', 'hsha1', 'hsha2', 'C', 'V', 'llq', 'store']
 
   /* création d'une entrée dans 'users' pour un nouvel utilisateur.
   S'il existe déjà avec le même contenu, OK.
