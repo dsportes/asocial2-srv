@@ -12534,3 +12534,53 @@ BEGIN
 2026-04-22T09:21:00.546Z info: $SetPhraseSafe finished
 2026-04-22T10:06:09.426Z info: $OpenSafeByPin finished
 2026-04-22T10:06:09.474Z info: $GetSafe finished
+2026-04-22T10:11:35.235Z info: 10 document classes
+2026-04-22T10:11:35.238Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T10:11:35.239Z info: Firestore connector
+2026-04-22T10:11:35.240Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T10:11:35.254Z info: Reloading orgs config OK
+2026-04-22T10:11:35.259Z info: HTTP listen [8080]
+2026-04-22T10:13:07.377Z info: 10 document classes
+2026-04-22T10:13:07.380Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T10:13:07.381Z info: Firestore connector
+2026-04-22T10:13:07.382Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T10:13:07.396Z info: Reloading orgs config OK
+2026-04-22T10:13:07.403Z info: HTTP listen [8080]
+2026-04-22T10:26:36.729Z info: $OpenSafeByPin finished
+2026-04-22T10:26:36.778Z info: $GetSafe finished
+2026-04-22T10:27:32.076Z info: $SetOpUrl finished
+2026-04-22T10:28:14.930Z info: $SetOpUrl finished
+2026-04-22T10:28:43.467Z info: $GrantSvcOpOrg finished
+2026-04-22T10:28:52.607Z info: $GrantSvcOpOrg finished
+2026-04-22T10:29:32.504Z info: $GetSvcUrls finished
+2026-04-22T10:29:32.530Z info: SvcOpIsAdmin$ : 2026-04-22T10:29:32.529Z
+2026-04-22T10:29:32.534Z info: SvcOpIsAdmin$ finished
+2026-04-22T10:29:32.596Z info: Reloading orgs config OK
+2026-04-22T10:29:46.293Z info: $SetAdmins terminated on exception
+2026-04-22T10:29:46.307Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'userId')"]
+2026-04-22T10:32:40.292Z info: $OpenSafeByPin finished
+2026-04-22T10:32:40.328Z info: $GetSafe finished
+2026-04-22T10:33:17.192Z info: $GetSvcUrls finished
+2026-04-22T10:33:17.220Z info: SvcOpIsAdmin$ : 2026-04-22T10:33:17.220Z
+2026-04-22T10:33:17.223Z info: SvcOpIsAdmin$ finished
+2026-04-22T10:33:17.252Z info: $SetAdmins finished
+2026-04-22T10:34:23.912Z info: SetSvcOpStatus$ : 2026-04-22T10:34:23.912Z
+2026-04-22T10:34:23.916Z info: SetSvcOpStatus$ finished
+2026-04-22T10:34:23.930Z info: GetSvcOpStatus$ : 2026-04-22T10:34:23.929Z
+2026-04-22T10:34:23.933Z info: GetSvcOpStatus$ finished
+2026-04-22T10:34:33.810Z info: $GetOrgSvcs finished
+2026-04-22T10:34:33.834Z info: GetOrgConfig$ : 2026-04-22T10:34:33.834Z
+2026-04-22T10:34:33.838Z info: GetOrgConfig$ finished
+2026-04-22T10:34:33.887Z info: Reloading orgs config OK
+2026-04-22T10:34:42.524Z info: SetOrgConfig$ : 2026-04-22T10:34:42.524Z
+2026-04-22T10:34:42.529Z info: SetOrgConfig$ finished
+2026-04-22T10:34:48.917Z info: GetSvcOpStatus$ : 2026-04-22T10:34:48.917Z
+2026-04-22T10:34:48.920Z info: GetSvcOpStatus$ finished
+2026-04-22T10:34:48.941Z info: GetSvcOrgStatus : 2026-04-22T10:34:48.940Z
+2026-04-22T10:34:48.945Z info: GetSvcOrgStatus finished
+2026-04-22T10:35:02.911Z info: SetSvcOrgStatus : 2026-04-22T10:35:02.911Z
+2026-04-22T10:35:02.919Z info: SetSvcOrgStatus finished
+2026-04-22T10:35:02.937Z info: GetSvcOpStatus$ : 2026-04-22T10:35:02.936Z
+2026-04-22T10:35:02.941Z info: GetSvcOpStatus$ finished
+2026-04-22T10:35:02.964Z info: GetSvcOrgStatus : 2026-04-22T10:35:02.964Z
+2026-04-22T10:35:02.968Z info: GetSvcOrgStatus finished

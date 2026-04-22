@@ -46,14 +46,12 @@ Sous daniel
   - déclarer le service AS2 pour l'opérateur $RED
   - ASSO2 pou $RED
   - Autoriser "doda" et "demo"
-- dans Menu >>> Données de sécurité >>> Gérer mes rôles d'admin,    ajouter AS2 $RED
+- dans Menu >>> Ma Safe Box >>> Gérer mes rôles d'admin, ajouter AS2 $RED
 - dans Menu >>> Administration Technique >>> Service et Organisation
   - déclarer org. doda
 - dans Menu >>> Données de sécurité >>> Certifier mon terminal
 
->>> 1 a
-
-Création de domi et terminal certifié >>> 2 a
+>>> 2 a
 
 Daniel : setting de Domi comme "manager" >>> 3 a
 (et testS grant / revoke / auto-revoke)
