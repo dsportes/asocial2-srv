@@ -238,26 +238,29 @@ export class InvitationA extends Document {
   time: number = 0 // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
   status: number = 0 // traduit l'état d'avancement dans le temps SEULE PROPRIETE NON immuable
   /*
-  - (1) : demande déposée par U,
-  - (2) : proposition faite par S,
-  - (3) : proposition validée par U,
-  - (4) : demande de U annulée par U,
-  - (5) : demande de U rejetée par S,
-  - (6) : proposition de S déclinée par U.
+  - (1) : demande déposée par U
+  - (2) : demande annulée par U
+  - (3) : demande rejetée par S
+  - (4) : invitation faite par S
+  - (5) : invitation déclinée par U
+  - (6) : invitation validée par U
   */
   userId: string = '' // ID de U (demandeur)
   safeStore: string = '' // de la cible / demandeur U
-  pubu: string = '' // clé publique C de cryptage de U en base64
+  pubu: string = '' // clé publique de cryptage de U en base64
 
   // Dès la "demande" (pour un cycle complet seulement)
   req ?: string // texte en clair fourni par U pour exprimer ses souhaits / exigences / motivation.
 
-  // Dès la phase "proposition" (première en cycle court et seconde en cycle complet) ou "rejet"
+  // st >= 4 ou 3 - invitatiopn (première en cycle court) ou 3 (demande rejet)
   pubs ?: string // clé publique C de cryptage du sponsor en base 64
 
-  // Dès la phase "proposition" (première en cycle court et seconde en cycle complet)
-  etc ?: any // Objet contenant les données nécessaires à la validation.
+  // st >= 4 - invitation (première en cycle court)
+  etc ?: Uint8Array // Objet contenant les données nécessaires à la validation.
+  spId ?: string // ID du soponsor
+  etcSign: Uint8Array // signature de [etc, time] par le sponsor
 
+  // st: 3 ou 5
   txt ?: string // texte humainement lisible 
   /*
   - soit Phase rejet : S explicite les raisons de son refus de faire une proposition à U.
@@ -265,6 +268,8 @@ export class InvitationA extends Document {
   - crypté par la clé AES obtenu du couple de clés `pub-U/priv-S` (ou `pub-S/pub-U`, c'est la même)
   */
 
+  /* Liste des demandes d'invitation à traiter (ou invitations traitées)
+  pour un sponsor focus sur major ou major/minor */
   static async listInvits (op: OperationWC, major: string, minor: string) : Promise<Uint8Array[]> {
     const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
     const crit = !minor ? 'major' : 'majorminor'

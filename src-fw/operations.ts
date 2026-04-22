@@ -38,21 +38,16 @@ class SvcOpIsAdmin$ extends Operation {
 }
 Classes.registerOp(SvcOpIsAdmin$)
 
-
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
 class GetSvcOpStatus$ extends Operation {
-  
-
   async phase2 () {
     const svcStatus = await Cache.getSrvStatus(this)
     this.setRes('svcStatus', svcStatus)
   }
-
-  
 }
 Classes.registerOp(GetSvcOpStatus$)
 
@@ -62,17 +57,13 @@ Classes.registerOp(GetSvcOpStatus$)
   ADMINISTRATEUR
 */
 class SetSvcOpStatus$ extends Operation {
-  
-
   _st: number
   _txt: string
-
   init () {
     super.init()
     this._st = this.intValue('st', true, 0, 9)
     this._txt = this.stringValue('txt', true)
   }
-
   async phase2 () {
     // const tokens = this.authRecord.getTokens('admin', '')
     // tokens a toujours un élément, sinon ça serait sorti en exception
@@ -84,8 +75,6 @@ class SetSvcOpStatus$ extends Operation {
     Cache.srvStatus = value
     this.setRes('svcOpStatus', Cache.srvStatus)
   }
-
-  
 }
 Classes.registerOp(SetSvcOpStatus$)
 
@@ -95,15 +84,11 @@ Classes.registerOp(SetSvcOpStatus$)
   txt: texte explicatif éventuel de l'administrateur
 */
 class GetSvcOrgStatus extends Operation {
-  
-
   async phase2 () {
     const orgDoc = await this.cache.getOrg()
     this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
     // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
   }
-
-  
 }
 Classes.registerOp(GetSvcOrgStatus)
 
@@ -113,17 +98,13 @@ Classes.registerOp(GetSvcOrgStatus)
   txt: texte explicatif éventuel de l'administrateur
 */
 class SetSvcOrgStatus extends Operation {
-  
-
   _st: number
   _txt: string
-
   init () {
     super.init()
     this._st = this.intValue('st', true, 0, 9)
     this._txt = this.stringValue('txt', true)
   }
-
   async phase2 () {
     this.requireAdmin()
     const status = { at: this.now, st: this._st, txt: this._txt }
@@ -135,35 +116,26 @@ class SetSvcOrgStatus extends Operation {
       this.cache.newDoc('Org', { status })
     }
   }
-
-  
 }
 Classes.registerOp(SetSvcOrgStatus)
 
 class SetOrgConfig$ extends Operation {
-  
   _st: string
   _db: string
-
   init () {
     super.init()
     this._st = this.stringValue('st', true, 0, 9)
     this._db = this.stringValue('db', true)
   }
-
   async phase2 () {
     this.requireAdmin()
     OrgsConfig.save(this, this.org, this._db, this._st)
     this.setRes('orgconfig', { db: this._db, st: this._st })
   }
-
-  
 }
 Classes.registerOp(SetOrgConfig$)
 
 class GetOrgConfig$ extends Operation {
-  
-
   async phase2 () {
     this.requireAdmin()
     /*
@@ -181,20 +153,15 @@ class GetOrgConfig$ extends Operation {
     } else 
       this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
   }
-
-  
 }
 Classes.registerOp(GetOrgConfig$)
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
-  
-
   _id1 : string
   _id2 : string
   _id3 : string
   _isPut : boolean
-
   init () {
     super.init()
     this._id1 = this.stringValue('id1', true)
@@ -202,15 +169,12 @@ class GetPutUrl extends Operation {
     this._id3 = this.stringValue('id3', true)
     this._isPut = this.boolValue('put', true)
   }
-
   async phase2 () {
     const url = this._isPut ? 
       this.storage.putUrl(this, this._id1, this._id2, this._id3)
       : this.storage.getUrl(this, this._id1, this._id2, this._id3)
     this.setRes('url', url)
   }
-  
-
 }
 Classes.registerOp(GetPutUrl)
 
@@ -219,18 +183,14 @@ Classes.registerOp(GetPutUrl)
 - Créé une nouvelle si l'argument subscription n'est pas null
 */
 class SetSubscription extends Operation {
-  
-
   _subs: subscription
   _life: number
-
   init () {
     super.init()
     this._subs = this.objectValue('subsscription', false) as subscription
     const longLife = this.boolValue('longLife', false)
     this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
-
   async phase2 () {
     await SubsItem.deleteSessionId(this, this._subs.sessionId)
     if (this._subs) {
@@ -241,9 +201,6 @@ class SetSubscription extends Operation {
       }
     }
   }
-
-  
-
 }
 Classes.registerOp(SetSubscription)
 
@@ -252,19 +209,15 @@ Maj éventuelle de title / url
 Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
 */
 class UpdateSubscription extends Operation {
-  
-
   _title: string
   _url: string
   _defs: Object
-
   init () {
     super.init()
     this._title = this.stringValue('title', false)
     this._url = this.stringValue('url', false)
     this._defs = this.objectValue('defs', true)
   }
-
   async phase2 () {
     const subs = await this.cache.getDoc('Subs', { sessionId: this.sessionId}) as Subs
     if (!subs) 
@@ -295,9 +248,6 @@ class UpdateSubscription extends Operation {
       subs._status = DocStatus.UPD
     }
   }
-
-  
-
 }
 Classes.registerOp(UpdateSubscription)
 
@@ -322,15 +272,11 @@ Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des docum
   - data: data du document s'il est dans la collection
 */
 class Sync extends Operation {
-  
-
   _toSync : subsToSync[]
-
   init () {
     super.init()
     this._toSync = this.arrayValue('toSync', true) as subsToSync[]
   }
-
   async phase2 () {
     for (const { def, v } of this._toSync) {Cache.getRow
       const item = def.split('/')
@@ -364,23 +310,16 @@ class Sync extends Operation {
       }
     }
   }
-
-  
-
 }
 Classes.registerOp(Sync)
 
 /* GrantNewManager positionne la date de fin d'un Credential "manager" sous admin
 class GrantNewManager extends Operation {
-  
-
   _cr: CredRequest
-
   init () {
     super.init()
     this._cr = this.args['credRequest']
   }
-
   async phase2 () {
     this.requireAdmin()
     const c = await this.cache.getDoc('Credential', this._cr) as Credential
@@ -392,8 +331,6 @@ class GrantNewManager extends Operation {
       c._status = DocStatus.UPD
     }
   }
-
-  
 }
 Classes.registerOp(GrantNewManager', () => { return new GrantNewManager()})
 */
@@ -403,20 +340,15 @@ type RevokeReq = {
   role: string
   docId: string
 }
-
 /* RevokeCred marque la fin de validité d'un Credential 
 par admin ou l'utilisateur lui-même (auto-revocation)
 */
 class RevokeCred extends Operation {
-  
-
   _rr: RevokeReq 
-
   init () {
     super.init()
     this._rr = this.args['revokeReq']
   }
-
   async phase2 () {
     // this.requireAdmin()
     this.requireAuth()
@@ -431,8 +363,6 @@ class RevokeCred extends Operation {
       }
     } else this.setRes('status', 1)
   }
-
-  
 }
 Classes.registerOp(RevokeCred)
 
@@ -440,12 +370,9 @@ Classes.registerOp(RevokeCred)
 Retourne une liste de : { id, userId, time, limit }
 */
 class ListManagers extends Operation {
-  
-
   init () {
     super.init()
   }
-
   async phase2 () {
     this.requireAuth()
     let status = 0
@@ -463,8 +390,6 @@ class ListManagers extends Operation {
     this.setRes('list', lst)
     this.setRes('status', status)
   }
-
-  
 }
 Classes.registerOp(ListManagers)
 
@@ -472,19 +397,14 @@ Classes.registerOp(ListManagers)
 Retourne une liste de : { id, role, docId, time, limit, cond }
 */
 class ListUserCreds extends Operation {
-  
-
   init () {
     super.init()
   }
-
   async phase2 () {
     this.requireAuth()
     const lst = await Credential.listUserCreds(this)
     this.setRes('list', lst)
   }
-
-  
 }
 Classes.registerOp(ListUserCreds)
 
@@ -494,19 +414,15 @@ Classes.registerOp(ListUserCreds)
 Retourne une liste d'invitations 
 */
 class InvitList extends Operation {
-  
-
   _major: string
   _minor: string
   _isSp: boolean
-
   init () {
     super.init()
     this._major = this.stringValue('major', true)
     this._minor = this.stringValue('minor', true)
     this._isSp = this.boolValue('isSp', true)
   }
-
   async phase2 () {
     this.requireAuth()
     let cr: any
@@ -523,8 +439,6 @@ class InvitList extends Operation {
     this.setRes('list', lst)
     this.setRes('status', 0)
   }
-
-  
 }
 Classes.registerOp(InvitList)
 
@@ -532,15 +446,11 @@ Classes.registerOp(InvitList)
 Le demandeur doit être l'utilisateur ayant demandé l'invitation.
 */
 class InvitGet extends Operation {
-  
-
   _invitId: string
-
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -552,8 +462,6 @@ class InvitGet extends Operation {
     }
     this.setRes('status', s)
   }
-
-  
 }
 Classes.registerOp(InvitGet)
 
@@ -562,15 +470,11 @@ Classes.registerOp(InvitGet)
 L'enregistrement dans le SafeStore du user U a été faite par l'application avant cette opération.
 */
 class InvitCreate extends Operation {
-  
-
   _invObj: any
-
   init () {
     super.init()
     this._invObj = this.args['invObj']
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -585,8 +489,6 @@ class InvitCreate extends Operation {
       if (s !== 0) this.cache.delDoc('Invitation', invit.pk)
     }
   }
-
-  
 }
 Classes.registerOp(InvitCreate)
 
@@ -595,18 +497,13 @@ Le demandeur doit être l'utilisateur ayant demandé l'invitation
 et celle-ci en status 2.
 */
 class InvitDecline extends Operation {
-  
-
   _invitId: string
   _txt: string // raison invoquée (crypté par U/S en base64)
-
-
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
     this._txt = this.stringValue('txt', false)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -623,21 +520,15 @@ class InvitDecline extends Operation {
     }
     this.setRes('status', s)
   }
-
-  
 }
 Classes.registerOp(InvitDecline)
 
 class InvitCancel extends Operation {
-  
-
   _invitId: string
-
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -653,8 +544,6 @@ class InvitCancel extends Operation {
     }
     this.setRes('status', s)
   }
-
-  
 }
 Classes.registerOp(InvitCancel)
 
@@ -665,17 +554,13 @@ Classes.registerOp(InvitCancel)
 Le demandeur doit être a minima authentifié. 
 */
 class InvitAccept extends Operation {
-  
-
   _invitId: string
   _etc: any
-
   init () {
     super.init()
     this._etc = this.objectValue('etc', true)
     this._invitId = this.stringValue('invitId', true)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -697,18 +582,14 @@ Classes.registerOp(InvitAccept)
 - marque le status d'une invitation en status 1 comme rejetée (3).
 */
 class InvitReject extends Operation {
-  
   _invitId: string
   _txt: string // REJECT : justification de rejet crypté par le sponsor (clé privSP / pubU) en base64
-
   invit: Invitation
-
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
     this._txt = this.stringValue('txt', true)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -722,7 +603,6 @@ class InvitReject extends Operation {
     }
     this.setRes('status', s)
   }
-
 }
 Classes.registerOp(InvitReject)
 
@@ -737,17 +617,13 @@ Côté application,
 - des subscriptions sont à gérer sur le / les documents de "position".
 */
 export class InvitValidate extends Operation {
-  
-
   _invitId: string
   _validArgs: any
-
   init () {
     super.init()
     this._invitId = this.stringValue('invitId', true)
     this._validArgs = this.objectValue('validArgs', true)
   }
-
   async phase2 () {
     let s = 0
     this.requireAuth()
@@ -765,6 +641,5 @@ export class InvitValidate extends Operation {
     }
     this.setRes('status', s)
   }
-
 }
 Classes.registerOp(InvitValidate)

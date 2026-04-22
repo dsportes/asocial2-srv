@@ -12584,3 +12584,15 @@ BEGIN
 2026-04-22T10:35:02.941Z info: GetSvcOpStatus$ finished
 2026-04-22T10:35:02.964Z info: GetSvcOrgStatus : 2026-04-22T10:35:02.964Z
 2026-04-22T10:35:02.968Z info: GetSvcOrgStatus finished
+2026-04-22T12:01:40.462Z info: 10 document classes
+2026-04-22T12:01:40.464Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T12:01:40.465Z info: Firestore connector
+2026-04-22T12:01:40.466Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T12:01:40.559Z info: Reloading orgs config OK
+2026-04-22T12:01:40.563Z info: HTTP listen [8080]
+2026-04-22T12:02:31.174Z info: $OpenSafeByPin finished
+2026-04-22T12:02:31.228Z info: $GetSafe finished
+2026-04-22T12:02:56.632Z info: $GetOrgSvcs finished
+2026-04-22T12:02:56.706Z info: $GetSvcUrls finished
+2026-04-22T12:02:56.733Z info: ListManagers : 2026-04-22T12:02:56.732Z
+2026-04-22T12:02:56.739Z info: ListManagers finished

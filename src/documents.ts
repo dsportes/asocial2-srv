@@ -53,7 +53,7 @@ export class Invitation extends InvitationA {
     return c !== null
   }
 
-  // invoquée seulement dans les status 1 et 2
+  // invoquée seulement dans les status 1 et 
   async checkEtc (op: OperationWC) : Promise<number> {
     if (this.status === 1 && this.etc !== null) return 10
     if (this.status === 2) {
