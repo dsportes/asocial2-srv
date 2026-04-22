@@ -112,13 +112,13 @@ export class SafeOperation implements AbstractOperation {
     }
     if (u) {
       safe.auth.lm = d.getTime()
-      await this.db.setSafe(safe)
+      await this.db.updSafe(safe)
     }
     this.setRes('safe', safe)
   }
 
   async getSafe (arg: Object): Promise<Safe> {
-    const bin = await this.db.getSafe(arg['userId'])
+    const bin = await this.db.getBinSafe(arg['userId'])
     if (!bin) {
       this.setRes('status', 1)
       return null
@@ -254,6 +254,7 @@ class $SetPhraseSafe extends SafeOperation {
       u = true
     }
     await this.save(safe, u)
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp($SetPhraseSafe)
@@ -270,11 +271,12 @@ class $OpenSafeByPin extends SafeOperation {
     const devId: string = this.args['devId']
     const pincx: string = this.args['pincx']
 
-    const safe = await this.db.getSafe(userId)
-    if (!safe) {
+    const bin = await this.db.getBinSafe(userId)
+    if (!bin) {
       this.setRes('status', 1)
       return
     }
+    const safe = decode(bin) as Safe
     const dev = safe.devices ? safe.devices[devId] as Device : null
     if (!dev) {
       this.setRes('status', 4)
@@ -577,11 +579,12 @@ Status: 1 2
 class $AddInvit extends SafeOperation {
   async doTheJob () : Promise<void> {
     const inv = this.args['addInvit'] as AddInvit
-    const safe = await this.db.getSafe(inv.userId)
-    if (!safe) {
+    const bin = await this.db.getBinSafe(inv.userId)
+    if (!bin) {
       this.setRes('status', 1)
       return
     }
+    const safe = decode(bin) as Safe
     if (inv.shK && safe.auth.hshK !== Crypt.shaS(Util.b64ToU8(inv.shK))) {
       this.setRes('status', 2)
       return
@@ -612,7 +615,12 @@ Status: 1 2
 class $SetStatusInvit extends SafeOperation {
   async doTheJob () : Promise<void> {
     const st = this.args['statusInvit'] as StatusInvit
-    const safe = await this.db.getSafe(st.targetId)
+    const bin = await this.db.getBinSafe(st.targetId)
+    if (!bin) {
+      this.setRes('status', 1)
+      return
+    }
+    const safe = decode(bin) as Safe
     let u = this.cleanInvits(safe)
     if (safe && safe.invits) {
       const inv = safe.invits[st.invitId]

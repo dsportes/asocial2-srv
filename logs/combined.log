@@ -12412,3 +12412,125 @@ BEGIN
 2026-04-21T15:11:59.582Z info: $mdAliasFree finished
 2026-04-21T15:12:30.171Z info: $mdUserNew finished
 2026-04-21T15:12:30.227Z info: $CreateSafe finished
+2026-04-22T05:33:30.092Z info: 10 document classes
+2026-04-22T05:33:30.095Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T05:33:30.095Z info: Firestore connector
+2026-04-22T05:33:30.096Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T05:33:30.217Z info: Reloading orgs config OK
+2026-04-22T05:33:30.224Z info: HTTP listen [8080]
+2026-04-22T05:37:59.942Z info: $mdUserGetICVS terminated on exception
+2026-04-22T05:37:59.958Z error: AppExc: 3001:unexpected exception["no such column: userId"]
+2026-04-22T05:39:39.662Z info: 10 document classes
+2026-04-22T05:39:39.665Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T05:39:39.666Z info: Firestore connector
+2026-04-22T05:39:39.667Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T05:39:39.683Z info: Reloading orgs config OK
+2026-04-22T05:39:39.688Z info: HTTP listen [8080]
+2026-04-22T05:46:16.770Z info: $mdUserGetICVS finished
+2026-04-22T05:46:44.646Z info: $mdUserGetICVS finished
+2026-04-22T05:47:44.879Z info: $mdUserGetICVS finished
+2026-04-22T05:48:44.553Z info: $mdUserGetICVS finished
+2026-04-22T05:58:05.405Z info: $mdUserGetICVS finished
+2026-04-22T06:03:25.012Z info: $GetSafe finished
+2026-04-22T06:08:26.400Z info: $mdUserGetICVS finished
+2026-04-22T06:08:41.106Z info: $GetSafe finished
+2026-04-22T06:18:07.728Z info: $mdUserGetICVS finished
+2026-04-22T06:18:13.736Z info: $GetSafe finished
+2026-04-22T06:19:42.940Z info: $mdUserGetICVS finished
+2026-04-22T06:19:46.512Z info: $GetSafe finished
+2026-04-22T06:26:28.605Z info: $mdUserGetICVS finished
+2026-04-22T06:26:33.229Z info: $GetSafe finished
+2026-04-22T06:27:57.320Z info: $mdUserGetICVS finished
+2026-04-22T06:28:01.186Z info: $GetSafe finished
+2026-04-22T06:28:38.281Z info: $UntrustDevices terminated on exception
+2026-04-22T06:28:38.283Z error: AppExc: 3001:unexpected exception["this.db.getSafe is not a function"]
+2026-04-22T06:33:32.734Z info: 10 document classes
+2026-04-22T06:33:32.736Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T06:33:32.737Z info: Firestore connector
+2026-04-22T06:33:32.738Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T06:33:32.812Z info: Reloading orgs config OK
+2026-04-22T06:33:32.818Z info: HTTP listen [8080]
+2026-04-22T06:34:11.273Z info: $TrustDevice terminated on exception
+2026-04-22T06:34:11.283Z error: AppExc: 3001:unexpected exception["this.db.setSafe is not a function"]
+2026-04-22T06:36:08.868Z info: 10 document classes
+2026-04-22T06:36:08.872Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T06:36:08.873Z info: Firestore connector
+2026-04-22T06:36:08.874Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T06:36:08.890Z info: Reloading orgs config OK
+2026-04-22T06:36:08.898Z info: HTTP listen [8080]
+2026-04-22T06:36:20.848Z info: $TrustDevice finished
+2026-04-22T06:38:19.080Z info: $OpenSafeByPin terminated on exception
+2026-04-22T06:38:19.091Z error: AppExc: 3001:unexpected exception["this.db.getSafe is not a function"]
+2026-04-22T06:39:57.244Z info: 10 document classes
+2026-04-22T06:39:57.246Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T06:39:57.247Z info: Firestore connector
+2026-04-22T06:39:57.248Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T06:39:57.260Z info: Reloading orgs config OK
+2026-04-22T06:39:57.267Z info: HTTP listen [8080]
+2026-04-22T06:53:01.801Z info: $OpenSafeByPin finished
+2026-04-22T06:56:31.460Z info: $OpenSafeByPin finished
+2026-04-22T06:59:53.193Z info: 10 document classes
+2026-04-22T06:59:53.197Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T06:59:53.199Z info: Firestore connector
+2026-04-22T06:59:53.201Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T06:59:53.230Z info: Reloading orgs config OK
+2026-04-22T06:59:53.241Z info: HTTP listen [8080]
+2026-04-22T07:00:37.413Z info: $OpenSafeByPin finished
+2026-04-22T07:00:57.431Z info: $GetSafe finished
+2026-04-22T07:21:27.779Z info: $OpenSafeByPin finished
+2026-04-22T07:21:27.822Z info: $GetSafe finished
+2026-04-22T08:07:13.617Z info: $OpenSafeByPin finished
+2026-04-22T08:07:13.657Z info: $GetSafe finished
+2026-04-22T08:07:41.952Z info: $mdAliasFree finished
+2026-04-22T08:14:29.154Z info: $mdAliasFree finished
+2026-04-22T08:15:35.756Z info: $OpenSafeByPin finished
+2026-04-22T08:15:35.801Z info: $GetSafe finished
+2026-04-22T08:20:03.952Z info: $OpenSafeByPin finished
+2026-04-22T08:20:04.004Z info: $GetSafe finished
+2026-04-22T08:20:25.705Z info: $mdAliasFree finished
+2026-04-22T08:26:29.257Z info: $OpenSafeByPin finished
+2026-04-22T08:26:29.304Z info: $GetSafe finished
+2026-04-22T08:26:48.170Z info: $mdAliasFree finished
+2026-04-22T08:28:54.389Z info: $SetAliasSafe finished
+2026-04-22T08:30:11.962Z info: $mdUserSetAA terminated on exception
+2026-04-22T08:30:11.963Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
+2026-04-22T08:33:56.517Z info: 10 document classes
+2026-04-22T08:33:56.520Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T08:33:56.520Z info: Firestore connector
+2026-04-22T08:33:56.521Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T08:33:56.535Z info: Reloading orgs config OK
+2026-04-22T08:33:56.541Z info: HTTP listen [8080]
+2026-04-22T08:34:11.687Z info: $mdAliasFree finished
+2026-04-22T08:34:57.357Z info: $SetAliasSafe finished
+2026-04-22T08:35:09.841Z info: $mdUserSetAA terminated on exception
+2026-04-22T08:35:09.843Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
+2026-04-22T08:37:59.586Z info: 10 document classes
+2026-04-22T08:37:59.589Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T08:37:59.590Z info: Firestore connector
+2026-04-22T08:37:59.591Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T08:37:59.605Z info: Reloading orgs config OK
+2026-04-22T08:37:59.613Z info: HTTP listen [8080]
+2026-04-22T08:38:24.560Z info: $SetAliasSafe finished
+2026-04-22T08:38:48.910Z info: $mdUserSetAA finished
+2026-04-22T08:39:11.797Z info: $SetAliasSafe finished
+2026-04-22T08:44:43.888Z info: $SetAliasSafe finished
+2026-04-22T08:44:53.366Z info: $mdUserSetAA finished
+2026-04-22T08:44:53.385Z info: $SetAliasSafe finished
+2026-04-22T08:47:48.077Z info: $OpenSafeByPin finished
+2026-04-22T08:47:48.125Z info: $GetSafe finished
+2026-04-22T09:00:41.901Z info: $OpenSafeByPin finished
+2026-04-22T09:00:41.945Z info: $GetSafe finished
+2026-04-22T09:03:12.123Z info: $OpenSafeByPin finished
+2026-04-22T09:03:12.166Z info: $GetSafe finished
+2026-04-22T09:14:23.318Z info: $SetPhraseSafe finished
+2026-04-22T09:15:53.840Z info: $SetPhraseSafe finished
+2026-04-22T09:18:12.119Z info: 10 document classes
+2026-04-22T09:18:12.127Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-04-22T09:18:12.128Z info: Firestore connector
+2026-04-22T09:18:12.131Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-04-22T09:18:12.171Z info: Reloading orgs config OK
+2026-04-22T09:18:12.181Z info: HTTP listen [8080]
+2026-04-22T09:18:54.560Z info: $SetPhraseSafe finished
+2026-04-22T09:21:00.546Z info: $SetPhraseSafe finished
+2026-04-22T10:06:09.426Z info: $OpenSafeByPin finished
+2026-04-22T10:06:09.474Z info: $GetSafe finished

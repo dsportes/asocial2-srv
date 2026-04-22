@@ -182,8 +182,8 @@ OK et ne fais rien si déjà enregistré
 Argument: 
 - userId
 - shK: Strong Hash de la clé K du safe
-- sha1 : Strong Hash de l'alias 1
-- sha2 : Strong Hash de l'alias 2
+- sha1 : Strong Hash de l'alias 1 (bin)
+- sha2 : Strong Hash de l'alias 2 (bin)
 Result 'status':
 - 0 OK
 - 1 user inconnu
@@ -197,9 +197,9 @@ class $mdUserSetAA extends MDOperation {
     const shK = this.args['shK']
     const sshK = Crypt.shaS(Util.b64ToU8(shK))
     const sha1 = this.args['sha1']
-    const hsha1 = Crypt.shaS(Util.b64ToU8(sha1))
+    const hsha1 = Crypt.shaS(sha1)
     const sha2 = this.args['sha2']
-    const hsha2 = Crypt.shaS(Util.b64ToU8(sha2))
+    const hsha2 = sha2 ? Crypt.shaS(sha2) : ''
     const status = await this.db.mdUserSet(MDopn.setAA, {userId, sshK, hsha1, hsha2} as MDsetAA)
     this.setRes('status', status)
   }
