@@ -1,10 +1,10 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { AppExc, AbstractOperation } from './index'
-import { Crypt, keyFromB64 } from './crypt'
+import { Crypt } from './crypt'
+import { keyFromB64 } from './b64'
 import { config, Classes } from './config'
 import { MDTable, MDopn, MDuser, MDsetAA, MDsetS } from './iDbGeneric'
-import { Util } from '../src-fw/util'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Classes.sizeOp())
@@ -195,7 +195,7 @@ class $mdUserSetAA extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const sshK = Crypt.shaS(Util.b64ToU8(shK))
+    const sshK = Crypt.shaS(keyFromB64(shK))
     const sha1 = this.args['sha1']
     const hsha1 = Crypt.shaS(sha1)
     const sha2 = this.args['sha2']
@@ -220,7 +220,7 @@ class $mdUserSetS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const sshK = Crypt.shaS(Util.b64ToU8(shK))
+    const sshK = Crypt.shaS(keyFromB64(shK))
     const store = this.args['store']
     const status = await this.db.mdUserSetS(MDopn.setS, { userId, sshK, store } as MDsetS)
     this.setRes('status', status)
@@ -243,7 +243,7 @@ class $mdUserGetAAS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
     const shK = this.args['shK']
-    const hshK = Crypt.shaS(Util.b64ToU8(shK))
+    const hshK = Crypt.shaS(keyFromB64(shK))
     const mdUser = await this.db.mdUserGet(userId, false) as MDuser | null
     if (mdUser && mdUser.hshK === hshK)
       this.setRes('aas', [mdUser.hsha1, mdUser.hsha2, mdUser.store])

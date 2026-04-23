@@ -51,7 +51,7 @@ Sous daniel
   - déclarer org. doda
 - dans Menu >>> Données de sécurité >>> Certifier mon terminal
 
->>> 2 a
+>>> 1 a
 
 Daniel : setting de Domi comme "manager" >>> 3 a
 (et testS grant / revoke / auto-revoke)

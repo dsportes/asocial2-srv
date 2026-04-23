@@ -8,6 +8,7 @@ const gcp = false
 
 import { encryptedKeys } from './keys'
 import { Util } from '../src-fw/util'
+import { keyFromB64 } from '../src-fw/b64'
 import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, setConfig, config } from '../src-fw/config'
 import { Log } from '../src-fw/log'
@@ -51,7 +52,7 @@ const SRVKEY = env.SRVKEY || '2_b7DjJjC4x_oaYs2Z6J2_I6igIoLmuhsuv6nBRE3QE'
 let keys : any
 // Chargement des "keys" cryptées dans config.keys
 try {
-  const key = Buffer.from(Util.b64ToU8(SRVKEY))
+  const key = Buffer.from(keyFromB64(SRVKEY))
   const bin = Buffer.from(encryptedKeys, 'base64')
   keys = JSON.parse(Crypt.syncDecrypt(key, bin).toString('utf-8'))
 } catch (e) {
@@ -60,9 +61,9 @@ try {
 }
 
 // Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['E_m90Xe4Z4ZHEM3dJofx'])
+const ADMINUSERS = new Set(['2V6zC7uFy7x61iyuttl_'])
 // Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['E_m90Xe4Z4ZHEM3dJofx'])
+const MASTERDIRADMINUSERS = new Set(['2V6zC7uFy7x61iyuttl_'])
 
 setConfig(
   {

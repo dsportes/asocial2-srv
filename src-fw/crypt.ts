@@ -3,8 +3,8 @@ import crypto from 'crypto'
 // @ts-ignore
 // import rsa from 'jsrsasign'
 import { KJUR } from './dsportes_jsrsasign.mjs'
+import { keyFromB64, keyToB64 } from './b64'
 
-const padding = 'abcdefghijklmnopqrstuvwzyzABCDEF'
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
@@ -36,12 +36,6 @@ export function u8ToHex (u8: Uint8Array) : string {
   return arrayBuffertohex(Buffer.from(u8))
 }
 
-function u8ToB64 (u8: Uint8Array, url?: boolean) : string {
-  if (!u8) return ''
-  const s = Buffer.from(u8).toString('base64')
-  return !url ? s : s.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
-}
-
 export function toPem(key: Buffer, pub?: boolean) : string {
   const exportedAsBase64 = Buffer.from(key).toString('base64')
   return !pub ? `-----BEGIN PRIVATE KEY-----\n${exportedAsBase64}\n-----END PRIVATE KEY-----`
@@ -54,14 +48,6 @@ export function fromPem(pem: string, pub?: boolean) : Buffer {
   const pemFooter = pub ? '-----END PUBLIC KEY-----' : '-----END PRIVATE KEY-----'
   const pemContents = pem.substring(pemHeader.length, pem.length - pemFooter.length - 1)
   return Buffer.from(pemContents, 'base64')
-}
-
-export function keyToB64(key: Buffer) : string {
-  return Buffer.from(key).toString('base64')
-}
-
-export function keyFromB64 (key: string) : Buffer{
-  return Buffer.from(key, 'base64')
 }
 
 export type KeyPair = {
@@ -269,10 +255,10 @@ static async strongHash (s: string | Uint8Array, pad?: boolean, bin?: boolean)
       ['encrypt', 'decrypt']
     )
     const res = new Uint8Array(await crypto.subtle.exportKey('raw', key))
-    return bin ? res : u8ToB64(res, true)
+    return bin ? res : keyToB64(Buffer.from(res))
   }
   /*
-  static async strongHash (s1: string, s2: string) : Promise<string> {
+  static async strongHash (s1: string, s2: string, bin?: boolean) : Promise<string> {
     const x = s1.length >= padding.length ? s1 : s1 + padding.substring(0, padding.length - s1.length)
     const y = s2.length >= padding.length ? s2 : s2 + padding.substring(0, padding.length - s2.length)
     const h1 = new Uint8Array(await crypto.subtle.digest("SHA-256", encoder.encode(x)))
@@ -286,23 +272,16 @@ static async strongHash (s: string | Uint8Array, pad?: boolean, bin?: boolean)
       ['encrypt', 'decrypt']
     )
     const res = new Uint8Array(await crypto.subtle.exportKey('raw', key))
-    return u8ToB64(res, true)
+    return bin ? res : keyToB64(Buffer.from(res))
   }
   */
 
   /* Version sync avec node */
-  static syncStrongHash (s1: string, s2: string, sep?: string) : string {
-    let s = sep || ''
-    if (s) {
-      s = sep
-      const l = (s1 ? s1.length : 0) + (s2 ? s2.length : 0)
-      while (l + s.length < 40) s += sep
-    }
-    const x = (s1 || '') + s + (s2 || '')
-    const h1 = crypto.createHash('sha256').update(Buffer.from(x, 'utf-8')).digest()
+  static syncStrongHash (s: string) : Buffer {
+    const h1 = crypto.createHash('sha256').update(Buffer.from(s, 'utf-8')).digest()
     const salt = h1.subarray(0, 16)
-    const k = crypto.pbkdf2Sync(Buffer.from(x, 'utf-8'), salt, 20000, 32, 'sha256')
-    return u8ToB64(k, true)
+    const k = crypto.pbkdf2Sync(Buffer.from(s, 'utf-8'), salt, 20000, 32, 'sha256')
+    return k
   }
 
   static sha (x: any) : string {
@@ -389,12 +368,12 @@ export async function testECDH () {
   console.log(srvPriv)
 
   const aesSrv = await Crypt.getAESKey(fromPem(appPub, true), srvPair.priv)
-  console.log('aesSrv: ', u8ToB64(aesSrv))
+  console.log('aesSrv: ', keyToB64(Buffer.from(aesSrv)))
   const x1 = await Crypt.crypt(aesSrv, x)
 
   // Dans app
   const aesApp = await Crypt.getAESKey(fromPem(srvPub, true), appPair.priv)
-  console.log('aesApp: ', u8ToB64(aesApp))
+  console.log('aesApp: ', keyToB64(Buffer.from(aesApp)))
   const x3 = await Crypt.decrypt(aesApp, x1)
   const x2 = decoder.decode(x3)
   console.log(x2)

@@ -1,8 +1,9 @@
 import { AppExc, AbstractOperation } from './index'
 import { config, Classes } from './config'
-import { Crypt, keyFromB64 } from './crypt'
+import { Crypt } from './crypt'
+import { keyFromB64, keyToB64 } from './b64'
 import { Util } from './util'
-import { Safe, Auth, Alias } from './iDbGeneric'
+import { Safe, Alias } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
 export function loadingOS () {
@@ -124,7 +125,7 @@ export class SafeOperation implements AbstractOperation {
       return null
     }
     const safe = decode(bin) as Safe
-    if (arg['shK'] && safe.auth.hshK === Crypt.shaS(Util.b64ToU8(arg['shK'])))
+    if (arg['shK'] && safe.auth.hshK === Crypt.shaS(keyFromB64(arg['shK'])))
       return safe
     else {
       this.setRes('status', 2)
@@ -189,11 +190,11 @@ class $GetSafe extends SafeOperation {
     const safe = decode(bin) as Safe
     let ok = false
     if (this.args['shK']) {
-      if (Crypt.shaS(Util.b64ToU8(this.args['shK'])) === safe.auth.hshK) ok = true
+      if (Crypt.shaS(keyFromB64(this.args['shK'])) === safe.auth.hshK) ok = true
       else return this.setRes('status', 2)
     }
     if (!ok && this.args['shp']) {
-      const hshp = Crypt.shaS(Util.b64ToU8(this.args['shp']))
+      const hshp = Crypt.shaS(keyFromB64(this.args['shp']))
       if (hshp === safe.auth.hshp1 || hshp == safe.auth.hshp2) ok = true
     }
     if (!ok) return this.setRes('status', 3)
@@ -285,9 +286,9 @@ class $OpenSafeByPin extends SafeOperation {
     // vérifie par `Va` que `sign` est bien la signature de pincx 
     const V = keyFromB64(dev.Va)
     // Rétablit la signature en EC - ce que ne fait pas la version PHP
-    const s1 = Util.b64ToU8(dev.sign)
+    const s1 = keyFromB64(dev.sign)
     const sign = Crypt.signFromAsn1(s1)
-    const ok = await Crypt.verify(V, sign, Util.b64ToU8(pincx))
+    const ok = await Crypt.verify(V, sign, keyFromB64(pincx))
     
     if (!ok) {
       dev.nbe++
@@ -519,9 +520,9 @@ class $SetAboutProfile extends SafeOperation {
     if (!safe) return
     let u = false
     if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
-      const prf = decode(Util.b64ToU8(safe.profiles[ab.app][ab.profId]))
+      const prf = decode(keyFromB64(safe.profiles[ab.app][ab.profId]))
       prf['about'] = ab.about
-      safe.profiles[ab.app][ab.profId] = Util.u8ToB64(encode(prf))
+      safe.profiles[ab.app][ab.profId] = keyToB64(Buffer.from(encode(prf)))
       u = true
     }
     await this.save(safe, u)
@@ -585,7 +586,7 @@ class $AddInvit extends SafeOperation {
       return
     }
     const safe = decode(bin) as Safe
-    if (inv.shK && safe.auth.hshK !== Crypt.shaS(Util.b64ToU8(inv.shK))) {
+    if (inv.shK && safe.auth.hshK !== Crypt.shaS(keyFromB64(inv.shK))) {
       this.setRes('status', 2)
       return
     }

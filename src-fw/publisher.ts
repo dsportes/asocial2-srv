@@ -1,6 +1,7 @@
 import webpush from 'web-push'
 import { Log } from './log'
 import { Util } from './util'
+import { keyToB64 } from './b64'
 import { Operation, Cache, ImpactedSub } from './operation'
 import { SubsItem, subscription } from './documents'
 
@@ -30,6 +31,9 @@ type notif = {
 Il a une entrée par sessionId devant être notifiée.
 */
 export class Publisher {
+  static objToB64 (obj: any) : string {
+    return !obj ? '' : keyToB64(Buffer.from(encode(obj)))
+  }
 
   toNotif: Map<string, notif> // key: sessionId value: notif (ci-dessus)
   op: Operation
@@ -77,7 +81,7 @@ export class Publisher {
     const notif = this.toNotif.get(this.sessionId)
     if (!notif) return null
     const message = this.buildMessage(notif)
-    return Util.objToB64(message)
+    return Publisher.objToB64(message)
   }
 
   /* ImpactedSub : contient la liste des documents créés / mis à jour / supprimés d'une opération
@@ -139,7 +143,7 @@ export class Publisher {
       if (sessionId !== this.sessionId)
       try {
         const message = this.buildMessage(notif)
-        const buf = Util.objToB64(message)
+        const buf = Publisher.objToB64(message)
         await webpush.sendNotification(notif.sub, buf, { TTL: 0 })
       } catch (error) {
         Log.error('sendNotification: ' + error.toString())
