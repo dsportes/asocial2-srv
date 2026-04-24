@@ -22,9 +22,12 @@ type Dobj = {
 
 /* Cache du MasterDir ************************************************/
 class MDCache {
+  /* Cache des couples [clé C, clé V] par UserId */
   static cvs : Map<string, [string, string]> = new Map()
+
   static svcops : Map<string, Dobj> = new Map()
   static orgs : Map<string, Dobj> = new Map()
+  
   static maxLife = 3 * 60
 
   /* Retourne l'objet associé à la table SVCOPS / ORGS

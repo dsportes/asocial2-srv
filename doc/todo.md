@@ -61,3 +61,24 @@ Domi : accepte Auteur 1 (auteur et droit minor)
 Daniel valide Auteur 1
 Daniel demande Auteur 2 minor
 Daniel accepte Auteur 2 et valide Auteur 2
+
+# Protection du Master Directory
+Les opérations sur le MD vérifient que l'utilisateur demandeur de l'opération a droit de l'effectuer selon les  critères suivants.
+
+`$mdUserNew`
+- aucune protection pour l'instant, le userId n'étant pas connu avant par principe.
+- réfléchir à une autorisation par présentation d'un _token_ de durée de vie limitée générée par un autre utilisateur ayant droit à un certain nombre de tokens sur une durée donnée.
+
+`$mdUserSetAA GetAAS SetS`
+- l'utilisateur fournit un shK
+
+`$mdUserGetICVS`
+- depuis un login, un hsha est fournit.
+- prévoir une temporisation en cas d'échec pour limiter l'attaque par force brute.
+
+`$mdUserGetCV AliasFree`
+- libre. 
+- prévoir une temporisation en cas d'échec pour limiter l'attaque par force brute.
+
+**Opérations d'administration**
+- la signature d'un challenge authentifie le userId qui doit figurer dans la liste des administrateurs.
