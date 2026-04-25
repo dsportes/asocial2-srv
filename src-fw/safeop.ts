@@ -136,18 +136,6 @@ export class SafeOperation implements AbstractOperation {
   async doTheJob () : Promise<void> {  }
 }
 
-/*
-export type SafeCodes = { // paramétres de l'opération $UpdCodesSafe
-  id: string // identifiant aléatoire.
-  hp0: string // index unique, `SH(p0)`.
-  hr0: string // index unique, `SH(r0)`.
-  hhp1: string // SHA de `SH(p1)`.
-  hhr1: string // SHA de `SH(r1)`.
-  Ka: string // clé `K` du safe cryptée par `SH(p0, p1)`.
-  Kr: string //  clé `K` du safe cryptée par `SH(r0, r1)`.
-}
-*/
-
 /* Creation d'un nouveau Safe.
 Pas de status.
 */
@@ -402,7 +390,7 @@ Classes.registerOp($UntrustDevices)
 type SetCred = {
   userId: string
   shK: string 
-  credid: string // id du credential
+  credId: string // id du credential
   comment: string // comment crypté par K et en base 64
   cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
 }
@@ -417,7 +405,7 @@ class $CreateCred extends SafeOperation {
 
     if (!safe.creds) safe.creds = {}
     const x = [sc.comment, sc.cred]
-    safe.creds[sc.credid] = x
+    safe.creds[sc.credId] = x
 
     await this.save(safe, true)
     this.setRes('status', 0)
@@ -435,10 +423,10 @@ class $UpdateCredComment extends SafeOperation {
     if (!safe) return
     let u = false
     if (safe.creds) {
-      const x = safe.creds[sc.credid]
+      const x = safe.creds[sc.credId]
       if (x) {
         x[0] = sc.comment
-        safe.creds[sc.credid] = x
+        safe.creds[sc.credId] = x
         u = true
       }
     }

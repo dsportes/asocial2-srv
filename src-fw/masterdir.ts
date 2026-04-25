@@ -113,6 +113,41 @@ export class MDOperation implements AbstractOperation {
     }
   }
 
+  async getUrl (svc: string, org: string) : Promise<string> {
+    const orgItem = await MDCache.get(this, MDTable.ORGS, org)
+    if (orgItem) return ''
+    const oper = orgItem[svc]
+    if (!oper) return ''
+    const svcop = await MDCache.get(this, MDTable.SVCOPS, svc)
+    if (!svcop) return ''
+    const url = svcop[oper]
+    return url || ''
+  }
+
+  async postSvcOp (svc: string, org: string, opName: string, args: any) 
+    : Promise<any> {
+    let u = await this.getUrl(svc, org)
+    if (!u) return null
+    if (!u.endsWith('/')) u += '/'
+    const url = u + 'op/' + org + '/' + opName
+    const body = new Uint8Array(encode(args))
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/octet-stream',  // sent request
+          'Accept':       'application/octet-stream'   // expected data sent back
+        },
+        body
+      })
+      const buf = await response.bytes()
+      return response.status === 200 ? decode(buf) : null
+    } catch (e: any) {
+      console.log(e.toString())
+      return null
+    }
+  }
+
   /* Méthode de convenance d'usage interne
   Accès NON transactionnel de consultation simple à l'instant t */
   async getCV (userId: string) {
@@ -379,7 +414,6 @@ Classes.registerOp($GetSvcUrls)
 donnant l'opérateur qui en assure l'hébergement.
 */
 class $GetOrgSvcs extends MDOperation {
-
   async doTheJob () : Promise<void> { 
     const org = this.args['org'] as string
     const svcs = await MDCache.get(this, MDTable.ORGS, org)
@@ -387,3 +421,20 @@ class $GetOrgSvcs extends MDOperation {
   }
 }
 Classes.registerOp($GetOrgSvcs)
+
+/* Ajoute dans ZZINVITS une nouvelle invitation
+Args: svc, org, invitId, challenge, sign, spCredId
+Fait vérifier par le service que cette invitation:
+- est bien enregistrée,
+- que le challenge est bien signé par le credential présenté
+*/
+class $mdInvitNew extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const invitId = this.args['invitId'] as string
+    const challenge = this.args['challenge'] as string
+    const sign = this.args['sign'] as string
+    // svc org major minor v
+     
+  }
+}
+Classes.registerOp($mdInvitNew)
