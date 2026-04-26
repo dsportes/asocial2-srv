@@ -5,6 +5,7 @@ import { decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
 import { Classes } from './config'
 import { DocType } from './doctypes'
+import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
   console.log('fw documents loading: ', Classes.sizeD())
@@ -160,15 +161,13 @@ Classes.registerD(SubsItem)
 export class Credential extends Document {
   static release = 0
 
-  id: string
+  credId: string
   userId: string
   role: string
-  org: string
   docId: string
-  time: number
   pubv: string
   limit: number
-  cond: Object
+  cond: any
 
   static async listManagers (op: OperationWC) : Promise<Object[]> {
     const dd = DocType.get('Credential')
@@ -180,11 +179,9 @@ export class Credential extends Document {
         try {
           const obj = decode(data) as Credential
           const x = { 
-            id: obj.id,
+            credId: obj.credId,
             userId: obj.userId,
-            time: obj.time, 
-            limit: obj.limit,
-            cond: obj.cond
+            limit: obj.limit
           }
           lst.push(x)
         } catch(e) {
@@ -203,10 +200,9 @@ export class Credential extends Document {
         try {
           const obj = decode(data) as Credential
           const x = { 
-            id: obj.id,
+            credId: obj.credId,
             role: obj.role,
             docId: obj.docId,
-            time: obj.time,
             limit: obj.limit,
             cond: obj.cond
           }
@@ -218,55 +214,33 @@ export class Credential extends Document {
     return lst
   }
 
-  static idStr (svc: string, org: string, role: string, docId: string) { 
-    return svc + '/' + org + '/' + role + '/' + docId || ''
-  }
-  static getId (svc: string, org: string, role: string, docId: string) { 
-    return Crypt.shaS(encoder.encode(Credential.idStr(svc, org, role, docId)))
-  }
 }
 Classes.registerD(Credential)
+
+export type InvObj = {
+  svc?: string // service d'ou l'invitation a été lue (ou préparée à la création)
+  org?: string // organisation d'ou l'invitation a été lue (ou préparée à la création)
+  v?: number // (lue du service) date-heure de sa dernière évolution, que soit par U ou par un des sponsors.
+
+  invitId?: string  // ID de l'invitation générée aléatoirement à sa création
+  userId: string // ID du bénéficiare de l'invitation
+  major: string //code majeur 
+  minor: string // code mineur
+  byU: boolean // la dernière maj est de U
+  tab: string // Adroise commune U / sponsors (non cryptée)
+  etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
+}
 
 export class InvitationA extends Document {
 
   maxLife: number // epoch en MINUTES
 
-  // Toujours présentes, dès la création de l'invitation
-  invitId: string = '' // ID de l'invitation générée aléatoirement à sa création
-  major: string = '' //code majeur 
-  minor: string = '' // code mineur
-  time: number = 0 // date-heure de création epoch en SECONDES. Ceci détermine aussi sa date d'auto-destruction.
-  status: number = 0 // traduit l'état d'avancement dans le temps SEULE PROPRIETE NON immuable
-  /*
-  - (1) : demande déposée par U
-  - (2) : demande annulée par U
-  - (3) : demande rejetée par S
-  - (4) : invitation faite par S
-  - (5) : invitation déclinée par U
-  - (6) : invitation validée par U
-  */
-  userId: string = '' // ID de U (demandeur)
-  safeStore: string = '' // de la cible / demandeur U
-  pubu: string = '' // clé publique de cryptage de U en base64
-
-  // Dès la "demande" (pour un cycle complet seulement)
-  req ?: string // texte en clair fourni par U pour exprimer ses souhaits / exigences / motivation.
-
-  // st >= 4 ou 3 - invitatiopn (première en cycle court) ou 3 (demande rejet)
-  pubs ?: string // clé publique C de cryptage du sponsor en base 64
-
-  // st >= 4 - invitation (première en cycle court)
-  etc ?: Uint8Array // Objet contenant les données nécessaires à la validation.
-  spId ?: string // ID du soponsor
-  etcSign: Uint8Array // signature de [etc, time] par le sponsor
-
-  // st: 3 ou 5
-  txt ?: string // texte humainement lisible 
-  /*
-  - soit Phase rejet : S explicite les raisons de son refus de faire une proposition à U.
-  - soit Phase déclinaison: U explicite les raisons qui rendent les conditions (dans etc) non acceptables pour lui. 
-  - crypté par la clé AES obtenu du couple de clés `pub-U/priv-S` (ou `pub-S/pub-U`, c'est la même)
-  */
+  userId: string // ID du bénéficiare de l'invitation
+  major: string //code majeur 
+  minor: string // code mineur
+  byU: boolean // la dernière maj est de U
+  tab: string // Adroise commune U / sponsors (non cryptée)
+  etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
 
   /* Liste des demandes d'invitation à traiter (ou invitations traitées)
   pour un sponsor focus sur major ou major/minor */
@@ -276,18 +250,18 @@ export class InvitationA extends Document {
     return await op.db.getColl('Invitation', crit, val, false, 0)
   }
 
-  /* A surcharger. Qui peut "proposer / rejeter" une invitation ? Qui est un "sponsor" possible ? */
-  checkSponsor (op: OperationWC) : boolean {
-    return true
-  }
-
-  /* A surcharger selon le type d'invitation. Retourne un status !== 0 si refus */
-  async checkEtc (op: OperationWC) : Promise<number> {
-    return 0
+  /* Est "surchargée". le user est-il un "sponsor" possible */
+  static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
+    if (inv.major === 'Org.manager' && authRecord.isAdmin) return false
+    let c: Credential = authRecord.getCred('Org.manager', '', true)
+    if (!c) c = authRecord.getCred('Sponsor.', inv.major ,true)
+    if (!c) c = authRecord.getCred('Sponsor.', inv.major + '/' + inv.minor ,true)
+    return c !== null
   }
 
   /* A surcharger selon le type d'invitation. */
-  async validate (op: OperationWC, args: any) : Promise<void> {
+  async validate (op: OperationWC, args: any) : Promise<number> {
+    return 0
   }
 
 }

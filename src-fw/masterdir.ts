@@ -422,19 +422,49 @@ class $GetOrgSvcs extends MDOperation {
 }
 Classes.registerOp($GetOrgSvcs)
 
-/* Ajoute dans ZZINVITS une nouvelle invitation
-Args: svc, org, invitId, challenge, sign, spCredId
-Fait vérifier par le service que cette invitation:
-- est bien enregistrée,
-- que le challenge est bien signé par le credential présenté
+/* Ajoute / met à jour dans ZZINVITS une invitation
+Args: 
+- svc, org, invitId
+- lv: true - force le lastView à v (depuis U), sinon le laisse inchangé (sponsor)
+Obtient cette invitation (v, major minor) par le service
 */
-class $mdInvitNew extends MDOperation {
+class $mdInvitSet extends MDOperation {
   async doTheJob () : Promise<void> { 
     const invitId = this.args['invitId'] as string
-    const challenge = this.args['challenge'] as string
-    const sign = this.args['sign'] as string
-    // svc org major minor v
-     
+    const userId = this.args['userId'] as string
+    const org = this.args['org'] as string
+    const svc = this.args['svc'] as string
+    const lv = this.args['lv'] as boolean
+    const r = await this.postSvcOp(svc, org, 'InvitGet', { invitId, userId } )
+    if (r) {
+      const { v, major, minor } = r
+      const data = encode({ org, svc, major, minor })
+      await this.db.mdInvitSet({ invitId, userId, v, lv: lv ? v : 0, data})
+    }
   }
 }
-Classes.registerOp($mdInvitNew)
+Classes.registerOp($mdInvitSet)
+
+/* Met à jour dans ZZINVITS le lastView d'une invitation
+à la valeur de v ("vu" par U)
+Args: svc, org, invitId
+*/
+class $mdInvitUpdLV extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const invitId = this.args['invitId'] as string
+    const userId = this.args['userId'] as string
+    await this.db.mdInvitUpdLV({ invitId, userId })
+  }
+}
+Classes.registerOp($mdInvitUpdLV)
+
+/* Supprime la référence d'une invitation dans ZZINVITS
+*/
+class $mdInvitDel extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const invitId = this.args['invitId'] as string
+    const userId = this.args['userId'] as string
+    await this.db.mdInvitDel({ invitId, userId })
+  }
+}
+Classes.registerOp($mdInvitDel)

@@ -157,6 +157,12 @@ export interface IDbGeneric {
   getSingleton (key: string) : Promise<string>
   setSingleton (key: string, value: string) : Promise<void>
 
+  mdInvitSet (invitId: string, userId: string, v: number, lv: number, data: Uint8Array )
+    : Promise<void>
+  mdInvitUpdLV (invitId: string, userId: string) : Promise<void>
+  mdInvitDel (invitId: string, userId: string) : Promise<void>
+
+  /* safe *****************************************************************************/
   /* Retourne le binaire du safe (décrypté, pas désencodé) */
   getBinSafe (userId: string) : Promise<Uint8Array | null>
 

@@ -1,7 +1,8 @@
 import { Document } from '../src-fw/document'
-import { Credential, InvitationA, OrgA } from '../src-fw/documents'
+import { Credential, InvitationA, InvObj, OrgA } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
 import { config, Classes } from '../src-fw/config'
+import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDA () {
   console.log('app documents loading: ', Classes.sizeD())
@@ -29,7 +30,6 @@ class Org extends OrgA {
 Classes.registerD(Org)
 
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
-  time: number // date-heure des credentials associés, etc.
   pubv: string // clé publique de vérification du credential
   name: string // nom / pseudo facultatif pour information à stocker en cond
 }
@@ -37,7 +37,7 @@ type InvitValOM = { // arguments de validation d'un Credential Org.manager
 export class Invitation extends InvitationA {
   static release = 0
 
-  /* Qui peut "proposer / rejeter" une invitation ? Qui est un "sponsor" possible ?
+  /* Qui peut proposer une invitation ? Qui est un "sponsor" possible ?
   Logique applicative choisie ici:
   - un "manager" est toujours un sponsor valide.
   - un utilisateur qui a un credential Sponsor pour le "major" de l'invitation
@@ -45,44 +45,37 @@ export class Invitation extends InvitationA {
   - un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
     est un sponsor valide (à condition bien sur que l'invitation ait un minor).
   */
-  checkSponsor (op: OperationWC) : boolean {
-    if (this.major === 'Org.manager' && !op.authRecord.isAdmin) return false
-    let c: Credential = op.authRecord.getCred('Org.manager', '', true)
-    if (!c) c = op.authRecord.getCred('Sponsor.', this.major ,true)
-    if (!c) c = op.authRecord.getCred('Sponsor.', this.major + '/' + this.minor ,true)
-    return c !== null
+  static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
+    return InvitationA.checkSponsor(authRecord, inv)
   }
 
-  // invoquée seulement dans les status 1 et 
-  async checkEtc (op: OperationWC) : Promise<number> {
-    if (this.status === 1 && this.etc !== null) return 10
-    if (this.status === 2) {
-      if (this.major === 'Org.manager' && this.etc !== null) return 11
-    } 
-    return 0
-  }
-
-  async validate (op: OperationWC, args: any) {
+  async validate (op: OperationWC, args: any) : Promise<number> {
     switch (this.major) {
-      case 'Org.manager' : { await this.validate_orgManager(op, args); break }
-      case 'Auteur' : { await this.validate_auteur(op, args); break }
+      case 'Org.manager' : { return await this.validate_orgManager(op, args); break }
+      case 'Auteur' : { return await this.validate_auteur(op, args); break }
     }
   }
 
-  async validate_orgManager (op: OperationWC, args: InvitValOM) {
+  /* etc:
+  credId : généré par le sponsor (ici l'administrateur)
+  */
+  async validate_orgManager (op: OperationWC, args: InvitValOM) : Promise<number> {
+    // Checking de etc et args
+    if (this.etc['credId']) return 1
+    if (!args.pubv) return 2
+    
     // Enregistrement du credential
     const obj = {
-      id: Credential.getId(config.SVC, op.org, 'Org.manager', ''),
+      credId: this.etc['credId'],
       userId: this.userId,
-      org: op.org,
       role: 'Org.manager',
       docId: '',
-      time: args.time,
       pubv: args.pubv,
       limit: 0,
-      cond: { p: 'A', name: args.name || '' }
+      cond: { name: args.name || ''}
     }
     op.cache.newDoc('Credential', obj)
+    return 0
   }
 
   /* Validation d'un document 'Auteur' 
@@ -91,7 +84,7 @@ export class Invitation extends InvitationA {
   - d'un Credential sur cet auteur avec un pemv / time passé en argument invVal
   - optionnellement d'un Credential de Sponsor sur 'Auteur' avec un pemv / time passé en argument invVal
   */
-  async validate_auteur (op: OperationWC, args: any) {
+  async validate_auteur (op: OperationWC, args: any) : Promise<number> {
     /*
     const iv = this.objectValue('invVal', true) as InvVal
 
@@ -143,6 +136,7 @@ export class Invitation extends InvitationA {
       } else this.cache.newDoc('Credential', obj) 
     }
     */
+    return 0
   }
 }
 Classes.registerD(Invitation)

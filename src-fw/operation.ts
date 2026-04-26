@@ -9,9 +9,10 @@ import { Document, DocStatus } from './document'
 import { Credential, OrgA } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
-import { Crypt, keyFromB64 } from './crypt'
+import { Crypt } from './crypt'
 import { decode } from '@msgpack/msgpack'
 import { MDOperation } from '../src-fw/masterdir'
+import { keyFromB64 } from '../src-fw/b64'
 
 const encoder = new TextEncoder()
 

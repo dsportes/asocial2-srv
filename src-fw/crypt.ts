@@ -3,7 +3,7 @@ import crypto from 'crypto'
 // @ts-ignore
 // import rsa from 'jsrsasign'
 import { KJUR } from './dsportes_jsrsasign.mjs'
-import { keyFromB64, keyToB64 } from './b64'
+import { keyToB64 } from './b64'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()

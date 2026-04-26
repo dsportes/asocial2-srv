@@ -321,7 +321,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-  async mdUserSetAA(args: MDsetAA) : Promise<number> {
+  async mdUserSetAA (args: MDsetAA) : Promise<number> {
     const status = this.mdUserId(args); if (status) return status
     let stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
     let row = stmt.get( {hsha1: args.hsha1} )
@@ -338,12 +338,41 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-  async mdUserSetS(args: MDsetS) : Promise<number> {
+  async mdUserSetS (args: MDsetS) : Promise<number> {
     const status = this.mdUserId(args); if (status) return status
     const stmt = this.sql.prepare('UPDATE ZZUSERS SET store = @store ' +
       ' WHERE userId = @userId;')
     stmt.run(args)
     return 0
+  }
+
+  async mdInvitSet (invitId: string, userId: string, v: number, 
+    lv: number, data: Uint8Array ) : Promise<void> {
+    let stmt = this.sql.prepare('SELECT * FROM ZZINVITS WHERE invitId = @invitId')
+    let row = stmt.get( { invitId } )
+    if (row) {
+      if (row.userId !== userId) return
+      stmt = this.sql.prepare('UPDATE ZZINVITS SET v = @v, lv = @lv WHERE invitId = @invitId')
+      stmt.run({ invitId, v, lv })
+    } else {
+      stmt = this.sql.prepare('INSERT INTO ZZINVITS SET (invitId, userId, v, lv, data)' +
+        ' VALUES ( @invitId, @userId, @v, @lv, @data)')
+      stmt.run({ invitId, userId, v, lv, data })
+    }
+  }
+
+  async mdInvitUpdLV (invitId: string, userId: string) : Promise<void> {
+    let stmt = this.sql.prepare('SELECT * FROM ZZINVITS WHERE invitId = @invitId')
+    let row = stmt.get( { invitId } )
+    if (row && row.userId === userId) {
+      stmt = this.sql.prepare('UPDATE ZZINVITS SET lv = @lv WHERE invitId = @invitId')
+      stmt.run({ lv: row.v })
+    }
+  }
+
+  async mdInvitDel (invitId: string, userId: string) : Promise<void> {
+    const stmt = this.sql.prepare('DELETE FROM ZZUSERS WHERE invitId = @invitId AND userId = @userId')
+    stmt.run({ invitId, userId})
   }
 
   /******************************************************************************

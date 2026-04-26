@@ -29,7 +29,7 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Credential', sync: false, pk: ['userId', 'role', 'docId'] }, // header
+  { name: 'Credential', sync: false, pk: ['credId'] }, // header
   new Map<string, collection>([
     ['userId', { key: ['userId'], mutable: false }]
   ]), // collections
