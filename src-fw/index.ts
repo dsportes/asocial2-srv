@@ -124,7 +124,7 @@ export class OrgsConfig {
     op.now = Date.now()
     try {
       const dbConnector = config.svcDB
-      await dbConnector.getConnexion(op)
+      await dbConnector.getConnexion(op, '')
       const val = await op.db.getSingleton('orgs') as string
       const x = JSON.parse(val || '{}')
       const oc = new OrgsConfig(x)
@@ -542,7 +542,6 @@ export interface AbstractOperation {
   args: any 
   db: any
   now: number
-
 
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) : void

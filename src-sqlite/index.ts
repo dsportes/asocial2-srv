@@ -355,9 +355,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       stmt = this.sql.prepare('UPDATE ZZINVITS SET v = @v, lv = @lv WHERE invitId = @invitId')
       stmt.run({ invitId, v, lv })
     } else {
-      stmt = this.sql.prepare('INSERT INTO ZZINVITS SET (invitId, userId, v, lv, data)' +
+      stmt = this.sql.prepare('INSERT INTO ZZINVITS (invitId, userId, v, lv, data)' +
         ' VALUES ( @invitId, @userId, @v, @lv, @data)')
-      stmt.run({ invitId, userId, v, lv, data })
+      stmt.run({ invitId, userId, v, lv, data: Buffer.from(data) })
     }
   }
 

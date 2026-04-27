@@ -103,7 +103,7 @@ export class MDOperation implements AbstractOperation {
     op.args = args
     op.result = {}
     try {
-      await config.masterDB.getConnexion(op)
+      await config.masterDB.getConnexion(op, '')
       await op.doTheJob()
       await op.db.disconnect()
       return op.result
@@ -115,7 +115,7 @@ export class MDOperation implements AbstractOperation {
 
   async getUrl (svc: string, org: string) : Promise<string> {
     const orgItem = await MDCache.get(this, MDTable.ORGS, org)
-    if (orgItem) return ''
+    if (!orgItem) return ''
     const oper = orgItem[svc]
     if (!oper) return ''
     const svcop = await MDCache.get(this, MDTable.SVCOPS, svc)
@@ -126,6 +126,7 @@ export class MDOperation implements AbstractOperation {
 
   async postSvcOp (svc: string, org: string, opName: string, args: any) 
     : Promise<any> {
+    args.org = org
     let u = await this.getUrl(svc, org)
     if (!u) return null
     if (!u.endsWith('/')) u += '/'
@@ -439,7 +440,7 @@ class $mdInvitSet extends MDOperation {
     if (r) {
       const { v, major, minor } = r['invitation']
       const data = encode({ org, svc, major, minor })
-      await this.db.mdInvitSet({ invitId, userId, v, lv: lv ? v : 0, data})
+      await this.db.mdInvitSet(invitId, userId, v, lv ? v : 0, data)
     }
   }
 }

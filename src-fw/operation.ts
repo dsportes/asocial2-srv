@@ -169,7 +169,7 @@ export class Operation implements OperationWC {
           this.now = Date.now()
           this.today = Math.floor(this.now / 86400000)
         }
-        await this.dbConnector.getConnexion(this)
+        await this.dbConnector.getConnexion(this, this.org)
         this.msSlow = 0
         this.updates = []
         this.hasTasks = false
@@ -202,7 +202,7 @@ export class Operation implements OperationWC {
 
       if (this.phase3) {
         if (!this.db)
-          await this.dbConnector.getConnexion(this)
+          await this.dbConnector.getConnexion(this, this.org)
         await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
       }
 

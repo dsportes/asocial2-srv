@@ -58,7 +58,8 @@ export class Invitation extends InvitationA {
 
   /* etc:
       credId : généré par le sponsor (ici l'administrateur)
-    args: pubV, name (fac)
+      name: nom saisi par l'adminsytrateur
+    args: pubV
   */
   async validate_orgManager (op: OperationWC, args: InvitValOM) : Promise<number> {
     // Checking de etc et args
@@ -73,7 +74,7 @@ export class Invitation extends InvitationA {
       docId: '',
       pubv: args.pubv,
       limit: 0,
-      cond: { name: args.name || ''}
+      cond: { name: this.etc.name || '???'}
     }
     op.cache.newDoc('Credential', obj)
     return 0

@@ -16,9 +16,9 @@ export class DbConnector {
     this.credentials = credentials
   }
 
-  async getConnexion (op: AbstractOperation, org?: string, cryptKey?: string) {
+  async getConnexion (op: AbstractOperation, org: string, cryptKey?: string) {
     const cnx = this.factory(this, op, cryptKey) as IDbGeneric
-    cnx.org = org || '' 
+    cnx.org = org
     await cnx.connect()
     op.db = cnx
     return cnx

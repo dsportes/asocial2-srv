@@ -294,3 +294,6 @@ BEGIN
 2026-04-22T08:30:11.963Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
 2026-04-22T08:35:09.843Z error: AppExc: 3001:unexpected exception["x.replace is not a function"]
 2026-04-22T10:29:46.307Z error: AppExc: 3001:unexpected exception["Cannot read properties of undefined (reading 'userId')"]
+2026-04-27T16:45:23.400Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-27T16:49:20.303Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-27T16:53:10.700Z error: AppExc: 3001:unexpected exception["near \"SET\": syntax error"]

@@ -181,7 +181,8 @@ export class Credential extends Document {
           const x = { 
             credId: obj.credId,
             userId: obj.userId,
-            limit: obj.limit
+            limit: obj.limit,
+            name: obj.cond['name']
           }
           lst.push(x)
         } catch(e) {
@@ -258,7 +259,7 @@ export class InvitationA extends Document {
 
   /* Est "surchargée". le user est-il un "sponsor" possible */
   static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
-    if (inv.major === 'Org.manager' && authRecord.isAdmin) return false
+    if (inv.major === 'Org.manager' && authRecord.isAdmin) return true
     let c: Credential = authRecord.getCred('Org.manager', '', true)
     if (!c) c = authRecord.getCred('Sponsor.', inv.major ,true)
     if (!c) c = authRecord.getCred('Sponsor.', inv.major + '/' + inv.minor ,true)

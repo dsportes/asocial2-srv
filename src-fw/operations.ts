@@ -314,28 +314,6 @@ class Sync extends Operation {
 }
 Classes.registerOp(Sync)
 
-/* GrantNewManager positionne la date de fin d'un Credential "manager" sous admin
-class GrantNewManager extends Operation {
-  _cr: CredRequest
-  init () {
-    super.init()
-    this._cr = this.args['credRequest']
-  }
-  async phase2 () {
-    this.requireAdmin()
-    const c = await this.cache.getDoc('Credential', this._cr) as Credential
-    if (!c) // enregistrement d'un nouveau Credential "manager"
-      this.cache.newDoc('Credential', this._cr) as Credential
-    else { // réactivation (après une révocation)
-      c.pemv = this._cr.pemv
-      c.limit = 0
-      c._status = DocStatus.UPD
-    }
-  }
-}
-Classes.registerOp(GrantNewManager', () => { return new GrantNewManager()})
-*/
-
 type RevokeReq = {
   userId: string
   role: string
@@ -376,20 +354,8 @@ class ListManagers extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    let status = 0
-    let lst = []
-    /* Finalement ouverte pour permettre à un ex manager de relire la liste
-    et pouvoir auto-nettoyer ses credentials dans son safe */
-    /*
-    if (!this.authRecord.isAdmin) {
-      const cr = this.getCred('Org.manager', '', true)
-      if (!cr) status = 1
-    }
-    */
-    if (!status)
-      lst = await Credential.listManagers(this)
+    const lst = await Credential.listManagers(this)
     this.setRes('list', lst)
-    this.setRes('status', status)
   }
 }
 Classes.registerOp(ListManagers)
@@ -483,6 +449,7 @@ class InvitCreateByU extends Operation {
       { this.setRes('status', 2); return }
     invit = this.cache.newDoc('Invitation', this._invObj) as Invitation
     invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp(InvitCreateByU)
@@ -505,6 +472,7 @@ class InvitUpdByU extends Operation {
     invit.byU = true
     invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
     invit._status = DocStatus.UPD
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp(InvitUpdByU)
@@ -525,6 +493,7 @@ class InvitCreateByS extends Operation {
       { this.setRes('status', 1); return }
     invit = this.cache.newDoc('Invitation', this._invObj) as Invitation
     invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp(InvitCreateByS)
@@ -552,6 +521,7 @@ class InvitUpdByS extends Operation {
     invit.etc = this._etc
     invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
     invit._status = DocStatus.UPD
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp(InvitUpdByS)
@@ -568,6 +538,7 @@ class InvitCancel extends Operation {
     if (!invit) return
     if (invit.userId !== this.authRecord.userId) return
     this.cache.delDoc('Invitation', this._invitId)
+    this.setRes('status', 0)
   }
 }
 Classes.registerOp(InvitCancel)
