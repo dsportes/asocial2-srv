@@ -31,3 +31,12 @@ CREATE TABLE IF NOT EXISTS "ZZORGS" (
   "v" INTEGER,
 	"value" TEXT,
 PRIMARY KEY(key));
+
+CREATE TABLE IF NOT EXISTS "ZZINVITS" (
+  "invitId" TEXT,
+  "userId" TEXT,
+  "v" INTEGER,
+  "lv" INTEGER,
+  "data" BLOB,
+PRIMARY KEY(invitId));
+CREATE INDEX IF NOT EXISTS "ZZINVITS_userId" ON "ZZINVITS" ( "userId" );
