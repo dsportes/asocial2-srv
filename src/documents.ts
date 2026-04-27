@@ -57,11 +57,12 @@ export class Invitation extends InvitationA {
   }
 
   /* etc:
-  credId : généré par le sponsor (ici l'administrateur)
+      credId : généré par le sponsor (ici l'administrateur)
+    args: pubV, name (fac)
   */
   async validate_orgManager (op: OperationWC, args: InvitValOM) : Promise<number> {
     // Checking de etc et args
-    if (this.etc['credId']) return 1
+    if (!this.etc['credId']) return 1
     if (!args.pubv) return 2
     
     // Enregistrement du credential

@@ -430,7 +430,7 @@ class InvitList extends Operation {
       if (!cr) cr = this.getCred('Sponsor.', this._major + '/' + this._minor, true)
     }
     if (!cr) {
-      this.setRes('status', 2)
+      this.setRes('status', 1)
       return
     }
     const lst = await InvitationA.listInvits(this, this._major, this._minor)
@@ -440,14 +440,9 @@ class InvitList extends Operation {
 }
 Classes.registerOp(InvitList)
 
-/* InvitGet retourne une invitation d'après son ID. (pour Master Directory ZZINVITS)
-Seulement les propriétés: v major minor
-  major: string //code majeur 
-  minor: string // code mineur
-  byU: boolean // la dernière maj est de U
-  tab: string // Adroise commune U / sponsors (non cryptée)
-  etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
-
+/* InvitGet retourne une invitation d'après son ID.
+Si le user n'est pas certifié (cas d'appel depuis Master Directory pour ZZINVITS) 
+seulement les propriétés: v major minor
 */
 class InvitGet extends Operation {
   _invitId: string
@@ -458,10 +453,11 @@ class InvitGet extends Operation {
     this._userId = this.stringValue('userId', true)
   }
   async phase2 () {
-    let s = 0
     const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (invit && invit.userId === this._userId) 
-      this.setRes('vmm', { v: invit.v, major: invit.major, minor: invit.minor })
+    if (invit && invit.userId === this._userId) {
+      if (this.authRecord.userId === invit.userId) this.setRes('invitation', invit.toObj())
+      else this.setRes('invitation', { v: invit.v, major: invit.major, minor: invit.minor })
+    }
   }
 }
 Classes.registerOp(InvitGet)
@@ -523,7 +519,7 @@ class InvitCreateByS extends Operation {
   async phase2 () {
     this.requireAuth()
     if (!Invitation.checkSponsor(this.authRecord, this._invObj))
-      { this.setRes('status', 1); return }
+      { this.setRes('status', 3); return }
     let invit = await this.cache.getDoc('Invitation', this._invObj) as Invitation
     if (invit) 
       { this.setRes('status', 1); return }
@@ -550,7 +546,7 @@ class InvitUpdByS extends Operation {
     if (!invit) 
       { this.setRes('status', 1); return }
     if (!Invitation.checkSponsor(this.authRecord, invit))
-      { this.setRes('status', 1); return }
+      { this.setRes('status', 3); return }
     invit.tab = this._tab
     invit.byU = true
     invit.etc = this._etc
@@ -602,11 +598,11 @@ export class InvitValidate extends Operation {
     if (!invit) 
       { this.setRes('status', 1); return}
     if (invit.userId !== this.authRecord.userId) 
-      { this.setRes('status', 1); return }
+      { this.setRes('status', 2); return }
     // Do the job: logique spécifique de l'application
     const status = await invit.validate(this, this._validArgs)
     if (status !== 0)
-      { this.setRes('status', 1); return }
+      { this.setRes('status', status); return }
     this.cache.delDoc('Invitation', this._invitId)
     this.setRes('status', 0)
   }

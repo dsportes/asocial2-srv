@@ -235,12 +235,18 @@ export class InvitationA extends Document {
 
   maxLife: number // epoch en MINUTES
 
+  invitId: string
   userId: string // ID du bénéficiare de l'invitation
   major: string //code majeur 
   minor: string // code mineur
   byU: boolean // la dernière maj est de U
   tab: string // Adroise commune U / sponsors (non cryptée)
   etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
+
+  static lp1 = ['invitId', 'userId', 'major', 'minor', 'byU', 'tab', 'etc']
+  toObj () : InvObj {
+    const obj = {}; for (const p of InvitationA.lp1) obj[p] = this[p]; return obj as InvObj
+  }
 
   /* Liste des demandes d'invitation à traiter (ou invitations traitées)
   pour un sponsor focus sur major ou major/minor */

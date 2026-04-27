@@ -437,7 +437,7 @@ class $mdInvitSet extends MDOperation {
     const lv = this.args['lv'] as boolean
     const r = await this.postSvcOp(svc, org, 'InvitGet', { invitId, userId } )
     if (r) {
-      const { v, major, minor } = r
+      const { v, major, minor } = r['invitation']
       const data = encode({ org, svc, major, minor })
       await this.db.mdInvitSet({ invitId, userId, v, lv: lv ? v : 0, data})
     }
