@@ -366,13 +366,19 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let row = stmt.get( { invitId } )
     if (row && row.userId === userId) {
       stmt = this.sql.prepare('UPDATE ZZINVITS SET lv = @lv WHERE invitId = @invitId')
-      stmt.run({ lv: row.v })
+      stmt.run({ invitId, lv: row.v })
     }
   }
 
   async mdInvitDel (invitId: string, userId: string) : Promise<void> {
     const stmt = this.sql.prepare('DELETE FROM ZZUSERS WHERE invitId = @invitId AND userId = @userId')
     stmt.run({ invitId, userId})
+  }
+
+  async mdInvitList (userId: string) : Promise<any[]> {
+    const stmt = this.sql.prepare('SELECT * FROM ZZINVITS WHERE userId = @userId')
+    const rows = stmt.all({ userId })
+    return rows
   }
 
   /******************************************************************************

@@ -454,7 +454,7 @@ class $mdInvitUpdLV extends MDOperation {
   async doTheJob () : Promise<void> { 
     const invitId = this.args['invitId'] as string
     const userId = this.args['userId'] as string
-    await this.db.mdInvitUpdLV({ invitId, userId })
+    await this.db.mdInvitUpdLV(invitId, userId)
   }
 }
 Classes.registerOp($mdInvitUpdLV)
@@ -465,7 +465,24 @@ class $mdInvitDel extends MDOperation {
   async doTheJob () : Promise<void> { 
     const invitId = this.args['invitId'] as string
     const userId = this.args['userId'] as string
-    await this.db.mdInvitDel({ invitId, userId })
+    await this.db.mdInvitDel(invitId, userId)
   }
 }
 Classes.registerOp($mdInvitDel)
+
+/* Supprime la référence d'une invitation dans ZZINVITS
+*/
+class $mdInvitList extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId'] as string
+    const rows = await this.db.mdInvitList(userId)
+    const lst = []
+    for(const row of rows) {
+      // @ts-expect-error
+      const { svc, org, major, minor } = decode(row.data)
+      lst.push({svc, org, invitId: row.invitId, v: row.v, lv: row.lv, major, minor})
+    }
+    this.setRes('invlist', lst)
+  }
+}
+Classes.registerOp($mdInvitList)

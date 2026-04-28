@@ -161,7 +161,8 @@ export interface IDbGeneric {
     : Promise<void>
   mdInvitUpdLV (invitId: string, userId: string) : Promise<void>
   mdInvitDel (invitId: string, userId: string) : Promise<void>
-
+  mdInvitList (userId: string) : Promise<any[]>
+  
   /* safe *****************************************************************************/
   /* Retourne le binaire du safe (décrypté, pas désencodé) */
   getBinSafe (userId: string) : Promise<Uint8Array | null>

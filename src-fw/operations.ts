@@ -421,7 +421,10 @@ class InvitGet extends Operation {
   async phase2 () {
     const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (invit && invit.userId === this._userId) {
-      if (this.authRecord.userId === invit.userId) this.setRes('invitation', invit.toObj())
+      if (this.authRecord.userId === invit.userId) {
+        const x = invit.toObj()
+        this.setRes('invitation', x)
+      }
       else this.setRes('invitation', { v: invit.v, major: invit.major, minor: invit.minor })
     }
   }

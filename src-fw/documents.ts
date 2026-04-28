@@ -244,7 +244,7 @@ export class InvitationA extends Document {
   tab: string // Adroise commune U / sponsors (non cryptée)
   etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
 
-  static lp1 = ['invitId', 'userId', 'major', 'minor', 'byU', 'tab', 'etc']
+  static lp1 = ['invitId', 'userId', 'major', 'minor', 'byU', 'tab', 'etc', 'v']
   toObj () : InvObj {
     const obj = {}; for (const p of InvitationA.lp1) obj[p] = this[p]; return obj as InvObj
   }

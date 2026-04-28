@@ -297,3 +297,8 @@ BEGIN
 2026-04-27T16:45:23.400Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
 2026-04-27T16:49:20.303Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
 2026-04-27T16:53:10.700Z error: AppExc: 3001:unexpected exception["near \"SET\": syntax error"]
+2026-04-28T07:02:27.560Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-28T07:05:04.536Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-28T07:09:37.688Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-28T09:11:55.810Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-04-28T09:15:20.742Z error: AppExc: 3001:unexpected exception["Missing named parameter \"invitId\""]
