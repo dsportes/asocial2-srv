@@ -470,7 +470,7 @@ class $mdInvitDel extends MDOperation {
 }
 Classes.registerOp($mdInvitDel)
 
-/* Supprime la référence d'une invitation dans ZZINVITS
+/* Retourne la liste des invitations d'un user donné
 */
 class $mdInvitList extends MDOperation {
   async doTheJob () : Promise<void> { 

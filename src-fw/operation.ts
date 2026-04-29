@@ -668,7 +668,7 @@ export class Cache {
 
       // Si null, la propriété n'a pas de valeur APRES
       const a = doc._status !== DocStatus.DEL ? doc.collValue(n) : null
-      is.setColl(n, a)
+      if (a) is.setColl(n, a)
       
       if (!collection.mutable) continue
       if (doc._status === DocStatus.NEW) continue

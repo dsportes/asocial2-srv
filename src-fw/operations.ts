@@ -469,7 +469,7 @@ class InvitUpdByU extends Operation {
   async phase2 () {
     this.requireAuth()
     let invit = await this.cache.getDoc('Invitation', { invitId: this._invitId }) as Invitation
-    if (invit) 
+    if (!invit) 
       { this.setRes('status', 1); return }
     invit.tab = this._tab
     invit.byU = true
@@ -540,7 +540,7 @@ class InvitCancel extends Operation {
     const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
     if (!invit) return
     if (invit.userId !== this.authRecord.userId) return
-    this.cache.delDoc('Invitation', this._invitId)
+    this.cache.delDoc('Invitation', invit.pk)
     this.setRes('status', 0)
   }
 }
@@ -577,7 +577,7 @@ export class InvitValidate extends Operation {
     const status = await invit.validate(this, this._validArgs)
     if (status !== 0)
       { this.setRes('status', status); return }
-    this.cache.delDoc('Invitation', this._invitId)
+    this.cache.delDoc('Invitation', invit.pk)
     this.setRes('status', 0)
   }
 }

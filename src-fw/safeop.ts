@@ -34,39 +34,6 @@ export class SafeOperation implements AbstractOperation {
 
   delRes(prop: string) { delete this.result[prop] }
 
-  /* Depuis l'intérieur d'une opération, soumet une opération (opName, args) de safe
-  au safe 'safeStore'
-  static async postToSafe (op: AbstractOperation, opName: string, args: Object, safeStore?: string)
-   : Promise<Object> {
-    let u = config.MASTERDIR
-    if (safeStore) {
-      const x = await SafeCache.get(op, safeTable.SVCOPS, 'SAFE') as Object
-      u = x ? x[safeStore] : null
-    }
-    if (!u)
-      throw new AppExc(3005, 'postToSafe error', null, [op.opName, safeStore])
-    const url = u + '/safe/' + opName
-    const body = new Uint8Array(encode(args))
-    try {
-      const response = await fetch(url , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/octet-stream',  // sent request
-          'Accept':       'application/octet-stream'   // expected data sent back
-        },
-        body,
-      })
-      const buf = await response.bytes()
-      const obj = decode(buf)
-      if (response.status === 200) return obj
-      throw new AppExc(3003, 'masterdir error', null, [op.opName, opName, '' + response.status])
-    } catch(e) {
-      if (e instanceof AppExc) throw e
-      throw new AppExc(3003, 'masterdir error', null, [op.opName, opName, e.message])
-    }
-  }
-  */
-
   static async doOp (opName: string, args: Object) : Promise<Object> {
     const op = Classes.newOp(opName)
     if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
@@ -83,24 +50,6 @@ export class SafeOperation implements AbstractOperation {
       await op.db.disconnect()
       throw(e)
     }
-  }
-
-  /* Nettoir les invitations obsolètes. 
-  Return true en cas de modification effective */
-  cleanInvits (safe) : boolean {
-    let u = false
-    if (safe && safe.invits) {
-      const d = Math.floor(Date.now() / 86400000)
-      let b = false
-      for(const xid of Array.from(Object.keys(safe.invits))) {
-        const x = safe.invits[xid]
-        const d2 = Math.floor(x.time / 86400)
-        if (d2 < (d - 7)) { delete(safe.invits[xid]); u = true }
-        else b = true
-      }
-      if (!b) delete safe.invits
-    }
-    return u
   }
 
   async save (safe: any, updated?: boolean) {
@@ -153,7 +102,6 @@ class $RestoreSafe extends SafeOperation {
 
   async doTheJob () : Promise<void> { 
     const safe = this.args['safe'] as Safe
-    this.cleanInvits(safe)
     const ret = await this.db.restoreSafe(safe)
     if (ret !== 0) await Util.sleep(3000)
     this.setRes('status', ret)
@@ -527,7 +475,7 @@ type UpdatePrefs = {
   prefs: Object // clé: crId, valeur: Objet Credential sérialisé crypté
   delprefs: string[] // liste des crIds à supprimer
 }
-/* Eneristrement / suppression de préférences
+/* Enregistrement / suppression de préférences
 Status: 1 2
 */
 class $UpdatePrefs extends SafeOperation {
@@ -550,82 +498,6 @@ class $UpdatePrefs extends SafeOperation {
   }
 }
 Classes.registerOp($UpdatePrefs)
-/*****************************************************************************/
-
-type AddInvit = {
-  userId: string
-  invitId: string
-  status: number
-  time: number
-  invit: string // Objet invit sérialisé crypté en base64
-  shK?: string // Cas d'une création pour U par U
-  pubC?: string // Cas d'une création pour U par X
-                // invit est à décrypter par le couple U/X (et non keyK)
-}
-/* Enregistrement d'une invitation
-Status: 1 2
-*/
-class $AddInvit extends SafeOperation {
-  async doTheJob () : Promise<void> {
-    const inv = this.args['addInvit'] as AddInvit
-    const bin = await this.db.getBinSafe(inv.userId)
-    if (!bin) {
-      this.setRes('status', 1)
-      return
-    }
-    const safe = decode(bin) as Safe
-    if (inv.shK && safe.auth.hshK !== Crypt.shaS(keyFromB64(inv.shK))) {
-      this.setRes('status', 2)
-      return
-    }
-
-    if (!safe.invits) safe.invits = {}
-
-    const x = { status: inv.status, time: inv.time, invit: inv.invit }
-    if (inv.pubC) x['pubC'] = inv.pubC
-    safe.invits[inv.invitId] = x
-    this.cleanInvits(safe)
-    await this.save(safe, true)
-    this.setRes('status', 0)
-    // le safe n'est pas retourné dans la cas d'une création par X
-    if (inv.pubC) this.delRes('safe')
-  }
-}
-Classes.registerOp($AddInvit)
-
-export type StatusInvit = {
-  targetId: string
-  invitId: string
-  status: number
-}
-/* Maj du status d'une invitation
-Status: 1 2
-*/
-class $SetStatusInvit extends SafeOperation {
-  async doTheJob () : Promise<void> {
-    const st = this.args['statusInvit'] as StatusInvit
-    const bin = await this.db.getBinSafe(st.targetId)
-    if (!bin) {
-      this.setRes('status', 1)
-      return
-    }
-    const safe = decode(bin) as Safe
-    let u = this.cleanInvits(safe)
-    if (safe && safe.invits) {
-      const inv = safe.invits[st.invitId]
-      if (inv) {
-        inv.status = st.status
-        u = true
-        this.setRes('status', 0)
-      } 
-    } else this.setRes('status', 7)
-    if (u) {
-      await this.save(safe)
-      this.delRes('safe')
-    }
-  }
-}
-Classes.registerOp($SetStatusInvit)
 
 /* Suppression d'un safe -
 Args: userId, shK

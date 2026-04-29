@@ -124,7 +124,7 @@ export class DocType {
   */
   extractColls (src: Object) : Map<string, string[]> {
     const m = new Map()
-    if (this.hasColls) return m
+    if (!this.hasColls) return m
     for(const [colName, ] of this.colls) {
       const val = this.getCollId(src, colName)
       if (val) m.set(colName, val)

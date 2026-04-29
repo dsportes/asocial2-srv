@@ -371,7 +371,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async mdInvitDel (invitId: string, userId: string) : Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM ZZUSERS WHERE invitId = @invitId AND userId = @userId')
+    const stmt = this.sql.prepare('DELETE FROM ZZINVITS WHERE invitId = @invitId AND userId = @userId')
     stmt.run({ invitId, userId})
   }
 
@@ -655,14 +655,22 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   updRow (clazz: string, row: row) : void {
-    const [cols, ] = this.columns(clazz)
-    const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
-    const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
-      lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
-    const r = this.rowToDB(clazz, row)
-    const obj = { org: this.org, ttl: 0 }; 
-    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
-    stmt.run(obj)
+    if (row.data) { // c'est une vraie maj
+      const [cols, ] = this.columns(clazz)
+      const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
+      const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + ' SET ' +
+        lx.join(', ') + ' WHERE org = @org AND pk = @pk;')
+      const r = this.rowToDB(clazz, row)
+      const obj = { org: this.org, ttl: 0 }; 
+      cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
+      stmt.run(obj)
+    } else { // c'est une suppression (logique)
+      const r = this.rowToDB(clazz, row)
+      r.org = this.org
+      const stmt = this.sql.prepare('UPDATE ' + clazz.toUpperCase() + 
+        ' SET v = @v, ttl = @ttl, data = NULL WHERE org = @org AND pk = @pk;')
+      stmt.run(r)
+    }
   }
 
   setRow (clazz: string, row: row) : void {

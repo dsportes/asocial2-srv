@@ -123,7 +123,7 @@ export class Document {
       - valeur: valeur de la propriété clé de la collection dans le document 
         AVANT mise à jour éventuelle de cette valeur
     */
-   if (doc._status === DocStatus.NEW && doc.docType.hasColls)
+   if (doc._status !== DocStatus.NEW && doc.docType.hasColls)
       doc._before = doc.docType.extractColls(doc)
     return doc
   }

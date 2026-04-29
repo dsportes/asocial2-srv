@@ -302,3 +302,9 @@ BEGIN
 2026-04-28T07:09:37.688Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
 2026-04-28T09:11:55.810Z error: AppExc: 3001:unexpected exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
 2026-04-28T09:15:20.742Z error: AppExc: 3001:unexpected exception["Missing named parameter \"invitId\""]
+2026-04-29T08:57:52.437Z error: AppExc: 3001:argument absent["invitId"]
+2026-04-29T09:03:26.524Z error: AppExc: 3001:unexpected exception["no such column: invitId"]
+2026-04-29T09:19:33.937Z error: InvitCancel : 2026-04-29T09:18:52.239Z : RangeError: Missing named parameter "data"
+2026-04-29T09:19:33.958Z error: AppExc: 3001:unexpected exception["Missing named parameter \"data\""]
+2026-04-29T09:44:47.600Z error: InvitCancel : 2026-04-29T09:43:18.057Z : TypeError: vals is not iterable
+2026-04-29T09:44:47.603Z error: AppExc: 3001:unexpected exception["vals is not iterable"]
