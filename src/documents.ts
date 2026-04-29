@@ -30,7 +30,7 @@ class Org extends OrgA {
 Classes.registerD(Org)
 
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
-  pubv: string // clé publique de vérification du credential
+  pubV: string // clé publique de vérification du credential
   name: string // nom / pseudo facultatif pour information à stocker en cond
 }
 
@@ -64,7 +64,7 @@ export class Invitation extends InvitationA {
   async validate_orgManager (op: OperationWC, args: InvitValOM) : Promise<number> {
     // Checking de etc et args
     if (!this.etc['credId']) return 1
-    if (!args.pubv) return 2
+    if (!args.pubV) return 2
     
     // Enregistrement du credential
     const obj = {
@@ -72,9 +72,9 @@ export class Invitation extends InvitationA {
       userId: this.userId,
       role: 'Org.manager',
       docId: '',
-      pubv: args.pubv,
+      pubv: args.pubV,
       limit: 0,
-      cond: { name: this.etc.name || '???'}
+      cond: { name: this.etc['name'] || '???'}
     }
     op.cache.newDoc('Credential', obj)
     return 0
