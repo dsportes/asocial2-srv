@@ -87,7 +87,12 @@ Classes.registerOp(SetSvcOpStatus$)
 class GetSvcOrgStatus extends Operation {
   async phase2 () {
     const orgDoc = await this.cache.getOrg()
-    this.setRes('orgStatus', orgDoc && orgDoc['status'] ? orgDoc['status'] : { st: 0, at: 0, txt: '' })
+    let os
+    if (orgDoc && orgDoc['status']) {
+      os = { ...orgDoc['status'] }
+      os.now = this.now
+    }
+    this.setRes('orgStatus', os ? os : { now: this.now, st: 0, at: 0, txt: '' })
     // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
   }
 }

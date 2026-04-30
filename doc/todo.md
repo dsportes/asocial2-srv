@@ -1,18 +1,15 @@
-Sur srv:
-- IDBgeneric à reprendre pour gérer le master dir, et sqlite avec.
+# ASAP
+Révocation de credential: Safe et DB (y compris Org.manager)
+
+Invitations en cours: demande, proposition sponsor
 
 # Safe
-Gestion des invitations en cours (app, service OK ?)
-
 - Gérer la mise à jour du volume des sessions par l'application.
-- Gérer dans l'application l'arrivée d'une mise à jour de credential.
+- Gérer dans l'application l'arrivée d'une mise à jour de credential. ???
 
 - gestion de la non régression du time d'une signature dans un service.
-- récupération de l'URL du safe dans le query string.
 
 # Serveur
-
-Report des credentials: rapprochement _safe / service_.
 
 GetLock : hors transaction.
 
