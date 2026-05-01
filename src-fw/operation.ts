@@ -233,18 +233,17 @@ export class Operation implements OperationWC {
   }
 
   // Contrôle des types d'arguments
-
   type (par: string, req: boolean) : [boolean, any, string] { // present, value, type
-    if (par === undefined) throw new AppExc(8001, 'unknown argument', null, ['?'])
+    if (par === undefined) throw new AppExc(103, 'missing_argument_name', null, ['?'])
     const v = this.args[par]
     if (v === undefined) {
-      if (req) throw new AppExc(3001, 'argument absent', null, [par])
+      if (req) throw new AppExc(103, 'missing_argument', null, [par])
       return [false, null, '']
     }
     return [true, v, typeof v]
   }
 
-  invalid (par: string) { throw new AppExc(3001, 'invalid argument', this, [par])}
+  invalid (par: string) { throw new AppExc(103, 'invalid_argument', this, [par])}
 
   objectValue (par: string, req: boolean) : Object {
     const [present, value, type] = this.type(par, req)
@@ -360,7 +359,7 @@ export class AuthRecord {
     const cr = this.roles.get(role + '/' + (objId || ''))
     if (cr) return cr
     if (noex) return null
-    throw new AppExc(3002, 'missing credential', this.op, [this.org, role, objId || ''])
+    throw new AppExc(103, 'missing_credential', this.op, [this.org, role, objId || ''])
   }
 
   async process () : Promise<void> {

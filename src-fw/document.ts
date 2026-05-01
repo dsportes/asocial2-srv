@@ -105,7 +105,7 @@ export class Document {
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
     const cl = Classes.getD(clazz)
-    if (!cl) throw new AppExc(3004, 'document Class not registred', null, [clazz])
+    if (!cl) throw new AppExc(105, 'document_class_not_registered', null, [clazz])
     const doc = Classes.newD(clazz)
     doc._clazz = clazz
     doc._status = status

@@ -335,7 +335,7 @@ function ExcOp (exc: any, opName: string, res: any) {
   if (e instanceof AppExc) {
     b = e.serial()
   } else {
-    const e2 = new AppExc(3001, 'unexpected exception', null, [e.message], e.stack || '')
+    const e2 = new AppExc(105, 'masterdir_safe_unexpected_exception', null, [e.message], e.stack || '')
     b = e2.serial()
     st = 401
   }
@@ -508,6 +508,7 @@ export class AppExc {
   9: APP: Exception technique DB / réseau
   10: FW : Exception technique DB / réseau : configuration suspectée
   11: APP: Exception technique DB / réseau : configuration suspectée
+  99: Interruption actionnée par l'utilisateur
 
   Remonté d'un service - assertions 13...16 transmises à l'adiministarteur
   101: erreur fonctionnelle FW : non détectable par l'application

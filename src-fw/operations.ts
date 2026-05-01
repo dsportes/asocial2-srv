@@ -367,7 +367,7 @@ class AutoRevokeCred extends Operation {
     this.requireAuth()
     const cred = this.authRecord.getCred(this._role, this._docId, true)
     if (!cred || cred.credId !== this._credId)
-      throw new AppExc(3007, 'no cred owner', this, [this._role, this._docId])
+      throw new AppExc(103, 'no_cred_owner', this, [this._role, this._docId])
     const c = await this.cache.getDoc('Credential', this._credId) as Credential
     if (c)
       this.cache.delDoc('Credential', c.pk)

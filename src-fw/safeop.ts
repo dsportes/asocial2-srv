@@ -176,7 +176,7 @@ class $SetPhraseSafe extends SafeOperation {
     const K1 = this.args['K1'] as string
     const K2 = this.args['K2'] || '' as string
     if (!hshp1 && !hshp2) 
-      throw new AppExc(3006, 'missing p1 and p2', this)
+      throw new AppExc(103, 'missing_p1_and_p2', this)
     const safe = await this.getSafe(this.args)
     if (!safe) return
     let u = false
