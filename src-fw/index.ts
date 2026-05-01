@@ -25,9 +25,9 @@ export class DbConnector {
 
   constructor (credentials: Object, cryptKey: string) {
     if (!credentials)
-      throw new AppExc(1022, 'DbConnector : credentials not found', null)
+      throw new AppExc(110, 'DbConnector_credentials_not_found', null)
     if (!cryptKey) 
-      throw new AppExc(1024, 'DbConnector : crypt key ', null)
+      throw new AppExc(110, 'DbConnector_missing_crypt_key', null)
     this.key = Buffer.from(cryptKey, 'base64')
     this.credentials = credentials
   }
@@ -353,11 +353,11 @@ export function startSRV (app : any) : Promise<void> {
       let p = path.resolve('./cert/fullchain.pem')
       const cert = existsSync(p) ? readFileSync(p) : ''
       if (!cert)
-        throw new AppExc(1015, 'certificate NOT FOUND', null, [p])
+        throw new AppExc(110, 'startSRV_certificate_not_found', null, [p])
       p = path.resolve('./cert/privkey.pem')
       const key = existsSync(p) ? readFileSync(p) : ''
       if (!key ) 
-        throw new AppExc(1015, 'private key NOT FOUND', null, [p])
+        throw new AppExc(110, 'startSRV_private_key_not_found', null, [p])
       server = https.createServer({key, cert}, app).listen(config.port, async () => {
         Log.info('HTTPS listen [' + config.port + ']')
       })
@@ -388,7 +388,7 @@ function checkOrigin(req: express.Request, origins: Set<string>) {
   if (!origin || origin === 'null') origin = req.headers['host']
   const [hn, po] = Util.getHP(origin)
   if (origins.has(hn) || origins.has(hn + ':' + po)) return true
-  throw new AppExc(1001, 'origin not authorized', null, [origin])
+  throw new AppExc(103, 'origin_not_authorized', null, [origin])
 }
 
 let today = 0
@@ -427,13 +427,13 @@ export async function doOp (
     }
     
     const op = Classes.newOp(opName) as Operation
-    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
+    if (!op) throw new AppExc(103, 'unknown_operation', null, [opName])
     op.opName = opName
     op.baseUrl = req.protocol + '://' + req.host
     op.org = req.params.org as string
 
     if (!dbConnector) 
-      throw new AppExc(1003, 'unknown organisation', null, [opName, op.org])
+      throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
     op.storage = storage
     op.dbConnector = dbConnector
     
@@ -443,7 +443,7 @@ export async function doOp (
 
     if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] 
       || op.args.APIVERSION > config.APIVERSIONS[1]))
-      throw new AppExc(1003, 'unsupported API', null, [config.APIVERSIONS[0], 
+      throw new AppExc(103, 'unsupported_API', null, [config.APIVERSIONS[0], 
         config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
 
     op.init()
@@ -499,12 +499,27 @@ export async function adminAlert ( op: AbstractOperation, subject: string, text:
 export class AppExc {
   public code: number
   /*
-  1000: erreurs fonctionnelles FW
-  2000: erreurs fonctionnelles APP
-  3000: asserions FW
-  4000: asserions APP
-  5000: asserions FW - transmises à l'administrateur
-  6000: asserions APP - transmises à l'administrateur
+  Détecté par l'application
+  1: erreur fonctionnelle APP
+  2: erreur fonctionnelle FW
+  3: assertion FW - BUG: 
+  4: assertion APP - BUG:
+  8: FW : Exception technique DB / réseau
+  9: APP: Exception technique DB / réseau
+  10: FW : Exception technique DB / réseau : configuration suspectée
+  11: APP: Exception technique DB / réseau : configuration suspectée
+
+  Remonté d'un service - assertions 13...16 transmises à l'adiministarteur
+  101: erreur fonctionnelle FW : non détectable par l'application
+  102: erreur fonctionnelle APP : non détectable par l'application
+  103: assertion FW - BUG: l'erreur fonctionnelle est censée avoir été bloquée par l'application
+  104: assertion APP - BUG: l'erreur fonctionnelle est censée avoir été bloquée par l'application
+  105: assertions FW - Données incohérentes non détectables par l'application
+  106: assertions APP - Données incohérentes non détectables par l'application
+  108: FW : Exception technique DB / réseau
+  109: APP : Exception technique DB / réseau
+  110: FW : Exception technique DB / réseau : configuration suspectée
+  111: APP : Exception technique DB / réseau : configuration suspectée
   */
 
   public label: string

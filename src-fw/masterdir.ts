@@ -97,7 +97,7 @@ export class MDOperation implements AbstractOperation {
   static async doOp (opName: string, args: Object) : Promise<Object> {
     const op = Classes.newOp(opName)
     if (!op) 
-      throw new AppExc(1002, 'unknown operation', null, [opName])
+      throw new AppExc(103, 'masterdir_unknown_operation', null, [opName])
     op.opName = opName
     op.now = Date.now()
     op.args = args
@@ -173,8 +173,10 @@ export class MDOperation implements AbstractOperation {
   async getParams (args: Object) : Promise<string[]> {
     const userId = args['userId']
     const time = args['time']
-    // const now = Date.now()
-    // if (time < now - 3000 || time > now + 3000) throw new AppExc(2003, 'no safe admin', this)
+    /* const now = Date.now()
+      if (time < now - 3000 || time > now + 3000) 
+        throw new AppExc(108, 'masterdir_challenge_too_old', this)
+    */
     if (config.MASTERDIRADMINUSERS.has(userId)) {
       const params = args['params']
       const sign = args['sign']
@@ -189,7 +191,7 @@ export class MDOperation implements AbstractOperation {
         }
       }
     }
-    throw new AppExc(2002, 'no safe admin', this)
+    throw new AppExc(101, 'masterdir_no_admin', this)
   }
 }
 
@@ -375,7 +377,7 @@ class $GrantSvcOpOrg extends MDOperation {
     if (SVC) { // Contrôle de l'existence de SVC et de son hébergement par OP
       const obj = await MDCache.get(this, MDTable.SVCOPS, SVC)
       if (!obj || !obj[$OP])
-        throw new AppExc(2004, 'svc unkown or not implemented by $OP', this, [SVC, $OP, org])
+        throw new AppExc(101, 'masterdir_svc_unkown_or_not_implemented_by_op', this, [SVC, $OP, org])
     }
     let obj = await MDCache.get(this, MDTable.ORGS, org) as Object
     if (obj) {

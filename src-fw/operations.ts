@@ -144,12 +144,6 @@ Classes.registerOp(SetOrgConfig$)
 class GetOrgConfig$ extends Operation {
   async phase2 () {
     this.requireAdmin()
-    /*
-    const ar = this.args['authRecord']
-    const isAdmin = config.ADMINUSERS.has(ar.userId)
-    if (!isAdmin) 
-      throw new AppExc(2007, 'admin required', this)
-    */
     const dbs = Array.from(config.databases.keys())
     const sts = Array.from(config.storages.keys())
     const x = OrgsConfig.getDbSt(this.org)
@@ -227,7 +221,7 @@ class UpdateSubscription extends Operation {
   async phase2 () {
     const subs = await this.cache.getDoc('Subs', { sessionId: this.sessionId}) as Subs
     if (!subs) 
-      throw new AppExc(1025, 'Unknown session', this, [this.sessionId])
+      throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
 
     if (this.args['title']) { subs.title = this._title; subs._status = DocStatus.UPD }
 
@@ -326,6 +320,10 @@ type RevokeReq = {
 }
 /* RevokeCred marque la fin de validité d'un Credential 
 par admin ou l'utilisateur lui-même (auto-revocation)
+TODO à rediscuter:
+- pas de userId
+- qui a le droit ? sponsor / manager (admin ?)
+- dans quelle circonstance le fait-il si user-id est inconnu ?
 */
 class RevokeCred extends Operation {
   _rr: RevokeReq 
@@ -349,6 +347,33 @@ class RevokeCred extends Operation {
   }
 }
 Classes.registerOp(RevokeCred)
+
+/* Auto-recvocation d'un credential.
+Le user est authentifié et doit avoir présenté son credential:
+- sa possession est donc assuré, il peut le supprimer
+*/
+class AutoRevokeCred extends Operation {
+  _credId: string
+  _role: string
+  _docId: string 
+  init () {
+    super.init()
+    this._credId = this.stringValue('credId', true)
+    this._role = this.stringValue('role', true)
+    this._docId = this.stringValue('docId', true)
+  }
+  async phase2 () {
+    // this.requireAdmin()
+    this.requireAuth()
+    const cred = this.authRecord.getCred(this._role, this._docId, true)
+    if (!cred || cred.credId !== this._credId)
+      throw new AppExc(3007, 'no cred owner', this, [this._role, this._docId])
+    const c = await this.cache.getDoc('Credential', this._credId) as Credential
+    if (c)
+      this.cache.delDoc('Credential', c.pk)
+  }
+}
+Classes.registerOp(AutoRevokeCred)
 
 /* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
 Retourne une liste de : { id, userId, time, limit }

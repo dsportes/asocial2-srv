@@ -36,7 +36,7 @@ export class SafeOperation implements AbstractOperation {
 
   static async doOp (opName: string, args: Object) : Promise<Object> {
     const op = Classes.newOp(opName)
-    if (!op) throw new AppExc(1002, 'unknown operation', null, [opName])
+    if (!op) throw new AppExc(103, 'SafeOperation_unknown_operation', null, [opName])
     op.opName = opName
     op.now = Date.now()
     op.args = args

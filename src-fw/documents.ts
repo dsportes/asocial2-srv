@@ -192,6 +192,7 @@ export class Credential extends Document {
     return lst
   }
 
+  // TODO not used
   static async listUserCreds (op: OperationWC) : Promise<Object[]> {
     const dd = DocType.get('Credential')
     const val = dd.getCollId({ userId: op.authRecord.userId }, 'userId')

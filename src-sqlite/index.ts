@@ -78,10 +78,10 @@ export class SQLiteConnector extends DbConnector {
     super(credentials, cryptKey)
     const p = credentials['path']
     if (!p)
-      throw new AppExc(1030, 'SQLite path absent', null)
+      throw new AppExc(110, 'SQLite_path_missing', null)
     this.path = path.resolve(p)
     if (!existsSync(this.path))
-      throw new AppExc(1020, 'SQLite path not found', null, [this.path])
+      throw new AppExc(110, 'SQLite_path_not_found', null, [this.path])
     Log.info('SQLite ' + ' DB path= [' + this.path + ']')
     this.factory = SQLiteConnexion.newConnexion
   }
@@ -181,7 +181,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       this.sql = new Database(this.path, sqloptions), 
       this.sql.pragma('journal_mode = WAL')
     } catch (e) {
-      throw new AppExc(1024, 'SQLite connexion failed', this.op, [e.message])
+      throw new AppExc(108, 'SQLite_connexion_failed', this.op, [e.message])
     }
   }
 

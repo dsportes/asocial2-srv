@@ -136,12 +136,12 @@ export class Operation implements OperationWC {
 
   requireAdmin () {
     if (!this.authRecord.isAdmin) 
-      throw new AppExc(2007, 'admin required', this)
+      throw new AppExc(101, 'operation_admin_required', this)
   }
 
   requireAuth () {
     if (!this.authRecord.userId) 
-      throw new AppExc(2009, 'authentication required', this)
+      throw new AppExc(101, 'operation_authentication_required', this)
   }
 
   /* Retourne le Credential le plus récent dont la signature a été vérifié
@@ -193,7 +193,7 @@ export class Operation implements OperationWC {
         // st === 1 - DB lock / contention
         if (retry === 2) {
           this.trace ('Op.run.phase2', 'DB lock', detail, true)
-          throw new AppExc(10, 'DB lock', this, [detail])
+          throw new AppExc(110, 'DB_lock', this, [detail])
         }
 
         this.db.disconnect()
@@ -250,7 +250,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return null
     if (present && type !== 'object')
-      throw new AppExc(1010, 'invalid argument', this, [par])
+      throw new AppExc(103, 'invalid_object_argument', this, [par])
     return value
   }
 
@@ -258,7 +258,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return null
     if (present && type !== 'object' && !(value instanceof Uint8Array))
-      throw new AppExc(1010, 'invalid argument', this, [par])
+      throw new AppExc(103, 'invalid_bin_argument', this, [par])
     return value
   }
 
@@ -266,7 +266,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return ''
     if (present && type !== 'array')
-      throw new AppExc(1010, 'invalid argument', this, [par])
+      throw new AppExc(103, 'invalid_array_argument', this, [par])
     return value
   }
 
@@ -276,7 +276,7 @@ export class Operation implements OperationWC {
     if (present && type !== 'string'
       || (minlg !== undefined && value.length < minlg) 
       || (maxlg !== undefined && value.length > maxlg)) {
-        throw new AppExc(1010, 'invalid argument', this, [par])
+        throw new AppExc(103, 'invalid_string_argument', this, [par])
       }
     return value
   }
@@ -285,7 +285,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return []
     if (present && type !== 'array')
-      throw new AppExc(1010, 'invalid argument', this, [par])
+      throw new AppExc(103, 'invalid_string_array_argument', this, [par])
     return value
   }
 
@@ -295,7 +295,7 @@ export class Operation implements OperationWC {
     if (type !== 'number' || !Number.isInteger(value)
       || (min !== undefined && value < min) 
       || (max !== undefined && value > max)) {
-        throw new AppExc(1010, 'invalid argument', this, [par])
+        throw new AppExc(103, 'invalid_intargument', this, [par])
       }
     return value
   }
@@ -304,7 +304,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return false
     if (type !== 'boolean')
-      throw new AppExc(1010, 'invalid argument', this, [par])
+      throw new AppExc(103, 'invalid_bool_argument', this, [par])
     return value
   }
 
@@ -366,9 +366,9 @@ export class AuthRecord {
   async process () : Promise<void> {
     if (!this.signatures) return
     const cv = await MDOperation.doOp('$GetMDuserCV', { userId: this.userId })
-    if (!cv) throw new AppExc(2005, 'no user cv', this.op)
+    if (!cv) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
     const ok = await Crypt.verify(keyFromB64(cv[1]), this.userSign, this.challenge)
-    if (!ok) throw new AppExc(2006, 'bad signature', this.op)
+    if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
     
     for (const ref in this.signatures) {
       const sign = this.signatures[ref]
@@ -396,7 +396,7 @@ export class AuthRecord {
     }
       
     if (this.koRoles.size) 
-      throw new AppExc(2008, 'bad credential(s)', this.op, [Array.from(this.koRoles).join('\n')])
+      throw new AppExc(101, 'operation_bad_credentials', this.op, [Array.from(this.koRoles).join('\n')])
   }
 }
 
