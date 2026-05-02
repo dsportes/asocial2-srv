@@ -309,7 +309,7 @@ async function doMDOp(opName: string, body: Buffer, res: any) {
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
     if (config.debugLevel === 2) Log.info(opName + ' finished')
   } catch (exc: any) {
-    ExcOp(exc, opName, res)
+    ExcOp(exc, opName, res, 2)
   }
 }
 
@@ -320,11 +320,11 @@ async function doSOp(opName: string, body: Buffer, res: any) {
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
     if (config.debugLevel === 2) Log.info(opName + ' finished')
   } catch (exc: any) {
-    ExcOp(exc, opName, res)
+    ExcOp(exc, opName, res, 3)
   }
 }
 
-function ExcOp (exc: any, opName: string, res: any) {
+function ExcOp (exc: any, opName: string, res: any, src: number) {
   if (config.debugLevel === 2)
     Log.info(opName + ' terminated on exception')
   // 400: AppExc
@@ -335,7 +335,8 @@ function ExcOp (exc: any, opName: string, res: any) {
   if (e instanceof AppExc) {
     b = e.serial()
   } else {
-    const e2 = new AppExc(105, 'masterdir_safe_unexpected_exception', null, [e.message], e.stack || '')
+    const s = ['', 'service', 'masterdir', 'safe'][src]
+    const e2 = new AppExc(105, s + '_unexpected_exception', null, [e.message], e.stack || '')
     b = e2.serial()
     st = 401
   }
@@ -454,7 +455,7 @@ export async function doOp (
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
   } catch(exc) {
-    ExcOp(exc, opName, res)
+    ExcOp(exc, opName, res, 1)
   }
 }
 
@@ -497,8 +498,7 @@ export async function adminAlert ( op: AbstractOperation, subject: string, text:
 
 /* Classe AppExc ********************************************************/
 export class AppExc {
-  public code: number
-  /*
+  /* codes:
   Détecté par l'application
   1: erreur fonctionnelle APP
   2: erreur fonctionnelle FW
@@ -523,12 +523,14 @@ export class AppExc {
   111: APP : Exception technique DB / réseau : configuration suspectée
   */
 
+  public code: number
   public label: string
   public opName: string
   public org: string
   public stack: string
   public args: string[]
-  public message: string
+
+  static important = new Set([103, 104, 108, 109, 110, 111])
 
   constructor (code: number, label: string, op: AbstractOperation, args?: string[], stack?: string) {
     this.label = label
@@ -537,10 +539,9 @@ export class AppExc {
     this.org = op && op['org'] ? op['org'] : ''
     this.args = args || []
     this.stack = stack || ''
-    this.message = 'AppExc: ' + code + ':' + label + (op ? '@' + op.opName + ':' : '') + JSON.stringify(args || [])
-    if (code > 3000) Log.error(this.message)
+    if (code > 103) Log.error(this.message)
     else { if (config.debugLevel > 0) Log.debug(this.toString()) }
-    if (code > 5000)
+    if (AppExc.important.has(code))
       adminAlert(op, this.message, this.stack)
   }
 
@@ -548,6 +549,10 @@ export class AppExc {
     return Buffer.from(encode({code: this.code, label: this.label, opName: this.opName,
       org: this.org, stack: this.stack, args: this.args}))
   }
+
+  get message () { return 'AppExc: ' + this.code + ':' + this.label + 
+    (this.opName ? '@' + this.opName + ':' : '') 
+    + JSON.stringify(this.args || []) }
 
   toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
 }

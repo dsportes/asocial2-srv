@@ -30,6 +30,14 @@ class Bug extends Operation {
 }
 Classes.registerOp(Bug)
 
+class ErrorTest extends Operation {
+  init () { super.init() }
+  async phase2 () { 
+    throw new AppExc(102, 'error_test', this, ['arg1', 'arg2'])
+  }
+}
+Classes.registerOp(ErrorTest)
+
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
 class SvcOpIsAdmin$ extends Operation {

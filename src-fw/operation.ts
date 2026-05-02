@@ -748,12 +748,11 @@ export class ImpactedSub {
   }
 }
 
-// import { initializeApp } from 'firebase-admin/app'
-// const app = initializeApp()
-
-// var admin = require("firebase-admin");
-
 /*
+import { initializeApp } from 'firebase-admin/app'
+const app = initializeApp()
+var admin = require("firebase-admin");
+
 import admin from 'firebase-admin'
 import { getMessaging } from 'firebase/messaging'
 

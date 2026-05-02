@@ -13505,3 +13505,87 @@ BEGIN
 2026-04-29T10:49:27.366Z info: $mdInvitList finished
 2026-04-29T10:50:07.484Z info: InvitGet : 2026-04-29T10:50:07.483Z
 2026-04-29T10:50:07.488Z info: InvitGet finished
+2026-05-02T08:32:17.622Z info: 10 document classes
+2026-05-02T08:32:17.625Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T08:32:17.626Z info: Firestore connector
+2026-05-02T08:32:17.627Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T08:32:17.736Z info: Reloading orgs config OK
+2026-05-02T08:32:17.744Z info: HTTP listen [8080]
+2026-05-02T08:32:32.004Z info: $OpenSafeByPin finished
+2026-05-02T08:32:32.053Z info: $GetSafe finished
+2026-05-02T08:32:38.927Z info: $GetOrgSvcs finished
+2026-05-02T08:32:38.944Z info: $GetSvcUrls finished
+2026-05-02T08:32:38.966Z info: AppExc: 103:unknown_operation["TestError"]
+2026-05-02T08:32:38.967Z info: TestError terminated on exception
+2026-05-02T08:35:48.419Z info: $OpenSafeByPin finished
+2026-05-02T08:35:48.469Z info: $GetSafe finished
+2026-05-02T08:35:53.425Z info: $GetOrgSvcs finished
+2026-05-02T08:35:53.445Z info: $GetSvcUrls finished
+2026-05-02T08:35:53.463Z info: AppExc: 103:unknown_operation["TestError"]
+2026-05-02T08:35:53.463Z info: TestError terminated on exception
+2026-05-02T08:37:04.640Z info: AppExc: 103:unknown_operation["TestError"]
+2026-05-02T08:37:04.641Z info: TestError terminated on exception
+2026-05-02T08:38:33.698Z info: $OpenSafeByPin finished
+2026-05-02T08:38:33.746Z info: $GetSafe finished
+2026-05-02T08:38:39.520Z info: $GetOrgSvcs finished
+2026-05-02T08:38:39.539Z info: $GetSvcUrls finished
+2026-05-02T08:38:39.558Z info: AppExc: 103:unknown_operation["TestError"]
+2026-05-02T08:38:39.560Z info: TestError terminated on exception
+2026-05-02T08:38:39.622Z info: Reloading orgs config OK
+2026-05-02T08:42:05.813Z info: $OpenSafeByPin finished
+2026-05-02T08:42:05.859Z info: $GetSafe finished
+2026-05-02T08:42:13.890Z info: $GetOrgSvcs finished
+2026-05-02T08:42:13.907Z info: $GetSvcUrls finished
+2026-05-02T08:42:13.930Z info: ErrorTest : 2026-05-02T08:42:13.928Z
+2026-05-02T08:42:13.933Z info: AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:42:13.935Z error: ErrorTest : 2026-05-02T08:42:13.928Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:42:13.936Z info: ErrorTest terminated on exception
+2026-05-02T08:45:17.007Z info: ErrorTest : 2026-05-02T08:45:17.007Z
+2026-05-02T08:45:17.011Z info: AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:45:17.012Z error: ErrorTest : 2026-05-02T08:45:17.007Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:45:17.013Z info: ErrorTest terminated on exception
+2026-05-02T08:45:17.068Z info: Reloading orgs config OK
+2026-05-02T08:47:08.759Z info: ErrorTest : 2026-05-02T08:47:08.759Z
+2026-05-02T08:47:08.764Z info: AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:47:08.765Z error: ErrorTest : 2026-05-02T08:47:08.759Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:47:08.766Z info: ErrorTest terminated on exception
+2026-05-02T08:49:09.776Z info: $OpenSafeByPin finished
+2026-05-02T08:49:09.812Z info: $GetSafe finished
+2026-05-02T08:49:14.719Z info: $GetOrgSvcs finished
+2026-05-02T08:49:14.738Z info: $GetSvcUrls finished
+2026-05-02T08:49:14.759Z info: ErrorTest : 2026-05-02T08:49:14.759Z
+2026-05-02T08:49:14.762Z info: AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:14.763Z error: ErrorTest : 2026-05-02T08:49:14.759Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:14.764Z info: ErrorTest terminated on exception
+2026-05-02T08:49:38.446Z info: $OpenSafeByPin finished
+2026-05-02T08:49:38.490Z info: $GetSafe finished
+2026-05-02T08:49:43.472Z info: $GetOrgSvcs finished
+2026-05-02T08:49:43.495Z info: $GetSvcUrls finished
+2026-05-02T08:49:43.515Z info: ErrorTest : 2026-05-02T08:49:43.515Z
+2026-05-02T08:49:43.520Z info: AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:43.521Z error: ErrorTest : 2026-05-02T08:49:43.515Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:43.522Z info: ErrorTest terminated on exception
+2026-05-02T09:04:08.281Z info: 10 document classes
+2026-05-02T09:04:08.283Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T09:04:08.284Z info: Firestore connector
+2026-05-02T09:04:08.285Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T09:04:08.302Z info: Reloading orgs config OK
+2026-05-02T09:04:08.310Z info: HTTP listen [8080]
+2026-05-02T09:04:22.759Z info: $OpenSafeByPin finished
+2026-05-02T09:04:22.803Z info: $GetSafe finished
+2026-05-02T09:04:28.413Z info: $GetOrgSvcs finished
+2026-05-02T09:04:28.428Z info: $GetSvcUrls finished
+2026-05-02T09:04:28.451Z info: ErrorTest : 2026-05-02T09:04:28.451Z
+2026-05-02T09:04:28.455Z info: AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:04:28.456Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:ErrorTest - AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:04:28.508Z error: ErrorTest : 2026-05-02T09:04:28.451Z : AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:04:28.509Z info: ErrorTest terminated on exception
+2026-05-02T09:08:06.107Z info: $OpenSafeByPin finished
+2026-05-02T09:08:06.155Z info: $GetSafe finished
+2026-05-02T09:08:11.002Z info: $GetOrgSvcs finished
+2026-05-02T09:08:11.023Z info: $GetSvcUrls finished
+2026-05-02T09:08:11.042Z info: ErrorTest : 2026-05-02T09:08:11.042Z
+2026-05-02T09:08:11.045Z info: AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:08:11.046Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:ErrorTest - AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:08:11.049Z error: ErrorTest : 2026-05-02T09:08:11.042Z : AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:08:11.050Z info: ErrorTest terminated on exception

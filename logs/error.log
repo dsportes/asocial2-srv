@@ -308,3 +308,10 @@ BEGIN
 2026-04-29T09:19:33.958Z error: AppExc: 3001:unexpected exception["Missing named parameter \"data\""]
 2026-04-29T09:44:47.600Z error: InvitCancel : 2026-04-29T09:43:18.057Z : TypeError: vals is not iterable
 2026-04-29T09:44:47.603Z error: AppExc: 3001:unexpected exception["vals is not iterable"]
+2026-05-02T08:42:13.935Z error: ErrorTest : 2026-05-02T08:42:13.928Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:45:17.012Z error: ErrorTest : 2026-05-02T08:45:17.007Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:47:08.765Z error: ErrorTest : 2026-05-02T08:47:08.759Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:14.763Z error: ErrorTest : 2026-05-02T08:49:14.759Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T08:49:43.521Z error: ErrorTest : 2026-05-02T08:49:43.515Z : AppExc: 2:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:04:28.508Z error: ErrorTest : 2026-05-02T09:04:28.451Z : AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
+2026-05-02T09:08:11.049Z error: ErrorTest : 2026-05-02T09:08:11.042Z : AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
