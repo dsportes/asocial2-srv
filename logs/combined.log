@@ -13589,3 +13589,233 @@ BEGIN
 2026-05-02T09:08:11.046Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:ErrorTest - AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
 2026-05-02T09:08:11.049Z error: ErrorTest : 2026-05-02T09:08:11.042Z : AppExc: 102:error_test@ErrorTest:["arg1","arg2"]
 2026-05-02T09:08:11.050Z info: ErrorTest terminated on exception
+2026-05-02T14:56:39.754Z info: 10 document classes
+2026-05-02T14:56:39.759Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T14:56:39.761Z info: Firestore connector
+2026-05-02T14:56:39.762Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T14:56:39.912Z info: Reloading orgs config OK
+2026-05-02T14:56:39.918Z info: HTTP listen [8080]
+2026-05-02T14:56:52.010Z info: $OpenSafeByPin finished
+2026-05-02T14:56:52.062Z info: $GetSafe finished
+2026-05-02T14:59:21.299Z info: $OpenSafeByPin finished
+2026-05-02T14:59:21.345Z info: $GetSafe finished
+2026-05-02T15:00:06.463Z info: $GetOrgSvcs finished
+2026-05-02T15:00:06.492Z info: $GetSvcUrls finished
+2026-05-02T15:00:06.523Z info: GetCredLimitCond : 2026-05-02T15:00:06.522Z
+2026-05-02T15:00:09.788Z info: AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:00:09.789Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:00:09.870Z error: GetCredLimitCond : 2026-05-02T15:00:06.522Z : AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:00:09.872Z info: GetCredLimitCond terminated on exception
+2026-05-02T15:02:50.534Z info: $OpenSafeByPin finished
+2026-05-02T15:02:50.577Z info: $GetSafe finished
+2026-05-02T15:03:03.999Z info: $GetOrgSvcs finished
+2026-05-02T15:03:04.039Z info: $GetSvcUrls finished
+2026-05-02T15:03:04.071Z info: GetCredLimitCond : 2026-05-02T15:03:04.070Z
+2026-05-02T15:03:06.476Z info: AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:03:06.477Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:03:06.481Z error: GetCredLimitCond : 2026-05-02T15:03:04.070Z : AppExc: 103:missing_credential@GetCredLimitCond:[null,"Sponsor.","Org.manager"]
+2026-05-02T15:03:06.483Z info: GetCredLimitCond terminated on exception
+2026-05-02T15:03:06.489Z info: Reloading orgs config OK
+2026-05-02T15:03:49.338Z info: 10 document classes
+2026-05-02T15:03:49.341Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T15:03:49.342Z info: Firestore connector
+2026-05-02T15:03:49.344Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T15:03:49.359Z info: Reloading orgs config OK
+2026-05-02T15:03:49.366Z info: HTTP listen [8080]
+2026-05-02T15:04:00.176Z info: $AutoRevokeCreds finished
+2026-05-02T15:04:21.580Z info: $OpenSafeByPin finished
+2026-05-02T15:04:21.651Z info: $GetSafe finished
+2026-05-02T15:13:24.436Z info: 10 document classes
+2026-05-02T15:13:24.439Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T15:13:24.439Z info: Firestore connector
+2026-05-02T15:13:24.440Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T15:13:24.469Z info: Reloading orgs config OK
+2026-05-02T15:13:24.474Z info: HTTP listen [8080]
+2026-05-02T15:14:17.401Z info: $OpenSafeByPin finished
+2026-05-02T15:14:17.455Z info: $GetSafe finished
+2026-05-02T15:14:46.364Z info: $GetOrgSvcs finished
+2026-05-02T15:14:46.402Z info: $GetSvcUrls finished
+2026-05-02T15:14:46.437Z info: GetCredLimitCond : 2026-05-02T15:14:46.436Z
+2026-05-02T15:15:26.676Z info: GetCredLimitCond finished
+2026-05-02T15:22:37.556Z info: $OpenSafeByPin finished
+2026-05-02T15:22:37.597Z info: $GetSafe finished
+2026-05-02T15:24:00.675Z info: $GetOrgSvcs finished
+2026-05-02T15:24:00.740Z info: $GetSvcUrls finished
+2026-05-02T15:24:00.760Z info: GetCredLimitCond : 2026-05-02T15:24:00.760Z
+2026-05-02T15:25:31.788Z info: GetCredLimitCond finished
+2026-05-02T15:25:31.793Z info: Reloading orgs config OK
+2026-05-02T15:26:38.411Z info: GetCredLimitCond : 2026-05-02T15:26:38.411Z
+2026-05-02T15:26:41.532Z info: GetCredLimitCond finished
+2026-05-02T15:27:02.903Z info: $OpenSafeByPin finished
+2026-05-02T15:27:02.943Z info: $GetSafe finished
+2026-05-02T15:31:34.506Z info: $OpenSafeByPin finished
+2026-05-02T15:31:34.549Z info: $GetSafe finished
+2026-05-02T15:34:10.419Z info: $OpenSafeByPin finished
+2026-05-02T15:34:10.476Z info: $GetSafe finished
+2026-05-02T15:34:57.526Z info: $OpenSafeByPin finished
+2026-05-02T15:34:57.570Z info: $GetSafe finished
+2026-05-02T15:35:33.847Z info: $GetOrgSvcs finished
+2026-05-02T15:35:33.882Z info: $GetSvcUrls finished
+2026-05-02T15:35:33.914Z info: GetCredLimitCond : 2026-05-02T15:35:33.914Z
+2026-05-02T15:35:33.917Z info: AppExc: 103:masterdir_unknown_operation["$GetMDuserCV"]
+2026-05-02T15:35:33.918Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:masterdir_unknown_operation["$GetMDuserCV"]
+2026-05-02T15:35:33.977Z error: GetCredLimitCond : 2026-05-02T15:35:33.914Z : AppExc: 103:masterdir_unknown_operation["$GetMDuserCV"]
+2026-05-02T15:35:33.978Z info: GetCredLimitCond terminated on exception
+2026-05-02T15:35:33.982Z info: Reloading orgs config OK
+2026-05-02T15:45:06.813Z info: 10 document classes
+2026-05-02T15:45:06.817Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T15:45:06.818Z info: Firestore connector
+2026-05-02T15:45:06.819Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T15:45:06.835Z info: Reloading orgs config OK
+2026-05-02T15:45:06.841Z info: HTTP listen [8080]
+2026-05-02T15:45:49.872Z info: GetCredLimitCond : 2026-05-02T15:45:49.869Z
+2026-05-02T15:45:49.895Z info: AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T15:45:49.897Z error: GetCredLimitCond : 2026-05-02T15:45:49.869Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T15:45:49.899Z info: GetCredLimitCond terminated on exception
+2026-05-02T15:47:09.411Z info: GetCredLimitCond : 2026-05-02T15:47:09.411Z
+2026-05-02T16:02:03.842Z info: 10 document classes
+2026-05-02T16:02:03.856Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T16:02:03.864Z info: Firestore connector
+2026-05-02T16:02:03.868Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T16:02:03.937Z info: Reloading orgs config OK
+2026-05-02T16:02:04.135Z info: HTTP listen [8080]
+2026-05-02T16:02:12.815Z info: $OpenSafeByPin finished
+2026-05-02T16:02:12.860Z info: $GetSafe finished
+2026-05-02T16:02:18.665Z info: $GetOrgSvcs finished
+2026-05-02T16:02:18.690Z info: $GetSvcUrls finished
+2026-05-02T16:02:18.709Z info: GetCredLimitCond : 2026-05-02T16:02:18.708Z
+2026-05-02T16:04:19.261Z info: AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:04:19.263Z error: GetCredLimitCond : 2026-05-02T16:02:18.708Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:04:19.268Z info: GetCredLimitCond terminated on exception
+2026-05-02T16:04:36.749Z info: $OpenSafeByPin finished
+2026-05-02T16:04:36.795Z info: $GetSafe finished
+2026-05-02T16:04:41.579Z info: $GetOrgSvcs finished
+2026-05-02T16:04:41.607Z info: $GetSvcUrls finished
+2026-05-02T16:04:41.625Z info: GetCredLimitCond : 2026-05-02T16:04:41.625Z
+2026-05-02T16:05:51.452Z info: AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:05:51.453Z error: GetCredLimitCond : 2026-05-02T16:04:41.625Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:05:51.454Z info: GetCredLimitCond terminated on exception
+2026-05-02T16:07:49.409Z info: 10 document classes
+2026-05-02T16:07:49.412Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T16:07:49.413Z info: Firestore connector
+2026-05-02T16:07:49.414Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T16:07:49.431Z info: Reloading orgs config OK
+2026-05-02T16:07:49.438Z info: HTTP listen [8080]
+2026-05-02T16:08:03.453Z info: GetCredLimitCond : 2026-05-02T16:08:03.451Z
+2026-05-02T16:09:41.477Z info: AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:09:41.479Z error: GetCredLimitCond : 2026-05-02T16:08:03.451Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:09:41.481Z info: GetCredLimitCond terminated on exception
+2026-05-02T16:13:33.518Z info: GetCredLimitCond : 2026-05-02T16:13:33.518Z
+2026-05-02T16:14:06.061Z info: AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:14:06.063Z error: GetCredLimitCond : 2026-05-02T16:13:33.518Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
+2026-05-02T16:14:06.064Z info: GetCredLimitCond terminated on exception
+2026-05-02T16:14:06.071Z info: Reloading orgs config OK
+2026-05-02T16:23:56.913Z info: 10 document classes
+2026-05-02T16:23:56.916Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T16:23:56.917Z info: Firestore connector
+2026-05-02T16:23:56.918Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T16:23:56.933Z info: Reloading orgs config OK
+2026-05-02T16:23:56.940Z info: HTTP listen [8080]
+2026-05-02T16:24:28.664Z info: $mdUserGetICVS finished
+2026-05-02T16:24:35.728Z info: $GetSafe finished
+2026-05-02T16:25:08.432Z info: $OpenSafeByPin finished
+2026-05-02T16:25:29.753Z info: $mdUserGetICVS finished
+2026-05-02T16:25:58.419Z info: $mdAliasFree finished
+2026-05-02T16:26:31.521Z info: $mdUserNew finished
+2026-05-02T16:26:31.539Z info: $CreateSafe finished
+2026-05-02T16:29:28.175Z info: $mdUserGetICVS finished
+2026-05-02T16:29:34.501Z info: $GetSafe finished
+2026-05-02T16:30:27.061Z info: $TrustDevice finished
+2026-05-02T16:31:12.305Z info: $OpenSafeByPin finished
+2026-05-02T16:31:12.352Z info: $GetSafe finished
+2026-05-02T16:32:10.872Z info: $OpenSafeByPin finished
+2026-05-02T16:32:10.904Z info: $GetSafe finished
+2026-05-02T16:37:54.320Z info: $OpenSafeByPin finished
+2026-05-02T16:37:54.357Z info: $GetSafe finished
+2026-05-02T16:39:54.849Z info: $GetSvcUrls finished
+2026-05-02T16:39:54.868Z info: GetSvcOpStatus$ : 2026-05-02T16:39:54.867Z
+2026-05-02T16:39:54.872Z info: GetSvcOpStatus$ finished
+2026-05-02T16:39:54.889Z info: $GetOrgSvcs finished
+2026-05-02T16:39:54.922Z info: Reloading orgs config OK
+2026-05-02T16:40:17.274Z info: $GetOrgSvcs finished
+2026-05-02T16:40:17.298Z info: GetOrgConfig$ : 2026-05-02T16:40:17.297Z
+2026-05-02T16:40:17.302Z info: GetOrgConfig$ finished
+2026-05-02T16:40:24.928Z info: GetSvcOpStatus$ : 2026-05-02T16:40:24.927Z
+2026-05-02T16:40:24.932Z info: GetSvcOpStatus$ finished
+2026-05-02T16:40:24.951Z info: GetSvcOrgStatus : 2026-05-02T16:40:24.950Z
+2026-05-02T16:40:24.955Z info: GetSvcOrgStatus finished
+2026-05-02T16:40:40.641Z info: SetSvcOrgStatus : 2026-05-02T16:40:40.641Z
+2026-05-02T16:40:40.649Z info: SetSvcOrgStatus finished
+2026-05-02T16:40:40.663Z info: GetSvcOpStatus$ : 2026-05-02T16:40:40.663Z
+2026-05-02T16:40:40.667Z info: GetSvcOpStatus$ finished
+2026-05-02T16:40:40.684Z info: GetSvcOrgStatus : 2026-05-02T16:40:40.683Z
+2026-05-02T16:40:40.687Z info: GetSvcOrgStatus finished
+2026-05-02T16:41:19.763Z info: $mdUserGetICVS finished
+2026-05-02T16:41:19.785Z info: InvitCreateByS : 2026-05-02T16:41:19.784Z
+2026-05-02T16:41:19.792Z info: InvitCreateByS finished
+2026-05-02T16:41:19.869Z info: InvitGet : 2026-05-02T16:41:19.868Z
+2026-05-02T16:41:19.873Z info: InvitGet finished
+2026-05-02T16:41:19.883Z info: $mdInvitSet terminated on exception
+2026-05-02T16:41:19.895Z error: AppExc: 105:masterdir_unexpected_exception["no such table: ZZINVITS"]
+2026-05-02T16:56:00.012Z info: 10 document classes
+2026-05-02T16:56:00.019Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-02T16:56:00.020Z info: Firestore connector
+2026-05-02T16:56:00.022Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-02T16:56:00.058Z info: Reloading orgs config OK
+2026-05-02T16:56:00.063Z info: HTTP listen [8080]
+2026-05-02T16:56:15.982Z info: $OpenSafeByPin finished
+2026-05-02T16:56:16.025Z info: $GetSafe finished
+2026-05-02T16:56:35.675Z info: $GetSvcUrls finished
+2026-05-02T16:56:35.699Z info: GetSvcOpStatus$ : 2026-05-02T16:56:35.698Z
+2026-05-02T16:56:35.712Z info: GetSvcOpStatus$ finished
+2026-05-02T16:56:55.218Z info: GetSvcOpStatus$ : 2026-05-02T16:56:55.218Z
+2026-05-02T16:56:55.222Z info: GetSvcOpStatus$ finished
+2026-05-02T16:56:55.244Z info: $GetOrgSvcs finished
+2026-05-02T16:56:55.259Z info: GetSvcOrgStatus : 2026-05-02T16:56:55.258Z
+2026-05-02T16:56:55.264Z info: GetSvcOrgStatus finished
+2026-05-02T16:57:25.023Z info: $mdUserGetICVS finished
+2026-05-02T16:57:25.049Z info: InvitCreateByS : 2026-05-02T16:57:25.048Z
+2026-05-02T16:57:25.058Z info: InvitCreateByS finished
+2026-05-02T16:57:25.141Z info: InvitGet : 2026-05-02T16:57:25.141Z
+2026-05-02T16:57:25.144Z info: InvitGet finished
+2026-05-02T16:57:25.158Z info: $mdInvitSet finished
+2026-05-02T16:57:25.208Z info: ListManagers : 2026-05-02T16:57:25.208Z
+2026-05-02T16:57:25.212Z info: ListManagers finished
+2026-05-02T17:07:46.262Z info: $OpenSafeByPin finished
+2026-05-02T17:07:46.304Z info: $GetSafe finished
+2026-05-02T17:07:54.250Z info: $mdInvitList finished
+2026-05-02T17:07:56.436Z info: $GetOrgSvcs finished
+2026-05-02T17:07:56.452Z info: $GetSvcUrls finished
+2026-05-02T17:07:56.477Z info: InvitGet : 2026-05-02T17:07:56.476Z
+2026-05-02T17:07:56.481Z info: InvitGet finished
+2026-05-02T17:07:56.539Z info: Reloading orgs config OK
+2026-05-02T17:08:03.021Z info: $mdInvitUpdLV finished
+2026-05-02T17:08:17.061Z info: InvitValidate : 2026-05-02T17:08:17.061Z
+2026-05-02T17:08:17.069Z info: InvitValidate finished
+2026-05-02T17:08:17.099Z info: $CreateCred finished
+2026-05-02T17:08:17.123Z info: $mdInvitDel finished
+2026-05-02T17:08:17.661Z info: $mdInvitList finished
+2026-05-02T17:12:35.583Z info: $OpenSafeByPin finished
+2026-05-02T17:12:35.624Z info: $GetSafe finished
+2026-05-02T17:12:46.828Z info: $GetOrgSvcs finished
+2026-05-02T17:12:46.852Z info: $GetSvcUrls finished
+2026-05-02T17:12:46.870Z info: GetCredLimitCond : 2026-05-02T17:12:46.870Z
+2026-05-02T17:13:48.694Z info: GetCredLimitCond finished
+2026-05-02T17:28:26.761Z info: $OpenSafeByPin finished
+2026-05-02T17:28:26.804Z info: $GetSafe finished
+2026-05-02T17:28:32.636Z info: $GetOrgSvcs finished
+2026-05-02T17:28:32.660Z info: $GetSvcUrls finished
+2026-05-02T17:28:32.678Z info: GetCredLimitCond : 2026-05-02T17:28:32.678Z
+2026-05-02T17:28:47.698Z info: Reloading orgs config OK
+2026-05-02T17:28:47.702Z info: GetCredLimitCond finished
+2026-05-02T17:30:54.348Z info: GetCredLimitCond : 2026-05-02T17:30:54.348Z
+2026-05-02T17:30:54.360Z info: GetCredLimitCond finished
+2026-05-02T17:32:25.387Z info: $OpenSafeByPin finished
+2026-05-02T17:32:25.429Z info: $GetSafe finished
+2026-05-02T17:32:31.836Z info: $GetOrgSvcs finished
+2026-05-02T17:32:31.864Z info: $GetSvcUrls finished
+2026-05-02T17:32:31.884Z info: GetCredLimitCond : 2026-05-02T17:32:31.883Z
+2026-05-02T17:32:31.894Z info: GetCredLimitCond finished
+2026-05-02T17:37:17.234Z info: GetCredLimitCond : 2026-05-02T17:37:17.234Z
+2026-05-02T17:37:17.244Z info: GetCredLimitCond finished
+2026-05-02T17:37:17.303Z info: Reloading orgs config OK

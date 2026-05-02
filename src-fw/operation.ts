@@ -144,8 +144,8 @@ export class Operation implements OperationWC {
       throw new AppExc(101, 'operation_authentication_required', this)
   }
 
-  /* Retourne le Credential le plus récent dont la signature a été vérifié
-  et relatif à ce rôle ('docClass.role') et cet id de document.
+  /* Retourne le Credential dont la signature a été vérifié
+  et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
   getCred (role: string, docId: string, noex?: boolean) : Credential {
@@ -355,29 +355,30 @@ export class AuthRecord {
     }
   }
 
-  getCred(role: string, objId: string, noex?: boolean) : Credential {
-    const cr = this.roles.get(role + '/' + (objId || ''))
+  getCred(role: string, docId: string, noex?: boolean) : Credential {
+    const cr = this.roles.get(role + '/' + (docId || ''))
     if (cr) return cr
     if (noex) return null
-    throw new AppExc(103, 'missing_credential', this.op, [this.org, role, objId || ''])
+    throw new AppExc(103, 'missing_credential', this.op, [this.org, role, docId || ''])
   }
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const cv = await MDOperation.doOp('$GetMDuserCV', { userId: this.userId })
-    if (!cv) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
-    const ok = await Crypt.verify(keyFromB64(cv[1]), this.userSign, this.challenge)
+    const res = await MDOperation.doOp('$mdUserGetICVS', { userId: this.userId })
+    if (!res || !res['icvs']) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
+    const { i, c, v , s } = res['icvs']
+    const ok = await Crypt.verify(keyFromB64(v), this.userSign, this.challenge)
     if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
     
     for (const ref in this.signatures) {
-      const sign = this.signatures[ref]
+      const [ credId, sign] = this.signatures[ref]
       const i = ref.indexOf('/')
       const role = i === -1 ? ref : ref.substring(0, i)
       const docId = i === -1 ? '' : ref.substring(i + 1)
       // Recherche du Credential par sa pk
-      const cred = await this.op.cache.getDoc('Credential', { userId: this.userId, role, docId }) as Credential
+      const cred = await this.op.cache.getDoc('Credential', { credId }) as Credential
       let ok = false
-      if (cred) {
+      if (cred && cred.role === role && cred.docId === docId) {
         if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', cred.pk)
         else ok = await Crypt.verify(keyFromB64(cred.pubv), sign, this.challenge)
       }

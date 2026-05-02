@@ -109,7 +109,7 @@ export class MDOperation implements AbstractOperation {
       return op.result
     } catch (e: any) {
       await op.db.disconnect()
-      throw(e)
+      throw (e)
     }
   }
 

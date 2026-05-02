@@ -321,30 +321,46 @@ class Sync extends Operation {
 }
 Classes.registerOp(Sync)
 
-type RevokeReq = {
-  userId: string
-  role: string
-  docId: string
+/* getCredLimitCond retourne le couple [limit, cond] d'un credential.
+Ne le retourne qu'à son détenteur (signature vérifiée)
+*/
+class GetCredLimitCond extends Operation {
+  _credId: string
+  _role: string
+  _docId: string 
+  init () {
+    super.init()
+    this._credId = this.stringValue('credId', true)
+    this._role = this.stringValue('role', true)
+    this._docId = this.stringValue('docId', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const cred = this.getCred(this._role, this._docId, true)
+    if (cred && cred.credId === this._credId)
+      this.setRes('limitcond', [cred.limit, cred.cond])
+  }
 }
-/* RevokeCred marque la fin de validité d'un Credential 
-par admin ou l'utilisateur lui-même (auto-revocation)
+Classes.registerOp(GetCredLimitCond)
+
+/* UpdateCred 
+- peut changer la fin de validité d'un Credential
+- peut modifier cond
 TODO à rediscuter:
-- pas de userId
 - qui a le droit ? sponsor / manager (admin ?)
 - dans quelle circonstance le fait-il si user-id est inconnu ?
 */
-class RevokeCred extends Operation {
-  _rr: RevokeReq 
+class UpdateCred extends Operation {
   init () {
     super.init()
-    this._rr = this.args['revokeReq']
   }
   async phase2 () {
+    /*
     // this.requireAdmin()
     this.requireAuth()
     const c = await this.cache.getDoc('Credential', this._rr) as Credential
     if (c) {
-      if (!this.authRecord.isAdmin && this.authRecord.userId !== c.userId)
+      if (!this.authRecord.isAdmin)
         this.setRes('status', 2)
       else {
         c.limit = this.now
@@ -352,9 +368,10 @@ class RevokeCred extends Operation {
         c._status = DocStatus.UPD
       }
     } else this.setRes('status', 1)
+    */
   }
 }
-Classes.registerOp(RevokeCred)
+Classes.registerOp(UpdateCred)
 
 /* Auto-recvocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
@@ -401,17 +418,21 @@ Classes.registerOp(ListManagers)
 /* ListUserCreds liste les credential enregistrés du user (qu'ils soient valides ou non)
 Retourne une liste de : { id, role, docId, time, limit, cond }
 */
-class ListUserCreds extends Operation {
+class listByRoles extends Operation {
+  _role: string
+  _docId: string 
   init () {
     super.init()
+    this._role = this.stringValue('role', true)
+    this._docId = this.stringValue('docId', true)
   }
   async phase2 () {
     this.requireAuth()
-    const lst = await Credential.listUserCreds(this)
+    const lst = await Credential.listByRoles(this, this._role, this._docId)
     this.setRes('list', lst)
   }
 }
-Classes.registerOp(ListUserCreds)
+Classes.registerOp(listByRoles)
 
 /* InvitList liste, pour un sponsor, les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'

@@ -30,9 +30,7 @@ new DocType(
 
 new DocType(
   { name: 'Credential', sync: false, pk: ['credId'] }, // header
-  new Map<string, collection>([
-    ['userId', { key: ['userId'], mutable: false }]
-  ]), // collections
+  null, // collections
   new Map<string, idx>([
     ['roles', { type: propType.HASH, key: ['role', 'docId'] }],
   ])

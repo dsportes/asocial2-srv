@@ -69,9 +69,8 @@ export class Invitation extends InvitationA {
     // Enregistrement du credential
     const obj = {
       credId: this.etc['credId'],
-      userId: this.userId,
-      role: 'Org.manager',
-      docId: '',
+      role: 'Sponsor.',
+      docId: 'Org.manager',
       pubv: args.pubV,
       limit: 0,
       cond: { name: this.etc['name'] || '???'}

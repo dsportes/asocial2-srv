@@ -162,7 +162,6 @@ export class Credential extends Document {
   static release = 0
 
   credId: string
-  userId: string
   role: string
   docId: string
   pubv: string
@@ -180,7 +179,6 @@ export class Credential extends Document {
           const obj = decode(data) as Credential
           const x = { 
             credId: obj.credId,
-            userId: obj.userId,
             limit: obj.limit,
             name: obj.cond['name']
           }
@@ -192,12 +190,11 @@ export class Credential extends Document {
     return lst
   }
 
-  // TODO not used
-  static async listUserCreds (op: OperationWC) : Promise<Object[]> {
+  static async listByRoles (op: OperationWC, role: string, docId: string) : Promise<Object[]> {
     const dd = DocType.get('Credential')
-    const val = dd.getCollId({ userId: op.authRecord.userId }, 'userId')
+    const val = dd.getIdx({ role, docId }, 'roles')
     const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'userId', filter.EQ, val[0], '', 0, 
+    await op.db.selectDocs('Credential', 'roles', filter.EQ, val[0], '', 0, 
       async (data) => {
         try {
           const obj = decode(data) as Credential
