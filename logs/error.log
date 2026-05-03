@@ -324,3 +324,4 @@ BEGIN
 2026-05-02T16:09:41.479Z error: GetCredLimitCond : 2026-05-02T16:08:03.451Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
 2026-05-02T16:14:06.063Z error: GetCredLimitCond : 2026-05-02T16:13:33.518Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Org.manager"]
 2026-05-02T16:41:19.895Z error: AppExc: 105:masterdir_unexpected_exception["no such table: ZZINVITS"]
+2026-05-03T09:11:10.867Z error: AutoRevokeCred : 2026-05-03T09:10:39.523Z : AppExc: 103:no_cred_owner@AutoRevokeCred:["Sponsor.","Org.manager"]

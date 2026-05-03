@@ -13819,3 +13819,166 @@ BEGIN
 2026-05-02T17:37:17.234Z info: GetCredLimitCond : 2026-05-02T17:37:17.234Z
 2026-05-02T17:37:17.244Z info: GetCredLimitCond finished
 2026-05-02T17:37:17.303Z info: Reloading orgs config OK
+2026-05-03T07:25:11.306Z info: 10 document classes
+2026-05-03T07:25:11.309Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T07:25:11.309Z info: Firestore connector
+2026-05-03T07:25:11.310Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T07:25:11.438Z info: Reloading orgs config OK
+2026-05-03T07:25:11.445Z info: HTTP listen [8080]
+2026-05-03T07:26:22.065Z info: $OpenSafeByPin finished
+2026-05-03T07:26:22.118Z info: $GetSafe finished
+2026-05-03T07:26:49.896Z info: $GetOrgSvcs finished
+2026-05-03T07:26:49.924Z info: $GetSvcUrls finished
+2026-05-03T07:26:49.958Z info: GetCredLimitCond : 2026-05-03T07:26:49.957Z
+2026-05-03T07:26:49.979Z info: GetCredLimitCond finished
+2026-05-03T07:29:20.375Z info: $OpenSafeByPin finished
+2026-05-03T07:29:20.417Z info: $GetSafe finished
+2026-05-03T07:29:30.202Z info: $GetOrgSvcs finished
+2026-05-03T07:29:30.227Z info: $GetSvcUrls finished
+2026-05-03T07:29:30.243Z info: GetCredLimitCond : 2026-05-03T07:29:30.243Z
+2026-05-03T07:29:30.254Z info: GetCredLimitCond finished
+2026-05-03T07:45:34.748Z info: 10 document classes
+2026-05-03T07:45:34.751Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T07:45:34.752Z info: Firestore connector
+2026-05-03T07:45:34.753Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T07:45:34.769Z info: Reloading orgs config OK
+2026-05-03T07:45:34.775Z info: HTTP listen [8080]
+2026-05-03T07:54:32.795Z info: 10 document classes
+2026-05-03T07:54:32.798Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T07:54:32.799Z info: Firestore connector
+2026-05-03T07:54:32.800Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T07:54:32.815Z info: Reloading orgs config OK
+2026-05-03T07:54:32.825Z info: HTTP listen [8080]
+2026-05-03T07:54:48.006Z info: $OpenSafeByPin finished
+2026-05-03T07:54:48.073Z info: $GetSafe finished
+2026-05-03T07:54:54.024Z info: $GetOrgSvcs finished
+2026-05-03T07:54:54.067Z info: $GetSvcUrls finished
+2026-05-03T07:54:54.112Z info: GetCredLimitCond : 2026-05-03T07:54:54.111Z
+2026-05-03T07:54:54.161Z info: GetCredLimitCond finished
+2026-05-03T07:55:49.176Z info: $UpdateCredComment finished
+2026-05-03T07:57:33.911Z info: $OpenSafeByPin finished
+2026-05-03T07:57:33.992Z info: $GetSafe finished
+2026-05-03T07:57:42.228Z info: $GetOrgSvcs finished
+2026-05-03T07:57:42.271Z info: $GetSvcUrls finished
+2026-05-03T07:57:42.291Z info: GetCredLimitCond : 2026-05-03T07:57:42.291Z
+2026-05-03T07:57:42.306Z info: GetCredLimitCond finished
+2026-05-03T07:59:33.469Z info: GetCredLimitCond : 2026-05-03T07:59:33.469Z
+2026-05-03T07:59:33.480Z info: GetCredLimitCond finished
+2026-05-03T07:59:33.523Z info: Reloading orgs config OK
+2026-05-03T08:39:06.478Z info: 10 document classes
+2026-05-03T08:39:06.481Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T08:39:06.482Z info: Firestore connector
+2026-05-03T08:39:06.483Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T08:39:06.499Z info: Reloading orgs config OK
+2026-05-03T08:39:06.507Z info: HTTP listen [8080]
+2026-05-03T08:39:41.358Z info: $OpenSafeByPin finished
+2026-05-03T08:39:41.432Z info: $GetSafe finished
+2026-05-03T08:42:18.457Z info: $GetOrgSvcs finished
+2026-05-03T08:42:18.499Z info: $GetSvcUrls finished
+2026-05-03T08:42:18.522Z info: GetCredLimitCond : 2026-05-03T08:42:18.521Z
+2026-05-03T08:42:18.541Z info: GetCredLimitCond finished
+2026-05-03T08:43:17.517Z info: AppExc: 103:unknown_operation["RevokeCred"]
+2026-05-03T08:43:17.519Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["RevokeCred"]
+2026-05-03T08:43:17.520Z info: RevokeCred terminated on exception
+2026-05-03T08:45:56.232Z info: $OpenSafeByPin finished
+2026-05-03T08:45:56.299Z info: $GetSafe finished
+2026-05-03T08:46:17.629Z info: $OpenSafeByPin finished
+2026-05-03T08:46:17.719Z info: $GetSafe finished
+2026-05-03T08:46:22.769Z info: $GetOrgSvcs finished
+2026-05-03T08:46:22.816Z info: $GetSvcUrls finished
+2026-05-03T08:46:22.838Z info: GetCredLimitCond : 2026-05-03T08:46:22.838Z
+2026-05-03T08:46:22.853Z info: GetCredLimitCond finished
+2026-05-03T08:46:22.900Z info: Reloading orgs config OK
+2026-05-03T08:47:39.176Z info: AppExc: 103:unknown_operation["RevokeCred"]
+2026-05-03T08:47:39.177Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["RevokeCred"]
+2026-05-03T08:47:59.285Z info: RevokeCred terminated on exception
+2026-05-03T09:06:39.282Z info: $OpenSafeByPin finished
+2026-05-03T09:06:39.353Z info: $GetSafe finished
+2026-05-03T09:07:09.634Z info: $OpenSafeByPin finished
+2026-05-03T09:07:09.727Z info: $GetSafe finished
+2026-05-03T09:07:16.720Z info: $GetOrgSvcs finished
+2026-05-03T09:07:16.762Z info: $GetSvcUrls finished
+2026-05-03T09:07:16.781Z info: GetCredLimitCond : 2026-05-03T09:07:16.781Z
+2026-05-03T09:07:16.807Z info: GetCredLimitCond finished
+2026-05-03T09:07:16.845Z info: Reloading orgs config OK
+2026-05-03T09:08:11.577Z info: AutoRevokeCred : 2026-05-03T09:08:11.576Z
+2026-05-03T09:08:11.578Z info: AppExc: 103:missing_argument["credId"]
+2026-05-03T09:08:11.591Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["credId"]
+2026-05-03T09:08:11.592Z info: AutoRevokeCred terminated on exception
+2026-05-03T09:10:19.979Z info: $OpenSafeByPin finished
+2026-05-03T09:10:20.061Z info: $GetSafe finished
+2026-05-03T09:10:26.520Z info: $GetOrgSvcs finished
+2026-05-03T09:10:26.556Z info: $GetSvcUrls finished
+2026-05-03T09:10:26.584Z info: GetCredLimitCond : 2026-05-03T09:10:26.584Z
+2026-05-03T09:10:26.612Z info: GetCredLimitCond finished
+2026-05-03T09:10:39.523Z info: AutoRevokeCred : 2026-05-03T09:10:39.523Z
+2026-05-03T09:11:10.864Z info: AppExc: 103:no_cred_owner@AutoRevokeCred:["Sponsor.","Org.manager"]
+2026-05-03T09:11:10.865Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:AutoRevokeCred - AppExc: 103:no_cred_owner@AutoRevokeCred:["Sponsor.","Org.manager"]
+2026-05-03T09:11:10.867Z error: AutoRevokeCred : 2026-05-03T09:10:39.523Z : AppExc: 103:no_cred_owner@AutoRevokeCred:["Sponsor.","Org.manager"]
+2026-05-03T09:11:10.869Z info: AutoRevokeCred terminated on exception
+2026-05-03T09:12:44.432Z info: $OpenSafeByPin finished
+2026-05-03T09:12:44.497Z info: $GetSafe finished
+2026-05-03T09:12:50.776Z info: $GetOrgSvcs finished
+2026-05-03T09:12:50.828Z info: $GetSvcUrls finished
+2026-05-03T09:12:50.847Z info: GetCredLimitCond : 2026-05-03T09:12:50.847Z
+2026-05-03T09:12:50.875Z info: GetCredLimitCond finished
+2026-05-03T09:12:50.915Z info: Reloading orgs config OK
+2026-05-03T09:13:05.553Z info: AutoRevokeCred : 2026-05-03T09:13:05.553Z
+2026-05-03T09:14:36.167Z info: 10 document classes
+2026-05-03T09:14:36.171Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T09:14:36.172Z info: Firestore connector
+2026-05-03T09:14:36.174Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T09:14:36.199Z info: Reloading orgs config OK
+2026-05-03T09:14:36.205Z info: HTTP listen [8080]
+2026-05-03T09:14:54.621Z info: AutoRevokeCred : 2026-05-03T09:14:54.618Z
+2026-05-03T09:15:03.234Z info: AutoRevokeCred finished
+2026-05-03T09:15:23.768Z info: $AutoRevokeCreds finished
+2026-05-03T09:15:23.840Z info: GetCredLimitCond : 2026-05-03T09:15:23.839Z
+2026-05-03T09:15:23.847Z info: GetCredLimitCond finished
+2026-05-03T09:17:00.823Z info: 10 document classes
+2026-05-03T09:17:00.829Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T09:17:00.830Z info: Firestore connector
+2026-05-03T09:17:00.832Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T09:17:00.857Z info: Reloading orgs config OK
+2026-05-03T09:17:00.866Z info: HTTP listen [8080]
+2026-05-03T09:29:04.478Z info: $OpenSafeByPin finished
+2026-05-03T09:29:04.566Z info: $GetSafe finished
+2026-05-03T09:29:15.630Z info: $GetOrgSvcs finished
+2026-05-03T09:29:15.676Z info: $GetSvcUrls finished
+2026-05-03T09:29:15.700Z info: GetCredLimitCond : 2026-05-03T09:29:15.699Z
+2026-05-03T09:29:15.717Z info: GetCredLimitCond finished
+2026-05-03T09:29:15.763Z info: Reloading orgs config OK
+2026-05-03T09:29:27.387Z info: AutoRevokeCred : 2026-05-03T09:29:27.386Z
+2026-05-03T09:29:38.317Z info: AutoRevokeCred finished
+2026-05-03T09:29:44.244Z info: $AutoRevokeCreds finished
+2026-05-03T09:33:30.045Z info: 10 document classes
+2026-05-03T09:33:30.048Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T09:33:30.048Z info: Firestore connector
+2026-05-03T09:33:30.050Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T09:33:30.162Z info: Reloading orgs config OK
+2026-05-03T09:33:30.168Z info: HTTP listen [8080]
+2026-05-03T09:39:05.529Z info: $OpenSafeByPin finished
+2026-05-03T09:39:05.607Z info: $GetSafe finished
+2026-05-03T09:39:12.156Z info: $GetOrgSvcs finished
+2026-05-03T09:39:12.199Z info: $GetSvcUrls finished
+2026-05-03T09:39:12.222Z info: GetCredLimitCond : 2026-05-03T09:39:12.221Z
+2026-05-03T09:39:12.239Z info: GetCredLimitCond finished
+2026-05-03T09:39:12.284Z info: Reloading orgs config OK
+2026-05-03T09:39:24.521Z info: AutoRevokeCred : 2026-05-03T09:39:24.521Z
+2026-05-03T09:39:24.540Z info: AutoRevokeCred finished
+2026-05-03T09:39:24.574Z info: $AutoRevokeCreds finished
+2026-05-03T09:39:58.279Z info: 10 document classes
+2026-05-03T09:39:58.283Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-03T09:39:58.283Z info: Firestore connector
+2026-05-03T09:39:58.284Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-03T09:39:58.297Z info: Reloading orgs config OK
+2026-05-03T09:39:58.302Z info: HTTP listen [8080]
+2026-05-03T09:40:15.652Z info: $OpenSafeByPin finished
+2026-05-03T09:40:15.740Z info: $GetSafe finished
+2026-05-03T09:40:21.050Z info: $GetOrgSvcs finished
+2026-05-03T09:40:21.088Z info: $GetSvcUrls finished
+2026-05-03T09:40:21.118Z info: GetCredLimitCond : 2026-05-03T09:40:21.117Z
+2026-05-03T09:40:21.189Z info: GetCredLimitCond finished
+2026-05-03T09:40:32.243Z info: AutoRevokeCred : 2026-05-03T09:40:32.243Z
+2026-05-03T09:40:32.260Z info: AutoRevokeCred finished
+2026-05-03T09:40:32.293Z info: $AutoRevokeCreds finished

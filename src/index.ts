@@ -84,7 +84,7 @@ setConfig(
   API: 1,
   APIVERSIONS: [1, 1],
   debugLevel: 2, // 0: aucun, 1: standard: 2: élevé
-  adminAlerts: true, // false: simulation true: envoi de mail
+  adminAlerts: false, // false: simulation true: envoi de mail
 
   logsPath: './logs', // Test et serveur Node
   port: env['PORT'] || 8080,
