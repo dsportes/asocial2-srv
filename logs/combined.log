@@ -13982,3 +13982,151 @@ BEGIN
 2026-05-03T09:40:32.243Z info: AutoRevokeCred : 2026-05-03T09:40:32.243Z
 2026-05-03T09:40:32.260Z info: AutoRevokeCred finished
 2026-05-03T09:40:32.293Z info: $AutoRevokeCreds finished
+2026-05-04T13:27:49.446Z info: 10 document classes
+2026-05-04T13:27:49.449Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-04T13:27:49.450Z info: Firestore connector
+2026-05-04T13:27:49.452Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-04T13:27:49.576Z info: Reloading orgs config OK
+2026-05-04T13:27:49.583Z info: HTTP listen [8080]
+2026-05-04T15:47:24.765Z info: $OpenSafeByPin finished
+2026-05-04T15:47:24.817Z info: $GetSafe finished
+2026-05-04T15:47:32.447Z info: $mdInvitList finished
+2026-05-04T15:49:20.975Z info: $OpenSafeByPin finished
+2026-05-04T15:49:21.023Z info: $GetSafe finished
+2026-05-04T15:49:27.366Z info: $mdInvitList finished
+2026-05-04T15:50:19.938Z info: $OpenSafeByPin finished
+2026-05-04T15:50:19.982Z info: $GetSafe finished
+2026-05-04T15:50:26.366Z info: $mdInvitList finished
+2026-05-04T15:55:39.774Z info: $OpenSafeByPin finished
+2026-05-04T15:55:39.814Z info: $GetSafe finished
+2026-05-04T15:55:45.957Z info: $mdInvitList finished
+2026-05-04T16:03:54.534Z info: $OpenSafeByPin finished
+2026-05-04T16:03:54.578Z info: $GetSafe finished
+2026-05-04T16:04:00.409Z info: $mdInvitList finished
+2026-05-04T16:12:32.236Z info: $GetOrgSvcs finished
+2026-05-04T16:12:32.262Z info: $GetSvcUrls finished
+2026-05-04T16:23:18.117Z info: $OpenSafeByPin finished
+2026-05-04T16:23:18.172Z info: $GetSafe finished
+2026-05-04T16:23:26.473Z info: $mdInvitList finished
+2026-05-04T16:24:10.428Z info: $GetOrgSvcs finished
+2026-05-04T16:25:29.781Z info: $GetOrgSvcs finished
+2026-05-04T16:25:29.811Z info: $GetSvcUrls finished
+2026-05-04T16:25:36.799Z info: InvitCreateByU : 2026-05-04T16:25:36.798Z
+2026-05-04T16:25:54.489Z info: InvitCreateByU finished
+2026-05-04T16:25:54.497Z info: Reloading orgs config OK
+2026-05-04T16:25:54.599Z info: InvitGet : 2026-05-04T16:25:54.599Z
+2026-05-04T16:25:54.602Z info: InvitGet finished
+2026-05-04T16:25:54.618Z info: $mdInvitSet finished
+2026-05-04T16:26:27.079Z info: $mdInvitList finished
+2026-05-04T16:38:58.623Z info: $mdInvitList finished
+2026-05-04T16:40:01.403Z info: 10 document classes
+2026-05-04T16:40:01.406Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-04T16:40:01.407Z info: Firestore connector
+2026-05-04T16:40:01.409Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-04T16:40:01.428Z info: Reloading orgs config OK
+2026-05-04T16:40:01.436Z info: HTTP listen [8080]
+2026-05-04T16:41:00.209Z info: $OpenSafeByPin finished
+2026-05-04T16:41:00.259Z info: $GetSafe finished
+2026-05-04T16:41:05.879Z info: $mdInvitList finished
+2026-05-04T16:42:33.694Z info: $GetOrgSvcs finished
+2026-05-04T16:42:33.721Z info: $GetSvcUrls finished
+2026-05-04T16:42:33.754Z info: InvitCreateByU : 2026-05-04T16:42:33.753Z
+2026-05-04T16:42:42.065Z info: InvitCreateByU finished
+2026-05-04T16:42:42.222Z info: InvitGet : 2026-05-04T16:42:42.221Z
+2026-05-04T16:42:42.229Z info: InvitGet finished
+2026-05-04T16:42:42.257Z info: $mdInvitSet finished
+2026-05-04T16:45:04.303Z info: 10 document classes
+2026-05-04T16:45:04.305Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-04T16:45:04.306Z info: Firestore connector
+2026-05-04T16:45:04.306Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-04T16:45:04.320Z info: Reloading orgs config OK
+2026-05-04T16:45:04.325Z info: HTTP listen [8080]
+2026-05-04T16:46:26.588Z info: $OpenSafeByPin finished
+2026-05-04T16:46:26.640Z info: $GetSafe finished
+2026-05-04T16:46:34.652Z info: $mdInvitList finished
+2026-05-04T16:47:27.422Z info: $GetOrgSvcs finished
+2026-05-04T16:47:27.448Z info: $GetSvcUrls finished
+2026-05-04T16:47:27.477Z info: InvitCreateByU : 2026-05-04T16:47:27.476Z
+2026-05-04T16:47:27.490Z info: InvitCreateByU finished
+2026-05-04T16:47:27.739Z info: InvitGet : 2026-05-04T16:47:27.739Z
+2026-05-04T16:47:27.758Z info: InvitGet finished
+2026-05-04T16:47:27.779Z info: $mdInvitSet finished
+2026-05-04T16:51:01.394Z info: $OpenSafeByPin finished
+2026-05-04T16:51:01.439Z info: $GetSafe finished
+2026-05-04T16:51:07.629Z info: $mdInvitList finished
+2026-05-04T16:51:38.158Z info: 10 document classes
+2026-05-04T16:51:38.161Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-04T16:51:38.161Z info: Firestore connector
+2026-05-04T16:51:38.162Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-04T16:51:38.178Z info: Reloading orgs config OK
+2026-05-04T16:51:38.184Z info: HTTP listen [8080]
+2026-05-04T16:51:53.602Z info: $OpenSafeByPin finished
+2026-05-04T16:51:53.644Z info: $GetSafe finished
+2026-05-04T16:52:00.090Z info: $mdInvitList finished
+2026-05-04T16:52:24.718Z info: $GetOrgSvcs finished
+2026-05-04T16:52:24.746Z info: $GetSvcUrls finished
+2026-05-04T16:52:24.775Z info: InvitCreateByU : 2026-05-04T16:52:24.774Z
+2026-05-04T16:52:24.788Z info: InvitCreateByU finished
+2026-05-04T16:52:24.880Z info: InvitGet : 2026-05-04T16:52:24.879Z
+2026-05-04T16:52:24.882Z info: InvitGet finished
+2026-05-04T16:52:24.900Z info: $mdInvitSet finished
+2026-05-04T16:52:42.351Z info: $mdInvitList finished
+2026-05-04T16:52:42.388Z info: InvitGet : 2026-05-04T16:52:42.387Z
+2026-05-04T16:52:42.393Z info: InvitGet finished
+2026-05-04T17:04:10.956Z info: InvitGet : 2026-05-04T17:04:10.955Z
+2026-05-04T17:04:10.961Z info: InvitGet finished
+2026-05-04T17:04:11.021Z info: Reloading orgs config OK
+2026-05-04T17:08:16.747Z info: InvitGet : 2026-05-04T17:08:16.747Z
+2026-05-04T17:08:16.751Z info: InvitGet finished
+2026-05-04T17:08:32.143Z info: $OpenSafeByPin finished
+2026-05-04T17:08:32.181Z info: $GetSafe finished
+2026-05-04T17:08:38.595Z info: $mdInvitList finished
+2026-05-04T17:08:40.283Z info: $GetOrgSvcs finished
+2026-05-04T17:08:40.299Z info: $GetSvcUrls finished
+2026-05-04T17:08:40.316Z info: InvitGet : 2026-05-04T17:08:40.316Z
+2026-05-04T17:08:40.319Z info: InvitGet finished
+2026-05-04T17:25:52.256Z info: $mdInvitList finished
+2026-05-04T17:25:54.194Z info: InvitGet : 2026-05-04T17:25:54.193Z
+2026-05-04T17:25:54.198Z info: InvitGet finished
+2026-05-04T17:25:54.250Z info: Reloading orgs config OK
+2026-05-04T17:30:08.820Z info: $mdInvitList finished
+2026-05-04T17:30:14.095Z info: InvitGet : 2026-05-04T17:30:14.094Z
+2026-05-04T17:30:14.099Z info: InvitGet finished
+2026-05-04T17:36:21.137Z info: $OpenSafeByPin finished
+2026-05-04T17:36:21.179Z info: $GetSafe finished
+2026-05-04T17:36:28.042Z info: $mdInvitList finished
+2026-05-04T17:36:29.254Z info: $GetOrgSvcs finished
+2026-05-04T17:36:29.272Z info: $GetSvcUrls finished
+2026-05-04T17:36:29.294Z info: InvitGet : 2026-05-04T17:36:29.294Z
+2026-05-04T17:36:29.299Z info: InvitGet finished
+2026-05-04T17:36:29.351Z info: Reloading orgs config OK
+2026-05-04T17:48:56.354Z info: $OpenSafeByPin finished
+2026-05-04T17:48:56.427Z info: $GetSafe finished
+2026-05-04T17:49:02.387Z info: $mdInvitList finished
+2026-05-04T17:49:03.644Z info: $GetOrgSvcs finished
+2026-05-04T17:49:03.674Z info: $GetSvcUrls finished
+2026-05-04T17:49:03.710Z info: InvitGet : 2026-05-04T17:49:03.710Z
+2026-05-04T17:49:03.716Z info: InvitGet finished
+2026-05-04T17:49:03.766Z info: Reloading orgs config OK
+2026-05-04T17:52:43.146Z info: $OpenSafeByPin finished
+2026-05-04T17:52:43.232Z info: $GetSafe finished
+2026-05-04T17:52:50.330Z info: $mdInvitList finished
+2026-05-04T17:52:51.502Z info: $GetOrgSvcs finished
+2026-05-04T17:52:51.531Z info: $GetSvcUrls finished
+2026-05-04T17:52:51.560Z info: InvitGet : 2026-05-04T17:52:51.560Z
+2026-05-04T17:52:51.564Z info: InvitGet finished
+2026-05-04T18:05:58.427Z info: $OpenSafeByPin finished
+2026-05-04T18:05:58.510Z info: $GetSafe finished
+2026-05-04T18:06:06.058Z info: $mdInvitList finished
+2026-05-04T18:06:07.777Z info: $GetOrgSvcs finished
+2026-05-04T18:06:07.804Z info: $GetSvcUrls finished
+2026-05-04T18:06:07.839Z info: InvitGet : 2026-05-04T18:06:07.839Z
+2026-05-04T18:06:07.843Z info: InvitGet finished
+2026-05-04T18:06:07.894Z info: Reloading orgs config OK
+2026-05-04T18:09:36.141Z info: $OpenSafeByPin finished
+2026-05-04T18:09:36.215Z info: $GetSafe finished
+2026-05-04T18:09:41.814Z info: $mdInvitList finished
+2026-05-04T18:09:43.872Z info: $GetOrgSvcs finished
+2026-05-04T18:09:43.902Z info: $GetSvcUrls finished
+2026-05-04T18:09:43.921Z info: InvitGet : 2026-05-04T18:09:43.920Z
+2026-05-04T18:09:43.925Z info: InvitGet finished
