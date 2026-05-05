@@ -247,7 +247,7 @@ export class InvitationA extends Document {
     const obj = {}; for (const p of InvitationA.lp1) obj[p] = this[p]; return obj as InvObj
   }
 
-  /* Liste des demandes d'invitation à traiter (ou invitations traitées)
+  /* Liste des demandes d'invitation à traiter
   pour un sponsor focus sur major ou major/minor */
   static async listInvits (op: OperationWC, major: string, minor: string) : Promise<Uint8Array[]> {
     const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
