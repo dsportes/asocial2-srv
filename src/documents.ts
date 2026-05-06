@@ -1,4 +1,4 @@
-import { Document } from '../src-fw/document'
+import { Document, DocStatus } from '../src-fw/document'
 import { Credential, InvitationA, InvObj, OrgA } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
 import { config, Classes } from '../src-fw/config'
@@ -32,6 +32,14 @@ Classes.registerD(Org)
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
   pubV: string // clé publique de vérification du credential
   name: string // nom / pseudo facultatif pour information à stocker en cond
+}
+
+type InvValAuteur = {
+  nom: string // nom d'auteur
+  pemvA: string // pemV pour le credential d'accès à l'auteur
+  pemvS: string // pemV pour le credential Sponsor (s'il y a lieu)
+  credIdA: string
+  credIdS: string
 }
 
 export class Invitation extends InvitationA {
@@ -80,63 +88,52 @@ export class Invitation extends InvitationA {
   }
 
   /* Validation d'un document 'Auteur' 
-    - docId: tiré de invit (depuis "accept")
-    - nom: depuis demande invit "label"
-  - d'un Credential sur cet auteur avec un pemv / time passé en argument invVal
-  - optionnellement d'un Credential de Sponsor sur 'Auteur' avec un pemv / time passé en argument invVal
-  */
-  async validate_auteur (op: OperationWC, args: any) : Promise<number> {
-    /*
-    const iv = this.objectValue('invVal', true) as InvVal
+    - docId: depuis etc
+    - nom: depuis args
+  - d'un Credential sur cet auteur avec un pemv passé en args
+  - optionnellement d'un Credential de Sponsor sur 'Auteur' avec un pemv passé en args
 
-    if (this.invit.etc.newA === 1) {
+    nom: string // nom d'auteur
+    pemvA: string // pemV pour le credential d'accès à l'auteur
+    pemvS: string // pemV pour le credential Sponsor (s'il y a lieu)
+    credIdA: string
+    credIdS: string
+  */
+  async validate_auteur (op: OperationWC, args: InvValAuteur) : Promise<number> {
+
+    if (this.etc.newA === 1) {
       // Création de Auteur sauf si existait déjà (retry)
-      const a = await this.cache.getDoc('Auteur', { autid: this.invit.docId })
+      const a = await op.cache.getDoc('Auteur', { autid: this.etc.docId })
       if (!a)
-        this.cache.newDoc('Auteur', { autid: this.invit.docId, nom: this.invit.label })
+        op.cache.newDoc('Auteur', { autid: this.etc.docId, nom: args.nom })
     
       // Enregistrement du credential d'accès à Auteur
-      const obj = {
-        id: Credential.getId(config.SVC, this.org, this.invit.role, this.invit.docId),
-        userId: this.invit.userId,
-        role: this.invit.role,
-        org: this.org,
-        docId: this.invit.docId,
-        time: iv.time,
-        pemv: iv.pemvA,
-        limit: 0,
-        cond: { p: 'A', name: this.invit.label }
-      }
-      // permet un retry : reset du time
-      const c = await this.cache.getDoc('Credential', obj) as Credential
-      if (c) {
-        c.time = iv.time
-        c._status = DocStatus.UPD
-      } else this.cache.newDoc('Credential', obj) 
+      const ca = new Credential()
+      ca.credId = args.credIdA
+      ca.role = 'Auteur.'
+      ca.docId = this.etc.docId
+      ca.pubv = args.pemvA
+      ca.limit = 0
+      ca.cond = { p: 'A', name: args.nom || '?' }
+      const c = await op.cache.getDoc('Credential', ca) as Credential
+      if (!c) 
+        op.cache.newDoc('Credential', ca) 
     }
     
-    if (this.invit.etc.option > 1) {
-      const docId = 'Auteur' + (this.invit.etc.option === 2 ? '' : ('/' + this.invit.etc.categ))
-      const id = Credential.getId(config.SVC, this.org, 'Sponsor.', docId)
-      const obj = {
-        id,
-        userId: this.invit.userId,
-        role: 'Sponsor.',
-        org: this.org,
-        docId: docId,
-        time: this.now,
-        pemv: iv.pemvS,
-        limit: 0,
-        cond: { name: this.invit.label }
-      }
-      // permet un retry : reset du time
-      const c = await this.cache.getDoc('Credential', obj) as Credential
-      if (c) {
-        c.time = iv.time
-        c._status = DocStatus.UPD
-      } else this.cache.newDoc('Credential', obj) 
+    if (this.etc.option > 1) {
+      const docId = 'Auteur' + (this.etc.option === 2 ? '' : ('/' + this.etc.categ))
+      const cs = new Credential()
+      cs.credId = args.credIdS
+      cs.role = 'Sponsor.'
+      cs.docId = docId
+      cs.pubv = args.pemvS
+      cs.limit = 0
+      cs.cond = { p: 'A', name: args.nom || '?' }
+      const c = await op.cache.getDoc('Credential', cs) as Credential
+      if (!c) 
+        op.cache.newDoc('Credential', cs) 
     }
-    */
+    
     return 0
   }
 }

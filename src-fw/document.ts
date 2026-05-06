@@ -116,7 +116,8 @@ export class Document {
       const [d, m] = cl.mutate(initVals)
       if (m) data = d
     }
-    for (const [key, value] of Object.entries(data)) doc[key] = value
+    for (const [key, value] of Object.entries(data)) 
+      if (!key.startsWith('_')) doc[key] = value
     if (doc.compile) doc.compile()
     /* _before: Map: traçant les collections
       - clé: nom de la collection

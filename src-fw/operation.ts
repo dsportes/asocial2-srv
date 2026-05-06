@@ -382,8 +382,10 @@ export class AuthRecord {
         if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', cred.pk)
         else ok = await Crypt.verify(keyFromB64(cred.pubv), sign, this.challenge)
       }
-      if (ok) this.roles.set(ref, cred)
-      else this.koRoles.add(ref)
+      if (ok) 
+        this.roles.set(ref, cred)
+      else 
+        this.koRoles.add(ref)
     }
 
     if (config.debugLevel > 1) {

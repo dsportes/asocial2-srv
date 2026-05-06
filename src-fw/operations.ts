@@ -579,7 +579,7 @@ class InvitUpdByS extends Operation {
     if (!Invitation.checkSponsor(this.authRecord, invit))
       { this.setRes('status', 3); return }
     invit.tab = this._tab
-    invit.byU = true
+    invit.byU = false
     invit.etc = this._etc
     invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
     invit._status = DocStatus.UPD
