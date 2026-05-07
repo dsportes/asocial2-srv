@@ -1,11 +1,11 @@
-# ASAP
-Révocation de credential: Safe et DB (y compris Org.manager)
+# BUGS
+Accès par code PIN sur terminal non certifié produit un mauvais message
 
-Invitations en cours: demande, proposition sponsor
+Première session juste après création de compte : c'est comme si sf.auth n'était pas là
+
 
 # Safe
 - Gérer la mise à jour du volume des sessions par l'application.
-- Gérer dans l'application l'arrivée d'une mise à jour de credential. ???
 
 - gestion de la non régression du time d'une signature dans un service.
 
