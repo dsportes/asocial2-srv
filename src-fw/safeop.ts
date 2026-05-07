@@ -86,7 +86,7 @@ export class SafeOperation implements AbstractOperation {
 }
 
 /* Creation d'un nouveau Safe.
-Pas de status.
+Pas de status (toujours 0)
 */
 class $CreateSafe extends SafeOperation {
   async doTheJob () : Promise<void> { 
