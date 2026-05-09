@@ -15637,3 +15637,11 @@ BEGIN
 2026-05-07T01:42:10.781Z info: InvitGet : 2026-05-07T01:42:10.781Z
 2026-05-07T01:42:10.785Z info: InvitGet finished
 2026-05-07T01:42:10.842Z info: Reloading orgs config OK
+2026-05-09T07:41:07.432Z info: 10 document classes
+2026-05-09T07:41:07.435Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-09T07:41:07.436Z info: Firestore connector
+2026-05-09T07:41:07.436Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-09T07:41:07.527Z info: Reloading orgs config OK
+2026-05-09T07:41:07.565Z info: HTTP listen [8080]
+2026-05-09T07:42:52.069Z info: $OpenSafeByPin finished
+2026-05-09T07:42:52.122Z info: $GetSafe finished
