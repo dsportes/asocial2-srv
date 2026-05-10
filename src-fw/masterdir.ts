@@ -4,7 +4,7 @@ import { AppExc, AbstractOperation } from './index'
 import { Crypt } from './crypt'
 import { keyFromB64 } from './b64'
 import { config, Classes } from './config'
-import { MDTable, MDopn, MDuser, MDsetAA, MDsetS } from './iDbGeneric'
+import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel } from './iDbGeneric'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Classes.sizeOp())
@@ -236,12 +236,12 @@ class $mdUserSetAA extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const sshK = Crypt.shaS(keyFromB64(shK))
+    const hshK = Crypt.shaS(keyFromB64(shK))
     const sha1 = this.args['sha1']
     const hsha1 = Crypt.shaS(sha1)
     const sha2 = this.args['sha2']
     const hsha2 = sha2 ? Crypt.shaS(sha2) : ''
-    const status = await this.db.mdUserSet(MDopn.setAA, {userId, sshK, hsha1, hsha2} as MDsetAA)
+    const status = await this.db.mdUserSet(MDopn.setAA, {userId, hshK, hsha1, hsha2} as MDsetAA)
     this.setRes('status', status)
   }
 }
@@ -261,13 +261,33 @@ class $mdUserSetS extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId']
     const shK = this.args['shK']
-    const sshK = Crypt.shaS(keyFromB64(shK))
+    const hshK = Crypt.shaS(keyFromB64(shK))
     const store = this.args['store']
-    const status = await this.db.mdUserSetS(MDopn.setS, { userId, sshK, store } as MDsetS)
+    const status = await this.db.mdUserSet(MDopn.setS, { userId, hshK, store } as MDsetS)
     this.setRes('status', status)
   }
 }
 Classes.registerOp($mdUserSetS)
+
+/* $mdUserDel : supprime un user.
+Argument: 
+- userId
+- shK: Strong Hash de la clé K du safe
+Result 'status':
+- 0 OK
+- 1 user inconnu
+- 2 shK non reconnu
+*/
+class $mdUserDel extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const userId = this.args['userId']
+    const shK = this.args['shK']
+    const hshK = Crypt.shaS(keyFromB64(shK))
+    const status = await this.db.mdUserSet(MDopn.del, { userId, hshK } as MDdel)
+    this.setRes('status', status)
+  }
+}
+Classes.registerOp($mdUserDel)
 
 /* $mdUserGetAAS : retourne les propriétés dynamiques d'un user.
 Appel depuis un safe.

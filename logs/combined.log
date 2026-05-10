@@ -15645,3 +15645,167 @@ BEGIN
 2026-05-09T07:41:07.565Z info: HTTP listen [8080]
 2026-05-09T07:42:52.069Z info: $OpenSafeByPin finished
 2026-05-09T07:42:52.122Z info: $GetSafe finished
+2026-05-10T08:16:38.500Z info: 10 document classes
+2026-05-10T08:16:38.503Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T08:16:38.504Z info: Firestore connector
+2026-05-10T08:16:38.505Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T08:16:38.592Z info: Reloading orgs config OK
+2026-05-10T08:16:38.598Z info: HTTP listen [8080]
+2026-05-10T08:35:43.178Z info: $OpenSafeByPin finished
+2026-05-10T08:35:43.243Z info: $GetSafe finished
+2026-05-10T08:35:50.392Z info: $GetOrgSvcs finished
+2026-05-10T08:35:50.423Z info: $GetSvcUrls finished
+2026-05-10T08:35:50.445Z info: GetCredLimitCond : 2026-05-10T08:35:50.444Z
+2026-05-10T08:35:50.462Z info: GetCredLimitCond finished
+2026-05-10T08:35:50.487Z info: GetCredLimitCond : 2026-05-10T08:35:50.487Z
+2026-05-10T08:35:50.495Z info: Reloading orgs config OK
+2026-05-10T08:35:50.502Z info: GetCredLimitCond finished
+2026-05-10T08:36:17.188Z info: AutoRevokeCred : 2026-05-10T08:36:17.187Z
+2026-05-10T08:36:17.211Z info: AutoRevokeCred finished
+2026-05-10T08:36:17.248Z info: $AutoRevokeCreds finished
+2026-05-10T08:36:17.406Z info: GetCredLimitCond : 2026-05-10T08:36:17.406Z
+2026-05-10T08:36:17.419Z info: GetCredLimitCond finished
+2026-05-10T08:39:50.357Z info: 10 document classes
+2026-05-10T08:39:50.362Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T08:39:50.364Z info: Firestore connector
+2026-05-10T08:39:50.365Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T08:39:50.392Z info: Reloading orgs config OK
+2026-05-10T08:39:50.401Z info: HTTP listen [8080]
+2026-05-10T08:41:00.266Z info: $OpenSafeByPin finished
+2026-05-10T08:41:00.322Z info: $GetSafe finished
+2026-05-10T08:41:07.081Z info: $GetOrgSvcs finished
+2026-05-10T08:41:07.110Z info: $GetSvcUrls finished
+2026-05-10T08:41:07.134Z info: GetCredLimitCond : 2026-05-10T08:41:07.133Z
+2026-05-10T08:41:07.150Z info: GetCredLimitCond finished
+2026-05-10T08:41:07.171Z info: GetCredLimitCond : 2026-05-10T08:41:07.171Z
+2026-05-10T08:41:07.183Z info: GetCredLimitCond finished
+2026-05-10T08:44:10.001Z info: GetCredLimitCond : 2026-05-10T08:44:10.001Z
+2026-05-10T08:44:10.015Z info: GetCredLimitCond finished
+2026-05-10T08:44:10.040Z info: GetCredLimitCond : 2026-05-10T08:44:10.039Z
+2026-05-10T08:44:10.054Z info: GetCredLimitCond finished
+2026-05-10T08:44:27.032Z info: AutoRevokeCred : 2026-05-10T08:44:27.032Z
+2026-05-10T08:44:27.050Z info: AutoRevokeCred finished
+2026-05-10T08:44:27.086Z info: $AutoRevokeCreds finished
+2026-05-10T08:44:27.200Z info: GetCredLimitCond : 2026-05-10T08:44:27.199Z
+2026-05-10T08:44:27.212Z info: GetCredLimitCond finished
+2026-05-10T08:45:29.362Z info: $UpdateProfiles finished
+2026-05-10T08:59:34.356Z info: 10 document classes
+2026-05-10T08:59:34.360Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T08:59:34.361Z info: Firestore connector
+2026-05-10T08:59:34.362Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T08:59:34.378Z info: Reloading orgs config OK
+2026-05-10T08:59:34.384Z info: HTTP listen [8080]
+2026-05-10T09:08:30.414Z info: GetCredLimitCond : 2026-05-10T09:08:30.412Z
+2026-05-10T09:08:30.435Z info: GetCredLimitCond finished
+2026-05-10T09:08:30.466Z info: Reloading orgs config OK
+2026-05-10T09:08:56.353Z info: $UpdateCredComment finished
+2026-05-10T09:09:13.665Z info: AutoRevokeCred : 2026-05-10T09:09:13.665Z
+2026-05-10T09:09:13.684Z info: AutoRevokeCred finished
+2026-05-10T09:09:13.716Z info: $AutoRevokeCreds finished
+2026-05-10T09:09:13.838Z info: GetCredLimitCond : 2026-05-10T09:09:13.838Z
+2026-05-10T09:09:13.849Z info: GetCredLimitCond finished
+2026-05-10T09:09:31.267Z info: GetCredLimitCond : 2026-05-10T09:09:31.267Z
+2026-05-10T09:09:31.280Z info: GetCredLimitCond finished
+2026-05-10T09:10:08.448Z info: 10 document classes
+2026-05-10T09:10:08.451Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T09:10:08.451Z info: Firestore connector
+2026-05-10T09:10:08.452Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T09:10:08.465Z info: Reloading orgs config OK
+2026-05-10T09:10:08.471Z info: HTTP listen [8080]
+2026-05-10T09:11:09.317Z info: $OpenSafeByPin finished
+2026-05-10T09:11:09.378Z info: $GetSafe finished
+2026-05-10T09:21:26.169Z info: $OpenSafeByPin finished
+2026-05-10T09:21:26.215Z info: $GetSafe finished
+2026-05-10T09:34:50.451Z info: $OpenSafeByPin finished
+2026-05-10T09:34:50.564Z info: $GetSafe finished
+2026-05-10T09:48:59.971Z info: $OpenSafeByPin finished
+2026-05-10T09:49:00.093Z info: $GetSafe finished
+2026-05-10T09:49:17.572Z info: $mdUserGetICVS finished
+2026-05-10T09:56:20.855Z info: $OpenSafeByPin finished
+2026-05-10T09:56:20.935Z info: $GetSafe finished
+2026-05-10T09:56:44.384Z info: $mdUserGetICVS finished
+2026-05-10T09:56:44.425Z info: $mdUserGetICVS finished
+2026-05-10T09:56:49.197Z info: $GetSafe finished
+2026-05-10T10:00:37.423Z info: $OpenSafeByPin finished
+2026-05-10T10:00:37.554Z info: $GetSafe finished
+2026-05-10T12:06:41.548Z info: $OpenSafeByPin finished
+2026-05-10T12:06:41.615Z info: $GetSafe finished
+2026-05-10T12:12:44.714Z info: $GetSafe finished
+2026-05-10T12:18:04.664Z info: $OpenSafeByPin finished
+2026-05-10T12:18:04.735Z info: $GetSafe finished
+2026-05-10T12:20:07.304Z info: $OpenSafeByPin finished
+2026-05-10T12:20:07.375Z info: $GetSafe finished
+2026-05-10T12:23:26.144Z info: $OpenSafeByPin finished
+2026-05-10T12:23:26.213Z info: $GetSafe finished
+2026-05-10T12:26:32.533Z info: $GetSafe finished
+2026-05-10T12:27:57.537Z info: $GetSafe finished
+2026-05-10T12:27:57.593Z info: $GetSafe finished
+2026-05-10T12:54:20.858Z info: $GetSafe finished
+2026-05-10T13:07:23.984Z info: $OpenSafeByPin finished
+2026-05-10T13:07:24.082Z info: $GetSafe finished
+2026-05-10T13:07:29.033Z info: $GetSafe finished
+2026-05-10T13:08:50.311Z info: $GetSafe finished
+2026-05-10T13:11:55.139Z info: $OpenSafeByPin finished
+2026-05-10T13:11:55.217Z info: $GetSafe finished
+2026-05-10T13:12:01.098Z info: $GetSafe finished
+2026-05-10T13:13:42.774Z info: $OpenSafeByPin finished
+2026-05-10T13:13:42.846Z info: $GetSafe finished
+2026-05-10T13:13:48.704Z info: $GetSafe finished
+2026-05-10T13:18:55.207Z info: $GetSafe finished
+2026-05-10T13:19:04.963Z info: $GetSafe finished
+2026-05-10T14:13:28.304Z info: $OpenSafeByPin finished
+2026-05-10T14:13:28.376Z info: $GetSafe finished
+2026-05-10T14:13:32.267Z info: $GetSafe finished
+2026-05-10T14:58:17.725Z info: $mdUserGetICVS finished
+2026-05-10T14:58:47.293Z info: $mdUserGetICVS finished
+2026-05-10T15:01:10.136Z info: $OpenSafeByPin finished
+2026-05-10T15:01:10.203Z info: $GetSafe finished
+2026-05-10T15:02:46.723Z info: $OpenSafeByPin finished
+2026-05-10T15:02:46.796Z info: $GetSafe finished
+2026-05-10T15:27:27.219Z info: 10 document classes
+2026-05-10T15:27:27.222Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T15:27:27.223Z info: Firestore connector
+2026-05-10T15:27:27.225Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T15:27:27.366Z info: Reloading orgs config OK
+2026-05-10T15:27:27.371Z info: HTTP listen [8080]
+2026-05-10T15:35:31.235Z info: 10 document classes
+2026-05-10T15:35:31.238Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T15:35:31.239Z info: Firestore connector
+2026-05-10T15:35:31.240Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T15:35:31.255Z info: Reloading orgs config OK
+2026-05-10T15:35:31.262Z info: HTTP listen [8080]
+2026-05-10T15:36:11.188Z info: $OpenSafeByPin finished
+2026-05-10T15:36:11.270Z info: $GetSafe finished
+2026-05-10T15:53:40.017Z info: $OpenSafeByPin finished
+2026-05-10T15:53:40.082Z info: $GetSafe finished
+2026-05-10T16:04:42.340Z info: $OpenSafeByPin finished
+2026-05-10T16:04:42.429Z info: $GetSafe finished
+2026-05-10T16:05:39.235Z info: $mdUserDel finished
+2026-05-10T16:10:43.410Z info: 10 document classes
+2026-05-10T16:10:43.414Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T16:10:43.415Z info: Firestore connector
+2026-05-10T16:10:43.417Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T16:10:43.439Z info: Reloading orgs config OK
+2026-05-10T16:10:43.447Z info: HTTP listen [8080]
+2026-05-10T16:12:26.654Z info: $mdUserDel finished
+2026-05-10T16:19:56.379Z info: 10 document classes
+2026-05-10T16:19:56.382Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T16:19:56.383Z info: Firestore connector
+2026-05-10T16:19:56.385Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T16:19:56.400Z info: Reloading orgs config OK
+2026-05-10T16:19:56.409Z info: HTTP listen [8080]
+2026-05-10T16:22:35.427Z info: 10 document classes
+2026-05-10T16:22:35.431Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T16:22:35.432Z info: Firestore connector
+2026-05-10T16:22:35.433Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T16:22:35.451Z info: Reloading orgs config OK
+2026-05-10T16:22:35.458Z info: HTTP listen [8080]
+2026-05-10T16:23:39.682Z info: $mdUserDel finished
+2026-05-10T16:25:41.281Z info: 10 document classes
+2026-05-10T16:25:41.285Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-10T16:25:41.286Z info: Firestore connector
+2026-05-10T16:25:41.287Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-10T16:25:41.303Z info: Reloading orgs config OK
+2026-05-10T16:25:41.311Z info: HTTP listen [8080]
+2026-05-10T16:26:17.008Z info: $mdUserDel finished
+2026-05-10T16:27:43.291Z info: $DelSafe finished

@@ -7,7 +7,7 @@ export enum MDTable {
   SVCOPS = 'ZZSVCOPS'
 }
 
-export enum MDopn { new, setAA, setS }
+export enum MDopn { new, setAA, setS, del }
 
 export type MDuser = {
   userId: string // ID de l'utilisateur`
@@ -22,15 +22,20 @@ export type MDuser = {
 
 export type MDsetAA = {
   userId: string
-  sshK: string
+  hshK: string
   hsha1: string
   hsha2: string
 }
 
 export type MDsetS = {
   userId: string
-  sshK: string
+  hshK: string
   store: string
+}
+
+export type MDdel = {
+  userId: string
+  hshK: string
 }
 
 export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
@@ -140,11 +145,11 @@ export interface IDbGeneric {
   mdDel (st: MDTable, key: string) : Promise<void> 
 
   /* ACID - Création / maj d'une entrée du Mester Directory
-  - opn: code opération. new setAA setS setLLQ
-  - args: arguments - MDuser MDsetAA MDsetS MDsetLLQ
+  - opn: code opération. new setAA setS setLLQ del
+  - args: arguments - MDuser MDsetAA MDsetS MDsetLLQ MDdel
   Return : status
   */
-  mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS ) : Promise<number>
+  mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS | MDdel ) : Promise<number>
 
   /* NON ACID - Test si un alias est attribué */
   mdAliasFree (alias: string) : Promise<boolean>

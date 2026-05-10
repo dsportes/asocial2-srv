@@ -4,7 +4,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, MDTable, 
-  MDopn, MDuser, MDsetAA, MDsetS } from '../src-fw/iDbGeneric'
+  MDopn, MDuser, MDsetAA, MDsetS, MDdel } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
@@ -227,6 +227,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         case MDopn.new : { status = await this.mdUserNew(args as MDuser); break}
         case MDopn.setAA : { status = await this.mdUserSetAA(args as MDsetAA); break}
         case MDopn.setS : { status = await this.mdUserSetS(args as MDsetS); break}
+        case MDopn.del : { status = await this.mdUserDel(args as MDdel); break}
       }
       this.sql.exec('COMMIT;')
       return status
@@ -317,7 +318,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
     let row = stmt.get( {userId: args.userId} )
     if (!row) return 1
-    if (row.sshK !== args.sshK) return 2
+    if (row.hshK !== args.hshK) return 2
     return 0
   }
 
@@ -342,6 +343,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const status = this.mdUserId(args); if (status) return status
     const stmt = this.sql.prepare('UPDATE ZZUSERS SET store = @store ' +
       ' WHERE userId = @userId;')
+    stmt.run(args)
+    return 0
+  }
+
+  async mdUserDel (args: MDdel) : Promise<number> {
+    const status = this.mdUserId(args); if (status) return status
+    const stmt = this.sql.prepare('DELETE FROM ZZUSERS WHERE userId = @userId;')
     stmt.run(args)
     return 0
   }
