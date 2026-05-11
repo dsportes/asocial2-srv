@@ -71,15 +71,16 @@ export class SafeOperation implements AbstractOperation {
     const bin = await this.db.getBinSafe(arg['userId'])
     if (!bin) { 
       this.setRes('status', 1)
-      return
+      return null
     }
     const safe = decode(bin) as Safe
     if (!arg['shK'] || safe.auth.hshK !== Crypt.shaS(keyFromB64(arg['shK']))) { 
       this.setRes('status', 2)
-      return 
+      return null
     }
     this.setRes('status', 0)
     this.setRes('safe', safe)
+    return safe
   }
 
   async doTheJob () : Promise<void> {  }
