@@ -346,3 +346,4 @@ BEGIN
 2026-05-06T17:39:08.489Z error: GetCredLimitCond : 2026-05-06T17:36:47.895Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Auteur/roman"]
 2026-05-06T17:42:00.319Z error: GetCredLimitCond : 2026-05-06T17:40:16.571Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Auteur/roman"]
 2026-05-11T09:31:44.975Z error: AppExc: 105:safe_unexpected_exception["UNIQUE constraint failed: ZZSAFE.userId"]
+2026-05-14T10:11:06.008Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'APIVERSION')"]

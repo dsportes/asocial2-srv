@@ -247,64 +247,99 @@ export function getExpressApp (): express.Application {
   })
 
   /* Appels des opérations *************************************************/
-  app.use('/op/:org/:operation', async (req, res) => {
-    let storage, dbConnector
-    if (req.params.operation.endsWith('$')) {
-      dbConnector = config.svcDB
-    } else {
-      storage = OrgsConfig.getStorage(req.params.org)
-      dbConnector = OrgsConfig.getDbConnector(req.params.org)
-    }
-
+  app.use('/op', async (req, res) => {
+    if (config.origins.size&& !checkOrigin(req, res, config.origins)) return
+    const baseUrl = req.protocol + '://' + req.host
     if (!req['rawBody']) {
       let chunks = [];
       req.on('data', (chunk) => {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         const body = Buffer.concat(chunks)
-        await doOp(storage, dbConnector, req, res, body)
+        await doSvcOp(res, body, baseUrl)
       })
     } else // Cloud functions
-      await doOp(storage, dbConnector, req, res, req['rawBody'])
+      await doSvcOp(res, req['rawBody'], baseUrl)
   })
 
   /* Appels des opérations sur le SAFE store *****************************/
-  app.use('/safe/:operation', async (req, res) => {
-    const opName = req.params.operation as string
+  app.use('/safe', async (req, res) => {
     if (!req['rawBody']) {
       let chunks = [];
       req.on('data', (chunk) => {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         const body = Buffer.concat(chunks)
-        await doSOp(opName, body, res)
+        await doSOp(body, res)
       })
     } else // Cloud functions
-      await doSOp(opName, req['rawBody'], res)
+      await doSOp(req['rawBody'], res)
     })
 
   /* Appels des opérations sur le SAFE store *****************************/
-  app.use('/master/:operation', async (req, res) => {
-    const opName = req.params.operation as string
+  app.use('/master', async (req, res) => {
     if (!req['rawBody']) {
       let chunks = [];
       req.on('data', (chunk) => {
         chunks.push(Buffer.from(chunk))
       }).on('end', async () => {
         const body = Buffer.concat(chunks)
-        await doMDOp(opName, body, res)
+        await doMDOp(body, res)
       })
     } else // Cloud functions
-      await doMDOp(opName, req['rawBody'], res)
+      await doMDOp(req['rawBody'], res)
   })
 
   return app
 }
 
-// Opérations MasterDir
-async function doMDOp(opName: string, body: Buffer, res: any) {
+/* Retourne true si "origin" d'une requête est dans la liste autorisée,
+sinon génère une resonse avec un texte d'exception.*/
+function checkOrigin(req: express.Request, res: express.Response, origins: Set<string>) : boolean {
+  let origin = req.headers['origin']
+  if (origins.has(origin)) return true
+  if (!origin || origin === 'null') {
+    const referer = req.headers['referer']
+    if (referer) origin = referer
+  }
+  if (origins.has(origin)) return true
+  if (!origin || origin === 'null') origin = req.headers['host']
+  const [hn, po] = Util.getHP(origin)
+  if (origins.has(hn) || origins.has(hn + ':' + po)) return true
+  const e = new AppExc(103, 'origin_not_authorized', null, [origin])
+  if (config.debugLevel === 2)
+    Log.info('origin_not_authorized: ' + origin)
+  const b: Buffer = e.serial()
+  res.status(401).type('application/octet-stream').send(b)
+  return false
+}
+
+// Opérations d'un service
+async function doSvcOp (res: express.Response, body: Buffer, baseUrl: string) {
+  let args: Object, opName: string = '', org: string = ''
   try {
-    const result = await MDOperation.doOp(opName, decode(body))
+    args = decode(body)
+    opName = args['opName']
+    org = args['org']
+  } catch (e) {
+    ExcDecode(res, 1)
+    return
+  }
+  await doOp(args, res, baseUrl)
+}
+
+// Opérations MasterDir
+async function doMDOp(body: Buffer, res: express.Response) {
+  let args: Object, opName: string = ''
+  try {
+    args = decode(body)
+    opName = args['opName']
+  } catch (e) {
+    ExcDecode(res, 2)
+    return
+  }
+  try {
+    const result = await MDOperation.doOp(opName, args)
     const b = encode(result) as Buffer
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
     if (config.debugLevel === 2) Log.info(opName + ' finished')
@@ -313,9 +348,17 @@ async function doMDOp(opName: string, body: Buffer, res: any) {
   }
 }
 
-async function doSOp(opName: string, body: Buffer, res: any) {
+async function doSOp(body: Buffer, res: express.Response) {
+  let args: Object, opName: string = ''
   try {
-    const result = await SafeOperation.doOp(opName, decode(body))
+    args = decode(body)
+    opName = args['opName']
+  } catch (e) {
+    ExcDecode(res, 3)
+    return
+  }
+  try {
+    const result = await SafeOperation.doOp(opName, args)
     const b = encode(result) as Buffer
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
     if (config.debugLevel === 2) Log.info(opName + ' finished')
@@ -324,7 +367,16 @@ async function doSOp(opName: string, body: Buffer, res: any) {
   }
 }
 
-function ExcOp (exc: any, opName: string, res: any, src: number) {
+function ExcDecode (res: express.Response, src: number) {
+  const s = ['', 'service', 'masterdir', 'safe'][src]
+  if (config.debugLevel === 2)
+    Log.info(s + ' terminated on exception arguments NOT decodable')
+  const e = new AppExc(105, s + '_arguments_notdecodable', null)
+  const b: Buffer = e.serial()
+  res.status(401).type('application/octet-stream').send(b)
+}
+
+function ExcOp (exc: any, opName: string, res: express.Response, src: number) {
   if (config.debugLevel === 2)
     Log.info(opName + ' terminated on exception')
   // 400: AppExc
@@ -377,40 +429,19 @@ export function startSRV (app : any) : Promise<void> {
   })
 }
 
-/* Exécution d'une opération ************************************************/
-function checkOrigin(req: express.Request, origins: Set<string>) {
-  let origin = req.headers['origin']
-  if (origins.has(origin)) return true
-  if (!origin || origin === 'null') {
-    const referer = req.headers['referer']
-    if (referer) origin = referer
-  }
-  if (origins.has(origin)) return true
-  if (!origin || origin === 'null') origin = req.headers['host']
-  const [hn, po] = Util.getHP(origin)
-  if (origins.has(hn) || origins.has(hn + ':' + po)) return true
-  throw new AppExc(103, 'origin_not_authorized', null, [origin])
-}
-
 let today = 0
 let todayEpoch = 0
 
-export async function doOp (
-  storage: IStGeneric, 
-  dbConnector: DbConnector,
-  req: express.Request, 
-  res: express.Response, 
-  body: Buffer) {
-  
-  OrgsConfig.reload()
+export async function doOp (args: Object, res: express.Response, baseUrl: string) {
+  const opName = args['opName']
+  const org = args['org']
+
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
     todayEpoch = Math.floor(now / 86400000)
     today = Util.amj(now)
   }
-  
-  const opName = req.params.operation as string
 
   try {
     if (opName === 'yo'){
@@ -418,34 +449,31 @@ export async function doOp (
       res.status(200).type('text/plain').send('yo ' + new Date().toISOString())
       return
     }
-
-    if (config.origins.size) checkOrigin(req, config.origins)
-
-    if (opName === 'yoyo'){
-      await Util.sleep(1000)
-      res.status(200).type('text/plain').send('yoyo ' + new Date().toISOString())
-      return
-    }
     
     const op = Classes.newOp(opName) as Operation
     if (!op) throw new AppExc(103, 'unknown_operation', null, [opName])
-    op.opName = opName
-    op.baseUrl = req.protocol + '://' + req.host
-    op.org = req.params.org as string
 
-    if (!dbConnector) 
-      throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
-    op.storage = storage
-    op.dbConnector = dbConnector
-    
+    const apiv = args['APIVERSION'] || 0
+    if (apiv && (apiv < config.APIVERSIONS[0] || apiv > config.APIVERSIONS[1]))
+      throw new AppExc(103, 'unsupported_API', null, [config.APIVERSIONS[0], 
+        config.APIVERSIONS[1], apiv, config.BUILD])
+
     op.now = now
     op.today = today
-    op.args = decode(body)
+    op.args = args
+    op.opName = opName
+    op.org = org
+    op.baseUrl = baseUrl
 
-    if (op.args.APIVERSION && (op.args.APIVERSION < config.APIVERSIONS[0] 
-      || op.args.APIVERSION > config.APIVERSIONS[1]))
-      throw new AppExc(103, 'unsupported_API', null, [config.APIVERSIONS[0], 
-        config.APIVERSIONS[1], op.args.APIVERSION, config.BUILD])
+    OrgsConfig.reload()
+    if (opName.endsWith('$')) {
+      op.dbConnector = config.svcDB
+    } else {
+      op.storage = OrgsConfig.getStorage(org)
+      op.dbConnector = OrgsConfig.getDbConnector(org)
+    }
+    if (!op.dbConnector) 
+      throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
 
     op.init()
 
