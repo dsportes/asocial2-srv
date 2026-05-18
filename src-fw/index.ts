@@ -9,6 +9,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { Log } from './log'
 import { config, Classes } from './config'
 import { Util } from './util'
+import { keyFromB64 } from './b64'
 
 import { IStGeneric } from './iStGeneric'
 import { IDbGeneric } from './iDbGeneric'
@@ -56,6 +57,15 @@ export class DbConnexion {
 
 }
 
+export type TopicDef = {
+  id: string,
+  categ: string,
+  key: string,
+  subjects: string[] | null,
+  pubC: Uint8Array,
+  privD: Uint8Array
+}
+
 /* Configuration des organisations *****************************************
 - depuis le SINGLETON 'orgs': { org1:[db1, st1], org2:[db1, st2], ...}
 - une configuration courante 'current' : remplacement atomique (global)
@@ -71,8 +81,9 @@ export class OrgsConfig {
   orgs : Map<string, [string, string]> // Map par org => [db, storage]
   dbs : Map<string, Set<string>> // Map par db => Set des orgs
   storages : Map<string, Set<string>> // Map par storage => Set des orgs
+  topics: Map<string, TopicDef>
 
-  constructor (x: Object) { // { org1:[db1, st1], ...}
+  setOrgs (x: any) {
     this.orgs = new Map<string, [string, string]>()
     this.dbs = new Map<string, Set<string>>()
     this.storages = new Map<string, Set<string>>()
@@ -83,6 +94,32 @@ export class OrgsConfig {
       e.add(org)
       e = this.storages.get(st); if (!e) e = new Set<string>(); this.storages.set(st, e)
       e.add(org)
+    }
+  }
+
+  setTopics (y: any, upd?: boolean) {
+    if (!upd) this.topics = new Map<string, TopicDef>()
+    /* JSON topics
+    [
+      { id: topic1, categ: c1, key: k12, subjects: [s1, s2 ...] },
+      ...
+    ] */
+    for(const t in y) {
+      const id = t['id']
+      const categ = t['categ']
+      if (!categ && upd) {
+        this.topics.delete(id)
+        continue
+      }
+      const key =  t['key']
+      const k = config.keys['SVkeys'][key]
+      if (!k)
+        throw new AppExc(101, 'invalid_key_topic', null, [id, key])
+      const subjects = t['subjects'] || null
+      const pubC = keyFromB64(k.pub)
+      const privD = keyFromB64(k.puriv)
+      const topic = { id, categ, key, subjects, pubC, privD }
+      this.topics.set(id, topic)
     }
   }
 
@@ -108,11 +145,38 @@ export class OrgsConfig {
     if (!db) delete(x[org])
     else x[org] = [db, st]
     const nval = JSON.stringify(x, null, '\t')
-    const oc = new OrgsConfig(x)
+    await op.db.setSingleton('orgs', nval)
+    const topics = OrgsConfig.current.topics
+    const oc = new OrgsConfig()
+    oc.setOrgs(x)
+    oc.topics = topics
     OrgsConfig.current = oc
     OrgsConfig.updating = false
     OrgsConfig.lastLoading = Date.now()
-    await op.db.setSingleton('orgs', nval)
+  }
+
+  /* Met à jour la configuration des topics
+  en appliquant les directives du JSON transmis par l'application.
+  */
+  static async updTopics (op: AbstractOperation, json: string) {
+    let y: TopicDef[]
+    try { 
+      y = JSON.parse(json)
+    } catch (e) {
+      throw new AppExc(101, 'invalid_json_topic_update', op, [e.toString()])
+    }
+    const oc = OrgsConfig.current
+    oc.setTopics(y, true)
+    OrgsConfig.lastLoading = Date.now()
+    const a: TopicDef[] = []
+    for(const [, t] of oc.topics) {
+      const t2 = { ...t }
+      delete t2.privD
+      delete t2.pubC
+      a.push(t2)
+    }
+    const nval = JSON.stringify(a, null, '\t')
+    await op.db.setSingleton('topics', nval)
   }
 
   /* Rechargement de la configuration
@@ -125,21 +189,38 @@ export class OrgsConfig {
     try {
       const dbConnector = config.svcDB
       await dbConnector.getConnexion(op, '')
-      const val = await op.db.getSingleton('orgs') as string
-      const x = JSON.parse(val || '{}')
-      const oc = new OrgsConfig(x)
+      const valx = await op.db.getSingleton('orgs') as string
+      const x = JSON.parse(valx || '{}')
+      const valy = await op.db.getSingleton('topics') as string
+      const y = JSON.parse(valy || '[]')
+      const oc = new OrgsConfig()
+      oc.setOrgs(x)
+      oc.setTopics(y)
       op.db.disconnect()
       OrgsConfig.current = oc
       OrgsConfig.updating = false
       OrgsConfig.lastLoading = Date.now()
-      if (config.debugLevel > 0) Log.debug('Reloading orgs config OK')
+      if (config.debugLevel > 0) Log.debug('Reloading orgs-topics config OK')
         return true
     } catch (e) {
       if (op && op.db) op.db.disconnect()
-      Log.error('Reloading orgs config KO: ' + e.toString())
+      Log.error('Reloading orgs-topics config KO: ' + e.toString())
       if (!init) setTimeout(OrgsConfig.doReload, 60000)
       return false
     }
+  }
+
+  static getTopics () : Array<TopicDef> {
+    OrgsConfig.reload()
+    const c = OrgsConfig.current
+    if (!c) return []
+    const a: TopicDef[] = []
+    for(const [, t] of c.topics) {
+      const t2 = { ...t }
+      delete t2.privD
+      a.push(t2)
+    }
+    return a
   }
 
   // Retourne le DbConnector à la base configurée pour l'organisation org
