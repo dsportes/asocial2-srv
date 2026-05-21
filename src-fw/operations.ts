@@ -47,6 +47,31 @@ class SvcOpIsAdmin$ extends Operation {
 }
 Classes.registerOp(SvcOpIsAdmin$)
 
+/* GetTopics retourne la configuration des topics
+*/
+class GetTopics$ extends Operation {
+  async phase2 () {
+    this.setRes('topics', OrgsConfig.getTopics())
+  }
+}
+Classes.registerOp(GetTopics$)
+
+/* UpdTopics retourne la configuration des topics
+*/
+class UpdTopics$ extends Operation {
+  _json: string
+  init () {
+    super.init()
+    this._json = this.stringValue('json', true)
+  }
+
+  async phase2 () {
+    this.requireAdmin()
+    await OrgsConfig.updTopics(this, this._json)
+  }
+}
+Classes.registerOp(UpdTopics$)
+
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour

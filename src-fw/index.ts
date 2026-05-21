@@ -104,7 +104,7 @@ export class OrgsConfig {
       { id: topic1, categ: c1, key: k12, subjects: [s1, s2 ...] },
       ...
     ] */
-    for(const t in y) {
+    for(const t of y) {
       const id = t['id']
       const categ = t['categ']
       if (!categ && upd) {
@@ -117,7 +117,7 @@ export class OrgsConfig {
         throw new AppExc(101, 'invalid_key_topic', null, [id, key])
       const subjects = t['subjects'] || null
       const pubC = keyFromB64(k.pub)
-      const privD = keyFromB64(k.puriv)
+      const privD = keyFromB64(k.priv)
       const topic = { id, categ, key, subjects, pubC, privD }
       this.topics.set(id, topic)
     }

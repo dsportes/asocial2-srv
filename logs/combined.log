@@ -15998,3 +15998,121 @@ BEGIN
 2026-05-18T12:16:42.056Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
 2026-05-18T12:16:42.143Z info: Reloading orgs config OK
 2026-05-18T12:16:42.148Z info: HTTP listen [8080]
+2026-05-21T07:34:05.144Z info: 10 document classes
+2026-05-21T07:34:05.147Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-21T07:34:05.148Z info: Firestore connector
+2026-05-21T07:34:05.149Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-21T07:34:39.364Z info: Reloading orgs-topics config OK
+2026-05-21T07:34:39.372Z info: HTTP listen [8080]
+2026-05-21T10:45:08.094Z info: $OpenSafeByPin finished
+2026-05-21T10:45:08.147Z info: $GetSafe finished
+2026-05-21T11:02:14.244Z info: $OpenSafeByPin finished
+2026-05-21T11:02:14.284Z info: $GetSafe finished
+2026-05-21T11:07:54.508Z info: $OpenSafeByPin finished
+2026-05-21T11:07:54.555Z info: $GetSafe finished
+2026-05-21T11:31:26.439Z info: $OpenSafeByPin finished
+2026-05-21T11:31:26.475Z info: $GetSafe finished
+2026-05-21T11:31:52.702Z info: $GetSvcUrls finished
+2026-05-21T11:31:52.716Z info: AppExc: 103:unknown_operation["GetTopics$"]
+2026-05-21T11:31:52.718Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["GetTopics$"]
+2026-05-21T11:31:52.720Z info: GetTopics$ terminated on exception
+2026-05-21T11:33:13.860Z info: 10 document classes
+2026-05-21T11:33:13.863Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-21T11:33:13.863Z info: Firestore connector
+2026-05-21T11:33:13.864Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-21T11:33:13.993Z info: Reloading orgs-topics config OK
+2026-05-21T11:33:13.999Z info: HTTP listen [8080]
+2026-05-21T11:33:19.346Z info: GetTopics$ : 2026-05-21T11:33:19.346Z
+2026-05-21T11:33:42.139Z info: GetTopics$ finished
+2026-05-21T11:36:13.702Z info: GetTopics$ : 2026-05-21T11:36:13.702Z
+2026-05-21T11:36:21.642Z info: GetTopics$ finished
+2026-05-21T11:37:51.195Z info: $OpenSafeByPin finished
+2026-05-21T11:37:51.250Z info: $GetSafe finished
+2026-05-21T11:38:15.978Z info: $GetSvcUrls finished
+2026-05-21T11:38:15.999Z info: GetTopics$ : 2026-05-21T11:38:15.999Z
+2026-05-21T11:38:16.008Z info: GetTopics$ finished
+2026-05-21T11:38:16.062Z info: Reloading orgs-topics config OK
+2026-05-21T11:39:43.192Z info: GetTopics$ : 2026-05-21T11:39:43.192Z
+2026-05-21T11:39:43.196Z info: GetTopics$ finished
+2026-05-21T11:46:15.562Z info: $OpenSafeByPin finished
+2026-05-21T11:46:15.607Z info: $GetSafe finished
+2026-05-21T11:46:29.986Z info: $GetSvcUrls finished
+2026-05-21T11:46:30.002Z info: GetTopics$ : 2026-05-21T11:46:30.002Z
+2026-05-21T11:46:30.005Z info: GetTopics$ finished
+2026-05-21T11:46:30.063Z info: Reloading orgs-topics config OK
+2026-05-21T12:14:16.692Z info: UpdTopics$ : 2026-05-21T12:14:16.691Z
+2026-05-21T12:16:19.079Z info: UpdTopics$ finished
+2026-05-21T12:16:19.098Z info: Reloading orgs-topics config OK
+2026-05-21T12:23:25.923Z info: $OpenSafeByPin finished
+2026-05-21T12:23:25.986Z info: $GetSafe finished
+2026-05-21T12:23:42.479Z info: $GetSvcUrls finished
+2026-05-21T12:23:42.496Z info: GetTopics$ : 2026-05-21T12:23:42.495Z
+2026-05-21T12:23:42.501Z info: GetTopics$ finished
+2026-05-21T12:23:42.576Z info: Reloading orgs-topics config OK
+2026-05-21T12:25:47.693Z info: UpdTopics$ : 2026-05-21T12:25:47.693Z
+2026-05-21T12:25:56.386Z info: UpdTopics$ finished
+2026-05-21T12:25:56.405Z info: GetTopics$ : 2026-05-21T12:25:56.405Z
+2026-05-21T12:25:56.408Z info: GetTopics$ finished
+2026-05-21T12:38:27.810Z info: $OpenSafeByPin finished
+2026-05-21T12:38:27.856Z info: $GetSafe finished
+2026-05-21T12:38:38.628Z info: $GetSvcUrls finished
+2026-05-21T12:38:38.640Z info: GetTopics$ : 2026-05-21T12:38:38.640Z
+2026-05-21T12:38:38.645Z info: GetTopics$ finished
+2026-05-21T12:38:38.715Z info: Reloading orgs-topics config OK
+2026-05-21T13:33:43.695Z info: $OpenSafeByPin finished
+2026-05-21T13:33:43.737Z info: $GetSafe finished
+2026-05-21T13:34:42.823Z info: $GetSvcUrls finished
+2026-05-21T13:34:42.839Z info: GetTopics$ : 2026-05-21T13:34:42.839Z
+2026-05-21T13:34:42.844Z info: GetTopics$ finished
+2026-05-21T13:34:42.898Z info: Reloading orgs-topics config OK
+2026-05-21T13:38:20.139Z info: GetTopics$ : 2026-05-21T13:38:20.139Z
+2026-05-21T13:38:20.144Z info: GetTopics$ finished
+2026-05-21T13:38:25.964Z info: GetTopics$ : 2026-05-21T13:38:25.964Z
+2026-05-21T13:38:25.967Z info: GetTopics$ finished
+2026-05-21T13:39:56.128Z info: $OpenSafeByPin finished
+2026-05-21T13:39:56.172Z info: $GetSafe finished
+2026-05-21T13:40:04.396Z info: $GetSvcUrls finished
+2026-05-21T13:40:04.412Z info: GetTopics$ : 2026-05-21T13:40:04.412Z
+2026-05-21T13:40:04.416Z info: GetTopics$ finished
+2026-05-21T13:40:04.467Z info: Reloading orgs-topics config OK
+2026-05-21T13:40:50.470Z info: $OpenSafeByPin finished
+2026-05-21T13:40:50.520Z info: $GetSafe finished
+2026-05-21T13:41:49.416Z info: $GetSvcUrls finished
+2026-05-21T13:41:49.433Z info: GetTopics$ : 2026-05-21T13:41:49.433Z
+2026-05-21T13:41:49.437Z info: GetTopics$ finished
+2026-05-21T13:44:26.290Z info: $OpenSafeByPin finished
+2026-05-21T13:44:26.343Z info: $GetSafe finished
+2026-05-21T13:44:38.278Z info: $GetSvcUrls finished
+2026-05-21T13:44:38.294Z info: GetTopics$ : 2026-05-21T13:44:38.294Z
+2026-05-21T13:44:38.297Z info: GetTopics$ finished
+2026-05-21T13:46:09.398Z info: $OpenSafeByPin finished
+2026-05-21T13:46:09.443Z info: $GetSafe finished
+2026-05-21T13:46:17.430Z info: $GetSvcUrls finished
+2026-05-21T13:46:17.445Z info: GetTopics$ : 2026-05-21T13:46:17.445Z
+2026-05-21T13:46:17.449Z info: GetTopics$ finished
+2026-05-21T13:46:17.501Z info: Reloading orgs-topics config OK
+2026-05-21T13:52:43.760Z info: $OpenSafeByPin finished
+2026-05-21T13:52:43.803Z info: $GetSafe finished
+2026-05-21T13:52:51.329Z info: $GetSvcUrls finished
+2026-05-21T13:52:51.348Z info: GetTopics$ : 2026-05-21T13:52:51.348Z
+2026-05-21T13:52:51.352Z info: GetTopics$ finished
+2026-05-21T13:52:51.400Z info: Reloading orgs-topics config OK
+2026-05-21T13:54:05.503Z info: GetTopics$ : 2026-05-21T13:54:05.503Z
+2026-05-21T13:54:05.508Z info: GetTopics$ finished
+2026-05-21T13:54:20.191Z info: $OpenSafeByPin finished
+2026-05-21T13:54:20.237Z info: $GetSafe finished
+2026-05-21T13:54:27.972Z info: $GetSvcUrls finished
+2026-05-21T13:54:27.989Z info: GetTopics$ : 2026-05-21T13:54:27.989Z
+2026-05-21T13:54:27.993Z info: GetTopics$ finished
+2026-05-21T14:16:02.557Z info: $OpenSafeByPin finished
+2026-05-21T14:16:02.606Z info: $GetSafe finished
+2026-05-21T14:16:13.587Z info: $GetSvcUrls finished
+2026-05-21T14:16:13.602Z info: GetTopics$ : 2026-05-21T14:16:13.602Z
+2026-05-21T14:16:13.607Z info: GetTopics$ finished
+2026-05-21T14:16:13.653Z info: Reloading orgs-topics config OK
+2026-05-21T14:25:26.917Z info: $OpenSafeByPin finished
+2026-05-21T14:25:26.961Z info: $GetSafe finished
+2026-05-21T14:25:37.345Z info: $GetSvcUrls finished
+2026-05-21T14:25:37.361Z info: GetTopics$ : 2026-05-21T14:25:37.360Z
+2026-05-21T14:25:37.365Z info: GetTopics$ finished
+2026-05-21T14:25:37.423Z info: Reloading orgs-topics config OK
