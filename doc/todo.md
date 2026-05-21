@@ -1,5 +1,5 @@
 # BUGS
-Accès par code PIN sur terminal non certifié produit un mauvais message
+Accès par code PIN sur terminal non certifié produit un mauvais message (?)
 
 Première session juste après création de compte : c'est comme si sf.auth n'était pas là
 
