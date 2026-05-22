@@ -33,7 +33,8 @@ export type idx = {
 export type docHeader = {
   name: string,
   sync: boolean,
-  pk: props
+  pk: props,
+  nohash?: boolean
 }
 
 export type collection = {
@@ -68,7 +69,7 @@ export class DocType {
     const x = []
     if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
-    return nohash ? p : Crypt.shaS(p)
+    return nohash || dt.nohash ? p : Crypt.shaS(p)
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
@@ -77,7 +78,7 @@ export class DocType {
     const x = []
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
-    return nohash ? p : Crypt.shaS(p)
+    return nohash || this.nohash ? p : Crypt.shaS(p)
   }
 
   /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */
@@ -136,6 +137,7 @@ export class DocType {
   readonly name: string
   readonly sync : boolean
   readonly pk: props
+  readonly nohash: boolean
   readonly colls : Map<string, collection>
   readonly indexes: Map<string, idx>
 
@@ -178,6 +180,7 @@ export class DocType {
       this.pk = h.pk
     }
     this.sync = h.sync || false
+    this.nohash = h.nohash || false
 
     if (colls && colls.size) {
       for(const [nc, coll] of colls) {

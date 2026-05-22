@@ -545,7 +545,7 @@ export class Cache {
     this.docs = new Map<string, DocDescr>()
   }
 
-  // Retourne ou lit le Document Org de l'opération
+  // Retourne ou lit le Document Org '1' de l'opération
   async getOrg (assert?: string, lazy?: boolean) : Promise<OrgA> {
     const k = 'Org/' + this.op.org
     let dd = this.docs.get(k)
@@ -561,7 +561,7 @@ export class Cache {
   }
 
   /* Retourne ou lit de la base le Document cité par src:
-  - src : objet contenant les proipriétés de la pk
+  - src : objet contenant les propriétés de la pk
   */
   async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document | null> {
     const pk = DocType.getPk(clazz, src)

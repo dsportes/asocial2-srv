@@ -37,6 +37,12 @@ export class OrgA extends Document {
 
 }
 
+export class PropertyA extends Document {
+  static release = 0
+  id: string
+  value: Object
+}
+
 /* 
 - sessionId : shaS de subJSON clé primaire
 - subJSON : token web-push

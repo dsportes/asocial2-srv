@@ -1,5 +1,5 @@
 import { Document, DocStatus } from '../src-fw/document'
-import { Credential, InvitationA, InvObj, OrgA } from '../src-fw/documents'
+import {  OrgA, PropertyA, Credential, InvitationA, InvObj } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
 import { config, Classes } from '../src-fw/config'
 import { AuthRecord } from '../src-fw/operation'
@@ -28,6 +28,18 @@ class Org extends OrgA {
 
 }
 Classes.registerD(Org)
+
+class Property extends PropertyA {
+  static release = 0
+
+  static mutateCl (data: object, options?: Object) : [Object, boolean] {
+    return [data, false]
+  }
+
+  compile () { return this }
+
+}
+Classes.registerD(Property)
 
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
   pubV: string // clé publique de vérification du credential

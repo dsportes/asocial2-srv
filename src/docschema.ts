@@ -7,6 +7,12 @@ new DocType(
 )
 
 new DocType(
+  { name: 'Property', sync: true, pk: ['id'], nohash: true }, //header
+  null, // collections
+  null
+)
+
+new DocType(
   { name: 'Task', sync: false, pk: ['process', 'target'] }, //header
   null, // collections
   new Map<string, idx>([

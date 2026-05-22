@@ -61,8 +61,8 @@ export type TopicDef = {
   id: string,
   categ: string,
   key: string,
-  subjects: string[] | null,
-  pubC: Uint8Array,
+  subjects: string
+  pubC: Uint8Array
   privD: Uint8Array
 }
 
@@ -101,7 +101,7 @@ export class OrgsConfig {
     if (!upd) this.topics = new Map<string, TopicDef>()
     /* JSON topics
     [
-      { id: topic1, categ: c1, key: k12, subjects: [s1, s2 ...] },
+      { id: topic1, categ: c1, key: k12, subjects: ... },
       ...
     ] */
     for(const t of y) {
