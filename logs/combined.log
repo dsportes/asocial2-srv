@@ -16162,3 +16162,106 @@ BEGIN
 2026-05-22T09:00:32.132Z info: GetSvcOpStatus$ finished
 2026-05-22T09:00:32.160Z info: GetSvcOrgStatus : 2026-05-22T09:00:32.160Z
 2026-05-22T09:01:23.442Z info: GetSvcOrgStatus finished
+2026-05-22T15:09:42.646Z info: 11 document classes
+2026-05-22T15:09:42.648Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-22T15:09:42.649Z info: Firestore connector
+2026-05-22T15:09:42.650Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-22T15:09:42.751Z info: Reloading orgs-topics config OK
+2026-05-22T15:09:42.755Z info: HTTP listen [8080]
+2026-05-22T15:09:54.572Z info: $OpenSafeByPin finished
+2026-05-22T15:09:54.620Z info: $GetSafe finished
+2026-05-22T15:10:07.511Z info: $GetOrgSvcs finished
+2026-05-22T15:10:07.537Z info: $GetSvcUrls finished
+2026-05-22T15:10:07.561Z info: GetCredLimitCond : 2026-05-22T15:10:07.560Z
+2026-05-22T15:10:07.567Z error: GetCredLimitCond : 2026-05-22T15:10:07.560Z : DataError: Invalid keyData
+2026-05-22T15:10:07.568Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:10:07.581Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:15:46.676Z info: GetCredLimitCond : 2026-05-22T15:15:46.675Z
+2026-05-22T15:15:46.690Z error: GetCredLimitCond : 2026-05-22T15:15:46.675Z : DataError: Invalid keyData
+2026-05-22T15:15:46.691Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:15:46.693Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:15:46.728Z info: Reloading orgs-topics config OK
+2026-05-22T15:17:16.465Z info: GetCredLimitCond : 2026-05-22T15:17:16.465Z
+2026-05-22T15:19:04.020Z error: GetCredLimitCond : 2026-05-22T15:17:16.465Z : DataError: Invalid keyData
+2026-05-22T15:19:04.021Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:19:04.022Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:22:05.435Z info: GetCredLimitCond : 2026-05-22T15:22:05.435Z
+2026-05-22T15:25:10.620Z error: GetCredLimitCond : 2026-05-22T15:22:05.435Z : DataError: Invalid keyData
+2026-05-22T15:25:10.622Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:25:10.622Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:25:10.630Z info: Reloading orgs-topics config OK
+2026-05-22T15:26:25.909Z info: GetCredLimitCond : 2026-05-22T15:26:25.909Z
+2026-05-22T15:27:19.435Z error: GetCredLimitCond : 2026-05-22T15:26:25.909Z : DataError: Invalid keyData
+2026-05-22T15:27:19.436Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:27:19.437Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:28:31.387Z info: GetCredLimitCond : 2026-05-22T15:28:31.387Z
+2026-05-22T15:29:19.616Z error: GetCredLimitCond : 2026-05-22T15:28:31.387Z : DataError: Invalid keyData
+2026-05-22T15:29:19.618Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:29:19.619Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:31:37.825Z info: $OpenSafeByPin finished
+2026-05-22T15:31:37.873Z info: $GetSafe finished
+2026-05-22T15:33:24.512Z info: GetCredLimitCond : 2026-05-22T15:33:24.512Z
+2026-05-22T15:33:24.516Z info: AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:33:24.518Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:33:24.518Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:33:24.566Z info: Reloading orgs-topics config OK
+2026-05-22T15:38:05.694Z info: GetCredLimitCond : 2026-05-22T15:38:01.359Z
+2026-05-22T15:38:05.695Z info: AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:38:05.695Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:38:05.696Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:38:39.091Z info: GetCredLimitCond : 2026-05-22T15:38:34.075Z
+2026-05-22T15:42:09.037Z info: AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:42:09.038Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:42:09.039Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:42:09.046Z info: Reloading orgs-topics config OK
+2026-05-22T15:42:21.760Z info: 11 document classes
+2026-05-22T15:42:21.766Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-22T15:42:21.768Z info: Firestore connector
+2026-05-22T15:42:21.770Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-22T15:42:21.794Z info: Reloading orgs-topics config OK
+2026-05-22T15:42:21.805Z info: HTTP listen [8080]
+2026-05-22T15:42:30.940Z info: GetCredLimitCond : 2026-05-22T15:42:30.940Z
+2026-05-22T15:42:36.862Z info: AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:42:36.863Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:42:47.302Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:43:57.978Z info: GetCredLimitCond : 2026-05-22T15:43:57.978Z
+2026-05-22T15:46:07.963Z info: AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:46:07.964Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:GetCredLimitCond - AppExc: 103:invalid_string_argument@GetCredLimitCond:["docId"]
+2026-05-22T15:46:07.965Z info: GetCredLimitCond terminated on exception
+2026-05-22T15:48:39.434Z info: $OpenSafeByPin finished
+2026-05-22T15:48:39.499Z info: $GetSafe finished
+2026-05-22T15:48:52.918Z info: $GetOrgSvcs finished
+2026-05-22T15:48:52.943Z info: $GetSvcUrls finished
+2026-05-22T15:49:14.436Z info: GetCredLimitCond : 2026-05-22T15:49:14.436Z
+2026-05-22T15:49:38.666Z info: Reloading orgs-topics config OK
+2026-05-22T15:50:13.353Z info: GetCredLimitCond finished
+2026-05-22T15:50:51.088Z info: AutoRevokeCred : 2026-05-22T15:50:51.087Z
+2026-05-22T15:50:51.092Z info: AppExc: 103:invalid_string_argument@AutoRevokeCred:["docId"]
+2026-05-22T15:50:51.094Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:AutoRevokeCred - AppExc: 103:invalid_string_argument@AutoRevokeCred:["docId"]
+2026-05-22T15:50:51.104Z info: AutoRevokeCred terminated on exception
+2026-05-22T15:52:56.888Z info: $OpenSafeByPin finished
+2026-05-22T15:52:56.923Z info: $GetSafe finished
+2026-05-22T15:53:02.496Z info: $GetOrgSvcs finished
+2026-05-22T15:53:02.523Z info: $GetSvcUrls finished
+2026-05-22T15:53:06.325Z info: GetCredLimitCond : 2026-05-22T15:53:06.325Z
+2026-05-22T15:53:19.477Z info: GetCredLimitCond finished
+2026-05-22T15:53:34.519Z info: AutoRevokeCred : 2026-05-22T15:53:34.519Z
+2026-05-22T15:53:53.023Z info: AutoRevokeCred finished
+2026-05-22T15:53:53.075Z info: $AutoRevokeCreds finished
+2026-05-22T15:56:19.541Z info: $OpenSafeByPin finished
+2026-05-22T15:56:19.574Z info: $GetSafe finished
+2026-05-22T15:58:38.065Z info: 11 document classes
+2026-05-22T15:58:38.068Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-22T15:58:38.069Z info: Firestore connector
+2026-05-22T15:58:38.069Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-22T15:58:38.104Z info: Reloading orgs-topics config OK
+2026-05-22T15:58:38.113Z info: HTTP listen [8080]
+2026-05-22T15:59:21.134Z info: GetCredLimitCond : 2026-05-22T15:59:21.133Z
+2026-05-22T15:59:35.383Z info: GetCredLimitCond finished
+2026-05-22T15:59:40.574Z info: GetCredLimitCond : 2026-05-22T15:59:40.574Z
+2026-05-22T15:59:46.061Z info: GetCredLimitCond finished
+2026-05-22T16:00:18.016Z info: AutoRevokeCred : 2026-05-22T16:00:18.015Z
+2026-05-22T16:00:27.862Z info: AutoRevokeCred finished
+2026-05-22T16:00:32.929Z info: AutoRevokeCred : 2026-05-22T16:00:32.929Z
+2026-05-22T16:00:32.966Z info: AutoRevokeCred finished
+2026-05-22T16:00:33.018Z info: $AutoRevokeCreds finished

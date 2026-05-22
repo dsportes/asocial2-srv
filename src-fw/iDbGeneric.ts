@@ -281,6 +281,12 @@ export interface IDbGeneric {
   */
   oneRow (clazz: string, pk: string, v: number) : Promise<row | null>
 
+  /* Retourne le row de classe fixée dont la propriété "alias"
+  a la valeur fixée par "value".
+  "alias" doit avoir été cité comme index de type propType.STRING
+  */
+  oneRowByAlias (clazz: string, alias: string, value: string) : Promise<row | null>
+
   /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
   (par exemple: Article/auteurs/Zola)
   - si vs est absent: connue actuellement (à now)

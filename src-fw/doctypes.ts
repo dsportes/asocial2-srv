@@ -23,18 +23,21 @@ export enum idxUse { SIMPLE, GLOBAL, COL, IMUTCOL }
 /* Index: 
 - type d'index
 - true si l'index est global (trans organisation)
+- testable: si true l'existence du document par cet "alias" peut être testée
 */
 export type idx = {
-  type: propType,
-  global?: boolean,
+  type: propType
+  global?: boolean
   key?: props
+  testable?: boolean
 }
 
 export type docHeader = {
-  name: string,
-  sync: boolean,
-  pk: props,
+  name: string
+  sync: boolean
+  pk: props
   nohash?: boolean
+  embedCreds?: boolean // les credentials sont embarqués dans la propriété creds
 }
 
 export type collection = {
@@ -58,8 +61,15 @@ export class DocType {
   static docTypes = new Map<string, DocType>()
   static errors = []
 
-  static get (n: string) : DocType {
-    return DocType.docTypes.get(n)
+  static get (clazz: string) : DocType {
+    return DocType.docTypes.get(clazz)
+  }
+
+  static isTestable (clazz: string, idx: string) {
+    const dt = DocType.docTypes.get(clazz)
+    if (!dt) return false
+    const i = dt.indexes.get(idx)
+    return i && i.type === propType.STRING && i.testable
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
@@ -138,6 +148,7 @@ export class DocType {
   readonly sync : boolean
   readonly pk: props
   readonly nohash: boolean
+  readonly embedCreds: boolean
   readonly colls : Map<string, collection>
   readonly indexes: Map<string, idx>
 
@@ -181,6 +192,7 @@ export class DocType {
     }
     this.sync = h.sync || false
     this.nohash = h.nohash || false
+    this.embedCreds = h.embedCreds || false
 
     if (colls && colls.size) {
       for(const [nc, coll] of colls) {

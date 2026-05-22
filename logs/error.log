@@ -347,3 +347,15 @@ BEGIN
 2026-05-06T17:42:00.319Z error: GetCredLimitCond : 2026-05-06T17:40:16.571Z : AppExc: 101:operation_bad_credentials@GetCredLimitCond:["Sponsor./Auteur/roman"]
 2026-05-11T09:31:44.975Z error: AppExc: 105:safe_unexpected_exception["UNIQUE constraint failed: ZZSAFE.userId"]
 2026-05-14T10:11:06.008Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'APIVERSION')"]
+2026-05-22T15:10:07.567Z error: GetCredLimitCond : 2026-05-22T15:10:07.560Z : DataError: Invalid keyData
+2026-05-22T15:10:07.581Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:15:46.690Z error: GetCredLimitCond : 2026-05-22T15:15:46.675Z : DataError: Invalid keyData
+2026-05-22T15:15:46.693Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:19:04.020Z error: GetCredLimitCond : 2026-05-22T15:17:16.465Z : DataError: Invalid keyData
+2026-05-22T15:19:04.022Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:25:10.620Z error: GetCredLimitCond : 2026-05-22T15:22:05.435Z : DataError: Invalid keyData
+2026-05-22T15:25:10.622Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:27:19.435Z error: GetCredLimitCond : 2026-05-22T15:26:25.909Z : DataError: Invalid keyData
+2026-05-22T15:27:19.437Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-22T15:29:19.616Z error: GetCredLimitCond : 2026-05-22T15:28:31.387Z : DataError: Invalid keyData
+2026-05-22T15:29:19.619Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]

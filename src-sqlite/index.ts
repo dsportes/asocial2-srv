@@ -790,6 +790,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return v || !row.deleted ? row : null
   }
 
+  async oneRowByAlias (clazz: string, alias: string, value: string) : Promise<row | null> {
+    const stmt = this.sql.prepare('SELECT * FROM ' + clazz.toUpperCase() +
+      ' WHERE org = @org AND ' + alias + '= @value')
+    const doc = stmt.get({org: this.org, value: value })
+    if (!doc) return null
+    const row = this.rowToAPP(clazz, doc as row)
+    return !row.deleted ? row : null
+  }
+
   /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
   (par exemple: Article/auteurs/Zola)
   - si vs est absent: connue actuellement (à now)

@@ -3,7 +3,7 @@ import { Operation, Cache } from '../src-fw/operation'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Classes } from '../src-fw/config'
-import { Subs, subscription, SubsItem, 
+import { Subs, subscription, SubsItem, PropertyA,
   Credential, InvitationA, InvObj } from '../src-fw/documents'
 import { Invitation } from '../src/documents'
 import { DocStatus } from '../src-fw/document'
@@ -189,6 +189,107 @@ class GetOrgConfig$ extends Operation {
 }
 Classes.registerOp(GetOrgConfig$)
 
+/* HasAlias retourne le document de la classe indiqué
+dont l'index d'alias donné à la valeur donnée.
+*/
+class HasAlias extends Operation {
+  _docCl: string
+  _aliasName: string
+  _aliasValue: string
+  init () {
+    super.init()
+    this._docCl = this.stringValue('json', true)
+    this._aliasName = this.stringValue('aliasName', true)
+    this._aliasValue = this.stringValue('aliasValue', true)
+  }
+
+  async phase2 () {
+    const testable = DocType.isTestable(this._docCl, this._aliasName)
+    const doc = !testable ? null : await this.db.oneRowByAlias(this._docCl, this._aliasName, this._aliasValue)
+    this.setRes('hasalias', doc ? true : false)
+  }
+}
+Classes.registerOp(HasAlias)
+
+/* GetProperty retourne la valeur de la Property
+*/
+class GetProperty extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+  }
+
+  async phase2 () {
+    const doc = await this.cache.getDoc('Property', { id: this._name }) as PropertyA
+    if (doc)
+      this.setRes('value', doc.value)
+  }
+}
+Classes.registerOp(GetProperty)
+
+/* SetProperty fixe la valeur de la Property
+*/
+class SetProperty extends Operation {
+  _name: string
+  _value: Object
+
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+    this._value = this.objectValue('value', true)
+  }
+
+  async phase2 () {
+    let doc = await this.cache.getDoc('Property', { id: this._name }) as PropertyA
+    if (doc) {
+      doc.value = this._value
+      doc._status = DocStatus.UPD
+    } else 
+      doc = this.cache.newDoc('Property', { id: this._name, value: this._value}) as PropertyA
+  }
+}
+Classes.registerOp(SetProperty)
+
+/* SetSubjects fixe la valeur du singleton porteur 
+de la liste des subjects
+*/
+class SetSubjects extends Operation {
+  _name: string
+  _subjects: string[]
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+    this._subjects = this.stringArrayValue('subjects', true)
+  }
+
+  async phase2 () {
+    const json = JSON.stringify(this._subjects, null, '\t')
+    await this.db.setSingleton('subjects_' + this._name, json)
+  }
+}
+Classes.registerOp(SetSubjects)
+
+/* SetSubjects fixe la valeur du singleton porteur du subject
+*/
+class GetSubjects extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+  }
+
+  async phase2 () {
+    const json = await this.db.getSingleton('subjects_' + this._name) as string
+    let value = []
+    try {
+      value = JSON.parse(json || '[]')
+    } catch (e) { /* rien */ }
+    this.setRes('value', value)
+  }
+}
+Classes.registerOp(GetSubjects)
+
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
   _id1 : string
@@ -357,7 +458,7 @@ class GetCredLimitCond extends Operation {
     super.init()
     this._credId = this.stringValue('credId', true)
     this._role = this.stringValue('role', true)
-    this._docId = this.stringValue('docId', true)
+    this._docId = this.stringValue('docId', false) || ''
   }
   async phase2 () {
     this.requireAuth()
