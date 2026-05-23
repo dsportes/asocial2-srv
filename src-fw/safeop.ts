@@ -98,19 +98,6 @@ class $CreateSafe extends SafeOperation {
 }
 Classes.registerOp($CreateSafe)
 
-/* Restauration d'un Safe
-class $RestoreSafe extends SafeOperation {
-
-  async doTheJob () : Promise<void> { 
-    const safe = this.args['safe'] as Safe
-    const ret = await this.db.restoreSafe(safe)
-    if (ret !== 0) await Util.sleep(3000)
-    this.setRes('status', ret)
-  }
-}
-Classes.registerOp($RestoreSafe)
-*/
-
 /* Login (ou refresh) - Retourne le Safe depuis son id + preuve 
 args: userId + ...
 - soit shK: Strong Hash de la clé K - pour mise à jour
@@ -340,7 +327,7 @@ type SetCred = {
   userId: string
   shK: string 
   credId: string // id du credential
-  comment: string // comment crypté par K et en base 64
+  nameK: string // name (correspondant à docId) crypté par K et en base 64
   cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
 }
 /* Enregistrement d'un credential
@@ -353,7 +340,7 @@ class $CreateCred extends SafeOperation {
     if (!safe) return
 
     if (!safe.creds) safe.creds = {}
-    const x = [sc.comment, sc.cred]
+    const x = [sc.nameK, sc.cred]
     safe.creds[sc.credId] = x
 
     await this.save(safe, true)
@@ -365,7 +352,7 @@ Classes.registerOp($CreateCred)
 /* Maj du commentaire d'un credential
 Status: 1 2
 */
-class $UpdateCredComment extends SafeOperation {
+class $UpdateCredName extends SafeOperation {
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
     const safe = await this.getSafe(sc)
@@ -374,7 +361,7 @@ class $UpdateCredComment extends SafeOperation {
     if (safe.creds) {
       const x = safe.creds[sc.credId]
       if (x) {
-        x[0] = sc.comment
+        x[0] = sc.nameK
         safe.creds[sc.credId] = x
         u = true
       }
@@ -383,7 +370,7 @@ class $UpdateCredComment extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($UpdateCredComment)
+Classes.registerOp($UpdateCredName)
 
 type RevokeCreds = {
   userId: string

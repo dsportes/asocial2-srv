@@ -6,7 +6,7 @@ import { IDbGeneric, row, srvStatus, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
-import { Credential, OrgA } from './documents'
+import { Credential, Cred, OrgA } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt } from './crypt'
@@ -144,13 +144,13 @@ export class Operation implements OperationWC {
       throw new AppExc(101, 'operation_authentication_required', this)
   }
 
-  /* Retourne le Credential dont la signature a été vérifié
+  /* Retourne le Cred dont la signature a été vérifié
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (role: string, docId: string, noex?: boolean) : Credential {
+  getCred (docCl: string, docId: string, noex?: boolean) : Cred {
     this.requireAuth()
-    return this.authRecord.getCred(role, docId, noex || false)
+    return this.authRecord.getCred(docCl, docId, noex || false)
   }
 
   async transac (): Promise<void> {
@@ -329,8 +329,8 @@ export class AuthRecord {
   pemC: string // clé publique de cryptage du userId
   pemV: string // clé publique de vérification du userId
 
-  /* Clé: ref : docClass.role/docId - Credential dont la signature est ok*/
-  roles: Map<string, Credential>
+  /* Clé: ref : docCl/docId - Cred dont la signature est ok*/
+  roles: Map<string, Cred>
   /* ref SANS Credential OU dont la signature est KO */
   koRoles: Set<string>
   
@@ -355,11 +355,11 @@ export class AuthRecord {
     }
   }
 
-  getCred(role: string, docId: string, noex?: boolean) : Credential {
-    const cr = this.roles.get(role + '/' + (docId || ''))
+  getCred(docCl: string, docId: string, noex?: boolean) : Cred {
+    const cr = this.roles.get(docCl + '/' + (docId || ''))
     if (cr) return cr
     if (noex) return null
-    throw new AppExc(103, 'missing_credential', this.op, [this.org, role, docId || ''])
+    throw new AppExc(103, 'missing_credential', this.op, [this.org, docCl, docId || ''])
   }
 
   async process () : Promise<void> {
@@ -373,19 +373,27 @@ export class AuthRecord {
     for (const ref in this.signatures) {
       const [ credId, sign] = this.signatures[ref]
       const i = ref.indexOf('/')
-      const role = i === -1 ? ref : ref.substring(0, i)
+      const docCl = i === -1 ? ref : ref.substring(0, i)
       const docId = i === -1 ? '' : ref.substring(i + 1)
-      // Recherche du Credential par sa pk
-      const cred = await this.op.cache.getDoc('Credential', { credId }) as Credential
-      let ok = false
-      if (cred && cred.role === role && cred.docId === docId) {
-        if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', cred.pk)
-        else ok = await Crypt.verify(keyFromB64(cred.pubv), sign, this.challenge)
+      const dt = DocType.get(docCl)
+      let cred: Cred
+      if (dt.embedCreds) { // Recherche du Credential dans le creds du document
+        const d = await this.op.cache.getDoc(docCl, { docId: docId }) as Document
+        const x = d['creds']
+        if (x) {
+          const y = x[credId]
+          if (y.limit && y.limit >= this.op.now) cred = y
+        }
+      } else { // Recherche du Credential par sa pk
+        const c = await this.op.cache.getDoc('Credential', { credId }) as Credential
+        if (c.docCl === docCl && c.docId === docId) {
+          if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', c.pk)
+          else cred = c.cred
+        }
       }
-      if (ok) 
-        this.roles.set(ref, cred)
-      else 
-        this.koRoles.add(ref)
+      const ok = !cred ? false : await Crypt.verify(Buffer.from(cred.pubv), sign, this.challenge)
+      if (ok) { cred.credId = credId; this.roles.set(ref, cred) }
+      else this.koRoles.add(ref)
     }
 
     if (config.debugLevel > 1) {

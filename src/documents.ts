@@ -1,6 +1,7 @@
 import { Document, DocStatus } from '../src-fw/document'
-import {  OrgA, PropertyA, Credential, InvitationA, InvObj } from '../src-fw/documents'
+import {  OrgA, PropertyA, Credential, Cred, InvitationA, InvObj } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
+import { keyFromB64 } from '../src-fw/b64'
 import { config, Classes } from '../src-fw/config'
 import { AuthRecord } from '../src-fw/operation'
 
@@ -49,6 +50,7 @@ type InvitValOM = { // arguments de validation d'un Credential Org.manager
 type InvValAuteur = {
   nom: string // nom d'auteur
   pemvA: string // pemV pour le credential d'accès à l'auteur
+  pemcA: string // pemV pour le credential d'accès à l'auteur
   pemvS: string // pemV pour le credential Sponsor (s'il y a lieu)
   credIdA: string
   credIdS: string
@@ -114,24 +116,27 @@ export class Invitation extends InvitationA {
   async validate_auteur (op: OperationWC, args: InvValAuteur) : Promise<number> {
 
     if (this.etc.newA === 1) {
+      // Credential d'accès à Auteur
+      const cred: Cred = {
+        credId: args.credIdA,
+        pubv: keyFromB64(args.pemvA),
+        pubc: keyFromB64(args.pemcA),
+        limit: 0,
+        opaque: null,
+        more: { p: 'A', name: args.nom || '?' }
+      }
+
       // Création de Auteur sauf si existait déjà (retry)
       const a = await op.cache.getDoc('Auteur', { autid: this.etc.docId })
-      if (!a)
-        op.cache.newDoc('Auteur', { autid: this.etc.docId, nom: args.nom })
-    
-      // Enregistrement du credential d'accès à Auteur
-      const ca = new Credential()
-      ca.credId = args.credIdA
-      ca.role = 'Auteur.'
-      ca.docId = this.etc.docId
-      ca.pubv = args.pemvA
-      ca.limit = 0
-      ca.cond = { p: 'A', name: args.nom || '?' }
-      const c = await op.cache.getDoc('Credential', ca) as Credential
-      if (!c) 
-        op.cache.newDoc('Credential', ca) 
+      if (!a) op.cache.newDoc('Auteur', { 
+          autid: this.etc.docId, 
+          nom: args.nom,
+          creds: { }
+        })
+      else a._status = DocStatus.UPD
+      a.creds[args.credIdA] = cred
     }
-    
+    /*
     if (this.etc.option > 1) {
       const docId = 'Auteur' + (this.etc.option === 2 ? '' : ('/' + this.etc.categ))
       const cs = new Credential()
@@ -145,6 +150,7 @@ export class Invitation extends InvitationA {
       if (!c) 
         op.cache.newDoc('Credential', cs) 
     }
+    */
     
     return 0
   }

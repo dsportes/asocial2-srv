@@ -72,13 +72,19 @@ export class DocType {
     return i && i.type === propType.STRING && i.testable
   }
 
-  /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
+  /* Retourne la valeur du pk d'une "source" src:
+  - soit ayant les propriétés citées dans pk
+  - soit src = { docId: 'a/b/c' }
+  */
   static getPk (clazz: string, src: Object, nohash?: boolean) : string {
     if (clazz === 'Org') return '1'
     const dt = DocType.get(clazz)
-    const x = []
-    if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
-    const p = x.join('/')
+    let p = src['docId']
+    if (!p) {
+      const x = []
+      if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
+      p = x.join('/')
+    }
     return nohash || dt.nohash ? p : Crypt.shaS(p)
   }
 

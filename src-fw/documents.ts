@@ -164,54 +164,42 @@ export class SubsItem extends Document {
 }
 Classes.registerD(SubsItem)
 
+export type Cred = {
+  pubv: Uint8Array
+  pubc: Uint8Array
+  limit: number
+  opaque: Uint8Array | null
+  more: any
+  credId: string
+}
+
 export class Credential extends Document {
   static release = 0
 
   credId: string
-  role: string
+  docCl: string
   docId: string
-  pubv: string
-  limit: number
-  cond: any
+  /* epoch en MINUTES de fin de validité
+  Recopie de cred.limit ou 0 */
+  maxLife: number
+  cred: any
 
-  static async listManagers (op: OperationWC) : Promise<Object[]> {
-    const dd = DocType.get('Credential')
-    const val = dd.getIdx({ role: 'Org.manager', docId: ''}, 'roles')
-    // const val = Crypt.shaS(encoder.encode('Org.manager/'))
-    const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'roles', filter.EQ, val, '', 0, 
-      async (data) => {
-        try {
-          const obj = decode(data) as Credential
-          const x = { 
-            credId: obj.credId,
-            limit: obj.limit,
-            name: obj.cond['name']
-          }
-          lst.push(x)
-        } catch(e) {
-          console.log(e)
-        }
-      })
-    return lst
+  static async listManagers (op: OperationWC) : Promise<Cred[]> {
+    return await Credential.listByDoc(op, 'Org', '1')
   }
 
-  static async listByRoles (op: OperationWC, role: string, docId: string) : Promise<Object[]> {
+  static async listByDoc (op: OperationWC, docCl: string, docId: string) : Promise<Cred[]> {
     const dd = DocType.get('Credential')
-    const val = dd.getIdx({ role, docId }, 'roles')
-    const lst: Object[] = []
-    await op.db.selectDocs('Credential', 'roles', filter.EQ, val[0], '', 0, 
+    const val = dd.getIdx({ docCl, docId }, 'doc')
+    const lst: Cred[] = []
+    await op.db.selectDocs('Credential', 'doc', filter.EQ, val[0], '', 0, 
       async (data) => {
         try {
           const obj = decode(data) as Credential
-          const x = { 
-            credId: obj.credId,
-            role: obj.role,
-            docId: obj.docId,
-            limit: obj.limit,
-            cond: obj.cond
-          }
-          lst.push(x)
+          const c = obj.cred
+          delete c.pubv
+          delete c.pubc
+          lst.push(c)
         } catch(e) {
           console.log(e)
         }
@@ -263,11 +251,14 @@ export class InvitationA extends Document {
 
   /* Est "surchargée". le user est-il un "sponsor" possible */
   static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
+    /*
     if (inv.major === 'Org.manager' && authRecord.isAdmin) return true
     let c: Credential = authRecord.getCred('Org.manager', '', true)
     if (!c) c = authRecord.getCred('Sponsor.', inv.major ,true)
     if (!c) c = authRecord.getCred('Sponsor.', inv.major + '/' + inv.minor ,true)
     return c !== null
+    */
+    return false
   }
 
   /* A surcharger selon le type d'invitation. */

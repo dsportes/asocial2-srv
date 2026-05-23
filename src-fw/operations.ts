@@ -447,27 +447,32 @@ class Sync extends Operation {
 }
 Classes.registerOp(Sync)
 
-/* getCredLimitCond retourne le couple [limit, cond] d'un credential.
-Ne le retourne qu'à son détenteur (signature vérifiée)
+/* getCred retourne le Cred détail d'un credential
+de SON détenteur (signature vérifiée)
+credId pour éviter les "vieux" credential (superstition)
 */
-class GetCredLimitCond extends Operation {
+class GetCred extends Operation {
   _credId: string
-  _role: string
+  _docCl: string
   _docId: string 
   init () {
     super.init()
     this._credId = this.stringValue('credId', true)
-    this._role = this.stringValue('role', true)
+    this._docCl = this.stringValue('docCl', true)
     this._docId = this.stringValue('docId', false) || ''
   }
   async phase2 () {
     this.requireAuth()
-    const cred = this.getCred(this._role, this._docId, true)
-    if (cred && cred.credId === this._credId)
-      this.setRes('limitcond', [cred.limit, cred.cond])
+    const cred = this.getCred(this._docId, this._docId, true)
+    if (cred && cred.credId === this._credId) {
+      const c = { ...cred }
+      c.pubv = null
+      c.pubc = null
+      this.setRes('cred', cred)
+    }
   }
 }
-Classes.registerOp(GetCredLimitCond)
+Classes.registerOp(GetCred)
 
 /* UpdateCred 
 - peut changer la fin de validité d'un Credential
@@ -505,29 +510,35 @@ Le user est authentifié et doit avoir présenté son credential:
 */
 class AutoRevokeCred extends Operation {
   _credId: string
-  _role: string
+  _docCl: string
   _docId: string 
   init () {
     super.init()
     this._credId = this.stringValue('credId', true)
-    this._role = this.stringValue('role', true)
+    this._docCl = this.stringValue('docCl', true)
     this._docId = this.stringValue('docId', true)
   }
   async phase2 () {
     // this.requireAdmin()
     this.requireAuth()
-    const cred = this.authRecord.getCred(this._role, this._docId, true)
+    const cred = this.authRecord.getCred(this._docCl, this._docId, true)
     if (!cred || cred.credId !== this._credId)
-      throw new AppExc(103, 'no_cred_owner', this, [this._role, this._docId])
-    const c = await this.cache.getDoc('Credential', { credId: this._credId }) as Credential
-    if (c)
-      this.cache.delDoc('Credential', c.pk)
+      throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docId])
+    const dt = DocType.get(this._docCl)
+    if (dt.embedCreds) {
+      const d = await this.cache.getDoc(this._docCl, { docId: this._docId })
+      const x = d['creds']
+      if (x) delete x[this._credId]
+    } else {
+      const c = await this.cache.getDoc('Credential', { credId: this._credId }) as Credential
+      if (c) this.cache.delDoc('Credential', c.pk)
+    }
   }
 }
 Classes.registerOp(AutoRevokeCred)
 
 /* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
-Retourne une liste de : { id, userId, time, limit }
+Retourne une liste de Cred
 */
 class ListManagers extends Operation {
   init () {
@@ -536,29 +547,28 @@ class ListManagers extends Operation {
   async phase2 () {
     this.requireAuth()
     const lst = await Credential.listManagers(this)
-    this.setRes('list', lst)
+    this.setRes('creds', lst)
   }
 }
 Classes.registerOp(ListManagers)
 
-/* ListUserCreds liste les credential enregistrés du user (qu'ils soient valides ou non)
-Retourne une liste de : { id, role, docId, time, limit, cond }
-*/
-class listByRoles extends Operation {
-  _role: string
+/* credsByDoc liste les credential enregistrés 
+Retourne une liste de Cred */
+class credsByDoc extends Operation {
+  _docCl: string
   _docId: string 
   init () {
     super.init()
-    this._role = this.stringValue('role', true)
+    this._docCl = this.stringValue('docCl', true)
     this._docId = this.stringValue('docId', true)
   }
   async phase2 () {
     this.requireAuth()
-    const lst = await Credential.listByRoles(this, this._role, this._docId)
-    this.setRes('list', lst)
+    const lst = await Credential.listByDoc(this, this._docCl, this._docId)
+    this.setRes('creds', lst)
   }
 }
-Classes.registerOp(listByRoles)
+Classes.registerOp(credsByDoc)
 
 /* InvitList liste, pour un sponsor, les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'

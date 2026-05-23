@@ -16265,3 +16265,15 @@ BEGIN
 2026-05-22T16:00:32.929Z info: AutoRevokeCred : 2026-05-22T16:00:32.929Z
 2026-05-22T16:00:32.966Z info: AutoRevokeCred finished
 2026-05-22T16:00:33.018Z info: $AutoRevokeCreds finished
+2026-05-23T05:30:50.408Z info: 11 document classes
+2026-05-23T05:30:50.411Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-23T05:30:50.412Z info: Firestore connector
+2026-05-23T05:30:50.413Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-23T14:39:00.688Z info: 11 document classes
+2026-05-23T14:39:00.690Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-23T14:39:00.691Z info: Firestore connector
+2026-05-23T14:39:00.692Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-23T14:39:00.803Z info: Reloading orgs-topics config OK
+2026-05-23T14:39:00.808Z info: HTTP listen [8080]
+2026-05-23T14:39:05.048Z info: $OpenSafeByPin finished
+2026-05-23T14:39:05.093Z info: $GetSafe finished

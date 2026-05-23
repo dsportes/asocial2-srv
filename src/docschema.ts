@@ -38,7 +38,7 @@ new DocType(
   { name: 'Credential', sync: false, pk: ['credId'] }, // header
   null, // collections
   new Map<string, idx>([
-    ['roles', { type: propType.HASH, key: ['role', 'docId'] }],
+    ['doc', { type: propType.HASH, key: ['docCl', 'docId'] }],
   ])
 )
 
@@ -63,7 +63,7 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Auteur', sync: true, pk: ['autid'] }, //header
+  { name: 'Auteur', sync: true, pk: ['autid'], embedCreds: true }, //header
   null, // collections
   new Map<string, idx>([
     ['nom',  { type: propType.STRING, testable: true }]
