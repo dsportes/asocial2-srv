@@ -16277,3 +16277,84 @@ BEGIN
 2026-05-23T14:39:00.808Z info: HTTP listen [8080]
 2026-05-23T14:39:05.048Z info: $OpenSafeByPin finished
 2026-05-23T14:39:05.093Z info: $GetSafe finished
+2026-05-25T08:08:47.161Z info: 11 document classes
+2026-05-25T08:08:47.163Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-25T08:08:47.164Z info: Firestore connector
+2026-05-25T08:08:47.164Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-25T08:08:47.272Z info: Reloading orgs-topics config OK
+2026-05-25T08:08:47.277Z info: HTTP listen [8080]
+2026-05-25T08:30:24.455Z info: $OpenSafeByPin finished
+2026-05-25T08:30:24.516Z info: $GetSafe finished
+2026-05-25T08:31:23.353Z info: $OpenSafeByPin finished
+2026-05-25T08:31:23.397Z info: $GetSafe finished
+2026-05-25T08:32:38.516Z info: $OpenSafeByPin finished
+2026-05-25T08:32:38.563Z info: $GetSafe finished
+2026-05-25T08:34:27.988Z info: $OpenSafeByPin finished
+2026-05-25T08:34:28.036Z info: $GetSafe finished
+2026-05-25T08:35:10.680Z info: $OpenSafeByPin finished
+2026-05-25T08:35:10.726Z info: $GetSafe finished
+2026-05-25T08:39:09.033Z info: $OpenSafeByPin finished
+2026-05-25T08:39:09.072Z info: $GetSafe finished
+2026-05-25T11:59:31.198Z info: 11 document classes
+2026-05-25T11:59:31.201Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-25T11:59:31.202Z info: Firestore connector
+2026-05-25T11:59:31.202Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-25T11:59:31.217Z info: Reloading orgs-topics config OK
+2026-05-25T11:59:31.223Z info: HTTP listen [8080]
+2026-05-25T12:00:15.133Z info: $OpenSafeByPin finished
+2026-05-25T12:00:15.182Z info: $GetSafe finished
+2026-05-25T12:00:24.959Z info: $mdInvitList finished
+2026-05-25T12:01:05.233Z info: $GetOrgSvcs finished
+2026-05-25T12:01:05.262Z info: $GetSvcUrls finished
+2026-05-25T12:01:05.276Z info: GetTopics$ : 2026-05-25T12:01:05.276Z
+2026-05-25T12:01:05.281Z info: GetTopics$ finished
+2026-05-25T12:02:41.020Z info: GetTopics$ : 2026-05-25T12:02:41.020Z
+2026-05-25T12:02:41.024Z info: GetTopics$ finished
+2026-05-25T12:57:51.823Z info: $OpenSafeByPin finished
+2026-05-25T12:57:51.868Z info: $GetSafe finished
+2026-05-25T12:57:59.978Z info: $mdInvitList finished
+2026-05-25T12:58:15.962Z info: $GetOrgSvcs finished
+2026-05-25T12:58:15.990Z info: $GetSvcUrls finished
+2026-05-25T12:58:16.022Z info: GetTopics$ : 2026-05-25T12:58:16.022Z
+2026-05-25T12:58:16.039Z info: GetTopics$ finished
+2026-05-25T12:58:16.111Z info: Reloading orgs-topics config OK
+2026-05-25T13:06:25.426Z info: $OpenSafeByPin finished
+2026-05-25T13:06:25.472Z info: $GetSafe finished
+2026-05-25T13:06:30.040Z info: $mdInvitList finished
+2026-05-25T13:06:42.150Z info: $GetOrgSvcs finished
+2026-05-25T13:06:56.846Z info: $GetSvcUrls finished
+2026-05-25T13:06:56.871Z info: GetTopics$ : 2026-05-25T13:06:56.871Z
+2026-05-25T13:06:56.876Z info: GetTopics$ finished
+2026-05-25T13:06:56.931Z info: Reloading orgs-topics config OK
+2026-05-25T13:10:07.738Z info: $OpenSafeByPin finished
+2026-05-25T13:10:07.786Z info: $GetSafe finished
+2026-05-25T13:10:12.422Z info: $mdInvitList finished
+2026-05-25T13:10:25.991Z info: $GetOrgSvcs finished
+2026-05-25T13:10:26.028Z info: $GetSvcUrls finished
+2026-05-25T13:10:26.040Z info: GetTopics$ : 2026-05-25T13:10:26.040Z
+2026-05-25T13:10:26.045Z info: GetTopics$ finished
+2026-05-25T13:25:07.928Z info: GetTopics$ : 2026-05-25T13:25:07.928Z
+2026-05-25T13:25:07.935Z info: GetTopics$ finished
+2026-05-25T13:25:07.945Z info: GetTopics$ : 2026-05-25T13:25:07.945Z
+2026-05-25T13:25:07.953Z info: GetTopics$ finished
+2026-05-25T13:25:07.988Z info: Reloading orgs-topics config OK
+2026-05-25T13:27:46.565Z info: $mdInvitList finished
+2026-05-25T13:27:47.739Z info: GetTopics$ : 2026-05-25T13:27:47.738Z
+2026-05-25T13:27:47.742Z info: GetTopics$ finished
+2026-05-25T13:27:47.745Z info: GetTopics$ : 2026-05-25T13:27:47.745Z
+2026-05-25T13:27:47.750Z info: GetTopics$ finished
+2026-05-25T13:27:47.753Z info: GetTopics$ : 2026-05-25T13:27:47.752Z
+2026-05-25T13:27:47.758Z info: GetTopics$ finished
+2026-05-25T13:34:25.011Z info: 11 document classes
+2026-05-25T13:34:25.014Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-25T13:34:25.015Z info: Firestore connector
+2026-05-25T13:34:25.016Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-25T13:34:25.037Z info: Reloading orgs-topics config OK
+2026-05-25T13:34:25.041Z info: HTTP listen [8080]
+2026-05-25T13:35:26.671Z info: $OpenSafeByPin finished
+2026-05-25T13:35:26.716Z info: $GetSafe finished
+2026-05-25T13:35:31.311Z info: $mdInvitList finished
+2026-05-25T13:35:44.823Z info: $GetOrgSvcs finished
+2026-05-25T13:35:44.854Z info: $GetSvcUrls finished
+2026-05-25T13:35:44.875Z info: GetTopics$ : 2026-05-25T13:35:44.874Z
+2026-05-25T13:35:44.880Z info: GetTopics$ finished

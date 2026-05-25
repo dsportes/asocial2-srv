@@ -1,5 +1,5 @@
 [
-  { "id": "admin", "categ": "ad", "key": "k1", "subjects": [] },
-  { "id": "crauteur", "categ": "auteurs", "key": "k2", "subjects": [] },
-  { "id": "joinauteur", "categ": "auteurs", "key": "k2", "subjects": ["*", "toto"] }
+  { "id": "admin", "categ": "ad", "key": "k1", "subjects": "" },
+  { "id": "crauteur", "categ": "auteurs", "key": "k2", "subjects": "" },
+  { "id": "joinauteur", "categ": "auteurs", "key": "k2", "subjects": "toto titi" }
 ]
