@@ -16443,3 +16443,7 @@ BEGIN
 2026-05-25T15:25:21.393Z info: GetTopics$ : 2026-05-25T15:25:21.393Z
 2026-05-25T15:25:21.413Z info: GetTopics$ finished
 2026-05-25T15:25:21.419Z info: Reloading orgs-topics config OK
+2026-05-26T08:19:17.149Z info: 11 document classes
+2026-05-26T08:19:17.151Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-26T08:19:17.152Z info: Firestore connector
+2026-05-26T08:19:17.153Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea

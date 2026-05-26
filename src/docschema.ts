@@ -43,12 +43,12 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Invitation', sync: true, pk: ['invitId'] }, // header
-  new Map<string, collection>([
-    ['major', { key: ['major'], mutable: false }],
-    ['majorminor', { key: ['major', 'minor'], mutable: false }]
-  ]), // collections
-  null
+  { name: 'Case', sync: true, pk: ['caseId'] }, // header
+  null, // collections
+  new Map<string, idx>([
+    ['topic', { type: propType.HASH, key: ['topicId'] }],
+    ['topicsub', { type: propType.HASH, key: ['topicId', 'subject'] }]
+  ])
 )
 
 new DocType(

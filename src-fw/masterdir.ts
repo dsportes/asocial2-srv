@@ -445,15 +445,15 @@ class $GetOrgSvcs extends MDOperation {
 }
 Classes.registerOp($GetOrgSvcs)
 
-/* Ajoute / met à jour dans ZZINVITS une invitation
+/* Créer un nouveau cas: une sorte de "preset" qui sera mis à jour juste après.
 Args: 
 - svc, org, invitId
 - lv: true - force le lastView à v (depuis U), sinon le laisse inchangé (sponsor)
 Obtient cette invitation (v, major minor) par le service
 */
-class $mdInvitSet extends MDOperation {
+class $mdCaseNew extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const invitId = this.args['invitId'] as string
+    const caseId = this.args['caseId'] as string
     const userId = this.args['userId'] as string
     const org = this.args['org'] as string
     const svc = this.args['svc'] as string
@@ -467,6 +467,17 @@ class $mdInvitSet extends MDOperation {
   }
 }
 Classes.registerOp($mdInvitSet)
+
+/* ZZCASES: svc org userId topicId caseId v status aboutU lv
+- `svc org` : service détenteur de l'ardoise.
+- `userId`: utilisateur de l'ardoise. Index de sélection.
+- `topicId/caseId` : identifiant du _cas_ dans le service et pour l'utilisateur.
+  - la clé _primaire_ est `userId topicId caseId`.
+- `v` : version du document dans la DB du service. Elle détermine aussi la limite de validité du cas.
+- `status`: 0 1 2 3
+- `aboutU`: texte crypté de commentaire pour le seul usage de l'utilisateur.
+- `lv` : dernière version _lue_ par U. La comparaison avec `v` permet de savoir si U a eu connaissance de la dernière évolution produite par le service.
+*/
 
 /* Met à jour dans ZZINVITS le lastView d'une invitation
 à la valeur de v ("vu" par U)

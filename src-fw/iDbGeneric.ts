@@ -126,6 +126,13 @@ export type Safe = {
   invits: Object | null// une propriété par invitation
 }
 
+export type CaseRow = {
+  caseId: string
+  userId: string
+  v: number
+  data: Uint8Array
+}
+
 export interface IDbGeneric {
   connector: DbConnector
   op: AbstractOperation
@@ -162,11 +169,12 @@ export interface IDbGeneric {
   getSingleton (key: string) : Promise<string>
   setSingleton (key: string, value: string) : Promise<void>
 
-  mdInvitSet (invitId: string, userId: string, v: number, lv: number, data: Uint8Array )
-    : Promise<void>
-  mdInvitUpdLV (invitId: string, userId: string) : Promise<void>
-  mdInvitDel (invitId: string, userId: string) : Promise<void>
-  mdInvitList (userId: string) : Promise<any[]>
+  mdCaseNew (row: CaseRow ) : Promise<void>
+  mdCaseGet (caseId: string ) : Promise<CaseRow>
+  mdCaseSet (row: CaseRow ) : Promise<void>
+  mdCaseDel (caseId: string ) : Promise<void>
+  mdCaseList (userId: string) : Promise<CaseRow[]>
+  mdCasePurge (limit: number ) : Promise<void>
   
   /* safe *****************************************************************************/
   /* Retourne le binaire du safe (décrypté, pas désencodé) */
