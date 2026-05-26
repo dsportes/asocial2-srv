@@ -4,10 +4,15 @@ import { AppExc, AbstractOperation } from './index'
 import { Crypt } from './crypt'
 import { keyFromB64 } from './b64'
 import { config, Classes } from './config'
-import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel } from './iDbGeneric'
+import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, CaseRow } from './iDbGeneric'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Classes.sizeOp())
+}
+
+export type CaseInfo1 = { 
+  v: number // version du document. Elle détermine aussi la limite de validité du document.
+  status: number // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
 }
 
 type Dobj = {
@@ -124,13 +129,14 @@ export class MDOperation implements AbstractOperation {
     return url || ''
   }
 
+  /* Appel par HTTP d'une opération d'un service pour une organisation */
   async postSvcOp (svc: string, org: string, opName: string, args: any) 
     : Promise<any> {
     args.org = org
     let u = await this.getUrl(svc, org)
     if (!u) return null
     if (!u.endsWith('/')) u += '/'
-    const url = u + 'op/' + org + '/' + opName
+    const url = u + 'op/' + opName
     const body = new Uint8Array(encode(args))
     try {
       const response = await fetch(url, {
@@ -445,77 +451,118 @@ class $GetOrgSvcs extends MDOperation {
 }
 Classes.registerOp($GetOrgSvcs)
 
-/* Créer un nouveau cas: une sorte de "preset" qui sera mis à jour juste après.
-Args: 
-- svc, org, invitId
-- lv: true - force le lastView à v (depuis U), sinon le laisse inchangé (sponsor)
-Obtient cette invitation (v, major minor) par le service
+export type CaseData = {
+  chk: string // SHA raccourci des données immuables `caseId, userId topicId subject svc org`. Permet de vérifier que la demande vient bien d'un détenteur légitime (session ou opération).
+  svc: string //
+  org: string // service détenteur de l'ardoise.
+  topicId: string // topic du _cas_.
+  subject: string // sujet du cas si requis.
+  status: number // 0 1 2 3
+  aboutU: string // texte crypté de commentaire pour le seul usage de l'utilisateur.
+  lv: number // dernière version _lue_ par U. La comparaison avec `v` permet de savoir si U a eu connaissance de la dernière évolution produite par le service.
+
+  caseId?: string
+  v?: number
+}
+
+/* `mdCaseNew`: _preset_ de création du case avec ses propriétés immuables.
+  - arguments: `caseId userId topicId subject svc org`
 */
 class $mdCaseNew extends MDOperation {
   async doTheJob () : Promise<void> { 
     const caseId = this.args['caseId'] as string
     const userId = this.args['userId'] as string
-    const org = this.args['org'] as string
-    const svc = this.args['svc'] as string
-    const lv = this.args['lv'] as boolean
-    const r = await this.postSvcOp(svc, org, 'InvitGet', { invitId, userId } )
-    if (r) {
-      const { v, major, minor } = r['invitation']
-      const data = encode({ org, svc, major, minor })
-      await this.db.mdInvitSet(invitId, userId, v, lv ? v : 0, data)
+    const cd = this.args['caseData'] as CaseData
+    cd.lv = 0
+    cd.chk = Crypt.shaS([caseId, userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
+    const cr: CaseRow = { caseId, userId, v: 0, data: encode(cd)}
+    await this.db.mdCaseNew(cr)
+  }
+}
+Classes.registerOp($mdCaseNew)
+
+/* mdCaseSync: synchronise les propriétés variables `v status` avec les valeurs du _document_.
+  - arguments: `caseId chk`
+*/
+class $mdCaseSync extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const caseId = this.args['caseId'] as string
+    const chk = this.args['chk'] as string
+    const cr = (await this.db.mdCaseGet(caseId)) as CaseRow
+    if (cr) {
+      const cd = decode(cr.data) as CaseData
+      const chk2 = Crypt.shaS([caseId, cr.userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
+      if (chk2 !== chk) 
+        throw new AppExc(105, 'masterdir_case_chk', this)
+      const r = await this.postSvcOp(cd.svc, cd.org, 'CaseGetInfo1', { caseId } ) as CaseInfo1
+      if (r && r.v > cr.v) {
+        cr.v = r.v
+        cd.status = r.status
+        cr.data = encode(cd)
+        await this.db.mdCaseSet(cr)
+      }
     }
   }
 }
-Classes.registerOp($mdInvitSet)
+Classes.registerOp($mdCaseSync)
 
-/* ZZCASES: svc org userId topicId caseId v status aboutU lv
-- `svc org` : service détenteur de l'ardoise.
-- `userId`: utilisateur de l'ardoise. Index de sélection.
-- `topicId/caseId` : identifiant du _cas_ dans le service et pour l'utilisateur.
-  - la clé _primaire_ est `userId topicId caseId`.
-- `v` : version du document dans la DB du service. Elle détermine aussi la limite de validité du cas.
-- `status`: 0 1 2 3
-- `aboutU`: texte crypté de commentaire pour le seul usage de l'utilisateur.
-- `lv` : dernière version _lue_ par U. La comparaison avec `v` permet de savoir si U a eu connaissance de la dernière évolution produite par le service.
+/* mdCaseUser: fixe les propriétés variables `lv aboutU` avec les valeurs fixées par l'utilisateur.
+  - arguments: `caseId chk lv aboutU`
 */
-
-/* Met à jour dans ZZINVITS le lastView d'une invitation
-à la valeur de v ("vu" par U)
-Args: svc, org, invitId
-*/
-class $mdInvitUpdLV extends MDOperation {
+class $mdCaseUser extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const invitId = this.args['invitId'] as string
-    const userId = this.args['userId'] as string
-    await this.db.mdInvitUpdLV(invitId, userId)
+    const caseId = this.args['caseId'] as string
+    const chk = this.args['chk'] as string
+    const lv = this.args['lv'] as number
+    const aboutU = this.args['aboutU'] as string
+    const cr = (await this.db.mdCaseGet(caseId)) as CaseRow
+    if (cr) {
+      const cd = decode(cr.data) as CaseData
+      const chk2 = Crypt.shaS([caseId, cr.userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
+      if (chk2 !== chk) 
+        throw new AppExc(105, 'masterdir_case_chk', this)
+      cd.lv = lv
+      cd.aboutU = aboutU
+      cr.data = encode(cd)
+      await this.db.mdCaseSet(cr)
+    }
   }
 }
-Classes.registerOp($mdInvitUpdLV)
+Classes.registerOp($mdCaseUser)
 
-/* Supprime la référence d'une invitation dans ZZINVITS
+/* mdCaseDel: suppression d'un case
+  - arguments: `caseId chk`
 */
-class $mdInvitDel extends MDOperation {
+class $mdCaseDel extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const invitId = this.args['invitId'] as string
-    const userId = this.args['userId'] as string
-    await this.db.mdInvitDel(invitId, userId)
+    const caseId = this.args['caseId'] as string
+    const chk = this.args['chk'] as string
+    const cr = (await this.db.mdCaseGet(caseId)) as CaseRow
+    if (cr) {
+      const cd = decode(cr.data) as CaseData
+      const chk2 = Crypt.shaS([caseId, cr.userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
+      if (chk2 !== chk) 
+        throw new AppExc(105, 'masterdir_case_chk', this)
+      await this.db.mdCaseDel(caseId)
+    }
   }
 }
-Classes.registerOp($mdInvitDel)
+Classes.registerOp($mdCaseDel)
 
-/* Retourne la liste des invitations d'un user donné
+/* Retourne la liste des cases d'un user donné
 */
-class $mdInvitList extends MDOperation {
+class $mdCaseList extends MDOperation {
   async doTheJob () : Promise<void> { 
     const userId = this.args['userId'] as string
-    const rows = await this.db.mdInvitList(userId)
+    const rows = await this.db.mdCaseList(userId) as CaseRow[]
     const lst = []
     for(const row of rows) {
-      // @ts-expect-error
-      const { svc, org, major, minor } = decode(row.data)
-      lst.push({svc, org, invitId: row.invitId, v: row.v, lv: row.lv, major, minor})
+      const cd = decode(row.data) as CaseData
+      cd.v = row.v
+      cd.caseId = row.caseId
+      lst.push(cd)
     }
-    this.setRes('invlist', lst)
+    this.setRes('caselist', lst)
   }
 }
-Classes.registerOp($mdInvitList)
+Classes.registerOp($mdCaseList)

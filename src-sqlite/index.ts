@@ -384,7 +384,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async mdCasePurge (limit: number ) : Promise<void> {
-    let stmt = this.sql.prepare('DELETE FROM ZZCASES WHERE v < @limit')
+    let stmt = this.sql.prepare('DELETE FROM ZZCASES WHERE v > 0 AND v < @limit')
     stmt.run( { limit } )
   }
 

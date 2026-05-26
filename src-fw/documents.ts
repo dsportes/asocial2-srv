@@ -210,35 +210,40 @@ export class Credential extends Document {
 }
 Classes.registerD(Credential)
 
-export type InvObj = {
-  svc?: string // service d'ou l'invitation a été lue (ou préparée à la création)
-  org?: string // organisation d'ou l'invitation a été lue (ou préparée à la création)
-  v?: number // (lue du service) date-heure de sa dernière évolution, que soit par U ou par un des sponsors.
-
-  invitId?: string  // ID de l'invitation générée aléatoirement à sa création
-  userId: string // ID du bénéficiare de l'invitation
-  major: string //code majeur 
-  minor: string // code mineur
-  byU: boolean // la dernière maj est de U
-  tab: string // Adroise commune U / sponsors (non cryptée)
-  etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
+export type CaseObj = {
+  caseId: string // ID universel généré aléatoirement à la création.
+  v: number // version du document. Elle détermine aussi la limite de validité du document.
+  userId: string // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.
+  topicId: string // ID du topic auquel le cas se rapporte.
+  subject: string // code (facultatif) désignant une cible plus précise permettant à un utilisateur _sponsor_ de se concentrer sur un sujet précis. 
+  status: number // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
+  tabX: Uint8Array | null // texte de l'ardoise crypté par `X`
+  etc: any // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
+  maxLife: number // epoch en MINUTES
 }
 
-export class InvitationA extends Document {
+export class Case extends Document {
 
   maxLife: number // epoch en MINUTES
 
-  invitId: string
-  userId: string // ID du bénéficiare de l'invitation
-  major: string //code majeur 
-  minor: string // code mineur
-  byU: boolean // la dernière maj est de U
-  tab: string // Adroise commune U / sponsors (non cryptée)
-  etc: any // objet écrit exclusivement par les sponsors intervenant et contenant toutes les données nécessaires à la _validation_ de l'invitation. En pratique c'est une _sérialisation_ d'un objet.
+  caseId: string = '' // ID universel généré aléatoirement à la création.
+  v: number = 0 // version du document. Elle détermine aussi la limite de validité du document.
+  userId: string = '' // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.
+  topicId: string = '' // ID du topic auquel le cas se rapporte.
+  subject: string = '' // code (facultatif) désignant une cible plus précise permettant à un utilisateur _sponsor_ de se concentrer sur un sujet précis. 
+  status: number = 0 // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
+  tabX: Uint8Array | null  = null // texte de l'ardoise crypté par `X`
+  etc: any = {} // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
 
-  static lp1 = ['invitId', 'userId', 'major', 'minor', 'byU', 'tab', 'etc', 'v']
-  toObj () : InvObj {
-    const obj = {}; for (const p of InvitationA.lp1) obj[p] = this[p]; return obj as InvObj
+  static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
+
+  toObj () : CaseObj {
+    const obj = {}; for (const p of Case.lp1) obj[p] = this[p]; return obj as CaseObj
+  }
+
+  constructor (obj : CaseObj) {
+    super()
+    for (const p of Case.lp1) this[p] = obj[p]
   }
 
   /* Liste des demandes d'invitation à traiter
@@ -250,7 +255,9 @@ export class InvitationA extends Document {
   }
 
   /* Est "surchargée". le user est-il un "sponsor" possible */
-  static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
+  checkSponsor (op: OperationWC) : boolean {
+    const ar = op.authRecord
+    if (this.topicId === 'admin')
     /*
     if (inv.major === 'Org.manager' && authRecord.isAdmin) return true
     let c: Credential = authRecord.getCred('Org.manager', '', true)
