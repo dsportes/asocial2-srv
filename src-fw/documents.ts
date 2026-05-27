@@ -3,12 +3,12 @@ import { Crypt } from './crypt'
 import { filter } from './iDbGeneric'
 import { decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
-import { Classes } from './config'
+import { Registry } from './config'
 import { DocType } from './doctypes'
-import { AuthRecord } from '../src-fw/operation'
+// import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
-  console.log('fw documents loading: ', Classes.sizeD())
+  console.log('fw documents loading: ', Registry.sizeD())
 }
 
 const encoder = new TextEncoder()
@@ -18,7 +18,7 @@ class Task extends Document {
   static release = 0
 
 }
-Classes.registerD(Task)
+Registry.registerD(Task)
 
 export type OrgStatus = {
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -85,7 +85,7 @@ export class Subs extends Document {
     return op.cache.newDoc('Subs', initVals)
   }
 }
-Classes.registerD(Subs)
+Registry.registerD(Subs)
 
 /* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
 et peut avoir trois formes:
@@ -162,7 +162,7 @@ export class SubsItem extends Document {
   }
 
 }
-Classes.registerD(SubsItem)
+Registry.registerD(SubsItem)
 
 export type Cred = {
   pubv: Uint8Array
@@ -208,7 +208,7 @@ export class Credential extends Document {
   }
 
 }
-Classes.registerD(Credential)
+Registry.registerD(Credential)
 
 export type CaseObj = {
   caseId: string // ID universel généré aléatoirement à la création.
@@ -223,9 +223,6 @@ export type CaseObj = {
 }
 
 export class Case extends Document {
-
-  maxLife: number // epoch en MINUTES
-
   caseId: string = '' // ID universel généré aléatoirement à la création.
   v: number = 0 // version du document. Elle détermine aussi la limite de validité du document.
   userId: string = '' // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.
@@ -234,6 +231,7 @@ export class Case extends Document {
   status: number = 0 // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
   tabX: Uint8Array | null  = null // texte de l'ardoise crypté par `X`
   etc: any = {} // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
+  maxLife: number // epoch en MINUTES
 
   static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
 
@@ -246,25 +244,19 @@ export class Case extends Document {
     for (const p of Case.lp1) this[p] = obj[p]
   }
 
-  /* Liste des demandes d'invitation à traiter
-  pour un sponsor focus sur major ou major/minor */
-  static async listInvits (op: OperationWC, major: string, minor: string) : Promise<Uint8Array[]> {
-    const val = Crypt.shaS(encoder.encode(!minor ? major : major + '/' + minor))
-    const crit = !minor ? 'major' : 'majorminor'
-    return await op.db.getColl('Invitation', crit, val, false, 0)
+  /* Liste des demandes des cas à traiter par un sponsor*/
+  static async listCases (op: OperationWC, topicId: string, subject: string) : Promise<Uint8Array[]> {
+    const dt = DocType.get('Case')
+    if (subject) {
+      const val = dt.getIdx({ topicId, subject}, 'topicsub')
+      return await op.db.getColl('Case', 'topicsub', val, false, 0)
+    }
+    const val = dt.getIdx({ topicId }, 'topic')
+    return await op.db.getColl('Case', 'topic', val, false, 0)
   }
 
-  /* Est "surchargée". le user est-il un "sponsor" possible */
-  checkSponsor (op: OperationWC) : boolean {
-    const ar = op.authRecord
-    if (this.topicId === 'admin')
-    /*
-    if (inv.major === 'Org.manager' && authRecord.isAdmin) return true
-    let c: Credential = authRecord.getCred('Org.manager', '', true)
-    if (!c) c = authRecord.getCred('Sponsor.', inv.major ,true)
-    if (!c) c = authRecord.getCred('Sponsor.', inv.major + '/' + inv.minor ,true)
-    return c !== null
-    */
+  /* Est "surchargée" selon le topic. Le user est-il un "sponsor" possible */
+  async checkSponsor (op: OperationWC) : Promise<boolean> {
     return false
   }
 
@@ -274,3 +266,4 @@ export class Case extends Document {
   }
 
 }
+Registry.registerD(Case)

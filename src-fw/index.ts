@@ -7,7 +7,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Log } from './log'
-import { config, Classes } from './config'
+import { config, Registry } from './config'
 import { Util } from './util'
 import { keyFromB64 } from './b64'
 
@@ -531,7 +531,7 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
       return
     }
     
-    const op = Classes.newOp(opName) as Operation
+    const op = Registry.newOp(opName) as Operation
     if (!op) throw new AppExc(103, 'unknown_operation', null, [opName])
 
     const apiv = args['APIVERSION'] || 0

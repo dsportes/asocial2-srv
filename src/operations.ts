@@ -1,6 +1,6 @@
 // import { Operation } from '../src-fw/operation'
-import { Classes } from '../src-fw/config'
+import { Registry } from '../src-fw/config'
 
 export function loadingOA () {
-  console.log('app operations loading: ', Classes.sizeOp())
+  console.log('app operations loading: ', Registry.sizeOp())
 }

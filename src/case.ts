@@ -3,14 +3,14 @@ import { AuthRecord, Operation } from '../src-fw/operation'
 
 class Case_admin extends Case {
   constructor (obj: CaseObj) { super(obj) }
-  checkSponsor (op: Operation) : boolean {
+  async checkSponsor (op: Operation) : Promise<boolean> {
     return op.authRecord.isAdmin
   }
 }
 
 class Case_crauteur extends Case {
   constructor (obj: CaseObj) { super(obj) }
-  checkSponsor (op: Operation) : boolean {
+  async checkSponsor (op: Operation) : Promise<boolean> {
     const ar = op.authRecord
     const c = ar.getCred('Topic', 'crauteur', true)
     return c ? true : false
@@ -20,14 +20,15 @@ class Case_crauteur extends Case {
 class Case_joinauteur extends Case {
   constructor (obj: CaseObj) { super(obj) }
 
-  checkSponsor (op: Operation) : boolean {
+  async checkSponsor (op: Operation) : Promise<boolean> {
     const ar = op.authRecord
     let c = ar.getCred('Topic', 'crauteur', true)
     if (c) return true
-    c = ar.getCred('Topic', 'joinauteur', true)
+    const doc = await op.db.oneRowByAlias('Auteur', 'nom', this.subject)
+    if (!doc) return false
+    c = ar.getCred('Auteur', this.subject, true)
     if (!c) return false
-    const setAuts = new Set(c.more.auteurs)
-    return setAuts.has(this.subject)
+    return c.more.join === true
   }
 }
 

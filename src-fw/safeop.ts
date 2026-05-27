@@ -1,5 +1,5 @@
 import { AppExc, AbstractOperation } from './index'
-import { config, Classes } from './config'
+import { config, Registry } from './config'
 import { Crypt } from './crypt'
 import { keyFromB64, keyToB64 } from './b64'
 import { Util } from './util'
@@ -7,7 +7,7 @@ import { Safe, Alias } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
 export function loadingOS () {
-  console.log('safe operations loading: ', Classes.sizeOp())
+  console.log('safe operations loading: ', Registry.sizeOp())
 }
 
 type Device = {
@@ -35,7 +35,7 @@ export class SafeOperation implements AbstractOperation {
   delRes(prop: string) { delete this.result[prop] }
 
   static async doOp (opName: string, args: Object) : Promise<Object> {
-    const op = Classes.newOp(opName)
+    const op = Registry.newOp(opName)
     if (!op) throw new AppExc(103, 'SafeOperation_unknown_operation', null, [opName])
     op.opName = opName
     op.now = Date.now()
@@ -96,7 +96,7 @@ class $CreateSafe extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($CreateSafe)
+Registry.registerOp($CreateSafe)
 
 /* Login (ou refresh) - Retourne le Safe depuis son id + preuve 
 args: userId + ...
@@ -126,7 +126,7 @@ class $GetSafe extends SafeOperation {
     await this.save(safe)
   }
 }
-Classes.registerOp($GetSafe)
+Registry.registerOp($GetSafe)
 
 /* Mise à jour des alias d'un Safe. 
 Args: userId, shK, 
@@ -147,7 +147,7 @@ class $SetAliasSafe extends SafeOperation {
     if (nosafe) this.delRes('safe')
   }
 }
-Classes.registerOp($SetAliasSafe)
+Registry.registerOp($SetAliasSafe)
 
 /* Mise à jour des phrases secretes d'un Safe. p1 et p2 jamais null ensemble
 Args: userId, shK, 
@@ -182,7 +182,7 @@ class $SetPhraseSafe extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($SetPhraseSafe)
+Registry.registerOp($SetPhraseSafe)
 
 /* Ouverture d'un Safe par PIN
   - accède au _safe_ dont l'id est `userId`.
@@ -234,7 +234,7 @@ class $OpenSafeByPin extends SafeOperation {
     this.setRes('cy', dev.cy)
   }
 }
-Classes.registerOp($OpenSafeByPin)
+Registry.registerOp($OpenSafeByPin)
 
 type SetAdmins = {
   userId: string
@@ -258,7 +258,7 @@ class $SetAdmins extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($SetAdmins)
+Registry.registerOp($SetAdmins)
 
 type TrustDev = {
   userId: string
@@ -295,7 +295,7 @@ class $TrustDevice extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($TrustDevice)
+Registry.registerOp($TrustDevice)
 
 type UntrustDev = {
   userId: string
@@ -320,7 +320,7 @@ class $UntrustDevices extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($UntrustDevices)
+Registry.registerOp($UntrustDevices)
 
 /* Creds ***************************************************************/
 type SetCred = {
@@ -347,7 +347,7 @@ class $CreateCred extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($CreateCred)
+Registry.registerOp($CreateCred)
 
 /* Maj du commentaire d'un credential
 Status: 1 2
@@ -370,7 +370,7 @@ class $UpdateCredName extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($UpdateCredName)
+Registry.registerOp($UpdateCredName)
 
 type RevokeCreds = {
   userId: string
@@ -394,7 +394,7 @@ class $AutoRevokeCreds extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($AutoRevokeCreds)
+Registry.registerOp($AutoRevokeCreds)
 
 /* Profiles *****************************************************/
 type SetProfiles = {
@@ -425,7 +425,7 @@ class $UpdateProfiles extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($UpdateProfiles)
+Registry.registerOp($UpdateProfiles)
 
 type SetAboutProfile = {
   userId: string
@@ -453,7 +453,7 @@ class $SetAboutProfile extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($SetAboutProfile)
+Registry.registerOp($SetAboutProfile)
 
 /* Prefs ***************************************************************/
 type UpdatePrefs = {
@@ -485,7 +485,7 @@ class $UpdatePrefs extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($UpdatePrefs)
+Registry.registerOp($UpdatePrefs)
 
 /* Suppression d'un safe -
 Args: userId, shK
@@ -500,7 +500,7 @@ class $DelSafe extends SafeOperation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp($DelSafe)
+Registry.registerOp($DelSafe)
 
 /* Ping */
 class $Ping extends SafeOperation {
@@ -508,4 +508,4 @@ class $Ping extends SafeOperation {
     this.setRes('ping', true)
   }
 }
-Classes.registerOp($Ping)
+Registry.registerOp($Ping)

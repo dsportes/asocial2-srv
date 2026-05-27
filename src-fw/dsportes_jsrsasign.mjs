@@ -1416,9 +1416,9 @@ extendClass(KJUR.asn1.DEREnumerated, KJUR.asn1.ASN1Object);
 
 // == BEGIN DERAbstractString ================================================
 /**
- * base class for ASN.1 DER string classes
+ * base class for ASN.1 DER string Registry
  * @name KJUR.asn1.DERAbstractString
- * @class base class for ASN.1 DER string classes
+ * @class base class for ASN.1 DER string Registry
  * @param {Array} params associative array of parameters (ex. {'str': 'aaa'})
  * @property {String} s internal string of value
  * @extends KJUR.asn1.ASN1Object

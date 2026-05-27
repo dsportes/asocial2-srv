@@ -3,11 +3,11 @@ import { encode, decode } from '@msgpack/msgpack'
 import { AppExc, AbstractOperation } from './index'
 import { Crypt } from './crypt'
 import { keyFromB64 } from './b64'
-import { config, Classes } from './config'
+import { config, Registry } from './config'
 import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, CaseRow } from './iDbGeneric'
 
 export function loadingOM () {
-  console.log('masterdir operations loading: ', Classes.sizeOp())
+  console.log('masterdir operations loading: ', Registry.sizeOp())
 }
 
 export type CaseInfo1 = { 
@@ -100,7 +100,7 @@ export class MDOperation implements AbstractOperation {
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
   
   static async doOp (opName: string, args: Object) : Promise<Object> {
-    const op = Classes.newOp(opName)
+    const op = Registry.newOp(opName)
     if (!op) 
       throw new AppExc(103, 'masterdir_unknown_operation', null, [opName])
     op.opName = opName
@@ -222,7 +222,7 @@ class $mdUserNew extends MDOperation {
     this.setRes('status', status)
   }
 }
-Classes.registerOp($mdUserNew)
+Registry.registerOp($mdUserNew)
 
 /* $mdUserSetAA : change les alias d'un user.
 OK et ne fais rien si déjà enregistré
@@ -251,7 +251,7 @@ class $mdUserSetAA extends MDOperation {
     this.setRes('status', status)
   }
 }
-Classes.registerOp($mdUserSetAA)
+Registry.registerOp($mdUserSetAA)
 
 /* $mdUserSetS : change le store d'un user.
 Argument: 
@@ -273,7 +273,7 @@ class $mdUserSetS extends MDOperation {
     this.setRes('status', status)
   }
 }
-Classes.registerOp($mdUserSetS)
+Registry.registerOp($mdUserSetS)
 
 /* $mdUserDel : supprime un user.
 Argument: 
@@ -293,7 +293,7 @@ class $mdUserDel extends MDOperation {
     this.setRes('status', status)
   }
 }
-Classes.registerOp($mdUserDel)
+Registry.registerOp($mdUserDel)
 
 /* $mdUserGetAAS : retourne les propriétés dynamiques d'un user.
 Appel depuis un safe.
@@ -316,7 +316,7 @@ class $mdUserGetAAS extends MDOperation {
       this.setRes('aas', [mdUser.hsha1, mdUser.hsha2, mdUser.store])
   }
 }
-Classes.registerOp($mdUserGetAAS)
+Registry.registerOp($mdUserGetAAS)
 
 /* $mdUserGetICVS : retourne l'ID et le store d'user cité par 
 un alias ou son ID
@@ -334,7 +334,7 @@ class $mdUserGetICVS extends MDOperation {
       this.setRes('icvs', { i: mdUser.userId, c: mdUser.C, v: mdUser.V, s: mdUser.store })
   }
 }
-Classes.registerOp($mdUserGetICVS)
+Registry.registerOp($mdUserGetICVS)
 
 /* $mdUserGetCV : retourne les clés publiques d'un user connu par son ID
 Argument:
@@ -349,7 +349,7 @@ class $mdUserGetCV extends MDOperation {
     if (cv) this.setRes('cv', cv)
   }
 }
-Classes.registerOp($mdUserGetCV)
+Registry.registerOp($mdUserGetCV)
 
 /* Test si un alias est libre 
 - 'aliasfree' : true / false
@@ -360,7 +360,7 @@ class $mdAliasFree extends MDOperation {
     this.setRes('aliasfree', await this.db.mdAliasFree(alias))
   }
 }
-Classes.registerOp($mdAliasFree)
+Registry.registerOp($mdAliasFree)
 
 /* Opérations d'administration sur SVCOPS et ORGS ****************
 Les arguments sont signés.
@@ -387,7 +387,7 @@ class $SetOpUrl extends MDOperation {
     await MDCache.set(this, MDTable.SVCOPS, SVC, obj)
   }
 }
-Classes.registerOp($SetOpUrl)
+Registry.registerOp($SetOpUrl)
 
 /* $GrantSvcOpOrg : enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
 Si $OP est null, l'organisation est révoquée pour ce service.
@@ -418,7 +418,7 @@ class $GrantSvcOpOrg extends MDOperation {
     await MDCache.set(this, MDTable.ORGS, org, obj)
   }
 }
-Classes.registerOp($GrantSvcOpOrg)
+Registry.registerOp($GrantSvcOpOrg)
 
 /* Opérations de simple lecture des configuration des services / organisations
 Pas de contrôle d'accès.
@@ -437,7 +437,7 @@ class $GetSvcUrls extends MDOperation {
     this.setRes('urls', urls)
   }
 }
-Classes.registerOp($GetSvcUrls)
+Registry.registerOp($GetSvcUrls)
 
 /* $GetOrgSvcs: pour une organisation donnée, retrourne une map avec une entrée par service
 donnant l'opérateur qui en assure l'hébergement.
@@ -449,7 +449,7 @@ class $GetOrgSvcs extends MDOperation {
     if (svcs) this.setRes('svcs', svcs)
   }
 }
-Classes.registerOp($GetOrgSvcs)
+Registry.registerOp($GetOrgSvcs)
 
 export type CaseData = {
   chk: string // SHA raccourci des données immuables `caseId, userId topicId subject svc org`. Permet de vérifier que la demande vient bien d'un détenteur légitime (session ou opération).
@@ -479,7 +479,7 @@ class $mdCaseNew extends MDOperation {
     await this.db.mdCaseNew(cr)
   }
 }
-Classes.registerOp($mdCaseNew)
+Registry.registerOp($mdCaseNew)
 
 /* mdCaseSync: synchronise les propriétés variables `v status` avec les valeurs du _document_.
   - arguments: `caseId chk`
@@ -494,8 +494,9 @@ class $mdCaseSync extends MDOperation {
       const chk2 = Crypt.shaS([caseId, cr.userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      const r = await this.postSvcOp(cd.svc, cd.org, 'CaseGetInfo1', { caseId } ) as CaseInfo1
-      if (r && r.v > cr.v) {
+      const ret = await this.postSvcOp(cd.svc, cd.org, 'CaseSync', { caseId } )
+      const r:CaseInfo1 = ret ? ret.info : null
+      if (r) {
         cr.v = r.v
         cd.status = r.status
         cr.data = encode(cd)
@@ -504,7 +505,7 @@ class $mdCaseSync extends MDOperation {
     }
   }
 }
-Classes.registerOp($mdCaseSync)
+Registry.registerOp($mdCaseSync)
 
 /* mdCaseUser: fixe les propriétés variables `lv aboutU` avec les valeurs fixées par l'utilisateur.
   - arguments: `caseId chk lv aboutU`
@@ -528,7 +529,7 @@ class $mdCaseUser extends MDOperation {
     }
   }
 }
-Classes.registerOp($mdCaseUser)
+Registry.registerOp($mdCaseUser)
 
 /* mdCaseDel: suppression d'un case
   - arguments: `caseId chk`
@@ -547,7 +548,7 @@ class $mdCaseDel extends MDOperation {
     }
   }
 }
-Classes.registerOp($mdCaseDel)
+Registry.registerOp($mdCaseDel)
 
 /* Retourne la liste des cases d'un user donné
 */
@@ -565,4 +566,4 @@ class $mdCaseList extends MDOperation {
     this.setRes('caselist', lst)
   }
 }
-Classes.registerOp($mdCaseList)
+Registry.registerOp($mdCaseList)

@@ -1,26 +1,33 @@
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 
-export class Classes {
+export class Registry {
   static regDoc = new Map()
-  static sizeD () { return Classes.regDoc.size }
+  static sizeD () { return Registry.regDoc.size }
 
   static regOp = new Map()
-  static sizeOp () { return Classes.regOp.size }
+  static sizeOp () { return Registry.regOp.size }
 
+  static registerD (cl: Function) { Registry.regDoc.set(cl.name, cl) }
 
-  static registerD (cl: Function) { Classes.regDoc.set(cl.name, cl) }
-  static getD (name: string) { return Classes.regDoc.get(name) }
+  static getD (name: string) { return Registry.regDoc.get(name) }
+
   static newD (name: string) {
-    const cl = Classes.regDoc.get(name)
+    const cl = Registry.regDoc.get(name)
     return cl ? new cl() : null
   }
 
-  static registerOp (cl: Function) { 
-    Classes.regOp.set(cl.name, cl)
+  static newCase (name: string, obj: any) {
+    const cl = Registry.regDoc.get('Case_' + name) || Registry.regDoc.get('Case')
+    return new cl(obj)
   }
+
+  static registerOp (cl: Function) { 
+    Registry.regOp.set(cl.name, cl)
+  }
+  
   static newOp (name: string) {
-    const cl = Classes.regOp.get(name)
+    const cl = Registry.regOp.get(name)
     return cl ? new cl() : null
   }
 }

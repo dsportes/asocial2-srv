@@ -2,15 +2,13 @@ import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
-import { config, Classes } from '../src-fw/config'
-import { Subs, subscription, SubsItem, PropertyA,
-  Credential, InvitationA, InvObj } from '../src-fw/documents'
-import { Invitation } from '../src/documents'
+import { config, Registry } from '../src-fw/config'
+import { Subs, subscription, SubsItem, PropertyA, Credential, Case, CaseObj } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 
 export function loadingOF () {
-  console.log('fw operations loading: ', Classes.sizeOp())
+  console.log('fw operations loading: ', Registry.sizeOp())
 }
 
 export type CredRequest = {
@@ -28,7 +26,7 @@ class Bug extends Operation {
   init () { super.init() }
   async phase2 () { await this.db.bug(); console.log('Bug op') }
 }
-Classes.registerOp(Bug)
+Registry.registerOp(Bug)
 
 class ErrorTest extends Operation {
   init () { super.init() }
@@ -36,7 +34,7 @@ class ErrorTest extends Operation {
     throw new AppExc(102, 'error_test', this, ['arg1', 'arg2'])
   }
 }
-Classes.registerOp(ErrorTest)
+Registry.registerOp(ErrorTest)
 
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
@@ -45,7 +43,7 @@ class SvcOpIsAdmin$ extends Operation {
     this.setRes('isadmin', this.authRecord.isAdmin)
   }
 }
-Classes.registerOp(SvcOpIsAdmin$)
+Registry.registerOp(SvcOpIsAdmin$)
 
 /* GetTopics retourne la configuration des topics
 */
@@ -54,7 +52,7 @@ class GetTopics$ extends Operation {
     this.setRes('topics', OrgsConfig.getTopics())
   }
 }
-Classes.registerOp(GetTopics$)
+Registry.registerOp(GetTopics$)
 
 /* UpdTopics retourne la configuration des topics
 */
@@ -70,7 +68,7 @@ class UpdTopics$ extends Operation {
     await OrgsConfig.updTopics(this, this._json)
   }
 }
-Classes.registerOp(UpdTopics$)
+Registry.registerOp(UpdTopics$)
 
 /* GetSvcOpStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
@@ -83,7 +81,7 @@ class GetSvcOpStatus$ extends Operation {
     this.setRes('svcStatus', svcStatus)
   }
 }
-Classes.registerOp(GetSvcOpStatus$)
+Registry.registerOp(GetSvcOpStatus$)
 
 /* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
   st: code 0: DOWN, 1: UP
@@ -110,7 +108,7 @@ class SetSvcOpStatus$ extends Operation {
     this.setRes('svcOpStatus', Cache.srvStatus)
   }
 }
-Classes.registerOp(SetSvcOpStatus$)
+Registry.registerOp(SetSvcOpStatus$)
 
 /* GetOrgStatus retourne le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -129,7 +127,7 @@ class GetSvcOrgStatus extends Operation {
     // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
   }
 }
-Classes.registerOp(GetSvcOrgStatus)
+Registry.registerOp(GetSvcOrgStatus)
 
 /* SetOrgStatus fixe le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
@@ -156,7 +154,7 @@ class SetSvcOrgStatus extends Operation {
     }
   }
 }
-Classes.registerOp(SetSvcOrgStatus)
+Registry.registerOp(SetSvcOrgStatus)
 
 class SetOrgConfig$ extends Operation {
   _st: string
@@ -172,7 +170,7 @@ class SetOrgConfig$ extends Operation {
     this.setRes('orgconfig', { db: this._db, st: this._st })
   }
 }
-Classes.registerOp(SetOrgConfig$)
+Registry.registerOp(SetOrgConfig$)
 
 class GetOrgConfig$ extends Operation {
   async phase2 () {
@@ -187,7 +185,7 @@ class GetOrgConfig$ extends Operation {
       this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
   }
 }
-Classes.registerOp(GetOrgConfig$)
+Registry.registerOp(GetOrgConfig$)
 
 /* HasAlias retourne le document de la classe indiqué
 dont l'index d'alias donné à la valeur donnée.
@@ -209,7 +207,7 @@ class HasAlias extends Operation {
     this.setRes('hasalias', doc ? true : false)
   }
 }
-Classes.registerOp(HasAlias)
+Registry.registerOp(HasAlias)
 
 /* GetProperty retourne la valeur de la Property
 */
@@ -226,7 +224,7 @@ class GetProperty extends Operation {
       this.setRes('value', doc.value)
   }
 }
-Classes.registerOp(GetProperty)
+Registry.registerOp(GetProperty)
 
 /* SetProperty fixe la valeur de la Property
 */
@@ -249,7 +247,7 @@ class SetProperty extends Operation {
       doc = this.cache.newDoc('Property', { id: this._name, value: this._value}) as PropertyA
   }
 }
-Classes.registerOp(SetProperty)
+Registry.registerOp(SetProperty)
 
 /* SetSubjects fixe la valeur du singleton porteur 
 de la liste des subjects
@@ -268,7 +266,7 @@ class SetSubjects extends Operation {
     await this.db.setSingleton('subjects_' + this._name, json)
   }
 }
-Classes.registerOp(SetSubjects)
+Registry.registerOp(SetSubjects)
 
 /* SetSubjects fixe la valeur du singleton porteur du subject
 */
@@ -288,7 +286,7 @@ class GetSubjects extends Operation {
     this.setRes('value', value)
   }
 }
-Classes.registerOp(GetSubjects)
+Registry.registerOp(GetSubjects)
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
@@ -310,7 +308,7 @@ class GetPutUrl extends Operation {
     this.setRes('url', url)
   }
 }
-Classes.registerOp(GetPutUrl)
+Registry.registerOp(GetPutUrl)
 
 /* SetSubscription enregistre la sousciption d'une session *************************
 - Supprime la précédente s'il y en avait une
@@ -336,7 +334,7 @@ class SetSubscription extends Operation {
     }
   }
 }
-Classes.registerOp(SetSubscription)
+Registry.registerOp(SetSubscription)
 
 /* UpdateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
 Maj éventuelle de title / url
@@ -383,7 +381,7 @@ class UpdateSubscription extends Operation {
     }
   }
 }
-Classes.registerOp(UpdateSubscription)
+Registry.registerOp(UpdateSubscription)
 
 type subsToSync = {
   def: string, 
@@ -445,7 +443,7 @@ class Sync extends Operation {
     }
   }
 }
-Classes.registerOp(Sync)
+Registry.registerOp(Sync)
 
 /* getCred retourne le Cred détail d'un credential
 de SON détenteur (signature vérifiée)
@@ -472,7 +470,7 @@ class GetCred extends Operation {
     }
   }
 }
-Classes.registerOp(GetCred)
+Registry.registerOp(GetCred)
 
 /* UpdateCred 
 - peut changer la fin de validité d'un Credential
@@ -502,7 +500,7 @@ class UpdateCred extends Operation {
     */
   }
 }
-Classes.registerOp(UpdateCred)
+Registry.registerOp(UpdateCred)
 
 /* Auto-recvocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
@@ -535,7 +533,7 @@ class AutoRevokeCred extends Operation {
     }
   }
 }
-Classes.registerOp(AutoRevokeCred)
+Registry.registerOp(AutoRevokeCred)
 
 /* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
 Retourne une liste de Cred
@@ -550,7 +548,7 @@ class ListManagers extends Operation {
     this.setRes('creds', lst)
   }
 }
-Classes.registerOp(ListManagers)
+Registry.registerOp(ListManagers)
 
 /* credsByDoc liste les credential enregistrés 
 Retourne une liste de Cred */
@@ -568,13 +566,45 @@ class credsByDoc extends Operation {
     this.setRes('creds', lst)
   }
 }
-Classes.registerOp(credsByDoc)
+Registry.registerOp(credsByDoc)
+
+//   static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
+/* CaseList liste, pour un sponsor, les invitations enregistrées pour un "topic"
+- soit toutes en l'absence de "suject")
+- soit uniquement celles du "subject" indiqué 
+Retourne une liste dde Case 
+*/
+class CaseList extends Operation {
+  _topicId: string
+  _subject: string
+  init () {
+    super.init()
+    this._topicId = this.stringValue('topicId', true)
+    this._subject = this.stringValue('subject', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    // @ts-expect-error
+    const fakeCase = new Case({
+      topicId: this._topicId, subject: this._subject
+    })
+    const ok = fakeCase.checkSponsor(this)
+    if (!ok) {
+      this.setRes('status', 1)
+      return
+    }
+    const lst = await Case.listCases(this, this._topicId, this._subject)
+    this.setRes('list', lst)
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(CaseList)
 
 /* InvitList liste, pour un sponsor, les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
 - soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
 Retourne une liste d'invitations 
-*/
+
 class InvitList extends Operation {
   _major: string
   _minor: string
@@ -599,12 +629,13 @@ class InvitList extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitList)
+Registry.registerOp(InvitList)
+*/
 
 /* InvitGet retourne une invitation d'après son ID.
 Si le user n'est pas certifié (cas d'appel depuis Master Directory pour ZZINVITS) 
 seulement les propriétés: v major minor
-*/
+
 class InvitGet extends Operation {
   _invitId: string
   _userId: string
@@ -624,12 +655,72 @@ class InvitGet extends Operation {
     }
   }
 }
-Classes.registerOp(InvitGet)
+Registry.registerOp(InvitGet)
+*/
+
+/* CaseSync retourne les propriétés v et status d'un case
+*/
+class CaseSync extends Operation {
+  _caseId: string
+
+  init () {
+    super.init()
+    this._caseId = this.stringValue('caseId', true)
+  }
+  async phase2 () {
+    const c = await this.cache.getDoc('Case', { caseId: this._caseId }) as Case
+    if (c && this.authRecord.userId === c.userId) {
+      const x = c.toObj()
+      this.setRes('case', x)
+    }
+  }
+}
+Registry.registerOp(CaseSync)
+
+/* CaseGet retourne les propriétés d'un case
+Réservé au user propriétaire du case
+*/
+class CaseGet extends Operation {
+  _caseId: string
+
+  init () {
+    super.init()
+    this._caseId = this.stringValue('caseId', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const c = await this.cache.getDoc('Case', { caseId: this._caseId }) as Case
+    if (c) this.setRes('info', { v: c.v, status: c.status})
+  }
+}
+Registry.registerOp(CaseGet)
+
+class CaseCreateByU extends Operation {
+  _caseObj: CaseObj
+  init () {
+    super.init()
+    this._caseObj = this.args['invObj'] as CaseObj
+    this._caseObj.etc = {}
+    this._caseObj.status = 1
+  }
+  async phase2 () {
+    this.requireAuth()
+    let cas = await this.cache.getDoc('Case', this._caseObj) as Case
+    if (cas) 
+      { this.setRes('status', 1); return }
+    if (this.authRecord.userId !== this._caseObj.userId)
+      { this.setRes('status', 2); return }
+    cas = this.cache.newDoc('Case', this._caseObj) as Case
+    cas.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(CaseCreateByU)
 
 /* CreateInvit: création d'une invitation. Enregistrement en base seulement.
 - invObj
 L'enregistrement dans le SafeStore du user U a été faite par l'application avant cette opération.
-*/
+
 class InvitCreateByU extends Operation {
   _invObj: InvObj
   init () {
@@ -650,8 +741,10 @@ class InvitCreateByU extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitCreateByU)
+Registry.registerOp(InvitCreateByU)
+*/
 
+/*
 class InvitUpdByU extends Operation {
   _tab: string
   _invitId: string
@@ -673,7 +766,7 @@ class InvitUpdByU extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitUpdByU)
+Registry.registerOp(InvitUpdByU)
 
 class InvitCreateByS extends Operation {
   _invObj: InvObj
@@ -694,7 +787,7 @@ class InvitCreateByS extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitCreateByS)
+Registry.registerOp(InvitCreateByS)
 
 class InvitUpdByS extends Operation {
   _tab: string
@@ -722,24 +815,25 @@ class InvitUpdByS extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitUpdByS)
+Registry.registerOp(InvitUpdByS)
+*/
 
-class InvitCancel extends Operation {
-  _invitId: string
+class CaseCancel extends Operation {
+  _caseId: string
   init () {
     super.init()
-    this._invitId = this.stringValue('invitId', true)
+    this._caseId = this.stringValue('caseId', true)
   }
   async phase2 () {
     this.requireAuth()
-    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!invit) return
-    if (invit.userId !== this.authRecord.userId) return
-    this.cache.delDoc('Invitation', invit.pk)
+    const cas = await this.cache.getDoc('Case', { invitId: this._caseId}) as Case
+    if (!cas) return
+    if (cas.userId !== this.authRecord.userId) return
+    this.cache.delDoc('Case', cas.pk)
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitCancel)
+Registry.registerOp(CaseCancel)
 
 /* InvitValidate réalise les opérations correspondantes. 
 Le demandeur doit être l'utilisateur.
@@ -751,7 +845,7 @@ Côté application,
 - les credentials sont à enregistrer en Safe.
 - des subscriptions sont à gérer sur le / les documents de "position".
 - l'invitation est à supprimer du Master Directory
-*/
+
 export class InvitValidate extends Operation {
   _invitId: string
   _validArgs: any
@@ -776,4 +870,5 @@ export class InvitValidate extends Operation {
     this.setRes('status', 0)
   }
 }
-Classes.registerOp(InvitValidate)
+Registry.registerOp(InvitValidate)
+*/

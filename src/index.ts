@@ -112,7 +112,7 @@ if (docTypeErrors.length) {
   Log.error(docTypeErrors.join('\n'))
   exit()
 }
-Log.info(DocType.docTypes.size + ' document classes')
+Log.info(DocType.docTypes.size + ' document Registry')
 
 config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
 // config.databases.set('sqlite_b', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A']))

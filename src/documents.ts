@@ -1,12 +1,12 @@
 import { Document, DocStatus } from '../src-fw/document'
-import {  OrgA, PropertyA, Credential, Cred, InvitationA, InvObj } from '../src-fw/documents'
+import {  OrgA, PropertyA, Case, CaseObj, Credential, Cred } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
 import { keyFromB64 } from '../src-fw/b64'
-import { config, Classes } from '../src-fw/config'
-import { AuthRecord } from '../src-fw/operation'
+import { config, Registry } from '../src-fw/config'
+import { AuthRecord, Operation } from '../src-fw/operation'
 
 export function loadingDA () {
-  console.log('app documents loading: ', Classes.sizeD())
+  console.log('app documents loading: ', Registry.sizeD())
 }
 
 class Hdr extends Document {
@@ -16,7 +16,7 @@ class Hdr extends Document {
   }
 
 }
-Classes.registerD(Hdr)
+Registry.registerD(Hdr)
 
 class Org extends OrgA {
   static release = 0
@@ -28,7 +28,7 @@ class Org extends OrgA {
   compile () { return this }
 
 }
-Classes.registerD(Org)
+Registry.registerD(Org)
 
 class Property extends PropertyA {
   static release = 0
@@ -40,8 +40,9 @@ class Property extends PropertyA {
   compile () { return this }
 
 }
-Classes.registerD(Property)
+Registry.registerD(Property)
 
+  /* 
 type InvitValOM = { // arguments de validation d'un Credential Org.manager
   pubV: string // clé publique de vérification du credential
   name: string // nom / pseudo facultatif pour information à stocker en cond
@@ -56,33 +57,6 @@ type InvValAuteur = {
   credIdS: string
 }
 
-export class Invitation extends InvitationA {
-  static release = 0
-
-  /* Qui peut proposer une invitation ? Qui est un "sponsor" possible ?
-  Logique applicative choisie ici:
-  - un "manager" est toujours un sponsor valide.
-  - un utilisateur qui a un credential Sponsor pour le "major" de l'invitation
-    est un sponsor valide (quelque soit le "minor").
-  - un utilisateur qui a un credential Sponsor pour le "major.minor" de l'invitation
-    est un sponsor valide (à condition bien sur que l'invitation ait un minor).
-  */
-  static checkSponsor (authRecord: AuthRecord, inv: InvObj | InvitationA) : boolean {
-    return InvitationA.checkSponsor(authRecord, inv)
-  }
-
-  async validate (op: OperationWC, args: any) : Promise<number> {
-    switch (this.major) {
-      case 'Org.manager' : { return await this.validate_orgManager(op, args); break }
-      case 'Auteur' : { return await this.validate_auteur(op, args); break }
-    }
-  }
-
-  /* etc:
-      credId : généré par le sponsor (ici l'administrateur)
-      name: nom saisi par l'adminsytrateur
-    args: pubV
-  */
   async validate_orgManager (op: OperationWC, args: InvitValOM) : Promise<number> {
     // Checking de etc et args
     if (!this.etc['credId']) return 1
@@ -100,6 +74,7 @@ export class Invitation extends InvitationA {
     op.cache.newDoc('Credential', obj)
     return 0
   }
+    */
 
   /* Validation d'un document 'Auteur' 
     - docId: depuis etc
@@ -112,7 +87,7 @@ export class Invitation extends InvitationA {
     pemvS: string // pemV pour le credential Sponsor (s'il y a lieu)
     credIdA: string
     credIdS: string
-  */
+  
   async validate_auteur (op: OperationWC, args: InvValAuteur) : Promise<number> {
 
     if (this.etc.newA === 1) {
@@ -151,14 +126,44 @@ export class Invitation extends InvitationA {
         op.cache.newDoc('Credential', cs) 
     }
     */
-    
-    return 0
+
+class Case_admin extends Case {
+  constructor (obj: CaseObj) { super(obj) }
+  async checkSponsor (op: Operation) : Promise<boolean> {
+    return op.authRecord.isAdmin
   }
 }
-Classes.registerD(Invitation)
+Registry.registerD(Case_admin)
+
+class Case_crauteur extends Case {
+  constructor (obj: CaseObj) { super(obj) }
+  async checkSponsor (op: Operation) : Promise<boolean> {
+    const ar = op.authRecord
+    const c = ar.getCred('Topic', 'crauteur', true)
+    return c ? true : false
+  }
+}
+Registry.registerD(Case_crauteur)
+
+class Case_joinauteur extends Case {
+  constructor (obj: CaseObj) { super(obj) }
+
+  async checkSponsor (op: Operation) : Promise<boolean> {
+    const ar = op.authRecord
+    let c = ar.getCred('Topic', 'crauteur', true)
+    if (c) return true
+    const doc = await op.db.oneRowByAlias('Auteur', 'nom', this.subject)
+    if (!doc) return false
+    c = ar.getCred('Auteur', this.subject, true)
+    if (!c) return false
+    return c.more.join === true
+  }
+}
+Registry.registerD(Case_joinauteur)
 
 class Auteur extends Document {
   static release = 0
+  nom: string
 
   static mutateCl (data: object, options?: Object) : [Object, boolean] {
     return [data, false]
@@ -167,4 +172,4 @@ class Auteur extends Document {
   compile () { return this }
 
 }
-Classes.registerD(Auteur)
+Registry.registerD(Auteur)

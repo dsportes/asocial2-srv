@@ -1,6 +1,6 @@
 import { DocType } from './doctypes'
 import { row } from './iDbGeneric'
-import { config, Classes } from './config'
+import { config, Registry } from './config'
 import { encode } from '@msgpack/msgpack'
 import { AppExc } from '../src-fw/index'
 
@@ -28,7 +28,7 @@ export class Document {
   et de l'indicateur de mutation (false si inchangé)
   */
   static mutate (clazz: string, data: any, options?: Object) : [any, boolean] {
-    const cl = Classes.getD(clazz)
+    const cl = Registry.getD(clazz)
     if (!cl) return [data, false]
     const f = cl.mutateCl
     return f ? f(data, options) : [data, false]
@@ -36,7 +36,7 @@ export class Document {
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = Classes.getD(this._clazz)
+    const cl = Registry.getD(this._clazz)
     return cl ? cl.release : 0
   }
 
@@ -104,9 +104,9 @@ export class Document {
   Retourne le Document.
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
-    const cl = Classes.getD(clazz)
+    const cl = Registry.getD(clazz)
     if (!cl) throw new AppExc(105, 'document_class_not_registered', null, [clazz])
-    const doc = Classes.newD(clazz)
+    const doc = Registry.newD(clazz)
     doc._clazz = clazz
     doc._status = status
     doc.release = cl.release
