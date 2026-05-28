@@ -123,6 +123,8 @@ export class OrgsConfig {
     }
   }
 
+
+
   // Retourne le couple db, storage d'une organisation
   static getDbSt (org: string) : [string, string] {
     OrgsConfig.reload()
@@ -221,6 +223,14 @@ export class OrgsConfig {
       a.push(t2)
     }
     return a
+  }
+
+  static getTopic (id: string) : TopicDef | null {
+    OrgsConfig.reload()
+    const c = OrgsConfig.current
+    if (!c) return null
+    const td = c.topics.get(id)
+    return td || null
   }
 
   // Retourne le DbConnector à la base configurée pour l'organisation org

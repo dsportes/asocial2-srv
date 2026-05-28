@@ -658,8 +658,7 @@ class InvitGet extends Operation {
 Registry.registerOp(InvitGet)
 */
 
-/* CaseSync retourne les propriétés v et status d'un case
-*/
+/* CaseSync retourne les propriétés (v, status) d'un case */
 class CaseSync extends Operation {
   _caseId: string
 
@@ -677,7 +676,7 @@ class CaseSync extends Operation {
 }
 Registry.registerOp(CaseSync)
 
-/* CaseGet retourne les propriétés d'un case
+/* CaseGet retourne les propriétés (v, status, tabX, etc) d'un case
 Réservé au user propriétaire du case
 */
 class CaseGet extends Operation {
@@ -689,8 +688,10 @@ class CaseGet extends Operation {
   }
   async phase2 () {
     this.requireAuth()
+    const uid = this.authRecord.userId
     const c = await this.cache.getDoc('Case', { caseId: this._caseId }) as Case
-    if (c) this.setRes('info', { v: c.v, status: c.status})
+    if (c && c.userId === uid) 
+      this.setRes('case', { v: c.v, status: c.status, tabX: c.tabX, etc: c.etc })
   }
 }
 Registry.registerOp(CaseGet)
@@ -699,7 +700,7 @@ class CaseCreateByU extends Operation {
   _caseObj: CaseObj
   init () {
     super.init()
-    this._caseObj = this.args['invObj'] as CaseObj
+    this._caseObj = this.args['caseObj'] as CaseObj
     this._caseObj.etc = {}
     this._caseObj.status = 1
   }

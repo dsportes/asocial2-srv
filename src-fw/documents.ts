@@ -210,7 +210,7 @@ export class Credential extends Document {
 }
 Registry.registerD(Credential)
 
-export type CaseObj = {
+export type CaseObj = { // de document
   caseId: string // ID universel généré aléatoirement à la création.
   v: number // version du document. Elle détermine aussi la limite de validité du document.
   userId: string // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.

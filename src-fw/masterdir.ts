@@ -458,7 +458,7 @@ export type CaseData = {
   topicId: string // topic du _cas_.
   subject: string // sujet du cas si requis.
   status: number // 0 1 2 3
-  aboutU: string // texte crypté de commentaire pour le seul usage de l'utilisateur.
+  aboutU: Uint8Array | null // texte crypté de commentaire pour le seul usage de l'utilisateur.
   lv: number // dernière version _lue_ par U. La comparaison avec `v` permet de savoir si U a eu connaissance de la dernière évolution produite par le service.
 
   caseId?: string
@@ -472,10 +472,9 @@ class $mdCaseNew extends MDOperation {
   async doTheJob () : Promise<void> { 
     const caseId = this.args['caseId'] as string
     const userId = this.args['userId'] as string
+    const v = this.args['v'] as number
     const cd = this.args['caseData'] as CaseData
-    cd.lv = 0
-    cd.chk = Crypt.shaS([caseId, userId, cd.topicId, cd.subject, cd.svc, cd.org].join('/'))
-    const cr: CaseRow = { caseId, userId, v: 0, data: encode(cd)}
+    const cr: CaseRow = { caseId, userId, v: v, data: encode(cd)}
     await this.db.mdCaseNew(cr)
   }
 }
@@ -515,7 +514,7 @@ class $mdCaseUser extends MDOperation {
     const caseId = this.args['caseId'] as string
     const chk = this.args['chk'] as string
     const lv = this.args['lv'] as number
-    const aboutU = this.args['aboutU'] as string
+    const aboutU = this.args['aboutU'] as Uint8Array
     const cr = (await this.db.mdCaseGet(caseId)) as CaseRow
     if (cr) {
       const cd = decode(cr.data) as CaseData
