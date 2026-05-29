@@ -16447,3 +16447,308 @@ BEGIN
 2026-05-26T08:19:17.151Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
 2026-05-26T08:19:17.152Z info: Firestore connector
 2026-05-26T08:19:17.153Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-29T09:49:25.250Z info: 11 document Registry
+2026-05-29T09:49:25.253Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-29T09:49:25.254Z info: Firestore connector
+2026-05-29T09:49:25.254Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-29T09:49:25.349Z info: Reloading orgs-topics config OK
+2026-05-29T09:49:25.355Z info: HTTP listen [8080]
+2026-05-29T09:51:34.269Z info: $OpenSafeByPin finished
+2026-05-29T09:51:34.317Z info: $GetSafe finished
+2026-05-29T09:51:41.753Z info: $mdCaseList finished
+2026-05-29T10:01:24.513Z info: $OpenSafeByPin finished
+2026-05-29T10:01:24.560Z info: $GetSafe finished
+2026-05-29T10:01:30.377Z info: $mdCaseList finished
+2026-05-29T10:01:46.647Z info: $GetOrgSvcs finished
+2026-05-29T10:01:46.674Z info: $GetSvcUrls finished
+2026-05-29T10:01:46.687Z info: GetTopics$ : 2026-05-29T10:01:46.686Z
+2026-05-29T10:01:46.694Z info: GetTopics$ finished
+2026-05-29T10:01:46.746Z info: Reloading orgs-topics config OK
+2026-05-29T10:19:04.121Z info: GetTopics$ : 2026-05-29T10:19:04.121Z
+2026-05-29T10:19:04.128Z info: GetTopics$ finished
+2026-05-29T10:19:04.133Z info: GetTopics$ : 2026-05-29T10:19:04.133Z
+2026-05-29T10:19:04.141Z info: GetTopics$ finished
+2026-05-29T10:19:04.150Z info: GetTopics$ : 2026-05-29T10:19:04.150Z
+2026-05-29T10:19:04.162Z info: GetTopics$ finished
+2026-05-29T10:19:04.181Z info: Reloading orgs-topics config OK
+2026-05-29T10:20:04.894Z info: $OpenSafeByPin finished
+2026-05-29T10:20:04.975Z info: $GetSafe finished
+2026-05-29T10:20:10.117Z info: $mdCaseList finished
+2026-05-29T10:20:21.001Z info: $GetOrgSvcs finished
+2026-05-29T10:20:21.043Z info: $GetSvcUrls finished
+2026-05-29T10:20:21.066Z info: GetTopics$ : 2026-05-29T10:20:21.066Z
+2026-05-29T10:20:21.071Z info: GetTopics$ finished
+2026-05-29T10:26:48.796Z info: GetTopics$ : 2026-05-29T10:26:48.796Z
+2026-05-29T10:26:48.801Z info: GetTopics$ finished
+2026-05-29T10:26:48.805Z info: GetTopics$ : 2026-05-29T10:26:48.804Z
+2026-05-29T10:26:48.811Z info: GetTopics$ finished
+2026-05-29T10:26:48.818Z info: GetTopics$ : 2026-05-29T10:26:48.818Z
+2026-05-29T10:26:48.823Z info: GetTopics$ finished
+2026-05-29T10:26:48.851Z info: Reloading orgs-topics config OK
+2026-05-29T10:28:41.179Z info: GetTopics$ : 2026-05-29T10:28:41.179Z
+2026-05-29T10:28:41.184Z info: GetTopics$ finished
+2026-05-29T10:28:41.190Z info: GetTopics$ : 2026-05-29T10:28:41.190Z
+2026-05-29T10:28:41.196Z info: GetTopics$ finished
+2026-05-29T10:28:41.199Z info: GetTopics$ : 2026-05-29T10:28:41.199Z
+2026-05-29T10:28:41.203Z info: GetTopics$ finished
+2026-05-29T10:51:42.055Z info: $OpenSafeByPin finished
+2026-05-29T10:51:42.135Z info: $GetSafe finished
+2026-05-29T10:51:46.545Z info: $mdCaseList finished
+2026-05-29T10:51:55.056Z info: $GetOrgSvcs finished
+2026-05-29T10:51:55.099Z info: $GetSvcUrls finished
+2026-05-29T10:51:55.119Z info: GetTopics$ : 2026-05-29T10:51:55.119Z
+2026-05-29T10:51:55.126Z info: GetTopics$ finished
+2026-05-29T10:51:55.177Z info: Reloading orgs-topics config OK
+2026-05-29T11:54:55.872Z info: $OpenSafeByPin finished
+2026-05-29T11:54:55.946Z info: $GetSafe finished
+2026-05-29T11:55:08.644Z info: $mdCaseList finished
+2026-05-29T11:55:18.077Z info: $GetOrgSvcs finished
+2026-05-29T11:55:18.116Z info: $GetSvcUrls finished
+2026-05-29T11:55:18.142Z info: GetTopics$ : 2026-05-29T11:55:18.141Z
+2026-05-29T11:55:18.148Z info: GetTopics$ finished
+2026-05-29T11:55:18.206Z info: Reloading orgs-topics config OK
+2026-05-29T12:05:22.181Z info: GetTopics$ : 2026-05-29T12:05:22.181Z
+2026-05-29T12:05:22.189Z info: GetTopics$ finished
+2026-05-29T12:05:22.202Z info: GetTopics$ : 2026-05-29T12:05:22.202Z
+2026-05-29T12:05:22.219Z info: GetTopics$ finished
+2026-05-29T12:05:22.251Z info: Reloading orgs-topics config OK
+2026-05-29T12:05:56.533Z info: GetTopics$ : 2026-05-29T12:05:56.533Z
+2026-05-29T12:05:56.539Z info: GetTopics$ finished
+2026-05-29T12:05:56.547Z info: GetTopics$ : 2026-05-29T12:05:56.547Z
+2026-05-29T12:05:56.553Z info: GetTopics$ finished
+2026-05-29T12:05:56.557Z info: GetTopics$ : 2026-05-29T12:05:56.557Z
+2026-05-29T12:05:56.561Z info: GetTopics$ finished
+2026-05-29T12:12:54.133Z info: GetTopics$ : 2026-05-29T12:12:54.133Z
+2026-05-29T12:12:54.142Z info: GetTopics$ finished
+2026-05-29T12:12:54.179Z info: GetTopics$ : 2026-05-29T12:12:54.179Z
+2026-05-29T12:12:54.227Z info: GetTopics$ finished
+2026-05-29T12:12:54.244Z info: Reloading orgs-topics config OK
+2026-05-29T12:15:17.167Z info: GetTopics$ : 2026-05-29T12:15:17.167Z
+2026-05-29T12:15:17.172Z info: GetTopics$ finished
+2026-05-29T12:15:17.183Z info: GetTopics$ : 2026-05-29T12:15:17.183Z
+2026-05-29T12:15:17.207Z info: GetTopics$ finished
+2026-05-29T12:15:17.323Z info: GetTopics$ : 2026-05-29T12:15:17.323Z
+2026-05-29T12:15:17.333Z info: GetTopics$ finished
+2026-05-29T12:17:55.821Z info: GetTopics$ : 2026-05-29T12:17:55.821Z
+2026-05-29T12:17:55.828Z info: GetTopics$ finished
+2026-05-29T12:17:55.839Z info: GetTopics$ : 2026-05-29T12:17:55.839Z
+2026-05-29T12:17:55.853Z info: GetTopics$ finished
+2026-05-29T12:17:55.878Z info: Reloading orgs-topics config OK
+2026-05-29T12:27:42.247Z info: GetTopics$ : 2026-05-29T12:27:42.247Z
+2026-05-29T12:27:42.252Z info: GetTopics$ finished
+2026-05-29T12:27:42.255Z info: GetTopics$ : 2026-05-29T12:27:42.255Z
+2026-05-29T12:27:42.266Z info: GetTopics$ finished
+2026-05-29T12:27:42.271Z info: GetTopics$ : 2026-05-29T12:27:42.271Z
+2026-05-29T12:27:42.275Z info: GetTopics$ finished
+2026-05-29T12:27:42.307Z info: Reloading orgs-topics config OK
+2026-05-29T12:31:51.622Z info: GetTopics$ : 2026-05-29T12:31:51.622Z
+2026-05-29T12:31:51.636Z info: GetTopics$ finished
+2026-05-29T12:31:51.671Z info: GetTopics$ : 2026-05-29T12:31:51.671Z
+2026-05-29T12:31:51.684Z info: GetTopics$ finished
+2026-05-29T12:31:59.453Z info: GetTopics$ : 2026-05-29T12:31:59.453Z
+2026-05-29T12:31:59.458Z info: GetTopics$ finished
+2026-05-29T12:31:59.462Z info: GetTopics$ : 2026-05-29T12:31:59.462Z
+2026-05-29T12:31:59.471Z info: GetTopics$ finished
+2026-05-29T12:31:59.474Z info: GetTopics$ : 2026-05-29T12:31:59.474Z
+2026-05-29T12:31:59.479Z info: GetTopics$ finished
+2026-05-29T12:36:20.872Z info: GetTopics$ : 2026-05-29T12:36:20.872Z
+2026-05-29T12:36:20.878Z info: GetTopics$ finished
+2026-05-29T12:36:20.892Z info: GetTopics$ : 2026-05-29T12:36:20.892Z
+2026-05-29T12:36:20.899Z info: GetTopics$ finished
+2026-05-29T12:36:20.904Z info: GetTopics$ : 2026-05-29T12:36:20.904Z
+2026-05-29T12:36:20.910Z info: GetTopics$ finished
+2026-05-29T12:36:20.929Z info: Reloading orgs-topics config OK
+2026-05-29T12:37:53.899Z info: GetTopics$ : 2026-05-29T12:37:53.899Z
+2026-05-29T12:37:53.908Z info: GetTopics$ finished
+2026-05-29T12:37:53.924Z info: GetTopics$ : 2026-05-29T12:37:53.924Z
+2026-05-29T12:37:53.930Z info: GetTopics$ finished
+2026-05-29T12:38:24.344Z info: $OpenSafeByPin finished
+2026-05-29T12:38:24.397Z info: $GetSafe finished
+2026-05-29T12:38:29.014Z info: $mdCaseList finished
+2026-05-29T12:38:40.894Z info: $GetOrgSvcs finished
+2026-05-29T12:38:40.931Z info: $GetSvcUrls finished
+2026-05-29T12:38:40.946Z info: GetTopics$ : 2026-05-29T12:38:40.946Z
+2026-05-29T12:38:40.952Z info: GetTopics$ finished
+2026-05-29T12:42:36.966Z info: GetTopics$ : 2026-05-29T12:42:36.966Z
+2026-05-29T12:42:36.974Z info: GetTopics$ finished
+2026-05-29T12:42:36.985Z info: GetTopics$ : 2026-05-29T12:42:36.985Z
+2026-05-29T12:42:37.001Z info: GetTopics$ finished
+2026-05-29T12:42:37.031Z info: Reloading orgs-topics config OK
+2026-05-29T12:43:38.703Z info: GetTopics$ : 2026-05-29T12:43:38.702Z
+2026-05-29T12:43:38.708Z info: GetTopics$ finished
+2026-05-29T12:43:38.715Z info: GetTopics$ : 2026-05-29T12:43:38.715Z
+2026-05-29T12:43:38.748Z info: GetTopics$ finished
+2026-05-29T12:44:34.277Z info: GetTopics$ : 2026-05-29T12:44:34.277Z
+2026-05-29T12:44:34.288Z info: GetTopics$ finished
+2026-05-29T12:44:34.315Z info: GetTopics$ : 2026-05-29T12:44:34.315Z
+2026-05-29T12:44:34.363Z info: GetTopics$ finished
+2026-05-29T12:45:11.157Z info: GetTopics$ : 2026-05-29T12:45:11.157Z
+2026-05-29T12:45:11.163Z info: GetTopics$ finished
+2026-05-29T12:45:11.170Z info: GetTopics$ : 2026-05-29T12:45:11.170Z
+2026-05-29T12:45:11.195Z info: GetTopics$ finished
+2026-05-29T12:45:20.711Z info: GetTopics$ : 2026-05-29T12:45:20.711Z
+2026-05-29T12:45:20.716Z info: GetTopics$ finished
+2026-05-29T12:45:20.723Z info: GetTopics$ : 2026-05-29T12:45:20.723Z
+2026-05-29T12:45:20.728Z info: GetTopics$ finished
+2026-05-29T12:45:20.731Z info: GetTopics$ : 2026-05-29T12:45:20.731Z
+2026-05-29T12:45:20.735Z info: GetTopics$ finished
+2026-05-29T12:50:49.262Z info: GetTopics$ : 2026-05-29T12:50:49.262Z
+2026-05-29T12:50:49.268Z info: GetTopics$ finished
+2026-05-29T12:50:49.275Z info: GetTopics$ : 2026-05-29T12:50:49.275Z
+2026-05-29T12:50:49.291Z info: GetTopics$ finished
+2026-05-29T12:50:49.327Z info: Reloading orgs-topics config OK
+2026-05-29T12:58:55.411Z info: GetTopics$ : 2026-05-29T12:58:55.411Z
+2026-05-29T12:58:55.417Z info: GetTopics$ finished
+2026-05-29T12:58:55.421Z info: GetTopics$ : 2026-05-29T12:58:55.421Z
+2026-05-29T12:58:55.428Z info: GetTopics$ finished
+2026-05-29T12:58:55.437Z info: GetTopics$ : 2026-05-29T12:58:55.437Z
+2026-05-29T12:58:55.461Z info: GetTopics$ finished
+2026-05-29T12:58:55.470Z info: Reloading orgs-topics config OK
+2026-05-29T13:01:50.618Z info: GetTopics$ : 2026-05-29T13:01:50.618Z
+2026-05-29T13:01:50.624Z info: GetTopics$ finished
+2026-05-29T13:01:50.628Z info: GetTopics$ : 2026-05-29T13:01:50.628Z
+2026-05-29T13:01:50.635Z info: GetTopics$ finished
+2026-05-29T13:01:50.639Z info: GetTopics$ : 2026-05-29T13:01:50.639Z
+2026-05-29T13:01:50.644Z info: GetTopics$ finished
+2026-05-29T13:01:50.648Z info: GetTopics$ : 2026-05-29T13:01:50.648Z
+2026-05-29T13:01:50.654Z info: GetTopics$ finished
+2026-05-29T13:01:50.911Z info: GetTopics$ : 2026-05-29T13:01:50.911Z
+2026-05-29T13:01:50.916Z info: GetTopics$ finished
+2026-05-29T13:01:50.920Z info: GetTopics$ : 2026-05-29T13:01:50.920Z
+2026-05-29T13:01:50.929Z info: GetTopics$ finished
+2026-05-29T13:01:50.933Z info: GetTopics$ : 2026-05-29T13:01:50.933Z
+2026-05-29T13:01:50.939Z info: GetTopics$ finished
+2026-05-29T13:02:15.322Z info: $OpenSafeByPin finished
+2026-05-29T13:02:15.394Z info: $GetSafe finished
+2026-05-29T13:02:19.482Z info: $mdCaseList finished
+2026-05-29T13:07:50.062Z info: $OpenSafeByPin finished
+2026-05-29T13:07:50.142Z info: $GetSafe finished
+2026-05-29T13:07:55.401Z info: $mdCaseList finished
+2026-05-29T13:10:27.377Z info: $OpenSafeByPin finished
+2026-05-29T13:10:27.442Z info: $GetSafe finished
+2026-05-29T13:10:31.257Z info: $mdCaseList finished
+2026-05-29T13:10:45.074Z info: $GetOrgSvcs finished
+2026-05-29T13:10:45.116Z info: $GetSvcUrls finished
+2026-05-29T13:10:45.134Z info: GetTopics$ : 2026-05-29T13:10:45.134Z
+2026-05-29T13:10:45.141Z info: GetTopics$ finished
+2026-05-29T13:10:45.191Z info: Reloading orgs-topics config OK
+2026-05-29T13:16:30.570Z info: $OpenSafeByPin finished
+2026-05-29T13:16:30.667Z info: $GetSafe finished
+2026-05-29T13:16:34.866Z info: $mdCaseList finished
+2026-05-29T13:16:43.630Z info: $GetOrgSvcs finished
+2026-05-29T13:16:43.677Z info: $GetSvcUrls finished
+2026-05-29T13:16:43.692Z info: GetTopics$ : 2026-05-29T13:16:43.692Z
+2026-05-29T13:16:43.699Z info: GetTopics$ finished
+2026-05-29T13:16:43.760Z info: Reloading orgs-topics config OK
+2026-05-29T13:17:53.700Z info: GetTopics$ : 2026-05-29T13:17:53.700Z
+2026-05-29T13:17:53.706Z info: GetTopics$ finished
+2026-05-29T13:17:53.709Z info: GetTopics$ : 2026-05-29T13:17:53.709Z
+2026-05-29T13:17:53.716Z info: GetTopics$ finished
+2026-05-29T13:17:53.722Z info: GetTopics$ : 2026-05-29T13:17:53.722Z
+2026-05-29T13:17:53.728Z info: GetTopics$ finished
+2026-05-29T13:26:20.489Z info: GetTopics$ : 2026-05-29T13:26:20.489Z
+2026-05-29T13:26:20.494Z info: GetTopics$ finished
+2026-05-29T13:26:20.498Z info: GetTopics$ : 2026-05-29T13:26:20.498Z
+2026-05-29T13:26:20.505Z info: GetTopics$ finished
+2026-05-29T13:26:20.512Z info: GetTopics$ : 2026-05-29T13:26:20.512Z
+2026-05-29T13:26:20.518Z info: GetTopics$ finished
+2026-05-29T13:26:20.561Z info: Reloading orgs-topics config OK
+2026-05-29T13:57:34.362Z info: $OpenSafeByPin finished
+2026-05-29T13:57:34.432Z info: $GetSafe finished
+2026-05-29T13:57:39.015Z info: $mdCaseList finished
+2026-05-29T13:57:48.241Z info: $GetOrgSvcs finished
+2026-05-29T13:57:48.285Z info: $GetSvcUrls finished
+2026-05-29T13:57:48.306Z info: GetTopics$ : 2026-05-29T13:57:48.306Z
+2026-05-29T13:57:48.313Z info: GetTopics$ finished
+2026-05-29T13:57:48.396Z info: Reloading orgs-topics config OK
+2026-05-29T14:08:53.841Z info: $mdCaseList finished
+2026-05-29T14:09:11.233Z info: $OpenSafeByPin finished
+2026-05-29T14:09:11.332Z info: $GetSafe finished
+2026-05-29T14:09:15.619Z info: $mdCaseList finished
+2026-05-29T14:09:24.295Z info: $GetOrgSvcs finished
+2026-05-29T14:09:24.341Z info: $GetSvcUrls finished
+2026-05-29T14:09:24.352Z info: GetTopics$ : 2026-05-29T14:09:24.352Z
+2026-05-29T14:09:24.357Z info: GetTopics$ finished
+2026-05-29T14:09:24.417Z info: Reloading orgs-topics config OK
+2026-05-29T14:16:00.268Z info: $OpenSafeByPin finished
+2026-05-29T14:16:00.331Z info: $GetSafe finished
+2026-05-29T14:16:04.305Z info: $mdCaseList finished
+2026-05-29T14:16:12.438Z info: $GetOrgSvcs finished
+2026-05-29T14:16:12.490Z info: $GetSvcUrls finished
+2026-05-29T14:16:12.521Z info: GetTopics$ : 2026-05-29T14:16:12.521Z
+2026-05-29T14:16:12.526Z info: GetTopics$ finished
+2026-05-29T14:16:12.578Z info: Reloading orgs-topics config OK
+2026-05-29T14:19:18.375Z info: $OpenSafeByPin finished
+2026-05-29T14:19:18.432Z info: $GetSafe finished
+2026-05-29T14:19:22.205Z info: $mdCaseList finished
+2026-05-29T14:19:30.813Z info: $GetOrgSvcs finished
+2026-05-29T14:19:30.858Z info: $GetSvcUrls finished
+2026-05-29T14:19:30.872Z info: GetTopics$ : 2026-05-29T14:19:30.872Z
+2026-05-29T14:19:30.877Z info: GetTopics$ finished
+2026-05-29T14:22:23.942Z info: $mdCaseList finished
+2026-05-29T14:22:30.183Z info: GetTopics$ : 2026-05-29T14:22:30.183Z
+2026-05-29T14:22:30.188Z info: GetTopics$ finished
+2026-05-29T14:22:30.193Z info: GetTopics$ : 2026-05-29T14:22:30.193Z
+2026-05-29T14:22:30.199Z info: GetTopics$ finished
+2026-05-29T14:22:30.204Z info: GetTopics$ : 2026-05-29T14:22:30.204Z
+2026-05-29T14:22:30.209Z info: GetTopics$ finished
+2026-05-29T14:22:30.237Z info: Reloading orgs-topics config OK
+2026-05-29T14:26:41.241Z info: $OpenSafeByPin finished
+2026-05-29T14:26:41.306Z info: $GetSafe finished
+2026-05-29T14:26:46.145Z info: $mdCaseList finished
+2026-05-29T14:26:56.477Z info: $GetOrgSvcs finished
+2026-05-29T14:26:56.513Z info: $GetSvcUrls finished
+2026-05-29T14:26:56.527Z info: GetTopics$ : 2026-05-29T14:26:56.527Z
+2026-05-29T14:26:56.533Z info: GetTopics$ finished
+2026-05-29T14:31:38.143Z info: $mdCaseList finished
+2026-05-29T14:31:44.405Z info: GetTopics$ : 2026-05-29T14:31:44.405Z
+2026-05-29T14:31:44.411Z info: GetTopics$ finished
+2026-05-29T14:31:44.415Z info: GetTopics$ : 2026-05-29T14:31:44.415Z
+2026-05-29T14:31:44.423Z info: GetTopics$ finished
+2026-05-29T14:31:44.426Z info: GetTopics$ : 2026-05-29T14:31:44.426Z
+2026-05-29T14:31:44.431Z info: GetTopics$ finished
+2026-05-29T14:31:44.459Z info: Reloading orgs-topics config OK
+2026-05-29T14:33:49.872Z info: $mdCaseNew finished
+2026-05-29T14:34:29.354Z info: CaseCreateByU : 2026-05-29T14:34:29.353Z
+2026-05-29T14:35:15.357Z error: CaseCreateByU : 2026-05-29T14:34:29.353Z : SqliteError: near "CASE": syntax error
+2026-05-29T14:35:15.373Z info: CaseCreateByU terminated on exception
+2026-05-29T14:35:15.374Z error: AppExc: 105:service_unexpected_exception["near \"CASE\": syntax error"]
+2026-05-29T14:50:41.923Z info: 11 document Registry
+2026-05-29T14:50:41.928Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-29T14:50:41.929Z info: Firestore connector
+2026-05-29T14:50:41.929Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-29T14:50:41.958Z info: Reloading orgs-topics config OK
+2026-05-29T14:50:41.963Z info: HTTP listen [8080]
+2026-05-29T14:53:14.730Z info: $mdCaseNew finished
+2026-05-29T14:53:34.710Z info: CaseCreateByU : 2026-05-29T14:53:34.709Z
+2026-05-29T14:54:10.110Z error: CaseCreateByU : 2026-05-29T14:53:34.709Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:54:10.112Z info: CaseCreateByU terminated on exception
+2026-05-29T14:54:10.113Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T14:55:27.865Z info: $mdCaseNew finished
+2026-05-29T14:55:32.149Z info: CaseCreateByU : 2026-05-29T14:55:32.149Z
+2026-05-29T14:57:35.039Z error: CaseCreateByU : 2026-05-29T14:55:32.149Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:57:35.041Z info: CaseCreateByU terminated on exception
+2026-05-29T14:57:35.041Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T14:59:03.841Z info: $mdCaseNew finished
+2026-05-29T14:59:07.939Z info: CaseCreateByU : 2026-05-29T14:59:07.938Z
+2026-05-29T14:59:33.057Z error: CaseCreateByU : 2026-05-29T14:59:07.938Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:59:33.058Z info: CaseCreateByU terminated on exception
+2026-05-29T14:59:33.059Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T14:59:33.069Z info: Reloading orgs-topics config OK
+2026-05-29T15:00:43.992Z info: 11 document Registry
+2026-05-29T15:00:43.995Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-29T15:00:43.996Z info: Firestore connector
+2026-05-29T15:00:43.998Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-29T15:00:44.013Z info: Reloading orgs-topics config OK
+2026-05-29T15:00:44.020Z info: HTTP listen [8080]
+2026-05-29T15:01:06.297Z info: $mdCaseNew finished
+2026-05-29T15:01:09.749Z info: CaseCreateByU : 2026-05-29T15:01:09.748Z
+2026-05-29T15:02:31.309Z error: CaseCreateByU : 2026-05-29T15:01:09.748Z : TypeError: Cannot read properties of undefined (reading 'caseId')
+2026-05-29T15:02:31.311Z info: CaseCreateByU terminated on exception
+2026-05-29T15:02:31.313Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
+2026-05-29T15:06:31.903Z info: $mdCaseNew finished
+2026-05-29T15:06:35.503Z info: CaseCreateByU : 2026-05-29T15:06:35.502Z
+2026-05-29T15:08:02.182Z error: CaseCreateByU : 2026-05-29T15:06:35.502Z : TypeError: Cannot read properties of undefined (reading 'caseId')
+2026-05-29T15:08:02.183Z info: CaseCreateByU terminated on exception
+2026-05-29T15:08:02.184Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
+2026-05-29T15:08:02.190Z info: Reloading orgs-topics config OK

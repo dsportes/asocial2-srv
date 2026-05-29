@@ -359,3 +359,15 @@ BEGIN
 2026-05-22T15:27:19.437Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
 2026-05-22T15:29:19.616Z error: GetCredLimitCond : 2026-05-22T15:28:31.387Z : DataError: Invalid keyData
 2026-05-22T15:29:19.619Z error: AppExc: 105:service_unexpected_exception["Invalid keyData"]
+2026-05-29T14:35:15.357Z error: CaseCreateByU : 2026-05-29T14:34:29.353Z : SqliteError: near "CASE": syntax error
+2026-05-29T14:35:15.374Z error: AppExc: 105:service_unexpected_exception["near \"CASE\": syntax error"]
+2026-05-29T14:54:10.110Z error: CaseCreateByU : 2026-05-29T14:53:34.709Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:54:10.113Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T14:57:35.039Z error: CaseCreateByU : 2026-05-29T14:55:32.149Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:57:35.041Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T14:59:33.057Z error: CaseCreateByU : 2026-05-29T14:59:07.938Z : RangeError: Maximum call stack size exceeded
+2026-05-29T14:59:33.059Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-05-29T15:02:31.309Z error: CaseCreateByU : 2026-05-29T15:01:09.748Z : TypeError: Cannot read properties of undefined (reading 'caseId')
+2026-05-29T15:02:31.313Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
+2026-05-29T15:08:02.182Z error: CaseCreateByU : 2026-05-29T15:06:35.502Z : TypeError: Cannot read properties of undefined (reading 'caseId')
+2026-05-29T15:08:02.184Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]

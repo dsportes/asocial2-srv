@@ -239,9 +239,9 @@ export class Case extends Document {
     const obj = {}; for (const p of Case.lp1) obj[p] = this[p]; return obj as CaseObj
   }
 
-  constructor (obj : CaseObj) {
+  constructor (obj?: CaseObj) {
     super()
-    for (const p of Case.lp1) this[p] = obj[p]
+    if (obj) for (const p of Case.lp1) this[p] = obj[p]
   }
 
   /* Liste des demandes des cas à traiter par un sponsor*/
