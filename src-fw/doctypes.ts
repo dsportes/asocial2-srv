@@ -30,6 +30,7 @@ export type idx = {
   global?: boolean
   key?: props
   testable?: boolean
+  nohash?: boolean
 }
 
 export type docHeader = {
@@ -129,7 +130,7 @@ export class DocType {
       case propType.LIST : {         
         const x = []
         const v = src[name] as string[]
-        v.forEach(t => { if (t) x.push(Crypt.shaS(t))})
+        if (v) v.forEach(t => { if (t) x.push(i.nohash ? t : Crypt.shaS(t))})
         return x
       }
     }

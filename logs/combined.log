@@ -16752,3 +16752,137 @@ BEGIN
 2026-05-29T15:08:02.183Z info: CaseCreateByU terminated on exception
 2026-05-29T15:08:02.184Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
 2026-05-29T15:08:02.190Z info: Reloading orgs-topics config OK
+2026-05-31T14:29:30.910Z info: 12 document Registry
+2026-05-31T14:29:30.913Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T14:29:30.914Z info: Firestore connector
+2026-05-31T14:29:30.914Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T14:35:47.192Z info: 12 document Registry
+2026-05-31T14:35:47.195Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T14:35:47.196Z info: Firestore connector
+2026-05-31T14:35:47.197Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T14:35:47.366Z info: Reloading orgs-topics config OK
+2026-05-31T14:35:47.373Z info: HTTP listen [8080]
+2026-05-31T14:36:55.015Z info: $OpenSafeByPin finished
+2026-05-31T14:36:55.062Z info: $GetSafe finished
+2026-05-31T14:37:05.964Z info: $GetOrgSvcs finished
+2026-05-31T14:37:05.977Z info: $GetSvcUrls finished
+2026-05-31T14:37:05.997Z info: AppExc: 103:unknown_operation["Cas2Test"]
+2026-05-31T14:37:05.999Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["Cas2Test"]
+2026-05-31T14:37:06.000Z info: Cas2Test terminated on exception
+2026-05-31T14:37:56.410Z info: Case2Test : 2026-05-31T14:37:56.409Z
+2026-05-31T14:38:03.876Z error: AppExc: 105:document_class_not_registered["Case2"]
+2026-05-31T14:38:03.879Z error: Case2Test : 2026-05-31T14:37:56.409Z : AppExc: 105:document_class_not_registered["Case2"]
+2026-05-31T14:38:03.880Z info: Case2Test terminated on exception
+2026-05-31T14:40:56.559Z info: 12 document Registry
+2026-05-31T14:40:56.562Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T14:40:56.563Z info: Firestore connector
+2026-05-31T14:40:56.564Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T14:40:56.578Z info: Reloading orgs-topics config OK
+2026-05-31T14:40:56.586Z info: HTTP listen [8080]
+2026-05-31T14:41:09.891Z info: Case2Test : 2026-05-31T14:41:09.891Z
+2026-05-31T14:41:30.786Z error: Case2Test : 2026-05-31T14:41:09.891Z : TypeError: Cannot read properties of undefined (reading 'forEach')
+2026-05-31T14:41:30.788Z info: Case2Test terminated on exception
+2026-05-31T14:41:30.790Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'forEach')"]
+2026-05-31T14:42:05.160Z info: Case2Test : 2026-05-31T14:42:05.160Z
+2026-05-31T14:46:01.306Z error: Case2Test : 2026-05-31T14:42:05.160Z : TypeError: Cannot read properties of undefined (reading 'forEach')
+2026-05-31T14:46:01.308Z info: Case2Test terminated on exception
+2026-05-31T14:46:01.309Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'forEach')"]
+2026-05-31T14:52:29.618Z info: 12 document Registry
+2026-05-31T14:52:29.622Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T14:52:29.623Z info: Firestore connector
+2026-05-31T14:52:29.623Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T14:52:29.636Z info: Reloading orgs-topics config OK
+2026-05-31T14:52:29.642Z info: HTTP listen [8080]
+2026-05-31T14:52:44.547Z info: Case2Test : 2026-05-31T14:52:44.546Z
+2026-05-31T14:56:41.165Z info: Case2Test finished
+2026-05-31T14:58:45.485Z info: 12 document Registry
+2026-05-31T14:58:45.489Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T14:58:45.489Z info: Firestore connector
+2026-05-31T14:58:45.490Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T14:58:45.512Z info: Reloading orgs-topics config OK
+2026-05-31T14:58:45.518Z info: HTTP listen [8080]
+2026-05-31T14:58:56.224Z info: Case2Test : 2026-05-31T14:58:56.224Z
+2026-05-31T15:01:51.837Z info: Case2Test finished
+2026-05-31T15:17:44.680Z info: 12 document Registry
+2026-05-31T15:17:44.684Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:17:44.685Z info: Firestore connector
+2026-05-31T15:17:44.686Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:17:44.705Z info: Reloading orgs-topics config OK
+2026-05-31T15:17:44.712Z info: HTTP listen [8080]
+2026-05-31T15:17:49.368Z info: Case2List : 2026-05-31T15:17:49.368Z
+2026-05-31T15:18:12.527Z error: Case2List : 2026-05-31T15:17:49.368Z : SqliteError: no such column: Auteurs
+2026-05-31T15:18:12.529Z info: Case2List terminated on exception
+2026-05-31T15:18:12.548Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:19:11.416Z info: Case2List : 2026-05-31T15:19:11.416Z
+2026-05-31T15:22:06.626Z error: Case2List : 2026-05-31T15:19:11.416Z : SqliteError: no such column: Auteurs
+2026-05-31T15:22:06.627Z info: Case2List terminated on exception
+2026-05-31T15:22:06.628Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:29:08.055Z info: 12 document Registry
+2026-05-31T15:29:08.059Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:29:08.060Z info: Firestore connector
+2026-05-31T15:29:08.061Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:29:08.075Z info: Reloading orgs-topics config OK
+2026-05-31T15:29:08.082Z info: HTTP listen [8080]
+2026-05-31T15:29:10.813Z info: Case2List : 2026-05-31T15:29:10.813Z
+2026-05-31T15:30:00.876Z error: Case2List : 2026-05-31T15:29:10.813Z : SqliteError: no such column: Auteurs
+2026-05-31T15:30:00.878Z info: Case2List terminated on exception
+2026-05-31T15:30:00.879Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:32:09.915Z info: 12 document Registry
+2026-05-31T15:32:09.919Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:32:09.920Z info: Firestore connector
+2026-05-31T15:32:09.921Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:32:09.938Z info: Reloading orgs-topics config OK
+2026-05-31T15:32:09.944Z info: HTTP listen [8080]
+2026-05-31T15:32:19.606Z info: Case2List : 2026-05-31T15:32:19.606Z
+2026-05-31T15:33:16.834Z error: Case2List : 2026-05-31T15:32:19.606Z : SqliteError: no such column: Auteurs
+2026-05-31T15:33:16.836Z info: Case2List terminated on exception
+2026-05-31T15:33:16.838Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:34:00.804Z info: 12 document Registry
+2026-05-31T15:34:00.807Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:34:00.808Z info: Firestore connector
+2026-05-31T15:34:00.809Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:34:00.825Z info: Reloading orgs-topics config OK
+2026-05-31T15:34:00.831Z info: HTTP listen [8080]
+2026-05-31T15:36:48.062Z info: Case2List : 2026-05-31T15:36:48.061Z
+2026-05-31T15:38:53.127Z info: Case2List finished
+2026-05-31T15:41:15.367Z info: 12 document Registry
+2026-05-31T15:41:15.370Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:41:15.371Z info: Firestore connector
+2026-05-31T15:41:15.372Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:41:15.390Z info: Reloading orgs-topics config OK
+2026-05-31T15:41:15.396Z info: HTTP listen [8080]
+2026-05-31T15:41:28.340Z info: Case2List : 2026-05-31T15:41:28.340Z
+2026-05-31T15:44:15.030Z info: Case2List finished
+2026-05-31T15:46:29.284Z info: 12 document Registry
+2026-05-31T15:46:29.290Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:46:29.291Z info: Firestore connector
+2026-05-31T15:46:29.292Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:46:29.309Z info: Reloading orgs-topics config OK
+2026-05-31T15:46:29.318Z info: HTTP listen [8080]
+2026-05-31T15:46:41.698Z info: Case2Test : 2026-05-31T15:46:41.698Z
+2026-05-31T15:49:00.980Z info: 12 document Registry
+2026-05-31T15:49:00.983Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:49:00.985Z info: Firestore connector
+2026-05-31T15:49:00.987Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:49:01.005Z info: Reloading orgs-topics config OK
+2026-05-31T15:49:01.013Z info: HTTP listen [8080]
+2026-05-31T15:49:04.055Z info: Case2List : 2026-05-31T15:49:04.054Z
+2026-05-31T15:49:29.483Z info: Case2List finished
+2026-05-31T15:50:33.524Z info: Case2List : 2026-05-31T15:50:33.524Z
+2026-05-31T15:50:55.446Z info: Case2List finished
+2026-05-31T15:53:00.192Z info: 12 document Registry
+2026-05-31T15:53:00.195Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:53:00.197Z info: Firestore connector
+2026-05-31T15:53:00.197Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:53:00.214Z info: Reloading orgs-topics config OK
+2026-05-31T15:53:00.220Z info: HTTP listen [8080]
+2026-05-31T15:53:08.132Z info: Case2List : 2026-05-31T15:53:08.131Z
+2026-05-31T15:53:13.719Z info: Case2List finished
+2026-05-31T15:55:02.002Z info: 12 document Registry
+2026-05-31T15:55:02.005Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-05-31T15:55:02.006Z info: Firestore connector
+2026-05-31T15:55:02.006Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-05-31T15:55:02.029Z info: Reloading orgs-topics config OK
+2026-05-31T15:55:02.037Z info: HTTP listen [8080]
+2026-05-31T15:55:04.287Z info: Case2List : 2026-05-31T15:55:04.286Z
+2026-05-31T15:55:04.291Z info: Case2List finished

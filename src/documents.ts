@@ -127,6 +127,17 @@ type InvValAuteur = {
     }
     */
 
+class Case2 extends Document {
+  static release = 0
+
+  static mutateCl (data: object, options?: Object) : [Object, boolean] {
+    return [data, false]
+  }
+
+  compile () { return this }
+}
+Registry.registerD(Case2)
+
 class Case_admin extends Case {
   constructor (obj: CaseObj) { super(obj) }
   async checkSponsor (op: Operation) : Promise<boolean> {

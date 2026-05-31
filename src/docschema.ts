@@ -52,6 +52,14 @@ new DocType(
 )
 
 new DocType(
+  { name: 'Case2', sync: true, pk: ['caseId'], nohash: true }, // header
+  null, // collections
+  new Map<string, idx>([
+    ['creds', { type: propType.LIST, nohash: true }]
+  ])
+)
+
+new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
     ['sujet', { key: ['sujet', 'sousSujet'], mutable: true }],

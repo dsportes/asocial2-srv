@@ -371,3 +371,17 @@ BEGIN
 2026-05-29T15:02:31.313Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
 2026-05-29T15:08:02.182Z error: CaseCreateByU : 2026-05-29T15:06:35.502Z : TypeError: Cannot read properties of undefined (reading 'caseId')
 2026-05-29T15:08:02.184Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'caseId')"]
+2026-05-31T14:38:03.876Z error: AppExc: 105:document_class_not_registered["Case2"]
+2026-05-31T14:38:03.879Z error: Case2Test : 2026-05-31T14:37:56.409Z : AppExc: 105:document_class_not_registered["Case2"]
+2026-05-31T14:41:30.786Z error: Case2Test : 2026-05-31T14:41:09.891Z : TypeError: Cannot read properties of undefined (reading 'forEach')
+2026-05-31T14:41:30.790Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'forEach')"]
+2026-05-31T14:46:01.306Z error: Case2Test : 2026-05-31T14:42:05.160Z : TypeError: Cannot read properties of undefined (reading 'forEach')
+2026-05-31T14:46:01.309Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'forEach')"]
+2026-05-31T15:18:12.527Z error: Case2List : 2026-05-31T15:17:49.368Z : SqliteError: no such column: Auteurs
+2026-05-31T15:18:12.548Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:22:06.626Z error: Case2List : 2026-05-31T15:19:11.416Z : SqliteError: no such column: Auteurs
+2026-05-31T15:22:06.628Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:30:00.876Z error: Case2List : 2026-05-31T15:29:10.813Z : SqliteError: no such column: Auteurs
+2026-05-31T15:30:00.879Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-05-31T15:33:16.834Z error: Case2List : 2026-05-31T15:32:19.606Z : SqliteError: no such column: Auteurs
+2026-05-31T15:33:16.838Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]

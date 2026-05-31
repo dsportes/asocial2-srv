@@ -92,6 +92,19 @@ CREATE INDEX IF NOT EXISTS "CASE_ttl" ON "CASE" ( "ttl" ) WHERE "ttl" > 0;
 CREATE INDEX IF NOT EXISTS "CASE_topic" ON "CASE" ( "topic" );
 CREATE INDEX IF NOT EXISTS "CASE_topicsub" ON "CASE" ( "topicsub" );
 
+CREATE TABLE IF NOT EXISTS "CASE2" (
+  "org" TEXT,
+  "pk" TEXT,
+  "v" INTEGER,
+  "ttl" INTEGER,
+	"creds" TEXT,
+	"data" BLOB,
+PRIMARY KEY(org, pk));
+CREATE INDEX IF NOT EXISTS "CASE2_org" ON "CASE2" ( "org" );
+CREATE INDEX IF NOT EXISTS "CASE2_v" ON "CASE2" ( "v" );
+CREATE INDEX IF NOT EXISTS "CASE2_ttl" ON "CASE2" ( "ttl" ) WHERE "ttl" > 0;
+CREATE INDEX IF NOT EXISTS "CASE2_creds" ON "CASE2" ( "creds" );
+
 CREATE TABLE IF NOT EXISTS "ARTICLE" (
   "org" TEXT,
   "pk" TEXT,

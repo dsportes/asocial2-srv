@@ -770,13 +770,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const cols = col instanceof Array ? col : [col]
     if (!cols.length) return ''
     const x = []
-    for(const v of cols) x.push(' instr(' + colName + ', ' + v + ') > 0 ')
-    if (x.length )
-    return x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) '
+    for(const v of cols) x.push(' instr(' + colName + ', \'' + v + '\') > 0 ')
+    return x.length ?
+      ' AND ' + (x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) ')
+      : ''
   }
   
   orderBy (order: string) {
-    if (!order) return ''
     return order.startsWith('-') ? ' ORDER BY ' + order.substring(1) + ' DESC ' :
       ' ORDER BY ' + order + ' ASC '
   }
@@ -784,8 +784,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz)
-      + ' WHERE org = @org AND ' + this.compOp(colName, filter, col)
-      + this.orderBy(order)
+      + ' WHERE org = @org ' + this.compOp(colName, filter, col)
+      + (order ? this.orderBy(order) : '')
       + (limit ? ' LIMIT ' + limit : '') + ';')
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {

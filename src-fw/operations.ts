@@ -1,4 +1,4 @@
-import { encode } from '@msgpack/msgpack'
+import { decode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
@@ -6,6 +6,7 @@ import { config, Registry } from '../src-fw/config'
 import { Subs, subscription, SubsItem, PropertyA, Credential, Case, CaseObj } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
+import { filter } from '../src-fw/iDbGeneric'
 
 export function loadingOF () {
   console.log('fw operations loading: ', Registry.sizeOp())
@@ -717,6 +718,51 @@ class CaseCreateByU extends Operation {
   }
 }
 Registry.registerOp(CaseCreateByU)
+
+class Case2Test extends Operation {
+  init () {
+    super.init()
+  }
+  async phase2 () {
+    this.requireAuth()
+    const cas2Obj1 = {
+      caseId: 'c1',
+      creds: ['Auteur/VH', 'Caut/1']
+    }
+    let cas1 = this.cache.newDoc('Case2', cas2Obj1) as Case
+    const cas2Obj2 = {
+      caseId: 'c2',
+      creds: ['Auteur/VH', 'Groupe/g1', 'Caut/1']
+    }
+    let cas2 = this.cache.newDoc('Case2', cas2Obj2) as Case
+    const cas2Obj3 = {
+      caseId: 'c3',
+      creds: ['Auteur/SV', 'Groupe/g1']
+    }
+    let cas3 = this.cache.newDoc('Case2', cas2Obj3) as Case
+
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(Case2Test)
+
+class Case2List extends Operation {
+  init () {
+    super.init()
+  }
+  async phase2 () {
+    this.requireAuth()
+    const val = ['Auteur/SV']
+    // const val = ['Auteur/SV', 'Caut/1']
+    const l = new Set()
+    await this.db.selectDocs('Case2', 'creds', filter.CONTAINSANY, val, '', 0, (bin) => {
+      const row: any = decode(bin)
+      l.add(row.caseId)
+    })
+    this.setRes('list', Array.from(l))
+  }
+}
+Registry.registerOp(Case2List)
 
 /* CreateInvit: création d'une invitation. Enregistrement en base seulement.
 - invObj
