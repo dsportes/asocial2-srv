@@ -232,6 +232,8 @@ export class Case extends Document {
   tabX: Uint8Array | null  = null // texte de l'ardoise crypté par `X`
   etc: any = {} // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
   maxLife: number // epoch en MINUTES
+  creds: string[] // liste de [docCl/docId docCl/1 A]
+
 
   static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
 
