@@ -43,19 +43,10 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Case', sync: true, pk: ['caseId'] }, // header
+  { name: 'Case', sync: true, pk: ['caseId'] /*, nohash: true */ }, // header
   null, // collections
   new Map<string, idx>([
-    ['topic', { type: propType.HASH, key: ['topicId'] }],
-    ['topicsub', { type: propType.HASH, key: ['topicId', 'subject'] }]
-  ])
-)
-
-new DocType(
-  { name: 'Case2', sync: true, pk: ['caseId'], nohash: true }, // header
-  null, // collections
-  new Map<string, idx>([
-    ['creds', { type: propType.LIST, nohash: true }]
+    ['creds', { type: propType.LIST /*, nohash: true */ }]
   ])
 )
 

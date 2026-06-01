@@ -446,11 +446,11 @@ class Sync extends Operation {
 }
 Registry.registerOp(Sync)
 
-/* getCred retourne le Cred détail d'un credential
-de SON détenteur (signature vérifiée)
+/* getCredUpdates retourne [v more] d'un credential
+pour SON détenteur (signature vérifiée).
 credId pour éviter les "vieux" credential (superstition)
 */
-class GetCred extends Operation {
+class getCredUpdates extends Operation {
   _credId: string
   _docCl: string
   _docId: string 
@@ -463,15 +463,11 @@ class GetCred extends Operation {
   async phase2 () {
     this.requireAuth()
     const cred = this.getCred(this._docId, this._docId, true)
-    if (cred && cred.credId === this._credId) {
-      const c = { ...cred }
-      c.pubv = null
-      c.pubc = null
-      this.setRes('cred', cred)
-    }
+    if (cred && cred.credId === this._credId)
+      this.setRes('more', [cred.pubv, cred.more])
   }
 }
-Registry.registerOp(GetCred)
+Registry.registerOp(getCredUpdates)
 
 /* UpdateCred 
 - peut changer la fin de validité d'un Credential
@@ -746,23 +742,29 @@ class Case2Test extends Operation {
 }
 Registry.registerOp(Case2Test)
 
-class Case2List extends Operation {
+class CaseFilteredList extends Operation {
+  _filter: string[]
   init () {
     super.init()
+    this._filter = this.stringArrayValue('filter', true)
   }
   async phase2 () {
     this.requireAuth()
-    const val = ['Auteur/SV']
-    // const val = ['Auteur/SV', 'Caut/1']
-    const l = new Set()
-    await this.db.selectDocs('Case2', 'creds', filter.CONTAINSANY, val, '', 0, (bin) => {
-      const row: any = decode(bin)
-      l.add(row.caseId)
+    // this._filter = ['Auteur/SV', 'Caut/1', 'A']
+    if (!this.authRecord.isAdmin) {
+      const i = this._filter.indexOf('A')
+      if (i !== -1)
+        this._filter.splice(i, 1)
+    }
+    const l: Case[] = []
+    await this.db.selectDocs('Case2', 'creds', filter.CONTAINSANY, this._filter, '', 0, (bin) => {
+      const row = decode(bin) as Case
+      l.push(row)
     })
-    this.setRes('list', Array.from(l))
+    this.setRes('cases', l)
   }
 }
-Registry.registerOp(Case2List)
+Registry.registerOp(CaseFilteredList)
 
 /* CreateInvit: création d'une invitation. Enregistrement en base seulement.
 - invObj

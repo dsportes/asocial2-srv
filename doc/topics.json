@@ -1,5 +1,8 @@
 [
-  { "id": "admin", "categ": "ad", "key": "k1", "subjects": "" },
-  { "id": "crauteur", "categ": "auteurs", "key": "k2", "subjects": "" },
-  { "id": "joinauteur", "categ": "auteurs", "key": "k2", "subjects": "toto titi" }
+  { "id": "admin", "categ": "ad", "key": "k1", 
+    "subjects": "", "creds": "A" },
+  { "id": "crauteur", "categ": "auteurs", "key": "k2", 
+    "subjects": "histoire roman", "creds": "Org/1" },
+  { "id": "joinauteur", "categ": "auteurs", "key": "k2", 
+    "subjects": "Auteur/nom", "creds": "Auteur/S Auteur/1" }
 ]

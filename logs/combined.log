@@ -16886,3 +16886,7 @@ BEGIN
 2026-05-31T15:55:02.037Z info: HTTP listen [8080]
 2026-05-31T15:55:04.287Z info: Case2List : 2026-05-31T15:55:04.286Z
 2026-05-31T15:55:04.291Z info: Case2List finished
+2026-06-01T09:23:12.699Z info: 11 document Registry
+2026-06-01T09:23:12.703Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-01T09:23:12.704Z info: Firestore connector
+2026-06-01T09:23:12.705Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea

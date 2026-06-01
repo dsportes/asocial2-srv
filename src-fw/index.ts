@@ -58,12 +58,13 @@ export class DbConnexion {
 }
 
 export type TopicDef = {
-  id: string,
-  categ: string,
-  key: string,
+  id: string
+  categ: string
+  key: string
   subjects: string
   pubC: Uint8Array
   privD: Uint8Array
+  creds: string[]
 }
 
 /* Configuration des organisations *****************************************
@@ -118,7 +119,9 @@ export class OrgsConfig {
       const subjects = t['subjects'] || null
       const pubC = keyFromB64(k.pub)
       const privD = keyFromB64(k.priv)
-      const topic = { id, categ, key, subjects, pubC, privD }
+      const creds: string[] = t.creds.split(' ')
+      for(let i = 0; i < creds.length; i++) creds[i] = creds[1].trim()
+      const topic = { id, categ, key, subjects, pubC, privD, creds }
       this.topics.set(id, topic)
     }
   }
