@@ -16890,3 +16890,19 @@ BEGIN
 2026-06-01T09:23:12.703Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
 2026-06-01T09:23:12.704Z info: Firestore connector
 2026-06-01T09:23:12.705Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-02T09:37:23.522Z info: 11 document Registry
+2026-06-02T09:37:23.525Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-02T09:37:23.526Z info: Firestore connector
+2026-06-02T09:37:23.527Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-02T09:37:23.543Z info: Reloading orgs-topics config OK
+2026-06-02T09:37:23.549Z info: HTTP listen [8080]
+2026-06-02T09:37:51.382Z info: $OpenSafeByPin finished
+2026-06-02T09:37:51.428Z info: $GetSafe finished
+2026-06-02T09:38:15.225Z info: $GetSvcUrls finished
+2026-06-02T09:38:15.237Z info: GetTopics$ : 2026-06-02T09:38:15.237Z
+2026-06-02T09:38:15.244Z info: GetTopics$ finished
+2026-06-02T09:40:30.300Z info: $GetOrgSvcs finished
+2026-06-02T09:40:30.332Z info: ListManagers : 2026-06-02T09:40:30.331Z
+2026-06-02T09:40:30.344Z error: ListManagers : 2026-06-02T09:40:30.331Z : SqliteError: near "doc": syntax error
+2026-06-02T09:40:30.355Z info: ListManagers terminated on exception
+2026-06-02T09:40:30.409Z error: AppExc: 105:service_unexpected_exception["near \"doc\": syntax error"]

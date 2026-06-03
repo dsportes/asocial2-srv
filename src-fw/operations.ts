@@ -532,7 +532,9 @@ class AutoRevokeCred extends Operation {
 }
 Registry.registerOp(AutoRevokeCred)
 
-/* ListManagers liste les managers enregistrés (qu'ils soient valides ou non)
+/* ListManagers liste les credentials managers enregistrés (qu'ils soient valides ou non)
+Un _administrateur_ interroge toutes les classes de managers.
+Un non administrateur doit présenter son propre credential et ne peut pas interroger les autres.
 Retourne une liste de Cred
 */
 class ListManagers extends Operation {
@@ -541,8 +543,14 @@ class ListManagers extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const lst = await Credential.listManagers(this)
-    this.setRes('creds', lst)
+    const admin = this.authRecord.isAdmin
+    const cls = []
+    for(const dc of config.MANAGERCLASSES)
+      if (admin || this.authRecord.getCred(dc, '1', true)) cls.push(dc)
+    if (cls.length) {
+      const lst = await Credential.listManagers(this, cls)
+      this.setRes('creds', lst)
+    }
   }
 }
 Registry.registerOp(ListManagers)
@@ -570,7 +578,7 @@ Registry.registerOp(credsByDoc)
 - soit toutes en l'absence de "suject")
 - soit uniquement celles du "subject" indiqué 
 Retourne une liste dde Case 
-*/
+
 class CaseList extends Operation {
   _topicId: string
   _subject: string
@@ -596,6 +604,7 @@ class CaseList extends Operation {
   }
 }
 Registry.registerOp(CaseList)
+*/
 
 /* InvitList liste, pour un sponsor, les invitations enregistrées pour un "major"
 - soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
@@ -750,7 +759,7 @@ class CaseFilteredList extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    // this._filter = ['Auteur/SV', 'Caut/1', 'A']
+    // this._filter = ['Auteur/VictorHugo', 'Redaction/1']
     if (!this.authRecord.isAdmin) {
       const i = this._filter.indexOf('A')
       if (i !== -1)

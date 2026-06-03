@@ -126,7 +126,7 @@ export class SQLiteConnector extends DbConnector {
   }
 }
 
-const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN1', 'IN2']
+const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   public static newConnexion (connector: SQLiteConnector, op: AbstractOperation, cryptKey?: string) {
@@ -766,7 +766,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   compOp (colName: string, filter: filter, col: any) {
     const comp = opFilter[filter]
-    if (!comp.startsWith('IN')) return colName + ' ' + comp + ' @col'
+    if (!comp.startsWith('CONT')) return colName + ' ' + comp + ' @col'
     const cols = col instanceof Array ? col : [col]
     if (!cols.length) return ''
     const x = []

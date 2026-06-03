@@ -184,18 +184,31 @@ export class Credential extends Document {
   maxLife: number
   cred: any
 
-  static async listManagers (op: OperationWC) : Promise<Cred[]> {
-    return await Credential.listByDoc(op, 'Org', '1')
+  static async listManagers (op: OperationWC, managers: string[]) : Promise<Cred[]> {
+    const lst: Cred[] = []
+    await op.db.selectDocs('Credential', 'creds', filter.IN, managers, '', 0, 
+      (bin) => {
+        try {
+          const obj = decode(bin) as Credential
+          const c = obj.cred
+          delete c.pubv
+          delete c.pubc
+          lst.push(c)
+        } catch(e) {
+          console.log(e)
+        }    
+      }) 
+    return lst
   }
 
-  static async listByDoc (op: OperationWC, docCl: string, docId: string) : Promise<Cred[]> {
+  static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
     const dd = DocType.get('Credential')
-    const val = dd.getIdx({ docCl, docId }, 'doc')
+    const val = dd.getIdx({ docCl, docId: src['docId'] }, 'doc')
     const lst: Cred[] = []
     await op.db.selectDocs('Credential', 'doc', filter.EQ, val[0], '', 0, 
-      async (data) => {
+      (bin) => {
         try {
-          const obj = decode(data) as Credential
+          const obj = decode(bin) as Credential
           const c = obj.cred
           delete c.pubv
           delete c.pubc
@@ -207,6 +220,10 @@ export class Credential extends Document {
     return lst
   }
 
+  static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
+    const doc: any = await op.cache.getDoc(docCl, src)
+    return doc && doc.creds ? doc.creds : []
+  }
 }
 Registry.registerD(Credential)
 

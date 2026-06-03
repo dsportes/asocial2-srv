@@ -38,7 +38,7 @@ export type MDdel = {
   hshK: string
 }
 
-export enum filter { LT, LE, EQ, NE, GE, GT, CONTAINS, CONTAINSANY }
+export enum filter { LT, LE, EQ, NE, GE, GT, IN, CONTAINS, CONTAINSANY }
 
 export enum updType { SET, CREATE, UPDATE }
 

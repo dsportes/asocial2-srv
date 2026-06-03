@@ -120,7 +120,7 @@ export class OrgsConfig {
       const pubC = keyFromB64(k.pub)
       const privD = keyFromB64(k.priv)
       const creds: string[] = t.creds.split(' ')
-      for(let i = 0; i < creds.length; i++) creds[i] = creds[1].trim()
+      for(let i = 0; i < creds.length; i++) creds[i] = creds[i].trim()
       const topic = { id, categ, key, subjects, pubC, privD, creds }
       this.topics.set(id, topic)
     }

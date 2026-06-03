@@ -385,3 +385,5 @@ BEGIN
 2026-05-31T15:30:00.879Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
 2026-05-31T15:33:16.834Z error: Case2List : 2026-05-31T15:32:19.606Z : SqliteError: no such column: Auteurs
 2026-05-31T15:33:16.838Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
+2026-06-02T09:40:30.344Z error: ListManagers : 2026-06-02T09:40:30.331Z : SqliteError: near "doc": syntax error
+2026-06-02T09:40:30.409Z error: AppExc: 105:service_unexpected_exception["near \"doc\": syntax error"]
