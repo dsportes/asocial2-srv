@@ -330,9 +330,9 @@ export class AuthRecord {
   pemV: string // clé publique de vérification du userId
 
   /* Clé: ref : docCl/docId - Cred dont la signature est ok*/
-  roles: Map<string, Cred>
+  creds: Map<string, Cred>
   /* ref SANS Credential OU dont la signature est KO */
-  koRoles: Set<string>
+  koCreds: Set<string>
   
   constructor (op: Operation) {
     this.op = op
@@ -347,8 +347,8 @@ export class AuthRecord {
       this.signatures = ar.signatures
       this.challenge = Buffer.from(this.userId + '/' + this.time)
       this.isAdmin = config.ADMINUSERS.has(this.userId)
-      this.roles = new Map()
-      this.koRoles = new Set()
+      this.creds = new Map()
+      this.koCreds= new Set()
     } else {
       this.userId = ''
       this.isAdmin = false
@@ -356,7 +356,7 @@ export class AuthRecord {
   }
 
   getCred(docCl: string, docId: string, noex?: boolean) : Cred {
-    const cr = this.roles.get(docCl + '/' + (docId || ''))
+    const cr = this.creds.get(docCl + '/' + (docId || ''))
     if (cr) return cr
     if (noex) return null
     throw new AppExc(103, 'missing_credential', this.op, [this.org, docCl, docId || ''])
@@ -371,42 +371,43 @@ export class AuthRecord {
     if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
     
     for (const ref in this.signatures) {
-      const [ credId, sign] = this.signatures[ref]
+      const [credId, sign] = this.signatures[ref]
       const i = ref.indexOf('/')
       const docCl = i === -1 ? ref : ref.substring(0, i)
-      const docId = i === -1 ? '' : ref.substring(i + 1)
+      const docPk = i === -1 ? '' : ref.substring(i + 1)
       const dt = DocType.get(docCl)
       let cred: Cred
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
-        const d = await this.op.cache.getDoc(docCl, { docId: docId }) as Document
+        const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as Document
         const x = d['creds']
         if (x) {
           const y = x[credId]
-          if (y.limit && y.limit >= this.op.now) cred = y
+          if (y && y.more && (!y.more.limit || y.more.limit >= this.op.now)) cred = y
         }
       } else { // Recherche du Credential par sa pk
         const c = await this.op.cache.getDoc('Credential', { credId }) as Credential
-        if (c.docCl === docCl && c.docId === docId) {
-          if (cred.limit && cred.limit < this.op.now) this.op.cache.delDoc('Credential', c.pk)
+        if (c.docCl === docCl && c.docPk === docPk) {
+          if (cred.more && cred.more.limit && cred.more.limit < this.op.now) 
+            this.op.cache.delDoc('Credential', c.pk)
           else cred = c.cred
         }
       }
       const ok = !cred ? false : await Crypt.verify(Buffer.from(cred.pubv), sign, this.challenge)
-      if (ok) { cred.credId = credId; this.roles.set(ref, cred) }
-      else this.koRoles.add(ref)
+      if (ok) { cred.credId = credId; this.creds.set(ref, cred) }
+      else this.koCreds.add(ref)
     }
 
     if (config.debugLevel > 1) {
       const dbg = []
       if (!this.userId) dbg.push('NONE')
       else if (this.isAdmin) dbg.push('ADMIN')
-      for (const [ref, r] of this.roles)
-        dbg.push('Status:[' + (this.koRoles.has(ref) ? 'KO' : 'OK') + '] - [' + ref + ']')
+      for (const [ref, r] of this.creds)
+        dbg.push('Status:[' + (this.koCreds.has(ref) ? 'KO' : 'OK') + '] - [' + ref + ']')
       console.log('Auth status: ' + dbg.join('\n'))
     }
       
-    if (this.koRoles.size) 
-      throw new AppExc(101, 'operation_bad_credentials', this.op, [Array.from(this.koRoles).join('\n')])
+    if (this.koCreds.size) 
+      throw new AppExc(101, 'operation_bad_credentials', this.op, [Array.from(this.koCreds).join('\n')])
   }
 }
 
@@ -572,7 +573,7 @@ export class Cache {
   - src : objet contenant les propriétés de la pk
   */
   async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document | null> {
-    const pk = DocType.getPk(clazz, src)
+    const pk = src['pk'] || DocType.getPk(clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc

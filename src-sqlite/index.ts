@@ -90,6 +90,7 @@ export class SQLiteConnector extends DbConnector {
     const l = []
     l.push(t1)
     for (const [,dt] of DocType.docTypes) {
+      if (dt.virtual) continue
       l.push('')
       const cl = dt.name.toUpperCase()
 

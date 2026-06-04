@@ -102,9 +102,7 @@ setConfig(
   },
   directoryDB: null,
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
-  INVITMAXLIFE: 10 * 1440, // 10 jours,
-
-  MANAGERCLASSES: new Set(['Org', 'Redaction'])
+  CASEMAXLIFE: 10 * 1440 // 10 jours,
   } as BaseConfig)
 
 new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)

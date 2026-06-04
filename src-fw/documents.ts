@@ -167,7 +167,6 @@ Registry.registerD(SubsItem)
 export type Cred = {
   pubv: Uint8Array
   pubc: Uint8Array
-  limit: number
   opaque: Uint8Array | null
   more: any
   credId: string
@@ -178,7 +177,7 @@ export class Credential extends Document {
 
   credId: string
   docCl: string
-  docId: string
+  docPk: string // clé primaire du document maitre
   /* epoch en MINUTES de fin de validité
   Recopie de cred.limit ou 0 */
   maxLife: number
@@ -202,8 +201,9 @@ export class Credential extends Document {
   }
 
   static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
+    const docPk = DocType.getPk(docCl, src, true)
     const dd = DocType.get('Credential')
-    const val = dd.getIdx({ docCl, docId: src['docId'] }, 'doc')
+    const val = dd.getIdx({ docCl, docPk }, 'doc')
     const lst: Cred[] = []
     await op.db.selectDocs('Credential', 'doc', filter.EQ, val[0], '', 0, 
       (bin) => {
@@ -222,7 +222,7 @@ export class Credential extends Document {
 
   static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
     const doc: any = await op.cache.getDoc(docCl, src)
-    return doc && doc.creds ? doc.creds : []
+    return doc && doc.creds ? Array.from(doc.creds.values()) : []
   }
 }
 Registry.registerD(Credential)

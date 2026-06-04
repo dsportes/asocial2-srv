@@ -37,6 +37,8 @@ export type docHeader = {
   name: string
   sync: boolean
   pk: props
+  virtual?: boolean
+  manager?: boolean
   nohash?: boolean
   embedCreds?: boolean // les credentials sont embarqués dans la propriété creds
 }
@@ -60,33 +62,34 @@ export function isDocName (n: string) { return regdoc.test(n)}
 export class DocType {
   static ndt = 1
   static docTypes = new Map<string, DocType>()
-  static errors = []
+  static errors: string[] = []
+  static managerClasses: Set<string> = new Set()
 
-  static get (clazz: string) : DocType {
-    return DocType.docTypes.get(clazz)
+  static get (clazz: string) : DocType | null {
+    return DocType.docTypes.get(clazz) || null
   }
 
   static isTestable (clazz: string, idx: string) {
     const dt = DocType.docTypes.get(clazz)
     if (!dt) return false
-    const i = dt.indexes.get(idx)
+    const i = (dt.indexes && dt.indexes.get(idx)) || null
     return i && i.type === propType.STRING && i.testable
   }
 
   /* Retourne la valeur du pk d'une "source" src:
   - soit ayant les propriétés citées dans pk
-  - soit src = { docId: 'a/b/c' }
+  - soit src = { pk: 'a/b/c' }
   */
   static getPk (clazz: string, src: Object, nohash?: boolean) : string {
     if (clazz === 'Org') return '1'
     const dt = DocType.get(clazz)
-    let p = src['docId']
+    let p = src['pk']
     if (!p) {
       const x = []
       if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
       p = x.join('/')
     }
-    return nohash || dt.nohash ? p : Crypt.shaS(p)
+    return nohash || (dt && dt.nohash) ? p : Crypt.shaS(p)
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
@@ -99,7 +102,7 @@ export class DocType {
   }
 
   /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */
-  getCollId (src: Object, name: string) : string[] {
+  getCollId (src: Object, name: string) : string[] | null {
     const c = this.hasColls ? this.colls.get(name) : null
     if (!c) return null
     if (c.list) {
@@ -152,12 +155,14 @@ export class DocType {
 
   readonly n: number
   readonly name: string
-  readonly sync : boolean
-  readonly pk: props
-  readonly nohash: boolean
-  readonly embedCreds: boolean
-  readonly colls : Map<string, collection>
-  readonly indexes: Map<string, idx>
+  readonly sync : boolean = false
+  readonly pk: props = []
+  readonly nohash: boolean = false
+  readonly virtual: boolean = false
+  readonly manager: boolean = false
+  readonly embedCreds: boolean = false
+  readonly colls : Map<string, collection> | null = null
+  readonly indexes: Map<string, idx> | null = null
 
   err: string
 
@@ -188,6 +193,10 @@ export class DocType {
       if (isDocName(h.name)) this.name = h.name
       else this.er('invalid document name', h.name)
     } else this.er('Document header missing')
+    if (h.virtual) {
+      this.virtual = true
+      return
+    }
     if (!this.err) {
       if (DocType.docTypes.has(this.name)) { this.er('duplicate DocType', this.name); return this }
       DocType.docTypes.set(this.name, this)
@@ -200,6 +209,9 @@ export class DocType {
     this.sync = h.sync || false
     this.nohash = h.nohash || false
     this.embedCreds = h.embedCreds || false
+    this.manager = h.manager || false
+    if (this.manager)
+      DocType.managerClasses.add(this.name)
 
     if (colls && colls.size) {
       for(const [nc, coll] of colls) {
@@ -225,4 +237,3 @@ export class DocType {
   get hasIndexes () { return this.indexes ? true : false }
 
 }
-

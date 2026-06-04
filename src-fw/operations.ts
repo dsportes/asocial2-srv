@@ -3,7 +3,7 @@ import { Operation, Cache } from '../src-fw/operation'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
-import { Subs, subscription, SubsItem, PropertyA, Credential, Case, CaseObj } from '../src-fw/documents'
+import { Subs, subscription, SubsItem, PropertyA, Credential, Case, CaseObj, Cred } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 import { filter } from '../src-fw/iDbGeneric'
@@ -545,7 +545,7 @@ class ListManagers extends Operation {
     this.requireAuth()
     const admin = this.authRecord.isAdmin
     const cls = []
-    for(const dc of config.MANAGERCLASSES)
+    for(const dc of DocType.managerClasses)
       if (admin || this.authRecord.getCred(dc, '1', true)) cls.push(dc)
     if (cls.length) {
       const lst = await Credential.listManagers(this, cls)
@@ -555,19 +555,25 @@ class ListManagers extends Operation {
 }
 Registry.registerOp(ListManagers)
 
-/* credsByDoc liste les credential enregistrés 
+/* credsByDoc liste les credential enregistrés .
+src: map des propriétés de la pk. Pour un crdential NON embedded: { docId: gheyrb... }
 Retourne une liste de Cred */
 class credsByDoc extends Operation {
   _docCl: string
-  _docId: string 
+  _src: Object 
   init () {
     super.init()
     this._docCl = this.stringValue('docCl', true)
-    this._docId = this.stringValue('docId', true)
+    this._src = this.objectValue('src', true)
   }
   async phase2 () {
     this.requireAuth()
-    const lst = await Credential.listByDoc(this, this._docCl, this._docId)
+    const dt = DocType.get(this._docCl)
+    let lst: Cred[]
+    if (dt.embedCreds)
+      lst = await Credential.listByDocEmbed(this, this._docCl, this._src)
+    else
+      lst = await Credential.listByDoc(this, this._docCl, this._src)
     this.setRes('creds', lst)
   }
 }
@@ -718,7 +724,7 @@ class CaseCreateByU extends Operation {
     if (this.authRecord.userId !== this._caseObj.userId)
       { this.setRes('status', 2); return }
     cas = this.cache.newDoc('Case', this._caseObj) as Case
-    cas.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
+    cas.maxLife = Math.floor(this.now / 60000) + config.CASEMAXLIFE
     this.setRes('status', 0)
   }
 }
