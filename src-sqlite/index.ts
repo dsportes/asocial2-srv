@@ -562,7 +562,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async importRows (clazz: string, rows: row[]) : Promise<void> {
-    for(const row of rows) await this.insRow(clazz, row)
+    for(const row of rows) this.insRow(clazz, row)
   }
 
   insRow (clazz: string, row: row) : void {

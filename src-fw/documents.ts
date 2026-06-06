@@ -237,6 +237,7 @@ export type CaseObj = { // de document
   tabX: Uint8Array | null // texte de l'ardoise crypté par `X`
   etc: any // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
   maxLife: number // epoch en MINUTES
+  creds: string[]
 }
 
 export class Case extends Document {
@@ -249,10 +250,9 @@ export class Case extends Document {
   tabX: Uint8Array | null  = null // texte de l'ardoise crypté par `X`
   etc: any = {} // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
   maxLife: number // epoch en MINUTES
-  creds: string[] // liste de [docCl/docId docCl/1 A]
+  creds: string[] // liste de [docCl/docPk docCl/1 A]
 
-
-  static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
+  static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife', 'creds']
 
   toObj () : CaseObj {
     const obj = {}; for (const p of Case.lp1) obj[p] = this[p]; return obj as CaseObj

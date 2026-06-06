@@ -757,6 +757,22 @@ class Case2Test extends Operation {
 }
 Registry.registerOp(Case2Test)
 
+class CaseManagerList extends Operation {
+  init () {
+    super.init()
+  }
+  async phase2 () {
+    this.requireAdmin()
+    const l: Case[] = []
+    await this.db.selectDocs('Case', 'creds', filter.EQ, 'A', '', 0, (bin) => {
+      const row = decode(bin) as Case
+      l.push(row)
+    })
+    this.setRes('cases', l)
+  }
+}
+Registry.registerOp(CaseManagerList)
+
 class CaseFilteredList extends Operation {
   _filter: string[]
   init () {
@@ -766,13 +782,8 @@ class CaseFilteredList extends Operation {
   async phase2 () {
     this.requireAuth()
     // this._filter = ['Auteur/VictorHugo', 'Redaction/1']
-    if (!this.authRecord.isAdmin) {
-      const i = this._filter.indexOf('A')
-      if (i !== -1)
-        this._filter.splice(i, 1)
-    }
     const l: Case[] = []
-    await this.db.selectDocs('Case2', 'creds', filter.CONTAINSANY, this._filter, '', 0, (bin) => {
+    await this.db.selectDocs('Case', 'creds', filter.CONTAINSANY, this._filter, '', 0, (bin) => {
       const row = decode(bin) as Case
       l.push(row)
     })

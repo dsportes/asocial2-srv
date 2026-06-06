@@ -35,9 +35,9 @@ export type idx = {
 
 export type docHeader = {
   name: string
-  sync: boolean
-  pk: props
   virtual?: boolean
+  sync?: boolean
+  pk?: props
   manager?: boolean
   nohash?: boolean
   embedCreds?: boolean // les credentials sont embarqués dans la propriété creds

@@ -43,11 +43,17 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Case', sync: true, pk: ['caseId'] /*, nohash: true */ }, // header
+  { name: 'Case', sync: true, pk: ['caseId'], nohash: true }, // header
   null, // collections
   new Map<string, idx>([
-    ['creds', { type: propType.LIST /*, nohash: true */ }]
+    ['creds', { type: propType.LIST, nohash: true }]
   ])
+)
+
+new DocType(
+  { name: 'Readaction', virtual: true, manager: true }, // header
+  null,
+  null
 )
 
 new DocType(
