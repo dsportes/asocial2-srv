@@ -1,5 +1,6 @@
 import { decode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
+import { MDOperation } from '../src-fw/masterdir'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
@@ -763,9 +764,16 @@ class CaseManagerList extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    const l: Case[] = []
-    await this.db.selectDocs('Case', 'creds', filter.EQ, 'A', '', 0, (bin) => {
-      const row = decode(bin) as Case
+    const l: CaseObj[] = []
+    await this.db.selectDocs('Case', 'creds', filter.EQ, 'A', '', 0, async (bin) => {
+      const row = decode(bin) as CaseObj
+      const td = OrgsConfig.getTopic(row.topicId)
+      const res = await MDOperation.doOp('mdUserGetICVS', { userId: row.userId })
+      if (res && td) {
+        const { i, c, v , s } = res['icvs']
+        const aes = await Crypt.getAESKey(c, Buffer.from(td.privD))
+        row.tabX = await Crypt.decrypt(aes, row.tabX)
+      } else row.tabX = null
       l.push(row)
     })
     this.setRes('cases', l)
