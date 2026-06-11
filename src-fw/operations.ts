@@ -4,7 +4,7 @@ import { MDOperation } from '../src-fw/masterdir'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
-import { Subs, subscription, SubsItem, PropertyA, Credential, Case, CaseObj, Cred } from '../src-fw/documents'
+import { $Status, $Subs, $subscription, $SubsItem, $Credential, $Cred } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 import { filter } from '../src-fw/iDbGeneric'
@@ -47,96 +47,49 @@ class SvcOpIsAdmin$ extends Operation {
 }
 Registry.registerOp(SvcOpIsAdmin$)
 
-/* GetTopics retourne la configuration des topics
+/* GetStatus$ retourne le status du service: { st, at, txt }
+  st: code 0: inconnu 1: UP 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+  Du fait de $, adresse la pseudo organisation 'A' (donc le service)
 */
-class GetTopics$ extends Operation {
+class GetStatus$ extends Operation {
   async phase2 () {
-    this.setRes('topics', OrgsConfig.getTopics())
+    const dd = await Cache.getRow(this, '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
+    else {
+      dd.init()
+      const s = dd.doc as $Status
+      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
+    }
   }
 }
-Registry.registerOp(GetTopics$)
+Registry.registerOp(GetStatus$)
 
-/* UpdTopics retourne la configuration des topics
-*/
-class UpdTopics$ extends Operation {
-  _json: string
-  init () {
-    super.init()
-    this._json = this.stringValue('json', true)
-  }
-
-  async phase2 () {
-    this.requireAdmin()
-    await OrgsConfig.updTopics(this, this._json)
-  }
-}
-Registry.registerOp(UpdTopics$)
-
-/* GetSvcOpStatus retourne le status du service: { st, at, txt }
+/* GetStatus retourne le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
 */
-class GetSvcOpStatus$ extends Operation {
+class GetStatus extends Operation {
   async phase2 () {
-    const svcStatus = await Cache.getSrvStatus(this)
-    this.setRes('svcStatus', svcStatus)
+    const dd = await Cache.getRow(this, '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
+    else {
+      dd.init()
+      const s = dd.doc as $Status
+      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
+    }
   }
 }
-Registry.registerOp(GetSvcOpStatus$)
+Registry.registerOp(GetStatus)
 
-/* SetSvcOpStatus fixe le status du service: { st, at, txt } pour cet opérateur
+/* SetStatus$ fixe le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP
   txt: texte explicatif éventuel de l'administrateur
   ADMINISTRATEUR
 */
-class SetSvcOpStatus$ extends Operation {
-  _st: number
-  _txt: string
-  init () {
-    super.init()
-    this._st = this.intValue('st', true, 0, 9)
-    this._txt = this.stringValue('txt', true)
-  }
-  async phase2 () {
-    // const tokens = this.authRecord.getTokens('admin', '')
-    // tokens a toujours un élément, sinon ça serait sorti en exception
-    this.requireAdmin()
-    const now = Date.now()
-    const value = { at: Date.now(), st: this._st, txt: this._txt }
-    await this.db.setSingleton('status', JSON.stringify(value))
-    value['now'] = now
-    Cache.srvStatus = value
-    this.setRes('svcOpStatus', Cache.srvStatus)
-  }
-}
-Registry.registerOp(SetSvcOpStatus$)
-
-/* GetOrgStatus retourne le status de l'organisation: { st, at, txt }
-  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-*/
-class GetSvcOrgStatus extends Operation {
-  async phase2 () {
-    const orgDoc = await this.cache.getOrg()
-    let os
-    if (orgDoc && orgDoc['status']) {
-      os = { ...orgDoc['status'] }
-      os.now = this.now
-    }
-    this.setRes('orgStatus', os ? os : { now: this.now, st: 0, at: 0, txt: '' })
-    // this.setRes('orgStatus', { st: 0, at: 0, txt: '' })
-  }
-}
-Registry.registerOp(GetSvcOrgStatus)
-
-/* SetOrgStatus fixe le status de l'organisation: { st, at, txt }
-  st: code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-*/
-class SetSvcOrgStatus extends Operation {
+class SetStatus$ extends Operation {
   _st: number
   _txt: string
   init () {
@@ -146,17 +99,40 @@ class SetSvcOrgStatus extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    const status = { at: this.now, st: this._st, txt: this._txt }
-    let orgDoc = await this.cache.getOrg()
-    if (orgDoc) {
-      orgDoc.status = status
-      orgDoc._status = DocStatus.UPD
-    } else {
-      this.cache.newDoc('Org', { status })
-    }
+    let doc: $Status = await this.cache.getDoc('$Status', { pk: '1' }) as $Status
+    if (doc) doc._status = DocStatus.UPD
+    else doc = this.cache.newDoc('$Status', { pk: '1'}) as $Status
+    doc.at = Date.now()
+    doc.st = this._st
+    doc.txt = this._txt || ''
   }
 }
-Registry.registerOp(SetSvcOrgStatus)
+Registry.registerOp(SetStatus$)
+
+/* SetStatus fixe le status de l'organisation: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  txt: texte explicatif éventuel de l'administrateur
+  ADMINISTRATEUR
+*/
+class SetStatus extends Operation {
+  _st: number
+  _txt: string
+  init () {
+    super.init()
+    this._st = this.intValue('st', true, 0, 9)
+    this._txt = this.stringValue('txt', true)
+  }
+  async phase2 () {
+    this.requireAdmin()
+    let doc: $Status = await this.cache.getDoc('$Status', { pk: '1' }) as $Status
+    if (doc) doc._status = DocStatus.UPD
+    else doc = this.cache.newDoc('$Status', { pk: '1'}) as $Status
+    doc.at = Date.now()
+    doc.st = this._st
+    doc.txt = this._txt || ''
+  }
+}
+Registry.registerOp(SetStatus$)
 
 class SetOrgConfig$ extends Operation {
   _st: string
@@ -189,8 +165,8 @@ class GetOrgConfig$ extends Operation {
 }
 Registry.registerOp(GetOrgConfig$)
 
-/* HasAlias retourne le document de la classe indiqué
-dont l'index d'alias donné à la valeur donnée.
+/* HasAlias retourne true s'il existe un document de la classe docCl
+dont l'index d'alias aliasName donné à la valeur donnée aliasValue.
 */
 class HasAlias extends Operation {
   _docCl: string
@@ -198,22 +174,26 @@ class HasAlias extends Operation {
   _aliasValue: string
   init () {
     super.init()
-    this._docCl = this.stringValue('json', true)
+    this._docCl = this.stringValue('docCl', true)
     this._aliasName = this.stringValue('aliasName', true)
     this._aliasValue = this.stringValue('aliasValue', true)
   }
 
   async phase2 () {
     const testable = DocType.isTestable(this._docCl, this._aliasName)
-    const doc = !testable ? null : await this.db.oneRowByAlias(this._docCl, this._aliasName, this._aliasValue)
-    this.setRes('hasalias', doc ? true : false)
+    if (!testable) this.setRes('hasalias', false)
+    else {
+      const doc = await this.db.oneRowByAlias(this._docCl, this._aliasName, this._aliasValue)
+      this.setRes('hasalias', doc !== null)
+    }
   }
 }
 Registry.registerOp(HasAlias)
 
-/* GetProperty retourne la valeur de la Property
+/* GetEnum retourne la liste des valeurs (string)
+- name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
 */
-class GetProperty extends Operation {
+class GetEnum$ extends Operation {
   _name: string
   init () {
     super.init()
@@ -221,74 +201,30 @@ class GetProperty extends Operation {
   }
 
   async phase2 () {
-    const doc = await this.cache.getDoc('Property', { id: this._name }) as PropertyA
-    if (doc)
-      this.setRes('value', doc.value)
+    const valx = await this.db.getSingleton('this._name') as string
+    let x: string[] = JSON.parse(valx || '[]') 
+    this.setRes('enum', x)
   }
 }
-Registry.registerOp(GetProperty)
+Registry.registerOp(GetEnum$)
 
-/* SetProperty fixe la valeur de la Property
+/* SetEnum fixe la liste des valeurs d'une enumération
 */
-class SetProperty extends Operation {
+class SetEnum$ extends Operation {
   _name: string
-  _value: Object
+  _value: string[]
 
   init () {
     super.init()
     this._name = this.stringValue('name', true)
-    this._value = this.objectValue('value', true)
+    this._value = this.stringArrayValue('value', true)
   }
 
   async phase2 () {
-    let doc = await this.cache.getDoc('Property', { id: this._name }) as PropertyA
-    if (doc) {
-      doc.value = this._value
-      doc._status = DocStatus.UPD
-    } else 
-      doc = this.cache.newDoc('Property', { id: this._name, value: this._value}) as PropertyA
+    await this.db.setSingleton(this._name, JSON.stringify(this._value))
   }
 }
-Registry.registerOp(SetProperty)
-
-/* SetSubjects fixe la valeur du singleton porteur 
-de la liste des subjects
-*/
-class SetSubjects extends Operation {
-  _name: string
-  _subjects: string[]
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true)
-    this._subjects = this.stringArrayValue('subjects', true)
-  }
-
-  async phase2 () {
-    const json = JSON.stringify(this._subjects, null, '\t')
-    await this.db.setSingleton('subjects_' + this._name, json)
-  }
-}
-Registry.registerOp(SetSubjects)
-
-/* SetSubjects fixe la valeur du singleton porteur du subject
-*/
-class GetSubjects extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true)
-  }
-
-  async phase2 () {
-    const json = await this.db.getSingleton('subjects_' + this._name) as string
-    let value = []
-    try {
-      value = JSON.parse(json || '[]')
-    } catch (e) { /* rien */ }
-    this.setRes('value', value)
-  }
-}
-Registry.registerOp(GetSubjects)
+Registry.registerOp(SetEnum$)
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
@@ -317,21 +253,21 @@ Registry.registerOp(GetPutUrl)
 - Créé une nouvelle si l'argument subscription n'est pas null
 */
 class SetSubscription extends Operation {
-  _subs: subscription
+  _subs: $subscription
   _life: number
   init () {
     super.init()
-    this._subs = this.objectValue('subsscription', false) as subscription
+    this._subs = this.objectValue('subsscription', false) as $subscription
     const longLife = this.boolValue('longLife', false)
     this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
   async phase2 () {
-    await SubsItem.deleteSessionId(this, this._subs.sessionId)
+    await $SubsItem.deleteSessionId(this, this._subs.sessionId)
     if (this._subs) {
-      const subs = Subs.newSubs(this, this._subs, this._life) as Subs
+      const subs = $Subs.newSubs(this, this._subs, this._life) as $Subs
       for (const def in subs.defs) {
         // const msg = subs.defs[def] - pas enregistré dans SubsItem
-        SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+        $SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
       }
     }
   }
@@ -353,7 +289,7 @@ class UpdateSubscription extends Operation {
     this._defs = this.objectValue('defs', true)
   }
   async phase2 () {
-    const subs = await this.cache.getDoc('Subs', { sessionId: this.sessionId}) as Subs
+    const subs = await this.cache.getDoc('$Subs', { sessionId: this.sessionId}) as $Subs
     if (!subs) 
       throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
 
@@ -366,13 +302,13 @@ class UpdateSubscription extends Operation {
       const msg = this._defs[def]
       if (msg === false) {
         delete subs.defs[def]
-        await this.cache.getDoc('SubsItem', src) as SubsItem
-        this.cache.delDoc('SubsItem', Crypt.shaS(this.sessionId + '/' + def))
+        await this.cache.getDoc('$SubsItem', src) as $SubsItem
+        this.cache.delDoc('$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
       } else {
         subs.defs[def] = msg
-        let subsItem = await this.cache.getDoc('SubsItem', src) as SubsItem
+        let subsItem = await this.cache.getDoc('$SubsItem', src) as $SubsItem
         if (!subsItem) {
-          subsItem = this.cache.newDoc('SubsItem', src) as SubsItem
+          subsItem = this.cache.newDoc('$SubsItem', src) as $SubsItem
           subsItem._status = DocStatus.NEW
         } else { 
           subsItem.def = def
@@ -470,36 +406,6 @@ class getCredUpdates extends Operation {
 }
 Registry.registerOp(getCredUpdates)
 
-/* UpdateCred 
-- peut changer la fin de validité d'un Credential
-- peut modifier cond
-TODO à rediscuter:
-- qui a le droit ? sponsor / manager (admin ?)
-- dans quelle circonstance le fait-il si user-id est inconnu ?
-*/
-class UpdateCred extends Operation {
-  init () {
-    super.init()
-  }
-  async phase2 () {
-    /*
-    // this.requireAdmin()
-    this.requireAuth()
-    const c = await this.cache.getDoc('Credential', this._rr) as Credential
-    if (c) {
-      if (!this.authRecord.isAdmin)
-        this.setRes('status', 2)
-      else {
-        c.limit = this.now
-        this.setRes('status', 0)
-        c._status = DocStatus.UPD
-      }
-    } else this.setRes('status', 1)
-    */
-  }
-}
-Registry.registerOp(UpdateCred)
-
 /* Auto-recvocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
 - sa possession est donc assuré, il peut le supprimer
@@ -526,38 +432,31 @@ class AutoRevokeCred extends Operation {
       const x = d['creds']
       if (x) delete x[this._credId]
     } else {
-      const c = await this.cache.getDoc('Credential', { credId: this._credId }) as Credential
-      if (c) this.cache.delDoc('Credential', c.pk)
+      const c = await this.cache.getDoc('$Credential', { credId: this._credId }) as $Credential
+      if (c) this.cache.delDoc('$Credential', c.pk)
     }
   }
 }
 Registry.registerOp(AutoRevokeCred)
 
-/* ListManagers liste les credentials managers enregistrés (qu'ils soient valides ou non)
-Un _administrateur_ interroge toutes les classes de managers.
-Un non administrateur doit présenter son propre credential et ne peut pas interroger les autres.
-Retourne une liste de Cred
+/* ListManagers liste les credentials "managers" enregistrés (qu'ils soient valides ou non)
+quelle que soit leurs classes.
+Un _credential manager_ est un credential qui ne peut être attribué que par un _administrateur_ .
 */
 class ListManagers extends Operation {
   init () {
     super.init()
   }
   async phase2 () {
-    this.requireAuth()
-    const admin = this.authRecord.isAdmin
-    const cls = []
-    for(const dc of DocType.managerClasses)
-      if (admin || this.authRecord.getCred(dc, '1', true)) cls.push(dc)
-    if (cls.length) {
-      const lst = await Credential.listManagers(this, cls)
-      this.setRes('creds', lst)
-    }
+    this.requireAdmin()
+    const lst = await $Credential.listManagers(this)
+    this.setRes('creds', lst)
   }
 }
 Registry.registerOp(ListManagers)
 
 /* credsByDoc liste les credential enregistrés .
-src: map des propriétés de la pk. Pour un crdential NON embedded: { docId: gheyrb... }
+src: map des propriétés de la pk. Pour un credential NON embedded: { docId: gheyrb... }
 Retourne une liste de Cred */
 class credsByDoc extends Operation {
   _docCl: string
@@ -570,108 +469,17 @@ class credsByDoc extends Operation {
   async phase2 () {
     this.requireAuth()
     const dt = DocType.get(this._docCl)
-    let lst: Cred[]
+    let lst: $Cred[]
     if (dt.embedCreds)
-      lst = await Credential.listByDocEmbed(this, this._docCl, this._src)
+      lst = await $Credential.listByDocEmbed(this, this._docCl, this._src)
     else
-      lst = await Credential.listByDoc(this, this._docCl, this._src)
+      lst = await $Credential.listByDoc(this, this._docCl, this._src)
     this.setRes('creds', lst)
   }
 }
 Registry.registerOp(credsByDoc)
 
-//   static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife']
-/* CaseList liste, pour un sponsor, les invitations enregistrées pour un "topic"
-- soit toutes en l'absence de "suject")
-- soit uniquement celles du "subject" indiqué 
-Retourne une liste dde Case 
-
-class CaseList extends Operation {
-  _topicId: string
-  _subject: string
-  init () {
-    super.init()
-    this._topicId = this.stringValue('topicId', true)
-    this._subject = this.stringValue('subject', true)
-  }
-  async phase2 () {
-    this.requireAuth()
-    // @ts-expect-error
-    const fakeCase = new Case({
-      topicId: this._topicId, subject: this._subject
-    })
-    const ok = fakeCase.checkSponsor(this)
-    if (!ok) {
-      this.setRes('status', 1)
-      return
-    }
-    const lst = await Case.listCases(this, this._topicId, this._subject)
-    this.setRes('list', lst)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(CaseList)
-*/
-
-/* InvitList liste, pour un sponsor, les invitations enregistrées pour un "major"
-- soit toutes, avec le credential 'Org.manager' ou 'Sponsor.major'
-- soit uniquement celles du "minor" indiqué pour un 'Sponsor.minor'
-Retourne une liste d'invitations 
-
-class InvitList extends Operation {
-  _major: string
-  _minor: string
-  init () {
-    super.init()
-    this._major = this.stringValue('major', true)
-    this._minor = this.stringValue('minor', true)
-  }
-  async phase2 () {
-    this.requireAuth()
-    let cr = this.getCred('Org.manager', '', true)
-    if (!cr) {
-      cr = this.getCred('Sponsor.', this._major, true)
-      if (!cr) cr = this.getCred('Sponsor.', this._major + '/' + this._minor, true)
-    }
-    if (!cr) {
-      this.setRes('status', 1)
-      return
-    }
-    const lst = await InvitationA.listInvits(this, this._major, this._minor)
-    this.setRes('list', lst)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitList)
-*/
-
-/* InvitGet retourne une invitation d'après son ID.
-Si le user n'est pas certifié (cas d'appel depuis Master Directory pour ZZINVITS) 
-seulement les propriétés: v major minor
-
-class InvitGet extends Operation {
-  _invitId: string
-  _userId: string
-  init () {
-    super.init()
-    this._invitId = this.stringValue('invitId', true)
-    this._userId = this.stringValue('userId', true)
-  }
-  async phase2 () {
-    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (invit && invit.userId === this._userId) {
-      if (this.authRecord.userId === invit.userId) {
-        const x = invit.toObj()
-        this.setRes('invitation', x)
-      }
-      else this.setRes('invitation', { v: invit.v, major: invit.major, minor: invit.minor })
-    }
-  }
-}
-Registry.registerOp(InvitGet)
-*/
-
-/* CaseSync retourne les propriétés (v, status) d'un case */
+/* CaseSync retourne les propriétés (v, status) d'un case 
 class CaseSync extends Operation {
   _caseId: string
 
@@ -688,10 +496,11 @@ class CaseSync extends Operation {
   }
 }
 Registry.registerOp(CaseSync)
+*/
 
 /* CaseGet retourne les propriétés (v, status, tabX, etc) d'un case
 Réservé au user propriétaire du case
-*/
+
 class CaseGet extends Operation {
   _caseId: string
 
@@ -708,7 +517,9 @@ class CaseGet extends Operation {
   }
 }
 Registry.registerOp(CaseGet)
+*/
 
+/*
 class CaseCreateByU extends Operation {
   _caseObj: CaseObj
   init () {
@@ -758,28 +569,6 @@ class Case2Test extends Operation {
 }
 Registry.registerOp(Case2Test)
 
-class CaseManagerList extends Operation {
-  init () {
-    super.init()
-  }
-  async phase2 () {
-    this.requireAdmin()
-    const l: CaseObj[] = []
-    await this.db.selectDocs('Case', 'creds', filter.EQ, 'A', '', 0, async (bin) => {
-      const row = decode(bin) as CaseObj
-      const td = OrgsConfig.getTopic(row.topicId)
-      const res = await MDOperation.doOp('mdUserGetICVS', { userId: row.userId })
-      if (res && td) {
-        const { i, c, v , s } = res['icvs']
-        const aes = await Crypt.getAESKey(c, Buffer.from(td.privD))
-        row.tabX = await Crypt.decrypt(aes, row.tabX)
-      } else row.tabX = null
-      l.push(row)
-    })
-    this.setRes('cases', l)
-  }
-}
-Registry.registerOp(CaseManagerList)
 
 class CaseFilteredList extends Operation {
   _filter: string[]
@@ -799,6 +588,7 @@ class CaseFilteredList extends Operation {
   }
 }
 Registry.registerOp(CaseFilteredList)
+*/
 
 /* CreateInvit: création d'une invitation. Enregistrement en base seulement.
 - invObj
@@ -901,6 +691,7 @@ class InvitUpdByS extends Operation {
 Registry.registerOp(InvitUpdByS)
 */
 
+/*
 class CaseCancel extends Operation {
   _caseId: string
   init () {
@@ -917,6 +708,7 @@ class CaseCancel extends Operation {
   }
 }
 Registry.registerOp(CaseCancel)
+*/
 
 /* InvitValidate réalise les opérations correspondantes. 
 Le demandeur doit être l'utilisateur.

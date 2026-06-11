@@ -98,36 +98,6 @@ export class OrgsConfig {
     }
   }
 
-  setTopics (y: any, upd?: boolean) {
-    if (!upd) this.topics = new Map<string, TopicDef>()
-    /* JSON topics
-    [
-      { id: topic1, categ: c1, key: k12, subjects: ... },
-      ...
-    ] */
-    for(const t of y) {
-      const id = t['id']
-      const categ = t['categ']
-      if (!categ && upd) {
-        this.topics.delete(id)
-        continue
-      }
-      const key =  t['key']
-      const k = config.keys['SVkeys'][key]
-      if (!k)
-        throw new AppExc(101, 'invalid_key_topic', null, [id, key])
-      const subjects = t['subjects'] || null
-      const pubC = keyFromB64(k.pub)
-      const privD = keyFromB64(k.priv)
-      const creds: string[] = t.creds.split(' ')
-      for(let i = 0; i < creds.length; i++) creds[i] = creds[i].trim()
-      const topic = { id, categ, key, subjects, pubC, privD, creds }
-      this.topics.set(id, topic)
-    }
-  }
-
-
-
   // Retourne le couple db, storage d'une organisation
   static getDbSt (org: string) : [string, string] {
     OrgsConfig.reload()
@@ -160,30 +130,6 @@ export class OrgsConfig {
     OrgsConfig.lastLoading = Date.now()
   }
 
-  /* Met à jour la configuration des topics
-  en appliquant les directives du JSON transmis par l'application.
-  */
-  static async updTopics (op: AbstractOperation, json: string) {
-    let y: TopicDef[]
-    try { 
-      y = JSON.parse(json)
-    } catch (e) {
-      throw new AppExc(101, 'invalid_json_topic_update', op, [e.toString()])
-    }
-    const oc = OrgsConfig.current
-    oc.setTopics(y, true)
-    OrgsConfig.lastLoading = Date.now()
-    const a: TopicDef[] = []
-    for(const [, t] of oc.topics) {
-      const t2 = { ...t }
-      delete t2.privD
-      delete t2.pubC
-      a.push(t2)
-    }
-    const nval = JSON.stringify(a, null, '\t')
-    await op.db.setSingleton('topics', nval)
-  }
-
   /* Rechargement de la configuration
   En cas d'échec, relance 1 minute plus tard
   Si 'init' est spécifié, pas de relance mais retourne false
@@ -196,11 +142,8 @@ export class OrgsConfig {
       await dbConnector.getConnexion(op, '')
       const valx = await op.db.getSingleton('orgs') as string
       const x = JSON.parse(valx || '{}')
-      const valy = await op.db.getSingleton('topics') as string
-      const y = JSON.parse(valy || '[]')
       const oc = new OrgsConfig()
       oc.setOrgs(x)
-      oc.setTopics(y)
       op.db.disconnect()
       OrgsConfig.current = oc
       OrgsConfig.updating = false
@@ -213,27 +156,6 @@ export class OrgsConfig {
       if (!init) setTimeout(OrgsConfig.doReload, 60000)
       return false
     }
-  }
-
-  static getTopics () : Array<TopicDef> {
-    OrgsConfig.reload()
-    const c = OrgsConfig.current
-    if (!c) return []
-    const a: TopicDef[] = []
-    for(const [, t] of c.topics) {
-      const t2 = { ...t }
-      delete t2.privD
-      a.push(t2)
-    }
-    return a
-  }
-
-  static getTopic (id: string) : TopicDef | null {
-    OrgsConfig.reload()
-    const c = OrgsConfig.current
-    if (!c) return null
-    const td = c.topics.get(id)
-    return td || null
   }
 
   // Retourne le DbConnector à la base configurée pour l'organisation org
@@ -528,7 +450,7 @@ let todayEpoch = 0
 
 export async function doOp (args: Object, res: express.Response, baseUrl: string) {
   const opName = args['opName']
-  const org = args['org']
+  const org = opName.endsWith('$') ? 'A' : args['org']
 
   const now = Date.now()
   const e = Math.floor(now / 86400000)
@@ -560,7 +482,7 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     op.baseUrl = baseUrl
 
     OrgsConfig.reload()
-    if (opName.endsWith('$')) {
+    if (org === 'A') {
       op.dbConnector = config.svcDB
     } else {
       op.storage = OrgsConfig.getStorage(org)

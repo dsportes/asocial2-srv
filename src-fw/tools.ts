@@ -188,15 +188,7 @@ export class Tools {
     const resp = await this.prompt('Export / Import DB\nValider (o/N) ?')
     if (resp !== 'o' && resp !== 'O') throw 'Exécution interrompue.'
 
-    const rorg = await this.cnxIn.oneRow('Org', '1', 0)
-    if (rorg) {
-      await this.cnxOut.importRows('Org', [rorg])
-      this.log('Org OK.')
-    } else this.log('Org : not found.')
-
     for(const [clazz, dt] of DocType.docTypes) {
-      if (clazz === 'Org') continue
-
       this.log2('Class ' + clazz)
       let mark = '1'
       let n = 0

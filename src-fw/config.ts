@@ -68,6 +68,7 @@ export interface BaseConfig {
 
   SUBSMAXLIFEINMINUTES: number[]
   CASEMAXLIFE: number // En minutes - typiquement 10*1440:
+  STATUSLAZYNESS: number // En SECONDES, délai de prise en compte d'un changement de Status
 }
 
 export let config : BaseConfig = null

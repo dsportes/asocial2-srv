@@ -6,7 +6,7 @@ import { IDbGeneric, row, srvStatus, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
 import { Document, DocStatus } from './document'
-import { Credential, Cred, OrgA } from './documents'
+import { $Credential, $Cred, $Status } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
 import { Crypt } from './crypt'
@@ -148,7 +148,7 @@ export class Operation implements OperationWC {
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (docCl: string, docId: string, noex?: boolean) : Cred {
+  getCred (docCl: string, docId: string, noex?: boolean) : $Cred {
     this.requireAuth()
     return this.authRecord.getCred(docCl, docId, noex || false)
   }
@@ -330,7 +330,7 @@ export class AuthRecord {
   pemV: string // clé publique de vérification du userId
 
   /* Clé: ref : docCl/docId - Cred dont la signature est ok*/
-  creds: Map<string, Cred>
+  creds: Map<string, $Cred>
   /* ref SANS Credential OU dont la signature est KO */
   koCreds: Set<string>
   
@@ -355,7 +355,7 @@ export class AuthRecord {
     }
   }
 
-  getCred(docCl: string, docId: string, noex?: boolean) : Cred {
+  getCred(docCl: string, docId: string, noex?: boolean) : $Cred {
     const cr = this.creds.get(docCl + '/' + (docId || ''))
     if (cr) return cr
     if (noex) return null
@@ -376,7 +376,7 @@ export class AuthRecord {
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
       const dt = DocType.get(docCl)
-      let cred: Cred
+      let cred: $Cred
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as Document
         const x = d['creds']
@@ -385,10 +385,10 @@ export class AuthRecord {
           if (y && y.more && (!y.more.limit || y.more.limit >= this.op.now)) cred = y
         }
       } else { // Recherche du Credential par sa pk
-        const c = await this.op.cache.getDoc('Credential', { credId }) as Credential
+        const c = await this.op.cache.getDoc('$Credential', { credId }) as $Credential
         if (c.docCl === docCl && c.docPk === docPk) {
           if (cred.more && cred.more.limit && cred.more.limit < this.op.now) 
-            this.op.cache.delDoc('Credential', c.pk)
+            this.op.cache.delDoc('$Credential', c.pk)
           else cred = c.cred
         }
       }
@@ -465,6 +465,7 @@ export class Cache {
    (ça s'est limité à un filtre sur index).
   Si le row n'était pas en cache ou que la version lue est plus récente : IL Y EST MIS:
   Certes la transaction peut échouer, mais au pire on a lu une version plus récente.
+  - lazy: nombre de SECONDES d'ancienneté accepté pour une lecture non bloquante
   */
   static async getRow(op: Operation, clazz: string, src: Object, lazy?: number)
     : Promise<DocDescr> {
@@ -552,21 +553,6 @@ export class Cache {
     this.op = operation
     this.db = this.op.db
     this.docs = new Map<string, DocDescr>()
-  }
-
-  // Retourne ou lit le Document Org '1' de l'opération
-  async getOrg (assert?: string, lazy?: boolean) : Promise<OrgA> {
-    const k = 'Org/' + this.op.org
-    let dd = this.docs.get(k)
-    if (dd) return dd.doc as OrgA
-    dd = await Cache.getRow(this.op, 'Org', null, 1)
-    if (!dd) {
-      if (assert) this.op.assertKO(assert, 25, ['Org', this.op.org])
-      return null
-    }
-    dd.init()
-    if (!lazy) this.docs.set(k, dd)
-    return dd.doc as OrgA
   }
 
   /* Retourne ou lit de la base le Document cité par src:

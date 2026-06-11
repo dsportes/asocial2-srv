@@ -335,7 +335,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
   }
 
   docRef (clazz: string, pk: string) {
-    return this.fs.doc('Org/' + this.org + (clazz === 'Org' ? '' : '/' + clazz + '/' + pk))
+    return this.fs.doc('Org/' + this.org + '/' + clazz + '/' + pk)
   }
 
   /* Path: Org/demo/Article@auteurs/a5@Hugo

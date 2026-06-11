@@ -102,7 +102,8 @@ setConfig(
   },
   directoryDB: null,
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
-  CASEMAXLIFE: 10 * 1440 // 10 jours,
+  CASEMAXLIFE: 10 * 1440, // 10 jours
+  STATUSLAZYNESS: 3 * 60 // 3 minutes de prise en compte des changements de status
   } as BaseConfig)
 
 new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)

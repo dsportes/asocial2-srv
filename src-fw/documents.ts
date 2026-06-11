@@ -14,33 +14,23 @@ export function loadingDF () {
 const encoder = new TextEncoder()
 // const decoder = new TextDecoder()
 
-class Task extends Document {
+class $Task extends Document {
   static release = 0
 
 }
-Registry.registerD(Task)
+Registry.registerD($Task)
 
-export type OrgStatus = {
+export class $Status extends Document {
+  static release = 0
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
   at: number // time de dernière mise à jour
   txt: string // texte explicatif éventuel de l'administrateur
-}
 
-export class OrgA extends Document {
-  static release = 0
-  status: OrgStatus
+  isUP () { return this.st === 1 || this.st === 2 }
+  isRO () { return this.st === 2 }
+  isRW () { return this.st === 1 }
+  isDOWN () { return this.st === 9 }
 
-  isUP () { return this.status && (this.status.st === 1 || this.status.st === 2) }
-  isRO () { return this.status && this.status.st === 2 }
-  isRW () { return this.status && this.status.st === 1 }
-  isDOWN () { return this.status && this.status.st === 9 }
-
-}
-
-export class PropertyA extends Document {
-  static release = 0
-  id: string
-  value: Object
 }
 
 /* 
@@ -53,7 +43,7 @@ export class PropertyA extends Document {
   - def: sa définition.
   - msg: est un message ou ''
 */
-export type subscription = {
+export type $subscription = {
   sessionId: string
   subJSON: string
   url: string
@@ -63,7 +53,7 @@ export type subscription = {
 
 /* Un document Subs décrit la souscription d'une session:
 */
-export class Subs extends Document {
+export class $Subs extends Document {
   static release = 0
 
   sessionId: string
@@ -73,7 +63,7 @@ export class Subs extends Document {
   title: string
   maxLife: number
 
-  static newSubs (op: OperationWC, subs: subscription, maxLife: number) : Document {
+  static newSubs (op: OperationWC, subs: $subscription, maxLife: number) : Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
@@ -82,10 +72,10 @@ export class Subs extends Document {
       defs: subs.defs,
       maxLife : maxLife
     }
-    return op.cache.newDoc('Subs', initVals)
+    return op.cache.newDoc('$Subs', initVals)
   }
 }
-Registry.registerD(Subs)
+Registry.registerD($Subs)
 
 /* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
 et peut avoir trois formes:
@@ -102,7 +92,7 @@ La définition def d'un SubsItem est le string:
 def est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
-export class SubsItem extends Document {
+export class $SubsItem extends Document {
   static release = 0
 
   sessionId : string
@@ -131,7 +121,7 @@ export class SubsItem extends Document {
       def: def,
       maxLife : maxLife
     }
-    return op.cache.newDoc('SubsItem', initVals)
+    return op.cache.newDoc('$SubsItem', initVals)
   }
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
@@ -143,7 +133,7 @@ export class SubsItem extends Document {
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    op.db.selectDocs('SubsItem', 'def', filter.EQ, def, '', 0, 
+    op.db.selectDocs('$SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -153,18 +143,18 @@ export class SubsItem extends Document {
 
   static async deleteSessionId (op: OperationWC, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    op.db.selectDocs('SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    op.db.selectDocs('$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
-        op.db.deleteRow('SubsItem', pk)
+        op.db.deleteRow('$SubsItem', pk)
       })
   }
 
 }
-Registry.registerD(SubsItem)
+Registry.registerD($SubsItem)
 
-export type Cred = {
+export type $Cred = {
   pubv: Uint8Array
   pubc: Uint8Array
   opaque: Uint8Array | null
@@ -172,7 +162,7 @@ export type Cred = {
   credId: string
 }
 
-export class Credential extends Document {
+export class $Credential extends Document {
   static release = 0
 
   credId: string
@@ -183,12 +173,15 @@ export class Credential extends Document {
   maxLife: number
   cred: any
 
-  static async listManagers (op: OperationWC, managers: string[]) : Promise<Cred[]> {
-    const lst: Cred[] = []
-    await op.db.selectDocs('Credential', 'creds', filter.IN, managers, '', 0, 
-      (bin) => {
+  // Liste les credentials attribuable par un administrateur seulement
+  static async listManagers (op: OperationWC) : Promise<$Cred[]> {
+    const lst: $Cred[] = []
+    let sel: string[] = []
+    for(const cl of DocType.managerClasses) sel.push(cl + '/1')
+    if (sel.length) await op.db.selectDocs('$Credential', 'creds', filter.IN, sel, '', 0, 
+      (bin: Uint8Array) => {
         try {
-          const obj = decode(bin) as Credential
+          const obj = decode(bin) as $Credential
           const c = obj.cred
           delete c.pubv
           delete c.pubc
@@ -200,15 +193,18 @@ export class Credential extends Document {
     return lst
   }
 
-  static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
+  /* Liste les credentials NON embarqués d'un document donné par sa classe
+  et les propriétés de sa pk.
+  */
+  static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
     const docPk = DocType.getPk(docCl, src, true)
-    const dd = DocType.get('Credential')
+    const dd = DocType.get('$Credential')
     const val = dd.getIdx({ docCl, docPk }, 'doc')
-    const lst: Cred[] = []
-    await op.db.selectDocs('Credential', 'doc', filter.EQ, val[0], '', 0, 
+    const lst: $Cred[] = []
+    await op.db.selectDocs('$Credential', 'doc', filter.EQ, val[0], '', 0, 
       (bin) => {
         try {
-          const obj = decode(bin) as Credential
+          const obj = decode(bin) as $Credential
           const c = obj.cred
           delete c.pubv
           delete c.pubc
@@ -220,12 +216,15 @@ export class Credential extends Document {
     return lst
   }
 
-  static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<Cred[]> {
+  /* Liste les credentials EMBARQUES d'un document donné par sa classe
+  et les propriétés de sa pk.
+  */
+  static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
     const doc: any = await op.cache.getDoc(docCl, src)
     return doc && doc.creds ? Array.from(doc.creds.values()) : []
   }
 }
-Registry.registerD(Credential)
+Registry.registerD($Credential)
 
 export type CaseObj = { // de document
   caseId: string // ID universel généré aléatoirement à la création.

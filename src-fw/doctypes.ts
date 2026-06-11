@@ -7,14 +7,14 @@ export type props = string[]
 HASH : string, base64 du shaS(string[])
 STRING : string
 INTEGER : int 32 bits
-FOLAT : double
+FLOAT : double
 LIST: string[]
 */
 export enum propType { STRING, INTEGER, FLOAT, LIST, HASH }
 
 /* Usage d'un index
 SIMPLE : index simple, dans une organisation
-GLOBAL : index global, toutes organisations
+GLOBAL : index global, toutes organisations (pour les tasks)
 COL : collection (notifiable / synchronisable)
 IMUTCOL : collection sur une propriété constante du document 
 */
@@ -23,7 +23,7 @@ export enum idxUse { SIMPLE, GLOBAL, COL, IMUTCOL }
 /* Index: 
 - type d'index
 - true si l'index est global (trans organisation)
-- testable: si true l'existence du document par cet "alias" peut être testée
+- testable: si true l'existence du document par cet "alias" A LE DROIT d'être testée
 */
 export type idx = {
   type: propType
@@ -33,14 +33,23 @@ export type idx = {
   nohash?: boolean
 }
 
+/* Pour une classe virtuelle la liste des pk est,
+- soit absente (ni enum, ni extenum) : c'est un singleton (pk: '1')
+- soit énumérée in extenso dans ce schéma: enum: [toto, titi]
+- soit énumérée dans un SINGLETON de nom donné par: extenum: 'maListe'
+Si le nom de la liste se termine par _, le code de l'organisation y est
+ajouté (l'énumération est spécifique de l'organisation).
+*/
 export type docHeader = {
   name: string
-  virtual?: boolean
   sync?: boolean
   pk?: props
-  manager?: boolean
+  manager?: boolean // classe dont seul un aministrateur peut créer un credential
   nohash?: boolean
   embedCreds?: boolean // les credentials sont embarqués dans la propriété creds
+  virtual?: boolean
+  enum?: string[]
+  extenum?: string
 }
 
 export type collection = {
@@ -81,7 +90,6 @@ export class DocType {
   - soit src = { pk: 'a/b/c' }
   */
   static getPk (clazz: string, src: Object, nohash?: boolean) : string {
-    if (clazz === 'Org') return '1'
     const dt = DocType.get(clazz)
     let p = src['pk']
     if (!p) {
@@ -94,7 +102,7 @@ export class DocType {
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
   pkValue (src: Object, nohash?: boolean) : string {
-    if (!this.pk.length) return '1'
+    if (!this.pk || !this.pk.length) return '1'
     const x = []
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
