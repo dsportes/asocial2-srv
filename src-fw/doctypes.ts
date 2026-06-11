@@ -60,7 +60,7 @@ export type collection = {
 
 const regvar = /^[a-z][a-zA-Z0-9]*$/
 export function isVarName (n: string) { return regvar.test(n)}
-const regdoc = /^[A-Z][a-zA-Z_$0-9]*$/
+const regdoc = /^[A-Z$][a-zA-Z_$0-9]*$/
 export function isDocName (n: string) { return regdoc.test(n)}
 
 /* Un type de document est défini par:
@@ -89,8 +89,9 @@ export class DocType {
   - soit ayant les propriétés citées dans pk
   - soit src = { pk: 'a/b/c' }
   */
-  static getPk (clazz: string, src: Object, nohash?: boolean) : string {
+  static getPk (clazz: string, src?: Object, nohash?: boolean) : string {
     const dt = DocType.get(clazz)
+    if (!dt.pk || !src) return '1'
     let p = src['pk']
     if (!p) {
       const x = []
@@ -101,8 +102,8 @@ export class DocType {
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
-  pkValue (src: Object, nohash?: boolean) : string {
-    if (!this.pk || !this.pk.length) return '1'
+  pkValue (src?: Object, nohash?: boolean) : string {
+    if (!this.pk || !this.pk.length || !src) return '1'
     const x = []
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
     const p = x.join('/')
@@ -244,4 +245,20 @@ export class DocType {
 
   get hasIndexes () { return this.indexes ? true : false }
 
+}
+
+export class FormType {
+  static ndt = 1
+  static formTypes = new Map<string, FormType>()
+
+  type: string
+  key: string
+  creds: string[]
+
+  constructor (type: string, key: string, creds: string[]) {
+    this.type = type
+    this.key = key
+    this.creds = creds
+    FormType.formTypes.set(type, this)
+  }
 }

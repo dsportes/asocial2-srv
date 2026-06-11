@@ -111,7 +111,6 @@ export class Operation implements OperationWC {
   }
 
   init () {
-    this.org = this.args['org']
     this.result = { now: this.now, srvBUILD: config.BUILD }
     this.msSlow = 0
     if (config.debugLevel > 1) 
@@ -558,8 +557,8 @@ export class Cache {
   /* Retourne ou lit de la base le Document cité par src:
   - src : objet contenant les propriétés de la pk
   */
-  async getDoc (clazz: string, src: Object, assert?: string) : Promise<Document | null> {
-    const pk = src['pk'] || DocType.getPk(clazz, src)
+  async getDoc (clazz: string, src?: Object, assert?: string) : Promise<Document | null> {
+    const pk = !src ? '1' : (src['pk'] || DocType.getPk(clazz, src))
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
@@ -591,13 +590,13 @@ export class Cache {
   Toutefois SI le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  newDoc (clazz: string, src: Object) : Document {
+  newDoc (clazz: string, src?: Object) : Document {
     const pk = DocType.getPk(clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = new DocDescr(clazz, pk, null)
-    dd.doc = Document.newDoc(clazz, DocStatus.NEW, src)  
+    dd.doc = Document.newDoc(clazz, DocStatus.NEW, src || {})  
     this.docs.set(k, dd)
     return dd.doc
   }

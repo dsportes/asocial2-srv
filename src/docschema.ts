@@ -1,4 +1,4 @@
-import { propType, collection, idx, DocType } from '../src-fw/doctypes'
+import { propType, collection, idx, DocType, FormType } from '../src-fw/doctypes'
 
 new DocType(
   { name: '$Status', sync: true }, //header
@@ -62,6 +62,12 @@ new DocType(
   null
 )
 
+new FormType('membrecodir', 'k1', ['A'])
+new FormType('membreredaction', 'k1', ['A'])
+new FormType('auteur', 'k2', ['Readction/1'])
+// Un Auteur peut aussi nommer un co-auteur
+new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
+
 new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
   new Map<string, collection>([
@@ -100,3 +106,4 @@ new DocType(
 )
 
 export const docTypeErrors = DocType.errors
+export const docTypeNb = DocType.docTypes.size

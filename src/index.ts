@@ -12,7 +12,7 @@ import { keyFromB64 } from '../src-fw/b64'
 import { Crypt } from '../src-fw/crypt'
 import { BaseConfig, setConfig, config } from '../src-fw/config'
 import { Log } from '../src-fw/log'
-import { docTypeErrors } from './docschema'
+import { docTypeErrors, docTypeNb } from './docschema'
 import { DocType } from '../src-fw/doctypes'
 import { getExpressApp, startSRV } from '../src-fw/index'
 import { Tools } from '../src-fw/tools'
@@ -61,9 +61,9 @@ try {
 }
 
 // Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['2V6zC7uFy7x61iyuttl_'])
+const ADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
 // Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['2V6zC7uFy7x61iyuttl_'])
+const MASTERDIRADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
 
 setConfig(
   {
@@ -113,7 +113,7 @@ if (docTypeErrors.length) {
   Log.error(docTypeErrors.join('\n'))
   exit()
 }
-Log.info(DocType.docTypes.size + ' document Registry')
+Log.info(docTypeNb + ' document Registry')
 
 config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
 // config.databases.set('sqlite_b', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A']))

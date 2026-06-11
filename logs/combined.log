@@ -16906,3 +16906,281 @@ BEGIN
 2026-06-02T09:40:30.344Z error: ListManagers : 2026-06-02T09:40:30.331Z : SqliteError: near "doc": syntax error
 2026-06-02T09:40:30.355Z info: ListManagers terminated on exception
 2026-06-02T09:40:30.409Z error: AppExc: 105:service_unexpected_exception["near \"doc\": syntax error"]
+2026-06-11T11:27:18.950Z info: 10 document Registry
+2026-06-11T11:27:18.955Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T11:27:18.956Z info: Firestore connector
+2026-06-11T11:27:18.957Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T11:42:31.228Z info: 10 document Registry
+2026-06-11T11:42:31.231Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T11:42:31.232Z info: Firestore connector
+2026-06-11T11:42:31.233Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T11:42:31.362Z info: Reloading orgs-topics config OK
+2026-06-11T11:42:31.369Z info: HTTP listen [8080]
+2026-06-11T12:12:22.043Z info: 10 document Registry
+2026-06-11T12:12:22.047Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:12:22.048Z info: Firestore connector
+2026-06-11T12:12:22.049Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:12:22.072Z info: Reloading orgs-topics config OK
+2026-06-11T12:12:22.077Z info: HTTP listen [8080]
+2026-06-11T12:18:42.689Z info: $mdAliasFree finished
+2026-06-11T12:19:22.444Z info: $mdUserNew finished
+2026-06-11T12:19:22.463Z info: $CreateSafe finished
+2026-06-11T12:21:33.386Z info: 10 document Registry
+2026-06-11T12:21:33.389Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:21:33.389Z info: Firestore connector
+2026-06-11T12:21:33.390Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:21:33.408Z info: Reloading orgs-topics config OK
+2026-06-11T12:21:33.417Z info: HTTP listen [8080]
+2026-06-11T12:23:50.307Z info: $SetOpUrl finished
+2026-06-11T12:24:14.406Z info: $SetOpUrl finished
+2026-06-11T12:27:01.320Z info: $GrantSvcOpOrg finished
+2026-06-11T12:27:11.252Z info: $GrantSvcOpOrg finished
+2026-06-11T12:27:57.696Z info: $GetSvcUrls finished
+2026-06-11T12:27:57.719Z info: SvcOpIsAdmin$ : 2026-06-11T12:27:57.718Z
+2026-06-11T12:27:57.725Z info: SvcOpIsAdmin$ finished
+2026-06-11T12:27:57.759Z info: $SetAdmins finished
+2026-06-11T12:27:57.773Z info: Reloading orgs-topics config OK
+2026-06-11T12:29:02.738Z info: SetStatus$ : 2026-06-11T12:29:02.737Z
+2026-06-11T12:29:02.743Z error: AppExc: 105:document_class_not_registered["$Status"]
+2026-06-11T12:29:02.745Z error: SetStatus$ : 2026-06-11T12:29:02.737Z : AppExc: 105:document_class_not_registered["$Status"]
+2026-06-11T12:29:02.746Z info: SetStatus$ terminated on exception
+2026-06-11T12:32:10.933Z info: 10 document Registry
+2026-06-11T12:32:10.937Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:32:10.938Z info: Firestore connector
+2026-06-11T12:32:10.939Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:32:10.954Z info: Reloading orgs-topics config OK
+2026-06-11T12:32:10.960Z info: HTTP listen [8080]
+2026-06-11T12:32:14.748Z info: SetStatus$ : 2026-06-11T12:32:14.747Z
+2026-06-11T12:32:14.752Z error: SetStatus$ : 2026-06-11T12:32:14.747Z : TypeError: Cannot set property pk of #<Document> which has only a getter
+2026-06-11T12:32:14.753Z info: SetStatus$ terminated on exception
+2026-06-11T12:32:14.761Z error: AppExc: 105:service_unexpected_exception["Cannot set property pk of #<Document> which has only a getter"]
+2026-06-11T12:36:44.635Z info: SetStatus$ : 2026-06-11T12:36:44.635Z
+2026-06-11T12:48:47.481Z info: 10 document Registry
+2026-06-11T12:48:47.485Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:48:47.486Z info: Firestore connector
+2026-06-11T12:48:47.487Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:48:47.503Z info: Reloading orgs-topics config OK
+2026-06-11T12:48:47.510Z info: HTTP listen [8080]
+2026-06-11T12:52:02.663Z info: $mdUserGetICVS finished
+2026-06-11T12:52:07.805Z info: $GetSafe finished
+2026-06-11T12:53:17.637Z info: $GetSvcUrls finished
+2026-06-11T12:53:17.668Z info: SetStatus$ : 2026-06-11T12:53:17.667Z
+2026-06-11T12:58:35.560Z info: 10 document Registry
+2026-06-11T12:58:35.563Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:58:35.564Z info: Firestore connector
+2026-06-11T12:58:35.564Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:58:35.579Z info: Reloading orgs-topics config OK
+2026-06-11T12:58:35.586Z info: HTTP listen [8080]
+2026-06-11T12:58:41.794Z info: SetStatus$ : 2026-06-11T12:58:41.794Z
+2026-06-11T12:59:53.470Z info: 10 document Registry
+2026-06-11T12:59:53.473Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T12:59:53.474Z info: Firestore connector
+2026-06-11T12:59:53.475Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T12:59:53.491Z info: Reloading orgs-topics config OK
+2026-06-11T12:59:53.500Z info: HTTP listen [8080]
+2026-06-11T13:00:04.057Z info: SetStatus$ : 2026-06-11T13:00:04.057Z
+2026-06-11T13:03:47.367Z info: 10 document Registry
+2026-06-11T13:03:47.370Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:03:47.371Z info: Firestore connector
+2026-06-11T13:03:47.371Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:03:47.423Z info: Reloading orgs-topics config OK
+2026-06-11T13:03:47.434Z info: HTTP listen [8080]
+2026-06-11T13:03:53.195Z info: SetStatus$ : 2026-06-11T13:03:53.195Z
+2026-06-11T13:12:40.013Z info: 10 document Registry
+2026-06-11T13:12:40.016Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:12:40.016Z info: Firestore connector
+2026-06-11T13:12:40.017Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:12:57.518Z info: 10 document Registry
+2026-06-11T13:12:57.521Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:12:57.522Z info: Firestore connector
+2026-06-11T13:12:57.523Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:12:57.549Z info: Reloading orgs-topics config OK
+2026-06-11T13:12:57.554Z info: HTTP listen [8080]
+2026-06-11T13:13:02.320Z info: SetStatus$ : 2026-06-11T13:13:02.319Z
+2026-06-11T13:15:13.874Z info: 10 document Registry
+2026-06-11T13:15:13.878Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:15:13.879Z info: Firestore connector
+2026-06-11T13:15:13.880Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:15:13.897Z info: Reloading orgs-topics config OK
+2026-06-11T13:15:13.904Z info: HTTP listen [8080]
+2026-06-11T13:16:12.587Z info: SetStatus$ : 2026-06-11T13:15:30.346Z
+2026-06-11T13:19:01.946Z info: 10 document Registry
+2026-06-11T13:19:01.950Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:19:01.951Z info: Firestore connector
+2026-06-11T13:19:01.953Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:19:01.967Z info: Reloading orgs-topics config OK
+2026-06-11T13:19:01.975Z info: HTTP listen [8080]
+2026-06-11T13:19:17.837Z info: SetStatus$ : 2026-06-11T13:19:17.836Z
+2026-06-11T13:25:05.677Z info: 10 document Registry
+2026-06-11T13:25:05.681Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:25:05.681Z info: Firestore connector
+2026-06-11T13:25:05.682Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:25:05.697Z info: Reloading orgs-topics config OK
+2026-06-11T13:25:05.704Z info: HTTP listen [8080]
+2026-06-11T13:25:12.910Z info: SetStatus$ : 2026-06-11T13:25:12.910Z
+2026-06-11T13:27:14.566Z info: 10 document Registry
+2026-06-11T13:27:14.569Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:27:14.570Z info: Firestore connector
+2026-06-11T13:27:14.571Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:27:14.587Z info: Reloading orgs-topics config OK
+2026-06-11T13:27:14.592Z info: HTTP listen [8080]
+2026-06-11T13:27:22.420Z info: SetStatus$ : 2026-06-11T13:27:22.420Z
+2026-06-11T13:32:32.003Z info: 10 document Registry
+2026-06-11T13:32:32.006Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:32:32.007Z info: Firestore connector
+2026-06-11T13:32:32.007Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:32:32.022Z info: Reloading orgs-topics config OK
+2026-06-11T13:32:32.031Z info: HTTP listen [8080]
+2026-06-11T13:32:34.506Z info: SetStatus$ : 2026-06-11T13:32:34.506Z
+2026-06-11T13:34:08.319Z info: 10 document Registry
+2026-06-11T13:34:08.324Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:34:08.325Z info: Firestore connector
+2026-06-11T13:34:08.326Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:34:08.341Z info: Reloading orgs-topics config OK
+2026-06-11T13:34:08.349Z info: HTTP listen [8080]
+2026-06-11T13:34:14.642Z info: SetStatus$ : 2026-06-11T13:34:14.642Z
+2026-06-11T13:36:16.856Z info: 10 document Registry
+2026-06-11T13:36:16.860Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:36:16.861Z info: Firestore connector
+2026-06-11T13:36:16.862Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:36:16.877Z info: Reloading orgs-topics config OK
+2026-06-11T13:36:16.884Z info: HTTP listen [8080]
+2026-06-11T13:36:18.132Z info: SetStatus$ : 2026-06-11T13:36:18.131Z
+2026-06-11T13:36:39.334Z error: SetStatus$ : 2026-06-11T13:36:18.131Z : SqliteError: near "def": syntax error
+2026-06-11T13:36:39.337Z info: SetStatus$ terminated on exception
+2026-06-11T13:36:39.338Z error: AppExc: 105:service_unexpected_exception["near \"def\": syntax error"]
+2026-06-11T13:37:51.914Z info: 10 document Registry
+2026-06-11T13:37:51.918Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T13:37:51.919Z info: Firestore connector
+2026-06-11T13:37:51.919Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T13:37:51.935Z info: Reloading orgs-topics config OK
+2026-06-11T13:37:51.942Z info: HTTP listen [8080]
+2026-06-11T13:37:56.293Z info: SetStatus$ : 2026-06-11T13:37:56.292Z
+2026-06-11T13:38:12.005Z info: SetStatus$ finished
+2026-06-11T13:38:20.123Z info: GetStatus$ : 2026-06-11T13:38:20.123Z
+2026-06-11T13:38:20.129Z info: GetStatus$ finished
+2026-06-11T13:44:14.621Z info: SetStatus$ : 2026-06-11T13:44:14.621Z
+2026-06-11T13:44:14.628Z info: SetStatus$ finished
+2026-06-11T13:44:14.680Z info: Reloading orgs-topics config OK
+2026-06-11T13:44:33.336Z info: GetStatus$ : 2026-06-11T13:44:33.336Z
+2026-06-11T13:44:33.340Z info: GetStatus$ finished
+2026-06-11T13:45:40.685Z info: $mdUserGetICVS finished
+2026-06-11T13:45:45.045Z info: $GetSafe finished
+2026-06-11T13:46:12.014Z info: $GetSvcUrls finished
+2026-06-11T13:46:12.045Z info: SetStatus$ : 2026-06-11T13:46:12.045Z
+2026-06-11T13:46:12.051Z info: SetStatus$ finished
+2026-06-11T13:46:19.576Z info: GetStatus$ : 2026-06-11T13:46:19.576Z
+2026-06-11T13:46:19.580Z info: GetStatus$ finished
+2026-06-11T13:54:33.316Z info: $mdUserGetICVS finished
+2026-06-11T13:54:39.337Z info: $GetSafe finished
+2026-06-11T13:55:02.492Z info: $GetSvcUrls finished
+2026-06-11T13:55:02.519Z info: SetStatus$ : 2026-06-11T13:55:02.518Z
+2026-06-11T13:55:02.523Z info: SetStatus$ finished
+2026-06-11T13:55:02.533Z info: GetStatus$ : 2026-06-11T13:55:02.533Z
+2026-06-11T13:55:02.540Z info: GetStatus$ finished
+2026-06-11T13:55:02.593Z info: Reloading orgs-topics config OK
+2026-06-11T13:55:19.483Z info: $GetOrgSvcs finished
+2026-06-11T13:55:19.509Z info: GetOrgConfig$ : 2026-06-11T13:55:19.509Z
+2026-06-11T13:55:19.515Z info: GetOrgConfig$ finished
+2026-06-11T13:55:29.983Z info: SetOrgConfig$ : 2026-06-11T13:55:29.983Z
+2026-06-11T13:55:29.988Z info: SetOrgConfig$ finished
+2026-06-11T13:55:42.796Z info: $GetOrgSvcs finished
+2026-06-11T13:55:42.832Z info: GetOrgConfig$ : 2026-06-11T13:55:42.832Z
+2026-06-11T13:55:42.844Z info: GetOrgConfig$ finished
+2026-06-11T13:56:17.031Z info: GetStatus$ : 2026-06-11T13:56:17.031Z
+2026-06-11T13:56:17.035Z info: GetStatus$ finished
+2026-06-11T13:56:48.389Z info: GetStatus$ : 2026-06-11T13:56:48.389Z
+2026-06-11T13:56:48.392Z info: GetStatus$ finished
+2026-06-11T13:58:50.198Z info: $mdUserGetICVS finished
+2026-06-11T13:58:53.643Z info: $GetSafe finished
+2026-06-11T13:59:12.493Z info: $GetSvcUrls finished
+2026-06-11T13:59:12.509Z info: GetStatus$ : 2026-06-11T13:59:12.509Z
+2026-06-11T13:59:12.514Z info: GetStatus$ finished
+2026-06-11T13:59:12.535Z info: $GetOrgSvcs finished
+2026-06-11T13:59:12.550Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T13:59:12.552Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T13:59:12.554Z info: GetStatus terminated on exception
+2026-06-11T14:00:43.630Z info: $mdUserGetICVS finished
+2026-06-11T14:00:47.270Z info: $GetSafe finished
+2026-06-11T14:01:09.667Z info: $GetSvcUrls finished
+2026-06-11T14:01:09.686Z info: GetStatus$ : 2026-06-11T14:01:09.686Z
+2026-06-11T14:01:09.690Z info: GetStatus$ finished
+2026-06-11T14:01:09.755Z info: Reloading orgs-topics config OK
+2026-06-11T14:03:16.855Z info: $GetOrgSvcs finished
+2026-06-11T14:03:16.877Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:03:16.884Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:03:16.885Z info: GetStatus terminated on exception
+2026-06-11T14:03:20.964Z info: GetStatus$ : 2026-06-11T14:03:20.964Z
+2026-06-11T14:03:20.968Z info: GetStatus$ finished
+2026-06-11T14:09:57.113Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:09:57.114Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:09:57.115Z info: GetStatus terminated on exception
+2026-06-11T14:09:57.181Z info: Reloading orgs-topics config OK
+2026-06-11T14:10:41.628Z info: $mdUserGetICVS finished
+2026-06-11T14:10:46.216Z info: $GetSafe finished
+2026-06-11T14:11:13.018Z info: $GetSvcUrls finished
+2026-06-11T14:11:13.037Z info: GetStatus$ : 2026-06-11T14:11:13.037Z
+2026-06-11T14:11:13.042Z info: GetStatus$ finished
+2026-06-11T14:11:53.851Z info: $GetOrgSvcs finished
+2026-06-11T14:12:01.932Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:12:01.934Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:12:01.935Z info: GetStatus terminated on exception
+2026-06-11T14:14:29.109Z info: GetStatus$ : 2026-06-11T14:14:29.108Z
+2026-06-11T14:15:14.135Z info: GetStatus$ finished
+2026-06-11T14:15:24.324Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:15:24.326Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:15:24.328Z info: GetStatus terminated on exception
+2026-06-11T14:15:24.380Z info: Reloading orgs-topics config OK
+2026-06-11T14:16:58.451Z info: GetStatus$ : 2026-06-11T14:16:58.451Z
+2026-06-11T14:16:58.455Z info: GetStatus$ finished
+2026-06-11T14:19:00.432Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:19:00.434Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:19:00.435Z info: GetStatus terminated on exception
+2026-06-11T14:19:32.045Z info: GetOrgConfig$ : 2026-06-11T14:19:32.045Z
+2026-06-11T14:19:32.051Z info: GetOrgConfig$ finished
+2026-06-11T14:19:48.835Z info: SetOrgConfig$ : 2026-06-11T14:19:48.835Z
+2026-06-11T14:19:48.840Z info: SetOrgConfig$ finished
+2026-06-11T14:20:10.078Z info: GetOrgConfig$ : 2026-06-11T14:20:10.078Z
+2026-06-11T14:20:10.081Z info: GetOrgConfig$ finished
+2026-06-11T14:20:23.203Z info: SetOrgConfig$ : 2026-06-11T14:20:23.203Z
+2026-06-11T14:20:23.209Z info: SetOrgConfig$ finished
+2026-06-11T14:20:37.805Z info: GetStatus$ : 2026-06-11T14:20:37.804Z
+2026-06-11T14:20:37.808Z info: GetStatus$ finished
+2026-06-11T14:21:34.583Z info: AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:21:34.584Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_organisation["GetStatus","doda"]
+2026-06-11T14:21:34.585Z info: GetStatus terminated on exception
+2026-06-11T14:37:31.688Z info: 10 document Registry
+2026-06-11T14:37:31.690Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-11T14:37:31.691Z info: Firestore connector
+2026-06-11T14:37:31.692Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-11T14:37:31.710Z info: Reloading orgs-topics config OK
+2026-06-11T14:37:31.716Z info: HTTP listen [8080]
+2026-06-11T14:40:11.648Z info: $mdUserGetICVS finished
+2026-06-11T14:40:14.628Z info: $GetSafe finished
+2026-06-11T14:40:32.923Z info: $GetOrgSvcs finished
+2026-06-11T14:40:32.938Z info: $GetSvcUrls finished
+2026-06-11T14:40:32.968Z info: GetOrgConfig$ : 2026-06-11T14:40:32.967Z
+2026-06-11T14:40:32.971Z info: GetOrgConfig$ finished
+2026-06-11T14:40:42.197Z info: SetOrgConfig$ : 2026-06-11T14:40:42.196Z
+2026-06-11T14:40:42.202Z info: SetOrgConfig$ finished
+2026-06-11T14:41:34.779Z info: GetStatus$ : 2026-06-11T14:41:34.779Z
+2026-06-11T14:41:34.785Z info: GetStatus$ finished
+2026-06-11T14:42:18.305Z info: SetStatus : 2026-06-11T14:41:56.940Z
+2026-06-11T14:42:18.316Z info: SetStatus finished
+2026-06-11T14:42:18.333Z info: GetStatus$ : 2026-06-11T14:42:18.333Z
+2026-06-11T14:42:18.339Z info: GetStatus$ finished
+2026-06-11T14:42:18.369Z info: GetStatus : 2026-06-11T14:42:18.368Z
+2026-06-11T14:42:18.420Z info: GetStatus finished
+2026-06-11T14:42:51.712Z info: SetStatus : 2026-06-11T14:42:51.712Z
+2026-06-11T14:42:51.718Z info: SetStatus finished
+2026-06-11T14:42:51.737Z info: GetStatus$ : 2026-06-11T14:42:51.737Z
+2026-06-11T14:42:51.743Z info: GetStatus$ finished
+2026-06-11T14:42:51.774Z info: GetStatus : 2026-06-11T14:42:51.774Z
+2026-06-11T14:42:51.779Z info: GetStatus finished
+2026-06-11T14:44:09.943Z info: $TrustDevice finished
+2026-06-11T14:44:32.857Z info: $OpenSafeByPin finished
+2026-06-11T14:45:30.377Z info: $mdUserGetICVS finished
+2026-06-11T14:45:34.464Z info: $GetSafe finished
+2026-06-11T14:46:05.720Z info: $TrustDevice finished
+2026-06-11T14:46:27.864Z info: $OpenSafeByPin finished
+2026-06-11T14:46:27.905Z info: $GetSafe finished

@@ -55,7 +55,7 @@ Registry.registerOp(SvcOpIsAdmin$)
 */
 class GetStatus$ extends Operation {
   async phase2 () {
-    const dd = await Cache.getRow(this, '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+    const dd = await Cache.getRow(this, '$Status', null, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
@@ -73,7 +73,7 @@ Registry.registerOp(GetStatus$)
 */
 class GetStatus extends Operation {
   async phase2 () {
-    const dd = await Cache.getRow(this, '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+    const dd = await Cache.getRow(this, '$Status', null, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
@@ -99,9 +99,9 @@ class SetStatus$ extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc('$Status', { pk: '1' }) as $Status
+    let doc: $Status = await this.cache.getDoc('$Status') as $Status
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status', { pk: '1'}) as $Status
+    else doc = this.cache.newDoc('$Status') as $Status
     doc.at = Date.now()
     doc.st = this._st
     doc.txt = this._txt || ''
@@ -124,38 +124,45 @@ class SetStatus extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc('$Status', { pk: '1' }) as $Status
+    let doc: $Status = await this.cache.getDoc('$Status') as $Status
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status', { pk: '1'}) as $Status
+    else doc = this.cache.newDoc('$Status') as $Status
     doc.at = Date.now()
     doc.st = this._st
     doc.txt = this._txt || ''
   }
 }
-Registry.registerOp(SetStatus$)
+Registry.registerOp(SetStatus)
 
 class SetOrgConfig$ extends Operation {
+  _torg: string
   _st: string
   _db: string
   init () {
     super.init()
+    this._torg = this.stringValue('torg', true)
     this._st = this.stringValue('st', true, 0, 9)
     this._db = this.stringValue('db', true)
   }
   async phase2 () {
     this.requireAdmin()
-    OrgsConfig.save(this, this.org, this._db, this._st)
+    OrgsConfig.save(this, this._torg, this._db, this._st)
     this.setRes('orgconfig', { db: this._db, st: this._st })
   }
 }
 Registry.registerOp(SetOrgConfig$)
 
 class GetOrgConfig$ extends Operation {
+  _torg: string
+  init () {
+    super.init()
+    this._torg = this.stringValue('torg', true)
+  }
   async phase2 () {
     this.requireAdmin()
     const dbs = Array.from(config.databases.keys())
     const sts = Array.from(config.storages.keys())
-    const x = OrgsConfig.getDbSt(this.org)
+    const x = OrgsConfig.getDbSt(this._torg)
     if (x) {
       const [db, st] = x
       this.setRes('orgconfig', { dbs, sts, db, st })

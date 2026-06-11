@@ -387,3 +387,9 @@ BEGIN
 2026-05-31T15:33:16.838Z error: AppExc: 105:service_unexpected_exception["no such column: Auteurs"]
 2026-06-02T09:40:30.344Z error: ListManagers : 2026-06-02T09:40:30.331Z : SqliteError: near "doc": syntax error
 2026-06-02T09:40:30.409Z error: AppExc: 105:service_unexpected_exception["near \"doc\": syntax error"]
+2026-06-11T12:29:02.743Z error: AppExc: 105:document_class_not_registered["$Status"]
+2026-06-11T12:29:02.745Z error: SetStatus$ : 2026-06-11T12:29:02.737Z : AppExc: 105:document_class_not_registered["$Status"]
+2026-06-11T12:32:14.752Z error: SetStatus$ : 2026-06-11T12:32:14.747Z : TypeError: Cannot set property pk of #<Document> which has only a getter
+2026-06-11T12:32:14.761Z error: AppExc: 105:service_unexpected_exception["Cannot set property pk of #<Document> which has only a getter"]
+2026-06-11T13:36:39.334Z error: SetStatus$ : 2026-06-11T13:36:18.131Z : SqliteError: near "def": syntax error
+2026-06-11T13:36:39.338Z error: AppExc: 105:service_unexpected_exception["near \"def\": syntax error"]

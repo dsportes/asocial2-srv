@@ -784,10 +784,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
-    const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz)
-      + ' WHERE org = @org ' + this.compOp(colName, filter, col)
+    const x = 'SELECT * FROM ' + this.cluc(clazz)
+      + ' WHERE org = @org AND ' + this.compOp(colName, filter, col)
       + (order ? this.orderBy(order) : '')
-      + (limit ? ' LIMIT ' + limit : '') + ';')
+      + (limit ? ' LIMIT ' + limit : '') + ';'
+    const stmt = this.sql.prepare(x)
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)

@@ -50,15 +50,6 @@ Sous daniel
 
 >>> 1 a
 
-Daniel : setting de Domi comme "manager" >>> 3 a
-(et testS grant / revoke / auto-revoke)
-
-Daniel: demande Auteur 1
-Domi : accepte Auteur 1 (auteur et droit minor)
-Daniel valide Auteur 1
-Daniel demande Auteur 2 minor
-Daniel accepte Auteur 2 et valide Auteur 2
-
 # Protection du Master Directory
 Les opérations sur le MD vérifient que l'utilisateur demandeur de l'opération a droit de l'effectuer selon les  critères suivants.
 

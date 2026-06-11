@@ -30,8 +30,8 @@ export class $Status extends Document {
   isRO () { return this.st === 2 }
   isRW () { return this.st === 1 }
   isDOWN () { return this.st === 9 }
-
 }
+Registry.registerD($Status)
 
 /* 
 - sessionId : shaS de subJSON clé primaire
@@ -133,7 +133,7 @@ export class $SubsItem extends Document {
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    op.db.selectDocs('$SubsItem', 'def', filter.EQ, def, '', 0, 
+    await op.db.selectDocs('$SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -143,7 +143,7 @@ export class $SubsItem extends Document {
 
   static async deleteSessionId (op: OperationWC, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    op.db.selectDocs('$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    await op.db.selectDocs('$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
