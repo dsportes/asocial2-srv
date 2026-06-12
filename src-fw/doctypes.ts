@@ -250,6 +250,9 @@ export class DocType {
 export class FormType {
   static ndt = 1
   static formTypes = new Map<string, FormType>()
+  // classes référencées avec /1 et $
+  static refClasses1 : Set<string> = new Set()
+  static refClasses$ : Set<string> = new Set()
 
   type: string
   key: string
@@ -260,5 +263,10 @@ export class FormType {
     this.key = key
     this.creds = creds
     FormType.formTypes.set(type, this)
+    for(const c of creds) {
+      const cl = c.substring(0, c.indexOf('/'))
+      if (c.endsWith('/1')) FormType.refClasses1.add(cl)
+      else FormType.refClasses$.add(cl)
+    }
   }
 }

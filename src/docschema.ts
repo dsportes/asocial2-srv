@@ -62,6 +62,7 @@ new DocType(
   null
 )
 
+new FormType('default', 'k1', ['A'])
 new FormType('membrecodir', 'k1', ['A'])
 new FormType('membreredaction', 'k1', ['A'])
 new FormType('auteur', 'k2', ['Readction/1'])

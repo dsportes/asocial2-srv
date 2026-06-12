@@ -1,10 +1,10 @@
 import { decode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
-import { MDOperation } from '../src-fw/masterdir'
+import { MDOperation, MDEventS } from '../src-fw/masterdir'
 import { AppExc, OrgsConfig } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
-import { $Status, $Subs, $subscription, $SubsItem, $Credential, $Cred } from '../src-fw/documents'
+import { $Status, $Subs, $subscription, $SubsItem, $Credential, $Cred, $Form, $FormObj } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 import { filter } from '../src-fw/iDbGeneric'
@@ -486,98 +486,99 @@ class credsByDoc extends Operation {
 }
 Registry.registerOp(credsByDoc)
 
-/* CaseSync retourne les propriétés (v, status) d'un case 
-class CaseSync extends Operation {
-  _caseId: string
+/* MDEventSync retourne les propriétés `v maxLife status detail` 
+d'un Form du _document_.
+*/
+class MDEventSync extends Operation {
+  _eventId: string
 
   init () {
     super.init()
-    this._caseId = this.stringValue('caseId', true)
+    this._eventId = this.stringValue('eventId', true)
   }
   async phase2 () {
-    const c = await this.cache.getDoc('Case', { caseId: this._caseId }) as Case
-    if (c && this.authRecord.userId === c.userId) {
-      const x = c.toObj()
-      this.setRes('case', x)
+    const f = await this.cache.getDoc('Form', { formId: this._eventId }) as $Form
+    if (f && this.authRecord.userId === f.userId) {
+      const x = { v: f.v, maxLife: f.maxLife, status: f.status, detail: f.detail } as MDEventS
+      this.setRes('mdsync', x)
     }
   }
 }
-Registry.registerOp(CaseSync)
-*/
+Registry.registerOp(MDEventSync)
 
-/* CaseGet retourne les propriétés (v, status, tabX, etc) d'un case
-Réservé au user propriétaire du case
-
-class CaseGet extends Operation {
-  _caseId: string
-
+class FormCreateByU extends Operation {
+  _formObj: $FormObj
   init () {
     super.init()
-    this._caseId = this.stringValue('caseId', true)
+    this._formObj = this.args['formObj'] as $FormObj
+    this._formObj.status = 1
+    this._formObj.msgT = null
   }
   async phase2 () {
     this.requireAuth()
-    const uid = this.authRecord.userId
-    const c = await this.cache.getDoc('Case', { caseId: this._caseId }) as Case
-    if (c && c.userId === uid) 
-      this.setRes('case', { v: c.v, status: c.status, tabX: c.tabX, etc: c.etc })
-  }
-}
-Registry.registerOp(CaseGet)
-*/
-
-/*
-class CaseCreateByU extends Operation {
-  _caseObj: CaseObj
-  init () {
-    super.init()
-    this._caseObj = this.args['caseObj'] as CaseObj
-    this._caseObj.etc = {}
-    this._caseObj.status = 1
-  }
-  async phase2 () {
-    this.requireAuth()
-    let cas = await this.cache.getDoc('Case', this._caseObj) as Case
-    if (cas) 
+    const f = await this.cache.getDoc('$Form', this._formObj)
+    if (f) 
       { this.setRes('status', 1); return }
-    if (this.authRecord.userId !== this._caseObj.userId)
+    if (this.authRecord.userId !== this._formObj.userId)
       { this.setRes('status', 2); return }
-    cas = this.cache.newDoc('Case', this._caseObj) as Case
-    cas.maxLife = Math.floor(this.now / 60000) + config.CASEMAXLIFE
+    const typedf = Registry.newForm(this._formObj.type, this._formObj)
+    typedf.setCreds()
+    this.cache.newDoc('$Form', typedf.toObj()) as $Form
     this.setRes('status', 0)
   }
 }
-Registry.registerOp(CaseCreateByU)
+Registry.registerOp(FormCreateByU)
 
-class Case2Test extends Operation {
+/* TODO *****************/
+class FormUpdByT extends Operation {
+  _formObj: $FormObj
   init () {
     super.init()
+    this._formObj = this.args['formObj'] as $FormObj
+    this._formObj.status = 2
   }
   async phase2 () {
     this.requireAuth()
-    const cas2Obj1 = {
-      caseId: 'c1',
-      creds: ['Auteur/VH', 'Caut/1']
-    }
-    let cas1 = this.cache.newDoc('Case2', cas2Obj1) as Case
-    const cas2Obj2 = {
-      caseId: 'c2',
-      creds: ['Auteur/VH', 'Groupe/g1', 'Caut/1']
-    }
-    let cas2 = this.cache.newDoc('Case2', cas2Obj2) as Case
-    const cas2Obj3 = {
-      caseId: 'c3',
-      creds: ['Auteur/SV', 'Groupe/g1']
-    }
-    let cas3 = this.cache.newDoc('Case2', cas2Obj3) as Case
+    const typedf = Registry.newForm(this._formObj.type, this._formObj)
+    typedf.setCreds()
+    const f = await this.cache.getDoc('$Form', this._formObj) as $Form
+    if (f) 
+      { this.setRes('status', 1); return }
+    if (!typedf.checkAuthTP(this))
+      { this.setRes('status', 2); return }
 
+    this.cache.newDoc('$Form', typedf.toObj())
     this.setRes('status', 0)
   }
 }
-Registry.registerOp(Case2Test)
+Registry.registerOp(FormUpdByT)
 
+/* Retourne le form demandé par formId en tant que $FormObj
+- l'appelant doit être soit U, soit un tiers ayant droit de traiter form
+*/
+class FormGet extends Operation {
+  _formId: string
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { formId: this._formId}) as $Form
+    if (!f) 
+      { this.setRes('status', 1); return }
+    const typedf = Registry.newForm(f.type, f.toObj())
+    typedf.setCreds()
+    if (this.authRecord.userId !== typedf.userId && !typedf.checkAuthTP(this))
+      { this.setRes('status', 2); return }
+    await typedf.decryptMsgU(this)
+    await typedf.decryptMsgT(this)
+    this.setRes('form', typedf.toObj())
+  }
+}
+Registry.registerOp(FormGet)
 
-class CaseFilteredList extends Operation {
+class FormFilteredList extends Operation {
   _filter: string[]
   init () {
     super.init()
@@ -585,118 +586,14 @@ class CaseFilteredList extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    // this._filter = ['Auteur/VictorHugo', 'Redaction/1']
-    const l: Case[] = []
-    await this.db.selectDocs('Case', 'creds', filter.CONTAINSANY, this._filter, '', 0, (bin) => {
-      const row = decode(bin) as Case
-      l.push(row)
-    })
-    this.setRes('cases', l)
+    // this._filter = ['Auteur/VictorHugo', 'Redaction/1'] ou ['A']
+    if (this._filter.length === 1 && this._filter[0] === 'A')
+      this.requireAdmin()
+    const l: $FormObj[] = await $Form.filteredList(this, this._filter)
+    this.setRes('forms', l)
   }
 }
-Registry.registerOp(CaseFilteredList)
-*/
-
-/* CreateInvit: création d'une invitation. Enregistrement en base seulement.
-- invObj
-L'enregistrement dans le SafeStore du user U a été faite par l'application avant cette opération.
-
-class InvitCreateByU extends Operation {
-  _invObj: InvObj
-  init () {
-    super.init()
-    this._invObj = this.args['invObj'] as InvObj
-    this._invObj.etc = null
-    this._invObj.byU = true
-  }
-  async phase2 () {
-    this.requireAuth()
-    let invit = await this.cache.getDoc('Invitation', this._invObj) as Invitation
-    if (invit) 
-      { this.setRes('status', 1); return }
-    if (this.authRecord.userId !== this._invObj.userId)
-      { this.setRes('status', 2); return }
-    invit = this.cache.newDoc('Invitation', this._invObj) as Invitation
-    invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitCreateByU)
-*/
-
-/*
-class InvitUpdByU extends Operation {
-  _tab: string
-  _invitId: string
-
-  init () {
-    super.init()
-    this._tab = this.stringValue('tab', true)
-    this._invitId= this.stringValue('invitId', true)
-  }
-  async phase2 () {
-    this.requireAuth()
-    let invit = await this.cache.getDoc('Invitation', { invitId: this._invitId }) as Invitation
-    if (!invit) 
-      { this.setRes('status', 1); return }
-    invit.tab = this._tab
-    invit.byU = true
-    invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
-    invit._status = DocStatus.UPD
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitUpdByU)
-
-class InvitCreateByS extends Operation {
-  _invObj: InvObj
-  init () {
-    super.init()
-    this._invObj = this.args['invObj'] as InvObj
-    this._invObj.byU = false
-  }
-  async phase2 () {
-    this.requireAuth()
-    if (!Invitation.checkSponsor(this.authRecord, this._invObj))
-      { this.setRes('status', 3); return }
-    let invit = await this.cache.getDoc('Invitation', this._invObj) as Invitation
-    if (invit) 
-      { this.setRes('status', 1); return }
-    invit = this.cache.newDoc('Invitation', this._invObj) as Invitation
-    invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitCreateByS)
-
-class InvitUpdByS extends Operation {
-  _tab: string
-  _invitId: string
-  _etc: any
-
-  init () {
-    super.init()
-    this._tab = this.stringValue('tab', true)
-    this._invitId= this.stringValue('invitId', true)
-    this._etc = this.args['etc'] as InvObj
-  }
-  async phase2 () {
-    this.requireAuth()
-    let invit = await this.cache.getDoc('Invitation', { invitId: this._invitId }) as InvitationA
-    if (!invit) 
-      { this.setRes('status', 1); return }
-    if (!Invitation.checkSponsor(this.authRecord, invit))
-      { this.setRes('status', 3); return }
-    invit.tab = this._tab
-    invit.byU = false
-    invit.etc = this._etc
-    invit.maxLife = Math.floor(this.now / 60000) + config.INVITMAXLIFE
-    invit._status = DocStatus.UPD
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitUpdByS)
-*/
+Registry.registerOp(FormFilteredList)
 
 /*
 class CaseCancel extends Operation {

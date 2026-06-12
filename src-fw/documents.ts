@@ -3,8 +3,12 @@ import { Crypt } from './crypt'
 import { filter } from './iDbGeneric'
 import { decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
+import { Operation } from '../src-fw/operation'
 import { Registry } from './config'
-import { DocType } from './doctypes'
+import { DocType, FormType } from './doctypes'
+import { config } from '../src-fw/config'
+import { keyFromB64 } from './b64'
+import { MDOperation } from '../src-fw/masterdir'
 // import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
@@ -12,7 +16,7 @@ export function loadingDF () {
 }
 
 const encoder = new TextEncoder()
-// const decoder = new TextDecoder()
+const decoder = new TextDecoder()
 
 class $Task extends Document {
   static release = 0
@@ -285,3 +289,146 @@ export class Case extends Document {
 
 }
 Registry.registerD(Case)
+
+export type $FormObj = {
+  formId: string  // ID universel aléatoire.
+  type: string  // type du formulaire.
+  userId: string  // utilisateur cible.
+  v: number  //  version du document (_epoch_).
+  maxLife: number //  EPOCH en MINUTES de suppression automatique du formulaire.
+  status: number // de 1 à 4.
+  etc: Object | null  // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
+  etcB: Object | null  // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
+  msgU: Uint8Array | null  // message écrit par U.
+  msgT: Uint8Array | null  // message écrit par le tiers.
+  /* liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là:
+  [ docCl1/docPk1 ... ]
+  La liste dépende la valeur de etc : depuis la liste template [ docCl1/$x ... ]
+  $x est remplacé par la valeur de etc.$x
+  */
+  creds: string[]
+}
+
+/*
+Document `Form` hébergé dans la DB spécifique de `svc / org`.
+Sous-classes applicatives $Form_type par "type"
+*/
+export class $Form extends Document {
+  formId: string = '' // ID universel aléatoire.
+  type: string = '' // type du formulaire.
+  userId: string = '' // utilisateur cible.
+  v: number = 0 //  version du document (_epoch_).
+  maxLife: number = 0 //  EPOCH en MINUTES de suppression automatique du formulaire.
+  status: number = 0 // de 1 à 4.
+  etc: Object | null = null // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
+  etcB: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
+  msgU: Uint8Array | null = null // message écrit par U.
+  msgT: Uint8Array | null = null // message écrit par le tiers.
+  creds: string[] = [] // liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là: `[ docCl1/docPk1 ... ]`.
+
+  /* Surchargé par type:
+  retourne un objet "résumé" de etc à faire figurer dans MDEvents
+  */
+  get detail () : any { return {} }
+
+  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife',
+    'status', 'etc', 'etcB', 'msgU', 'msgT', 'creds' ]
+  static lp2 = ['formId', 'type', 'userId', 'v', 'maxLife',
+    'status', 'etc', 'etcB', 'msgU', 'msgT' ]
+
+  constructor (obj?: $FormObj) {
+    super()
+    if (obj) for (const p of $Form.lp1) this[p] = obj[p]
+  }
+
+  get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
+  get kp () : { pub: Buffer, priv: Buffer } { 
+    const x = config['DCkeys'][this.ft.key]
+    return { pub: keyFromB64(x.pub), priv: keyFromB64(x.pub) }
+  }
+  async uPub (op: OperationWC) : Promise<Buffer> {
+    const [c, v] = await MDOperation.getCV(op, this.userId)
+    return keyFromB64(c)
+  }
+
+  /* Une opération de lecture du formulaire peut décrypter `msgU` en utilisant le couple, 
+  de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
+  et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U). 
+  */
+  async decryptMsgU (op: OperationWC) : Promise<void> {
+    if (!this.msgT) {
+      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      this.msgU = await Crypt.decrypt(aes, this.msgU)
+    }
+  }
+
+  /* `msgT` est le texte écrit par T: il est envoyé en clair à l'opération d'enregistrement du formulaire ou il est crypté par le couple, 
+  - de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service) 
+  - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
+  Une opération de lecture peut décrypter `msgT` en utilisant le couple, 
+  - de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
+  - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
+  */
+  async cryptMsgT (op: OperationWC, msgT: string) : Promise<void> {
+    if (msgT) {
+      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      this.msgT = await Crypt.crypt(aes, encoder.encode(msgT))
+    } else this.msgT = null
+  }
+
+  async decryptMsgT (op: OperationWC) : Promise<void> {
+    if (this.msgT) {
+      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      this.msgT = await Crypt.decrypt(aes, this.msgT)
+    }
+  }
+
+  // Calcul this.creds depuis le template du type et les arguments $x dans etc
+  setCreds () {
+    const creds = []
+    for(const c of this.ft.creds) {
+      const i = c.indexOf('$')
+      if (i !== -1) {
+        const arg = c.substring(i, i + 1)
+        const val = this.etc[arg] || ''
+        creds.push(c.replace(arg, val))
+      } else creds.push(c)
+    }
+    this.creds = creds
+  }
+
+  // vérifie si le tiers est habilité
+  checkAuthTP (op: Operation) : boolean {
+    const t = this.ft.creds
+    if (t && t.length === 1 && t[0] === 'A') op.requireAuth()
+    else for (const c of this.creds) {
+      const x = c.split('/')
+      const cred = op.getCred(x[0], x[1] || '1')
+      if (cred) return true
+    }
+    return false
+  }
+
+  toObj () : $FormObj {
+    const obj = {}
+    for (const p of $Form.lp2) obj[p] = this[p]
+    return obj as $FormObj
+  }
+
+  /* Retourne une liste de $Form pour un utilisateur tiers
+  si f = ['A'] retourne les forms "manager" (devant être traitées par un administrateur)
+  */
+  static async filteredList (op: Operation, f: string[]) : Promise<$FormObj[]> {    
+    const l: $FormObj[] = []
+    await op.db.selectDocs('$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
+      async (bin) => {
+      const form = new $Form(decode(bin) as $FormObj)
+      await form.decryptMsgT(op)
+      await form.decryptMsgU(op)
+      l.push(form.toObj())
+    })
+    return l
+  }
+
+}
+Registry.registerD($Form)

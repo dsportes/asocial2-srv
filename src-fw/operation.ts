@@ -363,9 +363,8 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const res = await MDOperation.doOp('$mdUserGetICVS', { userId: this.userId })
-    if (!res || !res['icvs']) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
-    const { i, c, v , s } = res['icvs']
+    const [c, v]= await MDOperation.getCV(this.op, this.userId)
+    if (!v) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
     const ok = await Crypt.verify(keyFromB64(v), this.userSign, this.challenge)
     if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
     

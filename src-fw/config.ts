@@ -17,8 +17,8 @@ export class Registry {
     return cl ? new cl() : null
   }
 
-  static newCase (name: string, obj: any) {
-    const cl = Registry.regDoc.get('Case_' + name) || Registry.regDoc.get('Case')
+  static newForm (type: string, obj: any) {
+    const cl = Registry.regDoc.get('$Form_' + type) || Registry.regDoc.get('$Form')
     return new cl(obj)
   }
 
@@ -67,7 +67,7 @@ export interface BaseConfig {
   messaging?: any
 
   SUBSMAXLIFEINMINUTES: number[]
-  CASEMAXLIFE: number // En minutes - typiquement 10*1440:
+  FORMMAXLIFE: number // En minutes - typiquement 10*1440:
   STATUSLAZYNESS: number // En SECONDES, délai de prise en compte d'un changement de Status
 }
 

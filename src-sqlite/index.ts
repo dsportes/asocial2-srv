@@ -4,7 +4,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, MDTable, 
-  MDopn, MDuser, MDsetAA, MDsetS, MDdel, CaseRow } from '../src-fw/iDbGeneric'
+  MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocType, propType } from '../src-fw/doctypes'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
@@ -14,6 +14,7 @@ import { Util } from '../src-fw/util'
 import path from 'path'
 import { existsSync } from 'node:fs'
 import { writeFileSync } from 'node:fs'
+import { MDEvent } from '../src-fw/masterdir'
 
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
@@ -355,44 +356,43 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return 0
   }
 
-  async mdCaseNew (caserow: CaseRow ) : Promise<void> {
-    let stmt = this.sql.prepare('SELECT * FROM ZZCASES WHERE caseId = @caseId')
-    let row = stmt.get( { caseId: caserow.caseId } )
-    if (row) return
-    stmt = this.sql.prepare('INSERT INTO ZZCASES (caseId, userId, v, data)' +
-      ' VALUES ( @caseId, @userId, @v, @data )')
-    stmt.run({ caseId: caserow.caseId, userId: caserow.userId, v: caserow.v, data: caserow.data })
+  async mdEventNew (row: EventRow) : Promise<void> {
+    let stmt = this.sql.prepare('SELECT eventId FROM ZZCASES WHERE eventId = @eventId')
+    let r = stmt.get( { eventId: row.eventId } )
+    if (r) return
+    stmt = this.sql.prepare('INSERT INTO ZZEVENTS (eventId, userId, v, ttl, data)' +
+      ' VALUES ( @eventId, @userId, @v, @ttl, @data )')
+    stmt.run({ eventId: row.eventId, userId: row.userId, v: row.v, maxLife: row.maxLife, data: row.data })
   }
 
-  async mdCaseGet (caseId: string ) : Promise<CaseRow | null> {
-    let stmt = this.sql.prepare('SELECT * FROM ZZCASES WHERE caseId = @caseId')
-    let row = stmt.get( { caseId } )
-    return row || null
+  async mdEventGet (eventId: string ) : Promise<Uint8Array | null> {
+    let stmt = this.sql.prepare('SELECT data FROM ZZEVENTS WHERE eventId = @eventId')
+    let row = stmt.get( { eventId } )
+    return row ? row.data : null
   }
 
-  async mdCaseSet (caserow: CaseRow ) : Promise<void> {
-    let stmt = this.sql.prepare('SELECT * FROM ZZCASES WHERE caseId = @caseId')
-    let row = stmt.get( { caseId: caserow.caseId } )
-    if (row) return
-    stmt = this.sql.prepare('UDATE ZZCASES SET v = @v, data = @data )' +
-      ' WHERE caseId = @caseId')
-    stmt.run({ caseId: caserow.caseId, v: caserow.v, data: caserow.data })
+  async mdEventSet (row: EventRow ) : Promise<void> {
+    const stmt = this.sql.prepare('UDATE ZZEVENTS SET v = @v, maxLife = @maxLife, data = @data )' +
+      ' WHERE eventId = @eventId')
+    stmt.run(row)
   }
 
-  async mdCaseDel (caseId: string ) : Promise<void> {
-    let stmt = this.sql.prepare('DELETE FROM ZZCASES WHERE caseId = @caseId')
-    stmt.run( { caseId } )
+  async mdEventDel (eventId: string ) : Promise<void> {
+    let stmt = this.sql.prepare('DELETE FROM ZZEVENTS WHERE eventId = @eventId')
+    stmt.run( { eventId } )
   }
 
-  async mdCasePurge (limit: number ) : Promise<void> {
-    let stmt = this.sql.prepare('DELETE FROM ZZCASES WHERE v > 0 AND v < @limit')
+  async mdEventPurge (limit: number ) : Promise<void> {
+    let stmt = this.sql.prepare('DELETE FROM ZZEVENTS WHERE maxLife > 0 AND maxLife < @limit')
     stmt.run( { limit } )
   }
 
-  async mdCaseList (userId: string) : Promise<CaseRow[]> {
-    const stmt = this.sql.prepare('SELECT * FROM ZZCASES WHERE userId = @userId')
+  async mdEventList (userId: string) : Promise<Uint8Array[]> {
+    const stmt = this.sql.prepare('SELECT data FROM ZZEVENTS WHERE userId = @userId')
+    const l: Uint8Array[] = []
     const rows = stmt.all({ userId })
-    return rows || []
+    for(const r of rows) l.push(r.data)
+    return l
   }
 
   /******************************************************************************

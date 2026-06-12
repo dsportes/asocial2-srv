@@ -1,5 +1,5 @@
 import { Document, DocStatus } from '../src-fw/document'
-import {  Case, CaseObj, $Credential, $Cred } from '../src-fw/documents'
+import { $Form, $FormObj, Case, CaseObj, $Credential, $Cred } from '../src-fw/documents'
 import { OperationWC } from '../src-fw/index'
 import { keyFromB64 } from '../src-fw/b64'
 import { config, Registry } from '../src-fw/config'
@@ -17,6 +17,38 @@ class Hdr extends Document {
 
 }
 Registry.registerD(Hdr)
+
+/*
+new FormType('membrecodir', 'k1', ['A'])
+new FormType('membreredaction', 'k1', ['A'])
+new FormType('auteur', 'k2', ['Readction/1'])
+// Un Auteur peut aussi nommer un co-auteur
+new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
+*/
+
+class $Form_membrecodir extends $Form {
+  constructor (obj?: $FormObj) { super(obj) }
+
+}
+Registry.registerD($Form_membrecodir)
+
+class $Form_membreredaction extends $Form {
+  constructor (obj?: $FormObj) { super(obj) }
+
+}
+Registry.registerD($Form_membreredaction)
+
+class $Form_auteur extends $Form {
+  constructor (obj?: $FormObj) { super(obj) }
+
+}
+Registry.registerD($Form_auteur)
+
+class $Form_coauteur extends $Form {
+  constructor (obj?: $FormObj) { super(obj) }
+
+}
+Registry.registerD($Form_coauteur)
 
 class Case_admin extends Case {
   constructor (obj: CaseObj) { super(obj) }
