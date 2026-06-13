@@ -8,7 +8,7 @@ import { Registry } from './config'
 import { DocType, FormType } from './doctypes'
 import { config } from '../src-fw/config'
 import { keyFromB64 } from './b64'
-import { MDOperation } from '../src-fw/masterdir'
+import { MDOperation, MDEvent } from '../src-fw/masterdir'
 // import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
@@ -230,66 +230,6 @@ export class $Credential extends Document {
 }
 Registry.registerD($Credential)
 
-export type CaseObj = { // de document
-  caseId: string // ID universel généré aléatoirement à la création.
-  v: number // version du document. Elle détermine aussi la limite de validité du document.
-  userId: string // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.
-  topicId: string // ID du topic auquel le cas se rapporte.
-  subject: string // code (facultatif) désignant une cible plus précise permettant à un utilisateur _sponsor_ de se concentrer sur un sujet précis. 
-  status: number // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
-  tabX: Uint8Array | null // texte de l'ardoise crypté par `X`
-  etc: any // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
-  maxLife: number // epoch en MINUTES
-  creds: string[]
-}
-
-export class Case extends Document {
-  caseId: string = '' // ID universel généré aléatoirement à la création.
-  v: number = 0 // version du document. Elle détermine aussi la limite de validité du document.
-  userId: string = '' // ID de l'utilisateur détenteur du cas. Depuis une opération du service la clé publique de cryptage `CU` est donc accessible.
-  topicId: string = '' // ID du topic auquel le cas se rapporte.
-  subject: string = '' // code (facultatif) désignant une cible plus précise permettant à un utilisateur _sponsor_ de se concentrer sur un sujet précis. 
-  status: number = 0 // 0-annulé 1-actif-U 2-actif-H 3-finalisé.
-  tabX: Uint8Array | null  = null // texte de l'ardoise crypté par `X`
-  etc: any = {} // objet qui ne peut être écrit configuré que par une opération d'un _sponsor_ autorisé.
-  maxLife: number // epoch en MINUTES
-  creds: string[] // [A] ou [docCl/docPk docCl/1 ...]
-
-  static lp1 = ['caseId', 'v', 'userId', 'topicId', 'subject', 'status', 'tabX', 'etc', 'maxlife', 'creds']
-
-  toObj () : CaseObj {
-    const obj = {}; for (const p of Case.lp1) obj[p] = this[p]; return obj as CaseObj
-  }
-
-  constructor (obj?: CaseObj) {
-    super()
-    if (obj) for (const p of Case.lp1) this[p] = obj[p]
-  }
-
-  /* Liste des demandes des cas à traiter par un sponsor*/
-  static async listCases (op: OperationWC, topicId: string, subject: string) : Promise<Uint8Array[]> {
-    const dt = DocType.get('Case')
-    if (subject) {
-      const val = dt.getIdx({ topicId, subject}, 'topicsub')
-      return await op.db.getColl('Case', 'topicsub', val, false, 0)
-    }
-    const val = dt.getIdx({ topicId }, 'topic')
-    return await op.db.getColl('Case', 'topic', val, false, 0)
-  }
-
-  /* Est "surchargée" selon le topic. Le user est-il un "sponsor" possible */
-  async checkSponsor (op: OperationWC) : Promise<boolean> {
-    return false
-  }
-
-  /* A surcharger selon le type d'invitation. */
-  async validate (op: OperationWC, args: any) : Promise<number> {
-    return 0
-  }
-
-}
-Registry.registerD(Case)
-
 export type $FormObj = {
   formId: string  // ID universel aléatoire.
   type: string  // type du formulaire.
@@ -301,12 +241,16 @@ export type $FormObj = {
   etcB: Object | null  // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
   msgU: Uint8Array | null  // message écrit par U.
   msgT: Uint8Array | null  // message écrit par le tiers.
+
   /* liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là:
   [ docCl1/docPk1 ... ]
   La liste dépende la valeur de etc : depuis la liste template [ docCl1/$x ... ]
   $x est remplacé par la valeur de etc.$x
   */
-  creds: string[]
+  creds?: string[]
+  comment?: Uint8Array | null // commentaire écrit et crypté par U.
+  ch?: string // challenge random de synchronisation initiale avec MDEvent
+  lv?: number // lastView par U
 }
 
 /*
@@ -318,27 +262,56 @@ export class $Form extends Document {
   type: string = '' // type du formulaire.
   userId: string = '' // utilisateur cible.
   v: number = 0 //  version du document (_epoch_).
-  maxLife: number = 0 //  EPOCH en MINUTES de suppression automatique du formulaire.
+  maxLife: number = 0 //  EPOCH en SECONDES de suppression automatique du formulaire.
   status: number = 0 // de 1 à 4.
-  etc: Object | null = null // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
-  etcB: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
+  etcU: Object | null = null // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
+  etcT: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
   msgU: Uint8Array | null = null // message écrit par U.
   msgT: Uint8Array | null = null // message écrit par le tiers.
+
   creds: string[] = [] // liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là: `[ docCl1/docPk1 ... ]`.
+  comment?: Uint8Array | null = null // commentaire écrit et crypté par U.
+  ch?: string = '' // challenge random de synchronisation initiale avec MDEvent
+  lv?: number = 0 // lastView par U
 
   /* Surchargé par type:
   retourne un objet "résumé" de etc à faire figurer dans MDEvents
   */
-  get detail () : any { return {} }
+  getDetail () { return {} }
 
-  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife',
-    'status', 'etc', 'etcB', 'msgU', 'msgT', 'creds' ]
-  static lp2 = ['formId', 'type', 'userId', 'v', 'maxLife',
-    'status', 'etc', 'etcB', 'msgU', 'msgT' ]
+  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
+  static lp2 = ['type', 'userId', 'v', 'maxLife', 'status', 'comment', 'lv' ]
 
   constructor (obj?: $FormObj) {
     super()
     if (obj) for (const p of $Form.lp1) this[p] = obj[p]
+    if (obj.comment) this.comment = obj.comment
+    if (obj.creds) this.creds = obj.creds
+    if (obj.ch) this.ch = obj.ch
+    if (obj.lv) this.lv = obj.lv
+  }
+
+  toFormObj () : $FormObj {
+    const obj = {}
+    for (const p of $Form.lp1) obj[p] = this[p]
+    return obj as $FormObj
+  }
+
+  toEvObj () : MDEvent {
+    // @ts-expect-error
+    const obj: MDEvent = {}
+    for (const p of $Form.lp2) obj[p] = this[p]
+    obj['eventId'] = this.formId
+    obj['detail'] = this.getDetail()
+    return obj
+  }
+
+  chk (op: OperationWC) { 
+    return Crypt.shaS([this.formId, this.type, this.userId, config.SVC, op.org].join('/')) 
+  }
+
+  setMaxLife () {
+    this.maxLife = Math.floor(Date.now() / 1000) + config.FORMMAXLIFE
   }
 
   get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
@@ -369,28 +342,29 @@ export class $Form extends Document {
   - de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
   - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
   */
-  async cryptMsgT (op: OperationWC, msgT: string) : Promise<void> {
-    if (msgT) {
+  async cryptMsgT (op: OperationWC) : Promise<void> {
+    if (this.msgT) {
       const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
-      this.msgT = await Crypt.crypt(aes, encoder.encode(msgT))
-    } else this.msgT = null
+      this.msgT = await Crypt.crypt(aes, this.msgT)
+    }
   }
 
   async decryptMsgT (op: OperationWC) : Promise<void> {
     if (this.msgT) {
       const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
-      this.msgT = await Crypt.decrypt(aes, this.msgT)
+      this.msgT = await Crypt.decrypt(aes, this.msgT as Uint8Array)
     }
   }
 
   // Calcul this.creds depuis le template du type et les arguments $x dans etc
   setCreds () {
+    const etc = this.status === 1 ? this.etcU : this.etcT
     const creds = []
     for(const c of this.ft.creds) {
       const i = c.indexOf('$')
       if (i !== -1) {
         const arg = c.substring(i, i + 1)
-        const val = this.etc[arg] || ''
+        const val = etc[arg] || ''
         creds.push(c.replace(arg, val))
       } else creds.push(c)
     }
@@ -409,12 +383,6 @@ export class $Form extends Document {
     return false
   }
 
-  toObj () : $FormObj {
-    const obj = {}
-    for (const p of $Form.lp2) obj[p] = this[p]
-    return obj as $FormObj
-  }
-
   /* Retourne une liste de $Form pour un utilisateur tiers
   si f = ['A'] retourne les forms "manager" (devant être traitées par un administrateur)
   */
@@ -422,10 +390,11 @@ export class $Form extends Document {
     const l: $FormObj[] = []
     await op.db.selectDocs('$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
       async (bin) => {
-      const form = new $Form(decode(bin) as $FormObj)
-      await form.decryptMsgT(op)
-      await form.decryptMsgU(op)
-      l.push(form.toObj())
+      const obj = decode(bin) as $FormObj
+      const f = Registry.newD('$Form', obj) as $Form
+      await f.decryptMsgT(op)
+      await f.decryptMsgU(op)
+      l.push(f.toFormObj())
     })
     return l
   }

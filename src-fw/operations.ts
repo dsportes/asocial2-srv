@@ -486,68 +486,179 @@ class credsByDoc extends Operation {
 }
 Registry.registerOp(credsByDoc)
 
+/* MDEventFull retourne après création toutes les propriétés d'un Form du _document_.
+Requiert que le challenge ch soit celui enregistré dans l'event créé.
+*/
+class MDEventFull extends Operation {
+  _eventId: string
+  _type: string
+  _ch: string
+
+  init () {
+    super.init()
+    this._eventId = this.stringValue('eventId', true)
+    this._type = this.stringValue('type', true)
+    this._ch = this.stringValue('ch', true)
+  }
+  async phase2 () {
+    const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
+    if (f && f.ch === this._ch) {
+      f.setMaxLife()
+      delete f.ch
+      f._status = DocStatus.UPD
+      this.setRes('mdevent', f.toEvObj())
+    }
+  }
+}
+Registry.registerOp(MDEventFull)
+
 /* MDEventSync retourne les propriétés `v maxLife status detail` 
 d'un Form du _document_.
 */
 class MDEventSync extends Operation {
   _eventId: string
+  _type: string
+  _chk: string
 
   init () {
     super.init()
     this._eventId = this.stringValue('eventId', true)
+    this._type = this.stringValue('type', true)
+    this._chk = this.stringValue('chk', true)
   }
   async phase2 () {
-    const f = await this.cache.getDoc('Form', { formId: this._eventId }) as $Form
-    if (f && this.authRecord.userId === f.userId) {
-      const x = { v: f.v, maxLife: f.maxLife, status: f.status, detail: f.detail } as MDEventS
+    const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
+    if (f && f.chk(this) === this._chk) {
+      const x = { v: f.v, maxLife: f.maxLife, status: f.status, detail: f.getDetail() } as MDEventS
       this.setRes('mdsync', x)
     }
   }
 }
 Registry.registerOp(MDEventSync)
 
+/* Création d'un Form par U
+- ch a ét créé par U à Crypt.rnd(9)
+Il reste à la session de U 10s pour valider la création en MD
+*/
 class FormCreateByU extends Operation {
   _formObj: $FormObj
+
   init () {
     super.init()
     this._formObj = this.args['formObj'] as $FormObj
-    this._formObj.status = 1
-    this._formObj.msgT = null
   }
+
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', this._formObj)
+    let f = await this.cache.getDoc('$Form', this._formObj) as $Form
     if (f) 
       { this.setRes('status', 1); return }
-    if (this.authRecord.userId !== this._formObj.userId)
+    f = this.cache.newDoc('$Form', this._formObj) as $Form
+    if (this.authRecord.userId !== f.userId)
       { this.setRes('status', 2); return }
-    const typedf = Registry.newForm(this._formObj.type, this._formObj)
-    typedf.setCreds()
-    this.cache.newDoc('$Form', typedf.toObj()) as $Form
+    f.setCreds()
+    f.maxLife = Math.floor(this.now / 1000) + 10
+    f.lv = this.now
+    f.status = 1
+    f.msgT = null
     this.setRes('status', 0)
   }
 }
 Registry.registerOp(FormCreateByU)
 
-/* TODO *****************/
-class FormUpdByT extends Operation {
+/* Création d'un Form par U
+- ch a ét créé par U à Crypt.rnd(9)
+Il reste à la session de U 10s pour valider la création en MD
+*/
+class FormCreateByT extends Operation {
   _formObj: $FormObj
+
   init () {
     super.init()
     this._formObj = this.args['formObj'] as $FormObj
-    this._formObj.status = 2
   }
+
   async phase2 () {
     this.requireAuth()
-    const typedf = Registry.newForm(this._formObj.type, this._formObj)
-    typedf.setCreds()
-    const f = await this.cache.getDoc('$Form', this._formObj) as $Form
+    let f = await this.cache.getDoc('$Form', this._formObj) as $Form
     if (f) 
       { this.setRes('status', 1); return }
-    if (!typedf.checkAuthTP(this))
+    f = this.cache.newDoc('$Form', this._formObj) as $Form
+    if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
+    f.setCreds()
+    f.maxLife = Math.floor(this.now / 1000) + 10
+    f.lv = this.now
+    f.status = 1
+    f.msgU = null
+    await f.cryptMsgT(this)
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(FormCreateByT)
 
-    this.cache.newDoc('$Form', typedf.toObj())
+class FormUpdByU extends Operation {
+  _formId: string
+  _type: string
+  _status: number
+  _etcU: Object
+  _msgU: Uint8Array
+
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
+    this._status = this.intValue('type', true)
+    this._etcU = this.objectValue('etcU', true)
+    this._msgU = this.binValue('msgU', true)
+  }
+
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
+    if (!f) 
+      { this.setRes('status', 1); return }
+    if (f.userId !== this.authRecord.userId)
+      { this.setRes('status', 2); return }
+    f.etcU = this._etcU
+    f.status = this._status
+    f.msgU = this._msgU
+    f.setCreds()
+    f.setMaxLife()
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(FormUpdByU)
+
+class FormUpdByT extends Operation {
+  _formId: string
+  _type: string
+  _status: number
+  _etcT: Object
+  _msgT: Uint8Array | null
+
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
+    this._status = this.intValue('type', true)
+    this._etcT = this.objectValue('etcT', true)
+    this._msgT = this.binValue('msgT', false)
+  }
+
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    if (!f) 
+      { this.setRes('status', 1); return }
+    if (!f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
+    f.etcT = this._etcT
+    f.status = this._status
+    f.msgT = this._msgT
+    await f.cryptMsgT(this)
+    f.setCreds()
+    f.setMaxLife()
     this.setRes('status', 0)
   }
 }
@@ -558,22 +669,23 @@ Registry.registerOp(FormUpdByT)
 */
 class FormGet extends Operation {
   _formId: string
+  _type: string
+
   init () {
     super.init()
     this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
   }
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId}) as $Form
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f) 
       { this.setRes('status', 1); return }
-    const typedf = Registry.newForm(f.type, f.toObj())
-    typedf.setCreds()
-    if (this.authRecord.userId !== typedf.userId && !typedf.checkAuthTP(this))
+    if (this.authRecord.userId !== f.userId && !f.checkAuthTP(this))
       { this.setRes('status', 2); return }
-    await typedf.decryptMsgU(this)
-    await typedf.decryptMsgT(this)
-    this.setRes('form', typedf.toObj())
+    await f.decryptMsgU(this)
+    await f.decryptMsgT(this)
+    this.setRes('form', f.toFormObj())
   }
 }
 Registry.registerOp(FormGet)

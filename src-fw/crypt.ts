@@ -297,6 +297,18 @@ static async strongHash (s: string | Uint8Array, pad?: boolean, bin?: boolean)
     let r = 0; for (let i = 3, j = 0; j < 6; i++, j++) r += (p2[j] * u8[i])
     return r
   }
+
+  static random (nbytes: number) {
+    const u8 = crypto.randomBytes(nbytes)
+    return u8
+  }
+
+  /* Si nbytes est multiple de 3, le string résultat fait (4 * (nbytes / 3) */
+  static rnd (nbytes: number) : string {
+    const s = keyToB64(Crypt.random(nbytes))
+    const s1 = (nbytes % 3) === 0 ? s : s.replace(/=/g, '2')
+    return s1.replace(/\+/g, '0').replace(/\//g, '1')
+  }
 }
 
 export async function testSH () {

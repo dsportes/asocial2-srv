@@ -10,16 +10,17 @@ export class Registry {
 
   static registerD (cl: Function) { Registry.regDoc.set(cl.name, cl) }
 
-  static getD (name: string) { return Registry.regDoc.get(name) }
-
-  static newD (name: string) {
-    const cl = Registry.regDoc.get(name)
-    return cl ? new cl() : null
+  static getD (name: string, data: Object) { 
+    switch (name) {
+      case '$Form':
+        return Registry.regDoc.get('$Form_' + data['type']) || Registry.regDoc.get('$Form')
+    }
+    return Registry.regDoc.get(name) 
   }
 
-  static newForm (type: string, obj: any) {
-    const cl = Registry.regDoc.get('$Form_' + type) || Registry.regDoc.get('$Form')
-    return new cl(obj)
+  static newD (name: string, data: Object) {
+    const cl = Registry.getD(name, data)
+    return cl ? new cl() : null
   }
 
   static registerOp (cl: Function) { 

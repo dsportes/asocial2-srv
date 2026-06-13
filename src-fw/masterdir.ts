@@ -451,15 +451,52 @@ class $GetOrgSvcs extends MDOperation {
 }
 Registry.registerOp($GetOrgSvcs)
 
-/* mdEventNew: création d'un event avec a minima :
-- ses propriétés immuables: eventId type userId svc org
-- v maxLife
-- comment PEUT être présent quand création par U
+export type MDEvent = {
+  // Immuables
+  eventId: string // (PK) identifiant universel de l’événement / processus (formId pour un Form).
+  type: string // code du type d'événement / processus.
+  userId: string // utilisateur cible (INDEX).
+  svc: string // service concerné.
+  org: string // organisation concernée.
+  // Modifiables par les opérations seulement:
+  v: number // version, date-heure (_epoch_) du _document_. 
+  maxLife: number // time-to-live calculé depuis `v` et `type`. (INDEX pour purges périodiques).
+  status: number // son statut courant.
+  detail: Object // objet de structure dépendant de _type_.
+  // Lisibles et modifiables par U seulement:
+  comment: Uint8Array // commentaire de l'utilisateur cible crypté par lui.
+  lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
+}
+
+export type MDEventS = {
+  v: number // version, date-heure (_epoch_) du _document_. 
+  maxLife: number // time-to-live calculé depuis `v` et `type`. (INDEX pour purges périodiques).
+  status: number // son statut courant.
+  detail: Object // objet de structure dépendant de _type_.
+}
+
+export type MDEventU = {
+  comment: Uint8Array // commentaire de l'utilisateur cible crypté par lui.
+  lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
+}
+
+/* Création d'un MDEvent par recopie de celui enregistré dans le service
+Arguments: 
+- invitId svc org - localisation de l'event
+- ch : challenge aléatoire prouve que l'appellant connaît l'event
 */
 class $mdEventNew extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const e = this.args['mdevent'] as MDEvent
-    if (e.status === 1) e.lv = e.v
+    const eventId = this.args['eventId'] as string
+    const type = this.args['type'] as string
+    const svc = this.args['svc'] as string
+    const org = this.args['org'] as string
+    const ch = this.args['ch'] as string
+    const ret = await this.postSvcOp(svc, org, 'MDEventFull', { eventId, type, ch } )
+    const e:MDEvent = ret ? ret.mdevent : null
+    if (e === null) return
+    e.svc = svc
+    e.org = org
     const row = {
       eventId: e.eventId,
       userId: e.userId,
@@ -480,6 +517,7 @@ Registry.registerOp($mdEventNew)
 class $mdEventSync extends MDOperation {
   async doTheJob () : Promise<void> { 
     const eventId = this.args['eventId'] as string
+    const type = this.args['type'] as string
     const chk = this.args['chk'] as string
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
     if (data) {
@@ -487,7 +525,7 @@ class $mdEventSync extends MDOperation {
       const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId } )
+      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type } )
       const r:MDEventS = ret ? ret.mdsync : null
       if (r) {
         e.v = r.v
@@ -508,23 +546,25 @@ class $mdEventSync extends MDOperation {
 Registry.registerOp($mdEventSync)
 
 /* mdEventUser: synchronise les propriétés variables user:
-- eventU: MDEventU `comment lv`.
+- comment (crypté par U): si null, inchangé. Pour effacer envoyer Uint8Array[0]
+- lv
 - eventId
 - chk: SHA raccourci de la sérialisation de `[eventId type userId svc org]`
 */
 class $mdEventUser extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const eventId = this.args['caseId'] as string
+    const eventId = this.args['eventId'] as string
+    const lv = this.args['lv'] as number
+    const comment = this.args['comment'] as Uint8Array | null
     const chk = this.args['chk'] as string
-    const eventU = this.args['eventU'] as MDEventU
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
     if (data) {
       const e = decode(data) as MDEvent
       const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      e.lv = eventU.lv
-      e.comment = eventU.comment
+      if (lv) e.lv = lv
+      if (comment) e.comment = comment.length ? comment : null
       await this.db.mdEventSet({
         eventId: e.eventId,
         userId: e.userId,
@@ -577,35 +617,6 @@ class $mdEventList extends MDOperation {
   }
 }
 Registry.registerOp($mdEventList)
-
-export type MDEvent = {
-  // Immuables
-  eventId: string // (PK) identifiant universel de l’événement / processus (formId pour un Form).
-  type: string // code du type d'événement / processus.
-  userId: string // utilisateur cible (INDEX).
-  svc: string // service concerné.
-  org: string // organisation concernée.
-  // Modifiables par les opérations seulement:
-  v: number // version, date-heure (_epoch_) du _document_. 
-  maxLife: number // time-to-live calculé depuis `v` et `type`. (INDEX pour purges périodiques).
-  status: number // son statut courant.
-  detail: Object // objet de structure dépendant de _type_.
-  // Lisibles et modifiables par U seulement:
-  comment: Uint8Array // commentaire de l'utilisateur cible crypté par lui.
-  lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
-}
-
-export type MDEventS = {
-  v: number // version, date-heure (_epoch_) du _document_. 
-  maxLife: number // time-to-live calculé depuis `v` et `type`. (INDEX pour purges périodiques).
-  status: number // son statut courant.
-  detail: Object // objet de structure dépendant de _type_.
-}
-
-export type MDEventU = {
-  comment: Uint8Array // commentaire de l'utilisateur cible crypté par lui.
-  lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
-}
 
 /*
 ### Table `ZZEVENTS` du _Master Directory_

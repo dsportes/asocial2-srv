@@ -22,13 +22,13 @@ export class Document {
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
 
   /* Mute un data en fonction de sa release et d'éventuelles options
-  Met à jour, supprime ajoute les prpropriétés requises dans la
+  Met à jour, supprime ajoute les propriétés requises dans la
   dernière version en fonction de sa release actuell.
   Retourne couple du data (ancien ou celui muté) 
   et de l'indicateur de mutation (false si inchangé)
   */
   static mutate (clazz: string, data: any, options?: Object) : [any, boolean] {
-    const cl = Registry.getD(clazz)
+    const cl = Registry.getD(clazz, data)
     if (!cl) return [data, false]
     const f = cl.mutateCl
     return f ? f(data, options) : [data, false]
@@ -36,7 +36,7 @@ export class Document {
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = Registry.getD(this._clazz)
+    const cl = Registry.getD(this._clazz, this)
     return cl ? cl.release : 0
   }
 
@@ -96,6 +96,9 @@ export class Document {
     return encode(d)
   }
 
+  // Surchargé par classe
+  compile () {}
+
   /* Méthodes INTERNES au FW ***************************************************/
 
   /* Création de l'instance de "Document" depuis des valeurs initiales de propriétés,
@@ -104,9 +107,9 @@ export class Document {
   Retourne le Document.
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
-    const cl = Registry.getD(clazz)
+    const cl = Registry.getD(clazz, initVals)
     if (!cl) throw new AppExc(105, 'document_class_not_registered', null, [clazz])
-    const doc = Registry.newD(clazz)
+    const doc = new cl() as Document
     doc._clazz = clazz
     doc._status = status
     doc.release = cl.release
@@ -118,7 +121,7 @@ export class Document {
     }
     for (const [key, value] of Object.entries(data)) 
       if (!key.startsWith('_')) doc[key] = value
-    if (doc.compile) doc.compile()
+    doc.compile()
     /* _before: Map: traçant les collections
       - clé: nom de la collection
       - valeur: valeur de la propriété clé de la collection dans le document 
