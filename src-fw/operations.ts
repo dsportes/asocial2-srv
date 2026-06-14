@@ -39,7 +39,7 @@ class ErrorTest extends Operation {
 Registry.registerOp(ErrorTest)
 
 /* Retourne une clé publique de cryptage de configuation */
-class getDKey$ extends Operation {
+class getCKey$ extends Operation {
   _name: string
   init () {
     super.init()
@@ -50,7 +50,7 @@ class getDKey$ extends Operation {
     this.setRes('key', k ? k.pub : '')
   }
 }
-Registry.registerOp(getDKey$)
+Registry.registerOp(getCKey$)
 
 /* Retourne une clé publique de vérification de configuation */
 class getVKey$ extends Operation {

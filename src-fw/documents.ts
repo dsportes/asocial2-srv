@@ -336,7 +336,7 @@ export class $Form extends Document {
   et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U). 
   */
   async decryptMsgU (op: OperationWC) : Promise<void> {
-    if (!this.msgT) {
+    if (!this.msgU) {
       const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
       this.msgU = await Crypt.decrypt(aes, this.msgU)
     }
@@ -381,8 +381,9 @@ export class $Form extends Document {
   // vérifie si le tiers est habilité
   checkAuthTP (op: Operation) : boolean {
     const t = this.ft.creds
-    if (t && t.length === 1 && t[0] === 'A') op.requireAuth()
-    else for (const c of this.creds) {
+    if (t && t.length === 1 && t[0] === 'A')
+      return op.authRecord.isAdmin
+    for (const c of this.creds) {
       const x = c.split('/')
       const cred = op.getCred(x[0], x[1] || '1')
       if (cred) return true
