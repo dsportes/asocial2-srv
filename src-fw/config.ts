@@ -1,5 +1,6 @@
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
+import { DocType } from '../src-fw/doctypes'
 
 export class Registry {
   static regDoc = new Map()
@@ -11,11 +12,11 @@ export class Registry {
   static registerD (cl: Function) { Registry.regDoc.set(cl.name, cl) }
 
   static getD (name: string, data: Object) { 
-    switch (name) {
-      case '$Form':
-        return Registry.regDoc.get('$Form_' + data['type']) || Registry.regDoc.get('$Form')
-    }
-    return Registry.regDoc.get(name) 
+    const dt = DocType.get(name)
+    if (!dt) return null
+    return dt.subClassBy
+      ? Registry.regDoc.get(name + '_' + data[dt.subClassBy]) || Registry.regDoc.get(name)
+      : Registry.regDoc.get(name) 
   }
 
   static newD (name: string, data: Object) {

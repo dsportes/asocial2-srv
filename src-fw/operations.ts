@@ -1,4 +1,4 @@
-import { decode } from '@msgpack/msgpack'
+import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
 import { MDOperation, MDEventS } from '../src-fw/masterdir'
 import { AppExc, OrgsConfig } from '../src-fw/index'
@@ -7,7 +7,7 @@ import { config, Registry } from '../src-fw/config'
 import { $Status, $Subs, $subscription, $SubsItem, $Credential, $Cred, $Form, $FormObj } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
-import { filter } from '../src-fw/iDbGeneric'
+import { Util } from '../src-fw/util'
 
 export function loadingOF () {
   console.log('fw operations loading: ', Registry.sizeOp())
@@ -37,6 +37,34 @@ class ErrorTest extends Operation {
   }
 }
 Registry.registerOp(ErrorTest)
+
+/* Retourne une clé publique de cryptage de configuation */
+class getDKey$ extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true, 0, 9)
+  }
+  async phase2 () {
+    const k = config.keys['DCKeys'][name]
+    this.setRes('key', k ? k.pub : '')
+  }
+}
+Registry.registerOp(getDKey$)
+
+/* Retourne une clé publique de vérification de configuation */
+class getVKey$ extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true, 0, 9)
+  }
+  async phase2 () {
+    const k = config.keys['SVKeys'][name]
+    this.setRes('key', k ? k.pub : '')
+  }
+}
+Registry.registerOp(getVKey$)
 
 /* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
 */
@@ -173,7 +201,7 @@ class GetOrgConfig$ extends Operation {
 Registry.registerOp(GetOrgConfig$)
 
 /* HasAlias retourne true s'il existe un document de la classe docCl
-dont l'index d'alias aliasName donné à la valeur donnée aliasValue.
+dont l'index d'alias aliasName donné a la valeur donnée aliasValue.
 */
 class HasAlias extends Operation {
   _docCl: string
@@ -528,7 +556,7 @@ class MDEventSync extends Operation {
   }
   async phase2 () {
     const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
-    if (f && f.chk(this) === this._chk) {
+    if (f && f.chk(this) === this._chk && !f.isOld) {
       const x = { v: f.v, maxLife: f.maxLife, status: f.status, detail: f.getDetail() } as MDEventS
       this.setRes('mdsync', x)
     }
@@ -616,15 +644,17 @@ class FormUpdByU extends Operation {
   async phase2 () {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
-    if (!f) 
+    if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (f.userId !== this.authRecord.userId)
       { this.setRes('status', 2); return }
+    if (f.status > 2 ) { this.setRes('status', 3); return }
     f.etcU = this._etcU
     f.status = this._status
     f.msgU = this._msgU
     f.setCreds()
     f.setMaxLife()
+    f._status = DocStatus.UPD
     this.setRes('status', 0)
   }
 }
@@ -649,20 +679,75 @@ class FormUpdByT extends Operation {
   async phase2 () {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
-    if (!f) 
+    if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
+    if (f.status > 2 ) { this.setRes('status', 3); return }
     f.etcT = this._etcT
     f.status = this._status
     f.msgT = this._msgT
     await f.cryptMsgT(this)
     f.setCreds()
     f.setMaxLife()
+    f._status = DocStatus.UPD
     this.setRes('status', 0)
   }
 }
 Registry.registerOp(FormUpdByT)
+
+class FormCancel extends Operation {
+  _formId: string
+  _type: string
+
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
+  }
+
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
+    if (!f || f.isOld) 
+      { this.setRes('status', 1); return }
+    if (f.userId !== this.authRecord.userId)
+      { this.setRes('status', 2); return }
+    if (f.status > 2 ) { this.setRes('status', 3); return }
+    f.status = 4
+    f._status = DocStatus.UPD
+    this.setRes('status', 0)
+  }
+}
+Registry.registerOp(FormCancel)
+
+class FormValidate extends Operation {
+  _formId: string
+  _type: string
+
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    if (!f || f.isOld) 
+      { this.setRes('status', 1); return }
+    if (this.authRecord.userId !== f.userId && !f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
+    if (!Util.equ8(encode(f.etcU), encode(f.etcT)))
+      { this.setRes('status', 4); return }
+    const stv = await f.validate(this)
+    this.setRes('status', stv)
+    if (stv === 0) {
+      f.status = 3
+      f._status = DocStatus.UPD
+    }
+  }
+}
+Registry.registerOp(FormValidate)
 
 /* Retourne le form demandé par formId en tant que $FormObj
 - l'appelant doit être soit U, soit un tiers ayant droit de traiter form
@@ -679,7 +764,7 @@ class FormGet extends Operation {
   async phase2 () {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
-    if (!f) 
+    if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (this.authRecord.userId !== f.userId && !f.checkAuthTP(this))
       { this.setRes('status', 2); return }
@@ -706,60 +791,3 @@ class FormFilteredList extends Operation {
   }
 }
 Registry.registerOp(FormFilteredList)
-
-/*
-class CaseCancel extends Operation {
-  _caseId: string
-  init () {
-    super.init()
-    this._caseId = this.stringValue('caseId', true)
-  }
-  async phase2 () {
-    this.requireAuth()
-    const cas = await this.cache.getDoc('Case', { invitId: this._caseId}) as Case
-    if (!cas) return
-    if (cas.userId !== this.authRecord.userId) return
-    this.cache.delDoc('Case', cas.pk)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(CaseCancel)
-*/
-
-/* InvitValidate réalise les opérations correspondantes. 
-Le demandeur doit être l'utilisateur.
-Le traitement conduit à une importante logique spécifique:
-- création éventuelle d'un ou plusieurs documents "de position" (compte, abonné, employé ...)
-- enregistrement d'un ou plusieurs credentials.
-Tout ceci s'effectue depuis les données (dont etc) du document invitation.
-Côté application, 
-- les credentials sont à enregistrer en Safe.
-- des subscriptions sont à gérer sur le / les documents de "position".
-- l'invitation est à supprimer du Master Directory
-
-export class InvitValidate extends Operation {
-  _invitId: string
-  _validArgs: any
-  init () {
-    super.init()
-    this._invitId = this.stringValue('invitId', true)
-    this._validArgs = this.objectValue('validArgs', true)
-  }
-  async phase2 () {
-    let s = 0
-    this.requireAuth()
-    const invit = await this.cache.getDoc('Invitation', { invitId: this._invitId}) as Invitation
-    if (!invit) 
-      { this.setRes('status', 1); return}
-    if (invit.userId !== this.authRecord.userId) 
-      { this.setRes('status', 2); return }
-    // Do the job: logique spécifique de l'application
-    const status = await invit.validate(this, this._validArgs)
-    if (status !== 0)
-      { this.setRes('status', status); return }
-    this.cache.delDoc('Invitation', invit.pk)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp(InvitValidate)
-*/

@@ -29,7 +29,8 @@ new DocType(
 )
 
 new DocType(
-  { name: '$Credential', sync: false, pk: ['credId'] }, // header
+  { name: '$Credential', sync: false, pk: ['credId'], subClassBy: 'docCl'
+   }, // header
   null, // collections
   new Map<string, idx>([
     ['doc', { type: propType.HASH, key: ['docCl', 'docPk'], nohash: true }],
@@ -37,7 +38,8 @@ new DocType(
 )
 
 new DocType(
-  { name: '$Form', sync: true, pk: ['formId'], nohash: true }, // header
+  { name: '$Form', sync: true, pk: ['formId'], 
+    nohash: true, subClassBy: 'type' }, // header
   null, // collections
   new Map<string, idx>([
     ['creds', { type: propType.LIST, nohash: true }]

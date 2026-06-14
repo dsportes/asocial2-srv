@@ -50,6 +50,7 @@ export type docHeader = {
   virtual?: boolean
   enum?: string[]
   extenum?: string
+  subClassBy?: string
 }
 
 export type collection = {
@@ -169,6 +170,7 @@ export class DocType {
   readonly nohash: boolean = false
   readonly virtual: boolean = false
   readonly manager: boolean = false
+  readonly subClassBy: string = ''
   readonly embedCreds: boolean = false
   readonly colls : Map<string, collection> | null = null
   readonly indexes: Map<string, idx> | null = null
@@ -219,6 +221,7 @@ export class DocType {
     this.nohash = h.nohash || false
     this.embedCreds = h.embedCreds || false
     this.manager = h.manager || false
+    this.subClassBy = h.subClassBy || ''
     if (this.manager)
       DocType.managerClasses.add(this.name)
 

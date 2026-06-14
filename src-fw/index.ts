@@ -54,17 +54,6 @@ export class DbConnexion {
     this.key = !cryptKey ? this.connector.key : Buffer.from(cryptKey, 'base64')
     this.op = op
   }
-
-}
-
-export type TopicDef = {
-  id: string
-  categ: string
-  key: string
-  subjects: string
-  pubC: Uint8Array
-  privD: Uint8Array
-  creds: string[]
 }
 
 /* Configuration des organisations *****************************************
@@ -82,7 +71,6 @@ export class OrgsConfig {
   orgs : Map<string, [string, string]> // Map par org => [db, storage]
   dbs : Map<string, Set<string>> // Map par db => Set des orgs
   storages : Map<string, Set<string>> // Map par storage => Set des orgs
-  topics: Map<string, TopicDef>
 
   setOrgs (x: any) {
     this.orgs = new Map<string, [string, string]>()
@@ -121,10 +109,8 @@ export class OrgsConfig {
     else x[org] = [db, st]
     const nval = JSON.stringify(x, null, '\t')
     await op.db.setSingleton('orgs', nval)
-    const topics = OrgsConfig.current.topics
     const oc = new OrgsConfig()
     oc.setOrgs(x)
-    oc.topics = topics
     OrgsConfig.current = oc
     OrgsConfig.updating = false
     OrgsConfig.lastLoading = Date.now()

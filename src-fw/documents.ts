@@ -279,6 +279,11 @@ export class $Form extends Document {
   */
   getDetail () { return {} }
 
+  /* Traitement final: surchargé par type :Retourne un statut de validation,
+  - 0 si OK, N > 10 selon la cause d'échec
+  */
+  async validate (op: Operation) : Promise<number> { return 0 }
+
   static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
   static lp2 = ['type', 'userId', 'v', 'maxLife', 'status', 'comment', 'lv' ]
 
@@ -313,6 +318,8 @@ export class $Form extends Document {
   setMaxLife () {
     this.maxLife = Math.floor(Date.now() / 1000) + config.FORMMAXLIFE
   }
+
+  get isOld () { return Date.now() > this.maxLife * 1000 }
 
   get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
   get kp () : { pub: Buffer, priv: Buffer } { 
@@ -384,7 +391,7 @@ export class $Form extends Document {
   }
 
   /* Retourne une liste de $Form pour un utilisateur tiers
-  si f = ['A'] retourne les forms "manager" (devant être traitées par un administrateur)
+  si f = ['A'] retourne les forms devant être traitées par un administrateur
   */
   static async filteredList (op: Operation, f: string[]) : Promise<$FormObj[]> {    
     const l: $FormObj[] = []
@@ -392,9 +399,11 @@ export class $Form extends Document {
       async (bin) => {
       const obj = decode(bin) as $FormObj
       const f = Registry.newD('$Form', obj) as $Form
-      await f.decryptMsgT(op)
-      await f.decryptMsgU(op)
-      l.push(f.toFormObj())
+      if (!f.isOld) {
+        await f.decryptMsgT(op)
+        await f.decryptMsgU(op)
+        l.push(f.toFormObj())
+      }
     })
     return l
   }
