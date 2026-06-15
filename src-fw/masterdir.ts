@@ -451,7 +451,7 @@ class $GetOrgSvcs extends MDOperation {
 }
 Registry.registerOp($GetOrgSvcs)
 
-export type MDEvent = {
+type MDEvent = {
   // Immuables
   eventId: string // (PK) identifiant universel de l’événement / processus (formId pour un Form).
   type: string // code du type d'événement / processus.
@@ -473,6 +473,8 @@ export type MDEventS = {
   maxLife: number // time-to-live calculé depuis `v` et `type`. (INDEX pour purges périodiques).
   status: number // son statut courant.
   detail: Object // objet de structure dépendant de _type_.
+  comment?: Uint8Array // commentaire de l'utilisateur cible crypté par lui.
+  lv?: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
 }
 
 export type MDEventU = {
@@ -480,23 +482,26 @@ export type MDEventU = {
   lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
 }
 
-/* Création d'un MDEvent par recopie de celui enregistré dans le service
-Arguments: 
-- invitId svc org - localisation de l'event
+/* "pre" création d'un MDEvent:
+- eventId type svc org
 - ch : challenge aléatoire prouve que l'appellant connaît l'event
 */
 class $mdEventNew extends MDOperation {
   async doTheJob () : Promise<void> { 
     const eventId = this.args['eventId'] as string
     const type = this.args['type'] as string
+    const userId = this.args['userId'] as string
     const svc = this.args['svc'] as string
     const org = this.args['org'] as string
     const ch = this.args['ch'] as string
     const ret = await this.postSvcOp(svc, org, 'MDEventFull', { eventId, type, ch } )
-    const e:MDEvent = ret ? ret.mdevent : null
-    if (e === null) return
-    e.svc = svc
-    e.org = org
+    const s:MDEventS = ret ? ret.mdsync : null
+    if (s === null) return
+    const e: MDEvent = {
+      eventId, type, userId, svc, org,
+      v: s.v, maxLife: s.maxLife, status: s.status, detail: s.detail, 
+      comment: s.comment, lv: s.lv
+    }
     const row = {
       eventId: e.eventId,
       userId: e.userId,
@@ -517,7 +522,6 @@ Registry.registerOp($mdEventNew)
 class $mdEventSync extends MDOperation {
   async doTheJob () : Promise<void> { 
     const eventId = this.args['eventId'] as string
-    const type = this.args['type'] as string
     const chk = this.args['chk'] as string
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
     if (data) {
@@ -525,13 +529,13 @@ class $mdEventSync extends MDOperation {
       const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type } )
-      const r:MDEventS = ret ? ret.mdsync : null
-      if (r) {
-        e.v = r.v
-        e.status = r.status
-        e.maxLife = r.maxLife
-        e.detail = r.detail
+      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type: e.type } )
+      const s:MDEventS = ret ? ret.mdsync : null
+      if (s) {
+        e.v = s.v
+        e.status = s.status
+        e.maxLife = s.maxLife
+        e.detail = s.detail
         await this.db.mdEventSet({
           eventId: e.eventId,
           userId: e.userId,
@@ -554,7 +558,7 @@ Registry.registerOp($mdEventSync)
 class $mdEventUser extends MDOperation {
   async doTheJob () : Promise<void> { 
     const eventId = this.args['eventId'] as string
-    const lv = this.args['lv'] as number
+    const setlv = this.args['setlv'] as boolean
     const comment = this.args['comment'] as Uint8Array | null
     const chk = this.args['chk'] as string
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
@@ -563,7 +567,7 @@ class $mdEventUser extends MDOperation {
       const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      if (lv) e.lv = lv
+      if (setlv) e.lv = e.v
       if (comment) e.comment = comment.length ? comment : null
       await this.db.mdEventSet({
         eventId: e.eventId,
@@ -630,19 +634,4 @@ PRIMARY KEY(eventId));
 CREATE INDEX IF NOT EXISTS "ZZEVENTS_userId" ON "ZZEVENTS" ( "userId" );
 CREATE INDEX IF NOT EXISTS "ZZEVENTS_v" ON "ZZEVENTS" ( "v" );
 CREATE INDEX IF NOT EXISTS "ZZEVENTS_maxLife" ON "ZZEVENTS" ( "maxLife" ) WHERE "maxLife" > 0;
-
-Cette table a une portée plus générique que le suivi des formulaires et a pour objet d'enregistrer des événements / processus génériques pour un utilisateur U tous services et organisations confondus.
-
-Opérations supportées:
-- **création par une opération**. Toutes les propriétés sont citées, toutefois:
-  - `chk` n'est pas fourni mais calculé.
-  - `lv` est égal à `v` ou 0.
-  - `comment` est facultatif (absent à la création par un _tiers_).
-- **resynchronisation**. Demandée par une opération pour mettre à jour `status detail v`.
-  - la fourniture de la sérialisation de `[id type userId svc org]` permet de la confronter avec `chk` à titre de vérification que l'opération est bien licite.
-- **mise à jour par U**. Mise à jour de `lv` et / ou `comment`.
-  - la fourniture de la sérialisation de `[id type userId svc org]` permet de la confronter avec `chk` à titre de vérification que l'opération est bien licite.
-- **purge**:
-  - soit explicite (sérialisation de `[id type userId svc org]` fournie pour vérification).
-  - soit par scan périodique sur `maxLife`.
 */

@@ -354,11 +354,11 @@ export class AuthRecord {
     }
   }
 
-  getCred(docCl: string, docId: string, noex?: boolean) : $Cred {
-    const cr = this.creds.get(docCl + '/' + (docId || ''))
+  getCred(docCl: string, docPk: string, noex?: boolean) : $Cred {
+    const cr = this.creds.get(docCl + '/' + docPk)
     if (cr) return cr
     if (noex) return null
-    throw new AppExc(103, 'missing_credential', this.op, [this.org, docCl, docId || ''])
+    throw new AppExc(103, 'missing_credential', this.op, [this.org, docCl, docPk])
   }
 
   async process () : Promise<void> {

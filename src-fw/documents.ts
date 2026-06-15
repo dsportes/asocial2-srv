@@ -8,7 +8,7 @@ import { Registry } from './config'
 import { DocType, FormType } from './doctypes'
 import { config } from '../src-fw/config'
 import { keyFromB64 } from './b64'
-import { MDOperation, MDEvent } from '../src-fw/masterdir'
+import { MDOperation } from '../src-fw/masterdir'
 // import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
@@ -237,20 +237,13 @@ export type $FormObj = {
   v: number  //  version du document (_epoch_).
   maxLife: number //  EPOCH en MINUTES de suppression automatique du formulaire.
   status: number // de 1 à 4.
-  etc: Object | null  // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
-  etcB: Object | null  // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
+  etcU: Object | null  // objet de structure spécifique du type. Saisi par U
+  etcT: Object | null  // saisi par T
   msgU: Uint8Array | null  // message écrit par U.
   msgT: Uint8Array | null  // message écrit par le tiers.
 
-  /* liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là:
-  [ docCl1/docPk1 ... ]
-  La liste dépende la valeur de etc : depuis la liste template [ docCl1/$x ... ]
-  $x est remplacé par la valeur de etc.$x
-  */
-  creds?: string[]
   comment?: Uint8Array | null // commentaire écrit et crypté par U.
   ch?: string // challenge random de synchronisation initiale avec MDEvent
-  lv?: number // lastView par U
 }
 
 /*
@@ -269,10 +262,11 @@ export class $Form extends Document {
   msgU: Uint8Array | null = null // message écrit par U.
   msgT: Uint8Array | null = null // message écrit par le tiers.
 
-  creds: string[] = [] // liste des credentials permettant à un tiers d'agir quand il possède l'un de ceux-là: `[ docCl1/docPk1 ... ]`.
+  /* Propriétés reçues à la création par U ou T et à mettre à jour dans MDEvent
+  par MDEventFull - supprimées de $Form à ce moment
+  */
   comment?: Uint8Array | null = null // commentaire écrit et crypté par U.
   ch?: string = '' // challenge random de synchronisation initiale avec MDEvent
-  lv?: number = 0 // lastView par U
 
   /* Surchargé par type:
   retourne un objet "résumé" de etc à faire figurer dans MDEvents
@@ -284,31 +278,27 @@ export class $Form extends Document {
   */
   async validate (op: Operation) : Promise<number> { return 0 }
 
-  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
-  static lp2 = ['type', 'userId', 'v', 'maxLife', 'status', 'comment', 'lv' ]
+  // Utilisé sur opération getForm et liste filtrée
+  static new (obj) : $Form {
+    const f = Registry.newD('$Form', obj)
+    for (const p of $Form.lp1) f[p] = obj[p]
+    return f
+  }
 
+  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
+
+  // Utilisé pae newDoc dans les 2 opérations de create
   constructor (obj?: $FormObj) {
     super()
     if (obj) for (const p of $Form.lp1) this[p] = obj[p]
     if (obj.comment) this.comment = obj.comment
-    if (obj.creds) this.creds = obj.creds
     if (obj.ch) this.ch = obj.ch
-    if (obj.lv) this.lv = obj.lv
   }
 
   toFormObj () : $FormObj {
     const obj = {}
     for (const p of $Form.lp1) obj[p] = this[p]
     return obj as $FormObj
-  }
-
-  toEvObj () : MDEvent {
-    // @ts-expect-error
-    const obj: MDEvent = {}
-    for (const p of $Form.lp2) obj[p] = this[p]
-    obj['eventId'] = this.formId
-    obj['detail'] = this.getDetail()
-    return obj
   }
 
   chk (op: OperationWC) { 
@@ -364,7 +354,7 @@ export class $Form extends Document {
   }
 
   // Calcul this.creds depuis le template du type et les arguments $x dans etc
-  setCreds () {
+  getCreds () : string[] {
     const etc = this.status === 1 ? this.etcU : this.etcT
     const creds = []
     for(const c of this.ft.creds) {
@@ -375,17 +365,19 @@ export class $Form extends Document {
         creds.push(c.replace(arg, val))
       } else creds.push(c)
     }
-    this.creds = creds
+    return creds
   }
 
-  // vérifie si le tiers est habilité
+  // vérifie si le tiers / user qui a invoqué l'opération est habilité à lire le document
   checkAuthTP (op: Operation) : boolean {
-    const t = this.ft.creds
-    if (t && t.length === 1 && t[0] === 'A')
+    if (op.authRecord.userId === this.userId) return true
+    const creds = this.getCreds()
+    if (!creds.length) return false
+    if (creds.length === 1 && creds[0] === 'A')
       return op.authRecord.isAdmin
-    for (const c of this.creds) {
+    for (const c of creds) {
       const x = c.split('/')
-      const cred = op.getCred(x[0], x[1] || '1')
+      const cred = op.getCred(x[0], x[1])
       if (cred) return true
     }
     return false
@@ -399,11 +391,13 @@ export class $Form extends Document {
     await op.db.selectDocs('$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
       async (bin) => {
       const obj = decode(bin) as $FormObj
-      const f = Registry.newD('$Form', obj) as $Form
+      const f = $Form.new(obj)
       if (!f.isOld) {
-        await f.decryptMsgT(op)
-        await f.decryptMsgU(op)
-        l.push(f.toFormObj())
+        if (f.checkAuthTP(op)) {
+          await f.decryptMsgT(op)
+          await f.decryptMsgU(op)
+          l.push(f.toFormObj())
+        }
       }
     })
     return l

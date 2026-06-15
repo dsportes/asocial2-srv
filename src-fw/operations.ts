@@ -448,22 +448,22 @@ Le user est authentifié et doit avoir présenté son credential:
 class AutoRevokeCred extends Operation {
   _credId: string
   _docCl: string
-  _docId: string 
+  _docPk: string 
   init () {
     super.init()
     this._credId = this.stringValue('credId', true)
     this._docCl = this.stringValue('docCl', true)
-    this._docId = this.stringValue('docId', true)
+    this._docPk = this.stringValue('docPk', true)
   }
   async phase2 () {
     // this.requireAdmin()
     this.requireAuth()
-    const cred = this.authRecord.getCred(this._docCl, this._docId, true)
+    const cred = this.authRecord.getCred(this._docCl, this._docPk, true)
     if (!cred || cred.credId !== this._credId)
-      throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docId])
+      throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docPk])
     const dt = DocType.get(this._docCl)
     if (dt.embedCreds) {
-      const d = await this.cache.getDoc(this._docCl, { docId: this._docId })
+      const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
       const x = d['creds']
       if (x) delete x[this._credId]
     } else {
@@ -532,9 +532,19 @@ class MDEventFull extends Operation {
     const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
     if (f && f.ch === this._ch) {
       f.setMaxLife()
+      const x = { 
+        v: f.v, 
+        maxLife: f.maxLife, 
+        status: f.status, 
+        detail: f.getDetail(),
+        comment: f.comment,
+        lv: f.status === 1 ? f.v : 0
+      } as MDEventS
+      this.setRes('mdsync', x)
       delete f.ch
+      delete f.comment
+      delete f.lv
       f._status = DocStatus.UPD
-      this.setRes('mdevent', f.toEvObj())
     }
   }
 }
@@ -557,7 +567,12 @@ class MDEventSync extends Operation {
   async phase2 () {
     const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
     if (f && f.chk(this) === this._chk && !f.isOld) {
-      const x = { v: f.v, maxLife: f.maxLife, status: f.status, detail: f.getDetail() } as MDEventS
+      const x = { 
+        v: f.v, 
+        maxLife: f.maxLife, 
+        status: f.status, 
+        detail: f.getDetail() 
+      } as MDEventS
       this.setRes('mdsync', x)
     }
   }
@@ -584,7 +599,6 @@ class FormCreateByU extends Operation {
     f = this.cache.newDoc('$Form', this._formObj) as $Form
     if (this.authRecord.userId !== f.userId)
       { this.setRes('status', 2); return }
-    f.setCreds()
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.lv = this.now
     f.status = 1
@@ -614,7 +628,6 @@ class FormCreateByT extends Operation {
     f = this.cache.newDoc('$Form', this._formObj) as $Form
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
-    f.setCreds()
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.lv = this.now
     f.status = 1
@@ -652,7 +665,6 @@ class FormUpdByU extends Operation {
     f.etcU = this._etcU
     f.status = this._status
     f.msgU = this._msgU
-    f.setCreds()
     f.setMaxLife()
     f._status = DocStatus.UPD
     this.setRes('status', 0)
@@ -681,14 +693,13 @@ class FormUpdByT extends Operation {
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
-    if (!f.checkAuthTP(this))
-      { this.setRes('status', 2); return }
     if (f.status > 2 ) { this.setRes('status', 3); return }
     f.etcT = this._etcT
     f.status = this._status
     f.msgT = this._msgT
+    if (!f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
     await f.cryptMsgT(this)
-    f.setCreds()
     f.setMaxLife()
     f._status = DocStatus.UPD
     this.setRes('status', 0)
@@ -766,7 +777,7 @@ class FormGet extends Operation {
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
-    if (this.authRecord.userId !== f.userId && !f.checkAuthTP(this))
+    if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     await f.decryptMsgU(this)
     await f.decryptMsgT(this)
