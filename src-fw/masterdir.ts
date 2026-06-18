@@ -616,7 +616,11 @@ class $mdEventList extends MDOperation {
     const userId = this.args['userId'] as string
     const datas = await this.db.mdEventList(userId) as Uint8Array[]
     const lst = []
-    for(const data of datas) lst.push(decode(data) as MDEvent)
+    const now = Date.now()
+    for(const data of datas) {
+      const e = decode(data) as MDEvent
+      if (e.maxLife * 1000 > now) lst.push(e)
+    }
     this.setRes('mdevents', lst)
   }
 }
