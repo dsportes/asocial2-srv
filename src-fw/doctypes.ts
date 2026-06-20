@@ -258,10 +258,11 @@ export class FormType {
   static refClasses$ : Set<string> = new Set()
 
   type: string
+  categ: string
   key: string
   creds: string[]
 
-  constructor (type: string, key: string, creds: string[]) {
+  constructor (type: string, categ: string, key: string, creds: string[]) {
     this.type = type
     this.key = key
     this.creds = creds

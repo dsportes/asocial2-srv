@@ -64,12 +64,12 @@ new DocType(
   null
 )
 
-new FormType('default', 'k1', ['A'])
-new FormType('membrecodir', 'k1', ['A'])
-new FormType('membreredaction', 'k1', ['A'])
-new FormType('auteur', 'k2', ['Readction/1'])
+new FormType('default', 'ad', 'k1', ['A'])
+new FormType('membrecodir', 'ad', 'k1', ['A'])
+new FormType('membreredaction', 'c1', 'k1', ['A'])
+new FormType('auteur', 'auteurs', 'k2', ['Readction/1'])
 // Un Auteur peut aussi nommer un co-auteur
-new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
+new FormType('coauteur', 'auteurs', 'k2', ['Readction/1', 'Auteur/$1'])
 
 new DocType(
   { name: 'Article', sync: true, pk: ['artid'] }, //header
