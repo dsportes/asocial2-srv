@@ -47,7 +47,7 @@ new DocType(
 )
 
 new DocType(
-  { name: 'Readaction', virtual: true, manager: true },
+  { name: 'Redaction', virtual: true, manager: true },
   null,
   null
 )
@@ -64,7 +64,6 @@ new DocType(
   null
 )
 
-new FormType('default', 'ad', 'k1', ['A'])
 new FormType('membrecodir', 'ad', 'k1', ['A'])
 new FormType('membreredaction', 'c1', 'k1', ['A'])
 new FormType('auteur', 'auteurs', 'k2', ['Readction/1'])

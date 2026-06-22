@@ -17184,3 +17184,48 @@ BEGIN
 2026-06-11T14:46:05.720Z info: $TrustDevice finished
 2026-06-11T14:46:27.864Z info: $OpenSafeByPin finished
 2026-06-11T14:46:27.905Z info: $GetSafe finished
+2026-06-22T16:00:21.900Z info: 10 document Registry
+2026-06-22T16:00:21.903Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-06-22T16:00:21.904Z info: Firestore connector
+2026-06-22T16:00:21.904Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-06-22T16:00:22.007Z info: Reloading orgs-topics config OK
+2026-06-22T16:00:22.013Z info: HTTP listen [8080]
+2026-06-22T16:00:38.366Z info: $OpenSafeByPin finished
+2026-06-22T16:00:38.409Z info: $GetSafe finished
+2026-06-22T16:00:50.982Z info: $mdEventList finished
+2026-06-22T16:02:25.835Z info: $OpenSafeByPin finished
+2026-06-22T16:02:25.882Z info: $GetSafe finished
+2026-06-22T16:02:31.340Z info: $mdEventList finished
+2026-06-22T16:03:58.980Z info: $mdEventList finished
+2026-06-22T16:04:13.819Z info: $OpenSafeByPin finished
+2026-06-22T16:04:13.865Z info: $GetSafe finished
+2026-06-22T16:04:17.896Z info: $mdEventList finished
+2026-06-22T16:06:41.591Z info: $OpenSafeByPin finished
+2026-06-22T16:06:41.627Z info: $GetSafe finished
+2026-06-22T16:06:46.271Z info: $mdEventList finished
+2026-06-22T16:08:31.791Z info: $mdEventList finished
+2026-06-22T16:08:59.611Z info: $mdEventList finished
+2026-06-22T16:18:47.802Z info: $mdEventList finished
+2026-06-22T16:23:10.422Z info: $OpenSafeByPin finished
+2026-06-22T16:23:10.467Z info: $GetSafe finished
+2026-06-22T16:24:03.002Z info: $mdEventList finished
+2026-06-22T16:28:35.494Z info: $mdEventList finished
+2026-06-22T16:31:39.182Z info: $OpenSafeByPin finished
+2026-06-22T16:31:39.219Z info: $GetSafe finished
+2026-06-22T16:31:46.830Z info: $mdEventList finished
+2026-06-22T16:33:46.865Z info: $OpenSafeByPin finished
+2026-06-22T16:33:46.908Z info: $GetSafe finished
+2026-06-22T16:33:50.580Z info: $mdEventList finished
+2026-06-22T16:36:39.889Z info: $OpenSafeByPin finished
+2026-06-22T16:36:39.931Z info: $GetSafe finished
+2026-06-22T16:36:47.800Z info: $mdEventList finished
+2026-06-22T16:44:17.588Z info: $OpenSafeByPin finished
+2026-06-22T16:44:17.630Z info: $GetSafe finished
+2026-06-22T16:44:21.994Z info: $mdEventList finished
+2026-06-22T17:05:37.564Z info: $OpenSafeByPin finished
+2026-06-22T17:05:37.610Z info: $GetSafe finished
+2026-06-22T17:05:47.073Z info: $mdEventList finished
+2026-06-22T17:15:41.138Z info: $OpenSafeByPin finished
+2026-06-22T17:15:41.214Z info: $GetSafe finished
+2026-06-22T17:15:45.488Z info: $mdEventList finished
+2026-06-22T17:16:25.490Z info: $GetOrgSvcs finished
