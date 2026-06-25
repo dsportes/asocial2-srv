@@ -242,7 +242,6 @@ export type $FormObj = {
   msgU: Uint8Array | null  // message écrit par U.
   msgT: Uint8Array | null  // message écrit par le tiers.
 
-  comment?: Uint8Array | null // commentaire écrit et crypté par U.
   ch?: string // challenge random de synchronisation initiale avec MDEvent
 }
 
@@ -265,14 +264,14 @@ export class $Form extends $Document {
   /* Propriétés reçues à la création par U ou T et à mettre à jour dans MDEvent
   par MDEventFull - supprimées de $Form à ce moment
   */
-  comment?: Uint8Array | null = null // commentaire écrit et crypté par U.
   ch?: string = '' // challenge random de synchronisation initiale avec MDEvent
-  lv?: number = 0 // lasViewed version
+  creds?: string[]
 
   /* Surchargé par type:
-  retourne un objet "résumé" de etc à faire figurer dans MDEvents
+  retourne un string[] "résumé" de etc à faire figurer dans MDEvents
+  le premier terme est le code de d'un i18N
   */
-  getDetail () { return {} }
+  getDetail () : string[] { return [] }
 
   /* Traitement final: surchargé par type :Retourne un statut de validation,
   - 0 si OK, N > 10 selon la cause d'échec
@@ -288,12 +287,13 @@ export class $Form extends $Document {
 
   static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
 
-  // Utilisé pae newDoc dans les 2 opérations de create
+  // Utilisé par newDoc dans les 2 opérations de create
   constructor (obj?: $FormObj) {
     super()
-    if (obj) for (const p of $Form.lp1) this[p] = obj[p]
-    if (obj.comment) this.comment = obj.comment
-    if (obj.ch) this.ch = obj.ch
+    if (obj) {
+      for (const p of $Form.lp1) this[p] = obj[p]
+      if (obj.ch) this.ch = obj.ch
+    }
   }
 
   toFormObj () : $FormObj {
@@ -366,13 +366,14 @@ export class $Form extends $Document {
         creds.push(c.replace(arg, val))
       } else creds.push(c)
     }
+    this.creds = creds
     return creds
   }
 
   // vérifie si le tiers / user qui a invoqué l'opération est habilité à lire le document
   checkAuthTP (op: Operation) : boolean {
-    if (op.authRecord.userId === this.userId) return true
     const creds = this.getCreds()
+    if (op.authRecord.userId === this.userId) return true
     if (!creds.length) return false
     if (creds.length === 1 && creds[0] === 'A')
       return op.authRecord.isAdmin

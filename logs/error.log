@@ -393,3 +393,17 @@ BEGIN
 2026-06-11T12:32:14.761Z error: AppExc: 105:service_unexpected_exception["Cannot set property pk of #<Document> which has only a getter"]
 2026-06-11T13:36:39.334Z error: SetStatus$ : 2026-06-11T13:36:18.131Z : SqliteError: near "def": syntax error
 2026-06-11T13:36:39.338Z error: AppExc: 105:service_unexpected_exception["near \"def\": syntax error"]
+2026-06-25T12:36:38.314Z error: getCKey$ : 2026-06-25T12:36:38.302Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-06-25T12:36:38.378Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-06-25T13:04:17.636Z error: FormCreateByU : 2026-06-25T13:04:00.973Z : TypeError: Cannot read properties of undefined (reading 'comment')
+2026-06-25T13:04:17.640Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'comment')"]
+2026-06-25T13:23:49.075Z error: FormCreateByU : 2026-06-25T13:23:00.942Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:23:49.081Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T13:38:41.423Z error: FormCreateByU : 2026-06-25T13:38:41.390Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:38:41.492Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T13:48:09.753Z error: FormCreateByU : 2026-06-25T13:47:31.681Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:48:09.756Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T14:17:42.542Z error: AppExc: 105:masterdir_unexpected_exception["no such table: ZZCASES"]
+2026-06-25T14:28:22.546Z error: AppExc: 105:masterdir_unexpected_exception["table ZZEVENTS has no column named ttl"]
+2026-06-25T16:10:14.620Z error: AppExc: 105:masterdir_unexpected_exception["near \"UDATE\": syntax error"]
+2026-06-25T16:19:07.735Z error: AppExc: 105:masterdir_unexpected_exception["near \")\": syntax error"]

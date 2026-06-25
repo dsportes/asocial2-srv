@@ -14,7 +14,7 @@ import { Util } from '../src-fw/util'
 import path from 'path'
 import { existsSync } from 'node:fs'
 import { writeFileSync } from 'node:fs'
-import { MDEvent } from '../src-fw/masterdir'
+// import { MDEventS, MDEventU } from '../src-fw/masterdir'
 
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
@@ -357,11 +357,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async mdEventNew (row: EventRow) : Promise<void> {
-    let stmt = this.sql.prepare('SELECT eventId FROM ZZCASES WHERE eventId = @eventId')
+    let stmt = this.sql.prepare('SELECT eventId FROM ZZEVENTS WHERE eventId = @eventId')
     let r = stmt.get( { eventId: row.eventId } )
     if (r) return
-    stmt = this.sql.prepare('INSERT INTO ZZEVENTS (eventId, userId, v, ttl, data)' +
-      ' VALUES ( @eventId, @userId, @v, @ttl, @data )')
+    stmt = this.sql.prepare('INSERT INTO ZZEVENTS (eventId, userId, v, maxLife, data)' +
+      ' VALUES ( @eventId, @userId, @v, @maxLife, @data )')
     stmt.run({ eventId: row.eventId, userId: row.userId, v: row.v, maxLife: row.maxLife, data: row.data })
   }
 
@@ -372,7 +372,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   async mdEventSet (row: EventRow ) : Promise<void> {
-    const stmt = this.sql.prepare('UDATE ZZEVENTS SET v = @v, maxLife = @maxLife, data = @data )' +
+    const stmt = this.sql.prepare('UPDATE ZZEVENTS SET v = @v, maxLife = @maxLife, data = @data' +
       ' WHERE eventId = @eventId')
     stmt.run(row)
   }

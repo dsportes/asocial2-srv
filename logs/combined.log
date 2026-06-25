@@ -17229,3 +17229,395 @@ BEGIN
 2026-06-22T17:15:41.214Z info: $GetSafe finished
 2026-06-22T17:15:45.488Z info: $mdEventList finished
 2026-06-22T17:16:25.490Z info: $GetOrgSvcs finished
+2026-06-25T11:54:21.515Z info: 10 document Registry
+2026-06-25T11:54:21.519Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T11:54:21.524Z info: Firestore connector
+2026-06-25T11:54:21.525Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T11:54:21.571Z info: Reloading orgs-topics config OK
+2026-06-25T11:54:21.583Z info: HTTP listen [8080]
+2026-06-25T11:56:46.003Z info: $mdAliasFree finished
+2026-06-25T11:57:10.556Z info: $mdUserNew finished
+2026-06-25T11:57:10.617Z info: $CreateSafe finished
+2026-06-25T11:57:13.270Z info: $mdEventList finished
+2026-06-25T11:57:43.401Z info: $TrustDevice finished
+2026-06-25T12:01:57.979Z info: $mdEventList finished
+2026-06-25T12:02:10.849Z info: $GetOrgSvcs finished
+2026-06-25T12:08:52.573Z info: $OpenSafeByPin finished
+2026-06-25T12:08:52.743Z info: $GetSafe finished
+2026-06-25T12:08:56.590Z info: $mdEventList finished
+2026-06-25T12:09:07.455Z info: $GetOrgSvcs finished
+2026-06-25T12:12:16.335Z info: $OpenSafeByPin finished
+2026-06-25T12:12:16.453Z info: $GetSafe finished
+2026-06-25T12:12:21.640Z info: $mdEventList finished
+2026-06-25T12:12:43.930Z info: $GetOrgSvcs finished
+2026-06-25T12:16:18.554Z info: $OpenSafeByPin finished
+2026-06-25T12:16:18.672Z info: $GetSafe finished
+2026-06-25T12:16:22.543Z info: $mdEventList finished
+2026-06-25T12:16:38.331Z info: $GetOrgSvcs finished
+2026-06-25T12:18:43.607Z info: $GetSvcUrls finished
+2026-06-25T12:18:54.877Z info: getCKey$ : 2026-06-25T12:18:54.876Z
+2026-06-25T12:18:54.880Z info: AppExc: 103:missing_argument["name"]
+2026-06-25T12:18:54.882Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["name"]
+2026-06-25T12:18:54.883Z info: getCKey$ terminated on exception
+2026-06-25T12:18:54.940Z info: Reloading orgs-topics config OK
+2026-06-25T12:21:17.327Z info: $OpenSafeByPin finished
+2026-06-25T12:21:26.338Z info: $OpenSafeByPin finished
+2026-06-25T12:21:26.443Z info: $GetSafe finished
+2026-06-25T12:21:37.010Z info: $mdEventList finished
+2026-06-25T12:21:49.951Z info: $GetOrgSvcs finished
+2026-06-25T12:23:34.540Z info: $GetSvcUrls finished
+2026-06-25T12:24:04.391Z info: getCKey$ : 2026-06-25T12:24:04.390Z
+2026-06-25T12:24:04.392Z info: AppExc: 103:missing_argument["name"]
+2026-06-25T12:24:04.405Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["name"]
+2026-06-25T12:24:04.406Z info: getCKey$ terminated on exception
+2026-06-25T12:24:04.443Z info: Reloading orgs-topics config OK
+2026-06-25T12:24:18.625Z info: $OpenSafeByPin finished
+2026-06-25T12:24:18.774Z info: $GetSafe finished
+2026-06-25T12:27:05.943Z info: $mdEventList finished
+2026-06-25T12:27:19.697Z info: $GetOrgSvcs finished
+2026-06-25T12:33:21.535Z info: $GetSvcUrls finished
+2026-06-25T12:33:21.598Z info: getCKey$ : 2026-06-25T12:33:21.597Z
+2026-06-25T12:33:21.599Z info: AppExc: 103:missing_argument["name"]
+2026-06-25T12:33:21.600Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["name"]
+2026-06-25T12:33:21.601Z info: getCKey$ terminated on exception
+2026-06-25T12:33:21.653Z info: Reloading orgs-topics config OK
+2026-06-25T12:34:52.332Z info: 10 document Registry
+2026-06-25T12:34:52.337Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T12:34:52.338Z info: Firestore connector
+2026-06-25T12:34:52.340Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T12:34:52.363Z info: Reloading orgs-topics config OK
+2026-06-25T12:34:52.372Z info: HTTP listen [8080]
+2026-06-25T12:35:27.688Z info: $mdEventList finished
+2026-06-25T12:35:45.817Z info: $OpenSafeByPin finished
+2026-06-25T12:35:45.943Z info: $GetSafe finished
+2026-06-25T12:35:49.842Z info: $mdEventList finished
+2026-06-25T12:36:01.427Z info: $GetOrgSvcs finished
+2026-06-25T12:36:38.243Z info: $GetSvcUrls finished
+2026-06-25T12:36:38.304Z info: getCKey$ : 2026-06-25T12:36:38.302Z
+2026-06-25T12:36:38.314Z error: getCKey$ : 2026-06-25T12:36:38.302Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-06-25T12:36:38.316Z info: getCKey$ terminated on exception
+2026-06-25T12:36:38.378Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-06-25T12:53:02.744Z info: 10 document Registry
+2026-06-25T12:53:02.748Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T12:53:02.749Z info: Firestore connector
+2026-06-25T12:53:02.750Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T12:53:02.771Z info: Reloading orgs-topics config OK
+2026-06-25T12:53:02.781Z info: HTTP listen [8080]
+2026-06-25T12:53:32.674Z info: $OpenSafeByPin finished
+2026-06-25T12:53:32.777Z info: $GetSafe finished
+2026-06-25T12:53:37.005Z info: $mdEventList finished
+2026-06-25T12:53:48.203Z info: $GetOrgSvcs finished
+2026-06-25T12:54:32.146Z info: $GetSvcUrls finished
+2026-06-25T12:54:32.224Z info: getCKey$ : 2026-06-25T12:54:32.224Z
+2026-06-25T12:54:32.238Z info: getCKey$ finished
+2026-06-25T12:57:51.248Z info: $mdEventList finished
+2026-06-25T12:58:21.262Z info: $OpenSafeByPin finished
+2026-06-25T12:58:21.395Z info: $GetSafe finished
+2026-06-25T12:58:26.673Z info: $mdEventList finished
+2026-06-25T12:58:39.464Z info: $GetOrgSvcs finished
+2026-06-25T12:59:12.475Z info: $GetSvcUrls finished
+2026-06-25T12:59:12.517Z info: getCKey$ : 2026-06-25T12:59:12.516Z
+2026-06-25T12:59:12.547Z info: getCKey$ finished
+2026-06-25T12:59:12.577Z info: Reloading orgs-topics config OK
+2026-06-25T12:59:31.693Z info: FormCreateByU : 2026-06-25T12:59:31.687Z
+2026-06-25T13:01:37.699Z info: 10 document Registry
+2026-06-25T13:01:37.703Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:01:37.704Z info: Firestore connector
+2026-06-25T13:01:37.706Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:01:37.732Z info: Reloading orgs-topics config OK
+2026-06-25T13:01:37.740Z info: HTTP listen [8080]
+2026-06-25T13:02:00.402Z info: $OpenSafeByPin finished
+2026-06-25T13:02:00.495Z info: $GetSafe finished
+2026-06-25T13:02:04.163Z info: $mdEventList finished
+2026-06-25T13:02:14.164Z info: $GetOrgSvcs finished
+2026-06-25T13:02:46.576Z info: $GetSvcUrls finished
+2026-06-25T13:02:46.631Z info: getCKey$ : 2026-06-25T13:02:46.629Z
+2026-06-25T13:02:46.639Z info: getCKey$ finished
+2026-06-25T13:04:00.975Z info: FormCreateByU : 2026-06-25T13:04:00.973Z
+2026-06-25T13:04:17.636Z error: FormCreateByU : 2026-06-25T13:04:00.973Z : TypeError: Cannot read properties of undefined (reading 'comment')
+2026-06-25T13:04:17.638Z info: FormCreateByU terminated on exception
+2026-06-25T13:04:17.640Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'comment')"]
+2026-06-25T13:04:17.823Z info: $mdEventList finished
+2026-06-25T13:09:41.608Z info: FormCreateByU : 2026-06-25T13:09:41.608Z
+2026-06-25T13:15:40.304Z info: 10 document Registry
+2026-06-25T13:15:40.311Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:15:40.315Z info: Firestore connector
+2026-06-25T13:15:40.319Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:15:40.364Z info: Reloading orgs-topics config OK
+2026-06-25T13:15:40.378Z info: HTTP listen [8080]
+2026-06-25T13:15:55.570Z info: $OpenSafeByPin finished
+2026-06-25T13:15:55.739Z info: $GetSafe finished
+2026-06-25T13:15:59.204Z info: $mdEventList finished
+2026-06-25T13:16:09.726Z info: $GetOrgSvcs finished
+2026-06-25T13:16:35.982Z info: $GetSvcUrls finished
+2026-06-25T13:16:36.059Z info: getCKey$ : 2026-06-25T13:16:36.058Z
+2026-06-25T13:16:50.089Z info: getCKey$ finished
+2026-06-25T13:17:35.803Z info: FormCreateByU : 2026-06-25T13:17:35.802Z
+2026-06-25T13:21:29.736Z info: 10 document Registry
+2026-06-25T13:21:29.740Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:21:29.741Z info: Firestore connector
+2026-06-25T13:21:29.743Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:21:29.765Z info: Reloading orgs-topics config OK
+2026-06-25T13:21:29.775Z info: HTTP listen [8080]
+2026-06-25T13:21:33.146Z info: $mdEventList finished
+2026-06-25T13:21:48.826Z info: $OpenSafeByPin finished
+2026-06-25T13:21:48.938Z info: $GetSafe finished
+2026-06-25T13:21:53.016Z info: $mdEventList finished
+2026-06-25T13:22:02.846Z info: $GetOrgSvcs finished
+2026-06-25T13:22:31.082Z info: $GetSvcUrls finished
+2026-06-25T13:22:31.160Z info: getCKey$ : 2026-06-25T13:22:31.160Z
+2026-06-25T13:22:31.173Z info: getCKey$ finished
+2026-06-25T13:23:00.943Z info: FormCreateByU : 2026-06-25T13:23:00.942Z
+2026-06-25T13:23:49.075Z error: FormCreateByU : 2026-06-25T13:23:00.942Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:23:49.080Z info: FormCreateByU terminated on exception
+2026-06-25T13:23:49.081Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T13:23:49.288Z info: $mdEventList finished
+2026-06-25T13:37:41.869Z info: 10 document Registry
+2026-06-25T13:37:41.874Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:37:41.875Z info: Firestore connector
+2026-06-25T13:37:41.877Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:37:41.911Z info: Reloading orgs-topics config OK
+2026-06-25T13:37:41.922Z info: HTTP listen [8080]
+2026-06-25T13:38:41.393Z info: FormCreateByU : 2026-06-25T13:38:41.390Z
+2026-06-25T13:38:41.423Z error: FormCreateByU : 2026-06-25T13:38:41.390Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:38:41.429Z info: FormCreateByU terminated on exception
+2026-06-25T13:38:41.492Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T13:38:41.805Z info: $mdEventList finished
+2026-06-25T13:45:54.371Z info: 10 document Registry
+2026-06-25T13:45:54.375Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:45:54.377Z info: Firestore connector
+2026-06-25T13:45:54.378Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:45:54.399Z info: Reloading orgs-topics config OK
+2026-06-25T13:45:54.407Z info: HTTP listen [8080]
+2026-06-25T13:46:32.761Z info: $OpenSafeByPin finished
+2026-06-25T13:46:32.937Z info: $GetSafe finished
+2026-06-25T13:46:38.066Z info: $mdEventList finished
+2026-06-25T13:46:51.658Z info: $GetOrgSvcs finished
+2026-06-25T13:47:22.754Z info: $GetSvcUrls finished
+2026-06-25T13:47:22.813Z info: getCKey$ : 2026-06-25T13:47:22.813Z
+2026-06-25T13:47:22.830Z info: getCKey$ finished
+2026-06-25T13:47:31.681Z info: FormCreateByU : 2026-06-25T13:47:31.681Z
+2026-06-25T13:48:09.753Z error: FormCreateByU : 2026-06-25T13:47:31.681Z : RangeError: Missing named parameter "creds"
+2026-06-25T13:48:09.754Z info: FormCreateByU terminated on exception
+2026-06-25T13:48:09.756Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"creds\""]
+2026-06-25T13:48:09.957Z info: $mdEventList finished
+2026-06-25T13:50:49.174Z info: 10 document Registry
+2026-06-25T13:50:49.179Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T13:50:49.180Z info: Firestore connector
+2026-06-25T13:50:49.181Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T13:50:49.210Z info: Reloading orgs-topics config OK
+2026-06-25T13:50:49.220Z info: HTTP listen [8080]
+2026-06-25T13:51:39.784Z info: FormCreateByU : 2026-06-25T13:51:39.783Z
+2026-06-25T13:52:39.614Z info: FormCreateByU finished
+2026-06-25T14:00:46.350Z info: 10 document Registry
+2026-06-25T14:00:46.353Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T14:00:46.354Z info: Firestore connector
+2026-06-25T14:00:46.356Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T14:00:46.377Z info: Reloading orgs-topics config OK
+2026-06-25T14:00:46.387Z info: HTTP listen [8080]
+2026-06-25T14:01:25.228Z info: FormCreateByU : 2026-06-25T14:01:25.228Z
+2026-06-25T14:01:37.175Z info: FormCreateByU finished
+2026-06-25T14:13:57.415Z info: 10 document Registry
+2026-06-25T14:13:57.419Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T14:13:57.421Z info: Firestore connector
+2026-06-25T14:13:57.422Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T14:13:57.443Z info: Reloading orgs-topics config OK
+2026-06-25T14:13:57.454Z info: HTTP listen [8080]
+2026-06-25T14:14:06.226Z info: $OpenSafeByPin finished
+2026-06-25T14:14:06.320Z info: $GetSafe finished
+2026-06-25T14:14:16.092Z info: $mdEventList finished
+2026-06-25T14:14:36.447Z info: $GetOrgSvcs finished
+2026-06-25T14:15:21.867Z info: $GetSvcUrls finished
+2026-06-25T14:15:21.925Z info: getCKey$ : 2026-06-25T14:15:21.923Z
+2026-06-25T14:15:21.935Z info: getCKey$ finished
+2026-06-25T14:15:22.061Z info: FormCreateByU : 2026-06-25T14:15:22.061Z
+2026-06-25T14:15:22.108Z info: FormCreateByU finished
+2026-06-25T14:15:54.652Z info: MDEventFull : 2026-06-25T14:15:54.650Z
+2026-06-25T14:16:23.577Z info: MDEventFull finished
+2026-06-25T14:17:42.540Z info: $mdEventNew terminated on exception
+2026-06-25T14:17:42.542Z error: AppExc: 105:masterdir_unexpected_exception["no such table: ZZCASES"]
+2026-06-25T14:17:49.087Z info: $mdEventList finished
+2026-06-25T14:25:43.156Z info: 10 document Registry
+2026-06-25T14:25:43.161Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T14:25:43.162Z info: Firestore connector
+2026-06-25T14:25:43.163Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T14:25:43.192Z info: Reloading orgs-topics config OK
+2026-06-25T14:25:43.205Z info: HTTP listen [8080]
+2026-06-25T14:25:52.595Z info: $OpenSafeByPin finished
+2026-06-25T14:25:52.705Z info: $GetSafe finished
+2026-06-25T14:25:56.996Z info: $mdEventList finished
+2026-06-25T14:26:10.658Z info: $GetOrgSvcs finished
+2026-06-25T14:26:41.178Z info: $GetSvcUrls finished
+2026-06-25T14:26:41.210Z info: getCKey$ : 2026-06-25T14:26:41.210Z
+2026-06-25T14:26:41.224Z info: getCKey$ finished
+2026-06-25T14:26:41.328Z info: FormCreateByU : 2026-06-25T14:26:41.327Z
+2026-06-25T14:26:41.388Z info: FormCreateByU finished
+2026-06-25T14:27:08.317Z info: MDEventFull : 2026-06-25T14:27:08.317Z
+2026-06-25T14:27:26.837Z info: MDEventFull finished
+2026-06-25T14:28:22.543Z info: $mdEventNew terminated on exception
+2026-06-25T14:28:22.546Z error: AppExc: 105:masterdir_unexpected_exception["table ZZEVENTS has no column named ttl"]
+2026-06-25T14:28:40.767Z info: $mdEventList finished
+2026-06-25T14:31:34.318Z info: 10 document Registry
+2026-06-25T14:31:34.323Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T14:31:34.325Z info: Firestore connector
+2026-06-25T14:31:34.326Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T14:31:34.347Z info: Reloading orgs-topics config OK
+2026-06-25T14:31:34.355Z info: HTTP listen [8080]
+2026-06-25T14:32:14.187Z info: FormCreateByU : 2026-06-25T14:32:14.186Z
+2026-06-25T14:32:14.209Z info: FormCreateByU finished
+2026-06-25T14:32:17.811Z info: MDEventFull : 2026-06-25T14:32:17.811Z
+2026-06-25T14:32:17.826Z info: MDEventFull finished
+2026-06-25T14:32:42.035Z info: $mdEventNew finished
+2026-06-25T14:32:42.172Z info: $mdEventList finished
+2026-06-25T14:40:31.210Z info: 10 document Registry
+2026-06-25T14:40:31.213Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T14:40:31.214Z info: Firestore connector
+2026-06-25T14:40:31.216Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T14:40:31.239Z info: Reloading orgs-topics config OK
+2026-06-25T14:40:31.249Z info: HTTP listen [8080]
+2026-06-25T14:40:46.880Z info: $OpenSafeByPin finished
+2026-06-25T14:40:47.013Z info: $GetSafe finished
+2026-06-25T14:40:51.474Z info: $mdEventList finished
+2026-06-25T14:41:10.504Z info: $GetOrgSvcs finished
+2026-06-25T14:41:38.181Z info: $GetSvcUrls finished
+2026-06-25T14:41:38.232Z info: getCKey$ : 2026-06-25T14:41:38.231Z
+2026-06-25T14:41:38.244Z info: getCKey$ finished
+2026-06-25T14:41:38.329Z info: FormCreateByU : 2026-06-25T14:41:38.329Z
+2026-06-25T14:41:38.354Z info: FormCreateByU finished
+2026-06-25T14:41:38.577Z info: MDEventFull : 2026-06-25T14:41:38.577Z
+2026-06-25T14:41:38.591Z info: MDEventFull finished
+2026-06-25T14:41:43.619Z info: $mdEventNew finished
+2026-06-25T14:42:32.679Z info: $mdEventList finished
+2026-06-25T15:02:01.791Z info: $mdEventList finished
+2026-06-25T15:02:01.936Z info: $mdEventList finished
+2026-06-25T15:02:19.187Z info: $OpenSafeByPin finished
+2026-06-25T15:02:19.301Z info: $GetSafe finished
+2026-06-25T15:02:24.597Z info: $mdEventList finished
+2026-06-25T15:15:20.211Z info: $mdEventList finished
+2026-06-25T15:15:20.394Z info: $mdEventList finished
+2026-06-25T15:15:34.378Z info: $OpenSafeByPin finished
+2026-06-25T15:15:34.502Z info: $GetSafe finished
+2026-06-25T15:15:38.707Z info: $mdEventList finished
+2026-06-25T15:15:53.039Z info: $GetOrgSvcs finished
+2026-06-25T15:15:53.083Z info: $GetSvcUrls finished
+2026-06-25T15:15:53.135Z info: FormGet : 2026-06-25T15:15:53.134Z
+2026-06-25T15:15:53.140Z info: FormGet finished
+2026-06-25T15:15:53.188Z info: Reloading orgs-topics config OK
+2026-06-25T15:16:11.678Z info: getCKey$ : 2026-06-25T15:16:11.677Z
+2026-06-25T15:16:11.688Z info: getCKey$ finished
+2026-06-25T15:29:43.545Z info: $OpenSafeByPin finished
+2026-06-25T15:29:43.705Z info: $GetSafe finished
+2026-06-25T15:29:50.334Z info: $mdEventList finished
+2026-06-25T15:29:57.356Z info: $GetOrgSvcs finished
+2026-06-25T15:29:57.382Z info: $GetSvcUrls finished
+2026-06-25T15:29:57.433Z info: FormGet : 2026-06-25T15:29:57.433Z
+2026-06-25T15:29:57.439Z info: FormGet finished
+2026-06-25T15:29:57.475Z info: getCKey$ : 2026-06-25T15:29:57.475Z
+2026-06-25T15:29:57.490Z info: getCKey$ finished
+2026-06-25T15:29:57.498Z info: Reloading orgs-topics config OK
+2026-06-25T15:32:53.329Z info: $OpenSafeByPin finished
+2026-06-25T15:32:53.480Z info: $GetSafe finished
+2026-06-25T15:32:58.234Z info: $mdEventList finished
+2026-06-25T15:32:59.882Z info: $GetOrgSvcs finished
+2026-06-25T15:32:59.913Z info: $GetSvcUrls finished
+2026-06-25T15:32:59.967Z info: FormGet : 2026-06-25T15:32:59.966Z
+2026-06-25T15:32:59.975Z info: FormGet finished
+2026-06-25T15:33:00.032Z info: getCKey$ : 2026-06-25T15:33:00.031Z
+2026-06-25T15:33:00.058Z info: getCKey$ finished
+2026-06-25T15:36:37.954Z info: FormGet : 2026-06-25T15:36:37.952Z
+2026-06-25T15:36:37.959Z info: FormGet finished
+2026-06-25T15:36:38.013Z info: Reloading orgs-topics config OK
+2026-06-25T15:36:56.179Z info: $OpenSafeByPin finished
+2026-06-25T15:36:56.287Z info: $GetSafe finished
+2026-06-25T15:37:00.828Z info: $mdEventList finished
+2026-06-25T15:37:02.424Z info: $GetOrgSvcs finished
+2026-06-25T15:37:02.455Z info: $GetSvcUrls finished
+2026-06-25T15:37:02.501Z info: FormGet : 2026-06-25T15:37:02.501Z
+2026-06-25T15:37:02.510Z info: FormGet finished
+2026-06-25T15:37:02.543Z info: getCKey$ : 2026-06-25T15:37:02.543Z
+2026-06-25T15:37:02.554Z info: getCKey$ finished
+2026-06-25T15:43:38.721Z info: FormGet : 2026-06-25T15:43:38.721Z
+2026-06-25T15:43:38.726Z info: FormGet finished
+2026-06-25T15:43:38.774Z info: Reloading orgs-topics config OK
+2026-06-25T15:43:54.281Z info: $OpenSafeByPin finished
+2026-06-25T15:43:54.439Z info: $GetSafe finished
+2026-06-25T15:43:58.117Z info: $mdEventList finished
+2026-06-25T15:43:59.468Z info: $GetOrgSvcs finished
+2026-06-25T15:43:59.507Z info: $GetSvcUrls finished
+2026-06-25T15:43:59.615Z info: FormGet : 2026-06-25T15:43:59.615Z
+2026-06-25T15:43:59.635Z info: FormGet finished
+2026-06-25T15:43:59.703Z info: getCKey$ : 2026-06-25T15:43:59.703Z
+2026-06-25T15:43:59.711Z info: getCKey$ finished
+2026-06-25T15:47:58.221Z info: $OpenSafeByPin finished
+2026-06-25T15:47:58.318Z info: $GetSafe finished
+2026-06-25T15:48:03.551Z info: $mdEventList finished
+2026-06-25T15:48:05.096Z info: $GetOrgSvcs finished
+2026-06-25T15:48:05.122Z info: $GetSvcUrls finished
+2026-06-25T15:48:05.168Z info: FormGet : 2026-06-25T15:48:05.168Z
+2026-06-25T15:48:05.174Z info: FormGet finished
+2026-06-25T15:48:05.219Z info: getCKey$ : 2026-06-25T15:48:05.219Z
+2026-06-25T15:48:05.237Z info: getCKey$ finished
+2026-06-25T15:54:53.137Z info: $OpenSafeByPin finished
+2026-06-25T15:54:53.232Z info: $GetSafe finished
+2026-06-25T15:54:56.812Z info: $mdEventList finished
+2026-06-25T15:54:58.529Z info: $GetOrgSvcs finished
+2026-06-25T15:54:58.562Z info: $GetSvcUrls finished
+2026-06-25T15:54:58.606Z info: FormGet : 2026-06-25T15:54:58.606Z
+2026-06-25T15:54:58.615Z info: FormGet finished
+2026-06-25T15:54:58.643Z info: getCKey$ : 2026-06-25T15:54:58.643Z
+2026-06-25T15:54:58.648Z info: getCKey$ finished
+2026-06-25T15:54:58.659Z info: Reloading orgs-topics config OK
+2026-06-25T15:56:17.123Z info: $OpenSafeByPin finished
+2026-06-25T15:56:17.220Z info: $GetSafe finished
+2026-06-25T15:56:21.855Z info: $mdEventList finished
+2026-06-25T15:56:23.211Z info: $GetOrgSvcs finished
+2026-06-25T15:56:23.242Z info: $GetSvcUrls finished
+2026-06-25T15:56:23.287Z info: FormGet : 2026-06-25T15:56:23.287Z
+2026-06-25T15:56:23.292Z info: FormGet finished
+2026-06-25T15:56:23.320Z info: getCKey$ : 2026-06-25T15:56:23.319Z
+2026-06-25T15:56:23.329Z info: getCKey$ finished
+2026-06-25T16:08:06.349Z info: $OpenSafeByPin finished
+2026-06-25T16:08:06.481Z info: $GetSafe finished
+2026-06-25T16:08:11.084Z info: $mdEventList finished
+2026-06-25T16:08:13.542Z info: $GetOrgSvcs finished
+2026-06-25T16:08:13.588Z info: $GetSvcUrls finished
+2026-06-25T16:08:13.680Z info: FormGet : 2026-06-25T16:08:13.679Z
+2026-06-25T16:08:13.683Z info: FormGet finished
+2026-06-25T16:08:13.726Z info: getCKey$ : 2026-06-25T16:08:13.726Z
+2026-06-25T16:08:13.732Z info: getCKey$ finished
+2026-06-25T16:08:13.738Z info: Reloading orgs-topics config OK
+2026-06-25T16:10:14.614Z info: $mdEventUser terminated on exception
+2026-06-25T16:10:14.620Z error: AppExc: 105:masterdir_unexpected_exception["near \"UDATE\": syntax error"]
+2026-06-25T16:13:43.558Z info: 10 document Registry
+2026-06-25T16:13:43.563Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T16:13:43.565Z info: Firestore connector
+2026-06-25T16:13:43.567Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T16:13:43.597Z info: Reloading orgs-topics config OK
+2026-06-25T16:13:43.611Z info: HTTP listen [8080]
+2026-06-25T16:16:10.669Z info: $OpenSafeByPin finished
+2026-06-25T16:16:10.794Z info: $GetSafe finished
+2026-06-25T16:16:36.175Z info: $mdEventList finished
+2026-06-25T16:17:42.032Z info: $GetOrgSvcs finished
+2026-06-25T16:17:42.067Z info: $GetSvcUrls finished
+2026-06-25T16:17:42.141Z info: FormGet : 2026-06-25T16:17:42.141Z
+2026-06-25T16:17:42.153Z info: FormGet finished
+2026-06-25T16:17:42.186Z info: getCKey$ : 2026-06-25T16:17:42.185Z
+2026-06-25T16:17:42.196Z info: getCKey$ finished
+2026-06-25T16:19:07.724Z info: $mdEventUser terminated on exception
+2026-06-25T16:19:07.735Z error: AppExc: 105:masterdir_unexpected_exception["near \")\": syntax error"]
+2026-06-25T16:24:27.775Z info: 10 document Registry
+2026-06-25T16:24:27.780Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-25T16:24:27.781Z info: Firestore connector
+2026-06-25T16:24:27.783Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-25T16:24:27.805Z info: Reloading orgs-topics config OK
+2026-06-25T16:24:27.815Z info: HTTP listen [8080]
+2026-06-25T16:24:56.877Z info: $OpenSafeByPin finished
+2026-06-25T16:24:56.977Z info: $GetSafe finished
+2026-06-25T16:25:01.962Z info: $mdEventList finished
+2026-06-25T16:25:17.382Z info: $GetOrgSvcs finished
+2026-06-25T16:25:17.408Z info: $GetSvcUrls finished
+2026-06-25T16:25:17.491Z info: FormGet : 2026-06-25T16:25:17.490Z
+2026-06-25T16:25:17.507Z info: FormGet finished
+2026-06-25T16:25:17.545Z info: getCKey$ : 2026-06-25T16:25:17.545Z
+2026-06-25T16:25:17.560Z info: getCKey$ finished
+2026-06-25T16:25:59.304Z info: $mdEventUser finished

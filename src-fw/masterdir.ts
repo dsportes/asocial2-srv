@@ -5,6 +5,7 @@ import { Crypt } from './crypt'
 import { keyFromB64 } from './b64'
 import { config, Registry } from './config'
 import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from './iDbGeneric'
+import { isJsxOpeningFragment } from 'typescript'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Registry.sizeOp())
@@ -133,10 +134,11 @@ export class MDOperation implements AbstractOperation {
   async postSvcOp (svc: string, org: string, opName: string, args: any) 
     : Promise<any> {
     args.org = org
+    args.opName = opName
     let u = await this.getUrl(svc, org)
     if (!u) return null
     if (!u.endsWith('/')) u += '/'
-    const url = u + 'op/' + opName
+    const url = u + 'op/'
     const body = new Uint8Array(encode(args))
     try {
       const response = await fetch(url, {

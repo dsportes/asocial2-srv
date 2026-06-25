@@ -46,7 +46,7 @@ class getCKey$ extends Operation {
     this._name = this.stringValue('name', true, 0, 9)
   }
   async phase2 () {
-    const k = config.keys['DCKeys'][name]
+    const k = config.keys['DCKeys'][this._name]
     this.setRes('key', k ? k.pub : '')
   }
 }
@@ -564,7 +564,7 @@ class MDEventSync extends Operation {
     const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
     if (f && f.chk(this) === this._chk && !f.isOld) {
       const x = { 
-        v: f.v, 
+        v: this.now, 
         maxLife: f.maxLife, 
         status: f.status, 
         detail: f.getDetail() 
@@ -593,11 +593,11 @@ class FormCreateByU extends Operation {
     if (f) 
       { this.setRes('status', 1); return }
     f = this.cache.newDoc('$Form', this._formObj) as $Form
-    if (this.authRecord.userId !== f.userId)
-      { this.setRes('status', 2); return }
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.status = 1
     f.msgT = null
+    if (!f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
     this.setRes('status', 0)
   }
 }
@@ -621,13 +621,12 @@ class FormCreateByT extends Operation {
     if (f) 
       { this.setRes('status', 1); return }
     f = this.cache.newDoc('$Form', this._formObj) as $Form
-    if (!f.checkAuthTP(this))
-      { this.setRes('status', 2); return }
     f.maxLife = Math.floor(this.now / 1000) + 10
-    f.lv = this.now
-    f.status = 1
+    f.status = 2
     f.msgU = null
     await f.cryptMsgT(this)
+    if (!f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
     this.setRes('status', 0)
   }
 }
@@ -654,7 +653,7 @@ class FormUpdByU extends Operation {
     const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
-    if (f.userId !== this.authRecord.userId)
+    if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     if (f.status > 2 ) { this.setRes('status', 3); return }
     f.etcU = this._etcU
