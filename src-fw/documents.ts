@@ -1,4 +1,4 @@
-import { Document } from './document'
+import { $Document } from './document'
 import { Crypt } from './crypt'
 import { filter } from './iDbGeneric'
 import { decode } from '@msgpack/msgpack'
@@ -18,13 +18,13 @@ export function loadingDF () {
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
-class $Task extends Document {
+class $Task extends $Document {
   static release = 0
 
 }
 Registry.registerD($Task)
 
-export class $Status extends Document {
+export class $Status extends $Document {
   static release = 0
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
   at: number // time de dernière mise à jour
@@ -57,7 +57,7 @@ export type $subscription = {
 
 /* Un document Subs décrit la souscription d'une session:
 */
-export class $Subs extends Document {
+export class $Subs extends $Document {
   static release = 0
 
   sessionId: string
@@ -67,7 +67,7 @@ export class $Subs extends Document {
   title: string
   maxLife: number
 
-  static newSubs (op: OperationWC, subs: $subscription, maxLife: number) : Document {
+  static newSubs (op: OperationWC, subs: $subscription, maxLife: number) : $Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
@@ -96,7 +96,7 @@ La définition def d'un SubsItem est le string:
 def est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
-export class $SubsItem extends Document {
+export class $SubsItem extends $Document {
   static release = 0
 
   sessionId : string
@@ -119,7 +119,7 @@ export class $SubsItem extends Document {
     return clazz + '/' + colName + '/' + val
   }
 
-  static newSubsItem (op: OperationWC, sessionId: string, def: string, maxLife: number) : Document {
+  static newSubsItem (op: OperationWC, sessionId: string, def: string, maxLife: number) : $Document {
     const initVals = {
       sessionId: sessionId,
       def: def,
@@ -166,7 +166,7 @@ export type $Cred = {
   credId: string
 }
 
-export class $Credential extends Document {
+export class $Credential extends $Document {
   static release = 0
 
   credId: string
@@ -250,7 +250,7 @@ export type $FormObj = {
 Document `Form` hébergé dans la DB spécifique de `svc / org`.
 Sous-classes applicatives $Form_type par "type"
 */
-export class $Form extends Document {
+export class $Form extends $Document {
   formId: string = '' // ID universel aléatoire.
   type: string = '' // type du formulaire.
   userId: string = '' // utilisateur cible.
@@ -267,6 +267,7 @@ export class $Form extends Document {
   */
   comment?: Uint8Array | null = null // commentaire écrit et crypté par U.
   ch?: string = '' // challenge random de synchronisation initiale avec MDEvent
+  lv?: number = 0 // lasViewed version
 
   /* Surchargé par type:
   retourne un objet "résumé" de etc à faire figurer dans MDEvents

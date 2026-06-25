@@ -482,9 +482,10 @@ export type MDEventU = {
   lv: number // last view, date-heure du dernier état _vu_ par U. La comparaison avec `v` permet de détecter ce qui a _changé_ depuis le dernier scan par U.
 }
 
-/* "pre" création d'un MDEvent:
+/* Création d'un MDEvent qui vient d'être enregistré par le service
 - eventId type svc org
 - ch : challenge aléatoire prouve que l'appellant connaît l'event
+- comment: crypté par la clé K du user
 */
 class $mdEventNew extends MDOperation {
   async doTheJob () : Promise<void> { 
@@ -494,13 +495,15 @@ class $mdEventNew extends MDOperation {
     const svc = this.args['svc'] as string
     const org = this.args['org'] as string
     const ch = this.args['ch'] as string
+    const comment = this.args['comment'] as Uint8Array
     const ret = await this.postSvcOp(svc, org, 'MDEventFull', { eventId, type, ch } )
     const s:MDEventS = ret ? ret.mdsync : null
     if (s === null) return
     const e: MDEvent = {
       eventId, type, userId, svc, org,
       v: s.v, maxLife: s.maxLife, status: s.status, detail: s.detail, 
-      comment: s.comment, lv: s.lv
+      comment: comment, 
+      lv: s.status === 1 ? s.v : 0
     }
     const row = {
       eventId: e.eventId,

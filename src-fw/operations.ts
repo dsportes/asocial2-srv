@@ -536,14 +536,10 @@ class MDEventFull extends Operation {
         v: f.v, 
         maxLife: f.maxLife, 
         status: f.status, 
-        detail: f.getDetail(),
-        comment: f.comment,
-        lv: f.status === 1 ? f.v : 0
+        detail: f.getDetail()
       } as MDEventS
       this.setRes('mdsync', x)
       delete f.ch
-      delete f.comment
-      delete f.lv
       f._status = DocStatus.UPD
     }
   }
@@ -600,7 +596,6 @@ class FormCreateByU extends Operation {
     if (this.authRecord.userId !== f.userId)
       { this.setRes('status', 2); return }
     f.maxLife = Math.floor(this.now / 1000) + 10
-    f.lv = this.now
     f.status = 1
     f.msgT = null
     this.setRes('status', 0)

@@ -1,4 +1,4 @@
-import { Document, DocStatus } from '../src-fw/document'
+import { $Document, DocStatus } from '../src-fw/document'
 import { $Form, $FormObj, $Credential, $Cred } from '../src-fw/documents'
 import { keyFromB64 } from '../src-fw/b64'
 import { Registry } from '../src-fw/config'
@@ -44,7 +44,7 @@ class $Form_coauteur extends $Form {
 }
 Registry.registerD($Form_coauteur)
 
-class Auteur extends Document {
+class Auteur extends $Document {
   static release = 0
   nom: string
 

@@ -5,7 +5,7 @@ import { DbConnector } from './dbConnector'
 import { IDbGeneric, row, srvStatus, updType } from './iDbGeneric'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from './doctypes'
-import { Document, DocStatus } from './document'
+import { $Document, DocStatus } from './document'
 import { $Credential, $Cred, $Status } from './documents'
 import { Publisher } from './publisher'
 import { Util } from './util'
@@ -33,7 +33,7 @@ export class DocDescr {
   // En cache globale: détention sous forme row (data décrypté mais sérialisé)
   row?: row
   // En chache d'une opération: détention d'un Document (pas d'un row)
-  doc?: Document
+  doc?: $Document
 
   constructor (clazz: string, pk: string, row: row) {
     this.clazz = clazz; this.pk = pk
@@ -49,8 +49,8 @@ export class DocDescr {
   */
   init () : void {
     const d = decode(this.row.data)
-    const [data, b] = Document.mutate(this.clazz, d)
-    this.doc = Document.newDoc(this.clazz, DocStatus.NONE, data)
+    const [data, b] = $Document.mutate(this.clazz, d)
+    this.doc = $Document.newDoc(this.clazz, DocStatus.NONE, data)
   }
 
 }
@@ -376,7 +376,7 @@ export class AuthRecord {
       const dt = DocType.get(docCl)
       let cred: $Cred
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
-        const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as Document
+        const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
         const x = d['creds']
         if (x) {
           const y = x[credId]
@@ -556,7 +556,7 @@ export class Cache {
   /* Retourne ou lit de la base le Document cité par src:
   - src : objet contenant les propriétés de la pk
   */
-  async getDoc (clazz: string, src?: Object, assert?: string) : Promise<Document | null> {
+  async getDoc (clazz: string, src?: Object, assert?: string) : Promise<$Document | null> {
     const pk = !src ? '1' : (src['pk'] || DocType.getPk(clazz, src))
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
@@ -568,14 +568,14 @@ export class Cache {
     }
     dd.init()
     this.docs.set(k, dd)
-    return dd.doc as Document
+    return dd.doc as $Document
   }
 
   /* Met en cache un row issu de la lecture en mode "report" de la DB.
   Si le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  putRow (clazz: string, row: row) : Document {
+  putRow (clazz: string, row: row) : $Document {
     const k = DocDescr.key(clazz, row.pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
@@ -589,13 +589,13 @@ export class Cache {
   Toutefois SI le document était déjà présent et plus récent, il est CONSERVE.
   Retourne le document.
   */
-  newDoc (clazz: string, src?: Object) : Document {
+  newDoc (clazz: string, src?: Object) : $Document {
     const pk = DocType.getPk(clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = new DocDescr(clazz, pk, null)
-    dd.doc = Document.newDoc(clazz, DocStatus.NEW, src || {})  
+    dd.doc = $Document.newDoc(clazz, DocStatus.NEW, src || {})  
     this.docs.set(k, dd)
     return dd.doc
   }
@@ -652,7 +652,7 @@ export class Cache {
     - inscription dans impactedSubs
     - création des rowQ : trace des disparitions des collections "mutables"
   */
-  manageColls (dd: DocDescr, doc: Document, row: row, is: ImpactedSub) {
+  manageColls (dd: DocDescr, doc: $Document, row: row, is: ImpactedSub) {
     for (const [n, collection] of doc.docType.colls) {
     
       // b, a : valeurs de la propriété clé de la collection n AVANT / APRES mise à jour éventuelle

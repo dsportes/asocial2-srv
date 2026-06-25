@@ -12,7 +12,7 @@ export type changedColl = {
   b: string // valeur avant
 }
 
-export class Document {
+export class $Document {
   _clazz: string
   _status?: DocStatus
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
@@ -106,10 +106,10 @@ export class Document {
   - propriétés de création.
   Retourne le Document.
   */
-  static newDoc (clazz: string, status: DocStatus, initVals: Object) : Document {
+  static newDoc (clazz: string, status: DocStatus, initVals: Object) : $Document {
     const cl = Registry.getD(clazz, initVals)
     if (!cl) throw new AppExc(105, 'document_class_not_registered', null, [clazz])
-    const doc = new cl() as Document
+    const doc = new cl() as $Document
     doc._clazz = clazz
     doc._status = status
     doc.release = cl.release
