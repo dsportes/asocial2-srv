@@ -407,3 +407,5 @@ BEGIN
 2026-06-25T14:28:22.546Z error: AppExc: 105:masterdir_unexpected_exception["table ZZEVENTS has no column named ttl"]
 2026-06-25T16:10:14.620Z error: AppExc: 105:masterdir_unexpected_exception["near \"UDATE\": syntax error"]
 2026-06-25T16:19:07.735Z error: AppExc: 105:masterdir_unexpected_exception["near \")\": syntax error"]
+2026-06-26T15:50:37.356Z error: FormFilteredList : 2026-06-26T15:49:39.321Z : SqliteError: near "AND": syntax error
+2026-06-26T15:50:37.490Z error: AppExc: 105:service_unexpected_exception["near \"AND\": syntax error"]

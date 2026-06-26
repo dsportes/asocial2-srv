@@ -17903,3 +17903,277 @@ BEGIN
 2026-06-26T10:22:03.434Z info: $mdEventUser finished
 2026-06-26T10:22:03.511Z info: FormGet : 2026-06-26T10:22:03.501Z
 2026-06-26T10:22:03.521Z info: FormGet finished
+2026-06-26T14:05:52.443Z info: 10 document Registry
+2026-06-26T14:05:52.450Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T14:05:52.452Z info: Firestore connector
+2026-06-26T14:05:52.453Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T14:05:52.482Z info: Reloading orgs-topics config OK
+2026-06-26T14:05:52.491Z info: HTTP listen [8080]
+2026-06-26T14:07:58.979Z info: $OpenSafeByPin finished
+2026-06-26T14:07:59.131Z info: $GetSafe finished
+2026-06-26T14:12:14.505Z info: $OpenSafeByPin finished
+2026-06-26T14:12:14.592Z info: $GetSafe finished
+2026-06-26T14:12:39.102Z info: $GetOrgSvcs finished
+2026-06-26T14:17:17.608Z info: $OpenSafeByPin finished
+2026-06-26T14:17:17.712Z info: $GetSafe finished
+2026-06-26T14:17:37.810Z info: $GetOrgSvcs finished
+2026-06-26T14:21:45.757Z info: $GetOrgSvcs finished
+2026-06-26T14:25:25.616Z info: $OpenSafeByPin finished
+2026-06-26T14:25:25.750Z info: $GetSafe finished
+2026-06-26T14:25:41.229Z info: $GetOrgSvcs finished
+2026-06-26T14:26:59.803Z info: $GetOrgSvcs finished
+2026-06-26T14:29:10.945Z info: $OpenSafeByPin finished
+2026-06-26T14:29:11.032Z info: $GetSafe finished
+2026-06-26T14:42:51.405Z info: $OpenSafeByPin finished
+2026-06-26T14:42:51.484Z info: $GetSafe finished
+2026-06-26T14:57:11.789Z info: $OpenSafeByPin finished
+2026-06-26T14:57:11.871Z info: $GetSafe finished
+2026-06-26T14:57:48.732Z info: $GetOrgSvcs finished
+2026-06-26T15:06:01.261Z info: $OpenSafeByPin finished
+2026-06-26T15:06:01.367Z info: $GetSafe finished
+2026-06-26T15:07:58.022Z info: $OpenSafeByPin finished
+2026-06-26T15:07:58.117Z info: $GetSafe finished
+2026-06-26T15:13:12.388Z info: $OpenSafeByPin finished
+2026-06-26T15:13:12.491Z info: $GetSafe finished
+2026-06-26T15:14:34.148Z info: $GetOrgSvcs finished
+2026-06-26T15:22:11.583Z info: $OpenSafeByPin finished
+2026-06-26T15:22:11.663Z info: $GetSafe finished
+2026-06-26T15:22:27.657Z info: $GetOrgSvcs finished
+2026-06-26T15:30:32.176Z info: $OpenSafeByPin finished
+2026-06-26T15:30:32.250Z info: $GetSafe finished
+2026-06-26T15:30:49.491Z info: $GetOrgSvcs finished
+2026-06-26T15:33:12.749Z info: $GetSvcUrls finished
+2026-06-26T15:33:12.806Z info: FormFilteredList : 2026-06-26T15:33:12.805Z
+2026-06-26T15:33:12.810Z info: AppExc: 103:invalid_string_array_argument@FormFilteredList:["filter"]
+2026-06-26T15:33:12.813Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormFilteredList - AppExc: 103:invalid_string_array_argument@FormFilteredList:["filter"]
+2026-06-26T15:33:12.817Z info: FormFilteredList terminated on exception
+2026-06-26T15:33:12.874Z info: Reloading orgs-topics config OK
+2026-06-26T15:41:27.727Z info: $GetOrgSvcs finished
+2026-06-26T15:41:52.299Z info: $GetSvcUrls finished
+2026-06-26T15:41:52.368Z info: FormFilteredList : 2026-06-26T15:41:52.368Z
+2026-06-26T15:42:00.823Z info: AppExc: 103:invalid_string_array_argument@FormFilteredList:["filter"]
+2026-06-26T15:42:00.823Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormFilteredList - AppExc: 103:invalid_string_array_argument@FormFilteredList:["filter"]
+2026-06-26T15:42:52.808Z info: FormFilteredList terminated on exception
+2026-06-26T15:42:52.815Z info: Reloading orgs-topics config OK
+2026-06-26T15:43:24.481Z info: $OpenSafeByPin finished
+2026-06-26T15:43:24.616Z info: $GetSafe finished
+2026-06-26T15:43:41.640Z info: $GetOrgSvcs finished
+2026-06-26T15:44:14.470Z info: $GetSvcUrls finished
+2026-06-26T15:44:14.560Z info: FormFilteredList : 2026-06-26T15:44:14.560Z
+2026-06-26T15:49:16.620Z info: 10 document Registry
+2026-06-26T15:49:16.624Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T15:49:16.625Z info: Firestore connector
+2026-06-26T15:49:16.626Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T15:49:16.652Z info: Reloading orgs-topics config OK
+2026-06-26T15:49:16.667Z info: HTTP listen [8080]
+2026-06-26T15:49:39.321Z info: FormFilteredList : 2026-06-26T15:49:39.321Z
+2026-06-26T15:50:37.356Z error: FormFilteredList : 2026-06-26T15:49:39.321Z : SqliteError: near "AND": syntax error
+2026-06-26T15:50:37.364Z info: FormFilteredList terminated on exception
+2026-06-26T15:50:37.490Z error: AppExc: 105:service_unexpected_exception["near \"AND\": syntax error"]
+2026-06-26T15:52:17.052Z info: FormFilteredList : 2026-06-26T15:52:17.052Z
+2026-06-26T15:58:11.720Z info: 10 document Registry
+2026-06-26T15:58:11.725Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T15:58:11.726Z info: Firestore connector
+2026-06-26T15:58:11.727Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T15:58:11.750Z info: Reloading orgs-topics config OK
+2026-06-26T15:58:11.758Z info: HTTP listen [8080]
+2026-06-26T15:58:43.752Z info: FormFilteredList : 2026-06-26T15:58:43.751Z
+2026-06-26T16:00:29.073Z info: FormFilteredList finished
+2026-06-26T16:00:29.108Z info: getCKey$ : 2026-06-26T16:00:29.107Z
+2026-06-26T16:00:29.116Z info: getCKey$ finished
+2026-06-26T16:05:04.005Z info: $OpenSafeByPin finished
+2026-06-26T16:05:04.187Z info: $GetSafe finished
+2026-06-26T16:05:19.988Z info: $GetOrgSvcs finished
+2026-06-26T16:05:22.218Z info: $GetSvcUrls finished
+2026-06-26T16:05:22.278Z info: FormFilteredList : 2026-06-26T16:05:22.278Z
+2026-06-26T16:05:34.571Z info: FormFilteredList finished
+2026-06-26T16:05:34.580Z info: Reloading orgs-topics config OK
+2026-06-26T16:05:34.612Z info: getCKey$ : 2026-06-26T16:05:34.612Z
+2026-06-26T16:05:34.623Z info: getCKey$ finished
+2026-06-26T16:06:29.146Z info: FormFilteredList : 2026-06-26T16:06:29.146Z
+2026-06-26T16:06:29.154Z info: FormFilteredList finished
+2026-06-26T16:09:09.689Z info: $GetOrgSvcs finished
+2026-06-26T16:09:09.915Z info: $GetSvcUrls finished
+2026-06-26T16:09:10.011Z info: FormFilteredList : 2026-06-26T16:09:10.010Z
+2026-06-26T16:09:10.024Z info: FormFilteredList finished
+2026-06-26T16:10:01.660Z info: $OpenSafeByPin finished
+2026-06-26T16:10:01.764Z info: $GetSafe finished
+2026-06-26T16:10:16.603Z info: $GetOrgSvcs finished
+2026-06-26T16:10:18.613Z info: $GetSvcUrls finished
+2026-06-26T16:10:18.682Z info: FormFilteredList : 2026-06-26T16:10:18.682Z
+2026-06-26T16:10:18.715Z info: FormFilteredList finished
+2026-06-26T16:10:18.781Z info: getCKey$ : 2026-06-26T16:10:18.781Z
+2026-06-26T16:10:18.795Z info: getCKey$ finished
+2026-06-26T16:11:59.683Z info: FormFilteredList : 2026-06-26T16:11:59.683Z
+2026-06-26T16:11:59.690Z info: FormFilteredList finished
+2026-06-26T16:11:59.738Z info: Reloading orgs-topics config OK
+2026-06-26T16:13:12.230Z info: $OpenSafeByPin finished
+2026-06-26T16:13:12.336Z info: $GetSafe finished
+2026-06-26T16:13:27.454Z info: $GetOrgSvcs finished
+2026-06-26T16:14:11.755Z info: $GetSvcUrls finished
+2026-06-26T16:14:11.818Z info: FormFilteredList : 2026-06-26T16:14:11.818Z
+2026-06-26T16:14:11.824Z info: FormFilteredList finished
+2026-06-26T16:14:11.859Z info: getCKey$ : 2026-06-26T16:14:11.859Z
+2026-06-26T16:14:11.868Z info: getCKey$ finished
+2026-06-26T16:24:51.500Z info: $OpenSafeByPin finished
+2026-06-26T16:24:51.584Z info: $GetSafe finished
+2026-06-26T16:25:08.474Z info: $GetOrgSvcs finished
+2026-06-26T16:25:36.722Z info: $GetSvcUrls finished
+2026-06-26T16:25:36.775Z info: FormFilteredList : 2026-06-26T16:25:36.773Z
+2026-06-26T16:25:36.791Z info: FormFilteredList finished
+2026-06-26T16:25:36.824Z info: getCKey$ : 2026-06-26T16:25:36.824Z
+2026-06-26T16:25:36.839Z info: getCKey$ finished
+2026-06-26T16:25:36.843Z info: Reloading orgs-topics config OK
+2026-06-26T16:29:17.903Z info: FormFilteredList : 2026-06-26T16:29:17.902Z
+2026-06-26T16:29:17.919Z info: FormFilteredList finished
+2026-06-26T16:29:31.311Z info: FormFilteredList : 2026-06-26T16:29:31.311Z
+2026-06-26T16:29:31.320Z info: FormFilteredList finished
+2026-06-26T16:35:26.853Z info: FormFilteredList : 2026-06-26T16:35:26.853Z
+2026-06-26T16:35:26.861Z info: FormFilteredList finished
+2026-06-26T16:35:26.906Z info: Reloading orgs-topics config OK
+2026-06-26T16:36:01.195Z info: FormFilteredList : 2026-06-26T16:36:01.195Z
+2026-06-26T16:36:01.205Z info: FormFilteredList finished
+2026-06-26T16:41:32.291Z info: $GetOrgSvcs finished
+2026-06-26T16:41:32.599Z info: $GetSvcUrls finished
+2026-06-26T16:41:32.663Z info: FormFilteredList : 2026-06-26T16:41:32.663Z
+2026-06-26T16:41:32.687Z info: FormFilteredList finished
+2026-06-26T16:41:32.731Z info: Reloading orgs-topics config OK
+2026-06-26T16:41:40.954Z info: FormFilteredList : 2026-06-26T16:41:40.954Z
+2026-06-26T16:41:40.961Z info: FormFilteredList finished
+2026-06-26T16:41:58.732Z info: $OpenSafeByPin finished
+2026-06-26T16:41:58.843Z info: $GetSafe finished
+2026-06-26T16:42:15.351Z info: $GetOrgSvcs finished
+2026-06-26T16:42:17.513Z info: $GetSvcUrls finished
+2026-06-26T16:42:17.594Z info: FormFilteredList : 2026-06-26T16:42:17.594Z
+2026-06-26T16:42:17.606Z info: FormFilteredList finished
+2026-06-26T16:42:22.192Z info: getCKey$ : 2026-06-26T16:42:22.192Z
+2026-06-26T16:42:22.199Z info: getCKey$ finished
+2026-06-26T16:48:17.691Z info: $GetOrgSvcs finished
+2026-06-26T16:48:18.221Z info: $GetSvcUrls finished
+2026-06-26T16:48:18.377Z info: FormFilteredList : 2026-06-26T16:48:18.376Z
+2026-06-26T16:48:18.382Z info: FormFilteredList finished
+2026-06-26T16:48:18.432Z info: Reloading orgs-topics config OK
+2026-06-26T16:48:27.260Z info: FormFilteredList : 2026-06-26T16:48:27.260Z
+2026-06-26T16:48:27.272Z info: FormFilteredList finished
+2026-06-26T16:48:41.615Z info: $OpenSafeByPin finished
+2026-06-26T16:48:41.721Z info: $GetSafe finished
+2026-06-26T16:48:57.008Z info: $GetOrgSvcs finished
+2026-06-26T16:48:58.964Z info: $GetSvcUrls finished
+2026-06-26T16:48:59.034Z info: FormFilteredList : 2026-06-26T16:48:59.034Z
+2026-06-26T16:48:59.041Z info: FormFilteredList finished
+2026-06-26T16:52:15.859Z info: 10 document Registry
+2026-06-26T16:52:15.863Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T16:52:15.865Z info: Firestore connector
+2026-06-26T16:52:15.866Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T16:52:15.899Z info: Reloading orgs-topics config OK
+2026-06-26T16:52:15.907Z info: HTTP listen [8080]
+2026-06-26T16:52:24.530Z info: FormFilteredList : 2026-06-26T16:52:24.529Z
+2026-06-26T16:55:23.041Z info: 10 document Registry
+2026-06-26T16:55:23.050Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T16:55:23.052Z info: Firestore connector
+2026-06-26T16:55:23.053Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T16:55:23.087Z info: Reloading orgs-topics config OK
+2026-06-26T16:55:23.099Z info: HTTP listen [8080]
+2026-06-26T16:55:28.350Z info: FormFilteredList : 2026-06-26T16:55:28.349Z
+2026-06-26T16:57:54.780Z info: 10 document Registry
+2026-06-26T16:57:54.784Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T16:57:54.785Z info: Firestore connector
+2026-06-26T16:57:54.787Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T16:57:54.815Z info: Reloading orgs-topics config OK
+2026-06-26T16:57:54.822Z info: HTTP listen [8080]
+2026-06-26T16:58:03.652Z info: FormFilteredList : 2026-06-26T16:58:03.652Z
+2026-06-26T17:01:30.563Z info: 10 document Registry
+2026-06-26T17:01:30.569Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:01:30.572Z info: Firestore connector
+2026-06-26T17:01:30.573Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:01:30.596Z info: Reloading orgs-topics config OK
+2026-06-26T17:01:30.604Z info: HTTP listen [8080]
+2026-06-26T17:01:37.227Z info: FormFilteredList : 2026-06-26T17:01:37.227Z
+2026-06-26T17:02:05.097Z info: FormFilteredList finished
+2026-06-26T17:02:47.667Z info: 10 document Registry
+2026-06-26T17:02:47.671Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:02:47.673Z info: Firestore connector
+2026-06-26T17:02:47.674Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:02:47.701Z info: Reloading orgs-topics config OK
+2026-06-26T17:02:47.721Z info: HTTP listen [8080]
+2026-06-26T17:02:52.668Z info: FormFilteredList : 2026-06-26T17:02:52.667Z
+2026-06-26T17:03:42.577Z info: FormFilteredList finished
+2026-06-26T17:05:16.708Z info: 10 document Registry
+2026-06-26T17:05:16.723Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:05:16.726Z info: Firestore connector
+2026-06-26T17:05:16.727Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:05:16.795Z info: Reloading orgs-topics config OK
+2026-06-26T17:05:16.812Z info: HTTP listen [8080]
+2026-06-26T17:05:22.424Z info: FormFilteredList : 2026-06-26T17:05:22.423Z
+2026-06-26T17:05:26.933Z info: FormFilteredList finished
+2026-06-26T17:08:49.968Z info: 10 document Registry
+2026-06-26T17:08:49.971Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:08:49.973Z info: Firestore connector
+2026-06-26T17:08:49.974Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:08:49.996Z info: Reloading orgs-topics config OK
+2026-06-26T17:08:50.003Z info: HTTP listen [8080]
+2026-06-26T17:08:59.064Z info: FormFilteredList : 2026-06-26T17:08:59.064Z
+2026-06-26T17:08:59.105Z info: FormFilteredList finished
+2026-06-26T17:11:20.355Z info: $OpenSafeByPin finished
+2026-06-26T17:11:20.455Z info: $GetSafe finished
+2026-06-26T17:11:35.007Z info: $GetOrgSvcs finished
+2026-06-26T17:11:52.283Z info: $GetSvcUrls finished
+2026-06-26T17:11:52.339Z info: FormFilteredList : 2026-06-26T17:11:52.339Z
+2026-06-26T17:11:52.388Z info: FormFilteredList finished
+2026-06-26T17:12:54.003Z info: 10 document Registry
+2026-06-26T17:12:54.015Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:12:54.020Z info: Firestore connector
+2026-06-26T17:12:54.024Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:12:54.091Z info: Reloading orgs-topics config OK
+2026-06-26T17:12:54.109Z info: HTTP listen [8080]
+2026-06-26T17:13:14.667Z info: FormFilteredList : 2026-06-26T17:13:14.666Z
+2026-06-26T17:14:07.141Z info: FormFilteredList finished
+2026-06-26T17:15:44.087Z info: FormFilteredList : 2026-06-26T17:15:44.087Z
+2026-06-26T17:15:45.604Z info: FormFilteredList finished
+2026-06-26T17:18:16.589Z info: FormFilteredList : 2026-06-26T17:18:16.589Z
+2026-06-26T17:18:21.310Z info: FormFilteredList finished
+2026-06-26T17:18:21.316Z info: Reloading orgs-topics config OK
+2026-06-26T17:20:36.316Z info: FormFilteredList : 2026-06-26T17:20:36.316Z
+2026-06-26T17:20:49.696Z info: FormFilteredList finished
+2026-06-26T17:21:04.744Z info: FormFilteredList : 2026-06-26T17:21:04.744Z
+2026-06-26T17:21:44.373Z info: FormFilteredList finished
+2026-06-26T17:22:26.157Z info: FormFilteredList : 2026-06-26T17:22:26.157Z
+2026-06-26T17:25:37.819Z info: 10 document Registry
+2026-06-26T17:25:37.823Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:25:37.824Z info: Firestore connector
+2026-06-26T17:25:37.825Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:25:37.844Z info: Reloading orgs-topics config OK
+2026-06-26T17:25:37.852Z info: HTTP listen [8080]
+2026-06-26T17:25:59.841Z info: $OpenSafeByPin finished
+2026-06-26T17:25:59.941Z info: $GetSafe finished
+2026-06-26T17:26:13.456Z info: $GetOrgSvcs finished
+2026-06-26T17:26:15.840Z info: $GetSvcUrls finished
+2026-06-26T17:26:15.897Z info: FormFilteredList : 2026-06-26T17:26:15.897Z
+2026-06-26T17:30:55.521Z info: 10 document Registry
+2026-06-26T17:30:55.525Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:30:55.528Z info: Firestore connector
+2026-06-26T17:30:55.530Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:30:55.553Z info: Reloading orgs-topics config OK
+2026-06-26T17:30:55.559Z info: HTTP listen [8080]
+2026-06-26T17:31:01.041Z info: FormFilteredList : 2026-06-26T17:31:01.041Z
+2026-06-26T17:34:08.078Z info: FormFilteredList finished
+2026-06-26T17:37:28.961Z info: 10 document Registry
+2026-06-26T17:37:28.966Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:37:28.968Z info: Firestore connector
+2026-06-26T17:37:28.971Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:37:29.003Z info: Reloading orgs-topics config OK
+2026-06-26T17:37:29.014Z info: HTTP listen [8080]
+2026-06-26T17:37:38.070Z info: FormFilteredList : 2026-06-26T17:37:38.069Z
+2026-06-26T17:37:47.210Z info: FormFilteredList finished
+2026-06-26T17:40:22.787Z info: 10 document Registry
+2026-06-26T17:40:22.791Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T17:40:22.793Z info: Firestore connector
+2026-06-26T17:40:22.794Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T17:40:22.818Z info: Reloading orgs-topics config OK
+2026-06-26T17:40:22.828Z info: HTTP listen [8080]
+2026-06-26T17:40:51.866Z info: $OpenSafeByPin finished
+2026-06-26T17:40:51.955Z info: $GetSafe finished
+2026-06-26T17:41:05.325Z info: $GetOrgSvcs finished
+2026-06-26T17:41:08.536Z info: $GetSvcUrls finished
+2026-06-26T17:41:08.593Z info: FormFilteredList : 2026-06-26T17:41:08.592Z
+2026-06-26T17:41:08.701Z info: FormFilteredList finished

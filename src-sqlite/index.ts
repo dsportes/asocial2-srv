@@ -767,7 +767,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   compOp (colName: string, filter: filter, col: any) {
     const comp = opFilter[filter]
-    if (!comp.startsWith('CONT')) return colName + ' ' + comp + ' @col'
+    if (!comp.startsWith('CONT')) return 'AND ' + colName + ' ' + comp + ' @col'
     const cols = col instanceof Array ? col : [col]
     if (!cols.length) return ''
     const x = []
@@ -785,14 +785,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async selectDocs(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function) : Promise<void> {
     const x = 'SELECT * FROM ' + this.cluc(clazz)
-      + ' WHERE org = @org AND ' + this.compOp(colName, filter, col)
+      + ' WHERE org = @org ' + this.compOp(colName, filter, col)
       + (order ? this.orderBy(order) : '')
       + (limit ? ' LIMIT ' + limit : '') + ';'
     const stmt = this.sql.prepare(x)
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
-      if (!row.deleted) fn(row.data)
+      if (!row.deleted) await fn(row.data)
     }
   }
 

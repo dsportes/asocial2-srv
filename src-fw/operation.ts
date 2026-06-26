@@ -263,7 +263,7 @@ export class Operation implements OperationWC {
   arrayValue (par: string, req: boolean) : Object {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return ''
-    if (present && type !== 'array')
+    if (present && !Array.isArray(value))
       throw new AppExc(103, 'invalid_array_argument', this, [par])
     return value
   }
@@ -282,7 +282,7 @@ export class Operation implements OperationWC {
   stringArrayValue (par: string, req: boolean) : string[] {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return []
-    if (present && type !== 'array')
+    if (present && !Array.isArray(value))
       throw new AppExc(103, 'invalid_string_array_argument', this, [par])
     return value
   }

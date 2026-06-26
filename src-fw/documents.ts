@@ -314,8 +314,8 @@ export class $Form extends $Document {
 
   get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
   get kp () : { pub: Buffer, priv: Buffer } { 
-    const x = config['DCkeys'][this.ft.key]
-    return { pub: keyFromB64(x.pub), priv: keyFromB64(x.pub) }
+    const x = config.keys['DCKeys'][this.ft.key]
+    return { pub: keyFromB64(x.pub), priv: keyFromB64(x.priv) }
   }
   async uPub (op: OperationWC) : Promise<Buffer> {
     const [c, v] = await MDOperation.getCV(op, this.userId)
@@ -327,9 +327,11 @@ export class $Form extends $Document {
   et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U). 
   */
   async decryptMsgU (op: OperationWC) : Promise<void> {
-    if (!this.msgU) {
+    if (this.msgU) {
       const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
       this.msgU = await Crypt.decrypt(aes, this.msgU)
+      // const x = decoder.decode(this.msgU)
+      // console.log(x)
     }
   }
 
@@ -396,9 +398,13 @@ export class $Form extends $Document {
       const f = $Form.new(obj)
       if (!f.isOld) {
         if (f.checkAuthTP(op)) {
-          await f.decryptMsgT(op)
-          await f.decryptMsgU(op)
-          l.push(f.toFormObj())
+          try {
+            await f.decryptMsgT(op)
+            await f.decryptMsgU(op)
+            l.push(f.toFormObj())
+          } catch (e) {
+            console.log(e)
+          }
         }
       }
     })
