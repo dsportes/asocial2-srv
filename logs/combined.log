@@ -17621,3 +17621,285 @@ BEGIN
 2026-06-25T16:25:17.545Z info: getCKey$ : 2026-06-25T16:25:17.545Z
 2026-06-25T16:25:17.560Z info: getCKey$ finished
 2026-06-25T16:25:59.304Z info: $mdEventUser finished
+2026-06-26T08:08:28.685Z info: 10 document Registry
+2026-06-26T08:08:28.688Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T08:08:28.689Z info: Firestore connector
+2026-06-26T08:08:28.691Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T08:08:28.736Z info: Reloading orgs-topics config OK
+2026-06-26T08:08:28.744Z info: HTTP listen [8080]
+2026-06-26T08:13:52.437Z info: $OpenSafeByPin finished
+2026-06-26T08:13:52.570Z info: $GetSafe finished
+2026-06-26T08:13:57.177Z info: $mdEventList finished
+2026-06-26T08:14:54.873Z info: $GetOrgSvcs finished
+2026-06-26T08:14:54.943Z info: $GetSvcUrls finished
+2026-06-26T08:14:55.038Z info: FormGet : 2026-06-26T08:14:55.038Z
+2026-06-26T08:14:55.078Z info: FormGet finished
+2026-06-26T08:14:55.105Z info: Reloading orgs-topics config OK
+2026-06-26T08:14:55.160Z info: getCKey$ : 2026-06-26T08:14:55.153Z
+2026-06-26T08:14:55.180Z info: getCKey$ finished
+2026-06-26T08:17:17.689Z info: $mdEventList finished
+2026-06-26T08:19:51.623Z info: $OpenSafeByPin finished
+2026-06-26T08:19:51.734Z info: $GetSafe finished
+2026-06-26T08:19:55.965Z info: $mdEventList finished
+2026-06-26T08:24:04.004Z info: $GetOrgSvcs finished
+2026-06-26T08:24:04.039Z info: $GetSvcUrls finished
+2026-06-26T08:24:04.104Z info: FormGet : 2026-06-26T08:24:04.104Z
+2026-06-26T08:24:04.115Z info: FormGet finished
+2026-06-26T08:24:04.151Z info: getCKey$ : 2026-06-26T08:24:04.151Z
+2026-06-26T08:24:04.155Z info: getCKey$ finished
+2026-06-26T08:24:04.160Z info: Reloading orgs-topics config OK
+2026-06-26T08:31:31.162Z info: $mdEventUser finished
+2026-06-26T08:45:24.871Z info: $OpenSafeByPin finished
+2026-06-26T08:45:24.998Z info: $GetSafe finished
+2026-06-26T08:45:29.274Z info: $mdEventList finished
+2026-06-26T08:45:31.585Z info: $GetOrgSvcs finished
+2026-06-26T08:45:31.626Z info: $GetSvcUrls finished
+2026-06-26T08:45:31.679Z info: FormGet : 2026-06-26T08:45:31.678Z
+2026-06-26T08:45:31.689Z info: FormGet finished
+2026-06-26T08:45:31.730Z info: getCKey$ : 2026-06-26T08:45:31.730Z
+2026-06-26T08:45:31.739Z info: getCKey$ finished
+2026-06-26T08:45:31.748Z info: Reloading orgs-topics config OK
+2026-06-26T08:45:44.660Z info: $mdEventUser finished
+2026-06-26T08:49:23.918Z info: $OpenSafeByPin finished
+2026-06-26T08:49:24.006Z info: $GetSafe finished
+2026-06-26T08:49:31.991Z info: $mdEventList finished
+2026-06-26T08:49:34.511Z info: $GetOrgSvcs finished
+2026-06-26T08:49:34.541Z info: $GetSvcUrls finished
+2026-06-26T08:49:34.599Z info: FormGet : 2026-06-26T08:49:34.599Z
+2026-06-26T08:49:34.608Z info: FormGet finished
+2026-06-26T08:49:34.638Z info: getCKey$ : 2026-06-26T08:49:34.638Z
+2026-06-26T08:49:34.652Z info: getCKey$ finished
+2026-06-26T08:50:38.682Z info: FormGet : 2026-06-26T08:50:38.682Z
+2026-06-26T08:50:38.688Z info: FormGet finished
+2026-06-26T08:50:38.735Z info: Reloading orgs-topics config OK
+2026-06-26T08:50:59.702Z info: FormGet : 2026-06-26T08:50:59.702Z
+2026-06-26T08:50:59.710Z info: FormGet finished
+2026-06-26T08:51:14.886Z info: $mdEventList finished
+2026-06-26T08:51:16.648Z info: FormGet : 2026-06-26T08:51:16.648Z
+2026-06-26T08:51:16.655Z info: FormGet finished
+2026-06-26T08:53:03.751Z info: $OpenSafeByPin finished
+2026-06-26T08:53:03.866Z info: $GetSafe finished
+2026-06-26T08:53:08.616Z info: $mdEventList finished
+2026-06-26T08:53:12.014Z info: $GetOrgSvcs finished
+2026-06-26T08:53:12.043Z info: $GetSvcUrls finished
+2026-06-26T08:53:12.110Z info: FormGet : 2026-06-26T08:53:12.109Z
+2026-06-26T08:53:12.124Z info: FormGet finished
+2026-06-26T08:53:12.149Z info: getCKey$ : 2026-06-26T08:53:12.149Z
+2026-06-26T08:53:12.155Z info: getCKey$ finished
+2026-06-26T08:58:41.162Z info: $OpenSafeByPin finished
+2026-06-26T08:58:41.273Z info: $GetSafe finished
+2026-06-26T08:58:45.626Z info: $mdEventList finished
+2026-06-26T08:58:47.775Z info: $GetOrgSvcs finished
+2026-06-26T08:58:47.814Z info: $GetSvcUrls finished
+2026-06-26T08:58:47.865Z info: FormGet : 2026-06-26T08:58:47.865Z
+2026-06-26T08:58:47.871Z info: FormGet finished
+2026-06-26T08:58:47.901Z info: getCKey$ : 2026-06-26T08:58:47.901Z
+2026-06-26T08:58:47.915Z info: getCKey$ finished
+2026-06-26T08:58:47.924Z info: Reloading orgs-topics config OK
+2026-06-26T09:26:57.691Z info: 10 document Registry
+2026-06-26T09:26:57.696Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T09:26:57.697Z info: Firestore connector
+2026-06-26T09:26:57.699Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T09:26:57.723Z info: Reloading orgs-topics config OK
+2026-06-26T09:26:57.741Z info: HTTP listen [8080]
+2026-06-26T09:27:24.348Z info: $OpenSafeByPin finished
+2026-06-26T09:27:24.445Z info: $GetSafe finished
+2026-06-26T09:27:28.628Z info: $mdEventList finished
+2026-06-26T09:27:30.126Z info: $GetOrgSvcs finished
+2026-06-26T09:27:30.158Z info: $GetSvcUrls finished
+2026-06-26T09:27:30.217Z info: FormGet : 2026-06-26T09:27:30.216Z
+2026-06-26T09:27:30.233Z info: FormGet finished
+2026-06-26T09:27:30.272Z info: getCKey$ : 2026-06-26T09:27:30.269Z
+2026-06-26T09:27:30.285Z info: getCKey$ finished
+2026-06-26T09:28:49.965Z info: $OpenSafeByPin finished
+2026-06-26T09:28:50.087Z info: $GetSafe finished
+2026-06-26T09:28:57.546Z info: $mdEventList finished
+2026-06-26T09:30:12.138Z info: $GetOrgSvcs finished
+2026-06-26T09:30:12.169Z info: $GetSvcUrls finished
+2026-06-26T09:30:12.222Z info: FormGet : 2026-06-26T09:30:12.222Z
+2026-06-26T09:30:12.238Z info: FormGet finished
+2026-06-26T09:30:12.272Z info: getCKey$ : 2026-06-26T09:30:12.272Z
+2026-06-26T09:30:12.287Z info: getCKey$ finished
+2026-06-26T09:31:19.553Z info: AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:31:19.555Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:31:19.556Z info: FormUpdateByU terminated on exception
+2026-06-26T09:31:34.054Z info: $mdEventList finished
+2026-06-26T09:31:34.211Z info: FormGet : 2026-06-26T09:31:34.211Z
+2026-06-26T09:31:34.219Z info: FormGet finished
+2026-06-26T09:33:14.245Z info: 10 document Registry
+2026-06-26T09:33:14.248Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T09:33:14.249Z info: Firestore connector
+2026-06-26T09:33:14.250Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T09:33:14.266Z info: Reloading orgs-topics config OK
+2026-06-26T09:33:14.273Z info: HTTP listen [8080]
+2026-06-26T09:33:50.664Z info: $OpenSafeByPin finished
+2026-06-26T09:33:50.812Z info: $GetSafe finished
+2026-06-26T09:33:56.355Z info: $mdEventList finished
+2026-06-26T09:34:00.186Z info: $GetOrgSvcs finished
+2026-06-26T09:34:00.214Z info: $GetSvcUrls finished
+2026-06-26T09:34:00.292Z info: FormGet : 2026-06-26T09:34:00.291Z
+2026-06-26T09:34:00.310Z info: FormGet finished
+2026-06-26T09:34:00.343Z info: getCKey$ : 2026-06-26T09:34:00.342Z
+2026-06-26T09:34:00.352Z info: getCKey$ finished
+2026-06-26T09:35:17.692Z info: AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:35:17.697Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:35:17.698Z info: FormUpdateByU terminated on exception
+2026-06-26T09:36:38.182Z info: $mdEventList finished
+2026-06-26T09:36:38.271Z info: FormGet : 2026-06-26T09:36:38.270Z
+2026-06-26T09:36:38.294Z info: FormGet finished
+2026-06-26T09:42:31.211Z info: $OpenSafeByPin finished
+2026-06-26T09:42:31.320Z info: $GetSafe finished
+2026-06-26T09:42:35.844Z info: $mdEventList finished
+2026-06-26T09:42:37.413Z info: $GetOrgSvcs finished
+2026-06-26T09:42:37.458Z info: $GetSvcUrls finished
+2026-06-26T09:42:37.517Z info: FormGet : 2026-06-26T09:42:37.516Z
+2026-06-26T09:42:37.523Z info: FormGet finished
+2026-06-26T09:42:37.574Z info: Reloading orgs-topics config OK
+2026-06-26T09:42:39.703Z info: FormGet : 2026-06-26T09:42:39.702Z
+2026-06-26T09:42:39.709Z info: FormGet finished
+2026-06-26T09:45:08.401Z info: $OpenSafeByPin finished
+2026-06-26T09:45:08.489Z info: $GetSafe finished
+2026-06-26T09:45:12.590Z info: $mdEventList finished
+2026-06-26T09:45:14.251Z info: $GetOrgSvcs finished
+2026-06-26T09:45:14.281Z info: $GetSvcUrls finished
+2026-06-26T09:45:14.329Z info: FormGet : 2026-06-26T09:45:14.329Z
+2026-06-26T09:45:14.343Z info: FormGet finished
+2026-06-26T09:45:36.632Z info: getCKey$ : 2026-06-26T09:45:36.632Z
+2026-06-26T09:45:36.636Z info: getCKey$ finished
+2026-06-26T09:46:51.118Z info: AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:46:51.125Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["FormUpdateByU"]
+2026-06-26T09:46:51.126Z info: FormUpdateByU terminated on exception
+2026-06-26T09:48:01.688Z info: $OpenSafeByPin finished
+2026-06-26T09:48:01.787Z info: $GetSafe finished
+2026-06-26T09:48:06.278Z info: $mdEventList finished
+2026-06-26T09:48:07.974Z info: $GetOrgSvcs finished
+2026-06-26T09:48:08.002Z info: $GetSvcUrls finished
+2026-06-26T09:48:08.052Z info: FormGet : 2026-06-26T09:48:08.052Z
+2026-06-26T09:48:08.068Z info: FormGet finished
+2026-06-26T09:48:08.105Z info: Reloading orgs-topics config OK
+2026-06-26T09:48:15.188Z info: getCKey$ : 2026-06-26T09:48:15.188Z
+2026-06-26T09:48:15.195Z info: getCKey$ finished
+2026-06-26T09:48:53.845Z info: FormUpdByU : 2026-06-26T09:48:49.954Z
+2026-06-26T09:50:16.217Z info: 10 document Registry
+2026-06-26T09:50:16.221Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T09:50:16.222Z info: Firestore connector
+2026-06-26T09:50:16.223Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T09:50:16.245Z info: Reloading orgs-topics config OK
+2026-06-26T09:50:16.252Z info: HTTP listen [8080]
+2026-06-26T09:50:38.118Z info: FormUpdByU : 2026-06-26T09:50:32.716Z
+2026-06-26T09:51:21.187Z info: FormUpdByU finished
+2026-06-26T09:51:51.716Z info: MDEventSync : 2026-06-26T09:51:51.715Z
+2026-06-26T09:51:51.721Z info: AppExc: 103:missing_argument["chk"]
+2026-06-26T09:51:51.722Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["chk"]
+2026-06-26T09:51:51.724Z info: MDEventSync terminated on exception
+2026-06-26T09:51:51.761Z info: $mdEventSync finished
+2026-06-26T09:53:30.426Z info: $OpenSafeByPin finished
+2026-06-26T09:53:30.540Z info: $GetSafe finished
+2026-06-26T09:53:34.262Z info: $mdEventList finished
+2026-06-26T09:53:36.094Z info: $GetOrgSvcs finished
+2026-06-26T09:53:36.123Z info: $GetSvcUrls finished
+2026-06-26T09:53:36.174Z info: FormGet : 2026-06-26T09:53:36.170Z
+2026-06-26T09:53:36.193Z info: FormGet finished
+2026-06-26T09:53:40.801Z info: getCKey$ : 2026-06-26T09:53:40.801Z
+2026-06-26T09:53:40.817Z info: getCKey$ finished
+2026-06-26T09:54:08.958Z info: FormUpdByU : 2026-06-26T09:54:08.957Z
+2026-06-26T09:54:08.984Z info: FormUpdByU finished
+2026-06-26T09:54:28.310Z info: MDEventSync : 2026-06-26T09:54:28.310Z
+2026-06-26T09:54:28.311Z info: AppExc: 103:missing_argument["chk"]
+2026-06-26T09:54:28.311Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["chk"]
+2026-06-26T09:54:28.312Z info: MDEventSync terminated on exception
+2026-06-26T09:57:01.343Z info: 10 document Registry
+2026-06-26T09:57:01.347Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-26T09:57:01.349Z info: Firestore connector
+2026-06-26T09:57:01.351Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-26T09:57:01.371Z info: Reloading orgs-topics config OK
+2026-06-26T09:57:01.383Z info: HTTP listen [8080]
+2026-06-26T09:57:31.467Z info: $OpenSafeByPin finished
+2026-06-26T09:57:31.602Z info: $GetSafe finished
+2026-06-26T09:57:35.586Z info: $mdEventList finished
+2026-06-26T09:57:37.190Z info: $GetOrgSvcs finished
+2026-06-26T09:57:37.222Z info: $GetSvcUrls finished
+2026-06-26T09:57:37.284Z info: FormGet : 2026-06-26T09:57:37.284Z
+2026-06-26T09:57:37.299Z info: FormGet finished
+2026-06-26T09:57:37.345Z info: getCKey$ : 2026-06-26T09:57:37.345Z
+2026-06-26T09:57:37.350Z info: getCKey$ finished
+2026-06-26T09:57:51.946Z info: FormUpdByU : 2026-06-26T09:57:51.946Z
+2026-06-26T09:57:51.978Z info: FormUpdByU finished
+2026-06-26T09:57:52.203Z info: MDEventSync : 2026-06-26T09:57:52.203Z
+2026-06-26T09:58:36.337Z info: MDEventSync finished
+2026-06-26T09:58:47.045Z info: $mdEventSync finished
+2026-06-26T09:59:27.613Z info: $mdEventList finished
+2026-06-26T09:59:57.423Z info: $mdEventUser finished
+2026-06-26T10:00:00.458Z info: FormGet : 2026-06-26T10:00:00.458Z
+2026-06-26T10:00:00.464Z info: FormGet finished
+2026-06-26T10:07:19.074Z info: $OpenSafeByPin finished
+2026-06-26T10:07:19.182Z info: $GetSafe finished
+2026-06-26T10:07:57.455Z info: $mdEventList finished
+2026-06-26T10:07:58.723Z info: $GetOrgSvcs finished
+2026-06-26T10:07:58.762Z info: $GetSvcUrls finished
+2026-06-26T10:07:58.807Z info: FormGet : 2026-06-26T10:07:58.807Z
+2026-06-26T10:07:58.815Z info: FormGet finished
+2026-06-26T10:07:58.845Z info: getCKey$ : 2026-06-26T10:07:58.845Z
+2026-06-26T10:07:58.865Z info: getCKey$ finished
+2026-06-26T10:07:58.881Z info: Reloading orgs-topics config OK
+2026-06-26T10:08:17.923Z info: FormUpdByU : 2026-06-26T10:08:17.923Z
+2026-06-26T10:08:17.950Z info: FormUpdByU finished
+2026-06-26T10:08:18.047Z info: MDEventSync : 2026-06-26T10:08:18.047Z
+2026-06-26T10:08:26.738Z info: MDEventSync finished
+2026-06-26T10:08:26.759Z info: $mdEventSync finished
+2026-06-26T10:08:33.305Z info: $mdEventList finished
+2026-06-26T10:08:33.358Z info: $mdEventUser finished
+2026-06-26T10:08:36.423Z info: FormGet : 2026-06-26T10:08:36.423Z
+2026-06-26T10:08:36.429Z info: FormGet finished
+2026-06-26T10:09:34.247Z info: $mdEventList finished
+2026-06-26T10:09:37.785Z info: FormGet : 2026-06-26T10:09:37.785Z
+2026-06-26T10:09:37.792Z info: FormGet finished
+2026-06-26T10:11:05.487Z info: FormUpdByU : 2026-06-26T10:11:05.486Z
+2026-06-26T10:11:05.512Z info: FormUpdByU finished
+2026-06-26T10:11:05.588Z info: MDEventSync : 2026-06-26T10:11:05.588Z
+2026-06-26T10:11:05.594Z info: MDEventSync finished
+2026-06-26T10:11:05.622Z info: $mdEventSync finished
+2026-06-26T10:11:07.520Z info: $mdEventList finished
+2026-06-26T10:11:07.625Z info: $mdEventUser finished
+2026-06-26T10:11:07.699Z info: FormGet : 2026-06-26T10:11:07.699Z
+2026-06-26T10:11:07.712Z info: FormGet finished
+2026-06-26T10:12:13.286Z info: FormUpdByU : 2026-06-26T10:12:13.286Z
+2026-06-26T10:12:13.313Z info: FormUpdByU finished
+2026-06-26T10:12:13.404Z info: MDEventSync : 2026-06-26T10:12:13.404Z
+2026-06-26T10:12:13.409Z info: MDEventSync finished
+2026-06-26T10:12:13.434Z info: $mdEventSync finished
+2026-06-26T10:12:15.481Z info: $mdEventList finished
+2026-06-26T10:12:15.583Z info: $mdEventUser finished
+2026-06-26T10:12:15.719Z info: FormGet : 2026-06-26T10:12:15.719Z
+2026-06-26T10:12:15.724Z info: FormGet finished
+2026-06-26T10:16:02.731Z info: FormGet : 2026-06-26T10:16:02.731Z
+2026-06-26T10:16:02.738Z info: FormGet finished
+2026-06-26T10:16:02.783Z info: Reloading orgs-topics config OK
+2026-06-26T10:20:41.149Z info: $OpenSafeByPin finished
+2026-06-26T10:20:41.266Z info: $GetSafe finished
+2026-06-26T10:20:45.901Z info: $mdEventList finished
+2026-06-26T10:20:47.095Z info: $GetOrgSvcs finished
+2026-06-26T10:20:47.143Z info: $GetSvcUrls finished
+2026-06-26T10:20:47.204Z info: FormGet : 2026-06-26T10:20:47.204Z
+2026-06-26T10:20:47.216Z info: FormGet finished
+2026-06-26T10:20:47.267Z info: getCKey$ : 2026-06-26T10:20:47.266Z
+2026-06-26T10:20:47.271Z info: getCKey$ finished
+2026-06-26T10:21:17.530Z info: FormUpdByU : 2026-06-26T10:21:17.530Z
+2026-06-26T10:21:17.556Z info: FormUpdByU finished
+2026-06-26T10:21:17.587Z info: Reloading orgs-topics config OK
+2026-06-26T10:21:17.634Z info: MDEventSync : 2026-06-26T10:21:17.633Z
+2026-06-26T10:21:17.644Z info: MDEventSync finished
+2026-06-26T10:21:17.677Z info: $mdEventSync finished
+2026-06-26T10:21:19.648Z info: $mdEventList finished
+2026-06-26T10:21:19.712Z info: $mdEventUser finished
+2026-06-26T10:21:19.782Z info: FormGet : 2026-06-26T10:21:19.782Z
+2026-06-26T10:21:19.790Z info: FormGet finished
+2026-06-26T10:22:01.381Z info: FormUpdByU : 2026-06-26T10:22:01.381Z
+2026-06-26T10:22:01.406Z info: FormUpdByU finished
+2026-06-26T10:22:01.509Z info: MDEventSync : 2026-06-26T10:22:01.509Z
+2026-06-26T10:22:01.514Z info: MDEventSync finished
+2026-06-26T10:22:01.548Z info: $mdEventSync finished
+2026-06-26T10:22:03.373Z info: $mdEventList finished
+2026-06-26T10:22:03.434Z info: $mdEventUser finished
+2026-06-26T10:22:03.511Z info: FormGet : 2026-06-26T10:22:03.501Z
+2026-06-26T10:22:03.521Z info: FormGet finished

@@ -635,7 +635,6 @@ Registry.registerOp(FormCreateByT)
 class FormUpdByU extends Operation {
   _formId: string
   _type: string
-  _status: number
   _etcU: Object
   _msgU: Uint8Array
 
@@ -643,21 +642,20 @@ class FormUpdByU extends Operation {
     super.init()
     this._formId = this.stringValue('formId', true)
     this._type = this.stringValue('type', true)
-    this._status = this.intValue('type', true)
     this._etcU = this.objectValue('etcU', true)
     this._msgU = this.binValue('msgU', true)
   }
 
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     if (f.status > 2 ) { this.setRes('status', 3); return }
     f.etcU = this._etcU
-    f.status = this._status
+    f.status = 1
     f.msgU = this._msgU
     f.setMaxLife()
     f._status = DocStatus.UPD

@@ -534,7 +534,7 @@ class $mdEventSync extends MDOperation {
       const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
       if (chk2 !== chk) 
         throw new AppExc(105, 'masterdir_case_chk', this)
-      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type: e.type } )
+      const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type: e.type, chk } )
       const s:MDEventS = ret ? ret.mdsync : null
       if (s) {
         e.v = s.v
