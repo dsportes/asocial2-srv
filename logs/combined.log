@@ -18177,3 +18177,418 @@ BEGIN
 2026-06-26T17:41:08.536Z info: $GetSvcUrls finished
 2026-06-26T17:41:08.593Z info: FormFilteredList : 2026-06-26T17:41:08.592Z
 2026-06-26T17:41:08.701Z info: FormFilteredList finished
+2026-06-27T08:57:32.183Z info: 10 document Registry
+2026-06-27T08:57:32.199Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T08:57:32.202Z info: Firestore connector
+2026-06-27T08:57:32.217Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T08:57:32.297Z info: Reloading orgs-topics config OK
+2026-06-27T08:57:32.307Z info: HTTP listen [8080]
+2026-06-27T08:59:26.729Z info: $OpenSafeByPin finished
+2026-06-27T08:59:26.864Z info: $GetSafe finished
+2026-06-27T08:59:46.537Z info: $GetOrgSvcs finished
+2026-06-27T09:00:05.199Z info: $GetSvcUrls finished
+2026-06-27T09:00:05.265Z info: FormFilteredList : 2026-06-27T09:00:05.264Z
+2026-06-27T09:00:05.337Z info: FormFilteredList finished
+2026-06-27T09:05:42.579Z info: $OpenSafeByPin finished
+2026-06-27T09:05:42.696Z info: $GetSafe finished
+2026-06-27T09:06:07.407Z info: $GetOrgSvcs finished
+2026-06-27T09:06:15.813Z info: $GetSvcUrls finished
+2026-06-27T09:06:15.868Z info: FormFilteredList : 2026-06-27T09:06:15.868Z
+2026-06-27T09:06:15.918Z info: Reloading orgs-topics config OK
+2026-06-27T09:06:15.923Z info: FormFilteredList finished
+2026-06-27T09:16:30.143Z info: $OpenSafeByPin finished
+2026-06-27T09:16:30.229Z info: $GetSafe finished
+2026-06-27T09:28:51.764Z info: $GetOrgSvcs finished
+2026-06-27T09:28:54.482Z info: $GetSvcUrls finished
+2026-06-27T09:28:54.560Z info: FormFilteredList : 2026-06-27T09:28:54.559Z
+2026-06-27T09:28:54.608Z info: FormFilteredList finished
+2026-06-27T09:28:54.615Z info: Reloading orgs-topics config OK
+2026-06-27T09:30:32.722Z info: FormFilteredList : 2026-06-27T09:30:32.722Z
+2026-06-27T09:30:32.785Z info: FormFilteredList finished
+2026-06-27T09:47:20.294Z info: $OpenSafeByPin finished
+2026-06-27T09:47:20.413Z info: $GetSafe finished
+2026-06-27T09:47:51.399Z info: $GetOrgSvcs finished
+2026-06-27T09:47:53.702Z info: $GetSvcUrls finished
+2026-06-27T09:47:53.771Z info: FormFilteredList : 2026-06-27T09:47:53.771Z
+2026-06-27T09:47:53.822Z info: Reloading orgs-topics config OK
+2026-06-27T09:47:53.841Z info: FormFilteredList finished
+2026-06-27T09:53:43.020Z info: $OpenSafeByPin finished
+2026-06-27T09:53:43.144Z info: $GetSafe finished
+2026-06-27T09:54:01.690Z info: $GetOrgSvcs finished
+2026-06-27T09:54:04.351Z info: $GetSvcUrls finished
+2026-06-27T09:54:04.419Z info: FormFilteredList : 2026-06-27T09:54:04.419Z
+2026-06-27T09:54:04.470Z info: FormFilteredList finished
+2026-06-27T09:54:04.493Z info: Reloading orgs-topics config OK
+2026-06-27T09:55:24.628Z info: FormFilteredList : 2026-06-27T09:55:24.628Z
+2026-06-27T09:55:24.714Z info: FormFilteredList finished
+2026-06-27T10:03:29.311Z info: $OpenSafeByPin finished
+2026-06-27T10:03:29.465Z info: $GetSafe finished
+2026-06-27T10:03:49.929Z info: $GetOrgSvcs finished
+2026-06-27T10:04:46.742Z info: $GetSvcUrls finished
+2026-06-27T10:04:46.839Z info: FormFilteredList : 2026-06-27T10:04:46.832Z
+2026-06-27T10:04:46.890Z info: Reloading orgs-topics config OK
+2026-06-27T10:04:46.906Z info: FormFilteredList finished
+2026-06-27T10:11:23.586Z info: $OpenSafeByPin finished
+2026-06-27T10:11:23.690Z info: $GetSafe finished
+2026-06-27T10:11:38.523Z info: $GetOrgSvcs finished
+2026-06-27T10:11:58.931Z info: $GetSvcUrls finished
+2026-06-27T10:11:58.995Z info: FormFilteredList : 2026-06-27T10:11:58.992Z
+2026-06-27T10:11:59.045Z info: Reloading orgs-topics config OK
+2026-06-27T10:11:59.047Z info: FormFilteredList finished
+2026-06-27T10:18:43.333Z info: FormFilteredList : 2026-06-27T10:18:43.332Z
+2026-06-27T10:18:43.368Z info: FormFilteredList finished
+2026-06-27T10:18:43.387Z info: Reloading orgs-topics config OK
+2026-06-27T10:21:56.097Z info: $OpenSafeByPin finished
+2026-06-27T10:21:56.212Z info: $GetSafe finished
+2026-06-27T10:22:11.517Z info: $GetOrgSvcs finished
+2026-06-27T10:22:14.508Z info: $GetSvcUrls finished
+2026-06-27T10:22:14.576Z info: FormFilteredList : 2026-06-27T10:22:14.575Z
+2026-06-27T10:22:14.618Z info: FormFilteredList finished
+2026-06-27T10:28:49.636Z info: FormFilteredList : 2026-06-27T10:28:49.635Z
+2026-06-27T10:28:49.674Z info: FormFilteredList finished
+2026-06-27T10:28:49.691Z info: Reloading orgs-topics config OK
+2026-06-27T10:32:07.959Z info: $OpenSafeByPin finished
+2026-06-27T10:32:08.059Z info: $GetSafe finished
+2026-06-27T10:32:25.183Z info: $GetOrgSvcs finished
+2026-06-27T10:32:27.208Z info: $GetSvcUrls finished
+2026-06-27T10:32:27.277Z info: FormFilteredList : 2026-06-27T10:32:27.277Z
+2026-06-27T10:32:27.343Z info: FormFilteredList finished
+2026-06-27T10:41:19.844Z info: $OpenSafeByPin finished
+2026-06-27T10:41:19.948Z info: $GetSafe finished
+2026-06-27T10:41:38.744Z info: $GetOrgSvcs finished
+2026-06-27T10:41:40.812Z info: $GetSvcUrls finished
+2026-06-27T10:41:40.896Z info: FormFilteredList : 2026-06-27T10:41:40.896Z
+2026-06-27T10:41:40.949Z info: Reloading orgs-topics config OK
+2026-06-27T10:41:40.960Z info: FormFilteredList finished
+2026-06-27T11:04:03.492Z info: FormFilteredList : 2026-06-27T11:04:03.492Z
+2026-06-27T11:04:03.527Z info: FormFilteredList finished
+2026-06-27T11:04:03.546Z info: Reloading orgs-topics config OK
+2026-06-27T11:49:30.942Z info: $OpenSafeByPin finished
+2026-06-27T11:49:31.047Z info: $GetSafe finished
+2026-06-27T11:55:13.824Z info: $OpenSafeByPin finished
+2026-06-27T11:55:13.928Z info: $GetSafe finished
+2026-06-27T11:55:30.850Z info: $GetOrgSvcs finished
+2026-06-27T11:55:37.383Z info: $GetSvcUrls finished
+2026-06-27T11:55:37.438Z info: FormFilteredList : 2026-06-27T11:55:37.438Z
+2026-06-27T11:55:37.506Z info: Reloading orgs-topics config OK
+2026-06-27T11:55:37.534Z info: FormFilteredList finished
+2026-06-27T12:30:11.476Z info: FormFilteredList : 2026-06-27T12:30:11.476Z
+2026-06-27T12:30:11.538Z info: Reloading orgs-topics config OK
+2026-06-27T12:30:11.607Z info: FormFilteredList finished
+2026-06-27T12:30:17.449Z info: FormFilteredList : 2026-06-27T12:30:17.449Z
+2026-06-27T12:30:17.496Z info: FormFilteredList finished
+2026-06-27T12:32:38.986Z info: $GetOrgSvcs finished
+2026-06-27T12:32:39.389Z info: $GetSvcUrls finished
+2026-06-27T12:32:39.464Z info: FormFilteredList : 2026-06-27T12:32:39.464Z
+2026-06-27T12:32:39.513Z info: FormFilteredList finished
+2026-06-27T12:32:58.694Z info: $OpenSafeByPin finished
+2026-06-27T12:32:58.798Z info: $GetSafe finished
+2026-06-27T12:33:22.365Z info: $GetOrgSvcs finished
+2026-06-27T12:33:25.521Z info: $GetSvcUrls finished
+2026-06-27T12:33:25.616Z info: FormFilteredList : 2026-06-27T12:33:25.615Z
+2026-06-27T12:33:25.665Z info: FormFilteredList finished
+2026-06-27T12:40:38.514Z info: $GetOrgSvcs finished
+2026-06-27T12:40:38.935Z info: $GetSvcUrls finished
+2026-06-27T12:40:39.002Z info: FormFilteredList : 2026-06-27T12:40:39.002Z
+2026-06-27T12:40:39.053Z info: Reloading orgs-topics config OK
+2026-06-27T12:40:39.060Z info: FormFilteredList finished
+2026-06-27T12:41:31.245Z info: $OpenSafeByPin finished
+2026-06-27T12:41:31.374Z info: $GetSafe finished
+2026-06-27T12:41:45.183Z info: $GetOrgSvcs finished
+2026-06-27T12:41:50.145Z info: $GetSvcUrls finished
+2026-06-27T12:41:50.228Z info: FormFilteredList : 2026-06-27T12:41:50.228Z
+2026-06-27T12:41:50.286Z info: FormFilteredList finished
+2026-06-27T12:46:20.837Z info: FormFilteredList : 2026-06-27T12:46:20.837Z
+2026-06-27T12:46:20.890Z info: Reloading orgs-topics config OK
+2026-06-27T12:46:20.898Z info: FormFilteredList finished
+2026-06-27T12:49:42.989Z info: $GetOrgSvcs finished
+2026-06-27T12:49:43.418Z info: $GetSvcUrls finished
+2026-06-27T12:49:43.489Z info: FormFilteredList : 2026-06-27T12:49:43.489Z
+2026-06-27T12:49:43.654Z info: FormFilteredList finished
+2026-06-27T12:50:02.000Z info: $OpenSafeByPin finished
+2026-06-27T12:50:02.125Z info: $GetSafe finished
+2026-06-27T12:50:17.570Z info: $GetOrgSvcs finished
+2026-06-27T12:50:19.981Z info: $GetSvcUrls finished
+2026-06-27T12:50:20.040Z info: FormFilteredList : 2026-06-27T12:50:20.040Z
+2026-06-27T12:50:20.108Z info: FormFilteredList finished
+2026-06-27T13:53:22.987Z info: $GetOrgSvcs finished
+2026-06-27T13:53:23.639Z info: $GetSvcUrls finished
+2026-06-27T13:53:23.791Z info: FormFilteredList : 2026-06-27T13:53:23.789Z
+2026-06-27T13:53:23.890Z info: Reloading orgs-topics config OK
+2026-06-27T13:53:23.959Z info: FormFilteredList finished
+2026-06-27T13:53:24.304Z info: FormFilteredList : 2026-06-27T13:53:24.304Z
+2026-06-27T13:53:24.356Z info: FormFilteredList finished
+2026-06-27T13:53:36.657Z info: $OpenSafeByPin finished
+2026-06-27T13:53:36.761Z info: $GetSafe finished
+2026-06-27T13:53:51.876Z info: $GetOrgSvcs finished
+2026-06-27T13:53:54.200Z info: $GetSvcUrls finished
+2026-06-27T13:53:54.262Z info: FormFilteredList : 2026-06-27T13:53:54.262Z
+2026-06-27T13:53:54.348Z info: FormFilteredList finished
+2026-06-27T13:56:30.446Z info: FormFilteredList : 2026-06-27T13:56:30.445Z
+2026-06-27T13:56:30.548Z info: FormFilteredList finished
+2026-06-27T14:09:24.574Z info: FormFilteredList : 2026-06-27T14:09:24.574Z
+2026-06-27T14:09:24.636Z info: Reloading orgs-topics config OK
+2026-06-27T14:09:24.668Z info: FormFilteredList finished
+2026-06-27T14:11:35.964Z info: FormFilteredList : 2026-06-27T14:11:35.964Z
+2026-06-27T14:11:36.034Z info: FormFilteredList finished
+2026-06-27T14:12:10.611Z info: FormFilteredList : 2026-06-27T14:12:10.611Z
+2026-06-27T14:12:10.656Z info: FormFilteredList finished
+2026-06-27T14:14:33.856Z info: FormFilteredList : 2026-06-27T14:14:33.856Z
+2026-06-27T14:14:33.896Z info: FormFilteredList finished
+2026-06-27T14:14:33.910Z info: Reloading orgs-topics config OK
+2026-06-27T14:15:47.976Z info: FormFilteredList : 2026-06-27T14:15:47.976Z
+2026-06-27T14:15:48.049Z info: FormFilteredList finished
+2026-06-27T14:16:10.260Z info: $OpenSafeByPin finished
+2026-06-27T14:16:10.363Z info: $GetSafe finished
+2026-06-27T14:16:33.666Z info: $GetOrgSvcs finished
+2026-06-27T14:16:36.159Z info: $GetSvcUrls finished
+2026-06-27T14:16:36.217Z info: FormFilteredList : 2026-06-27T14:16:36.217Z
+2026-06-27T14:16:36.264Z info: FormFilteredList finished
+2026-06-27T16:34:29.147Z info: $GetOrgSvcs finished
+2026-06-27T16:34:29.528Z info: $GetSvcUrls finished
+2026-06-27T16:34:29.741Z info: FormFilteredList : 2026-06-27T16:34:29.741Z
+2026-06-27T16:34:29.798Z info: Reloading orgs-topics config OK
+2026-06-27T16:34:29.829Z info: FormFilteredList finished
+2026-06-27T16:35:50.447Z info: $OpenSafeByPin finished
+2026-06-27T16:35:50.564Z info: $GetSafe finished
+2026-06-27T16:42:12.612Z info: $GetOrgSvcs finished
+2026-06-27T16:42:14.899Z info: $GetSvcUrls finished
+2026-06-27T16:42:14.975Z info: FormFilteredList : 2026-06-27T16:42:14.975Z
+2026-06-27T16:42:15.031Z info: Reloading orgs-topics config OK
+2026-06-27T16:42:15.044Z info: FormFilteredList finished
+2026-06-27T16:45:03.873Z info: FormUpdByT : 2026-06-27T16:45:03.872Z
+2026-06-27T16:45:33.775Z info: FormUpdByT finished
+2026-06-27T16:52:36.492Z info: $GetOrgSvcs finished
+2026-06-27T16:52:36.817Z info: $GetSvcUrls finished
+2026-06-27T16:52:36.951Z info: FormFilteredList : 2026-06-27T16:52:36.950Z
+2026-06-27T16:52:37.007Z info: Reloading orgs-topics config OK
+2026-06-27T16:52:37.127Z info: FormFilteredList finished
+2026-06-27T16:53:12.722Z info: 10 document Registry
+2026-06-27T16:53:12.727Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T16:53:12.728Z info: Firestore connector
+2026-06-27T16:53:12.730Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T16:53:12.766Z info: Reloading orgs-topics config OK
+2026-06-27T16:53:12.774Z info: HTTP listen [8080]
+2026-06-27T16:53:30.245Z info: $OpenSafeByPin finished
+2026-06-27T16:53:30.357Z info: $GetSafe finished
+2026-06-27T16:53:42.854Z info: $GetOrgSvcs finished
+2026-06-27T16:53:45.292Z info: $GetSvcUrls finished
+2026-06-27T16:53:45.377Z info: FormFilteredList : 2026-06-27T16:53:45.377Z
+2026-06-27T16:53:45.511Z info: FormFilteredList finished
+2026-06-27T16:54:06.742Z info: FormUpdByT : 2026-06-27T16:54:06.742Z
+2026-06-27T16:54:17.205Z info: FormUpdByT finished
+2026-06-27T16:54:24.254Z info: MDEventSync : 2026-06-27T16:54:24.254Z
+2026-06-27T16:54:24.259Z info: MDEventSync finished
+2026-06-27T16:54:24.312Z info: $mdEventSync finished
+2026-06-27T16:54:45.279Z info: FormFilteredList : 2026-06-27T16:54:45.278Z
+2026-06-27T16:54:45.382Z info: FormFilteredList finished
+2026-06-27T17:09:26.522Z info: $OpenSafeByPin finished
+2026-06-27T17:09:26.626Z info: $GetSafe finished
+2026-06-27T17:09:39.512Z info: $GetOrgSvcs finished
+2026-06-27T17:09:42.388Z info: $GetSvcUrls finished
+2026-06-27T17:09:42.463Z info: FormFilteredList : 2026-06-27T17:09:42.460Z
+2026-06-27T17:09:42.512Z info: Reloading orgs-topics config OK
+2026-06-27T17:09:42.597Z info: FormFilteredList finished
+2026-06-27T17:11:12.413Z info: $OpenSafeByPin finished
+2026-06-27T17:11:12.513Z info: $GetSafe finished
+2026-06-27T17:11:16.852Z info: $mdEventList finished
+2026-06-27T17:18:15.986Z info: $mdEventList finished
+2026-06-27T17:18:27.622Z info: $mdEventUser finished
+2026-06-27T17:18:27.693Z info: $GetOrgSvcs finished
+2026-06-27T17:18:27.748Z info: $GetSvcUrls finished
+2026-06-27T17:18:27.834Z info: FormGet : 2026-06-27T17:18:27.833Z
+2026-06-27T17:18:27.886Z info: Reloading orgs-topics config OK
+2026-06-27T17:18:27.941Z info: FormGet finished
+2026-06-27T17:18:27.967Z info: getCKey$ : 2026-06-27T17:18:27.967Z
+2026-06-27T17:18:27.978Z info: getCKey$ finished
+2026-06-27T17:21:29.519Z info: FormGet : 2026-06-27T17:21:29.519Z
+2026-06-27T17:21:29.587Z info: FormGet finished
+2026-06-27T17:24:13.371Z info: FormGet : 2026-06-27T17:24:13.370Z
+2026-06-27T17:24:13.432Z info: Reloading orgs-topics config OK
+2026-06-27T17:24:13.452Z info: FormGet finished
+2026-06-27T17:29:22.591Z info: 10 document Registry
+2026-06-27T17:29:22.595Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T17:29:22.596Z info: Firestore connector
+2026-06-27T17:29:22.598Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T17:29:22.620Z info: Reloading orgs-topics config OK
+2026-06-27T17:29:22.630Z info: HTTP listen [8080]
+2026-06-27T17:29:50.630Z info: $OpenSafeByPin finished
+2026-06-27T17:29:50.749Z info: $GetSafe finished
+2026-06-27T17:29:55.109Z info: $mdEventList finished
+2026-06-27T17:30:44.650Z info: 10 document Registry
+2026-06-27T17:30:44.654Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T17:30:44.655Z info: Firestore connector
+2026-06-27T17:30:44.656Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T17:30:44.683Z info: Reloading orgs-topics config OK
+2026-06-27T17:30:44.690Z info: HTTP listen [8080]
+2026-06-27T17:31:09.420Z info: $OpenSafeByPin finished
+2026-06-27T17:31:09.551Z info: $GetSafe finished
+2026-06-27T17:31:14.116Z info: $mdEventList finished
+2026-06-27T17:31:16.912Z info: $GetOrgSvcs finished
+2026-06-27T17:31:16.940Z info: $GetSvcUrls finished
+2026-06-27T17:31:16.993Z info: FormGet : 2026-06-27T17:31:16.993Z
+2026-06-27T17:31:17.053Z info: FormGet finished
+2026-06-27T17:31:50.135Z info: getCKey$ : 2026-06-27T17:31:50.134Z
+2026-06-27T17:31:50.146Z info: getCKey$ finished
+2026-06-27T17:33:19.940Z info: 10 document Registry
+2026-06-27T17:33:19.949Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T17:33:19.950Z info: Firestore connector
+2026-06-27T17:33:19.951Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T17:33:19.974Z info: Reloading orgs-topics config OK
+2026-06-27T17:33:19.987Z info: HTTP listen [8080]
+2026-06-27T17:36:10.653Z info: $OpenSafeByPin finished
+2026-06-27T17:36:10.763Z info: $GetSafe finished
+2026-06-27T17:36:14.637Z info: $mdEventList finished
+2026-06-27T17:36:26.454Z info: $GetOrgSvcs finished
+2026-06-27T17:37:10.417Z info: $GetSvcUrls finished
+2026-06-27T17:37:10.457Z info: getCKey$ : 2026-06-27T17:37:10.456Z
+2026-06-27T17:37:10.489Z info: getCKey$ finished
+2026-06-27T17:37:24.272Z info: FormCreateByU : 2026-06-27T17:37:24.266Z
+2026-06-27T17:37:24.329Z info: FormCreateByU finished
+2026-06-27T17:37:24.625Z info: MDEventFull : 2026-06-27T17:37:24.624Z
+2026-06-27T17:37:24.643Z info: MDEventFull finished
+2026-06-27T17:37:24.685Z info: $mdEventNew finished
+2026-06-27T17:37:36.718Z info: $mdEventList finished
+2026-06-27T17:37:36.854Z info: FormGet : 2026-06-27T17:37:36.854Z
+2026-06-27T17:37:36.916Z info: FormGet finished
+2026-06-27T17:41:50.457Z info: 10 document Registry
+2026-06-27T17:41:50.462Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T17:41:50.464Z info: Firestore connector
+2026-06-27T17:41:50.465Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T17:41:50.495Z info: Reloading orgs-topics config OK
+2026-06-27T17:41:50.502Z info: HTTP listen [8080]
+2026-06-27T17:42:12.744Z info: $OpenSafeByPin finished
+2026-06-27T17:42:12.847Z info: $GetSafe finished
+2026-06-27T17:42:17.877Z info: $mdEventList finished
+2026-06-27T17:42:29.847Z info: $GetOrgSvcs finished
+2026-06-27T17:43:18.918Z info: $GetSvcUrls finished
+2026-06-27T17:43:18.976Z info: getCKey$ : 2026-06-27T17:43:18.976Z
+2026-06-27T17:43:18.986Z info: getCKey$ finished
+2026-06-27T17:44:35.809Z info: FormCreateByU : 2026-06-27T17:44:35.809Z
+2026-06-27T17:44:35.846Z info: FormCreateByU finished
+2026-06-27T17:44:36.142Z info: MDEventFull : 2026-06-27T17:44:36.139Z
+2026-06-27T17:44:36.166Z info: MDEventFull finished
+2026-06-27T17:44:36.235Z info: $mdEventNew finished
+2026-06-27T17:45:21.056Z info: $mdEventList finished
+2026-06-27T17:45:21.223Z info: FormGet : 2026-06-27T17:45:21.222Z
+2026-06-27T17:45:21.293Z info: FormGet finished
+2026-06-27T17:49:37.316Z info: 10 document Registry
+2026-06-27T17:49:37.320Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-06-27T17:49:37.323Z info: Firestore connector
+2026-06-27T17:49:37.326Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-06-27T17:49:37.357Z info: Reloading orgs-topics config OK
+2026-06-27T17:49:37.366Z info: HTTP listen [8080]
+2026-06-27T17:50:09.490Z info: $OpenSafeByPin finished
+2026-06-27T17:50:09.651Z info: $GetSafe finished
+2026-06-27T17:50:13.592Z info: $mdEventList finished
+2026-06-27T17:50:15.020Z info: $GetOrgSvcs finished
+2026-06-27T17:50:15.052Z info: $GetSvcUrls finished
+2026-06-27T17:50:15.144Z info: FormGet : 2026-06-27T17:50:15.143Z
+2026-06-27T17:52:20.340Z info: FormGet finished
+2026-06-27T17:52:48.160Z info: getCKey$ : 2026-06-27T17:52:48.160Z
+2026-06-27T17:52:48.184Z info: getCKey$ finished
+2026-06-27T17:54:23.251Z info: $OpenSafeByPin finished
+2026-06-27T17:54:23.368Z info: $GetSafe finished
+2026-06-27T17:54:27.669Z info: $mdEventList finished
+2026-06-27T17:54:29.077Z info: $GetOrgSvcs finished
+2026-06-27T17:54:29.114Z info: $GetSvcUrls finished
+2026-06-27T17:54:29.161Z info: FormGet : 2026-06-27T17:54:29.161Z
+2026-06-27T17:54:45.330Z info: FormGet finished
+2026-06-27T17:55:12.186Z info: $OpenSafeByPin finished
+2026-06-27T17:55:12.348Z info: $GetSafe finished
+2026-06-27T17:55:28.350Z info: FormFilteredList : 2026-06-27T17:55:28.349Z
+2026-06-27T17:55:28.402Z info: FormFilteredList finished
+2026-06-27T17:55:28.435Z info: Reloading orgs-topics config OK
+2026-06-27T17:55:55.500Z info: FormUpdByT : 2026-06-27T17:55:55.499Z
+2026-06-27T17:56:09.286Z info: FormUpdByT finished
+2026-06-27T17:56:09.500Z info: MDEventSync : 2026-06-27T17:56:09.500Z
+2026-06-27T17:56:09.510Z info: MDEventSync finished
+2026-06-27T17:56:09.600Z info: $mdEventSync finished
+2026-06-27T17:56:18.251Z info: FormFilteredList : 2026-06-27T17:56:18.251Z
+2026-06-27T17:56:18.350Z info: FormFilteredList finished
+2026-06-27T17:56:38.830Z info: $OpenSafeByPin finished
+2026-06-27T17:56:38.949Z info: $GetSafe finished
+2026-06-27T18:01:00.125Z info: $OpenSafeByPin finished
+2026-06-27T18:01:00.230Z info: $GetSafe finished
+2026-06-27T18:01:05.277Z info: $mdEventList finished
+2026-06-27T18:01:08.628Z info: $mdEventUser finished
+2026-06-27T18:01:08.655Z info: $GetOrgSvcs finished
+2026-06-27T18:01:08.695Z info: $GetSvcUrls finished
+2026-06-27T18:01:08.751Z info: FormGet : 2026-06-27T18:01:08.751Z
+2026-06-27T18:01:08.813Z info: Reloading orgs-topics config OK
+2026-06-27T18:01:08.835Z info: FormGet finished
+2026-06-27T18:02:58.291Z info: $mdEventUser finished
+2026-06-27T18:03:29.590Z info: $OpenSafeByPin finished
+2026-06-27T18:03:29.740Z info: $GetSafe finished
+2026-06-27T18:04:18.278Z info: $mdEventList finished
+2026-06-27T18:04:40.346Z info: $OpenSafeByPin finished
+2026-06-27T18:04:40.448Z info: $GetSafe finished
+2026-06-27T18:04:45.185Z info: $mdEventList finished
+2026-06-27T18:04:48.601Z info: $GetOrgSvcs finished
+2026-06-27T18:04:48.628Z info: $GetSvcUrls finished
+2026-06-27T18:04:48.691Z info: FormGet : 2026-06-27T18:04:48.690Z
+2026-06-27T18:04:48.805Z info: FormGet finished
+2026-06-27T18:06:35.720Z info: FormGet : 2026-06-27T18:06:35.719Z
+2026-06-27T18:06:35.791Z info: Reloading orgs-topics config OK
+2026-06-27T18:06:35.814Z info: FormGet finished
+2026-06-27T18:08:02.276Z info: $OpenSafeByPin finished
+2026-06-27T18:08:02.399Z info: $GetSafe finished
+2026-06-27T18:08:16.195Z info: FormFilteredList : 2026-06-27T18:08:16.194Z
+2026-06-27T18:08:16.308Z info: FormFilteredList finished
+2026-06-27T18:08:42.711Z info: FormFilteredList : 2026-06-27T18:08:42.711Z
+2026-06-27T18:08:42.780Z info: FormFilteredList finished
+2026-06-27T18:09:51.477Z info: $OpenSafeByPin finished
+2026-06-27T18:09:51.571Z info: $GetSafe finished
+2026-06-27T18:11:52.930Z info: $OpenSafeByPin finished
+2026-06-27T18:11:53.020Z info: $GetSafe finished
+2026-06-27T18:11:59.090Z info: $mdEventList finished
+2026-06-27T18:12:01.283Z info: $GetOrgSvcs finished
+2026-06-27T18:12:01.308Z info: $GetSvcUrls finished
+2026-06-27T18:12:01.353Z info: FormGet : 2026-06-27T18:12:01.353Z
+2026-06-27T18:12:01.408Z info: Reloading orgs-topics config OK
+2026-06-27T18:12:01.409Z info: FormGet finished
+2026-06-27T18:15:59.001Z info: $OpenSafeByPin finished
+2026-06-27T18:15:59.110Z info: $GetSafe finished
+2026-06-27T18:16:04.702Z info: $mdEventList finished
+2026-06-27T18:16:06.093Z info: $GetOrgSvcs finished
+2026-06-27T18:16:06.131Z info: $GetSvcUrls finished
+2026-06-27T18:16:06.170Z info: FormGet : 2026-06-27T18:16:06.170Z
+2026-06-27T18:16:06.227Z info: FormGet finished
+2026-06-27T18:16:39.442Z info: $OpenSafeByPin finished
+2026-06-27T18:16:39.525Z info: $GetSafe finished
+2026-06-27T18:18:36.383Z info: $OpenSafeByPin finished
+2026-06-27T18:18:36.493Z info: $GetSafe finished
+2026-06-27T18:18:40.910Z info: $mdEventList finished
+2026-06-27T18:19:18.637Z info: $OpenSafeByPin finished
+2026-06-27T18:19:18.747Z info: $GetSafe finished
+2026-06-27T18:19:34.279Z info: $GetOrgSvcs finished
+2026-06-27T18:19:36.776Z info: $GetSvcUrls finished
+2026-06-27T18:19:36.837Z info: FormFilteredList : 2026-06-27T18:19:36.837Z
+2026-06-27T18:19:36.895Z info: Reloading orgs-topics config OK
+2026-06-27T18:19:36.912Z info: FormFilteredList finished
+2026-06-27T18:20:09.895Z info: $OpenSafeByPin finished
+2026-06-27T18:20:10.000Z info: $GetSafe finished
+2026-06-27T18:20:13.863Z info: FormFilteredList : 2026-06-27T18:20:13.863Z
+2026-06-27T18:20:13.915Z info: FormFilteredList finished
+2026-06-27T18:20:41.866Z info: $mdEventList finished
+2026-06-27T18:20:56.328Z info: $OpenSafeByPin finished
+2026-06-27T18:20:56.419Z info: $GetSafe finished
+2026-06-27T18:21:02.455Z info: $mdEventList finished
+2026-06-27T18:21:04.229Z info: FormGet : 2026-06-27T18:21:04.229Z
+2026-06-27T18:21:04.284Z info: FormGet finished
+2026-06-27T18:22:24.091Z info: $OpenSafeByPin finished
+2026-06-27T18:22:24.228Z info: $GetSafe finished
+2026-06-27T18:22:38.748Z info: FormFilteredList : 2026-06-27T18:22:38.748Z
+2026-06-27T18:22:38.812Z info: FormFilteredList finished
+2026-06-27T18:25:59.557Z info: $OpenSafeByPin finished
+2026-06-27T18:25:59.715Z info: $GetSafe finished
+2026-06-27T18:26:05.345Z info: $mdEventList finished
+2026-06-27T18:26:06.827Z info: $GetOrgSvcs finished
+2026-06-27T18:26:06.853Z info: $GetSvcUrls finished
+2026-06-27T18:26:06.922Z info: FormGet : 2026-06-27T18:26:06.916Z
+2026-06-27T18:26:06.969Z info: Reloading orgs-topics config OK
+2026-06-27T18:26:06.981Z info: FormGet finished
+2026-06-27T18:26:41.021Z info: $OpenSafeByPin finished
+2026-06-27T18:26:41.196Z info: $GetSafe finished
+2026-06-27T18:26:57.686Z info: FormFilteredList : 2026-06-27T18:26:57.686Z
+2026-06-27T18:26:57.775Z info: FormFilteredList finished

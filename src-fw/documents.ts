@@ -329,8 +329,9 @@ export class $Form extends $Document {
   async decryptMsgU (op: OperationWC) : Promise<void> {
     if (this.msgU) {
       const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
-      this.msgU = await Crypt.decrypt(aes, this.msgU)
-      // const x = decoder.decode(this.msgU)
+      const x = await Crypt.decrypt(aes, this.msgU)
+      const y = decoder.decode(x)
+      this.msgU = x
       // console.log(x)
     }
   }
