@@ -709,7 +709,7 @@ class FormCancel extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { eventId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (f.userId !== this.authRecord.userId)
