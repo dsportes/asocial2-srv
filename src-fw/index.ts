@@ -16,7 +16,7 @@ import { IDbGeneric } from './iDbGeneric'
 // import { StorageGeneric } from './storageGeneric'
 import { Operation } from './operation'
 import { SafeOperation } from './safeop'
-import { MDOperation } from './masterdir'
+import { MDOperation, getSafeUrl } from './masterdir'
 
 export class DbConnector {
 
@@ -134,7 +134,7 @@ export class OrgsConfig {
       OrgsConfig.current = oc
       OrgsConfig.updating = false
       OrgsConfig.lastLoading = Date.now()
-      if (config.debugLevel > 0) Log.debug('Reloading orgs-topics config OK')
+      if (config.debugLevel > 0) Log.debug('Reloading orgs config OK')
         return true
     } catch (e) {
       if (op && op.db) op.db.disconnect()
@@ -604,4 +604,17 @@ export interface OperationWC extends AbstractOperation {
   authRecord: any
 
   transac () : Promise<void>
+}
+
+type Dobj = {
+  at: number, // date-heure de lecture
+  v: number, // version: date-heure de dernière mise à jour
+  val: Object // selon la table
+  /* 
+    svcops: clé svc => { OP1:url1, OP2: url2 ...}
+  */
+}
+export async function doSafeOp (op: AbstractOperation, safeStore: string, opName: string) {
+  const url = !safeStore ? '' : await getSafeUrl(op, safeStore)
+
 }

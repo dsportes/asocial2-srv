@@ -27,6 +27,13 @@ type Dobj = {
 }
 
 /* Cache du MasterDir ************************************************/
+export async function getSafeUrl (op: AbstractOperation, safeStore: string)
+ : Promise<string> {
+  const e: any = await MDCache.get(op, MDTable.SVCOPS, 'SAFE')
+  // e.val { $STD:url1, $MYSF1: url2 ...}
+  return !e.val ? '' : (e.val[safeStore] || '')
+}
+
 class MDCache {
   /* Cache des couples [clé C, clé V] par UserId */
   static cvs : Map<string, [string, string]> = new Map()
@@ -65,7 +72,7 @@ class MDCache {
     return e.val
   }
 
-  /* Sauvegarde l'objet associé à la table SVCOPS / ORGS pour la table et l'ID spéciées.
+  /* Sauvegarde l'objet associé à la table SVCOPS / ORGS pour la table et l'ID spécifiées.
   Si val est null, supprime l'entrée. 
   Toutefois en cache l'entrée existe toujours avec une val null pour évier une relecture
   en base en cas de redemande.
@@ -320,7 +327,7 @@ class $mdUserGetAAS extends MDOperation {
 }
 Registry.registerOp($mdUserGetAAS)
 
-/* $mdUserGetICVS : retourne l'ID et le store d'user cité par 
+/* $mdUserGetICVS : retourne l'ID et le store d'un user cité par 
 un alias ou son ID
 Appel NON transactionnel (consultation simple à l'instant t).
 Argument:

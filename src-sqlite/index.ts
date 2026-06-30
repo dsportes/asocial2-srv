@@ -201,7 +201,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /******************************************************************************
-  * Gestion du MAster Directory  
+  * Gestion du Master Directory  
   ******************************************************************************/
 
   async mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> {

@@ -71,6 +71,7 @@ setConfig(
   ADMINUSERS,
   MASTERDIRADMINUSERS,
   MASTERDIR: 'http://localhost:8080',
+  STDSAFE: 'http://localhost:8080/safe/',
 
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
