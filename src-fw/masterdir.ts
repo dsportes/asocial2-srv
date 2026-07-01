@@ -5,7 +5,6 @@ import { Crypt } from './crypt'
 import { keyFromB64 } from './b64'
 import { config, Registry } from './config'
 import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from './iDbGeneric'
-import { isJsxOpeningFragment } from 'typescript'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Registry.sizeOp())

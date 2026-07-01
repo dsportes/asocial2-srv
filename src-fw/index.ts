@@ -606,15 +606,78 @@ export interface OperationWC extends AbstractOperation {
   transac () : Promise<void>
 }
 
-type Dobj = {
-  at: number, // date-heure de lecture
-  v: number, // version: date-heure de dernière mise à jour
-  val: Object // selon la table
-  /* 
-    svcops: clé svc => { OP1:url1, OP2: url2 ...}
-  */
+
+/************************************************************
+Accès HTTP au MasterDir et aux Safes depuis les opérations
+**************************************************************/
+type ICVS = {
+  i: string
+  c: string
+  v: string
+  s: string
+  dh: number
 }
-export async function doSafeOp (op: AbstractOperation, safeStore: string, opName: string) {
-  const url = !safeStore ? '' : await getSafeUrl(op, safeStore)
+
+export class MDandSafe {
+  static icvsCache : Map<string, ICVS> = new Map()
+  static lastClean : number = Date.now()
+
+  static cleanCache () : number{
+    const now: number = Date.now()
+    if ((now - MDandSafe.lastClean) < 3600000) return now
+    for (const [id, x] of MDandSafe.icvsCache)
+      if ((now - x.dh) > 1800000) MDandSafe.icvsCache.delete(id)
+    MDandSafe.lastClean = now
+    return now
+  }
+
+  static async postMDS (url: string, args: any) : Promise<Object> {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/octet-stream',  // sent request
+          'Accept':       'application/octet-stream'   // expected data sent back
+        },
+        body: new Uint8Array(encode(args))
+      })
+      const buf = await response.bytes()
+      const obj = decode(buf)
+      if (response.status === 200) return obj
+      const txt = new TextDecoder().decode(buf)
+      throw new AppExc(108, 'remote_md_safes_access_status', args.opName, [(url || '?'), '' + response.status, txt])
+    } catch (e: any) {
+      if (e instanceof AppExc) throw e
+      throw new AppExc(108, 'remote_md_safes_access_exc', args.opName, [(url || '?'), e.toString()])
+    }
+  }
+
+  static async getCVS (userId: string) : Promise<[string, string, string] | null> {
+    const now = MDandSafe.cleanCache()
+    let icvs = MDandSafe.icvsCache.get(userId)
+    if (icvs) return [icvs.c, icvs.v, icvs.s]
+    const args = {
+      opName: '$mdUserGetICVS',
+      userId: userId
+    }
+    const res: any = await MDandSafe.postMDS(config.MASTERDIR_URL, args)
+    icvs = res.icvs
+    if (!icvs) return null
+    icvs.dh = now
+    MDandSafe.icvsCache.set(userId, icvs)
+    /* Test accès Safe
+    const r: any = await this.doSafeOp(userId, '$Ping', {})
+    console.log(r.ping)
+    */
+    return [icvs.c, icvs.v, icvs.s]
+  }
+
+  static async doSafeOp (userId: string, opName: string, args: any) : Promise<Object> {
+    const cvs = await MDandSafe.getCVS(userId)
+    if (!cvs) return { status: 101 }
+    const safeStore = cvs[2] || config.STDSAFE_URL
+    args.opName = opName
+    return MDandSafe.postMDS(safeStore, args)
+  }
 
 }

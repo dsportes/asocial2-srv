@@ -7,8 +7,9 @@ import { Operation } from '../src-fw/operation'
 import { Registry } from './config'
 import { DocType, FormType } from './doctypes'
 import { config } from '../src-fw/config'
-import { keyFromB64 } from './b64'
-import { MDOperation } from '../src-fw/masterdir'
+import { keyFromB64 } from '../src-fw/b64'
+import { MDandSafe, AppExc } from '../src-fw/index'
+
 // import { AuthRecord } from '../src-fw/operation'
 
 export function loadingDF () {
@@ -317,22 +318,23 @@ export class $Form extends $Document {
     const x = config.keys['DCKeys'][this.ft.key]
     return { pub: keyFromB64(x.pub), priv: keyFromB64(x.priv) }
   }
-  async uPub (op: OperationWC) : Promise<Buffer> {
-    const [c, v] = await MDOperation.getCV(op, this.userId)
-    return keyFromB64(c)
+  async uPub () : Promise<Buffer> {
+    const cvs = await MDandSafe.getCVS(this.userId)
+    if (!cvs) throw new AppExc(105, 'userid_not_found_in_masterdir', null, [this.userId])
+    return keyFromB64(cvs[0])
   }
 
   /* Une opération de lecture du formulaire peut décrypter `msgU` en utilisant le couple, 
   de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
   et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U). 
   */
-  async decryptMsgU (op: OperationWC) : Promise<void> {
+  async decryptMsgU () : Promise<void> {
     if (this.msgU) {
-      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      const pub = await this.uPub()
+      const aes = await Crypt.getAESKey(pub, this.kp.priv)
       const x = await Crypt.decrypt(aes, this.msgU)
-      const y = decoder.decode(x)
+      // const y = decoder.decode(x)
       this.msgU = x
-      // console.log(x)
     }
   }
 
@@ -343,16 +345,18 @@ export class $Form extends $Document {
   - de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
   - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
   */
-  async cryptMsgT (op: OperationWC) : Promise<void> {
+  async cryptMsgT () : Promise<void> {
     if (this.msgT) {
-      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      const pub = await this.uPub()
+      const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.crypt(aes, this.msgT)
     }
   }
 
-  async decryptMsgT (op: OperationWC) : Promise<void> {
+  async decryptMsgT () : Promise<void> {
     if (this.msgT) {
-      const aes = await Crypt.getAESKey(await this.uPub(op), this.kp.priv)
+      const pub = await this.uPub()
+      const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.decrypt(aes, this.msgT as Uint8Array)
     }
   }
@@ -400,8 +404,8 @@ export class $Form extends $Document {
       if (!f.isOld) {
         if (f.checkAuthTP(op)) {
           try {
-            await f.decryptMsgT(op)
-            await f.decryptMsgU(op)
+            await f.decryptMsgT()
+            await f.decryptMsgU()
             l.push(f.toFormObj())
           } catch (e) {
             console.log(e)

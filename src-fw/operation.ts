@@ -1,17 +1,18 @@
-import { AppExc, OperationWC } from '../src-fw/index'
-import { config } from './config'
-import { Log } from './log'
-import { DbConnector } from './dbConnector'
-import { IDbGeneric, row, srvStatus, updType } from './iDbGeneric'
-import { IStGeneric } from './iStGeneric'
-import { DocType } from './doctypes'
-import { $Document, DocStatus } from './document'
-import { $Credential, $Cred, $Status } from './documents'
-import { Publisher } from './publisher'
-import { Util } from './util'
-import { Crypt } from './crypt'
+// @ts-ignore
 import { decode } from '@msgpack/msgpack'
-import { MDOperation } from '../src-fw/masterdir'
+
+import { AppExc, OperationWC, MDandSafe } from '../src-fw/index'
+import { config } from '../src-fw/config'
+import { Log } from '../src-fw/log'
+import { DbConnector } from '../src-fw/dbConnector'
+import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
+import { IStGeneric } from '../src-fw/iStGeneric'
+import { DocType } from '../src-fw/doctypes'
+import { $Document, DocStatus } from '../src-fw/document'
+import { $Credential, $Cred } from '../src-fw/documents'
+import { Publisher } from '../src-fw/publisher'
+import { Util } from '../src-fw/util'
+import { Crypt } from '../src-fw/crypt'
 import { keyFromB64 } from '../src-fw/b64'
 
 const encoder = new TextEncoder()
@@ -363,8 +364,9 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const [c, v]= await MDOperation.getCV(this.op, this.userId)
-    if (!v) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
+    const cvs = await MDandSafe.getCVS(this.userId)
+    if (!cvs) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
+    const v = cvs[1]
     const ok = await Crypt.verify(keyFromB64(v), this.userSign, this.challenge)
     if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
     

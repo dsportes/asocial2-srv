@@ -38,7 +38,8 @@ export interface BaseConfig {
   SVC: string // code service
   ADMINUSERS: Set<string>
   MASTERDIRADMINUSERS: Set<string>
-  MASTERDIR: string
+  MASTERDIR_URL: string
+  STDSAFE_URL: string
   PROD: boolean
   GCLOUDLOGGING: boolean
 
