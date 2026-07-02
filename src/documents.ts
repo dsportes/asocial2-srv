@@ -18,29 +18,39 @@ new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
 
 class $Form_membrecodir extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
+
   getDetail () { return [] }
-  async validate (op: Operation) : Promise<number> { return 0 }
+  
+  async validate (op: Operation, byU: boolean) : Promise<number> { 
+    return 0 
+  }
 }
 Registry.registerD($Form_membrecodir)
 
 class $Form_membreredaction extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
-  async validate (op: Operation) : Promise<number> { return 0 }
+  async validate (op: Operation, byU: boolean) : Promise<number> { 
+    return 0 
+  }
 }
 Registry.registerD($Form_membreredaction)
 
 class $Form_auteur extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
-  async validate (op: Operation) : Promise<number> { return 0 }
+  async validate (op: Operation, byU: boolean) : Promise<number> { 
+    return 0 
+  }
 }
 Registry.registerD($Form_auteur)
 
 class $Form_coauteur extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
-  async validate (op: Operation) : Promise<number> { return 0 }
+  async validate (op: Operation, byU: boolean) : Promise<number> { 
+    return 0 
+  }
 }
 Registry.registerD($Form_coauteur)
 

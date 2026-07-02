@@ -9,7 +9,7 @@ import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
 import { DocType } from '../src-fw/doctypes'
 import { $Document, DocStatus } from '../src-fw/document'
-import { $Credential, $Cred } from '../src-fw/documents'
+import { $Credential, Embed$Cred } from '../src-fw/documents'
 import { Publisher } from '../src-fw/publisher'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
@@ -148,7 +148,7 @@ export class Operation implements OperationWC {
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (docCl: string, docId: string, noex?: boolean) : $Cred {
+  getCred (docCl: string, docId: string, noex?: boolean) : $Credential {
     this.requireAuth()
     return this.authRecord.getCred(docCl, docId, noex || false)
   }
@@ -330,7 +330,7 @@ export class AuthRecord {
   pemV: string // clé publique de vérification du userId
 
   /* Clé: ref : docCl/docId - Cred dont la signature est ok*/
-  creds: Map<string, $Cred>
+  creds: Map<string, $Credential>
   /* ref SANS Credential OU dont la signature est KO */
   koCreds: Set<string>
   
@@ -355,7 +355,7 @@ export class AuthRecord {
     }
   }
 
-  getCred(docCl: string, docPk: string, noex?: boolean) : $Cred {
+  getCred(docCl: string, docPk: string, noex?: boolean) : $Credential {
     const cr = this.creds.get(docCl + '/' + docPk)
     if (cr) return cr
     if (noex) return null
@@ -376,24 +376,22 @@ export class AuthRecord {
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
       const dt = DocType.get(docCl)
-      let cred: $Cred
+      let credential: $Credential
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
-        const x = d['creds']
-        if (x) {
-          const y = x[credId]
-          if (y && y.more && (!y.more.limit || y.more.limit >= this.op.now)) cred = y
-        }
+        const x: Embed$Cred = d['creds']
+        if (x && x.props && (!x.props.limit || x.props.limit >= this.op.now)) 
+          credential = $Credential.new(docCl, docPk, x)
       } else { // Recherche du Credential par sa pk
-        const c = await this.op.cache.getDoc('$Credential', { credId }) as $Credential
+        const c = await this.op.cache.getDoc('$Credential', { pk: docPk }) as $Credential
         if (c.docCl === docCl && c.docPk === docPk) {
-          if (cred.more && cred.more.limit && cred.more.limit < this.op.now) 
+          if (c.cred.props && c.cred.props.limit && c.cred.props.limit < this.op.now) 
             this.op.cache.delDoc('$Credential', c.pk)
-          else cred = c.cred
+          else credential = c
         }
       }
-      const ok = !cred ? false : await Crypt.verify(Buffer.from(cred.pubv), sign, this.challenge)
-      if (ok) { cred.credId = credId; this.creds.set(ref, cred) }
+      const ok = !credential ? false : await Crypt.verify(Buffer.from(credential.cred.pubv), sign, this.challenge)
+      if (ok) this.creds.set(ref, credential) 
       else this.koCreds.add(ref)
     }
 

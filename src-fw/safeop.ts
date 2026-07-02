@@ -6,6 +6,9 @@ import { Util } from './util'
 import { Safe, Alias } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
 
+const encoder = new TextEncoder()
+const decoder = new TextDecoder()
+
 export function loadingOS () {
   console.log('safe operations loading: ', Registry.sizeOp())
 }
@@ -323,46 +326,59 @@ class $UntrustDevices extends SafeOperation {
 Registry.registerOp($UntrustDevices)
 
 /* Creds ***************************************************************/
-type SetCred = {
+export type SetCred = {
   userId: string
-  shK: string 
+  signId: string // signature de credId par la clé de signature du user (base 64)
   credId: string // id du credential
   nameK: string // name (correspondant à docId) crypté par K et en base 64
-  cred?: string // CredSafe sérialisé, crypté par K et en base64 (pour création)
+  credK?: string // CredSafe sérialisé crypté par clé K en base64
 }
 /* Enregistrement d'un credential
-Status: 1 2
+Status: 
+- 0 : déjà créé ou juste créé
+- 1 : pas de safe pour userId
+- 2 : signature de credId invalide
 */
 class $CreateCred extends SafeOperation {
   async doTheJob () : Promise<void> {
     const sc = this.args['setCred'] as SetCred
-    const safe = await this.getSafe(sc)
-    if (!safe) return
-
+    const bin = await this.db.getBinSafe(sc.userId)
+    if (!bin) { this.setRes('status', 1); return }
+    const safe = decode(bin) as Safe
+    const v = keyFromB64(safe.auth.V)
+    const b = await Crypt.verify(v, keyFromB64(sc.signId), encoder.encode(sc.credId))
+    if (!b) { this.setRes('status', 2); return }
     if (!safe.creds) safe.creds = {}
-    const x = [sc.nameK, sc.cred]
+    const e = safe.creds[sc.credId]
+    if (e) { this.setRes('status', 0); return }
+    const x = [sc.nameK, sc.credK]
     safe.creds[sc.credId] = x
-
     await this.save(safe, true)
     this.setRes('status', 0)
   }
 }
 Registry.registerOp($CreateCred)
 
+type SetNameCred = {
+  userId: string
+  shK: string
+  credId: string // id du credential
+  nameK: string // name (correspondant à docId) crypté par K et en base 64
+}
 /* Maj du commentaire d'un credential
 Status: 1 2
 */
 class $UpdateCredName extends SafeOperation {
   async doTheJob () : Promise<void> {
-    const sc = this.args['setCred'] as SetCred
-    const safe = await this.getSafe(sc)
+    const snc = this.args['setNameCred'] as SetNameCred
+    const safe = await this.getSafe(snc)
     if (!safe) return
     let u = false
     if (safe.creds) {
-      const x = safe.creds[sc.credId]
+      const x = safe.creds[snc.credId]
       if (x) {
-        x[0] = sc.nameK
-        safe.creds[sc.credId] = x
+        x[0] = snc.nameK
+        safe.creds[snc.credId] = x
         u = true
       }
     }
@@ -377,7 +393,7 @@ type RevokeCreds = {
   shK: string
   ids: string[] 
 }
-/* Auto révocation d'un credential.
+/* Auto révocation d'une liste de credential.
 Status: 1 2
 */
 class $AutoRevokeCreds extends SafeOperation {

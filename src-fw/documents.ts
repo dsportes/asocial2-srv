@@ -1,14 +1,15 @@
-import { $Document } from './document'
-import { Crypt } from './crypt'
-import { filter } from './iDbGeneric'
-import { decode } from '@msgpack/msgpack'
+import { $Document } from '../src-fw/document'
+import { Crypt } from '../src-fw/crypt'
+import { filter } from '../src-fw/iDbGeneric'
+import { encode, decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
 import { Operation } from '../src-fw/operation'
-import { Registry } from './config'
-import { DocType, FormType } from './doctypes'
+import { Registry } from '../src-fw/config'
+import { DocType, FormType } from '../src-fw/doctypes'
 import { config } from '../src-fw/config'
-import { keyFromB64 } from '../src-fw/b64'
+import { keyFromB64, keyToB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
+import { SetCred } from '../src-fw/safeop'
 
 // import { AuthRecord } from '../src-fw/operation'
 
@@ -159,12 +160,72 @@ export class $SubsItem extends $Document {
 }
 Registry.registerD($SubsItem)
 
-export type $Cred = {
+export type $CredObj = {
+  credId: string
+  docCl: string
+  docPk: string
   pubv: Uint8Array
   pubc: Uint8Array
-  opaque: Uint8Array | null
-  more: any
+  props: Object | null
+  maxLife?: number
+}
+
+export class $CredTempl {
+  userId: string
   credId: string
+  docCl: string
+  docPk: string
+  pubv: Uint8Array
+  pubc: Uint8Array
+  credK: string
+  nameK: string // crypté par clé K de U en base 64
+  signId: string // signature de credId par privs en base 64
+
+  constructor (obj: any) {
+    for (const p of Object.keys(obj)) this[p] = obj[p]
+  }
+
+  toCredObj (props: Object | null) : $CredObj{
+    return {
+      credId: this.credId,
+      docCl: this.docCl,
+      docPk: this.docPk,
+      pubv: this.pubv,
+      pubc: this.pubc,
+      props
+    }
+  }
+
+  async CreateCred () : Promise<number>{
+    const setCred: SetCred = {
+      userId: this.userId,
+      signId: this.signId,
+      credId: this.credId,
+      nameK: this.nameK,
+      credK: this.credK
+    }
+    const res: any = await MDandSafe.doSafeOp(this.userId, '$CreateCred', setCred)
+    return res.status || 0
+  }
+
+}
+
+export type $Cred = {
+  credId: string
+  svc: string
+  org: string
+  docCl: string
+  docPk: string
+  props: any
+  maxLife: number
+}
+
+export type Embed$Cred = {
+  credId: string
+  pubv: Uint8Array
+  pubc: Uint8Array
+  props: any
+  maxLife: number
 }
 
 export class $Credential extends $Document {
@@ -173,24 +234,41 @@ export class $Credential extends $Document {
   credId: string
   docCl: string
   docPk: string // clé primaire du document maitre
-  /* epoch en MINUTES de fin de validité
-  Recopie de cred.limit ou 0 */
-  maxLife: number
-  cred: any
+  cred: Embed$Cred
+
+  static new (docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
+    const c = Registry.newD('$Credential', { docCl })
+    c.credId = ec.credId
+    c.docCl = docCl
+    c.docPk = docPk
+    c.cred = ec
+    return c
+  }
+
+  to$Cred (org: string) : $Cred {
+    const x = {
+      credId: this.credId,
+      svc: config.SVC,
+      org: org,
+      docCl: this.docCl,
+      docPk: this.docPk,
+      props: this.cred.props,
+      maxLife: this.cred.maxLife
+    }
+    return x
+  }
 
   // Liste les credentials attribuable par un administrateur seulement
   static async listManagers (op: OperationWC) : Promise<$Cred[]> {
+    const org = op.org
     const lst: $Cred[] = []
     let sel: string[] = []
     for(const cl of DocType.managerClasses) sel.push(cl + '/1')
     if (sel.length) await op.db.selectDocs('$Credential', 'creds', filter.IN, sel, '', 0, 
       (bin: Uint8Array) => {
         try {
-          const obj = decode(bin) as $Credential
-          const c = obj.cred
-          delete c.pubv
-          delete c.pubc
-          lst.push(c)
+          const c = decode(bin) as $Credential
+          lst.push(c.to$Cred(org))
         } catch(e) {
           console.log(e)
         }    
@@ -202,6 +280,7 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
+    const org = op.org
     const docPk = DocType.getPk(docCl, src, true)
     const dd = DocType.get('$Credential')
     const val = dd.getIdx({ docCl, docPk }, 'doc')
@@ -209,11 +288,8 @@ export class $Credential extends $Document {
     await op.db.selectDocs('$Credential', 'doc', filter.EQ, val[0], '', 0, 
       (bin) => {
         try {
-          const obj = decode(bin) as $Credential
-          const c = obj.cred
-          delete c.pubv
-          delete c.pubc
-          lst.push(c)
+          const c = decode(bin) as $Credential
+          lst.push(c.to$Cred(org))
         } catch(e) {
           console.log(e)
         }
@@ -225,8 +301,23 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
-    const doc: any = await op.cache.getDoc(docCl, src)
-    return doc && doc.creds ? Array.from(doc.creds.values()) : []
+    const svc = config.SVC
+    const org = op.org
+    const pk = DocType.getPk(docCl, src)
+    const doc: any = await op.cache.getDoc(docCl, { pk })
+    const creds: $Cred[] = doc && doc.creds ? Array.from(doc.creds.values()) : []
+    const lst: $Cred[] = []
+    for (const c of creds)
+      lst.push({
+        credId: c.credId,
+        svc: svc,
+        org: org,
+        docCl: docCl,
+        docPk: pk,
+        props: c.props,
+        maxLife: c.maxLife
+      })
+    return lst
   }
 }
 Registry.registerD($Credential)
@@ -277,7 +368,7 @@ export class $Form extends $Document {
   /* Traitement final: surchargé par type :Retourne un statut de validation,
   - 0 si OK, N > 10 selon la cause d'échec
   */
-  async validate (op: Operation) : Promise<number> { return 0 }
+  async validate (op: Operation, byU: boolean) : Promise<number> { return 0 }
 
   // Utilisé sur opération getForm et liste filtrée
   static new (obj) : $Form {

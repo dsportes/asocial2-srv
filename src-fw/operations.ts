@@ -418,7 +418,7 @@ class Sync extends Operation {
 }
 Registry.registerOp(Sync)
 
-/* getCredUpdates retourne [v more] d'un credential
+/* getCredUpdates retourne [v props] d'un credential
 pour SON détenteur (signature vérifiée).
 credId pour éviter les "vieux" credential (superstition)
 */
@@ -434,9 +434,9 @@ class getCredUpdates extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const cred = this.getCred(this._docId, this._docId, true)
-    if (cred && cred.credId === this._credId)
-      this.setRes('more', [cred.pubv, cred.more])
+    const c = this.getCred(this._docId, this._docId, true)
+    if (c && c.credId === this._credId)
+      this.setRes('more', [c.cred.pubv, c.cred.props])
   }
 }
 Registry.registerOp(getCredUpdates)
@@ -624,7 +624,7 @@ class FormCreateByT extends Operation {
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.status = 2
     f.msgU = null
-    await f.cryptMsgT(this)
+    await f.cryptMsgT()
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     this.setRes('status', 0)
@@ -689,7 +689,7 @@ class FormUpdByT extends Operation {
     f.etcT = this._etcT
     f.status = 2
     f.msgT = this._msgT
-    await f.cryptMsgT(this)
+    await f.cryptMsgT()
     f.setMaxLife()
     f._status = DocStatus.UPD
     this.setRes('status', 0)
@@ -722,33 +722,73 @@ class FormCancel extends Operation {
 }
 Registry.registerOp(FormCancel)
 
-class FormValidate extends Operation {
+class FormValidateByU extends Operation {
   _formId: string
   _type: string
+  _etcU: Object
+  _msgU: Uint8Array
+  _opts: Object
 
   init () {
     super.init()
     this._formId = this.stringValue('formId', true)
     this._type = this.stringValue('type', true)
+    this._etcU = this.objectValue('etcU', true)
+    this._msgU = this.binValue('msgU', true)
+    this._opts = this.binValue('opts', true)
   }
   async phase2 () {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
-    if (this.authRecord.userId !== f.userId && !f.checkAuthTP(this))
+    if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
-    if (!Util.equ8(encode(f.etcU), encode(f.etcT)))
-      { this.setRes('status', 4); return }
-    const stv = await f.validate(this)
+    if (f.status > 2 ) { this.setRes('status', 3); return }
+    f.etcU = this._etcU
+    f.msgU = this._msgU
+    f.setMaxLife()
+    const stv = await f.validate(this, true)
+    f.status = stv === 0 ? 3 : 1
+    f._status = DocStatus.UPD
     this.setRes('status', stv)
-    if (stv === 0) {
-      f.status = 3
-      f._status = DocStatus.UPD
-    }
   }
 }
-Registry.registerOp(FormValidate)
+Registry.registerOp(FormValidateByU)
+
+class FormValidateByT extends Operation {
+  _formId: string
+  _type: string
+  _etcT: Object
+  _msgT: Uint8Array
+  _opts: Object
+
+  init () {
+    super.init()
+    this._formId = this.stringValue('formId', true)
+    this._type = this.stringValue('type', true)
+    this._etcT = this.objectValue('etcT', true)
+    this._msgT = this.binValue('msgT', true)
+    this._opts = this.binValue('opts', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    if (!f || f.isOld) 
+      { this.setRes('status', 1); return }
+    if (!f.checkAuthTP(this))
+      { this.setRes('status', 2); return }
+    if (f.status > 2 ) { this.setRes('status', 3); return }
+    f.etcT = this._etcT
+    f.msgT = this._msgT
+    f.setMaxLife()
+    const stv = await f.validate(this, false)
+    f.status = stv === 0 ? 3 : 1
+    f._status = DocStatus.UPD
+    this.setRes('status', stv)
+  }
+}
+Registry.registerOp(FormValidateByT)
 
 /* Retourne le form demandé par formId en tant que $FormObj
 - l'appelant doit être soit U, soit un tiers ayant droit de traiter form
@@ -769,8 +809,8 @@ class FormGet extends Operation {
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
-    await f.decryptMsgU(this)
-    await f.decryptMsgT(this)
+    await f.decryptMsgU()
+    await f.decryptMsgT()
     this.setRes('form', f.toFormObj())
   }
 }
