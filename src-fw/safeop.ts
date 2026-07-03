@@ -335,7 +335,7 @@ export type SetCred = {
 }
 /* Enregistrement d'un credential
 Status: 
-- 0 : déjà créé ou juste créé
+- 0 : création ou déjà créé
 - 1 : pas de safe pour userId
 - 2 : signature de credId invalide
 */
@@ -351,7 +351,7 @@ class $CreateCred extends SafeOperation {
     if (!safe.creds) safe.creds = {}
     const e = safe.creds[sc.credId]
     if (e) { this.setRes('status', 0); return }
-    const x = [sc.nameK, sc.credK]
+    const x = [sc.nameK, sc.credK, true]
     safe.creds[sc.credId] = x
     await this.save(safe, true)
     this.setRes('status', 0)
@@ -359,15 +359,35 @@ class $CreateCred extends SafeOperation {
 }
 Registry.registerOp($CreateCred)
 
+/* Fixe l'existence d'UN credential. PAS de status */
+class $FixOneCred extends SafeOperation {
+  async doTheJob () : Promise<void> {
+    const userId = this.args['userId'] as string
+    const credId = this.args['credId'] as string
+    const signId = this.args['signId'] as string
+    const bin = await this.db.getBinSafe(userId)
+    if (!bin) return
+    const safe = decode(bin) as Safe
+    if (!safe.creds) return
+    const x = safe.creds[credId]
+    if (!x || !x[2]) return
+    const v = keyFromB64(safe.auth.V)
+    const b = await Crypt.verify(v, keyFromB64(signId), encoder.encode(credId))
+    if (!b) return
+    x[2] = false
+    safe.creds[credId] = x
+    await this.save(safe, true)
+  }
+}
+Registry.registerOp($FixOneCred)
+
 type SetNameCred = {
   userId: string
   shK: string
   credId: string // id du credential
   nameK: string // name (correspondant à docId) crypté par K et en base 64
 }
-/* Maj du commentaire d'un credential
-Status: 1 2
-*/
+/* Maj du name d'un credential. PAS de status */
 class $UpdateCredName extends SafeOperation {
   async doTheJob () : Promise<void> {
     const snc = this.args['setNameCred'] as SetNameCred
@@ -383,34 +403,40 @@ class $UpdateCredName extends SafeOperation {
       }
     }
     await this.save(safe, u)
-    this.setRes('status', 0)
   }
 }
 Registry.registerOp($UpdateCredName)
 
-type RevokeCreds = {
+type FixCreds = {
   userId: string
   shK: string
-  ids: string[] 
+  toDel: string[]
+  toFix: string[]
 }
-/* Auto révocation d'une liste de credential.
-Status: 1 2
-*/
-class $AutoRevokeCreds extends SafeOperation {
+/* Fixe l'existence ou la révocation de credentials. PAS de status */
+class $FixCreds extends SafeOperation {
   async doTheJob () : Promise<void> {
-    const rc = this.args['revokeCreds'] as RevokeCreds
-    const safe = await this.getSafe(rc)
+    const fc = this.args['fixCreds'] as FixCreds
+    const safe = await this.getSafe(fc)
     if (!safe) return
     let u = false
     if (safe.creds) {
-      for(const id of rc.ids) { delete safe.creds[id]; u = true }
+      for(const id of fc.toDel) { delete safe.creds[id]; u = true }
+      for(const id of fc.toFix) {
+        const x = safe.creds[id]
+        if (x && x[2]) {
+          x[2] = false
+          safe.creds[id] = x
+          u = true
+        }
+      }
       if (Object.keys(safe.creds).length === 0) delete safe.creds
     }
     await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
-Registry.registerOp($AutoRevokeCreds)
+Registry.registerOp($FixCreds)
 
 /* Profiles *****************************************************/
 type SetProfiles = {

@@ -1,10 +1,11 @@
 import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
 import { MDOperation, MDEventS } from '../src-fw/masterdir'
-import { AppExc, OrgsConfig } from '../src-fw/index'
+import { AppExc, OrgsConfig, MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
-import { $Status, $Subs, $subscription, $SubsItem, $Credential, $Cred, $Form, $FormObj } from '../src-fw/documents'
+import { $Status, $Subs, $subscription, $SubsItem, $Credential, 
+  $Cred, $Form, $FormObj, C2c } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 import { Util } from '../src-fw/util'
@@ -722,21 +723,23 @@ class FormCancel extends Operation {
 }
 Registry.registerOp(FormCancel)
 
-class FormValidateByU extends Operation {
+class ValidateForm extends Operation {
   _formId: string
   _type: string
-  _etcU: Object
-  _msgU: Uint8Array
   _opts: Object
+  etc: Object
+  msg: Uint8Array
+  byU: boolean = true
+  // Credentials To Check: credentials dont toCheck doit être reseté en phase 3
+  c2c : C2c = new Map()
 
   init () {
     super.init()
     this._formId = this.stringValue('formId', true)
     this._type = this.stringValue('type', true)
-    this._etcU = this.objectValue('etcU', true)
-    this._msgU = this.binValue('msgU', true)
     this._opts = this.binValue('opts', true)
   }
+
   async phase2 () {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
@@ -745,47 +748,57 @@ class FormValidateByU extends Operation {
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     if (f.status > 2 ) { this.setRes('status', 3); return }
-    f.etcU = this._etcU
-    f.msgU = this._msgU
+    if (this.byU) {
+      f.etcU = this.etc
+      f.msgU = this.msg
+    } else {
+      f.etcT = this.etc
+      f.msgT = this.msg
+    }
     f.setMaxLife()
-    const stv = await f.validate(this, true)
-    f.status = stv === 0 ? 3 : 1
+    const stv = await f.validate(this, this.byU, this.c2c)
+    f.status = stv === 0 ? 3 : (this.byU ? 1 : 2)
     f._status = DocStatus.UPD
     this.setRes('status', stv)
+  }
+
+  async phase3 () {
+    if (!this.c2c.size) return
+    for(const [credId, { userId, signId }] of this.c2c) {
+      const args = { userId, credId, signId }
+      await MDandSafe.doSafeOp(userId, '$FixOneCred', args)
+    }
+  }
+}
+
+class FormValidateByU extends ValidateForm {
+  init () {
+    super.init()
+    this.etc = this.objectValue('etcU', true)
+    this.msg = this.binValue('msgU', true)
+    this.byU = true
+  }
+  async phase2 () {
+    await super.phase2()
+  }
+  async phase3 () {
+    await super.phase3()
   }
 }
 Registry.registerOp(FormValidateByU)
 
-class FormValidateByT extends Operation {
-  _formId: string
-  _type: string
-  _etcT: Object
-  _msgT: Uint8Array
-  _opts: Object
-
+class FormValidateByT extends ValidateForm {
   init () {
     super.init()
-    this._formId = this.stringValue('formId', true)
-    this._type = this.stringValue('type', true)
-    this._etcT = this.objectValue('etcT', true)
-    this._msgT = this.binValue('msgT', true)
-    this._opts = this.binValue('opts', true)
+    this.etc = this.objectValue('etcT', true)
+    this.msg = this.binValue('msgT', true)
+    this.byU = false
   }
   async phase2 () {
-    this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
-    if (!f || f.isOld) 
-      { this.setRes('status', 1); return }
-    if (!f.checkAuthTP(this))
-      { this.setRes('status', 2); return }
-    if (f.status > 2 ) { this.setRes('status', 3); return }
-    f.etcT = this._etcT
-    f.msgT = this._msgT
-    f.setMaxLife()
-    const stv = await f.validate(this, false)
-    f.status = stv === 0 ? 3 : 1
-    f._status = DocStatus.UPD
-    this.setRes('status', stv)
+    await super.phase2()
+  }
+  async phase3 () {
+    await super.phase3()
   }
 }
 Registry.registerOp(FormValidateByT)

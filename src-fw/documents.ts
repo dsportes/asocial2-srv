@@ -163,7 +163,7 @@ Registry.registerD($SubsItem)
 export type $CredObj = {
   credId: string
   docCl: string
-  docPk: string
+  pk: string
   pubv: Uint8Array
   pubc: Uint8Array
   props: Object | null
@@ -185,18 +185,22 @@ export class $CredTempl {
     for (const p of Object.keys(obj)) this[p] = obj[p]
   }
 
-  toCredObj (props: Object | null) : $CredObj{
+  toCredObj (props: Object | null) : $CredObj {
     return {
       credId: this.credId,
       docCl: this.docCl,
-      docPk: this.docPk,
+      pk: this.docPk,
       pubv: this.pubv,
       pubc: this.pubc,
       props
     }
   }
 
-  async CreateCred () : Promise<number>{
+  async CreateCredDoc (op: Operation, props: Object) : Promise<Document> {
+    const doc = op.cache.newDoc(this.docCl, this.toCredObj(props))
+  }
+
+  async CreateSafeCred () : Promise<number>{
     const setCred: SetCred = {
       userId: this.userId,
       signId: this.signId,
@@ -227,6 +231,8 @@ export type Embed$Cred = {
   props: any
   maxLife: number
 }
+
+export type C2c = Map<string, { userId: string, signId: string }>
 
 export class $Credential extends $Document {
   static release = 0
@@ -352,6 +358,7 @@ export class $Form extends $Document {
   etcT: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
   msgU: Uint8Array | null = null // message écrit par U.
   msgT: Uint8Array | null = null // message écrit par le tiers.
+  opts?: any = null // options éventuelles de validation (calculées par compileEtc)
 
   /* Propriétés reçues à la création par U ou T et à mettre à jour dans MDEvent
   par MDEventFull - supprimées de $Form à ce moment
@@ -368,7 +375,19 @@ export class $Form extends $Document {
   /* Traitement final: surchargé par type :Retourne un statut de validation,
   - 0 si OK, N > 10 selon la cause d'échec
   */
-  async validate (op: Operation, byU: boolean) : Promise<number> { return 0 }
+  async validate (op: Operation, byU: boolean, c2c: C2c) : Promise<number> { 
+    // Création des credentials
+    if (this.opts && this.opts.credTemplates) {
+      for(const credId in this.opts.credTemplates) {
+        const ft = new $CredTempl(this.opts.credTemplates[credId])
+        const st = await ft.CreateSafeCred()
+        await ft.CreateDocCred()
+        if (!st) return 100 + st
+        c2c.set(ft.credId, { userId: ft.userId, signId: ft.signId })
+      }
+    }
+    return 0 
+  }
 
   // Utilisé sur opération getForm et liste filtrée
   static new (obj) : $Form {

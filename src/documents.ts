@@ -1,5 +1,5 @@
 import { $Document, DocStatus } from '../src-fw/document'
-import { $Form, $FormObj, $Credential, $Cred } from '../src-fw/documents'
+import { $Form, $FormObj, C2c, $Credential, $Cred } from '../src-fw/documents'
 import { keyFromB64 } from '../src-fw/b64'
 import { Registry } from '../src-fw/config'
 import { Operation } from '../src-fw/operation'
@@ -21,8 +21,10 @@ class $Form_membrecodir extends $Form {
 
   getDetail () { return [] }
   
-  async validate (op: Operation, byU: boolean) : Promise<number> { 
-    return 0 
+  async validate (op: Operation, byU: boolean, c2c: C2c) : Promise<number> { 
+    // Enregistrement du credential
+    const st = await super.validate(op, byU, c2c)
+    return st
   }
 }
 Registry.registerD($Form_membrecodir)
