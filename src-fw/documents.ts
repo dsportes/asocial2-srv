@@ -294,6 +294,12 @@ export class $Credential extends $Document {
     }
   }
 
+  async update (op: Operation, ct: $CredTempl): Promise<$Document> {
+    // TODO
+    return null
+  }
+
+
   // Liste les credentials attribuable par un administrateur seulement
   static async listManagers (op: OperationWC) : Promise<$Cred[]> {
     const org = op.org
