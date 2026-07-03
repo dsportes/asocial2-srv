@@ -5,7 +5,7 @@ import { AppExc, OrgsConfig, MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
 import { $Status, $Subs, $subscription, $SubsItem, $Credential, 
-  $Cred, $Form, $FormObj, C2c } from '../src-fw/documents'
+  $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
 import { Util } from '../src-fw/util'
@@ -726,21 +726,24 @@ Registry.registerOp(FormCancel)
 class ValidateForm extends Operation {
   _formId: string
   _type: string
-  _opts: Object
+  _opts: any
   etc: Object
   msg: Uint8Array
   byU: boolean = true
+  credTemplates: $CredTempl[] = [] 
   // Credentials To Check: credentials dont toCheck doit être reseté en phase 3
-  c2c : C2c = new Map()
 
   init () {
     super.init()
     this._formId = this.stringValue('formId', true)
     this._type = this.stringValue('type', true)
     this._opts = this.binValue('opts', true)
+    if (this._opts && this._opts.credTemplates)
+      for(const credId in this._opts.credTemplates)
+        this.credTemplates.push(new $CredTempl(this._opts.credTemplates[credId]))
   }
 
-  async phase2 () {
+  async phase2 () : Promise<void> {
     this.requireAuth()
     const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
@@ -756,17 +759,62 @@ class ValidateForm extends Operation {
       f.msgT = this.msg
     }
     f.setMaxLife()
-    const stv = await f.validate(this, this.byU, this.c2c)
-    f.status = stv === 0 ? 3 : (this.byU ? 1 : 2)
+
+    // Création (éventuelle) des credentials en Safe Box de l'utilisateur cible
+    let st = 0
+    for(const ct of this.credTemplates) {
+      st = await ct.CreateSafeCred()
+      if (st) break
+    }
+    if (!st) {
+      // l'opération devient un simple update
+      f.status = this.byU ? 1 : 2
+      f._status = DocStatus.UPD
+      this.setRes('status', st)
+      return
+    }
+
+    // Création (éventuelle) des documents credential
+    const newDocs = []
+    for(const ct of this.credTemplates) {
+      const credential = $Credential.new(ct.docCl, ct.docPk, ct.toEmbedCred())
+      const doc = await credential.create(this, ct)
+      if (doc) newDocs.push(doc)
+      else { st = 99; break } // emedding document not found
+    }
+
+    if (!st) {
+      // l'opération devient un simple update
+      for(const d of newDocs) d._status = DocStatus.NONE
+      f.status = this.byU ? 1 : 2
+      f._status = DocStatus.UPD
+      this.setRes('status', st)
+      return
+    }
+
+    // Autres actions sur les documents
+    const stv = await f.validate(this, newDocs)
+
+    if (!stv) { 
+      // échec des autres validations: on annule les updates / new des credentials
+      for(const d of newDocs) d._status = DocStatus.NONE
+      // l'opération devient un simple update
+      f.status = this.byU ? 1 : 2
+      f._status = DocStatus.UPD
+      this.setRes('status', stv)
+      return
+    }
+    // succès de la validation
+    f.status = 3
     f._status = DocStatus.UPD
     this.setRes('status', stv)
   }
 
   async phase3 () {
-    if (!this.c2c.size) return
-    for(const [credId, { userId, signId }] of this.c2c) {
-      const args = { userId, credId, signId }
-      await MDandSafe.doSafeOp(userId, '$FixOneCred', args)
+    if (!this.credTemplates.length) return
+    for(const ct of this.credTemplates) {
+      const args = { userId: ct.userId, credId: ct.credId, signId: ct.signId }
+      await MDandSafe.doSafeOp(ct.userId, '$FixOneCred', args)
     }
   }
 }

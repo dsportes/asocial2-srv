@@ -1,4 +1,4 @@
-import { $Document } from '../src-fw/document'
+import { $Document, DocStatus } from '../src-fw/document'
 import { Crypt } from '../src-fw/crypt'
 import { filter } from '../src-fw/iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
@@ -163,7 +163,7 @@ Registry.registerD($SubsItem)
 export type $CredObj = {
   credId: string
   docCl: string
-  pk: string
+  docPk: string
   pubv: Uint8Array
   pubc: Uint8Array
   props: Object | null
@@ -175,29 +175,31 @@ export class $CredTempl {
   credId: string
   docCl: string
   docPk: string
-  pubv: Uint8Array
-  pubc: Uint8Array
   credK: string
   nameK: string // crypté par clé K de U en base 64
   signId: string // signature de credId par privs en base 64
+
+  pubv: Uint8Array
+  pubc: Uint8Array
+  props: Object
 
   constructor (obj: any) {
     for (const p of Object.keys(obj)) this[p] = obj[p]
   }
 
-  toCredObj (props: Object | null) : $CredObj {
+  toEmbedCred () : Embed$Cred {
+    return { credId: this.credId, pubv: this.pubv, pubc: this.pubc, props: this.props }
+  }
+
+  toCredObj () : $CredObj {
     return {
       credId: this.credId,
       docCl: this.docCl,
-      pk: this.docPk,
+      docPk: this.docPk,
       pubv: this.pubv,
       pubc: this.pubc,
-      props
+      props: this.props
     }
-  }
-
-  async CreateCredDoc (op: Operation, props: Object) : Promise<Document> {
-    const doc = op.cache.newDoc(this.docCl, this.toCredObj(props))
   }
 
   async CreateSafeCred () : Promise<number>{
@@ -221,7 +223,6 @@ export type $Cred = {
   docCl: string
   docPk: string
   props: any
-  maxLife: number
 }
 
 export type Embed$Cred = {
@@ -229,7 +230,6 @@ export type Embed$Cred = {
   pubv: Uint8Array
   pubc: Uint8Array
   props: any
-  maxLife: number
 }
 
 export type C2c = Map<string, { userId: string, signId: string }>
@@ -241,6 +241,10 @@ export class $Credential extends $Document {
   docCl: string
   docPk: string // clé primaire du document maitre
   cred: Embed$Cred
+  maxLife: number
+
+  get dt () { return DocType.get(this.docCl)}
+  get isEmbed () { return this.dt.embedCreds }
 
   static new (docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
     const c = Registry.newD('$Credential', { docCl })
@@ -258,10 +262,36 @@ export class $Credential extends $Document {
       org: org,
       docCl: this.docCl,
       docPk: this.docPk,
-      props: this.cred.props,
-      maxLife: this.cred.maxLife
+      props: this.cred.props
     }
     return x
+  }
+
+  async create (op: Operation, ct: $CredTempl): Promise<$Document> {
+    const ecred = ct.toEmbedCred()
+    let doc: $Document
+    if (this.isEmbed) {
+      doc = await op.cache.getDoc(ct.docCl, { pk: ct.docPk }) as $Credential
+      if (!doc) return null
+      if (!doc['creds'])
+        doc['creds'] = new Map<string, Embed$Cred>()
+      doc['creds'].set(ct.credId, ecred)
+      doc._status = DocStatus.UPD
+    } else {
+      const maxLife = ct.props['limit'] || 0
+      let doc = await op.cache.getDoc('$Credential_' + ct.docCl, { pk: ct.docPk }) as $Credential
+      if (doc) {
+        doc.maxLife = maxLife
+        doc.cred.pubv = ct.pubv
+        doc.cred.pubc = ct.pubc
+        doc.cred.props = ct.props
+        doc._status = DocStatus.UPD
+      } else {
+        const obj = { credId: ct.credId, docCl: ct.docCl, docPk: ct.docPk, maxLife, ecred }
+        doc = op.cache.newDoc('$Credential_' + ct.docCl, obj) as $Credential
+      }
+      return doc
+    }
   }
 
   // Liste les credentials attribuable par un administrateur seulement
@@ -320,8 +350,7 @@ export class $Credential extends $Document {
         org: org,
         docCl: docCl,
         docPk: pk,
-        props: c.props,
-        maxLife: c.maxLife
+        props: c.props
       })
     return lst
   }
@@ -372,20 +401,13 @@ export class $Form extends $Document {
   */
   getDetail () : string[] { return [] }
 
-  /* Traitement final: surchargé par type :Retourne un statut de validation,
+  /* Traitement final: surchargé par type : Retourne un statut de validation,
   - 0 si OK, N > 10 selon la cause d'échec
+  Les credentials ont été créés.
+  Les documents créés ou modifiés dans la méthode sont à ajouter
+  dans newDocs. En cas de status NON 0, leur DocStatus sera mis à NONE
   */
-  async validate (op: Operation, byU: boolean, c2c: C2c) : Promise<number> { 
-    // Création des credentials
-    if (this.opts && this.opts.credTemplates) {
-      for(const credId in this.opts.credTemplates) {
-        const ft = new $CredTempl(this.opts.credTemplates[credId])
-        const st = await ft.CreateSafeCred()
-        await ft.CreateDocCred()
-        if (!st) return 100 + st
-        c2c.set(ft.credId, { userId: ft.userId, signId: ft.signId })
-      }
-    }
+  async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
     return 0 
   }
 
