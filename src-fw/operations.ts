@@ -766,7 +766,7 @@ class ValidateForm extends Operation {
       st = await ct.CreateSafeCred()
       if (st) break
     }
-    if (!st) {
+    if (st) {
       // l'opération devient un simple update
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
@@ -777,13 +777,13 @@ class ValidateForm extends Operation {
     // Création (éventuelle) des documents credential
     const newDocs = []
     for(const ct of this.credTemplates) {
-      const credential = $Credential.new(ct.docCl, ct.docPk, ct.toEmbedCred())
-      const doc = await credential.create(this, ct)
+      const credential = ct.newCredential()
+      const doc = await credential.create(this)
       if (doc) newDocs.push(doc)
       else { st = 99; break } // emedding document not found
     }
 
-    if (!st) {
+    if (st) {
       // l'opération devient un simple update
       for(const d of newDocs) d._status = DocStatus.NONE
       f.status = this.byU ? 1 : 2
@@ -795,7 +795,7 @@ class ValidateForm extends Operation {
     // Autres actions sur les documents
     const stv = await f.validate(this, newDocs)
 
-    if (!stv) { 
+    if (stv) { 
       // échec des autres validations: on annule les updates / new des credentials
       for(const d of newDocs) d._status = DocStatus.NONE
       // l'opération devient un simple update
@@ -893,3 +893,23 @@ class FormFilteredList extends Operation {
   }
 }
 Registry.registerOp(FormFilteredList)
+
+class UpdateCredential extends Operation {
+  _credId: string
+  _docCl: string
+  _docPk: string
+  _props: Object
+  init () {
+    super.init()
+    this._credId = this.stringValue('credId', true)
+    this._docCl = this.stringValue('docCl', true)
+    this._docPk = this.stringValue('docPk', true)
+    this._props = this.objectValue('props', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
+    this.setRes('status', doc ? 0 : 1)
+  }
+}
+Registry.registerOp(UpdateCredential)

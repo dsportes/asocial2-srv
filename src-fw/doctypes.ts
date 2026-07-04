@@ -16,11 +16,11 @@ export enum propType { STRING, INTEGER, FLOAT, LIST, HASH }
 SIMPLE : index simple, dans une organisation
 GLOBAL : index global, toutes organisations (pour les tasks)
 COL : collection (notifiable / synchronisable)
-IMUTCOL : collection sur une propriété constante du document 
+IMUTCOL : collection sur une propriété constante du document
 */
 export enum idxUse { SIMPLE, GLOBAL, COL, IMUTCOL }
 
-/* Index: 
+/* Index:
 - type d'index
 - true si l'index est global (trans organisation)
 - testable: si true l'existence du document par cet "alias" A LE DROIT d'être testée
@@ -56,7 +56,7 @@ export type docHeader = {
 export type collection = {
   key: props,
   mutable: boolean,
-  list?: boolean 
+  list?: boolean
 }
 
 const regvar = /^[a-z][a-zA-Z0-9]*$/
@@ -92,7 +92,7 @@ export class DocType {
   */
   static getPk (clazz: string, src?: Object, nohash?: boolean) : string {
     const dt = DocType.get(clazz)
-    if (!dt.pk || !src) return '1'
+    if (!dt.pk.length || !src) return '1'
     let p = src['pk']
     if (!p) {
       const x = []
@@ -135,12 +135,12 @@ export class DocType {
       case propType.STRING : { return src[name] || '' }
       case propType.INTEGER : { return src[name] || 0 }
       case propType.FLOAT : { return src[name] || 0 }
-      case propType.HASH : { 
+      case propType.HASH : {
         const x = []
         i.key.forEach(p => { x.push(src[p] || '') })
         return Crypt.shaS(x.join('/'))
       }
-      case propType.LIST : {         
+      case propType.LIST : {
         const x = []
         const v = src[name] as string[]
         if (v) v.forEach(t => { if (t) x.push(i.nohash ? t : Crypt.shaS(t))})
@@ -151,7 +151,7 @@ export class DocType {
 
   /* Map: traçant les collections
     - clé: nom de la collection
-    - valeur: valeur de la propriété clé de la collection dans le document 
+    - valeur: valeur de la propriété clé de la collection dans le document
   */
   extractColls (src: Object) : Map<string, string[]> {
     const m = new Map()
@@ -192,8 +192,8 @@ export class DocType {
   }
 
   constructor (
-    h: docHeader, 
-    colls: Map<string, collection>, 
+    h: docHeader,
+    colls: Map<string, collection>,
     indexes: Map<string, idx>) {
 
     this.n = DocType.ndt++
@@ -204,10 +204,6 @@ export class DocType {
       if (isDocName(h.name)) this.name = h.name
       else this.er('invalid document name', h.name)
     } else this.er('Document header missing')
-    if (h.virtual) {
-      this.virtual = true
-      return
-    }
     if (!this.err) {
       if (DocType.docTypes.has(this.name)) { this.er('duplicate DocType', this.name); return this }
       DocType.docTypes.set(this.name, this)
@@ -217,6 +213,7 @@ export class DocType {
       if (!this.isProps(h.pk)) return this
       this.pk = h.pk
     }
+    this.virtual = h.virtual || false
     this.sync = h.sync || false
     this.nohash = h.nohash || false
     this.embedCreds = h.embedCreds || false
@@ -264,6 +261,7 @@ export class FormType {
 
   constructor (type: string, categ: string, key: string, creds: string[]) {
     this.type = type
+    this.categ = categ
     this.key = key
     this.creds = creds
     FormType.formTypes.set(type, this)

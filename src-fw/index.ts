@@ -677,7 +677,7 @@ export class MDandSafe {
     if (!cvs) return { status: 101 }
     const safeStore = cvs[2] || config.STDSAFE_URL
     args.opName = opName
-    return MDandSafe.postMDS(safeStore, args)
+    return await MDandSafe.postMDS(safeStore, args)
   }
 
 }

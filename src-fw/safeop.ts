@@ -331,7 +331,7 @@ export type SetCred = {
   signId: string // signature de credId par la clé de signature du user (base 64)
   credId: string // id du credential
   nameK: string // name (correspondant à docId) crypté par K et en base 64
-  credK?: string // CredSafe sérialisé crypté par clé K en base64
+  credK: string // CredSafe sérialisé crypté par clé K en base64
 }
 /* Enregistrement d'un credential
 Status: 
@@ -341,7 +341,13 @@ Status:
 */
 class $CreateCred extends SafeOperation {
   async doTheJob () : Promise<void> {
-    const sc = this.args['setCred'] as SetCred
+    const sc: SetCred = {
+      userId: this.args['userId'],
+      signId: this.args['signId'],
+      credId: this.args['credId'],
+      nameK: this.args['nameK'],
+      credK: this.args['credK']
+    }
     const bin = await this.db.getBinSafe(sc.userId)
     if (!bin) { this.setRes('status', 1); return }
     const safe = decode(bin) as Safe

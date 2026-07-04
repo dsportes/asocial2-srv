@@ -214,6 +214,15 @@ export class $CredTempl {
     return res.status || 0
   }
 
+  newCredential () : $Credential {
+    const c = Registry.newD('$Credential', { docCl: this.docCl })
+    c.credId = this.credId
+    c.docCl = this.docCl
+    c.docPk = this.docPk
+    c.cred = this.toEmbedCred()
+    return c
+  }
+
 }
 
 export type $Cred = {
@@ -246,15 +255,6 @@ export class $Credential extends $Document {
   get dt () { return DocType.get(this.docCl)}
   get isEmbed () { return this.dt.embedCreds }
 
-  static new (docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
-    const c = Registry.newD('$Credential', { docCl })
-    c.credId = ec.credId
-    c.docCl = docCl
-    c.docPk = docPk
-    c.cred = ec
-    return c
-  }
-
   to$Cred (org: string) : $Cred {
     const x = {
       credId: this.credId,
@@ -267,36 +267,46 @@ export class $Credential extends $Document {
     return x
   }
 
-  async create (op: Operation, ct: $CredTempl): Promise<$Document> {
-    const ecred = ct.toEmbedCred()
-    let doc: $Document
+  async create (op: Operation): Promise<$Document> {
     if (this.isEmbed) {
-      doc = await op.cache.getDoc(ct.docCl, { pk: ct.docPk }) as $Credential
+      const doc = await op.cache.getDoc(this.docCl, { pk: this.docPk }) as $Document
       if (!doc) return null
       if (!doc['creds'])
         doc['creds'] = new Map<string, Embed$Cred>()
-      doc['creds'].set(ct.credId, ecred)
+      doc['creds'].set(this.credId, this.cred)
       doc._status = DocStatus.UPD
-    } else {
-      const maxLife = ct.props['limit'] || 0
-      let doc = await op.cache.getDoc('$Credential_' + ct.docCl, { pk: ct.docPk }) as $Credential
-      if (doc) {
-        doc.maxLife = maxLife
-        doc.cred.pubv = ct.pubv
-        doc.cred.pubc = ct.pubc
-        doc.cred.props = ct.props
-        doc._status = DocStatus.UPD
-      } else {
-        const obj = { credId: ct.credId, docCl: ct.docCl, docPk: ct.docPk, maxLife, ecred }
-        doc = op.cache.newDoc('$Credential_' + ct.docCl, obj) as $Credential
-      }
       return doc
     }
+    const maxLife = this.cred.props['limit'] || 0
+    let doc = await op.cache.getDoc('$Credential_' + this.docCl, { pk: this.docPk }) as $Credential
+    if (doc) {
+      doc.maxLife = maxLife
+      doc.cred.pubv = this.cred.pubv
+      doc.cred.pubc = this.cred.pubc
+      doc.cred.props = this.cred.props
+      doc._status = DocStatus.UPD
+    } else {
+      const obj = { credId: this.credId, docCl: this.docCl, pk: this.docPk, docPk: this.docPk, maxLife, cred: this.cred }
+      doc = op.cache.newDoc('$Credential_' + this.docCl, obj) as $Credential
+    }
+    return doc
   }
 
-  async update (op: Operation, ct: $CredTempl): Promise<$Document> {
-    // TODO
-    return null
+  static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
+    const dt = DocType.get(docCl)
+    if (!dt) return null
+    if (dt.embedCreds) {
+      const doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Credential
+      if (!doc || !doc['creds'] || !doc['creds']['credId']) return null
+      doc['creds']['credId'].props = props
+      doc._status = DocStatus.UPD
+    } 
+    const doc = await op.cache.getDoc('$Credential_' + docCl, { pk: docPk }) as $Credential
+    if (!doc) return null
+    doc.maxLife = props['limit'] || 0
+    doc.cred.props = props
+    doc._status = DocStatus.UPD
+    return doc
   }
 
 
@@ -310,7 +320,9 @@ export class $Credential extends $Document {
       (bin: Uint8Array) => {
         try {
           const c = decode(bin) as $Credential
-          lst.push(c.to$Cred(org))
+          const x = c.to$Cred(org)
+          if (!x.props.limit || x.props.limit * 60000 > op.now)
+            lst.push()
         } catch(e) {
           console.log(e)
         }    
@@ -331,7 +343,9 @@ export class $Credential extends $Document {
       (bin) => {
         try {
           const c = decode(bin) as $Credential
-          lst.push(c.to$Cred(org))
+          const x = c.to$Cred(org)
+          if (!x.props.limit || x.props.limit * 60000 > op.now)
+            lst.push()
         } catch(e) {
           console.log(e)
         }
@@ -350,14 +364,15 @@ export class $Credential extends $Document {
     const creds: $Cred[] = doc && doc.creds ? Array.from(doc.creds.values()) : []
     const lst: $Cred[] = []
     for (const c of creds)
-      lst.push({
-        credId: c.credId,
-        svc: svc,
-        org: org,
-        docCl: docCl,
-        docPk: pk,
-        props: c.props
-      })
+      if (!c.props.limit || c.props.limit * 60000 > op.now)
+        lst.push({
+          credId: c.credId,
+          svc: svc,
+          org: org,
+          docCl: docCl,
+          docPk: pk,
+          props: c.props
+        })
     return lst
   }
 }
@@ -387,7 +402,7 @@ export class $Form extends $Document {
   type: string = '' // type du formulaire.
   userId: string = '' // utilisateur cible.
   v: number = 0 //  version du document (_epoch_).
-  maxLife: number = 0 //  EPOCH en SECONDES de suppression automatique du formulaire.
+  maxLife: number = 0 //  EPOCH en MINUTES de suppression automatique du formulaire.
   status: number = 0 // de 1 à 4.
   etcU: Object | null = null // objet de structure spécifique du type. Saisi par l'utilisateur et le tiers.
   etcT: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
@@ -446,10 +461,10 @@ export class $Form extends $Document {
   }
 
   setMaxLife () {
-    this.maxLife = Math.floor(Date.now() / 1000) + config.FORMMAXLIFE
+    this.maxLife = Math.floor(Date.now() / 60000) + config.FORMMAXLIFE
   }
 
-  get isOld () { return Date.now() > this.maxLife * 1000 }
+  get isOld () { return Date.now() > this.maxLife * 60000 }
 
   get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
   get kp () : { pub: Buffer, priv: Buffer } { 
