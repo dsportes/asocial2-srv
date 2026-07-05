@@ -215,12 +215,7 @@ export class $CredTempl {
   }
 
   newCredential () : $Credential {
-    const c = Registry.newD('$Credential', { docCl: this.docCl })
-    c.credId = this.credId
-    c.docCl = this.docCl
-    c.docPk = this.docPk
-    c.cred = this.toEmbedCred()
-    return c
+    return $Credential.new(this.credId, this.docCl, this.docPk, this.toEmbedCred())
   }
 
 }
@@ -254,6 +249,19 @@ export class $Credential extends $Document {
 
   get dt () { return DocType.get(this.docCl)}
   get isEmbed () { return this.dt.embedCreds }
+  get isValid () {
+    const p = this.cred.props
+    return p && (!p.limit || (p.limit * 60000) >= Date.now())
+  }
+
+  static new (credId: string, docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
+    const c = Registry.newD('$Credential', { docCl } )
+    c.credId = credId
+    c.docCl = docCl
+    c.docPk = docPk
+    c.cred = ec
+    return c
+  }
 
   to$Cred (org: string) : $Cred {
     const x = {
@@ -278,7 +286,7 @@ export class $Credential extends $Document {
       return doc
     }
     const maxLife = this.cred.props['limit'] || 0
-    let doc = await op.cache.getDoc('$Credential_' + this.docCl, { pk: this.docPk }) as $Credential
+    let doc = await op.cache.getDoc('$Credential', { credId: this.credId, docCl: this.docCl }) as $Credential
     if (doc) {
       doc.maxLife = maxLife
       doc.cred.pubv = this.cred.pubv
@@ -286,22 +294,21 @@ export class $Credential extends $Document {
       doc.cred.props = this.cred.props
       doc._status = DocStatus.UPD
     } else {
-      const obj = { credId: this.credId, docCl: this.docCl, pk: this.docPk, docPk: this.docPk, maxLife, cred: this.cred }
-      doc = op.cache.newDoc('$Credential_' + this.docCl, obj) as $Credential
+      const obj = { credId: this.credId, docCl: this.docCl, docPk: this.docPk, maxLife, cred: this.cred }
+      doc = op.cache.newDoc('$Credential', obj) as $Credential
     }
     return doc
   }
 
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
     const dt = DocType.get(docCl)
-    if (!dt) return null
     if (dt.embedCreds) {
       const doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Credential
       if (!doc || !doc['creds'] || !doc['creds']['credId']) return null
       doc['creds']['credId'].props = props
       doc._status = DocStatus.UPD
     } 
-    const doc = await op.cache.getDoc('$Credential_' + docCl, { pk: docPk }) as $Credential
+    const doc = await op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
     if (!doc) return null
     doc.maxLife = props['limit'] || 0
     doc.cred.props = props

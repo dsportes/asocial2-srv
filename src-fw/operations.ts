@@ -1,14 +1,15 @@
-import { encode } from '@msgpack/msgpack'
+// import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
 import { MDOperation, MDEventS } from '../src-fw/masterdir'
-import { AppExc, OrgsConfig, MDandSafe } from '../src-fw/index'
+import { AppExc } from '../src-fw/log'
+import { OrgsConfig, MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
 import { $Status, $Subs, $subscription, $SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
 import { DocType } from '../src-fw/doctypes'
-import { Util } from '../src-fw/util'
+// import { Util } from '../src-fw/util'
 
 export function loadingOF () {
   console.log('fw operations loading: ', Registry.sizeOp())
@@ -408,7 +409,7 @@ class Sync extends Operation {
 
   async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
     const dt = DocType.get(clazz)
-    if (dt && dt.hasColls) {
+    if (dt.hasColls) {
       const x = dt.colls.get(colName)
       if (x) {
         const datas = await this.db.getColl(clazz, colName, col, x.list, v)
@@ -735,6 +736,7 @@ class ValidateForm extends Operation {
 
   init () {
     super.init()
+    this.hasPhase3 = true
     this._formId = this.stringValue('formId', true)
     this._type = this.stringValue('type', true)
     this._opts = this.binValue('opts', true)
@@ -826,12 +828,6 @@ class FormValidateByU extends ValidateForm {
     this.msg = this.binValue('msgU', true)
     this.byU = true
   }
-  async phase2 () {
-    await super.phase2()
-  }
-  async phase3 () {
-    await super.phase3()
-  }
 }
 Registry.registerOp(FormValidateByU)
 
@@ -841,12 +837,6 @@ class FormValidateByT extends ValidateForm {
     this.etc = this.objectValue('etcT', true)
     this.msg = this.binValue('msgT', true)
     this.byU = false
-  }
-  async phase2 () {
-    await super.phase2()
-  }
-  async phase3 () {
-    await super.phase3()
   }
 }
 Registry.registerOp(FormValidateByT)

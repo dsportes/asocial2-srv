@@ -117,11 +117,11 @@ if (docTypeErrors.length) {
 Log.info(docTypeNb + ' document Registry')
 
 config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
-// config.databases.set('sqlite_b', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A']))
+config.databases.set('sqlite_z', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A']))
 config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
 
-config.safeDB = config.databases.get('sqlite_a')
-config.masterDB = config.databases.get('sqlite_a')
+config.safeDB = config.databases.get('sqlite_z')
+config.masterDB = config.databases.get('sqlite_z')
 config.svcDB = config.databases.get('sqlite_a')
 
 config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))

@@ -409,3 +409,21 @@ BEGIN
 2026-06-25T16:19:07.735Z error: AppExc: 105:masterdir_unexpected_exception["near \")\": syntax error"]
 2026-06-26T15:50:37.356Z error: FormFilteredList : 2026-06-26T15:49:39.321Z : SqliteError: near "AND": syntax error
 2026-06-26T15:50:37.490Z error: AppExc: 105:service_unexpected_exception["near \"AND\": syntax error"]
+2026-07-05T10:59:43.866Z error: FormValidateByU : 2026-07-05T10:56:22.047Z : TypeError: Cannot read properties of undefined (reading 'credTemplates')
+2026-07-05T10:59:43.871Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'credTemplates')"]
+2026-07-05T11:06:51.937Z error: FormValidateByU : 2026-07-05T11:04:43.762Z : TypeError: Cannot read properties of undefined (reading 'credTemplates')
+2026-07-05T11:06:51.943Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'credTemplates')"]
+2026-07-05T12:42:26.630Z error: AppExc: 105:safe_unexpected_exception["Cannot read properties of undefined (reading 'disconnect')"]
+2026-07-05T12:46:21.782Z error: AppExc: 105:safe_unexpected_exception["Cannot read properties of undefined (reading 'disconnect')"]
+2026-07-05T12:49:07.440Z error: FormGet : 2026-07-05T12:48:07.450Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T12:49:07.443Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T12:59:09.924Z error: FormGet : 2026-07-05T12:58:51.495Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T12:59:09.927Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T13:00:26.688Z error: FormGet : 2026-07-05T13:00:02.573Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T13:00:26.690Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T13:02:11.463Z error: FormGet : 2026-07-05T13:00:32.142Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T13:02:11.465Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T13:03:29.666Z error: FormGet : 2026-07-05T13:02:16.051Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T13:03:29.668Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T13:06:48.516Z error: FormGet : 2026-07-05T13:03:41.497Z : TypeError: Cannot read properties of undefined (reading 'k1')
+2026-07-05T13:06:48.519Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]

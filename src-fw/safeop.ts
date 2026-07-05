@@ -1,10 +1,12 @@
-import { AppExc, AbstractOperation } from './index'
-import { config, Registry } from './config'
-import { Crypt } from './crypt'
-import { keyFromB64, keyToB64 } from './b64'
-import { Util } from './util'
-import { Safe, Alias } from './iDbGeneric'
 import { encode, decode } from '@msgpack/msgpack'
+
+import { AppExc } from '../src-fw/log'
+import { AbstractOperation } from '../src-fw/index'
+import { config, Registry } from '../src-fw/config'
+import { Crypt } from '../src-fw/crypt'
+import { keyFromB64, keyToB64 } from '../src-fw/b64'
+import { Util } from '../src-fw/util'
+import { Safe, Alias } from '../src-fw/iDbGeneric'
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()

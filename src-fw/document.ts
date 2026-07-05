@@ -1,8 +1,9 @@
-import { DocType } from './doctypes'
-import { row } from './iDbGeneric'
-import { config, Registry } from './config'
 import { encode } from '@msgpack/msgpack'
-import { AppExc } from '../src-fw/index'
+
+import { DocType } from '../src-fw/doctypes'
+import { row } from '../src-fw/iDbGeneric'
+import { Registry } from '../src-fw/config'
+import { AppExc } from '../src-fw/log'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 
@@ -108,7 +109,6 @@ export class $Document {
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : $Document {
     const cl = Registry.getD(clazz, initVals)
-    if (!cl) throw new AppExc(105, 'document_class_not_registered', null, [clazz])
     const doc = new cl() as $Document
     doc._clazz = clazz
     doc._status = status

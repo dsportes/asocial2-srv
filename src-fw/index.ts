@@ -6,7 +6,7 @@ import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
-import { Log } from './log'
+import { Log, setAdminAlert } from './log'
 import { config, Registry } from './config'
 import { Util } from './util'
 import { keyFromB64 } from './b64'
@@ -492,7 +492,7 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
 /* Envoi d'une alerte d'administration **************************************/
 interface admin_alerts { url: string, pwd: string, to: string }
 
-export async function adminAlert ( op: AbstractOperation, subject: string, text: string) {
+function adminAlert ( op: AbstractOperation, subject: string, text: string) {
   const org = op && op['org'] ? op['org'] : ''
   const al: admin_alerts  = config.keys['adminAlerts']
   if (al['adminAlerts'] === 0) return
@@ -503,28 +503,31 @@ export async function adminAlert ( op: AbstractOperation, subject: string, text:
 
   if (!config.adminAlerts) return
 
-  // Test avec le script server.php
-  try {
-    const response = await fetch(al.url, {
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },    
-      body: new URLSearchParams({ 
-        mailer: 'A',
-        mdp: al.pwd, 
-        subject: s, 
-        to: al.to, 
-        text:  text || '-'
+  setTimeout(async () => {
+    // Test avec le script server.php
+    try {
+      const response = await fetch(al.url, {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },    
+        body: new URLSearchParams({ 
+          mailer: 'A',
+          mdp: al.pwd, 
+          subject: s, 
+          to: al.to, 
+          text:  text || '-'
+        })
       })
-    })
-    const t = await response.text()
-    if (!t.startsWith('OK'))
-      Log.error('Send mail error: [' + al.url + '] -  ' + t)
-  } catch (e) {
-    Log.error('Send mail exception: [' + al.url + '] -  ' + e.toString())
-  }
+      const t = await response.text()
+      if (!t.startsWith('OK'))
+        Log.error('Send mail error: [' + al.url + '] -  ' + t)
+    } catch (e) {
+      Log.error('Send mail exception: [' + al.url + '] -  ' + e.toString())
+    }
+  }, 1)
 }
+setAdminAlert(adminAlert)
 
 /* Classe AppExc ********************************************************/
 export class AppExc {
@@ -605,7 +608,6 @@ export interface OperationWC extends AbstractOperation {
 
   transac () : Promise<void>
 }
-
 
 /************************************************************
 Accès HTTP au MasterDir et aux Safes depuis les opérations

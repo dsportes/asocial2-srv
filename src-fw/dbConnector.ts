@@ -1,5 +1,6 @@
-import { AppExc, AbstractOperation } from './index'
-import { IDbGeneric } from './iDbGeneric'
+import { AbstractOperation } from '../src-fw/index'
+import { IDbGeneric } from '../src-fw/iDbGeneric'
+import { AppExc } from '../src-fw/log'
 
 export class DbConnector {
 

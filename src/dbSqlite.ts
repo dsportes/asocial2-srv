@@ -1,7 +1,6 @@
 /* Implémentation SQLite d'accès à l'application */
 
-import { AppExc } from '../src-fw/index'
-import { Log } from '../src-fw/log'
+import { Log, AppExc } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
 import { SQLiteConnexion, SQLiteConnector } from '../src-sqlite'
 import { IDbApp } from './iDbapp'

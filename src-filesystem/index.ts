@@ -4,8 +4,7 @@ import { writeFile, readFile } from 'node:fs/promises'
 import { existsSync, unlinkSync, rmSync, readdirSync, mkdirSync } from 'node:fs'
 import path from 'path'
 
-import { AppExc } from '../src-fw/index'
-import { Log } from '../src-fw/log'
+import { Log, AppExc } from '../src-fw/log'
 
 import { StorageGeneric } from '../src-fw/storageGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'

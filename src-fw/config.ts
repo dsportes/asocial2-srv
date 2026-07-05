@@ -1,6 +1,7 @@
 import { DbConnector } from './dbConnector'
 import { IStGeneric } from './iStGeneric'
 import { DocType } from '../src-fw/doctypes'
+import { setDebugLevel, AppExc } from '../src-fw/log'
 
 export class Registry {
   static regDoc = new Map()
@@ -13,15 +14,16 @@ export class Registry {
 
   static getD (name: string, data: Object) { 
     const dt = DocType.get(name)
-    if (!dt) return null
-    return dt.subClassBy
+    const cl = dt.subClassBy
       ? Registry.regDoc.get(name + '_' + data[dt.subClassBy]) || Registry.regDoc.get(name)
       : Registry.regDoc.get(name) 
+    if (!cl) throw new AppExc(103, 'unregistered_doc_class', null, [name])
+    return cl
   }
 
   static newD (name: string, data: Object) {
     const cl = Registry.getD(name, data)
-    return cl ? new cl() : null
+    return new cl()
   }
 
   static registerOp (cl: Function) { 
@@ -78,4 +80,5 @@ export let config : BaseConfig = null
 
 export function setConfig (cfg: BaseConfig) { 
   config = cfg 
+  setDebugLevel(cfg.debugLevel)
 }

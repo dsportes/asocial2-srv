@@ -1,9 +1,9 @@
 // @ts-ignore
 import { decode } from '@msgpack/msgpack'
 
-import { AppExc, OperationWC, MDandSafe } from '../src-fw/index'
+import { OperationWC, MDandSafe } from '../src-fw/index'
 import { config } from '../src-fw/config'
-import { Log } from '../src-fw/log'
+import { Log, AppExc } from '../src-fw/log'
 import { DbConnector } from '../src-fw/dbConnector'
 import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
@@ -119,8 +119,7 @@ export class Operation implements OperationWC {
   }
 
   async phase2 (args: any) { }
-
-  async phase3 (args: any) { }
+  async phase3 () { }
 
   /* Fixe LA valeur de la propriété 'prop' du résultat (et la retourne)*/
   setRes(prop: string, val: any) { this.result[prop] = val; return val }
@@ -200,10 +199,10 @@ export class Operation implements OperationWC {
         await Util.sleep(10000)
       }
 
-      if (this.phase3) {
+      if (this.hasPhase3) {
         if (!this.db)
           await this.dbConnector.getConnexion(this, this.org)
-        await this.phase3(this.args) // peut ajouter des résultats et db HORS transaction
+        await this.phase3() // peut ajouter des résultats et db HORS transaction
       }
 
       if (this.impactedSubs && this.impactedSubs.all.size) {
@@ -379,9 +378,9 @@ export class AuthRecord {
       let credential: $Credential
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
-        const x: Embed$Cred = d['creds']
-        if (x && x.props && (!x.props.limit || x.props.limit >= this.op.now)) 
-          credential = $Credential.new(docCl, docPk, x)
+        const c = d['creds'] ? $Credential.new(credId, docCl, docPk, d['creds']) : null
+        if (c && c.isValid) 
+          credential = c
       } else { // Recherche du Credential par sa pk
         const c = await this.op.cache.getDoc('$Credential', { pk: docPk }) as $Credential
         if (c.docCl === docCl && c.docPk === docPk) {

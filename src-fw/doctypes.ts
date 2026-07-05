@@ -1,4 +1,5 @@
-import { Crypt } from './crypt'
+import { Crypt } from '../src-fw/crypt'
+import { AppExc } from '../src-fw/log'
 
 // Liste ordonnnée de noms de propriétés identifiantes
 export type props = string[]
@@ -75,13 +76,16 @@ export class DocType {
   static errors: string[] = []
   static managerClasses: Set<string> = new Set()
 
-  static get (clazz: string) : DocType | null {
-    return DocType.docTypes.get(clazz) || null
+  static get (clazz: string) : DocType {
+    const i = clazz.indexOf('_')
+    const cl = i === -1 ? clazz : clazz.substring(0, i)
+    const dt = DocType.docTypes.get(cl)
+    if (!dt) throw new AppExc(103, 'not_configured_doc_class', null, [clazz])
+    return dt
   }
 
   static isTestable (clazz: string, idx: string) {
-    const dt = DocType.docTypes.get(clazz)
-    if (!dt) return false
+    const dt = DocType.get(clazz)
     const i = (dt.indexes && dt.indexes.get(idx)) || null
     return i && i.type === propType.STRING && i.testable
   }

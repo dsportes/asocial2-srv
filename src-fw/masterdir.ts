@@ -1,10 +1,11 @@
 import { encode, decode } from '@msgpack/msgpack'
 
-import { AppExc, AbstractOperation } from './index'
-import { Crypt } from './crypt'
-import { keyFromB64 } from './b64'
-import { config, Registry } from './config'
-import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from './iDbGeneric'
+import { AppExc } from '../src-fw/log'
+import { AbstractOperation } from '../src-fw/index'
+import { Crypt } from '../src-fw/crypt'
+import { keyFromB64 } from '../src-fw/b64'
+import { config, Registry } from '../src-fw/config'
+import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Registry.sizeOp())
@@ -630,7 +631,7 @@ class $mdEventList extends MDOperation {
     const now = Date.now()
     for(const data of datas) {
       const e = decode(data) as MDEvent
-      if (e.maxLife * 1000 > now) lst.push(e)
+      if (e.maxLife * 60000 > now) lst.push(e)
     }
     this.setRes('mdevents', lst)
   }
