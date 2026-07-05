@@ -19250,3 +19250,70 @@ BEGIN
 2026-07-05T13:21:32.077Z info: FormGet finished
 2026-07-05T13:21:59.270Z info: FormGet : 2026-07-05T13:21:59.270Z
 2026-07-05T13:21:59.301Z info: FormGet finished
+2026-07-05T13:25:17.226Z info: 13 document Registry
+2026-07-05T13:25:17.229Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-05T13:25:17.230Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-05T13:25:17.231Z info: Firestore connector
+2026-07-05T13:25:17.232Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-05T13:25:17.245Z info: Reloading orgs config OK
+2026-07-05T13:25:17.252Z info: HTTP listen [8080]
+2026-07-05T13:25:44.944Z info: $OpenSafeByPin finished
+2026-07-05T13:26:15.671Z info: $mdUserGetICVS finished
+2026-07-05T13:26:21.296Z info: $GetSafe finished
+2026-07-05T13:26:43.234Z info: $TrustDevice finished
+2026-07-05T13:27:12.938Z info: $OpenSafeByPin finished
+2026-07-05T13:27:12.981Z info: $GetSafe finished
+2026-07-05T13:43:22.733Z info: $OpenSafeByPin finished
+2026-07-05T13:43:22.777Z info: $GetSafe finished
+2026-07-05T13:43:55.388Z info: $GetOrgSvcs finished
+2026-07-05T13:43:55.419Z info: $GetSvcUrls finished
+2026-07-05T13:43:55.461Z info: ListManagers : 2026-07-05T13:43:55.460Z
+2026-07-05T13:44:12.477Z error: ListManagers : 2026-07-05T13:43:55.460Z : SqliteError: near "@col": syntax error
+2026-07-05T13:44:12.479Z info: ListManagers terminated on exception
+2026-07-05T13:44:12.479Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-05T13:44:12.487Z info: Reloading orgs config OK
+2026-07-05T13:52:12.510Z info: ListManagers : 2026-07-05T13:52:12.510Z
+2026-07-05T13:53:02.146Z info: 13 document Registry
+2026-07-05T13:53:02.149Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-05T13:53:02.150Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-05T13:53:02.151Z info: Firestore connector
+2026-07-05T13:53:02.152Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-05T13:53:02.183Z info: Reloading orgs config OK
+2026-07-05T13:53:02.192Z info: HTTP listen [8080]
+2026-07-05T13:53:24.123Z info: ListManagers : 2026-07-05T13:53:24.122Z
+2026-07-05T13:54:30.033Z error: ListManagers : 2026-07-05T13:53:24.122Z : SqliteError: near "@col": syntax error
+2026-07-05T13:54:30.036Z info: ListManagers terminated on exception
+2026-07-05T13:54:30.037Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-05T13:55:09.173Z info: ListManagers : 2026-07-05T13:55:09.172Z
+2026-07-05T13:58:25.021Z error: ListManagers : 2026-07-05T13:55:09.172Z : SqliteError: near "@col": syntax error
+2026-07-05T13:58:25.023Z info: ListManagers terminated on exception
+2026-07-05T13:58:25.024Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-05T14:17:19.725Z info: 13 document Registry
+2026-07-05T14:17:19.729Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-05T14:17:19.730Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-05T14:17:19.730Z info: Firestore connector
+2026-07-05T14:17:19.731Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-05T14:17:19.743Z info: Reloading orgs config OK
+2026-07-05T14:17:19.750Z info: HTTP listen [8080]
+2026-07-05T14:17:31.513Z info: ListManagers : 2026-07-05T14:17:31.513Z
+2026-07-05T14:17:43.205Z info: ListManagers finished
+2026-07-05T14:19:01.257Z info: 13 document Registry
+2026-07-05T14:19:01.261Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-05T14:19:01.262Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-05T14:19:01.262Z info: Firestore connector
+2026-07-05T14:19:01.263Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-05T14:19:01.277Z info: Reloading orgs config OK
+2026-07-05T14:19:01.284Z info: HTTP listen [8080]
+2026-07-05T14:19:03.258Z info: ListManagers : 2026-07-05T14:19:03.258Z
+2026-07-05T14:19:22.728Z info: ListManagers finished
+2026-07-05T14:19:42.448Z info: ListManagers : 2026-07-05T14:19:42.448Z
+2026-07-05T14:21:38.737Z info: ListManagers finished
+2026-07-05T14:25:03.969Z info: 13 document Registry
+2026-07-05T14:25:03.972Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-05T14:25:03.973Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-05T14:25:03.974Z info: Firestore connector
+2026-07-05T14:25:03.974Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-05T14:25:03.987Z info: Reloading orgs config OK
+2026-07-05T14:25:03.994Z info: HTTP listen [8080]
+2026-07-05T14:25:10.956Z info: ListManagers : 2026-07-05T14:25:10.956Z
+2026-07-05T14:25:44.301Z info: ListManagers finished

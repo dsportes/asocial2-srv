@@ -427,3 +427,9 @@ BEGIN
 2026-07-05T13:03:29.668Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
 2026-07-05T13:06:48.516Z error: FormGet : 2026-07-05T13:03:41.497Z : TypeError: Cannot read properties of undefined (reading 'k1')
 2026-07-05T13:06:48.519Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'k1')"]
+2026-07-05T13:44:12.477Z error: ListManagers : 2026-07-05T13:43:55.460Z : SqliteError: near "@col": syntax error
+2026-07-05T13:44:12.479Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-05T13:54:30.033Z error: ListManagers : 2026-07-05T13:53:24.122Z : SqliteError: near "@col": syntax error
+2026-07-05T13:54:30.037Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-05T13:58:25.021Z error: ListManagers : 2026-07-05T13:55:09.172Z : SqliteError: near "@col": syntax error
+2026-07-05T13:58:25.024Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]

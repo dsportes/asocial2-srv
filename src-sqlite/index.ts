@@ -767,6 +767,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   compOp (colName: string, filter: filter, col: any) {
     const comp = opFilter[filter]
+    if (comp === 'IN') {
+      const l = []
+      for (const x of col) l.push('\'' + x + '\'')
+      return 'AND ' + colName + ' IN (' + l.join(', ')  + ')'
+    }
     if (!comp.startsWith('CONT')) return 'AND ' + colName + ' ' + comp + ' @col'
     const cols = col instanceof Array ? col : [col]
     if (!cols.length) return ''

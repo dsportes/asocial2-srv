@@ -263,18 +263,6 @@ export class $Credential extends $Document {
     return c
   }
 
-  to$Cred (org: string) : $Cred {
-    const x = {
-      credId: this.credId,
-      svc: config.SVC,
-      org: org,
-      docCl: this.docCl,
-      docPk: this.docPk,
-      props: this.cred.props
-    }
-    return x
-  }
-
   async create (op: Operation): Promise<$Document> {
     if (this.isEmbed) {
       const doc = await op.cache.getDoc(this.docCl, { pk: this.docPk }) as $Document
@@ -322,14 +310,22 @@ export class $Credential extends $Document {
     const org = op.org
     const lst: $Cred[] = []
     let sel: string[] = []
-    for(const cl of DocType.managerClasses) sel.push(cl + '/1')
-    if (sel.length) await op.db.selectDocs('$Credential', 'creds', filter.IN, sel, '', 0, 
+    for(const cl of DocType.managerClasses) 
+      sel.push(Crypt.shaS(cl + '/1'))
+    if (sel.length) await op.db.selectDocs('$Credential', 'doc', filter.IN, sel, '', 0, 
       (bin: Uint8Array) => {
         try {
-          const c = decode(bin) as $Credential
-          const x = c.to$Cred(org)
+          const c: any = decode(bin)
+          const x = {
+            credId: c.credId,
+            svc: config.SVC,
+            org: org,
+            docCl: c.docCl,
+            docPk: c.docPk,
+            props: c.cred.props
+          }
           if (!x.props.limit || x.props.limit * 60000 > op.now)
-            lst.push()
+            lst.push(x)
         } catch(e) {
           console.log(e)
         }    
@@ -349,10 +345,17 @@ export class $Credential extends $Document {
     await op.db.selectDocs('$Credential', 'doc', filter.EQ, val[0], '', 0, 
       (bin) => {
         try {
-          const c = decode(bin) as $Credential
-          const x = c.to$Cred(org)
+          const c: any = decode(bin)
+          const x = {
+            credId: c.credId,
+            svc: config.SVC,
+            org: org,
+            docCl: c.docCl,
+            docPk: c.docPk,
+            props: c.cred.props
+          }
           if (!x.props.limit || x.props.limit * 60000 > op.now)
-            lst.push()
+            lst.push(x)
         } catch(e) {
           console.log(e)
         }
