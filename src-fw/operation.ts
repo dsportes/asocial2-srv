@@ -74,6 +74,8 @@ export class Operation implements OperationWC {
   org: string
   now: number
 
+  public acceptBadCredential : boolean = false
+
   public hasPhase3 : boolean = false
   public baseUrl: string
   public today: number
@@ -147,9 +149,9 @@ export class Operation implements OperationWC {
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (docCl: string, docId: string, noex?: boolean) : $Credential {
+  getCred (docCl: string, docPk: string, noex?: boolean) : $Credential {
     this.requireAuth()
-    return this.authRecord.getCred(docCl, docId, noex || false)
+    return this.authRecord.getCred(docCl, docPk, noex || false)
   }
 
   async transac (): Promise<void> {
@@ -382,9 +384,9 @@ export class AuthRecord {
         if (c && c.isValid) 
           credential = c
       } else { // Recherche du Credential par sa pk
-        const c = await this.op.cache.getDoc('$Credential', { pk: docPk }) as $Credential
-        if (c.docCl === docCl && c.docPk === docPk) {
-          if (c.cred.props && c.cred.props.limit && c.cred.props.limit < this.op.now) 
+        const c = await this.op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
+        if (c && c.docCl === docCl && c.docPk === docPk) {
+          if (c.cred.props && c.cred.props.limit && (c.cred.props.limit * 60000) < this.op.now) 
             this.op.cache.delDoc('$Credential', c.pk)
           else credential = c
         }
@@ -403,7 +405,7 @@ export class AuthRecord {
       console.log('Auth status: ' + dbg.join('\n'))
     }
       
-    if (this.koCreds.size) 
+    if (this.koCreds.size && !this.op.acceptBadCredential) 
       throw new AppExc(101, 'operation_bad_credentials', this.op, [Array.from(this.koCreds).join('\n')])
   }
 }

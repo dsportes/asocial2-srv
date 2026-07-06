@@ -236,8 +236,6 @@ export type Embed$Cred = {
   props: any
 }
 
-export type C2c = Map<string, { userId: string, signId: string }>
-
 export class $Credential extends $Document {
   static release = 0
 
@@ -290,20 +288,21 @@ export class $Credential extends $Document {
 
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
     const dt = DocType.get(docCl)
+    let doc
     if (dt.embedCreds) {
-      const doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Credential
+      doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Document
       if (!doc || !doc['creds'] || !doc['creds']['credId']) return null
       doc['creds']['credId'].props = props
       doc._status = DocStatus.UPD
-    } 
-    const doc = await op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
-    if (!doc) return null
-    doc.maxLife = props['limit'] || 0
-    doc.cred.props = props
-    doc._status = DocStatus.UPD
+    } else {
+      doc = await op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
+      if (!doc) return null
+      doc.maxLife = props['limit'] || 0
+      doc.cred.props = props
+      doc._status = DocStatus.UPD
+    }
     return doc
   }
-
 
   // Liste les credentials attribuable par un administrateur seulement
   static async listManagers (op: OperationWC) : Promise<$Cred[]> {

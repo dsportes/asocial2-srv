@@ -420,28 +420,31 @@ class Sync extends Operation {
 }
 Registry.registerOp(Sync)
 
-/* getCredUpdates retourne [v props] d'un credential
+/* getCredUpdates retourne [v, props] d'un credential
 pour SON détenteur (signature vérifiée).
-credId pour éviter les "vieux" credential (superstition)
+credId pour éviter les "vieux" credential (superstition ?)
 */
-class getCredUpdates extends Operation {
+class getCredProps extends Operation {
   _credId: string
   _docCl: string
-  _docId: string 
+  _docPk: string 
   init () {
     super.init()
     this._credId = this.stringValue('credId', true)
     this._docCl = this.stringValue('docCl', true)
-    this._docId = this.stringValue('docId', false) || ''
+    this._docPk = this.stringValue('docPk', false) || ''
+    this.acceptBadCredential = true
   }
   async phase2 () {
     this.requireAuth()
-    const c = this.getCred(this._docId, this._docId, true)
-    if (c && c.credId === this._credId)
-      this.setRes('more', [c.cred.pubv, c.cred.props])
+    if (!this.authRecord.koCreds.has(this._docCl + '/' + this._docPk)) {
+      const c = this.getCred(this._docCl, this._docPk, true)
+      if (c && c.credId === this._credId)
+        this.setRes('vprops', [c.v, c.cred.props])
+    }
   }
 }
-Registry.registerOp(getCredUpdates)
+Registry.registerOp(getCredProps)
 
 /* Auto-recvocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
