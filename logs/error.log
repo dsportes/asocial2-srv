@@ -433,3 +433,5 @@ BEGIN
 2026-07-05T13:54:30.037Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
 2026-07-05T13:58:25.021Z error: ListManagers : 2026-07-05T13:55:09.172Z : SqliteError: near "@col": syntax error
 2026-07-05T13:58:25.024Z error: AppExc: 105:service_unexpected_exception["near \"@col\": syntax error"]
+2026-07-09T14:25:34.948Z error: AppExc: 105:userid_not_found_in_masterdir[""]
+2026-07-09T14:25:34.950Z error: FormCreateByT : 2026-07-09T14:25:34.929Z : AppExc: 105:userid_not_found_in_masterdir[""]

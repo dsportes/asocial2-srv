@@ -19317,3 +19317,365 @@ BEGIN
 2026-07-05T14:25:03.994Z info: HTTP listen [8080]
 2026-07-05T14:25:10.956Z info: ListManagers : 2026-07-05T14:25:10.956Z
 2026-07-05T14:25:44.301Z info: ListManagers finished
+2026-07-09T08:29:54.793Z info: 13 document Registry
+2026-07-09T08:29:54.796Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-09T08:29:54.797Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-09T08:29:54.797Z info: Firestore connector
+2026-07-09T08:29:54.798Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-09T08:29:54.892Z info: Reloading orgs config OK
+2026-07-09T08:29:54.898Z info: HTTP listen [8080]
+2026-07-09T08:30:19.263Z info: $OpenSafeByPin finished
+2026-07-09T08:30:19.309Z info: $GetSafe finished
+2026-07-09T08:30:26.284Z info: $mdEventList finished
+2026-07-09T08:30:51.029Z info: $GetOrgSvcs finished
+2026-07-09T08:30:53.431Z info: $GetSvcUrls finished
+2026-07-09T08:30:53.462Z info: FormFilteredList : 2026-07-09T08:30:53.462Z
+2026-07-09T08:30:53.538Z info: $mdUserGetICVS finished
+2026-07-09T08:30:53.598Z info: FormFilteredList finished
+2026-07-09T08:31:29.855Z info: $mdUserGetICVS finished
+2026-07-09T10:04:31.448Z info: FormFilteredList : 2026-07-09T10:04:31.447Z
+2026-07-09T10:04:31.474Z info: $mdUserGetICVS finished
+2026-07-09T10:04:31.499Z info: Reloading orgs config OK
+2026-07-09T10:04:31.518Z info: FormFilteredList finished
+2026-07-09T10:33:27.453Z info: FormFilteredList : 2026-07-09T10:33:27.453Z
+2026-07-09T10:33:27.506Z info: Reloading orgs config OK
+2026-07-09T10:33:27.519Z info: FormFilteredList finished
+2026-07-09T12:20:12.291Z info: FormFilteredList : 2026-07-09T12:20:12.291Z
+2026-07-09T12:20:12.313Z info: $mdUserGetICVS finished
+2026-07-09T12:20:12.347Z info: Reloading orgs config OK
+2026-07-09T12:20:12.372Z info: FormFilteredList finished
+2026-07-09T12:21:37.700Z info: FormFilteredList : 2026-07-09T12:21:37.700Z
+2026-07-09T12:21:37.760Z info: FormFilteredList finished
+2026-07-09T12:22:28.132Z info: $OpenSafeByPin finished
+2026-07-09T12:22:28.178Z info: $GetSafe finished
+2026-07-09T12:22:35.982Z info: $mdEventList finished
+2026-07-09T12:23:43.523Z info: $OpenSafeByPin finished
+2026-07-09T12:23:43.556Z info: $GetSafe finished
+2026-07-09T12:23:48.667Z info: $mdEventList finished
+2026-07-09T12:24:03.431Z info: $GetOrgSvcs finished
+2026-07-09T12:24:03.451Z info: $GetSvcUrls finished
+2026-07-09T12:24:03.479Z info: FormGet : 2026-07-09T12:24:03.478Z
+2026-07-09T12:24:03.521Z info: FormGet finished
+2026-07-09T12:34:27.717Z info: $OpenSafeByPin finished
+2026-07-09T12:34:27.762Z info: $GetSafe finished
+2026-07-09T12:34:32.474Z info: $mdEventList finished
+2026-07-09T12:34:42.978Z info: $GetOrgSvcs finished
+2026-07-09T12:37:42.158Z info: $mdEventList finished
+2026-07-09T12:37:46.435Z info: $GetSvcUrls finished
+2026-07-09T12:37:46.459Z info: FormGet : 2026-07-09T12:37:46.459Z
+2026-07-09T12:37:46.492Z info: FormGet finished
+2026-07-09T12:37:46.525Z info: Reloading orgs config OK
+2026-07-09T12:37:59.475Z info: FormGet : 2026-07-09T12:37:59.475Z
+2026-07-09T12:37:59.511Z info: FormGet finished
+2026-07-09T12:38:10.296Z info: FormGet : 2026-07-09T12:38:10.296Z
+2026-07-09T12:38:10.330Z info: FormGet finished
+2026-07-09T12:39:37.187Z info: $mdEventList finished
+2026-07-09T12:39:43.647Z info: FormGet : 2026-07-09T12:39:43.647Z
+2026-07-09T12:39:43.681Z info: FormGet finished
+2026-07-09T12:40:41.204Z info: FormGet : 2026-07-09T12:40:41.204Z
+2026-07-09T12:40:41.244Z info: FormGet finished
+2026-07-09T12:41:33.035Z info: $OpenSafeByPin finished
+2026-07-09T12:41:33.078Z info: $GetSafe finished
+2026-07-09T12:41:40.451Z info: $mdEventList finished
+2026-07-09T12:41:42.910Z info: $GetOrgSvcs finished
+2026-07-09T12:41:42.925Z info: $GetSvcUrls finished
+2026-07-09T12:41:42.945Z info: FormGet : 2026-07-09T12:41:42.945Z
+2026-07-09T12:41:42.979Z info: FormGet finished
+2026-07-09T12:43:03.756Z info: $mdEventList finished
+2026-07-09T12:43:05.218Z info: FormGet : 2026-07-09T12:43:05.218Z
+2026-07-09T12:43:05.254Z info: FormGet finished
+2026-07-09T12:43:05.277Z info: Reloading orgs config OK
+2026-07-09T12:45:31.968Z info: FormGet : 2026-07-09T12:45:31.968Z
+2026-07-09T12:45:31.998Z info: FormGet finished
+2026-07-09T12:48:25.219Z info: $mdEventList finished
+2026-07-09T12:48:28.673Z info: FormGet : 2026-07-09T12:48:28.673Z
+2026-07-09T12:48:28.710Z info: FormGet finished
+2026-07-09T12:48:28.733Z info: Reloading orgs config OK
+2026-07-09T12:48:40.840Z info: $mdEventList finished
+2026-07-09T12:50:17.411Z info: $mdEventList finished
+2026-07-09T12:50:24.429Z info: $mdEventList finished
+2026-07-09T12:50:29.957Z info: FormGet : 2026-07-09T12:50:29.957Z
+2026-07-09T12:50:29.990Z info: FormGet finished
+2026-07-09T12:51:19.883Z info: $mdEventList finished
+2026-07-09T12:52:26.059Z info: $mdEventList finished
+2026-07-09T12:52:28.236Z info: FormGet : 2026-07-09T12:52:28.236Z
+2026-07-09T12:52:28.266Z info: FormGet finished
+2026-07-09T12:56:51.691Z info: $OpenSafeByPin finished
+2026-07-09T12:56:51.736Z info: $GetSafe finished
+2026-07-09T12:56:57.001Z info: $mdEventList finished
+2026-07-09T12:57:05.372Z info: $GetOrgSvcs finished
+2026-07-09T13:00:13.850Z info: $OpenSafeByPin finished
+2026-07-09T13:00:13.890Z info: $GetSafe finished
+2026-07-09T13:00:18.687Z info: $mdEventList finished
+2026-07-09T13:00:23.177Z info: $GetOrgSvcs finished
+2026-07-09T13:00:23.202Z info: $GetSvcUrls finished
+2026-07-09T13:00:23.221Z info: FormGet : 2026-07-09T13:00:23.221Z
+2026-07-09T13:00:23.254Z info: FormGet finished
+2026-07-09T13:00:23.287Z info: Reloading orgs config OK
+2026-07-09T13:01:40.933Z info: $mdEventList finished
+2026-07-09T13:15:13.127Z info: $OpenSafeByPin finished
+2026-07-09T13:15:13.168Z info: $GetSafe finished
+2026-07-09T13:15:17.423Z info: $mdEventList finished
+2026-07-09T13:15:36.470Z info: $GetOrgSvcs finished
+2026-07-09T13:30:17.695Z info: $mdEventList finished
+2026-07-09T13:36:05.039Z info: $mdEventList finished
+2026-07-09T13:37:10.801Z info: $OpenSafeByPin finished
+2026-07-09T13:37:10.843Z info: $GetSafe finished
+2026-07-09T13:37:40.715Z info: $mdEventList finished
+2026-07-09T13:37:51.407Z info: $GetOrgSvcs finished
+2026-07-09T13:43:23.849Z info: $OpenSafeByPin finished
+2026-07-09T13:43:23.892Z info: $GetSafe finished
+2026-07-09T13:43:28.176Z info: $mdEventList finished
+2026-07-09T13:43:34.727Z info: $GetOrgSvcs finished
+2026-07-09T13:52:41.257Z info: $OpenSafeByPin finished
+2026-07-09T13:52:41.301Z info: $GetSafe finished
+2026-07-09T13:52:45.737Z info: $mdEventList finished
+2026-07-09T13:52:52.205Z info: $GetOrgSvcs finished
+2026-07-09T13:53:03.256Z info: $mdUserGetICVS finished
+2026-07-09T13:53:05.991Z info: $mdUserGetICVS finished
+2026-07-09T13:54:38.261Z info: $mdUserGetICVS finished
+2026-07-09T13:54:52.044Z info: $mdUserGetICVS finished
+2026-07-09T14:06:21.240Z info: $mdEventList finished
+2026-07-09T14:06:44.142Z info: $OpenSafeByPin finished
+2026-07-09T14:06:44.197Z info: $GetSafe finished
+2026-07-09T14:06:48.646Z info: $mdEventList finished
+2026-07-09T14:06:56.976Z info: $GetOrgSvcs finished
+2026-07-09T14:15:42.068Z info: $mdEventList finished
+2026-07-09T14:17:18.186Z info: $OpenSafeByPin finished
+2026-07-09T14:17:18.232Z info: $GetSafe finished
+2026-07-09T14:17:29.151Z info: $GetSvcUrls finished
+2026-07-09T14:17:29.181Z info: FormFilteredList : 2026-07-09T14:17:29.181Z
+2026-07-09T14:17:29.194Z info: $mdUserGetICVS finished
+2026-07-09T14:17:29.226Z info: FormFilteredList finished
+2026-07-09T14:17:29.236Z info: Reloading orgs config OK
+2026-07-09T14:18:03.153Z info: $mdUserGetICVS finished
+2026-07-09T14:18:08.702Z info: $mdUserGetICVS finished
+2026-07-09T14:18:28.241Z info: $OpenSafeByPin finished
+2026-07-09T14:18:28.296Z info: $GetSafe finished
+2026-07-09T14:18:43.941Z info: $GetOrgSvcs finished
+2026-07-09T14:18:45.547Z info: $GetSvcUrls finished
+2026-07-09T14:18:45.579Z info: FormFilteredList : 2026-07-09T14:18:45.579Z
+2026-07-09T14:18:45.652Z info: FormFilteredList finished
+2026-07-09T14:21:09.570Z info: $OpenSafeByPin finished
+2026-07-09T14:21:09.611Z info: $GetSafe finished
+2026-07-09T14:21:27.736Z info: $GetOrgSvcs finished
+2026-07-09T14:21:29.949Z info: $GetSvcUrls finished
+2026-07-09T14:21:29.978Z info: FormFilteredList : 2026-07-09T14:21:29.978Z
+2026-07-09T14:21:30.010Z info: FormFilteredList finished
+2026-07-09T14:23:09.517Z info: $mdUserGetICVS finished
+2026-07-09T14:24:25.265Z info: FormFilteredList : 2026-07-09T14:24:25.265Z
+2026-07-09T14:24:25.319Z info: Reloading orgs config OK
+2026-07-09T14:24:25.329Z info: FormFilteredList finished
+2026-07-09T14:24:45.992Z info: $mdUserGetICVS finished
+2026-07-09T14:25:34.929Z info: FormCreateByT : 2026-07-09T14:25:34.929Z
+2026-07-09T14:25:34.945Z info: $mdUserGetICVS finished
+2026-07-09T14:25:34.948Z error: AppExc: 105:userid_not_found_in_masterdir[""]
+2026-07-09T14:25:34.950Z error: FormCreateByT : 2026-07-09T14:25:34.929Z : AppExc: 105:userid_not_found_in_masterdir[""]
+2026-07-09T14:25:34.952Z info: FormCreateByT terminated on exception
+2026-07-09T14:27:14.717Z info: $mdUserGetICVS finished
+2026-07-09T14:27:35.843Z info: FormCreateByT : 2026-07-09T14:27:35.843Z
+2026-07-09T14:27:35.883Z info: FormCreateByT finished
+2026-07-09T14:27:35.911Z info: MDEventFull : 2026-07-09T14:27:35.910Z
+2026-07-09T14:27:35.924Z info: MDEventFull finished
+2026-07-09T14:27:35.934Z info: $mdEventNew finished
+2026-07-09T14:27:44.016Z info: FormFilteredList : 2026-07-09T14:27:44.016Z
+2026-07-09T14:27:44.066Z info: FormFilteredList finished
+2026-07-09T14:32:24.496Z info: $GetOrgSvcs finished
+2026-07-09T14:32:24.681Z info: $GetSvcUrls finished
+2026-07-09T14:32:24.740Z info: FormFilteredList : 2026-07-09T14:32:24.740Z
+2026-07-09T14:32:24.807Z info: Reloading orgs config OK
+2026-07-09T14:32:24.882Z info: FormFilteredList finished
+2026-07-09T14:32:47.303Z info: $OpenSafeByPin finished
+2026-07-09T14:32:47.362Z info: $GetSafe finished
+2026-07-09T14:33:00.235Z info: $GetOrgSvcs finished
+2026-07-09T14:33:02.123Z info: $GetSvcUrls finished
+2026-07-09T14:33:02.150Z info: FormFilteredList : 2026-07-09T14:33:02.150Z
+2026-07-09T14:33:02.197Z info: FormFilteredList finished
+2026-07-09T14:37:43.377Z info: 13 document Registry
+2026-07-09T14:37:43.380Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-09T14:37:43.380Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-09T14:37:43.381Z info: Firestore connector
+2026-07-09T14:37:43.382Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-09T14:37:43.399Z info: Reloading orgs config OK
+2026-07-09T14:37:43.405Z info: HTTP listen [8080]
+2026-07-09T14:41:16.720Z info: $OpenSafeByPin finished
+2026-07-09T14:41:16.768Z info: $GetSafe finished
+2026-07-09T14:41:29.501Z info: $GetOrgSvcs finished
+2026-07-09T14:41:31.325Z info: $GetSvcUrls finished
+2026-07-09T14:41:31.357Z info: FormFilteredList : 2026-07-09T14:41:31.356Z
+2026-07-09T14:41:31.425Z info: $mdUserGetICVS finished
+2026-07-09T14:41:31.465Z info: FormFilteredList finished
+2026-07-09T14:41:44.757Z info: $mdUserGetICVS finished
+2026-07-09T14:41:55.365Z info: FormCreateByT : 2026-07-09T14:41:55.365Z
+2026-07-09T14:41:55.392Z info: FormCreateByT finished
+2026-07-09T14:41:55.412Z info: MDEventFull : 2026-07-09T14:41:55.412Z
+2026-07-09T14:41:55.421Z info: MDEventFull finished
+2026-07-09T14:41:55.428Z info: $mdEventNew finished
+2026-07-09T14:42:21.092Z info: FormFilteredList : 2026-07-09T14:42:21.091Z
+2026-07-09T14:42:21.158Z info: FormFilteredList finished
+2026-07-09T14:52:06.266Z info: $OpenSafeByPin finished
+2026-07-09T14:52:06.303Z info: $GetSafe finished
+2026-07-09T14:52:22.214Z info: $GetOrgSvcs finished
+2026-07-09T14:52:23.770Z info: $GetSvcUrls finished
+2026-07-09T14:52:23.801Z info: FormFilteredList : 2026-07-09T14:52:23.801Z
+2026-07-09T14:52:23.847Z info: FormFilteredList finished
+2026-07-09T14:52:23.865Z info: Reloading orgs config OK
+2026-07-09T14:54:21.950Z info: FormFilteredList : 2026-07-09T14:54:21.950Z
+2026-07-09T14:54:22.004Z info: FormFilteredList finished
+2026-07-09T14:54:31.548Z info: FormFilteredList : 2026-07-09T14:54:31.548Z
+2026-07-09T14:54:31.599Z info: FormFilteredList finished
+2026-07-09T14:59:22.822Z info: $OpenSafeByPin finished
+2026-07-09T14:59:22.861Z info: $GetSafe finished
+2026-07-09T14:59:28.125Z info: $mdEventList finished
+2026-07-09T14:59:30.326Z info: $mdEventUser finished
+2026-07-09T14:59:30.350Z info: FormGet : 2026-07-09T14:59:30.350Z
+2026-07-09T14:59:30.368Z info: FormGet finished
+2026-07-09T14:59:30.410Z info: Reloading orgs config OK
+2026-07-09T15:39:36.725Z info: $mdEventList finished
+2026-07-09T15:39:37.078Z info: $mdEventList finished
+2026-07-09T15:41:38.482Z info: $mdEventList finished
+2026-07-09T15:41:46.732Z info: $GetOrgSvcs finished
+2026-07-09T15:41:46.750Z info: $GetSvcUrls finished
+2026-07-09T15:41:46.769Z info: FormGet : 2026-07-09T15:41:46.768Z
+2026-07-09T15:41:46.779Z info: $mdUserGetICVS finished
+2026-07-09T15:41:46.797Z info: FormGet finished
+2026-07-09T15:41:46.828Z info: Reloading orgs config OK
+2026-07-09T15:42:00.152Z info: $OpenSafeByPin finished
+2026-07-09T15:42:00.197Z info: $GetSafe finished
+2026-07-09T15:42:04.958Z info: $mdEventList finished
+2026-07-09T15:42:06.528Z info: $GetOrgSvcs finished
+2026-07-09T15:42:06.547Z info: $GetSvcUrls finished
+2026-07-09T15:42:06.570Z info: FormGet : 2026-07-09T15:42:06.570Z
+2026-07-09T15:42:06.587Z info: FormGet finished
+2026-07-09T15:46:22.872Z info: $OpenSafeByPin finished
+2026-07-09T15:46:22.905Z info: $GetSafe finished
+2026-07-09T15:46:27.415Z info: $mdEventList finished
+2026-07-09T15:46:28.628Z info: $GetOrgSvcs finished
+2026-07-09T15:46:28.647Z info: $GetSvcUrls finished
+2026-07-09T15:46:28.666Z info: FormGet : 2026-07-09T15:46:28.666Z
+2026-07-09T15:46:28.686Z info: FormGet finished
+2026-07-09T15:50:52.739Z info: $OpenSafeByPin finished
+2026-07-09T15:50:52.785Z info: $GetSafe finished
+2026-07-09T15:50:58.581Z info: $mdEventList finished
+2026-07-09T15:51:00.180Z info: $GetOrgSvcs finished
+2026-07-09T15:51:00.200Z info: $GetSvcUrls finished
+2026-07-09T15:51:00.215Z info: FormGet : 2026-07-09T15:51:00.215Z
+2026-07-09T15:51:00.234Z info: FormGet finished
+2026-07-09T15:51:00.277Z info: Reloading orgs config OK
+2026-07-09T15:55:17.093Z info: $OpenSafeByPin finished
+2026-07-09T15:55:17.135Z info: $GetSafe finished
+2026-07-09T15:55:23.216Z info: $mdEventList finished
+2026-07-09T15:58:25.260Z info: $GetOrgSvcs finished
+2026-07-09T15:58:25.276Z info: $GetSvcUrls finished
+2026-07-09T15:58:25.294Z info: FormGet : 2026-07-09T15:58:25.294Z
+2026-07-09T15:58:25.313Z info: FormGet finished
+2026-07-09T15:58:25.352Z info: Reloading orgs config OK
+2026-07-09T16:11:16.386Z info: $OpenSafeByPin finished
+2026-07-09T16:11:16.425Z info: $GetSafe finished
+2026-07-09T16:11:24.665Z info: $mdEventList finished
+2026-07-09T16:11:26.415Z info: $GetOrgSvcs finished
+2026-07-09T16:11:26.436Z info: $GetSvcUrls finished
+2026-07-09T16:11:26.459Z info: FormGet : 2026-07-09T16:11:26.459Z
+2026-07-09T16:11:26.478Z info: FormGet finished
+2026-07-09T16:11:26.520Z info: Reloading orgs config OK
+2026-07-09T16:12:23.033Z info: getCKey$ : 2026-07-09T16:12:23.032Z
+2026-07-09T16:12:23.038Z info: getCKey$ finished
+2026-07-09T16:12:23.084Z info: FormValidateByU : 2026-07-09T16:12:23.084Z
+2026-07-09T16:12:23.123Z info: $CreateCred finished
+2026-07-09T16:12:23.143Z info: $FixOneCred finished
+2026-07-09T16:12:23.151Z info: FormValidateByU finished
+2026-07-09T16:12:23.206Z info: MDEventSync : 2026-07-09T16:12:23.205Z
+2026-07-09T16:12:23.232Z info: MDEventSync finished
+2026-07-09T16:12:23.255Z info: $mdEventSync finished
+2026-07-09T16:12:29.277Z info: $mdEventList finished
+2026-07-09T16:12:29.294Z info: $mdEventUser finished
+2026-07-09T16:12:29.326Z info: FormGet : 2026-07-09T16:12:29.326Z
+2026-07-09T16:12:29.405Z info: FormGet finished
+2026-07-09T16:14:09.236Z info: getCredProps : 2026-07-09T16:14:09.236Z
+2026-07-09T16:14:09.252Z info: getCredProps finished
+2026-07-09T16:15:44.105Z info: $OpenSafeByPin finished
+2026-07-09T16:15:44.137Z info: $GetSafe finished
+2026-07-09T16:15:48.732Z info: $mdEventList finished
+2026-07-09T16:16:05.675Z info: $OpenSafeByPin finished
+2026-07-09T16:16:05.705Z info: $GetSafe finished
+2026-07-09T16:16:13.790Z info: $GetOrgSvcs finished
+2026-07-09T16:16:16.824Z info: $GetSvcUrls finished
+2026-07-09T16:16:16.855Z info: FormFilteredList : 2026-07-09T16:16:16.855Z
+2026-07-09T16:16:16.885Z info: FormFilteredList finished
+2026-07-09T16:16:33.729Z info: $mdUserGetICVS finished
+2026-07-09T16:16:54.465Z info: FormCreateByT : 2026-07-09T16:16:54.465Z
+2026-07-09T16:16:54.500Z info: FormCreateByT finished
+2026-07-09T16:16:54.522Z info: Reloading orgs config OK
+2026-07-09T16:16:54.526Z info: MDEventFull : 2026-07-09T16:16:54.526Z
+2026-07-09T16:16:54.532Z info: MDEventFull finished
+2026-07-09T16:16:54.539Z info: $mdEventNew finished
+2026-07-09T16:17:34.319Z info: FormFilteredList : 2026-07-09T16:17:34.319Z
+2026-07-09T16:17:34.370Z info: FormFilteredList finished
+2026-07-09T16:18:06.882Z info: $OpenSafeByPin finished
+2026-07-09T16:18:06.918Z info: $GetSafe finished
+2026-07-09T16:18:12.437Z info: $mdEventList finished
+2026-07-09T16:18:13.859Z info: $mdEventUser finished
+2026-07-09T16:18:13.881Z info: FormGet : 2026-07-09T16:18:13.881Z
+2026-07-09T16:18:13.897Z info: FormGet finished
+2026-07-09T16:20:14.527Z info: getCKey$ : 2026-07-09T16:20:14.527Z
+2026-07-09T16:20:14.530Z info: getCKey$ finished
+2026-07-09T16:20:14.568Z info: FormValidateByU : 2026-07-09T16:20:14.568Z
+2026-07-09T16:20:37.747Z info: $CreateCred finished
+2026-07-09T16:20:37.788Z info: $FixOneCred finished
+2026-07-09T16:20:37.797Z info: FormValidateByU finished
+2026-07-09T16:20:37.817Z info: MDEventSync : 2026-07-09T16:20:37.817Z
+2026-07-09T16:20:37.821Z info: MDEventSync finished
+2026-07-09T16:20:37.832Z info: $mdEventSync finished
+2026-07-09T16:20:44.457Z info: $mdEventList finished
+2026-07-09T16:20:44.474Z info: $mdEventUser finished
+2026-07-09T16:20:44.494Z info: FormGet : 2026-07-09T16:20:44.494Z
+2026-07-09T16:20:44.526Z info: FormGet finished
+2026-07-09T16:21:54.175Z info: $OpenSafeByPin finished
+2026-07-09T16:21:54.212Z info: $GetSafe finished
+2026-07-09T16:22:53.796Z info: getCredProps : 2026-07-09T16:22:53.796Z
+2026-07-09T16:22:53.812Z info: getCredProps finished
+2026-07-09T16:22:53.835Z info: getCredProps : 2026-07-09T16:22:53.835Z
+2026-07-09T16:22:53.846Z info: getCredProps finished
+2026-07-09T16:22:53.850Z info: Reloading orgs config OK
+2026-07-09T16:32:19.973Z info: 13 document Registry
+2026-07-09T16:32:19.976Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-09T16:32:19.977Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-09T16:32:19.977Z info: Firestore connector
+2026-07-09T16:32:19.978Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-09T16:32:19.996Z info: Reloading orgs config OK
+2026-07-09T16:32:20.004Z info: HTTP listen [8080]
+2026-07-09T16:32:42.140Z info: $OpenSafeByPin finished
+2026-07-09T16:32:42.194Z info: $GetSafe finished
+2026-07-09T16:32:54.854Z info: $GetOrgSvcs finished
+2026-07-09T16:32:56.547Z info: $GetSvcUrls finished
+2026-07-09T16:32:56.578Z info: FormFilteredList : 2026-07-09T16:32:56.578Z
+2026-07-09T16:32:56.645Z info: $mdUserGetICVS finished
+2026-07-09T16:32:56.685Z info: FormFilteredList finished
+2026-07-09T16:33:09.488Z info: $mdUserGetICVS finished
+2026-07-09T16:33:20.138Z info: FormCreateByT : 2026-07-09T16:33:20.137Z
+2026-07-09T16:33:20.168Z info: FormCreateByT finished
+2026-07-09T16:33:20.191Z info: MDEventFull : 2026-07-09T16:33:20.190Z
+2026-07-09T16:33:20.201Z info: MDEventFull finished
+2026-07-09T16:33:20.210Z info: $mdEventNew finished
+2026-07-09T16:33:22.390Z info: FormFilteredList : 2026-07-09T16:33:22.390Z
+2026-07-09T16:33:22.454Z info: FormFilteredList finished
+2026-07-09T16:33:46.767Z info: $OpenSafeByPin finished
+2026-07-09T16:33:46.814Z info: $GetSafe finished
+2026-07-09T16:33:53.115Z info: $mdEventList finished
+2026-07-09T16:33:54.642Z info: $mdEventUser finished
+2026-07-09T16:33:54.665Z info: FormGet : 2026-07-09T16:33:54.665Z
+2026-07-09T16:33:54.686Z info: FormGet finished
+2026-07-09T16:34:11.308Z info: getCKey$ : 2026-07-09T16:34:11.308Z
+2026-07-09T16:34:11.315Z info: getCKey$ finished
+2026-07-09T16:34:11.352Z info: FormValidateByU : 2026-07-09T16:34:11.352Z
+2026-07-09T16:34:16.322Z info: $CreateCred finished
+2026-07-09T16:34:16.385Z info: $FixOneCred finished
+2026-07-09T16:34:16.435Z info: FormValidateByU finished
+2026-07-09T16:34:16.460Z info: MDEventSync : 2026-07-09T16:34:16.459Z
+2026-07-09T16:34:16.465Z info: MDEventSync finished
+2026-07-09T16:34:16.478Z info: $mdEventSync finished
+2026-07-09T16:34:40.187Z info: $GetSafe finished
+2026-07-09T16:34:40.333Z info: $mdEventList finished
+2026-07-09T16:34:40.350Z info: $mdEventUser finished
+2026-07-09T16:34:40.372Z info: FormGet : 2026-07-09T16:34:40.371Z
+2026-07-09T16:34:40.415Z info: FormGet finished

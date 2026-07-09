@@ -176,6 +176,8 @@ export class DocType {
   readonly manager: boolean = false
   readonly subClassBy: string = ''
   readonly embedCreds: boolean = false
+  readonly enum: string[] = null
+  readonly extenum: string = ''
   readonly colls : Map<string, collection> | null = null
   readonly indexes: Map<string, idx> | null = null
 
@@ -223,6 +225,8 @@ export class DocType {
     this.embedCreds = h.embedCreds || false
     this.manager = h.manager || false
     this.subClassBy = h.subClassBy || ''
+    this.enum = h.enum || null
+    this.extenum = h.extenum || ''
     if (this.manager)
       DocType.managerClasses.add(this.name)
 
