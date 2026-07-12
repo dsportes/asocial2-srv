@@ -134,14 +134,16 @@ export class DocType {
   getIdx (src: Object, name: string) : any {
     const i = this.hasIndexes ? this.indexes.get(name) : null
     if (!i) return null
-    const v = src[name]
+    const key0 = i.key ? i.key[0] : name
+    const v0 = src[key0]
     switch (i.type) {
-      case propType.STRING : { return src[name] || '' }
-      case propType.INTEGER : { return src[name] || 0 }
-      case propType.FLOAT : { return src[name] || 0 }
+      case propType.STRING : { return v0 || '' }
+      case propType.INTEGER : { return v0 || 0 }
+      case propType.FLOAT : { return v0 || 0 }
       case propType.HASH : {
         const x = []
-        i.key.forEach(p => { x.push(src[p] || '') })
+        if (i.key) i.key.forEach(p => { x.push(src[p] || '') })
+        else x.push(src[name] || '')
         return Crypt.shaS(x.join('/'))
       }
       case propType.LIST : {

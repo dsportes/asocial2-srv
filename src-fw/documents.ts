@@ -398,6 +398,7 @@ export type $FormObj = {
   etcT: Object | null  // saisi par T
   msgU: Uint8Array | null  // message écrit par U.
   msgT: Uint8Array | null  // message écrit par le tiers.
+  opts: Object | null
 
   ch?: string // challenge random de synchronisation initiale avec MDEvent
 }
@@ -448,7 +449,7 @@ export class $Form extends $Document {
     return f
   }
 
-  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT' ]
+  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT', 'opts']
 
   // Utilisé par newDoc dans les 2 opérations de create
   constructor (obj?: $FormObj) {

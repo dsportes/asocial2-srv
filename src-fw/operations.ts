@@ -765,14 +765,26 @@ class ValidateForm extends Operation {
     }
     f.setMaxLife()
 
+    // Actions spécifique de la validation: création / maj de documents
+    const newDocs = []
+    let st = await f.validate(this, newDocs)
+
+    if (st) { // échec de la  validation spécifique: on annule les updates / new des credentials
+      for(const d of newDocs) d._status = DocStatus.NONE
+      // l'opération devient un simple update
+      f.status = this.byU ? 1 : 2
+      f._status = DocStatus.UPD
+      this.setRes('status', st)
+      return
+    }
+
     // Création (éventuelle) des credentials en Safe Box de l'utilisateur cible
-    let st = 0
     for(const ct of this.credTemplates) {
       st = await ct.CreateSafeCred()
       if (st) break
     }
-    if (st) {
-      // l'opération devient un simple update
+    if (st) { // Echec très inattendu : l'opération devient un simple update
+      for(const d of newDocs) d._status = DocStatus.NONE
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
       this.setRes('status', st)
@@ -780,16 +792,14 @@ class ValidateForm extends Operation {
     }
 
     // Création (éventuelle) des documents credential
-    const newDocs = []
     for(const ct of this.credTemplates) {
       const credential = ct.newCredential()
       const doc = await credential.create(this)
       if (doc) newDocs.push(doc)
-      else { st = 99; break } // emedding document not found
+      else { st = 99; break } // embedding document not found
     }
 
-    if (st) {
-      // l'opération devient un simple update
+    if (st) { // Echec très inattendu : l'opération devient un simple update
       for(const d of newDocs) d._status = DocStatus.NONE
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
@@ -797,22 +807,10 @@ class ValidateForm extends Operation {
       return
     }
 
-    // Autres actions sur les documents
-    const stv = await f.validate(this, newDocs)
-
-    if (stv) { 
-      // échec des autres validations: on annule les updates / new des credentials
-      for(const d of newDocs) d._status = DocStatus.NONE
-      // l'opération devient un simple update
-      f.status = this.byU ? 1 : 2
-      f._status = DocStatus.UPD
-      this.setRes('status', stv)
-      return
-    }
     // succès de la validation
     f.status = 3
     f._status = DocStatus.UPD
-    this.setRes('status', stv)
+    this.setRes('status', 0)
   }
 
   async phase3 () {

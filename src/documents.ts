@@ -1,5 +1,5 @@
 import { $Document, DocStatus } from '../src-fw/document'
-import { $Form, $FormObj, C2c, $Credential, $Cred } from '../src-fw/documents'
+import { $Form, $FormObj, $Credential, $Cred } from '../src-fw/documents'
 import { keyFromB64 } from '../src-fw/b64'
 import { Registry } from '../src-fw/config'
 import { Operation } from '../src-fw/operation'
@@ -41,6 +41,12 @@ Registry.registerD($Form_membreredaction)
 class $Form_auteur extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
+
+  async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
+    const doc = op.cache.newDoc('Auteur', this.opts.auteur )
+    newDocs.push(doc)
+    return 0 
+  }
 }
 Registry.registerD($Form_auteur)
 
