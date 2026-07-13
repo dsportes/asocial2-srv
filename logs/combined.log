@@ -19990,3 +19990,1063 @@ BEGIN
 2026-07-12T18:04:57.758Z info: $GetSvcUrls finished
 2026-07-12T18:04:57.789Z info: FormFilteredList : 2026-07-12T18:04:57.789Z
 2026-07-12T18:04:57.828Z info: FormFilteredList finished
+2026-07-13T07:15:46.762Z info: 13 document Registry
+2026-07-13T07:15:46.764Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T07:15:46.765Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T07:15:46.766Z info: Firestore connector
+2026-07-13T07:15:46.766Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T07:15:46.864Z info: Reloading orgs config OK
+2026-07-13T07:15:46.869Z info: HTTP listen [8080]
+2026-07-13T07:16:08.414Z info: $OpenSafeByPin finished
+2026-07-13T07:16:08.455Z info: $GetSafe finished
+2026-07-13T07:16:13.431Z info: $mdEventList finished
+2026-07-13T07:16:26.506Z info: $GetOrgSvcs finished
+2026-07-13T07:18:48.238Z info: $OpenSafeByPin finished
+2026-07-13T07:18:48.286Z info: $GetSafe finished
+2026-07-13T07:18:52.607Z info: $mdEventList finished
+2026-07-13T07:19:03.596Z info: $GetOrgSvcs finished
+2026-07-13T07:26:53.304Z info: $OpenSafeByPin finished
+2026-07-13T07:26:53.349Z info: $GetSafe finished
+2026-07-13T07:26:57.164Z info: $mdEventList finished
+2026-07-13T07:27:08.318Z info: $GetOrgSvcs finished
+2026-07-13T07:27:53.158Z info: $GetSvcUrls finished
+2026-07-13T07:27:53.173Z info: getCKey$ : 2026-07-13T07:27:53.172Z
+2026-07-13T07:27:53.183Z info: getCKey$ finished
+2026-07-13T07:27:53.221Z info: FormCreateByU : 2026-07-13T07:27:53.220Z
+2026-07-13T07:27:53.235Z info: FormCreateByU finished
+2026-07-13T07:27:53.241Z info: Reloading orgs config OK
+2026-07-13T07:27:53.350Z info: MDEventFull : 2026-07-13T07:27:53.350Z
+2026-07-13T07:27:53.363Z info: MDEventFull finished
+2026-07-13T07:27:53.389Z info: $mdEventNew finished
+2026-07-13T07:28:00.290Z info: $mdEventList finished
+2026-07-13T07:28:00.322Z info: FormGet : 2026-07-13T07:28:00.322Z
+2026-07-13T07:28:00.336Z info: $mdUserGetICVS finished
+2026-07-13T07:28:00.364Z info: FormGet finished
+2026-07-13T07:28:27.165Z info: $OpenSafeByPin finished
+2026-07-13T07:28:27.211Z info: $GetSafe finished
+2026-07-13T07:28:35.672Z info: FormFilteredList : 2026-07-13T07:28:35.672Z
+2026-07-13T07:28:35.686Z info: $mdUserGetICVS finished
+2026-07-13T07:28:35.714Z info: FormFilteredList finished
+2026-07-13T07:29:20.079Z info: FormValidateByT : 2026-07-13T07:29:20.079Z
+2026-07-13T07:29:20.144Z info: $CreateCred finished
+2026-07-13T07:29:27.025Z info: $FixOneCred finished
+2026-07-13T07:29:27.033Z info: FormValidateByT finished
+2026-07-13T07:29:27.057Z info: MDEventSync : 2026-07-13T07:29:27.057Z
+2026-07-13T07:29:27.062Z info: MDEventSync finished
+2026-07-13T07:29:27.071Z info: $mdEventSync finished
+2026-07-13T07:29:31.544Z info: $GetSafe finished
+2026-07-13T07:29:31.688Z info: FormFilteredList : 2026-07-13T07:29:31.688Z
+2026-07-13T07:29:31.756Z info: FormFilteredList finished
+2026-07-13T07:30:08.054Z info: $OpenSafeByPin finished
+2026-07-13T07:30:08.099Z info: $GetSafe finished
+2026-07-13T07:30:17.074Z info: getCredProps : 2026-07-13T07:30:17.074Z
+2026-07-13T07:30:17.087Z error: getCredProps : 2026-07-13T07:30:17.074Z : TypeError: Cannot read properties of null (reading 'creds')
+2026-07-13T07:30:17.089Z info: getCredProps terminated on exception
+2026-07-13T07:30:17.104Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of null (reading 'creds')"]
+2026-07-13T07:33:00.706Z info: getCredProps : 2026-07-13T07:33:00.706Z
+2026-07-13T07:39:23.923Z info: 13 document Registry
+2026-07-13T07:39:23.927Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T07:39:23.928Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T07:39:23.929Z info: Firestore connector
+2026-07-13T07:39:23.930Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T07:39:23.955Z info: Reloading orgs config OK
+2026-07-13T07:39:23.962Z info: HTTP listen [8080]
+2026-07-13T07:39:46.943Z info: $mdEventList finished
+2026-07-13T07:40:33.123Z info: FormCreateByU : 2026-07-13T07:40:33.122Z
+2026-07-13T07:40:33.136Z info: FormCreateByU finished
+2026-07-13T07:40:33.243Z info: MDEventFull : 2026-07-13T07:40:33.242Z
+2026-07-13T07:40:33.254Z info: MDEventFull finished
+2026-07-13T07:40:33.273Z info: $mdEventNew finished
+2026-07-13T07:40:39.454Z info: $mdEventList finished
+2026-07-13T07:40:39.477Z info: FormGet : 2026-07-13T07:40:39.477Z
+2026-07-13T07:40:39.493Z info: $mdUserGetICVS finished
+2026-07-13T07:40:39.523Z info: FormGet finished
+2026-07-13T07:40:54.966Z info: $OpenSafeByPin finished
+2026-07-13T07:40:55.012Z info: $GetSafe finished
+2026-07-13T07:40:59.647Z info: FormFilteredList : 2026-07-13T07:40:59.647Z
+2026-07-13T07:40:59.661Z info: $mdUserGetICVS finished
+2026-07-13T07:40:59.720Z info: FormFilteredList finished
+2026-07-13T07:41:19.839Z info: FormValidateByT : 2026-07-13T07:41:19.839Z
+2026-07-13T07:46:30.592Z info: 13 document Registry
+2026-07-13T07:46:30.596Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T07:46:30.596Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T07:46:30.597Z info: Firestore connector
+2026-07-13T07:46:30.598Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T07:46:30.623Z info: Reloading orgs config OK
+2026-07-13T07:46:30.631Z info: HTTP listen [8080]
+2026-07-13T07:46:38.909Z info: FormValidateByT : 2026-07-13T07:46:38.908Z
+2026-07-13T07:46:38.983Z info: $mdUserGetICVS finished
+2026-07-13T07:46:39.017Z info: $mdUserGetICVS finished
+2026-07-13T08:20:02.754Z info: 13 document Registry
+2026-07-13T08:20:02.758Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T08:20:02.759Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T08:20:02.759Z info: Firestore connector
+2026-07-13T08:20:02.760Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T08:20:02.784Z info: Reloading orgs config OK
+2026-07-13T08:20:02.789Z info: HTTP listen [8080]
+2026-07-13T08:20:12.099Z info: FormValidateByT : 2026-07-13T08:20:12.098Z
+2026-07-13T08:20:12.172Z info: $mdUserGetICVS finished
+2026-07-13T08:20:12.209Z info: $mdUserGetICVS finished
+2026-07-13T08:21:47.412Z error: AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T08:21:47.414Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T08:21:47.417Z error: FormValidateByT : 2026-07-13T08:20:12.098Z : AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T08:21:47.419Z info: FormValidateByT terminated on exception
+2026-07-13T08:29:19.073Z info: 13 document Registry
+2026-07-13T08:29:19.076Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T08:29:19.077Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T08:29:19.078Z info: Firestore connector
+2026-07-13T08:29:19.078Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T08:29:19.096Z info: Reloading orgs config OK
+2026-07-13T08:29:19.103Z info: HTTP listen [8080]
+2026-07-13T08:29:33.218Z info: $OpenSafeByPin finished
+2026-07-13T08:29:33.260Z info: $GetSafe finished
+2026-07-13T08:29:37.902Z info: $mdEventList finished
+2026-07-13T08:29:48.053Z info: $GetOrgSvcs finished
+2026-07-13T08:30:13.109Z info: $GetSvcUrls finished
+2026-07-13T08:30:13.124Z info: getCKey$ : 2026-07-13T08:30:13.123Z
+2026-07-13T08:30:13.130Z info: getCKey$ finished
+2026-07-13T08:30:13.160Z info: FormCreateByU : 2026-07-13T08:30:13.160Z
+2026-07-13T08:30:13.175Z info: FormCreateByU finished
+2026-07-13T08:30:13.265Z info: MDEventFull : 2026-07-13T08:30:13.265Z
+2026-07-13T08:30:13.273Z info: MDEventFull finished
+2026-07-13T08:30:13.289Z info: $mdEventNew finished
+2026-07-13T08:30:15.366Z info: $mdEventList finished
+2026-07-13T08:30:15.398Z info: FormGet : 2026-07-13T08:30:15.398Z
+2026-07-13T08:30:15.413Z info: $mdUserGetICVS finished
+2026-07-13T08:30:15.438Z info: FormGet finished
+2026-07-13T08:30:30.967Z info: $OpenSafeByPin finished
+2026-07-13T08:30:31.013Z info: $GetSafe finished
+2026-07-13T08:30:39.313Z info: FormFilteredList : 2026-07-13T08:30:39.313Z
+2026-07-13T08:30:39.326Z info: $mdUserGetICVS finished
+2026-07-13T08:30:39.356Z info: FormFilteredList finished
+2026-07-13T08:30:57.310Z info: FormValidateByT : 2026-07-13T08:30:57.309Z
+2026-07-13T08:31:44.900Z info: $CreateCred finished
+2026-07-13T08:31:53.209Z info: $FixOneCred finished
+2026-07-13T08:31:53.216Z info: FormValidateByT finished
+2026-07-13T08:31:53.243Z info: MDEventSync : 2026-07-13T08:31:53.243Z
+2026-07-13T08:31:53.248Z info: MDEventSync finished
+2026-07-13T08:31:53.256Z info: $mdEventSync finished
+2026-07-13T08:31:59.075Z info: $GetSafe finished
+2026-07-13T08:31:59.223Z info: FormFilteredList : 2026-07-13T08:31:59.222Z
+2026-07-13T08:31:59.277Z info: FormFilteredList finished
+2026-07-13T08:32:14.899Z info: $OpenSafeByPin finished
+2026-07-13T08:32:14.941Z info: $GetSafe finished
+2026-07-13T08:32:26.791Z info: getCredProps : 2026-07-13T08:32:26.791Z
+2026-07-13T08:33:43.770Z info: getCredProps finished
+2026-07-13T08:34:01.127Z info: $FixCreds finished
+2026-07-13T08:36:06.685Z info: 13 document Registry
+2026-07-13T08:36:06.688Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T08:36:06.689Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T08:36:06.690Z info: Firestore connector
+2026-07-13T08:36:06.691Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T08:36:06.706Z info: Reloading orgs config OK
+2026-07-13T08:36:06.713Z info: HTTP listen [8080]
+2026-07-13T08:42:30.429Z info: $OpenSafeByPin finished
+2026-07-13T08:42:30.479Z info: $GetSafe finished
+2026-07-13T08:42:36.736Z info: $mdEventList finished
+2026-07-13T08:42:49.018Z info: $GetOrgSvcs finished
+2026-07-13T08:43:10.361Z info: $GetSvcUrls finished
+2026-07-13T08:43:10.385Z info: getCKey$ : 2026-07-13T08:43:10.384Z
+2026-07-13T08:43:10.393Z info: getCKey$ finished
+2026-07-13T08:43:10.434Z info: FormCreateByU : 2026-07-13T08:43:10.434Z
+2026-07-13T08:43:10.450Z info: FormCreateByU finished
+2026-07-13T08:43:10.459Z info: Reloading orgs config OK
+2026-07-13T08:43:10.542Z info: MDEventFull : 2026-07-13T08:43:10.542Z
+2026-07-13T08:43:10.550Z info: MDEventFull finished
+2026-07-13T08:43:10.568Z info: $mdEventNew finished
+2026-07-13T08:43:12.633Z info: $mdEventList finished
+2026-07-13T08:43:12.682Z info: FormGet : 2026-07-13T08:43:12.681Z
+2026-07-13T08:43:12.695Z info: $mdUserGetICVS finished
+2026-07-13T08:43:12.716Z info: FormGet finished
+2026-07-13T08:44:09.768Z info: $OpenSafeByPin finished
+2026-07-13T08:44:09.806Z info: $GetSafe finished
+2026-07-13T08:44:14.698Z info: FormFilteredList : 2026-07-13T08:44:14.698Z
+2026-07-13T08:44:14.711Z info: $mdUserGetICVS finished
+2026-07-13T08:44:14.737Z info: FormFilteredList finished
+2026-07-13T08:44:30.759Z info: FormValidateByT : 2026-07-13T08:44:30.758Z
+2026-07-13T08:46:30.395Z info: $CreateCred finished
+2026-07-13T08:46:34.020Z info: $FixOneCred finished
+2026-07-13T08:46:34.027Z info: FormValidateByT finished
+2026-07-13T08:46:34.046Z info: MDEventSync : 2026-07-13T08:46:34.046Z
+2026-07-13T08:46:34.049Z info: MDEventSync finished
+2026-07-13T08:46:34.057Z info: $mdEventSync finished
+2026-07-13T08:46:48.863Z info: $GetSafe finished
+2026-07-13T08:46:49.004Z info: FormFilteredList : 2026-07-13T08:46:49.004Z
+2026-07-13T08:46:49.043Z info: FormFilteredList finished
+2026-07-13T08:47:01.073Z info: $OpenSafeByPin finished
+2026-07-13T08:47:01.115Z info: $GetSafe finished
+2026-07-13T08:47:15.506Z info: getCredProps : 2026-07-13T08:47:15.506Z
+2026-07-13T08:48:38.797Z info: getCredProps finished
+2026-07-13T08:51:59.959Z info: 13 document Registry
+2026-07-13T08:51:59.962Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T08:51:59.962Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T08:51:59.963Z info: Firestore connector
+2026-07-13T08:51:59.964Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T08:52:00.057Z info: Reloading orgs config OK
+2026-07-13T08:52:00.062Z info: HTTP listen [8080]
+2026-07-13T08:52:00.515Z info: $OpenSafeByPin finished
+2026-07-13T08:52:00.560Z info: $GetSafe finished
+2026-07-13T08:52:08.346Z info: $GetOrgSvcs finished
+2026-07-13T08:52:08.373Z info: $GetSvcUrls finished
+2026-07-13T08:52:08.408Z info: FormFilteredList : 2026-07-13T08:52:08.408Z
+2026-07-13T08:52:08.479Z info: $mdUserGetICVS finished
+2026-07-13T08:52:08.508Z info: $mdUserGetICVS finished
+2026-07-13T08:52:08.530Z info: FormFilteredList finished
+2026-07-13T08:56:20.713Z info: FormValidateByT : 2026-07-13T08:56:20.713Z
+2026-07-13T08:56:50.059Z info: $CreateCred finished
+2026-07-13T08:59:07.689Z info: 13 document Registry
+2026-07-13T08:59:07.693Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T08:59:07.693Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T08:59:07.694Z info: Firestore connector
+2026-07-13T08:59:07.695Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T08:59:07.711Z info: Reloading orgs config OK
+2026-07-13T08:59:07.718Z info: HTTP listen [8080]
+2026-07-13T08:59:12.337Z info: FormValidateByT : 2026-07-13T08:59:12.336Z
+2026-07-13T08:59:12.429Z info: $mdUserGetICVS finished
+2026-07-13T08:59:12.464Z info: $mdUserGetICVS finished
+2026-07-13T09:12:25.499Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:12:25.501Z info: Mail sent to:daniel@sportes.fr subject:op:$CreateCred - AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:12:38.390Z error: FormValidateByT : 2026-07-13T08:59:12.336Z : AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:12:38.408Z info: FormValidateByT terminated on exception
+2026-07-13T09:14:43.932Z info: 13 document Registry
+2026-07-13T09:14:43.934Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:14:43.935Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:14:43.936Z info: Firestore connector
+2026-07-13T09:14:43.937Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:14:43.951Z info: Reloading orgs config OK
+2026-07-13T09:14:43.958Z info: HTTP listen [8080]
+2026-07-13T09:15:26.693Z info: FormValidateByT : 2026-07-13T09:15:26.693Z
+2026-07-13T09:15:26.774Z info: $mdUserGetICVS finished
+2026-07-13T09:15:26.805Z info: $mdUserGetICVS finished
+2026-07-13T09:15:26.836Z info: $CreateCred finished
+2026-07-13T09:31:49.507Z info: 13 document Registry
+2026-07-13T09:31:49.510Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:31:49.511Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:31:49.512Z info: Firestore connector
+2026-07-13T09:31:49.513Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:31:49.530Z info: Reloading orgs config OK
+2026-07-13T09:31:49.536Z info: HTTP listen [8080]
+2026-07-13T09:31:52.087Z info: FormValidateByT : 2026-07-13T09:31:52.086Z
+2026-07-13T09:31:52.176Z info: $mdUserGetICVS finished
+2026-07-13T09:31:52.217Z info: $mdUserGetICVS finished
+2026-07-13T09:31:52.258Z info: $CreateCred finished
+2026-07-13T09:34:52.883Z info: 13 document Registry
+2026-07-13T09:34:52.886Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:34:52.887Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:34:52.887Z info: Firestore connector
+2026-07-13T09:34:52.888Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:34:52.905Z info: Reloading orgs config OK
+2026-07-13T09:34:52.911Z info: HTTP listen [8080]
+2026-07-13T09:34:57.827Z info: FormValidateByT : 2026-07-13T09:34:57.827Z
+2026-07-13T09:34:57.913Z info: $mdUserGetICVS finished
+2026-07-13T09:34:57.957Z info: $mdUserGetICVS finished
+2026-07-13T09:35:19.785Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:35:19.786Z info: Mail sent to:daniel@sportes.fr subject:op:$CreateCred - AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:35:19.788Z error: FormValidateByT : 2026-07-13T09:34:57.827Z : AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:35:19.788Z info: FormValidateByT terminated on exception
+2026-07-13T09:39:16.726Z info: 13 document Registry
+2026-07-13T09:39:16.729Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:39:16.730Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:39:16.730Z info: Firestore connector
+2026-07-13T09:39:16.731Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:39:16.747Z info: Reloading orgs config OK
+2026-07-13T09:39:16.752Z info: HTTP listen [8080]
+2026-07-13T09:39:21.358Z info: FormValidateByT : 2026-07-13T09:39:21.358Z
+2026-07-13T09:39:21.452Z info: $mdUserGetICVS finished
+2026-07-13T09:39:21.490Z info: $mdUserGetICVS finished
+2026-07-13T09:39:30.862Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:39:30.864Z info: Mail sent to:daniel@sportes.fr subject:op:$CreateCred - AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:42:00.166Z info: FormValidateByT finished
+2026-07-13T09:46:28.778Z info: 13 document Registry
+2026-07-13T09:46:28.781Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:46:28.782Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:46:28.782Z info: Firestore connector
+2026-07-13T09:46:28.783Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:46:28.801Z info: Reloading orgs config OK
+2026-07-13T09:46:28.807Z info: HTTP listen [8080]
+2026-07-13T09:46:35.311Z info: $OpenSafeByPin finished
+2026-07-13T09:46:35.383Z info: $GetSafe finished
+2026-07-13T09:46:40.743Z info: $GetOrgSvcs finished
+2026-07-13T09:46:40.774Z info: $GetSvcUrls finished
+2026-07-13T09:46:40.807Z info: FormFilteredList : 2026-07-13T09:46:40.806Z
+2026-07-13T09:46:40.878Z info: $mdUserGetICVS finished
+2026-07-13T09:46:40.908Z info: $mdUserGetICVS finished
+2026-07-13T09:46:48.241Z info: FormFilteredList finished
+2026-07-13T09:47:11.121Z info: FormValidateByT : 2026-07-13T09:47:11.120Z
+2026-07-13T09:47:20.736Z info: $CreateCred finished
+2026-07-13T09:48:55.682Z info: 13 document Registry
+2026-07-13T09:48:55.688Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:48:55.689Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:48:55.690Z info: Firestore connector
+2026-07-13T09:48:55.691Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:48:55.725Z info: Reloading orgs config OK
+2026-07-13T09:48:55.739Z info: HTTP listen [8080]
+2026-07-13T09:49:27.742Z info: FormValidateByT : 2026-07-13T09:49:27.742Z
+2026-07-13T09:49:27.826Z info: $mdUserGetICVS finished
+2026-07-13T09:49:27.857Z info: $mdUserGetICVS finished
+2026-07-13T09:49:37.962Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:52:13.060Z info: 13 document Registry
+2026-07-13T09:52:13.064Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:52:13.064Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:52:13.065Z info: Firestore connector
+2026-07-13T09:52:13.066Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:52:13.081Z info: Reloading orgs config OK
+2026-07-13T09:52:13.086Z info: HTTP listen [8080]
+2026-07-13T09:52:19.566Z info: FormValidateByT : 2026-07-13T09:52:19.566Z
+2026-07-13T09:52:19.642Z info: $mdUserGetICVS finished
+2026-07-13T09:52:19.673Z info: $mdUserGetICVS finished
+2026-07-13T09:57:07.627Z info: 13 document Registry
+2026-07-13T09:57:07.630Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T09:57:07.631Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T09:57:07.631Z info: Firestore connector
+2026-07-13T09:57:07.632Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T09:57:07.659Z info: Reloading orgs config OK
+2026-07-13T09:57:07.665Z info: HTTP listen [8080]
+2026-07-13T09:57:20.047Z info: FormValidateByT : 2026-07-13T09:57:20.047Z
+2026-07-13T09:57:27.613Z info: $mdUserGetICVS finished
+2026-07-13T09:57:30.570Z info: $mdUserGetICVS finished
+2026-07-13T09:58:08.184Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T10:02:40.997Z info: 13 document Registry
+2026-07-13T10:02:41.000Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:02:41.000Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:02:41.001Z info: Firestore connector
+2026-07-13T10:02:41.002Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:02:41.021Z info: Reloading orgs config OK
+2026-07-13T10:02:41.029Z info: HTTP listen [8080]
+2026-07-13T10:02:46.325Z info: FormValidateByT : 2026-07-13T10:02:46.325Z
+2026-07-13T10:03:03.518Z info: $mdUserGetICVS finished
+2026-07-13T10:03:09.412Z info: $mdUserGetICVS finished
+2026-07-13T10:04:33.563Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T10:05:39.571Z info: 13 document Registry
+2026-07-13T10:05:39.574Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:05:39.575Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:05:39.575Z info: Firestore connector
+2026-07-13T10:05:39.576Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:05:39.589Z info: Reloading orgs config OK
+2026-07-13T10:05:39.596Z info: HTTP listen [8080]
+2026-07-13T10:05:45.144Z info: FormValidateByT : 2026-07-13T10:05:45.143Z
+2026-07-13T10:05:53.636Z info: $mdUserGetICVS finished
+2026-07-13T10:05:58.097Z info: $mdUserGetICVS finished
+2026-07-13T10:06:45.616Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-07-13T10:09:11.462Z info: 13 document Registry
+2026-07-13T10:09:11.466Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:09:11.467Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:09:11.468Z info: Firestore connector
+2026-07-13T10:09:11.469Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:09:11.492Z info: Reloading orgs config OK
+2026-07-13T10:09:11.497Z info: HTTP listen [8080]
+2026-07-13T10:09:19.940Z info: FormValidateByT : 2026-07-13T10:09:19.939Z
+2026-07-13T10:09:27.576Z info: $mdUserGetICVS finished
+2026-07-13T10:09:39.059Z info: $mdUserGetICVS finished
+2026-07-13T10:10:08.858Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safeXX","TypeError: fetch failed"]
+2026-07-13T10:20:25.321Z info: 13 document Registry
+2026-07-13T10:20:25.324Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:20:25.325Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:20:25.325Z info: Firestore connector
+2026-07-13T10:20:25.326Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:20:25.343Z info: Reloading orgs config OK
+2026-07-13T10:20:25.351Z info: HTTP listen [8080]
+2026-07-13T10:20:30.757Z info: FormValidateByT : 2026-07-13T10:20:30.756Z
+2026-07-13T10:20:37.752Z info: $mdUserGetICVS finished
+2026-07-13T10:20:47.558Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+2026-07-13T10:20:47.560Z info: Mail sent to:daniel@sportes.fr subject:op:$mdUserGetICVS - AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:20:47.561Z error: FormValidateByT : 2026-07-13T10:20:30.756Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:20:47.562Z info: FormValidateByT terminated on exception
+2026-07-13T10:22:30.779Z info: 13 document Registry
+2026-07-13T10:22:30.782Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:22:30.783Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:22:30.783Z info: Firestore connector
+2026-07-13T10:22:30.784Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:22:30.799Z info: Reloading orgs config OK
+2026-07-13T10:22:30.805Z info: HTTP listen [8080]
+2026-07-13T10:22:32.605Z info: FormValidateByT : 2026-07-13T10:22:32.605Z
+2026-07-13T10:22:40.640Z info: $mdUserGetICVS finished
+2026-07-13T10:23:34.901Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+2026-07-13T10:23:34.904Z info: Mail sent to:daniel@sportes.fr subject:op:$mdUserGetICVS - AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:23:34.905Z error: FormValidateByT : 2026-07-13T10:22:32.605Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:23:34.906Z info: FormValidateByT terminated on exception
+2026-07-13T10:41:58.597Z info: 13 document Registry
+2026-07-13T10:41:58.600Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:41:58.601Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:41:58.601Z info: Firestore connector
+2026-07-13T10:41:58.602Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:41:58.617Z info: Reloading orgs config OK
+2026-07-13T10:41:58.625Z info: HTTP listen [8080]
+2026-07-13T10:42:08.698Z info: 13 document Registry
+2026-07-13T10:42:08.702Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:42:08.703Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:42:08.703Z info: Firestore connector
+2026-07-13T10:42:08.704Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:42:08.726Z info: Reloading orgs config OK
+2026-07-13T10:42:08.733Z info: HTTP listen [8080]
+2026-07-13T10:42:12.190Z info: FormValidateByT : 2026-07-13T10:42:12.189Z
+2026-07-13T10:42:26.334Z info: $mdUserGetICVS finished
+2026-07-13T10:42:59.065Z info: 13 document Registry
+2026-07-13T10:42:59.069Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:42:59.070Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:42:59.070Z info: Firestore connector
+2026-07-13T10:42:59.071Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:42:59.088Z info: Reloading orgs config OK
+2026-07-13T10:42:59.095Z info: HTTP listen [8080]
+2026-07-13T10:43:13.602Z info: FormValidateByT : 2026-07-13T10:43:13.601Z
+2026-07-13T10:43:19.877Z info: $mdUserGetICVS finished
+2026-07-13T10:43:43.195Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","RangeError: Extra 464 of 465 byte(s) found at buffer[1]"]
+2026-07-13T10:43:43.197Z info: Mail sent to:daniel@sportes.fr subject:op:$mdUserGetICVS - AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","RangeError: Extra 464 of 465 byte(s) found at buffer[1]"]
+RangeError: Extra 464 of 465 byte(s) found at buffer[1]
+    at Decoder.createExtraByteError (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:306:12)
+    at Decoder.decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:327:20)
+    at decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\decode.ts:19:18)
+    at Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:664:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:682:22)
+    at async AuthRecord.process (D:\git\asocial2-srv\src-fw\operation.ts:368:17)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:160:7)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T10:43:43.199Z error: FormValidateByT : 2026-07-13T10:43:13.601Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","RangeError: Extra 464 of 465 byte(s) found at buffer[1]"]
+RangeError: Extra 464 of 465 byte(s) found at buffer[1]
+    at Decoder.createExtraByteError (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:306:12)
+    at Decoder.decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:327:20)
+    at decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\decode.ts:19:18)
+    at Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:664:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:682:22)
+    at async AuthRecord.process (D:\git\asocial2-srv\src-fw\operation.ts:368:17)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:160:7)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T10:43:43.200Z info: FormValidateByT terminated on exception
+2026-07-13T10:45:07.188Z info: 13 document Registry
+2026-07-13T10:45:07.191Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:45:07.191Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:45:07.192Z info: Firestore connector
+2026-07-13T10:45:07.193Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:45:07.208Z info: Reloading orgs config OK
+2026-07-13T10:45:07.217Z info: HTTP listen [8080]
+2026-07-13T10:45:13.387Z info: FormValidateByT : 2026-07-13T10:45:13.387Z
+2026-07-13T10:45:13.419Z info: $mdUserGetICVS finished
+2026-07-13T10:52:29.557Z info: 13 document Registry
+2026-07-13T10:52:29.560Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:52:29.560Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:52:29.561Z info: Firestore connector
+2026-07-13T10:52:29.562Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:52:29.578Z info: Reloading orgs config OK
+2026-07-13T10:52:29.586Z info: HTTP listen [8080]
+2026-07-13T10:52:37.451Z info: FormValidateByT : 2026-07-13T10:52:37.451Z
+2026-07-13T10:52:59.694Z info: 13 document Registry
+2026-07-13T10:52:59.698Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:52:59.698Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:52:59.699Z info: Firestore connector
+2026-07-13T10:52:59.700Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:52:59.718Z info: Reloading orgs config OK
+2026-07-13T10:52:59.723Z info: HTTP listen [8080]
+2026-07-13T10:53:07.212Z info: FormValidateByT : 2026-07-13T10:53:07.212Z
+2026-07-13T10:54:10.973Z info: 13 document Registry
+2026-07-13T10:54:10.976Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T10:54:10.977Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T10:54:10.977Z info: Firestore connector
+2026-07-13T10:54:10.978Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T10:54:10.995Z info: Reloading orgs config OK
+2026-07-13T10:54:11.001Z info: HTTP listen [8080]
+2026-07-13T10:54:13.076Z info: FormValidateByT : 2026-07-13T10:54:13.076Z
+2026-07-13T10:54:22.640Z info: $mdUserGetICVS finished
+2026-07-13T10:54:42.995Z info: $mdUserGetICVS finished
+2026-07-13T10:55:05.884Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T11:01:34.902Z info: 13 document Registry
+2026-07-13T11:01:34.905Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:01:34.905Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:01:34.906Z info: Firestore connector
+2026-07-13T11:01:34.907Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:01:34.921Z info: Reloading orgs config OK
+2026-07-13T11:01:34.927Z info: HTTP listen [8080]
+2026-07-13T11:02:28.118Z info: $OpenSafeByPin finished
+2026-07-13T11:02:51.368Z info: $GetSafe finished
+2026-07-13T11:03:15.648Z info: $GetOrgSvcs finished
+2026-07-13T11:03:21.893Z info: $GetSvcUrls finished
+2026-07-13T11:03:21.929Z info: FormFilteredList : 2026-07-13T11:03:21.928Z
+2026-07-13T11:03:37.190Z info: $mdUserGetICVS finished
+2026-07-13T11:03:50.863Z info: $mdUserGetICVS finished
+2026-07-13T11:04:03.541Z info: FormFilteredList finished
+2026-07-13T11:04:26.215Z info: FormValidateByT : 2026-07-13T11:04:26.215Z
+2026-07-13T11:05:37.367Z info: $CreateCred finished
+2026-07-13T11:38:20.028Z info: 13 document Registry
+2026-07-13T11:38:20.032Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:38:20.033Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:38:20.033Z info: Firestore connector
+2026-07-13T11:38:20.034Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:38:20.050Z info: Reloading orgs config OK
+2026-07-13T11:38:20.057Z info: HTTP listen [8080]
+2026-07-13T11:39:06.463Z info: 13 document Registry
+2026-07-13T11:39:06.466Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:39:06.467Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:39:06.467Z info: Firestore connector
+2026-07-13T11:39:06.468Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:39:06.485Z info: Reloading orgs config OK
+2026-07-13T11:39:06.492Z info: HTTP listen [8080]
+2026-07-13T11:39:44.565Z info: $OpenSafeByPin finished
+2026-07-13T11:39:44.615Z info: $GetSafe finished
+2026-07-13T11:40:11.769Z info: $GetOrgSvcs finished
+2026-07-13T11:40:11.806Z info: $GetSvcUrls finished
+2026-07-13T11:40:11.838Z info: FormFilteredList : 2026-07-13T11:40:11.838Z
+2026-07-13T11:40:11.865Z info: $mdUserGetICVS finished
+2026-07-13T11:40:11.887Z info: $mdUserGetICVS finished
+2026-07-13T11:40:11.907Z info: FormFilteredList finished
+2026-07-13T11:40:34.281Z info: FormValidateByT : 2026-07-13T11:40:34.280Z
+2026-07-13T11:40:43.847Z info: $CreateCred finished
+2026-07-13T11:40:43.869Z info: $FixOneCred finished
+2026-07-13T11:40:43.873Z info: FormValidateByT finished
+2026-07-13T11:40:43.912Z info: MDEventSync : 2026-07-13T11:40:43.912Z
+2026-07-13T11:40:43.915Z info: MDEventSync finished
+2026-07-13T11:40:43.930Z info: $mdEventSync finished
+2026-07-13T11:40:50.571Z info: $GetSafe finished
+2026-07-13T11:40:50.727Z info: FormFilteredList : 2026-07-13T11:40:50.727Z
+2026-07-13T11:40:50.769Z info: FormFilteredList finished
+2026-07-13T11:41:06.867Z info: $OpenSafeByPin finished
+2026-07-13T11:41:06.910Z info: $GetSafe finished
+2026-07-13T11:41:18.432Z info: getCredProps : 2026-07-13T11:41:18.432Z
+2026-07-13T11:43:20.256Z info: 13 document Registry
+2026-07-13T11:43:20.259Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:43:20.260Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:43:20.260Z info: Firestore connector
+2026-07-13T11:43:20.261Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:43:20.276Z info: Reloading orgs config OK
+2026-07-13T11:43:20.283Z info: HTTP listen [8080]
+2026-07-13T11:43:36.406Z info: $OpenSafeByPin finished
+2026-07-13T11:43:36.446Z info: $GetSafe finished
+2026-07-13T11:43:42.044Z info: $GetOrgSvcs finished
+2026-07-13T11:43:42.073Z info: $GetSvcUrls finished
+2026-07-13T11:43:42.103Z info: FormFilteredList : 2026-07-13T11:43:42.102Z
+2026-07-13T11:43:42.132Z info: $mdUserGetICVS finished
+2026-07-13T11:43:42.152Z info: $mdUserGetICVS finished
+2026-07-13T11:43:42.172Z info: FormFilteredList finished
+2026-07-13T11:44:02.226Z info: FormValidateByT : 2026-07-13T11:44:02.226Z
+2026-07-13T11:44:02.273Z info: $CreateCred finished
+2026-07-13T11:46:53.249Z info: 13 document Registry
+2026-07-13T11:46:53.252Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:46:53.253Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:46:53.253Z info: Firestore connector
+2026-07-13T11:46:53.254Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:46:53.272Z info: Reloading orgs config OK
+2026-07-13T11:46:53.281Z info: HTTP listen [8080]
+2026-07-13T11:46:57.548Z info: FormValidateByT : 2026-07-13T11:46:57.547Z
+2026-07-13T11:46:57.579Z info: $mdUserGetICVS finished
+2026-07-13T11:46:57.627Z info: $mdUserGetICVS finished
+2026-07-13T11:46:57.667Z info: $CreateCred finished
+2026-07-13T11:58:33.823Z info: 13 document Registry
+2026-07-13T11:58:33.826Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T11:58:33.827Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T11:58:33.828Z info: Firestore connector
+2026-07-13T11:58:33.829Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T11:58:33.846Z info: Reloading orgs config OK
+2026-07-13T11:58:33.855Z info: HTTP listen [8080]
+2026-07-13T11:58:50.758Z info: FormValidateByT : 2026-07-13T11:58:50.758Z
+2026-07-13T11:58:50.789Z info: $mdUserGetICVS finished
+2026-07-13T11:58:50.819Z info: $mdUserGetICVS finished
+2026-07-13T11:59:29.441Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T11:59:29.443Z info: Mail sent to:daniel@sportes.fr subject:op:$CreateCred - AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async $CredTempl.CreateSafeCred (D:\git\asocial2-srv\src-fw\documents.ts:214:24)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:785:17)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+2026-07-13T12:02:22.373Z info: FormValidateByT finished
+2026-07-13T12:04:37.071Z info: 13 document Registry
+2026-07-13T12:04:37.074Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:04:37.075Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:04:37.076Z info: Firestore connector
+2026-07-13T12:04:37.077Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:04:37.091Z info: Reloading orgs config OK
+2026-07-13T12:04:37.100Z info: HTTP listen [8080]
+2026-07-13T12:04:40.879Z info: FormValidateByT : 2026-07-13T12:04:40.878Z
+2026-07-13T12:04:48.150Z info: $mdUserGetICVS finished
+2026-07-13T12:04:54.069Z info: $mdUserGetICVS finished
+2026-07-13T12:06:45.003Z info: 13 document Registry
+2026-07-13T12:06:45.006Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:06:45.007Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:06:45.007Z info: Firestore connector
+2026-07-13T12:06:45.008Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:06:45.023Z info: Reloading orgs config OK
+2026-07-13T12:06:45.029Z info: HTTP listen [8080]
+2026-07-13T12:08:45.785Z info: FormValidateByT : 2026-07-13T12:08:45.784Z
+2026-07-13T12:09:05.866Z info: $mdUserGetICVS finished
+2026-07-13T12:09:38.280Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","Error: read ECONNRESET"]
+2026-07-13T12:09:38.282Z info: Mail sent to:daniel@sportes.fr subject:op:$mdUserGetICVS - AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:688:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T12:09:38.283Z error: FormValidateByT : 2026-07-13T12:08:45.784Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:688:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T12:09:38.284Z info: FormValidateByT terminated on exception
+2026-07-13T12:10:47.928Z info: 13 document Registry
+2026-07-13T12:10:47.932Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:10:47.933Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:10:47.933Z info: Firestore connector
+2026-07-13T12:10:47.934Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:10:47.964Z info: Reloading orgs config OK
+2026-07-13T12:10:47.969Z info: HTTP listen [8080]
+2026-07-13T12:11:17.019Z info: $OpenSafeByPin finished
+2026-07-13T12:11:23.084Z info: $GetSafe finished
+2026-07-13T12:11:34.084Z info: $GetOrgSvcs finished
+2026-07-13T12:11:34.119Z info: $GetSvcUrls finished
+2026-07-13T12:11:34.151Z info: FormFilteredList : 2026-07-13T12:11:34.150Z
+2026-07-13T12:11:43.724Z info: $mdUserGetICVS finished
+2026-07-13T12:11:49.455Z info: $mdUserGetICVS finished
+2026-07-13T12:12:05.812Z info: FormFilteredList finished
+2026-07-13T12:12:27.339Z info: FormValidateByT : 2026-07-13T12:12:27.339Z
+2026-07-13T12:15:43.404Z info: $CreateCred finished
+2026-07-13T12:29:21.025Z info: 13 document Registry
+2026-07-13T12:29:21.028Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:29:21.029Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:29:21.030Z info: Firestore connector
+2026-07-13T12:29:21.030Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:29:21.049Z info: Reloading orgs config OK
+2026-07-13T12:29:21.057Z info: HTTP listen [8080]
+2026-07-13T12:30:17.086Z info: $OpenSafeByPin finished
+2026-07-13T12:30:31.154Z info: $GetSafe finished
+2026-07-13T12:30:40.291Z info: $GetOrgSvcs finished
+2026-07-13T12:30:40.327Z info: $GetSvcUrls finished
+2026-07-13T12:30:40.362Z info: FormFilteredList : 2026-07-13T12:30:40.362Z
+2026-07-13T12:30:54.494Z info: $mdUserGetICVS finished
+2026-07-13T12:30:59.182Z info: $mdUserGetICVS finished
+2026-07-13T12:31:26.126Z info: FormFilteredList finished
+2026-07-13T12:31:46.011Z info: FormValidateByT : 2026-07-13T12:31:46.011Z
+2026-07-13T12:32:15.971Z info: $CreateCred finished
+2026-07-13T12:34:48.647Z error: AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T12:34:48.648Z info: Mail sent to:daniel@sportes.fr subject:op:$FixOneCred - AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:518:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T12:34:48.649Z error: FormValidateByT : 2026-07-13T12:31:46.011Z : AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:518:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T12:34:48.651Z info: FormValidateByT terminated on exception
+2026-07-13T12:37:23.469Z info: 13 document Registry
+2026-07-13T12:37:23.472Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:37:23.473Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:37:23.473Z info: Firestore connector
+2026-07-13T12:37:23.474Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:37:23.492Z info: Reloading orgs config OK
+2026-07-13T12:37:23.500Z info: HTTP listen [8080]
+2026-07-13T12:38:05.165Z info: $OpenSafeByPin finished
+2026-07-13T12:38:05.222Z info: $GetSafe finished
+2026-07-13T12:38:14.935Z info: $GetOrgSvcs finished
+2026-07-13T12:38:14.961Z info: $GetSvcUrls finished
+2026-07-13T12:38:14.992Z info: FormFilteredList : 2026-07-13T12:38:14.992Z
+2026-07-13T12:38:25.716Z info: $mdUserGetICVS finished
+2026-07-13T12:38:25.739Z info: $mdUserGetICVS finished
+2026-07-13T12:38:36.952Z info: FormFilteredList finished
+2026-07-13T12:38:56.869Z info: FormValidateByT : 2026-07-13T12:38:56.869Z
+2026-07-13T12:39:14.544Z info: $CreateCred finished
+2026-07-13T12:40:41.232Z info: 13 document Registry
+2026-07-13T12:40:41.235Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:40:41.236Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:40:41.237Z info: Firestore connector
+2026-07-13T12:40:41.237Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:40:41.252Z info: Reloading orgs config OK
+2026-07-13T12:40:41.258Z info: HTTP listen [8080]
+2026-07-13T12:40:51.591Z info: FormValidateByT : 2026-07-13T12:40:51.590Z
+2026-07-13T12:40:51.623Z info: $mdUserGetICVS finished
+2026-07-13T12:40:51.652Z info: $mdUserGetICVS finished
+2026-07-13T12:40:51.687Z info: $CreateCred finished
+2026-07-13T12:42:04.640Z info: 13 document Registry
+2026-07-13T12:42:04.645Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:42:04.646Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:42:04.647Z info: Firestore connector
+2026-07-13T12:42:04.648Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:42:04.667Z info: Reloading orgs config OK
+2026-07-13T12:42:04.677Z info: HTTP listen [8080]
+2026-07-13T12:42:09.726Z info: FormValidateByT : 2026-07-13T12:42:09.725Z
+2026-07-13T12:42:15.890Z info: $mdUserGetICVS finished
+2026-07-13T12:43:09.719Z info: 13 document Registry
+2026-07-13T12:43:09.723Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:43:09.724Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:43:09.724Z info: Firestore connector
+2026-07-13T12:43:09.725Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:43:09.748Z info: Reloading orgs config OK
+2026-07-13T12:43:09.753Z info: HTTP listen [8080]
+2026-07-13T12:43:21.282Z info: $OpenSafeByPin finished
+2026-07-13T12:43:21.330Z info: $GetSafe finished
+2026-07-13T12:43:27.637Z info: $GetOrgSvcs finished
+2026-07-13T12:43:27.667Z info: $GetSvcUrls finished
+2026-07-13T12:43:27.697Z info: FormFilteredList : 2026-07-13T12:43:27.697Z
+2026-07-13T12:43:33.700Z info: $mdUserGetICVS finished
+2026-07-13T12:43:36.471Z info: $mdUserGetICVS finished
+2026-07-13T12:43:36.495Z info: FormFilteredList finished
+2026-07-13T12:43:56.273Z info: FormValidateByT : 2026-07-13T12:43:56.272Z
+2026-07-13T12:44:10.145Z info: $CreateCred finished
+2026-07-13T12:45:31.869Z error: AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T12:45:31.871Z info: Mail sent to:daniel@sportes.fr subject:op:$FixOneCred - AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T12:45:31.876Z error: FormValidateByT : 2026-07-13T12:43:56.272Z : AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T12:45:31.879Z info: FormValidateByT terminated on exception
+2026-07-13T12:53:40.509Z info: 13 document Registry
+2026-07-13T12:53:40.512Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:53:40.513Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:53:40.513Z info: Firestore connector
+2026-07-13T12:53:40.514Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:53:40.529Z info: Reloading orgs config OK
+2026-07-13T12:53:40.537Z info: HTTP listen [8080]
+2026-07-13T12:53:48.430Z info: $OpenSafeByPin finished
+2026-07-13T12:53:48.470Z info: $GetSafe finished
+2026-07-13T12:53:54.792Z info: $GetOrgSvcs finished
+2026-07-13T12:53:54.825Z info: $GetSvcUrls finished
+2026-07-13T12:53:54.855Z info: FormFilteredList : 2026-07-13T12:53:54.855Z
+2026-07-13T12:54:00.881Z info: $mdUserGetICVS finished
+2026-07-13T12:54:01.879Z info: $mdUserGetICVS finished
+2026-07-13T12:54:01.912Z info: FormFilteredList finished
+2026-07-13T12:54:22.331Z info: FormValidateByT : 2026-07-13T12:54:22.331Z
+2026-07-13T12:55:07.473Z info: $CreateCred finished
+2026-07-13T12:57:22.374Z info: 13 document Registry
+2026-07-13T12:57:22.377Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T12:57:22.378Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T12:57:22.378Z info: Firestore connector
+2026-07-13T12:57:22.379Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T12:57:22.397Z info: Reloading orgs config OK
+2026-07-13T12:57:22.403Z info: HTTP listen [8080]
+2026-07-13T12:57:35.149Z info: FormValidateByT : 2026-07-13T12:57:35.149Z
+2026-07-13T12:57:42.456Z info: $mdUserGetICVS finished
+2026-07-13T12:57:47.129Z info: $mdUserGetICVS finished
+2026-07-13T12:57:53.798Z info: $CreateCred finished
+2026-07-13T12:57:53.807Z info: FormValidateByT finished
+2026-07-13T12:58:05.824Z info: $FixOneCred finished
+2026-07-13T12:58:05.836Z info: MDEventSync : 2026-07-13T12:58:05.835Z
+2026-07-13T12:58:05.841Z info: MDEventSync finished
+2026-07-13T12:58:05.861Z info: $mdEventSync finished
+2026-07-13T12:58:20.651Z info: $GetSafe finished
+2026-07-13T12:58:20.816Z info: FormFilteredList : 2026-07-13T12:58:20.816Z
+2026-07-13T12:58:20.864Z info: FormFilteredList finished
+2026-07-13T12:59:11.693Z info: $OpenSafeByPin finished
+2026-07-13T12:59:11.748Z info: $GetSafe finished
+2026-07-13T12:59:19.529Z info: getCredProps : 2026-07-13T12:59:19.529Z
+2026-07-13T12:59:19.540Z info: getCredProps finished
+2026-07-13T13:00:07.901Z info: $FixCreds finished
+2026-07-13T13:00:42.851Z info: $OpenSafeByPin finished
+2026-07-13T13:00:42.899Z info: $GetSafe finished
+2026-07-13T15:04:19.923Z info: 13 document Registry
+2026-07-13T15:04:19.927Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:04:19.929Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:04:19.933Z info: Firestore connector
+2026-07-13T15:04:19.935Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:04:19.971Z info: Reloading orgs config OK
+2026-07-13T15:04:19.977Z info: HTTP listen [8080]
+2026-07-13T15:05:49.496Z info: $OpenSafeByPin finished
+2026-07-13T15:05:49.546Z info: $GetSafe finished
+2026-07-13T15:09:55.973Z info: 13 document Registry
+2026-07-13T15:09:55.975Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:09:55.976Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:09:55.977Z info: Firestore connector
+2026-07-13T15:09:55.977Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:09:55.994Z info: Reloading orgs config OK
+2026-07-13T15:09:56.000Z info: HTTP listen [8080]
+2026-07-13T15:09:59.161Z info: $OpenSafeByPin finished
+2026-07-13T15:09:59.211Z info: $GetSafe finished
+2026-07-13T15:10:47.118Z info: $OpenSafeByPin finished
+2026-07-13T15:10:47.163Z info: $GetSafe finished
+2026-07-13T15:11:04.465Z info: $GetOrgSvcs finished
+2026-07-13T15:11:04.497Z info: $GetSvcUrls finished
+2026-07-13T15:11:04.527Z info: FormFilteredList : 2026-07-13T15:11:04.526Z
+2026-07-13T15:11:04.556Z info: $mdUserGetICVS finished
+2026-07-13T15:11:15.703Z info: $mdUserGetICVS finished
+2026-07-13T15:11:15.732Z info: FormFilteredList finished
+2026-07-13T15:11:35.555Z info: FormValidateByT : 2026-07-13T15:11:35.555Z
+2026-07-13T15:15:51.349Z info: $CreateCred finished
+2026-07-13T15:15:51.359Z info: FormValidateByT finished
+2026-07-13T15:16:49.275Z info: $FixOneCred finished
+2026-07-13T15:16:49.290Z info: MDEventSync : 2026-07-13T15:16:49.290Z
+2026-07-13T15:16:49.294Z info: MDEventSync finished
+2026-07-13T15:16:49.308Z info: $mdEventSync finished
+2026-07-13T15:16:49.347Z info: Reloading orgs config OK
+2026-07-13T15:17:05.158Z info: $GetSafe finished
+2026-07-13T15:17:05.320Z info: FormFilteredList : 2026-07-13T15:17:05.320Z
+2026-07-13T15:17:27.988Z info: FormFilteredList finished
+2026-07-13T15:17:52.856Z info: $OpenSafeByPin finished
+2026-07-13T15:17:52.900Z info: $GetSafe finished
+2026-07-13T15:20:18.792Z info: getCredProps : 2026-07-13T15:20:18.792Z
+2026-07-13T15:22:03.195Z info: getCredProps finished
+2026-07-13T15:22:19.075Z info: $FixCreds finished
+2026-07-13T15:25:06.163Z info: $OpenSafeByPin finished
+2026-07-13T15:25:06.204Z info: $GetSafe finished
+2026-07-13T15:25:49.056Z info: $OpenSafeByPin finished
+2026-07-13T15:25:49.111Z info: $GetSafe finished
+2026-07-13T15:30:37.010Z info: 13 document Registry
+2026-07-13T15:30:37.013Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:30:37.014Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:30:37.014Z info: Firestore connector
+2026-07-13T15:30:37.015Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:30:37.033Z info: Reloading orgs config OK
+2026-07-13T15:30:37.039Z info: HTTP listen [8080]
+2026-07-13T15:31:10.272Z info: $OpenSafeByPin finished
+2026-07-13T15:31:10.333Z info: $GetSafe finished
+2026-07-13T15:31:28.922Z info: $GetOrgSvcs finished
+2026-07-13T15:31:28.953Z info: $GetSvcUrls finished
+2026-07-13T15:31:28.984Z info: FormFilteredList : 2026-07-13T15:31:28.983Z
+2026-07-13T15:31:29.012Z info: $mdUserGetICVS finished
+2026-07-13T15:31:29.034Z info: $mdUserGetICVS finished
+2026-07-13T15:31:29.053Z info: FormFilteredList finished
+2026-07-13T15:31:51.283Z info: FormValidateByT : 2026-07-13T15:31:51.283Z
+2026-07-13T15:33:55.279Z info: $CreateCred finished
+2026-07-13T15:33:55.298Z info: FormValidateByT finished
+2026-07-13T15:34:43.153Z info: $FixOneCred finished
+2026-07-13T15:34:43.169Z info: MDEventSync : 2026-07-13T15:34:43.169Z
+2026-07-13T15:34:43.176Z info: MDEventSync finished
+2026-07-13T15:34:43.192Z info: $mdEventSync finished
+2026-07-13T15:34:53.508Z info: $GetSafe finished
+2026-07-13T15:35:02.524Z info: FormFilteredList : 2026-07-13T15:35:02.524Z
+2026-07-13T15:35:02.572Z info: FormFilteredList finished
+2026-07-13T15:35:27.517Z info: $OpenSafeByPin finished
+2026-07-13T15:35:27.556Z info: $GetSafe finished
+2026-07-13T15:36:07.288Z info: getCredProps : 2026-07-13T15:36:07.288Z
+2026-07-13T15:49:11.420Z info: 13 document Registry
+2026-07-13T15:49:11.423Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:49:11.424Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:49:11.424Z info: Firestore connector
+2026-07-13T15:49:11.425Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:49:11.444Z info: Reloading orgs config OK
+2026-07-13T15:49:11.451Z info: HTTP listen [8080]
+2026-07-13T15:49:23.544Z info: $OpenSafeByPin finished
+2026-07-13T15:49:23.597Z info: $GetSafe finished
+2026-07-13T15:49:40.911Z info: $GetOrgSvcs finished
+2026-07-13T15:49:40.943Z info: $GetSvcUrls finished
+2026-07-13T15:49:40.972Z info: FormFilteredList : 2026-07-13T15:49:40.971Z
+2026-07-13T15:49:41.001Z info: $mdUserGetICVS finished
+2026-07-13T15:49:53.791Z info: $mdUserGetICVS finished
+2026-07-13T15:49:53.814Z info: FormFilteredList finished
+2026-07-13T15:50:12.828Z info: FormValidateByT : 2026-07-13T15:50:12.827Z
+2026-07-13T15:50:25.881Z error: FormValidateByT : 2026-07-13T15:50:12.827Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:50:25.882Z info: FormValidateByT terminated on exception
+2026-07-13T15:50:25.886Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T15:52:09.415Z info: 13 document Registry
+2026-07-13T15:52:09.418Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:52:09.419Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:52:09.419Z info: Firestore connector
+2026-07-13T15:52:09.420Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:52:09.438Z info: Reloading orgs config OK
+2026-07-13T15:52:09.446Z info: HTTP listen [8080]
+2026-07-13T15:52:37.745Z info: FormValidateByT : 2026-07-13T15:52:37.744Z
+2026-07-13T15:52:37.776Z info: $mdUserGetICVS finished
+2026-07-13T15:53:00.401Z info: $mdUserGetICVS finished
+2026-07-13T15:53:05.620Z error: FormValidateByT : 2026-07-13T15:52:37.744Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:53:05.623Z info: FormValidateByT terminated on exception
+2026-07-13T15:53:05.631Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T15:54:32.237Z info: 13 document Registry
+2026-07-13T15:54:32.240Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T15:54:32.241Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T15:54:32.242Z info: Firestore connector
+2026-07-13T15:54:32.242Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T15:54:32.263Z info: Reloading orgs config OK
+2026-07-13T15:54:32.269Z info: HTTP listen [8080]
+2026-07-13T15:54:32.842Z info: FormValidateByT : 2026-07-13T15:54:32.841Z
+2026-07-13T15:54:32.870Z info: $mdUserGetICVS finished
+2026-07-13T15:54:39.842Z info: $mdUserGetICVS finished
+2026-07-13T15:54:39.873Z error: FormValidateByT : 2026-07-13T15:54:32.841Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:54:39.874Z info: FormValidateByT terminated on exception
+2026-07-13T15:54:39.879Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T15:55:16.543Z info: FormValidateByT : 2026-07-13T15:55:16.543Z
+2026-07-13T16:16:51.084Z info: 13 document Registry
+2026-07-13T16:16:51.087Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T16:16:51.088Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T16:16:51.089Z info: Firestore connector
+2026-07-13T16:16:51.089Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T16:16:51.106Z info: Reloading orgs config OK
+2026-07-13T16:16:51.114Z info: HTTP listen [8080]
+2026-07-13T16:17:39.910Z info: $OpenSafeByPin finished
+2026-07-13T16:17:39.960Z info: $GetSafe finished
+2026-07-13T16:17:49.681Z info: $GetOrgSvcs finished
+2026-07-13T16:17:49.716Z info: $GetSvcUrls finished
+2026-07-13T16:17:49.746Z info: FormFilteredList : 2026-07-13T16:17:49.745Z
+2026-07-13T16:17:49.785Z info: $mdUserGetICVS finished
+2026-07-13T16:18:00.697Z info: $mdUserGetICVS finished
+2026-07-13T16:18:00.715Z info: FormFilteredList finished
+2026-07-13T16:18:22.336Z info: FormValidateByT : 2026-07-13T16:18:22.335Z
+2026-07-13T16:19:37.018Z info: $CreateCred finished
+2026-07-13T16:19:37.028Z info: FormValidateByT finished
+2026-07-13T16:19:41.960Z info: $FixOneCred finished
+2026-07-13T16:19:41.979Z info: MDEventSync : 2026-07-13T16:19:41.978Z
+2026-07-13T16:19:41.986Z info: MDEventSync finished
+2026-07-13T16:19:42.007Z info: $mdEventSync finished
+2026-07-13T16:19:49.261Z info: $GetSafe finished
+2026-07-13T16:19:53.379Z info: FormFilteredList : 2026-07-13T16:19:53.379Z
+2026-07-13T16:19:53.429Z info: FormFilteredList finished
+2026-07-13T16:20:09.998Z info: $OpenSafeByPin finished
+2026-07-13T16:20:10.040Z info: $GetSafe finished
+2026-07-13T16:20:30.835Z info: getCredProps : 2026-07-13T16:20:30.835Z
+2026-07-13T16:21:02.430Z error: getCredProps : 2026-07-13T16:20:30.835Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:21:02.432Z info: getCredProps terminated on exception
+2026-07-13T16:21:02.432Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:23:22.214Z info: getCredProps : 2026-07-13T16:23:22.214Z
+2026-07-13T16:24:01.698Z error: getCredProps : 2026-07-13T16:23:22.214Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:24:01.700Z info: getCredProps terminated on exception
+2026-07-13T16:24:01.701Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:24:01.709Z info: Reloading orgs config OK
+2026-07-13T16:54:11.109Z info: getCredProps : 2026-07-13T16:54:11.109Z
+2026-07-13T16:55:55.076Z error: getCredProps : 2026-07-13T16:54:11.109Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:55:55.078Z info: getCredProps terminated on exception
+2026-07-13T16:55:55.078Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:55:55.084Z info: Reloading orgs config OK
+2026-07-13T16:58:00.769Z info: getCredProps : 2026-07-13T16:58:00.769Z
+2026-07-13T16:58:14.937Z error: getCredProps : 2026-07-13T16:58:00.769Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:58:26.804Z info: getCredProps terminated on exception
+2026-07-13T16:58:26.805Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:59:25.275Z info: getCredProps : 2026-07-13T16:59:25.275Z
+2026-07-13T17:08:32.819Z error: getCredProps : 2026-07-13T16:59:25.275Z : TypeError: clazz.indexOf is not a function
+2026-07-13T17:08:32.821Z info: getCredProps terminated on exception
+2026-07-13T17:08:32.823Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T17:16:51.692Z info: getCredProps : 2026-07-13T17:16:51.692Z
+2026-07-13T17:17:03.765Z info: Reloading orgs config OK
+2026-07-13T17:17:03.771Z info: $mdUserGetICVS finished
+2026-07-13T17:27:09.032Z info: 13 document Registry
+2026-07-13T17:27:09.036Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-13T17:27:09.036Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-13T17:27:09.037Z info: Firestore connector
+2026-07-13T17:27:09.038Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-13T17:27:09.057Z info: Reloading orgs config OK
+2026-07-13T17:27:09.065Z info: HTTP listen [8080]
+2026-07-13T17:27:14.764Z info: getCredProps : 2026-07-13T17:27:14.763Z
+2026-07-13T17:27:14.791Z info: $mdUserGetICVS finished
+2026-07-13T17:28:17.049Z error: getCredProps : 2026-07-13T17:27:14.763Z : TypeError: d.embedCreds.get is not a function
+2026-07-13T17:28:17.051Z info: getCredProps terminated on exception
+2026-07-13T17:28:17.065Z error: AppExc: 105:service_unexpected_exception["d.embedCreds.get is not a function"]

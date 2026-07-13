@@ -96,22 +96,17 @@ export class DocType {
   */
   static getPk (clazz: string, src?: Object, nohash?: boolean) : string {
     const dt = DocType.get(clazz)
-    if (!dt.pk.length || !src) return '1'
-    let p = src['pk']
-    if (!p) {
-      const x = []
-      if (dt && src) dt.pk.forEach(p => { x.push(src[p] || '') })
-      p = x.join('/')
-    }
-    return nohash || (dt && dt.nohash) ? p : Crypt.shaS(p)
+    return dt.pkValue(src, nohash)
   }
 
   /* Retourne la valeur du pk d'une "source" ayant les propriétés citées dans pk */
   pkValue (src?: Object, nohash?: boolean) : string {
     if (!this.pk || !this.pk.length || !src) return '1'
+    let p = src['pk']
+    if (p) return p
     const x = []
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
-    const p = x.join('/')
+    p = x.join('/')
     return nohash || this.nohash ? p : Crypt.shaS(p)
   }
 

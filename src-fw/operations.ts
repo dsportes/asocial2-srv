@@ -469,11 +469,12 @@ class AutoRevokeCred extends Operation {
     const dt = DocType.get(this._docCl)
     if (dt.embedCreds) {
       const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
-      const x = d['creds']
-      if (x) delete x[this._credId]
+      const x = d.embedCreds
+      if (x) x.delete(this._credId)
+      d._status = DocStatus.UPD
     } else {
       const c = await this.cache.getDoc('$Credential', { credId: this._credId }) as $Credential
-      if (c) this.cache.delDoc('$Credential', c.pk)
+      if (c) this.cache.delDoc('$Credential', c.myPk)
     }
   }
 }
@@ -734,6 +735,7 @@ class ValidateForm extends Operation {
   etc: Object
   msg: Uint8Array
   byU: boolean = true
+  st: number
   credTemplates: $CredTempl[] = [] 
   // Credentials To Check: credentials dont toCheck doit être reseté en phase 3
 
@@ -762,32 +764,33 @@ class ValidateForm extends Operation {
     } else {
       f.etcT = this.etc
       f.msgT = this.msg
+      await f.cryptMsgT()
     }
     f.setMaxLife()
 
     // Actions spécifique de la validation: création / maj de documents
     const newDocs = []
-    let st = await f.validate(this, newDocs)
+    this.st = await f.validate(this, newDocs)
 
-    if (st) { // échec de la  validation spécifique: on annule les updates / new des credentials
+    if (this.st) { // échec de la  validation spécifique: on annule les updates / new des credentials
       for(const d of newDocs) d._status = DocStatus.NONE
       // l'opération devient un simple update
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
-      this.setRes('status', st)
+      this.setRes('status', this.st)
       return
     }
 
     // Création (éventuelle) des credentials en Safe Box de l'utilisateur cible
     for(const ct of this.credTemplates) {
-      st = await ct.CreateSafeCred()
-      if (st) break
+      this.st = await ct.CreateSafeCred()
+      if (this.st) break
     }
-    if (st) { // Echec très inattendu : l'opération devient un simple update
+    if (this.st) { // Echec très inattendu : l'opération devient un simple update
       for(const d of newDocs) d._status = DocStatus.NONE
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
-      this.setRes('status', st)
+      this.setRes('status', this.st)
       return
     }
 
@@ -796,28 +799,31 @@ class ValidateForm extends Operation {
       const credential = ct.newCredential()
       const doc = await credential.create(this)
       if (doc) newDocs.push(doc)
-      else { st = 99; break } // embedding document not found
+      else { this.st = 99; break } // embedding document not found
     }
 
-    if (st) { // Echec très inattendu : l'opération devient un simple update
+    if (this.st) { // Echec très inattendu : l'opération devient un simple update
       for(const d of newDocs) d._status = DocStatus.NONE
       f.status = this.byU ? 1 : 2
       f._status = DocStatus.UPD
-      this.setRes('status', st)
+      this.setRes('status', this.st)
       return
     }
 
     // succès de la validation
+    
     f.status = 3
     f._status = DocStatus.UPD
     this.setRes('status', 0)
   }
 
   async phase3 () {
-    if (!this.credTemplates.length) return
+    if (this.st || !this.credTemplates.length) return
     for(const ct of this.credTemplates) {
       const args = { userId: ct.userId, credId: ct.credId, signId: ct.signId }
-      await MDandSafe.doSafeOp(ct.userId, '$FixOneCred', args)
+      setTimeout(async () => {
+        await MDandSafe.doSafeOp(ct.userId, '$FixOneCred', args)
+      }, 5)
     }
   }
 }

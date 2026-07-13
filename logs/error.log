@@ -445,3 +445,131 @@ BEGIN
 2026-07-12T17:53:53.043Z error: FormValidateByT : 2026-07-12T17:53:40.153Z : AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/master/","TypeError: fetch failed"]
 2026-07-12T17:57:59.156Z error: FormValidateByT : 2026-07-12T17:56:23.705Z : SqliteError: no such column: section
 2026-07-12T17:57:59.158Z error: AppExc: 105:service_unexpected_exception["no such column: section"]
+2026-07-13T07:30:17.087Z error: getCredProps : 2026-07-13T07:30:17.074Z : TypeError: Cannot read properties of null (reading 'creds')
+2026-07-13T07:30:17.104Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of null (reading 'creds')"]
+2026-07-13T08:21:47.412Z error: AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T08:21:47.417Z error: FormValidateByT : 2026-07-13T08:20:12.098Z : AppExc: 108:remote_md_safes_access_exc["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:12:25.499Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:12:38.390Z error: FormValidateByT : 2026-07-13T08:59:12.336Z : AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:35:19.785Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:35:19.788Z error: FormValidateByT : 2026-07-13T09:34:57.827Z : AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:39:30.862Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:49:37.962Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T09:58:08.184Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T10:04:33.563Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe/","TypeError: fetch failed"]
+2026-07-13T10:06:45.616Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-07-13T10:10:08.858Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safeXX","TypeError: fetch failed"]
+2026-07-13T10:20:47.558Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+2026-07-13T10:20:47.561Z error: FormValidateByT : 2026-07-13T10:20:30.756Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:23:34.901Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+2026-07-13T10:23:34.905Z error: FormValidateByT : 2026-07-13T10:22:32.605Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:644:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:666:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:482:5)
+2026-07-13T10:43:43.195Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","RangeError: Extra 464 of 465 byte(s) found at buffer[1]"]
+2026-07-13T10:43:43.199Z error: FormValidateByT : 2026-07-13T10:43:13.601Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","RangeError: Extra 464 of 465 byte(s) found at buffer[1]"]
+RangeError: Extra 464 of 465 byte(s) found at buffer[1]
+    at Decoder.createExtraByteError (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:306:12)
+    at Decoder.decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\Decoder.ts:327:20)
+    at decode (D:\git\asocial2-srv\node_modules\@msgpack\msgpack\src\decode.ts:19:18)
+    at Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:664:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:682:22)
+    at async AuthRecord.process (D:\git\asocial2-srv\src-fw\operation.ts:368:17)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:160:7)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T10:55:05.884Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T11:59:29.441Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T12:09:38.280Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","Error: read ECONNRESET"]
+2026-07-13T12:09:38.283Z error: FormValidateByT : 2026-07-13T12:08:45.784Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:688:22)
+    at async $Form_auteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:489:17)
+    at async $Form_auteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:517:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:766:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:161:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:458:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:181:30)
+2026-07-13T12:34:48.647Z error: AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T12:34:48.649Z error: FormValidateByT : 2026-07-13T12:31:46.011Z : AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:518:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T12:45:31.869Z error: AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+2026-07-13T12:45:31.876Z error: FormValidateByT : 2026-07-13T12:43:56.272Z : AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","Error: read ECONNRESET"]
+Error: read ECONNRESET
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1355:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4082:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5517:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:662:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:705:12)
+    at async FormValidateByT.phase3 (D:\git\asocial2-srv\src-fw\operations.ts:824:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:207:9)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:483:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:331:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:262:9)
+2026-07-13T15:50:25.881Z error: FormValidateByT : 2026-07-13T15:50:12.827Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:50:25.886Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T15:53:05.620Z error: FormValidateByT : 2026-07-13T15:52:37.744Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:53:05.631Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T15:54:39.873Z error: FormValidateByT : 2026-07-13T15:54:32.841Z : RangeError: Maximum call stack size exceeded
+2026-07-13T15:54:39.879Z error: AppExc: 105:service_unexpected_exception["Maximum call stack size exceeded"]
+2026-07-13T16:21:02.430Z error: getCredProps : 2026-07-13T16:20:30.835Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:21:02.432Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:24:01.698Z error: getCredProps : 2026-07-13T16:23:22.214Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:24:01.701Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:55:55.076Z error: getCredProps : 2026-07-13T16:54:11.109Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:55:55.078Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T16:58:14.937Z error: getCredProps : 2026-07-13T16:58:00.769Z : TypeError: clazz.indexOf is not a function
+2026-07-13T16:58:26.805Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T17:08:32.819Z error: getCredProps : 2026-07-13T16:59:25.275Z : TypeError: clazz.indexOf is not a function
+2026-07-13T17:08:32.823Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
+2026-07-13T17:28:17.049Z error: getCredProps : 2026-07-13T17:27:14.763Z : TypeError: d.embedCreds.get is not a function
+2026-07-13T17:28:17.065Z error: AppExc: 105:service_unexpected_exception["d.embedCreds.get is not a function"]

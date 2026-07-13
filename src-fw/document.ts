@@ -3,7 +3,8 @@ import { encode } from '@msgpack/msgpack'
 import { DocType } from '../src-fw/doctypes'
 import { row } from '../src-fw/iDbGeneric'
 import { Registry } from '../src-fw/config'
-import { AppExc } from '../src-fw/log'
+import { Embed$Cred} from '../src-fw/documents'
+// import { AppExc } from '../src-fw/log'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 
@@ -21,6 +22,7 @@ export class $Document {
   v: number
   release: number // numéro de release de la structure de l'objet
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
+  embedCreds?: Map<string, Embed$Cred>
 
   /* Mute un data en fonction de sa release et d'éventuelles options
   Met à jour, supprime ajoute les propriétés requises dans la
@@ -50,10 +52,10 @@ export class $Document {
   get docType () : DocType { return DocType.get(this._clazz) }
 
   // Retourne la VALEUR HASH de pk (séparation par / PUIS hash)
-  get pk () : string { return this.docType.pkValue(this)}
+  get myPk () : string { return this.docType.pkValue(this)}
 
   // Retourne la VALEUR NON HACHEE de pk (séparation par /)
-  get pkNH () : string { return this.docType.pkValue(this)}
+  get myPkNH () : string { return this.docType.pkValue(this, true)}
 
   // Retourne true si le document n'est pas _zombi_ et n'a pas dépassé sa maxLife
   isAlive (now: number) : boolean {
@@ -102,6 +104,22 @@ export class $Document {
 
   /* Méthodes INTERNES au FW ***************************************************/
 
+  embedCred (credTemplates) {
+    if (!this.embedCreds) this.embedCreds = new Map<string, Embed$Cred>()
+    if (credTemplates) for(let credId in credTemplates) {
+      const c = credTemplates[credId]
+      const i = c.docCl.indexOf('_')
+      const cl = i === - 1 ? c.docCl : c.docCl.substring(0, i)
+      if (this._clazz === cl && this.myPk === c.docPk)
+        this.embedCreds.set(credId, {
+          credId,
+          pubc: c.pubc,
+          pubv: c.pubv,
+          props: c.props
+        })
+    }
+  }
+
   /* Création de l'instance de "Document" depuis des valeurs initiales de propriétés,
   - row lu de la DB
   - propriétés de création.
@@ -114,12 +132,7 @@ export class $Document {
     doc._status = status
     doc.release = cl.release
     doc.v = 0
-    let data = initVals
-    if (status === DocStatus.NONE && cl.mutateCl) {
-      const [d, m] = cl.mutate(initVals)
-      if (m) data = d
-    }
-    for (const [key, value] of Object.entries(data)) 
+    for (const [key, value] of Object.entries(initVals)) 
       if (!key.startsWith('_')) doc[key] = value
     doc.compile()
     /* _before: Map: traçant les collections
@@ -142,7 +155,7 @@ export class $Document {
     const x = encode(d)
     const row: row = {
       v: now,
-      pk: this.pk,
+      pk: this.myPk,
       data: x,
       dataORIG: new Uint8Array(x)
     }
@@ -157,18 +170,7 @@ export class $Document {
 
   /* Construit un "row minimal" pour DB - data null */
   toZombiRow (now: number) : row {
-    /*
-    const dt = this.docType
-    const d = { v : now, _deleted: true }
-    dt.pk.forEach(p => { const v = this[p] ; if (v) d[p] = v })
-    const row: row = {
-      v: now,
-      pk: this.pk,
-      deleted: true,
-      data: Crypt.syncCrypt(key, encode(d))
-    }
-    */
-    return { v: now, pk: this.pk, data: null }
+    return { v: now, pk: this.myPk, data: null }
   }
 
 }

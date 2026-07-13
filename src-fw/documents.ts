@@ -210,8 +210,12 @@ export class $CredTempl {
       nameK: this.nameK,
       credK: this.credK
     }
-    const res: any = await MDandSafe.doSafeOp(this.userId, '$CreateCred', setCred)
-    return res.status || 0
+    try {
+      const res: any = await MDandSafe.doSafeOp(this.userId, '$CreateCred', setCred)
+      return res.status || 0
+    } catch (e) {
+      return 98
+    }
   }
 
   newCredential () : $Credential {
@@ -265,10 +269,11 @@ export class $Credential extends $Document {
     if (this.isEmbed) {
       const doc = await op.cache.getDoc(this.docCl, { pk: this.docPk }) as $Document
       if (!doc) return null
-      if (!doc['creds'])
-        doc['creds'] = new Map<string, Embed$Cred>()
-      doc['creds'].set(this.credId, this.cred)
-      doc._status = DocStatus.UPD
+      if (!doc.embedCreds)
+        doc.embedCreds = new Map<string, Embed$Cred>()
+      doc.embedCreds.set(this.credId, this.cred)
+      if (doc._status !== DocStatus.NEW)
+        doc._status = DocStatus.UPD
       return doc
     }
     const maxLife = this.cred.props['limit'] || 0
@@ -291,8 +296,9 @@ export class $Credential extends $Document {
     let doc
     if (dt.embedCreds) {
       doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Document
-      if (!doc || !doc['creds'] || !doc['creds']['credId']) return null
-      doc['creds']['credId'].props = props
+      if (!doc || !doc.embedCreds || !doc.embedCreds.has(credId)) return null
+      const e = doc.embedCreds.get(credId)
+      e.props = props
       doc._status = DocStatus.UPD
     } else {
       doc = await op.cache.getDoc('$Credential', { credId, docCl }) as $Credential

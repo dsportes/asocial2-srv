@@ -43,7 +43,8 @@ class $Form_auteur extends $Form {
   getDetail () { return [] }
 
   async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
-    const doc = op.cache.newDoc('Auteur', this.opts.auteur )
+    const doc = op.cache.newDoc('Auteur', this.opts.auteur ) as Auteur
+    doc.embedCred(this.opts.credTemplates)
     newDocs.push(doc)
     return 0 
   }

@@ -4,6 +4,7 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
+import axios from 'axios'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Log, setAdminAlert } from './log'
@@ -633,24 +634,47 @@ export class MDandSafe {
     return now
   }
 
-  static async postMDS (url: string, args: any) : Promise<Object> {
+  static headers: {
+    'Content-Type': 'application/octet-stream',  // sent request
+    'Accept':       'application/octet-stream'   // expected data sent back
+  }
+
+  static async postMDS1 (url: string, args: any) : Promise<Object> {
     try {
+      const body = Buffer.from(encode(args))
       const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/octet-stream',  // sent request
-          'Accept':       'application/octet-stream'   // expected data sent back
-        },
-        body: new Uint8Array(encode(args))
+        method: 'POST', headers: MDandSafe.headers, body
       })
       const buf = await response.bytes()
       const obj = decode(buf)
       if (response.status === 200) return obj
       const txt = new TextDecoder().decode(buf)
-      throw new AppExc(108, 'remote_md_safes_access_status', args.opName, [(url || '?'), '' + response.status, txt])
+      throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
     } catch (e: any) {
       if (e instanceof AppExc) throw e
-      throw new AppExc(108, 'remote_md_safes_access_exc', args.opName, [(url || '?'), e.toString()])
+      throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)
+    }
+  }
+
+  static async postMDS (url: string, args: any) : Promise<Object> {
+    try {
+      const body = Buffer.from(encode(args))
+      const response = await axios.post(url, body, { 
+        headers: {
+          'Content-Type': 'application/octet-stream',  // sent request
+          'Accept':       'application/octet-stream'   // expected data sent back
+        },
+        responseType: 'arraybuffer',
+        timeout: 600000
+      })
+      const buf = Buffer.from(response.data)
+      const obj = decode(buf)
+      if (response.status === 200) return obj
+      const txt = new TextDecoder().decode(buf)
+      throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
+    } catch (e: any) {
+      if (e instanceof AppExc) throw e
+      throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)
     }
   }
 

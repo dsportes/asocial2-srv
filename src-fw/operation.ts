@@ -380,14 +380,18 @@ export class AuthRecord {
       let credential: $Credential
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
-        const c = d['creds'] ? $Credential.new(credId, docCl, docPk, d['creds']) : null
-        if (c && c.isValid) 
-          credential = c
+        if (d && d.embedCreds) {
+          const ecred = d.embedCreds.get(credId)
+          if (ecred) {
+            const c = $Credential.new(credId, docCl, docPk, ecred)
+            if (c && c.isValid) credential = c
+          }
+        }
       } else { // Recherche du Credential par sa pk
         const c = await this.op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
         if (c && c.docCl === docCl && c.docPk === docPk) {
           if (c.cred.props && c.cred.props.limit && (c.cred.props.limit * 60000) < this.op.now) 
-            this.op.cache.delDoc('$Credential', c.pk)
+            this.op.cache.delDoc('$Credential', c.myPk)
           else credential = c
         }
       }
