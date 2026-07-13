@@ -22,7 +22,7 @@ export class $Document {
   v: number
   release: number // numéro de release de la structure de l'objet
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
-  embedCreds?: Map<string, Embed$Cred>
+  embedCreds?: Object
 
   /* Mute un data en fonction de sa release et d'éventuelles options
   Met à jour, supprime ajoute les propriétés requises dans la
@@ -105,18 +105,18 @@ export class $Document {
   /* Méthodes INTERNES au FW ***************************************************/
 
   embedCred (credTemplates) {
-    if (!this.embedCreds) this.embedCreds = new Map<string, Embed$Cred>()
+    if (!this.embedCreds) this.embedCreds = {}
     if (credTemplates) for(let credId in credTemplates) {
       const c = credTemplates[credId]
       const i = c.docCl.indexOf('_')
       const cl = i === - 1 ? c.docCl : c.docCl.substring(0, i)
       if (this._clazz === cl && this.myPk === c.docPk)
-        this.embedCreds.set(credId, {
+        this.embedCreds[credId] = {
           credId,
           pubc: c.pubc,
           pubv: c.pubv,
           props: c.props
-        })
+        }
     }
   }
 

@@ -470,7 +470,7 @@ class AutoRevokeCred extends Operation {
     if (dt.embedCreds) {
       const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
       const x = d.embedCreds
-      if (x) x.delete(this._credId)
+      if (x) delete x[this._credId]
       d._status = DocStatus.UPD
     } else {
       const c = await this.cache.getDoc('$Credential', { credId: this._credId }) as $Credential

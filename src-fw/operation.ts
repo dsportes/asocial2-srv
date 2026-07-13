@@ -381,7 +381,7 @@ export class AuthRecord {
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
         if (d && d.embedCreds) {
-          const ecred = d.embedCreds.get(credId)
+          const ecred = d.embedCreds[credId]
           if (ecred) {
             const c = $Credential.new(credId, docCl, docPk, ecred)
             if (c && c.isValid) credential = c

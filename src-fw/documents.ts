@@ -270,8 +270,8 @@ export class $Credential extends $Document {
       const doc = await op.cache.getDoc(this.docCl, { pk: this.docPk }) as $Document
       if (!doc) return null
       if (!doc.embedCreds)
-        doc.embedCreds = new Map<string, Embed$Cred>()
-      doc.embedCreds.set(this.credId, this.cred)
+        doc.embedCreds = {}
+      doc.embedCreds[this.credId] = this.cred
       if (doc._status !== DocStatus.NEW)
         doc._status = DocStatus.UPD
       return doc
