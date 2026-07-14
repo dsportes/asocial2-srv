@@ -21050,3 +21050,553 @@ Error: read ECONNRESET
 2026-07-13T17:28:17.049Z error: getCredProps : 2026-07-13T17:27:14.763Z : TypeError: d.embedCreds.get is not a function
 2026-07-13T17:28:17.051Z info: getCredProps terminated on exception
 2026-07-13T17:28:17.065Z error: AppExc: 105:service_unexpected_exception["d.embedCreds.get is not a function"]
+2026-07-14T08:33:53.568Z info: 13 document Registry
+2026-07-14T08:33:53.570Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T08:33:53.571Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T08:33:53.571Z info: Firestore connector
+2026-07-14T08:33:53.572Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T08:33:53.673Z info: Reloading orgs config OK
+2026-07-14T08:33:53.679Z info: HTTP listen [8080]
+2026-07-14T09:07:48.874Z info: 13 document Registry
+2026-07-14T09:07:48.878Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T09:07:48.879Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T09:07:48.880Z info: Firestore connector
+2026-07-14T09:07:48.880Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T09:07:48.992Z info: Reloading orgs config OK
+2026-07-14T09:07:48.999Z info: HTTP listen [8080]
+2026-07-14T09:08:15.377Z info: $OpenSafeByPin finished
+2026-07-14T09:08:15.420Z info: $GetSafe finished
+2026-07-14T09:08:19.739Z info: $mdEventList finished
+2026-07-14T09:13:10.490Z info: $mdEventList finished
+2026-07-14T09:13:21.690Z info: $mdEventUser finished
+2026-07-14T09:13:21.704Z info: $GetOrgSvcs finished
+2026-07-14T09:13:21.719Z info: $GetSvcUrls finished
+2026-07-14T09:13:21.739Z info: FormGet : 2026-07-14T09:13:21.738Z
+2026-07-14T09:13:21.776Z info: $mdUserGetICVS finished
+2026-07-14T09:13:21.789Z info: Reloading orgs config OK
+2026-07-14T09:13:21.817Z info: FormGet finished
+2026-07-14T09:15:07.844Z info: $mdEventList finished
+2026-07-14T09:20:26.955Z info: $mdEventList finished
+2026-07-14T09:20:50.240Z info: $OpenSafeByPin finished
+2026-07-14T09:20:50.313Z info: $GetSafe finished
+2026-07-14T09:20:54.199Z info: $mdEventList finished
+2026-07-14T09:21:08.140Z info: $GetOrgSvcs finished
+2026-07-14T09:21:49.471Z info: $GetSvcUrls finished
+2026-07-14T09:21:49.501Z info: AutidDeNom : 2026-07-14T09:21:49.501Z
+2026-07-14T09:31:18.821Z info: 13 document Registry
+2026-07-14T09:31:18.824Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T09:31:18.825Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T09:31:18.825Z info: Firestore connector
+2026-07-14T09:31:18.826Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T09:31:18.848Z info: Reloading orgs config OK
+2026-07-14T09:31:18.857Z info: HTTP listen [8080]
+2026-07-14T09:31:22.938Z info: $OpenSafeByPin finished
+2026-07-14T09:31:22.991Z info: $GetSafe finished
+2026-07-14T09:31:29.083Z info: $mdEventList finished
+2026-07-14T09:31:52.424Z info: $GetOrgSvcs finished
+2026-07-14T09:40:07.799Z info: $mdEventList finished
+2026-07-14T09:44:58.994Z info: $GetSvcUrls finished
+2026-07-14T09:44:59.023Z info: AutidDeNom : 2026-07-14T09:44:59.022Z
+2026-07-14T09:53:13.379Z info: 13 document Registry
+2026-07-14T09:53:13.383Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T09:53:13.383Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T09:53:13.384Z info: Firestore connector
+2026-07-14T09:53:13.385Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T09:53:13.405Z info: Reloading orgs config OK
+2026-07-14T09:53:13.412Z info: HTTP listen [8080]
+2026-07-14T09:53:18.335Z info: $OpenSafeByPin finished
+2026-07-14T09:53:18.377Z info: $GetSafe finished
+2026-07-14T09:53:24.344Z info: $mdEventList finished
+2026-07-14T09:53:31.922Z info: $GetOrgSvcs finished
+2026-07-14T09:53:58.311Z info: $GetSvcUrls finished
+2026-07-14T09:53:58.358Z info: AutidDeNom : 2026-07-14T09:53:58.357Z
+2026-07-14T09:58:56.562Z info: AutidDeNom finished
+2026-07-14T09:59:47.425Z info: 13 document Registry
+2026-07-14T09:59:47.431Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T09:59:47.432Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T09:59:47.432Z info: Firestore connector
+2026-07-14T09:59:47.433Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T09:59:47.453Z info: Reloading orgs config OK
+2026-07-14T09:59:47.459Z info: HTTP listen [8080]
+2026-07-14T10:00:47.108Z info: $mdEventList finished
+2026-07-14T10:01:02.561Z info: $OpenSafeByPin finished
+2026-07-14T10:01:02.613Z info: $GetSafe finished
+2026-07-14T10:01:07.079Z info: $mdEventList finished
+2026-07-14T10:01:13.338Z info: $GetOrgSvcs finished
+2026-07-14T10:01:27.566Z info: $GetSvcUrls finished
+2026-07-14T10:01:27.611Z info: AutidDeNom : 2026-07-14T10:01:27.610Z
+2026-07-14T10:03:34.157Z info: 13 document Registry
+2026-07-14T10:03:34.161Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:03:34.162Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:03:34.162Z info: Firestore connector
+2026-07-14T10:03:34.163Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:03:34.178Z info: Reloading orgs config OK
+2026-07-14T10:03:34.184Z info: HTTP listen [8080]
+2026-07-14T10:03:37.578Z info: AutidDeNom : 2026-07-14T10:03:37.577Z
+2026-07-14T10:05:51.350Z info: 13 document Registry
+2026-07-14T10:05:51.354Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:05:51.355Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:05:51.356Z info: Firestore connector
+2026-07-14T10:05:51.356Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:05:51.373Z info: Reloading orgs config OK
+2026-07-14T10:05:51.382Z info: HTTP listen [8080]
+2026-07-14T10:05:56.848Z info: AutidDeNom : 2026-07-14T10:05:56.847Z
+2026-07-14T10:08:17.990Z info: 13 document Registry
+2026-07-14T10:08:17.992Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:08:17.993Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:08:17.994Z info: Firestore connector
+2026-07-14T10:08:17.994Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:08:18.009Z info: Reloading orgs config OK
+2026-07-14T10:08:18.015Z info: HTTP listen [8080]
+2026-07-14T10:08:19.446Z info: AutidDeNom : 2026-07-14T10:08:19.446Z
+2026-07-14T10:08:27.880Z info: AutidDeNom finished
+2026-07-14T10:09:10.863Z info: 13 document Registry
+2026-07-14T10:09:10.866Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:09:10.866Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:09:10.867Z info: Firestore connector
+2026-07-14T10:09:10.867Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:09:10.883Z info: Reloading orgs config OK
+2026-07-14T10:09:10.889Z info: HTTP listen [8080]
+2026-07-14T10:09:16.852Z info: AutidDeNom : 2026-07-14T10:09:16.851Z
+2026-07-14T10:09:37.078Z info: AutidDeNom finished
+2026-07-14T10:10:35.261Z info: 13 document Registry
+2026-07-14T10:10:35.264Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:10:35.265Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:10:35.266Z info: Firestore connector
+2026-07-14T10:10:35.267Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:10:35.286Z info: Reloading orgs config OK
+2026-07-14T10:10:35.295Z info: HTTP listen [8080]
+2026-07-14T10:10:38.585Z info: AutidDeNom : 2026-07-14T10:10:38.585Z
+2026-07-14T10:10:47.378Z error: AutidDeNom : 2026-07-14T10:10:38.585Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:10:47.379Z info: AutidDeNom terminated on exception
+2026-07-14T10:10:47.379Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T10:11:54.303Z info: 13 document Registry
+2026-07-14T10:11:54.306Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:11:54.307Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:11:54.308Z info: Firestore connector
+2026-07-14T10:11:54.308Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:11:54.326Z info: Reloading orgs config OK
+2026-07-14T10:11:54.333Z info: HTTP listen [8080]
+2026-07-14T10:11:54.386Z info: AutidDeNom : 2026-07-14T10:11:54.386Z
+2026-07-14T10:11:59.493Z error: AutidDeNom : 2026-07-14T10:11:54.386Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:11:59.495Z info: AutidDeNom terminated on exception
+2026-07-14T10:11:59.511Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T10:14:43.847Z info: $OpenSafeByPin finished
+2026-07-14T10:14:43.899Z info: $GetSafe finished
+2026-07-14T10:14:48.416Z info: FormFilteredList : 2026-07-14T10:14:48.415Z
+2026-07-14T10:14:48.445Z info: $mdUserGetICVS finished
+2026-07-14T10:14:48.469Z info: $mdUserGetICVS finished
+2026-07-14T10:15:00.687Z info: FormFilteredList finished
+2026-07-14T10:15:17.090Z info: $mdUserGetICVS finished
+2026-07-14T10:15:28.757Z info: $mdUserGetICVS finished
+2026-07-14T10:25:23.453Z info: $OpenSafeByPin finished
+2026-07-14T10:25:23.499Z info: $GetSafe finished
+2026-07-14T10:25:28.458Z info: $mdEventList finished
+2026-07-14T10:26:21.167Z info: AutidDeNom : 2026-07-14T10:26:21.167Z
+2026-07-14T10:26:21.172Z error: AutidDeNom : 2026-07-14T10:26:21.167Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:26:21.173Z info: AutidDeNom terminated on exception
+2026-07-14T10:26:21.175Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T10:26:21.227Z info: Reloading orgs config OK
+2026-07-14T10:27:10.804Z info: 13 document Registry
+2026-07-14T10:27:10.808Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T10:27:10.809Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T10:27:10.809Z info: Firestore connector
+2026-07-14T10:27:10.810Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T10:27:10.832Z info: Reloading orgs config OK
+2026-07-14T10:27:10.841Z info: HTTP listen [8080]
+2026-07-14T10:27:12.784Z info: AutidDeNom : 2026-07-14T10:27:12.784Z
+2026-07-14T10:27:12.793Z info: AutidDeNom finished
+2026-07-14T10:27:21.939Z info: AutidDeNom : 2026-07-14T10:27:21.939Z
+2026-07-14T10:27:39.906Z info: AutidDeNom finished
+2026-07-14T10:42:34.102Z info: AutidDeNom : 2026-07-14T10:42:34.102Z
+2026-07-14T10:42:34.109Z info: AutidDeNom finished
+2026-07-14T10:42:34.160Z info: Reloading orgs config OK
+2026-07-14T10:43:09.881Z info: AutidDeNom : 2026-07-14T10:43:09.881Z
+2026-07-14T10:43:20.784Z info: AutidDeNom finished
+2026-07-14T12:00:37.986Z info: $OpenSafeByPin finished
+2026-07-14T12:00:38.042Z info: $GetSafe finished
+2026-07-14T12:00:41.634Z info: $mdEventList finished
+2026-07-14T12:00:47.122Z info: $GetOrgSvcs finished
+2026-07-14T12:05:58.769Z info: $OpenSafeByPin finished
+2026-07-14T12:05:58.814Z info: $GetSafe finished
+2026-07-14T12:06:03.524Z info: $mdEventList finished
+2026-07-14T12:06:09.643Z info: $GetOrgSvcs finished
+2026-07-14T12:15:28.328Z info: $mdEventList finished
+2026-07-14T12:15:37.131Z info: $OpenSafeByPin finished
+2026-07-14T12:15:37.166Z info: $GetSafe finished
+2026-07-14T12:15:41.658Z info: $mdEventList finished
+2026-07-14T12:15:47.868Z info: $GetOrgSvcs finished
+2026-07-14T12:19:51.763Z info: $GetSvcUrls finished
+2026-07-14T12:19:51.791Z info: AutidDeNom : 2026-07-14T12:19:51.791Z
+2026-07-14T12:19:51.802Z info: AutidDeNom finished
+2026-07-14T12:19:51.859Z info: Reloading orgs config OK
+2026-07-14T12:19:58.829Z info: AutidDeNom : 2026-07-14T12:19:58.829Z
+2026-07-14T12:19:58.836Z info: AutidDeNom finished
+2026-07-14T12:20:00.600Z info: AutidDeNom : 2026-07-14T12:20:00.600Z
+2026-07-14T12:20:00.608Z info: AutidDeNom finished
+2026-07-14T12:20:00.863Z info: AutidDeNom : 2026-07-14T12:20:00.863Z
+2026-07-14T12:20:00.869Z info: AutidDeNom finished
+2026-07-14T12:20:01.187Z info: AutidDeNom : 2026-07-14T12:20:01.187Z
+2026-07-14T12:20:01.194Z info: AutidDeNom finished
+2026-07-14T12:20:01.398Z info: AutidDeNom : 2026-07-14T12:20:01.398Z
+2026-07-14T12:20:01.405Z info: AutidDeNom finished
+2026-07-14T12:20:01.660Z info: AutidDeNom : 2026-07-14T12:20:01.660Z
+2026-07-14T12:20:01.671Z info: AutidDeNom finished
+2026-07-14T12:20:02.155Z info: AutidDeNom : 2026-07-14T12:20:02.155Z
+2026-07-14T12:20:02.164Z info: AutidDeNom finished
+2026-07-14T12:20:07.692Z info: AutidDeNom : 2026-07-14T12:20:07.692Z
+2026-07-14T12:20:07.698Z info: AutidDeNom finished
+2026-07-14T12:20:17.207Z info: AutidDeNom : 2026-07-14T12:20:17.207Z
+2026-07-14T12:20:17.212Z info: AutidDeNom finished
+2026-07-14T12:23:15.480Z info: AutidDeNom : 2026-07-14T12:23:15.480Z
+2026-07-14T12:23:15.486Z info: AutidDeNom finished
+2026-07-14T12:23:39.608Z info: AutidDeNom : 2026-07-14T12:23:39.608Z
+2026-07-14T12:23:39.613Z info: AutidDeNom finished
+2026-07-14T12:31:48.668Z info: AutidDeNom : 2026-07-14T12:31:48.667Z
+2026-07-14T12:31:48.675Z info: AutidDeNom finished
+2026-07-14T12:31:48.724Z info: Reloading orgs config OK
+2026-07-14T12:38:04.318Z info: AutidDeNom : 2026-07-14T12:38:04.318Z
+2026-07-14T12:38:04.323Z info: AutidDeNom finished
+2026-07-14T12:38:04.384Z info: Reloading orgs config OK
+2026-07-14T12:38:40.341Z info: AutidDeNom : 2026-07-14T12:38:40.341Z
+2026-07-14T12:38:40.346Z info: AutidDeNom finished
+2026-07-14T12:39:04.839Z info: AutidDeNom : 2026-07-14T12:39:04.839Z
+2026-07-14T12:39:04.845Z info: AutidDeNom finished
+2026-07-14T12:39:05.170Z info: AutidDeNom : 2026-07-14T12:39:05.170Z
+2026-07-14T12:39:05.178Z info: AutidDeNom finished
+2026-07-14T12:39:05.454Z info: AutidDeNom : 2026-07-14T12:39:05.453Z
+2026-07-14T12:39:05.461Z info: AutidDeNom finished
+2026-07-14T12:39:05.739Z info: AutidDeNom : 2026-07-14T12:39:05.738Z
+2026-07-14T12:39:05.746Z info: AutidDeNom finished
+2026-07-14T12:39:06.001Z info: AutidDeNom : 2026-07-14T12:39:06.001Z
+2026-07-14T12:39:06.009Z info: AutidDeNom finished
+2026-07-14T12:39:06.495Z info: AutidDeNom : 2026-07-14T12:39:06.495Z
+2026-07-14T12:39:06.502Z info: AutidDeNom finished
+2026-07-14T12:39:06.882Z info: AutidDeNom : 2026-07-14T12:39:06.882Z
+2026-07-14T12:39:06.888Z info: AutidDeNom finished
+2026-07-14T12:39:07.132Z info: AutidDeNom : 2026-07-14T12:39:07.132Z
+2026-07-14T12:39:07.140Z info: AutidDeNom finished
+2026-07-14T12:39:07.368Z info: AutidDeNom : 2026-07-14T12:39:07.368Z
+2026-07-14T12:39:07.374Z info: AutidDeNom finished
+2026-07-14T12:39:07.822Z info: AutidDeNom : 2026-07-14T12:39:07.822Z
+2026-07-14T12:39:07.829Z info: AutidDeNom finished
+2026-07-14T12:39:08.208Z info: AutidDeNom : 2026-07-14T12:39:08.208Z
+2026-07-14T12:39:08.214Z info: AutidDeNom finished
+2026-07-14T12:39:28.144Z info: getCKey$ : 2026-07-14T12:39:28.143Z
+2026-07-14T12:39:28.150Z info: getCKey$ finished
+2026-07-14T12:39:28.188Z info: FormCreateByU : 2026-07-14T12:39:28.188Z
+2026-07-14T12:39:28.213Z info: FormCreateByU finished
+2026-07-14T12:39:28.324Z info: MDEventFull : 2026-07-14T12:39:28.324Z
+2026-07-14T12:39:28.338Z info: MDEventFull finished
+2026-07-14T12:39:28.370Z info: $mdEventNew finished
+2026-07-14T12:39:35.967Z info: $mdEventList finished
+2026-07-14T12:39:35.996Z info: FormGet : 2026-07-14T12:39:35.996Z
+2026-07-14T12:39:36.029Z info: $mdUserGetICVS finished
+2026-07-14T12:39:36.050Z info: FormGet finished
+2026-07-14T12:39:51.417Z info: $OpenSafeByPin finished
+2026-07-14T12:39:51.457Z info: $GetSafe finished
+2026-07-14T12:40:10.543Z info: FormFilteredList : 2026-07-14T12:40:10.543Z
+2026-07-14T12:40:10.556Z info: $mdUserGetICVS finished
+2026-07-14T12:40:10.611Z info: FormFilteredList finished
+2026-07-14T12:40:42.852Z info: AutidDeNom : 2026-07-14T12:40:42.852Z
+2026-07-14T12:40:42.856Z info: AutidDeNom finished
+2026-07-14T12:47:23.651Z info: $OpenSafeByPin finished
+2026-07-14T12:47:23.693Z info: $GetSafe finished
+2026-07-14T12:47:32.848Z info: $GetOrgSvcs finished
+2026-07-14T12:47:32.876Z info: $GetSvcUrls finished
+2026-07-14T12:47:32.907Z info: FormFilteredList : 2026-07-14T12:47:32.906Z
+2026-07-14T12:47:32.963Z info: Reloading orgs config OK
+2026-07-14T12:47:32.965Z info: FormFilteredList finished
+2026-07-14T12:57:39.863Z info: AutidDeNom : 2026-07-14T12:57:39.863Z
+2026-07-14T12:57:39.869Z info: AutidDeNom finished
+2026-07-14T12:57:39.920Z info: Reloading orgs config OK
+2026-07-14T12:58:14.858Z info: FormValidateByT : 2026-07-14T12:58:14.857Z
+2026-07-14T12:58:40.225Z info: $CreateCred finished
+2026-07-14T12:58:40.238Z info: FormValidateByT finished
+2026-07-14T12:58:40.261Z info: $FixOneCred finished
+2026-07-14T12:58:40.267Z info: MDEventSync : 2026-07-14T12:58:40.267Z
+2026-07-14T12:58:40.272Z info: MDEventSync finished
+2026-07-14T12:58:40.279Z info: $mdEventSync finished
+2026-07-14T12:58:47.048Z info: $GetSafe finished
+2026-07-14T12:58:47.216Z info: FormFilteredList : 2026-07-14T12:58:47.216Z
+2026-07-14T12:58:47.283Z info: FormFilteredList finished
+2026-07-14T13:27:17.077Z info: $GetOrgSvcs finished
+2026-07-14T13:27:34.338Z info: $OpenSafeByPin finished
+2026-07-14T13:27:34.383Z info: $GetSafe finished
+2026-07-14T13:29:37.457Z info: $mdEventList finished
+2026-07-14T13:29:57.213Z info: $GetOrgSvcs finished
+2026-07-14T13:33:51.052Z info: $OpenSafeByPin finished
+2026-07-14T13:33:51.113Z info: $GetSafe finished
+2026-07-14T13:33:58.156Z info: $mdEventList finished
+2026-07-14T13:34:12.458Z info: $GetOrgSvcs finished
+2026-07-14T13:34:46.387Z info: $GetSvcUrls finished
+2026-07-14T13:34:46.413Z info: AutidDeNom : 2026-07-14T13:34:46.412Z
+2026-07-14T13:34:46.418Z info: AutidDeNom finished
+2026-07-14T13:34:46.480Z info: Reloading orgs config OK
+2026-07-14T13:35:58.188Z info: AutidDeNom : 2026-07-14T13:35:58.188Z
+2026-07-14T13:35:58.194Z info: AutidDeNom finished
+2026-07-14T13:36:24.201Z info: AutidDeNom : 2026-07-14T13:36:24.201Z
+2026-07-14T13:36:24.207Z info: AutidDeNom finished
+2026-07-14T13:36:38.665Z info: AutidDeNom : 2026-07-14T13:36:38.665Z
+2026-07-14T13:36:38.670Z info: AutidDeNom finished
+2026-07-14T13:36:43.839Z info: AutidDeNom : 2026-07-14T13:36:43.839Z
+2026-07-14T13:36:43.846Z info: AutidDeNom finished
+2026-07-14T13:36:47.796Z info: AutidDeNom : 2026-07-14T13:36:47.796Z
+2026-07-14T13:36:47.802Z info: AutidDeNom finished
+2026-07-14T13:37:08.035Z info: AutidDeNom : 2026-07-14T13:37:08.035Z
+2026-07-14T13:37:08.042Z info: AutidDeNom finished
+2026-07-14T13:37:08.790Z info: AutidDeNom : 2026-07-14T13:37:08.790Z
+2026-07-14T13:37:08.800Z info: AutidDeNom finished
+2026-07-14T13:37:10.043Z info: AutidDeNom : 2026-07-14T13:37:10.043Z
+2026-07-14T13:37:10.052Z info: AutidDeNom finished
+2026-07-14T13:37:10.353Z info: AutidDeNom : 2026-07-14T13:37:10.353Z
+2026-07-14T13:37:10.363Z info: AutidDeNom finished
+2026-07-14T13:37:10.640Z info: AutidDeNom : 2026-07-14T13:37:10.640Z
+2026-07-14T13:37:10.648Z info: AutidDeNom finished
+2026-07-14T13:37:10.930Z info: AutidDeNom : 2026-07-14T13:37:10.930Z
+2026-07-14T13:37:10.939Z info: AutidDeNom finished
+2026-07-14T13:37:11.295Z info: AutidDeNom : 2026-07-14T13:37:11.295Z
+2026-07-14T13:37:11.304Z info: AutidDeNom finished
+2026-07-14T13:37:11.855Z info: AutidDeNom : 2026-07-14T13:37:11.855Z
+2026-07-14T13:37:11.863Z info: AutidDeNom finished
+2026-07-14T13:37:12.290Z info: AutidDeNom : 2026-07-14T13:37:12.290Z
+2026-07-14T13:37:12.296Z info: AutidDeNom finished
+2026-07-14T13:37:12.499Z info: AutidDeNom : 2026-07-14T13:37:12.499Z
+2026-07-14T13:37:12.506Z info: AutidDeNom finished
+2026-07-14T13:37:12.827Z info: AutidDeNom : 2026-07-14T13:37:12.826Z
+2026-07-14T13:37:12.833Z info: AutidDeNom finished
+2026-07-14T13:37:13.105Z info: AutidDeNom : 2026-07-14T13:37:13.105Z
+2026-07-14T13:37:13.117Z info: AutidDeNom finished
+2026-07-14T13:37:13.336Z info: AutidDeNom : 2026-07-14T13:37:13.336Z
+2026-07-14T13:37:13.344Z info: AutidDeNom finished
+2026-07-14T13:37:13.696Z info: AutidDeNom : 2026-07-14T13:37:13.696Z
+2026-07-14T13:37:13.703Z info: AutidDeNom finished
+2026-07-14T13:37:13.971Z info: AutidDeNom : 2026-07-14T13:37:13.971Z
+2026-07-14T13:37:13.979Z info: AutidDeNom finished
+2026-07-14T13:37:14.231Z info: AutidDeNom : 2026-07-14T13:37:14.231Z
+2026-07-14T13:37:14.238Z info: AutidDeNom finished
+2026-07-14T13:37:14.514Z info: AutidDeNom : 2026-07-14T13:37:14.514Z
+2026-07-14T13:37:14.524Z info: AutidDeNom finished
+2026-07-14T13:37:14.774Z info: AutidDeNom : 2026-07-14T13:37:14.774Z
+2026-07-14T13:37:14.778Z info: AutidDeNom finished
+2026-07-14T13:37:15.050Z info: AutidDeNom : 2026-07-14T13:37:15.050Z
+2026-07-14T13:37:15.056Z info: AutidDeNom finished
+2026-07-14T13:37:15.360Z info: AutidDeNom : 2026-07-14T13:37:15.360Z
+2026-07-14T13:37:15.368Z info: AutidDeNom finished
+2026-07-14T13:37:15.586Z info: AutidDeNom : 2026-07-14T13:37:15.586Z
+2026-07-14T13:37:15.595Z info: AutidDeNom finished
+2026-07-14T13:37:15.854Z info: AutidDeNom : 2026-07-14T13:37:15.854Z
+2026-07-14T13:37:15.858Z info: AutidDeNom finished
+2026-07-14T13:37:16.277Z info: AutidDeNom : 2026-07-14T13:37:16.277Z
+2026-07-14T13:37:16.285Z info: AutidDeNom finished
+2026-07-14T13:37:23.137Z info: getCKey$ : 2026-07-14T13:37:23.137Z
+2026-07-14T13:37:23.142Z info: getCKey$ finished
+2026-07-14T13:37:23.176Z info: FormCreateByU : 2026-07-14T13:37:23.176Z
+2026-07-14T13:37:23.191Z info: FormCreateByU finished
+2026-07-14T13:37:23.228Z info: MDEventFull : 2026-07-14T13:37:23.228Z
+2026-07-14T13:37:23.234Z info: MDEventFull finished
+2026-07-14T13:37:23.244Z info: $mdEventNew finished
+2026-07-14T13:37:25.629Z info: $mdEventList finished
+2026-07-14T13:37:25.657Z info: FormGet : 2026-07-14T13:37:25.657Z
+2026-07-14T13:37:25.678Z info: FormGet finished
+2026-07-14T13:40:57.305Z info: 13 document Registry
+2026-07-14T13:40:57.310Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T13:40:57.311Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T13:40:57.312Z info: Firestore connector
+2026-07-14T13:40:57.313Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T13:40:57.459Z info: Reloading orgs config OK
+2026-07-14T13:40:57.465Z info: HTTP listen [8080]
+2026-07-14T13:41:03.601Z info: $OpenSafeByPin finished
+2026-07-14T13:41:03.657Z info: $GetSafe finished
+2026-07-14T13:41:08.027Z info: $mdEventList finished
+2026-07-14T13:41:56.401Z info: $GetOrgSvcs finished
+2026-07-14T13:41:56.427Z info: $GetSvcUrls finished
+2026-07-14T13:41:56.460Z info: FormGet : 2026-07-14T13:41:56.459Z
+2026-07-14T13:41:56.497Z info: $mdUserGetICVS finished
+2026-07-14T13:41:56.523Z info: FormGet finished
+2026-07-14T13:46:19.875Z info: FormGet : 2026-07-14T13:46:19.875Z
+2026-07-14T13:46:19.900Z info: FormGet finished
+2026-07-14T13:46:19.930Z info: Reloading orgs config OK
+2026-07-14T13:48:35.564Z info: FormGet : 2026-07-14T13:48:35.564Z
+2026-07-14T13:48:35.662Z info: FormGet finished
+2026-07-14T14:02:55.826Z info: FormGet : 2026-07-14T14:02:55.825Z
+2026-07-14T14:02:55.858Z info: FormGet finished
+2026-07-14T14:02:55.881Z info: Reloading orgs config OK
+2026-07-14T14:03:45.435Z info: AutidDeNom : 2026-07-14T14:03:45.435Z
+2026-07-14T14:03:45.443Z info: AutidDeNom finished
+2026-07-14T14:03:45.449Z info: AutidDeNom : 2026-07-14T14:03:45.449Z
+2026-07-14T14:03:45.457Z info: AutidDeNom finished
+2026-07-14T14:03:45.463Z info: AutidDeNom : 2026-07-14T14:03:45.462Z
+2026-07-14T14:03:45.471Z info: AutidDeNom finished
+2026-07-14T14:10:23.741Z info: AutidDeNom : 2026-07-14T14:10:23.740Z
+2026-07-14T14:10:23.748Z info: AutidDeNom finished
+2026-07-14T14:10:23.756Z info: AutidDeNom : 2026-07-14T14:10:23.756Z
+2026-07-14T14:10:23.764Z info: AutidDeNom finished
+2026-07-14T14:10:23.801Z info: Reloading orgs config OK
+2026-07-14T14:11:43.758Z info: 13 document Registry
+2026-07-14T14:11:43.760Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T14:11:43.761Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T14:11:43.762Z info: Firestore connector
+2026-07-14T14:11:43.763Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T14:11:43.781Z info: Reloading orgs config OK
+2026-07-14T14:11:43.787Z info: HTTP listen [8080]
+2026-07-14T14:11:58.109Z info: $OpenSafeByPin finished
+2026-07-14T14:11:58.156Z info: $GetSafe finished
+2026-07-14T14:12:14.983Z info: FormFilteredList : 2026-07-14T14:12:14.982Z
+2026-07-14T14:12:15.012Z info: $mdUserGetICVS finished
+2026-07-14T14:12:15.035Z info: $mdUserGetICVS finished
+2026-07-14T14:12:15.098Z info: FormFilteredList finished
+2026-07-14T14:12:22.522Z info: $mdUserGetICVS finished
+2026-07-14T14:13:24.526Z info: $OpenSafeByPin finished
+2026-07-14T14:13:24.570Z info: $GetSafe finished
+2026-07-14T14:13:36.580Z info: FormFilteredList : 2026-07-14T14:13:36.579Z
+2026-07-14T14:13:36.596Z info: FormFilteredList finished
+2026-07-14T14:13:41.434Z info: $mdUserGetICVS finished
+2026-07-14T14:14:12.529Z info: FormFilteredList : 2026-07-14T14:14:12.529Z
+2026-07-14T14:14:12.547Z info: FormFilteredList finished
+2026-07-14T14:17:04.455Z info: $mdUserGetICVS finished
+2026-07-14T14:33:02.253Z info: $mdUserGetICVS finished
+2026-07-14T14:39:23.645Z info: $mdUserGetICVS finished
+2026-07-14T14:39:31.236Z info: $mdUserGetICVS finished
+2026-07-14T14:42:34.589Z info: $mdUserGetICVS finished
+2026-07-14T14:43:09.891Z info: $OpenSafeByPin finished
+2026-07-14T14:43:09.938Z info: $GetSafe finished
+2026-07-14T14:43:18.703Z info: $GetOrgSvcs finished
+2026-07-14T14:43:18.734Z info: $GetSvcUrls finished
+2026-07-14T14:43:18.766Z info: FormFilteredList : 2026-07-14T14:43:18.766Z
+2026-07-14T14:43:18.827Z info: Reloading orgs config OK
+2026-07-14T14:43:18.847Z info: FormFilteredList finished
+2026-07-14T14:43:36.783Z info: $mdUserGetICVS finished
+2026-07-14T14:46:54.511Z info: FormFilteredList : 2026-07-14T14:46:54.511Z
+2026-07-14T14:46:54.559Z info: FormFilteredList finished
+2026-07-14T14:47:05.434Z info: FormFilteredList : 2026-07-14T14:47:05.434Z
+2026-07-14T14:47:05.456Z info: FormFilteredList finished
+2026-07-14T14:47:27.275Z info: $mdUserGetICVS finished
+2026-07-14T14:48:33.796Z info: $OpenSafeByPin finished
+2026-07-14T14:48:33.841Z info: $GetSafe finished
+2026-07-14T14:48:37.998Z info: $mdEventList finished
+2026-07-14T14:48:46.163Z info: $GetOrgSvcs finished
+2026-07-14T14:50:51.755Z info: $OpenSafeByPin finished
+2026-07-14T14:50:51.813Z info: $GetSafe finished
+2026-07-14T14:50:55.714Z info: $GetSvcUrls finished
+2026-07-14T14:50:55.761Z info: FormFilteredList : 2026-07-14T14:50:55.760Z
+2026-07-14T14:50:55.817Z info: Reloading orgs config OK
+2026-07-14T14:50:55.833Z info: FormFilteredList finished
+2026-07-14T14:51:11.518Z info: $mdUserGetICVS finished
+2026-07-14T14:51:43.766Z info: AutidDeNom : 2026-07-14T14:51:43.766Z
+2026-07-14T14:51:43.773Z info: AutidDeNom finished
+2026-07-14T14:51:53.332Z info: AutidDeNom : 2026-07-14T14:51:53.332Z
+2026-07-14T14:51:53.337Z info: AutidDeNom finished
+2026-07-14T14:51:59.015Z info: AutidDeNom : 2026-07-14T14:51:59.015Z
+2026-07-14T14:51:59.021Z info: AutidDeNom finished
+2026-07-14T14:52:02.069Z info: FormCreateByT : 2026-07-14T14:52:02.069Z
+2026-07-14T14:52:02.107Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T14:52:02.108Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T14:52:02.109Z error: FormCreateByT : 2026-07-14T14:52:02.069Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T14:52:02.110Z info: FormCreateByT terminated on exception
+2026-07-14T14:52:02.110Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T14:55:42.874Z info: FormFilteredList : 2026-07-14T14:55:42.874Z
+2026-07-14T14:55:42.894Z info: FormFilteredList finished
+2026-07-14T14:55:58.126Z info: $mdUserGetICVS finished
+2026-07-14T14:56:13.569Z info: AutidDeNom : 2026-07-14T14:56:13.568Z
+2026-07-14T14:56:13.574Z info: AutidDeNom finished
+2026-07-14T14:56:13.632Z info: Reloading orgs config OK
+2026-07-14T15:02:44.697Z info: $OpenSafeByPin finished
+2026-07-14T15:02:44.737Z info: $GetSafe finished
+2026-07-14T15:02:56.452Z info: $GetOrgSvcs finished
+2026-07-14T15:05:30.842Z info: $GetSvcUrls finished
+2026-07-14T15:05:30.877Z info: FormFilteredList : 2026-07-14T15:05:30.877Z
+2026-07-14T15:05:30.901Z info: FormFilteredList finished
+2026-07-14T15:05:30.942Z info: Reloading orgs config OK
+2026-07-14T15:05:49.706Z info: $mdUserGetICVS finished
+2026-07-14T15:06:06.046Z info: AutidDeNom : 2026-07-14T15:06:06.046Z
+2026-07-14T15:06:06.054Z info: AutidDeNom finished
+2026-07-14T15:08:52.629Z info: AutidDeNom : 2026-07-14T15:08:52.629Z
+2026-07-14T15:08:52.637Z info: AutidDeNom finished
+2026-07-14T15:10:28.644Z info: FormCreateByT : 2026-07-14T15:10:28.644Z
+2026-07-14T15:12:44.303Z info: $mdUserGetICVS finished
+2026-07-14T15:12:44.329Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:12:44.330Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:12:44.331Z error: FormCreateByT : 2026-07-14T15:10:28.644Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:12:44.332Z info: FormCreateByT terminated on exception
+2026-07-14T15:12:44.332Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:16:13.853Z info: $mdUserGetICVS finished
+2026-07-14T15:16:27.229Z info: AutidDeNom : 2026-07-14T15:16:27.229Z
+2026-07-14T15:16:37.620Z info: AutidDeNom finished
+2026-07-14T15:16:37.627Z info: Reloading orgs config OK
+2026-07-14T15:17:08.295Z info: AutidDeNom : 2026-07-14T15:17:08.295Z
+2026-07-14T15:17:08.301Z info: AutidDeNom finished
+2026-07-14T15:17:08.309Z info: FormCreateByT : 2026-07-14T15:17:08.309Z
+2026-07-14T15:17:08.326Z info: $mdUserGetICVS finished
+2026-07-14T15:20:46.294Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:20:46.295Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:20:46.297Z error: FormCreateByT : 2026-07-14T15:17:08.309Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:20:46.298Z info: FormCreateByT terminated on exception
+2026-07-14T15:20:46.299Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:21:02.776Z info: 13 document Registry
+2026-07-14T15:21:02.779Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T15:21:02.780Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T15:21:02.780Z info: Firestore connector
+2026-07-14T15:21:02.781Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T15:21:02.798Z info: Reloading orgs config OK
+2026-07-14T15:21:02.805Z info: HTTP listen [8080]
+2026-07-14T15:25:18.028Z info: FormFilteredList : 2026-07-14T15:25:18.027Z
+2026-07-14T15:25:18.064Z info: $mdUserGetICVS finished
+2026-07-14T15:25:18.087Z info: FormFilteredList finished
+2026-07-14T15:26:50.263Z info: 13 document Registry
+2026-07-14T15:26:50.267Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-14T15:26:50.267Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-14T15:26:50.268Z info: Firestore connector
+2026-07-14T15:26:50.269Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-14T15:26:50.285Z info: Reloading orgs config OK
+2026-07-14T15:26:50.294Z info: HTTP listen [8080]
+2026-07-14T15:27:06.146Z info: $OpenSafeByPin finished
+2026-07-14T15:27:06.196Z info: $GetSafe finished
+2026-07-14T15:27:13.043Z info: $GetOrgSvcs finished
+2026-07-14T15:27:13.079Z info: $GetSvcUrls finished
+2026-07-14T15:27:13.115Z info: FormFilteredList : 2026-07-14T15:27:13.114Z
+2026-07-14T15:27:13.150Z info: $mdUserGetICVS finished
+2026-07-14T15:27:13.169Z info: FormFilteredList finished
+2026-07-14T15:27:24.540Z info: $mdUserGetICVS finished
+2026-07-14T15:27:48.469Z info: AutidDeNom : 2026-07-14T15:27:48.469Z
+2026-07-14T15:27:48.477Z info: AutidDeNom finished
+2026-07-14T15:27:51.983Z info: AutidDeNom : 2026-07-14T15:27:51.983Z
+2026-07-14T15:27:51.987Z info: AutidDeNom finished
+2026-07-14T15:27:51.992Z info: FormCreateByT : 2026-07-14T15:27:51.991Z
+2026-07-14T15:27:52.016Z info: $mdUserGetICVS finished
+2026-07-14T15:28:27.048Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:28:27.049Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:28:27.051Z error: FormCreateByT : 2026-07-14T15:27:51.991Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:28:27.052Z info: FormCreateByT terminated on exception
+2026-07-14T15:28:27.053Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:29:27.832Z info: $OpenSafeByPin finished
+2026-07-14T15:29:27.876Z info: $GetSafe finished
+2026-07-14T15:29:34.724Z info: $GetOrgSvcs finished
+2026-07-14T15:29:34.757Z info: $GetSvcUrls finished
+2026-07-14T15:29:34.783Z info: FormFilteredList : 2026-07-14T15:29:34.783Z
+2026-07-14T15:29:34.798Z info: FormFilteredList finished
+2026-07-14T15:29:46.878Z info: $mdUserGetICVS finished
+2026-07-14T15:29:57.778Z info: AutidDeNom : 2026-07-14T15:29:57.778Z
+2026-07-14T15:29:57.784Z info: AutidDeNom finished
+2026-07-14T15:30:00.507Z info: AutidDeNom : 2026-07-14T15:30:00.507Z
+2026-07-14T15:30:00.510Z info: AutidDeNom finished
+2026-07-14T15:30:00.514Z info: FormCreateByT : 2026-07-14T15:30:00.514Z
+2026-07-14T15:33:41.409Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:33:41.410Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:33:41.412Z error: FormCreateByT : 2026-07-14T15:30:00.514Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:33:41.413Z info: FormCreateByT terminated on exception
+2026-07-14T15:33:41.414Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:33:41.428Z info: FormFilteredList : 2026-07-14T15:33:41.427Z
+2026-07-14T15:33:41.449Z info: FormFilteredList finished
+2026-07-14T15:33:41.482Z info: Reloading orgs config OK
+2026-07-14T15:33:59.153Z info: $mdUserGetICVS finished
+2026-07-14T15:34:12.765Z info: AutidDeNom : 2026-07-14T15:34:12.765Z
+2026-07-14T15:34:12.771Z info: AutidDeNom finished
+2026-07-14T15:34:14.360Z info: AutidDeNom : 2026-07-14T15:34:14.360Z
+2026-07-14T15:34:14.363Z info: AutidDeNom finished
+2026-07-14T15:34:14.366Z info: FormCreateByT : 2026-07-14T15:34:14.366Z
+2026-07-14T15:35:43.497Z info: AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:35:43.498Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FormCreateByT - AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:35:43.500Z error: FormCreateByT : 2026-07-14T15:34:14.366Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:35:43.511Z info: FormCreateByT terminated on exception
+2026-07-14T15:35:43.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]

@@ -1,8 +1,11 @@
+import { encode, decode } from '@msgpack/msgpack'
+
 import { $Document, DocStatus } from '../src-fw/document'
 import { $Form, $FormObj, $Credential, $Cred } from '../src-fw/documents'
 import { keyFromB64 } from '../src-fw/b64'
 import { Registry } from '../src-fw/config'
 import { Operation } from '../src-fw/operation'
+import { filter } from '../src-fw/iDbGeneric'
 
 export function loadingDA () {
   console.log('app documents loading: ', Registry.sizeD())
@@ -43,6 +46,8 @@ class $Form_auteur extends $Form {
   getDetail () { return [] }
 
   async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
+    const autid = await Auteur.autidDeNom(op, this.opts.auteur.nomAuteur)
+    if (autid) return  101
     const doc = op.cache.newDoc('Auteur', this.opts.auteur ) as Auteur
     doc.embedCred(this.opts.credTemplates)
     newDocs.push(doc)
@@ -57,7 +62,7 @@ class $Form_coauteur extends $Form {
 }
 Registry.registerD($Form_coauteur)
 
-class Auteur extends $Document {
+export class Auteur extends $Document {
   static release = 0
   nom: string
 
@@ -67,5 +72,20 @@ class Auteur extends $Document {
 
   compile () { return this }
 
+  // Liste les credentials attribuable par un administrateur seulement
+  static async autidDeNom (op: Operation, nom: string) : Promise<string> {
+    const org = op.org
+    let autid = ''
+    if (nom.length) await op.db.selectDocs('Auteur', 'nom', filter.EQ, nom, '', 1, 
+      (bin: Uint8Array) => {
+        try {
+          const c: any = decode(bin)
+          autid = c.autid
+        } catch(e) {
+          console.log(e)
+        }    
+      }) 
+    return autid
+  }
 }
 Registry.registerD(Auteur)

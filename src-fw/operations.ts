@@ -1,6 +1,6 @@
 // import { encode } from '@msgpack/msgpack'
 import { Operation, Cache } from '../src-fw/operation'
-import { MDOperation, MDEventS } from '../src-fw/masterdir'
+import { MDEventS } from '../src-fw/masterdir'
 import { AppExc } from '../src-fw/log'
 import { OrgsConfig, MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'

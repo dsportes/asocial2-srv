@@ -532,13 +532,12 @@ export class $Form extends $Document {
 
   // Calcul this.creds depuis le template du type et les arguments $x dans etc
   getCreds () : string[] {
-    const etc = this.status === 1 ? this.etcU : this.etcT
     const creds = []
     for(const c of this.ft.creds) {
       const i = c.indexOf('$')
       if (i !== -1) {
-        const arg = c.substring(i, i + 1)
-        const val = etc[arg] || ''
+        const arg = c.substring(i, i + 2)
+        const val = this.opts[arg] || ''
         creds.push(c.replace(arg, val))
       } else creds.push(c)
     }
@@ -555,7 +554,7 @@ export class $Form extends $Document {
       return op.authRecord.isAdmin
     for (const c of creds) {
       const x = c.split('/')
-      const cred = op.getCred(x[0], x[1])
+      const cred = op.getCred(x[0], x[1], true)
       if (cred) return true
     }
     return false

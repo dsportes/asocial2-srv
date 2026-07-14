@@ -573,3 +573,21 @@ Error: read ECONNRESET
 2026-07-13T17:08:32.823Z error: AppExc: 105:service_unexpected_exception["clazz.indexOf is not a function"]
 2026-07-13T17:28:17.049Z error: getCredProps : 2026-07-13T17:27:14.763Z : TypeError: d.embedCreds.get is not a function
 2026-07-13T17:28:17.065Z error: AppExc: 105:service_unexpected_exception["d.embedCreds.get is not a function"]
+2026-07-14T10:10:47.378Z error: AutidDeNom : 2026-07-14T10:10:38.585Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:10:47.379Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T10:11:59.493Z error: AutidDeNom : 2026-07-14T10:11:54.386Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:11:59.511Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T10:26:21.172Z error: AutidDeNom : 2026-07-14T10:26:21.167Z : SqliteError: no such table: $AUTEUR
+2026-07-14T10:26:21.175Z error: AppExc: 105:service_unexpected_exception["no such table: $AUTEUR"]
+2026-07-14T14:52:02.109Z error: FormCreateByT : 2026-07-14T14:52:02.069Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T14:52:02.110Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:12:44.331Z error: FormCreateByT : 2026-07-14T15:10:28.644Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:12:44.332Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:20:46.297Z error: FormCreateByT : 2026-07-14T15:17:08.309Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:20:46.299Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:28:27.051Z error: FormCreateByT : 2026-07-14T15:27:51.991Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:28:27.053Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:33:41.412Z error: FormCreateByT : 2026-07-14T15:30:00.514Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:33:41.414Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-14T15:35:43.500Z error: FormCreateByT : 2026-07-14T15:34:14.366Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
+2026-07-14T15:35:43.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
