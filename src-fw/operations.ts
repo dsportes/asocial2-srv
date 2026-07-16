@@ -924,3 +924,66 @@ class UpdateCredential extends Operation {
   }
 }
 Registry.registerOp(UpdateCredential)
+
+/* Met à jour les propriétés "user" d'un Credential
+- celles que l'utilisateur est libre de pouvoir éditer
+- elles sont listées en static dans la classe du document du credential
+(userCredProps)
+*/ 
+class UpdPropsCred extends Operation {
+  _credId: string
+  _docCl: string
+  _docPk: string
+  _props: Object
+  init () {
+    super.init()
+    this._credId = this.stringValue('credId', true)
+    this._docCl = this.stringValue('docCl', true)
+    this._docPk = this.stringValue('docPk', true)
+    this._props = this.objectValue('props', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const credential = this.getCred(this._docCl, this._docPk) as $Credential
+    if (!credential || credential.credId !== this._credId) 
+      { this.setRes('status', 1); return }
+
+    const cl = Registry.getD(this._docCl, {})
+    if (!cl) { this.setRes('status', 2); return }
+    const sp = cl.userCredProps as Set<string>
+    if (!sp || !sp.size) { this.setRes('status', 3); return }
+
+    const lp = []
+    const props = credential.cred.props
+    for(const p of Object.keys(this._props)) {
+      if (sp.has(p)) {
+        const v = this._props[p]
+        if (props[p] !== v) {
+          props[p] = v
+          lp.push(p)
+        }
+      }
+    }
+    this.setRes('props', lp)
+    if (!lp.length) return
+
+    const dt = DocType.get(this._docCl)
+    if (dt.embedCreds) {
+      const doc = await this.cache.getDoc(this._docCl, { pk: this._docPk })
+      if (doc) {
+        const ec = doc['embedCreds']
+        if (ec) {
+          ec[this._credId] = credential.cred
+          doc._status = DocStatus.UPD
+        }
+      }
+    } else {
+      const doc = await this.cache.getDoc('$Credential', { credId: this._credId }) as $Credential
+      if (doc) {
+        doc.cred = credential.cred
+        doc._status = DocStatus.UPD
+      }
+    }
+  }
+}
+Registry.registerOp(UpdPropsCred)

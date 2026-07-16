@@ -7,6 +7,7 @@ import { $Document, DocStatus } from '../src-fw/document'
 import { Auteur } from '../src/documents'
 import { Crypt } from '../src-fw/crypt'
 import { filter } from '../src-fw/iDbGeneric'
+import { DocType } from '../src-fw/doctypes'
 
 export function loadingOA () {
   console.log('app operations loading: ', Registry.sizeOp())
@@ -38,8 +39,42 @@ class AuteurDeId extends Operation {
     this.src = this._autid ?  { autid: this._autid } :  { pk: this._autPk }
   }
   async phase2 () {
+    this.requireAuth()
+    const pk = DocType.getPk('Auteur', this.src)
+    this.getCred('Auteur', pk)
     const aut = await this.cache.getDoc('Auteur', this.src)
     this.setRes('auteur', aut || null)
   }
 }
 Registry.registerOp(AuteurDeId)
+
+/* Met à jour le nom et la section d'un auteur */
+class MajAuteur extends Operation {
+  _autid: string
+  _nomAuteur: string
+  _section: string
+  init () {
+    super.init()
+    this._autid = this.stringValue('autid', true)
+    this._nomAuteur = this.stringValue('nomAuteur', false)
+    this._section = this.stringValue('section', false)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const pk = DocType.getPk('Auteur', { autid: this._autid })
+    this.getCred('Auteur', pk)
+    const aut = await this.cache.getDoc('Auteur', { autid: this._autid }) as Auteur
+    if (!aut) { this.setRes('status', 1); return }
+    let m = false
+    if (this._nomAuteur && this._nomAuteur !== aut.nom) {
+      m = true
+      aut.nom = this._nomAuteur
+    }
+    if (this._section && this._section !== aut.section) {
+      m = true
+      aut.section = this._section
+    }
+    if (m) aut._status = DocStatus.UPD
+  }
+}
+Registry.registerOp(MajAuteur)

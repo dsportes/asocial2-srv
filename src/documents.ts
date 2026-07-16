@@ -64,7 +64,10 @@ Registry.registerD($Form_coauteur)
 
 export class Auteur extends $Document {
   static release = 0
+  static userCredProps = new Set(['trig'])
+
   nom: string
+  section: string
 
   static mutateCl (data: object, options?: Object) : [Object, boolean] {
     return [data, false]
