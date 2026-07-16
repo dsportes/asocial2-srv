@@ -26,3 +26,20 @@ class AutidDeNom extends Operation {
 }
 Registry.registerOp(AutidDeNom)
 
+/* Retourne un Auteur depuis son id */
+class AuteurDeId extends Operation {
+  _autid: string
+  _autPk: string
+  src: Object
+  init () {
+    super.init()
+    this._autid = this.stringValue('autid', false)
+    this._autPk = this.stringValue('autPk', false)
+    this.src = this._autid ?  { autid: this._autid } :  { pk: this._autPk }
+  }
+  async phase2 () {
+    const aut = await this.cache.getDoc('Auteur', this.src)
+    this.setRes('auteur', aut || null)
+  }
+}
+Registry.registerOp(AuteurDeId)

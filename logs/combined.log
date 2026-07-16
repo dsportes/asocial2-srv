@@ -21600,3 +21600,58 @@ Error: read ECONNRESET
 2026-07-14T15:35:43.500Z error: FormCreateByT : 2026-07-14T15:34:14.366Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
 2026-07-14T15:35:43.511Z info: FormCreateByT terminated on exception
 2026-07-14T15:35:43.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-16T09:43:25.218Z info: 13 document Registry
+2026-07-16T09:43:25.221Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-16T09:43:25.222Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-16T09:43:25.222Z info: Firestore connector
+2026-07-16T09:43:25.223Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-16T09:43:25.337Z info: Reloading orgs config OK
+2026-07-16T09:43:25.343Z info: HTTP listen [8080]
+2026-07-16T09:45:21.509Z info: 13 document Registry
+2026-07-16T09:45:21.512Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-16T09:45:21.513Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-16T09:45:21.514Z info: Firestore connector
+2026-07-16T09:45:21.514Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-16T09:45:21.529Z info: Reloading orgs config OK
+2026-07-16T09:45:21.537Z info: HTTP listen [8080]
+2026-07-16T09:46:37.699Z info: $OpenSafeByPin finished
+2026-07-16T09:46:37.757Z info: $GetSafe finished
+2026-07-16T09:47:33.575Z info: $GetOrgSvcs finished
+2026-07-16T09:47:33.591Z info: $GetSvcUrls finished
+2026-07-16T09:47:33.624Z info: PropsOfMyCreds : 2026-07-16T09:47:33.624Z
+2026-07-16T09:47:46.671Z info: PropsOfMyCreds finished
+2026-07-16T09:52:23.425Z info: PropsOfMyCreds : 2026-07-16T09:52:23.425Z
+2026-07-16T09:52:26.575Z info: PropsOfMyCreds finished
+2026-07-16T09:52:26.583Z info: Reloading orgs config OK
+2026-07-16T09:56:32.155Z info: $OpenSafeByPin finished
+2026-07-16T09:56:32.236Z info: $GetSafe finished
+2026-07-16T09:57:06.766Z info: $GetOrgSvcs finished
+2026-07-16T09:57:06.798Z info: $GetSvcUrls finished
+2026-07-16T09:57:06.832Z info: PropsOfMyCreds : 2026-07-16T09:57:06.832Z
+2026-07-16T09:57:06.884Z info: $mdUserGetICVS finished
+2026-07-16T09:58:24.982Z info: PropsOfMyCreds finished
+2026-07-16T09:59:17.998Z info: 13 document Registry
+2026-07-16T09:59:18.001Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-16T09:59:18.001Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-16T09:59:18.002Z info: Firestore connector
+2026-07-16T09:59:18.002Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-16T09:59:18.017Z info: Reloading orgs config OK
+2026-07-16T09:59:18.023Z info: HTTP listen [8080]
+2026-07-16T09:59:33.727Z info: PropsOfMyCreds : 2026-07-16T09:59:33.726Z
+2026-07-16T09:59:33.785Z info: $mdUserGetICVS finished
+2026-07-16T09:59:33.817Z info: PropsOfMyCreds finished
+2026-07-16T10:00:54.905Z info: $OpenSafeByPin finished
+2026-07-16T10:00:54.969Z info: $GetSafe finished
+2026-07-16T10:00:59.832Z info: $GetOrgSvcs finished
+2026-07-16T10:00:59.862Z info: $GetSvcUrls finished
+2026-07-16T10:00:59.895Z info: PropsOfMyCreds : 2026-07-16T10:00:59.895Z
+2026-07-16T10:00:59.918Z info: PropsOfMyCreds finished
+2026-07-16T10:03:00.595Z info: PropsOfMyCreds : 2026-07-16T10:03:00.595Z
+2026-07-16T10:03:00.624Z info: PropsOfMyCreds finished
+2026-07-16T10:05:29.749Z info: PropsOfMyCreds : 2026-07-16T10:05:29.749Z
+2026-07-16T10:05:29.766Z info: PropsOfMyCreds finished
+2026-07-16T10:05:29.817Z info: Reloading orgs config OK
+2026-07-16T11:27:11.658Z info: PropsOfMyCreds : 2026-07-16T11:27:11.658Z
+2026-07-16T11:27:11.674Z info: $mdUserGetICVS finished
+2026-07-16T11:27:11.699Z info: PropsOfMyCreds finished
+2026-07-16T11:27:11.726Z info: Reloading orgs config OK

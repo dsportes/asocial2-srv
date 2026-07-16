@@ -424,7 +424,7 @@ Registry.registerOp(Sync)
 pour SON détenteur (signature vérifiée).
 credId pour éviter les "vieux" credential (superstition ?)
 */
-class getCredProps extends Operation {
+class GetCredProps extends Operation {
   _credId: string
   _docCl: string
   _docPk: string 
@@ -444,7 +444,21 @@ class getCredProps extends Operation {
     }
   }
 }
-Registry.registerOp(getCredProps)
+Registry.registerOp(GetCredProps)
+
+class PropsOfMyCreds extends Operation {
+  init () {
+    super.init()
+  }
+  async phase2 () {
+    this.requireAuth()
+    const props: Object = {}
+    for(const [,credential] of this.authRecord.creds)
+      props[credential.credId] = credential.cred.props
+    this.setRes('props', props)
+  }
+}
+Registry.registerOp(PropsOfMyCreds)
 
 /* Auto-recvocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
