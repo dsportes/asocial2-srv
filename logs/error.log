@@ -591,3 +591,5 @@ Error: read ECONNRESET
 2026-07-14T15:33:41.414Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
 2026-07-14T15:35:43.500Z error: FormCreateByT : 2026-07-14T15:34:14.366Z : AppExc: 103:missing_credential@FormCreateByT:[null,"Redaction","1"]
 2026-07-14T15:35:43.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@FormCreateByT:[null,\"Redaction\",\"1\"]"]
+2026-07-17T06:43:47.522Z error: AuteurDeId : 2026-07-17T06:43:47.514Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","zG6lGjKo1Hrla9cKyn5N"]
+2026-07-17T06:43:47.524Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"zG6lGjKo1Hrla9cKyn5N\"]"]

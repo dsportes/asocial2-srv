@@ -66,7 +66,7 @@ export class Auteur extends $Document {
   static release = 0
   static userCredProps = new Set(['trig'])
 
-  nom: string
+  nomAuteur: string
   section: string
 
   static mutateCl (data: object, options?: Object) : [Object, boolean] {

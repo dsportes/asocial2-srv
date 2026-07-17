@@ -248,6 +248,8 @@ export class $Credential extends $Document {
   docPk: string // clé primaire du document maitre
   cred: Embed$Cred
   maxLife: number
+  // En cache d'opération SEULEMENT sur détection de credential par authRecord
+  embeddingDoc?: $Document
 
   get dt () { return DocType.get(this.docCl)}
   get isEmbed () { return this.dt.embedCreds }

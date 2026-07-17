@@ -953,37 +953,22 @@ class UpdPropsCred extends Operation {
     const sp = cl.userCredProps as Set<string>
     if (!sp || !sp.size) { this.setRes('status', 3); return }
 
-    const lp = []
+    let upd = false
     const props = credential.cred.props
     for(const p of Object.keys(this._props)) {
       if (sp.has(p)) {
         const v = this._props[p]
         if (props[p] !== v) {
           props[p] = v
-          lp.push(p)
+          upd = true
         }
       }
     }
-    this.setRes('props', lp)
-    if (!lp.length) return
+    this.setRes('props', props)
+    if (!upd) return
 
-    const dt = DocType.get(this._docCl)
-    if (dt.embedCreds) {
-      const doc = await this.cache.getDoc(this._docCl, { pk: this._docPk })
-      if (doc) {
-        const ec = doc['embedCreds']
-        if (ec) {
-          ec[this._credId] = credential.cred
-          doc._status = DocStatus.UPD
-        }
-      }
-    } else {
-      const doc = await this.cache.getDoc('$Credential', { credId: this._credId }) as $Credential
-      if (doc) {
-        doc.cred = credential.cred
-        doc._status = DocStatus.UPD
-      }
-    }
+    const doc = credential.embeddingDoc || credential
+    doc._status = DocStatus.UPD
   }
 }
 Registry.registerOp(UpdPropsCred)

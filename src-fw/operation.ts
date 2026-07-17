@@ -384,7 +384,10 @@ export class AuthRecord {
           const ecred = d.embedCreds[credId]
           if (ecred) {
             const c = $Credential.new(credId, docCl, docPk, ecred)
-            if (c && c.isValid) credential = c
+            if (c && c.isValid) {
+              credential = c
+              c.embeddingDoc = d
+            }
           }
         }
       } else { // Recherche du Credential par sa pk

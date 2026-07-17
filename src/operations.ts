@@ -66,15 +66,16 @@ class MajAuteur extends Operation {
     const aut = await this.cache.getDoc('Auteur', { autid: this._autid }) as Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false
-    if (this._nomAuteur && this._nomAuteur !== aut.nom) {
+    if (this._nomAuteur && this._nomAuteur !== aut.nomAuteur) {
       m = true
-      aut.nom = this._nomAuteur
+      aut.nomAuteur = this._nomAuteur
     }
     if (this._section && this._section !== aut.section) {
       m = true
       aut.section = this._section
     }
     if (m) aut._status = DocStatus.UPD
+    this.setRes('maj', { nomAuteur: aut.nomAuteur, section: aut.section })
   }
 }
 Registry.registerOp(MajAuteur)

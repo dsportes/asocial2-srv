@@ -21655,3 +21655,223 @@ Error: read ECONNRESET
 2026-07-16T11:27:11.674Z info: $mdUserGetICVS finished
 2026-07-16T11:27:11.699Z info: PropsOfMyCreds finished
 2026-07-16T11:27:11.726Z info: Reloading orgs config OK
+2026-07-17T06:43:19.928Z info: 13 document Registry
+2026-07-17T06:43:19.931Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T06:43:19.932Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T06:43:19.933Z info: Firestore connector
+2026-07-17T06:43:19.933Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T06:43:20.035Z info: Reloading orgs config OK
+2026-07-17T06:43:20.040Z info: HTTP listen [8080]
+2026-07-17T06:43:32.191Z info: $OpenSafeByPin finished
+2026-07-17T06:43:32.238Z info: $GetSafe finished
+2026-07-17T06:43:44.464Z info: $GetOrgSvcs finished
+2026-07-17T06:43:44.479Z info: $GetSvcUrls finished
+2026-07-17T06:43:44.502Z info: PropsOfMyCreds : 2026-07-17T06:43:44.502Z
+2026-07-17T06:43:44.532Z info: $mdUserGetICVS finished
+2026-07-17T06:43:44.552Z info: PropsOfMyCreds finished
+2026-07-17T06:43:47.515Z info: AuteurDeId : 2026-07-17T06:43:47.514Z
+2026-07-17T06:43:47.519Z info: AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","zG6lGjKo1Hrla9cKyn5N"]
+2026-07-17T06:43:47.520Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:AuteurDeId - AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","zG6lGjKo1Hrla9cKyn5N"]
+2026-07-17T06:43:47.522Z error: AuteurDeId : 2026-07-17T06:43:47.514Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","zG6lGjKo1Hrla9cKyn5N"]
+2026-07-17T06:43:47.523Z info: AuteurDeId terminated on exception
+2026-07-17T06:43:47.524Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"zG6lGjKo1Hrla9cKyn5N\"]"]
+2026-07-17T06:57:12.023Z info: PropsOfMyCreds : 2026-07-17T06:57:12.023Z
+2026-07-17T06:57:12.050Z info: PropsOfMyCreds : 2026-07-17T06:57:12.050Z
+2026-07-17T06:57:12.085Z info: Reloading orgs config OK
+2026-07-17T06:57:12.089Z info: PropsOfMyCreds finished
+2026-07-17T06:57:12.111Z info: PropsOfMyCreds finished
+2026-07-17T06:57:37.610Z info: $OpenSafeByPin finished
+2026-07-17T06:57:37.654Z info: $GetSafe finished
+2026-07-17T06:57:42.135Z info: $GetOrgSvcs finished
+2026-07-17T06:57:42.149Z info: $GetSvcUrls finished
+2026-07-17T06:57:42.171Z info: PropsOfMyCreds : 2026-07-17T06:57:42.171Z
+2026-07-17T06:57:42.186Z info: PropsOfMyCreds finished
+2026-07-17T06:57:43.963Z info: AuteurDeId : 2026-07-17T06:57:43.963Z
+2026-07-17T06:57:43.974Z info: AuteurDeId finished
+2026-07-17T06:58:51.089Z info: UpdPropsCred : 2026-07-17T06:58:51.089Z
+2026-07-17T07:02:06.446Z info: UpdPropsCred finished
+2026-07-17T07:02:39.675Z info: PropsOfMyCreds : 2026-07-17T07:02:39.675Z
+2026-07-17T07:02:39.716Z info: PropsOfMyCreds finished
+2026-07-17T07:02:39.731Z info: Reloading orgs config OK
+2026-07-17T07:02:46.139Z info: AuteurDeId : 2026-07-17T07:02:46.139Z
+2026-07-17T07:02:46.153Z info: AuteurDeId finished
+2026-07-17T07:17:12.058Z info: 13 document Registry
+2026-07-17T07:17:12.061Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T07:17:12.062Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T07:17:12.062Z info: Firestore connector
+2026-07-17T07:17:12.063Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T07:17:12.081Z info: Reloading orgs config OK
+2026-07-17T07:17:12.088Z info: HTTP listen [8080]
+2026-07-17T07:18:04.057Z info: $OpenSafeByPin finished
+2026-07-17T07:18:04.106Z info: $GetSafe finished
+2026-07-17T07:18:08.454Z info: $GetOrgSvcs finished
+2026-07-17T07:18:08.473Z info: $GetSvcUrls finished
+2026-07-17T07:18:08.505Z info: PropsOfMyCreds : 2026-07-17T07:18:08.504Z
+2026-07-17T07:18:08.550Z info: $mdUserGetICVS finished
+2026-07-17T07:18:08.577Z info: PropsOfMyCreds finished
+2026-07-17T07:18:10.146Z info: AuteurDeId : 2026-07-17T07:18:10.146Z
+2026-07-17T07:18:10.159Z info: AuteurDeId finished
+2026-07-17T07:19:05.527Z info: UpdPropsCred : 2026-07-17T07:19:05.527Z
+2026-07-17T07:19:41.818Z info: UpdPropsCred finished
+2026-07-17T07:19:50.679Z info: PropsOfMyCreds : 2026-07-17T07:19:50.679Z
+2026-07-17T07:19:50.695Z info: PropsOfMyCreds finished
+2026-07-17T07:28:18.492Z info: $OpenSafeByPin finished
+2026-07-17T07:28:18.538Z info: $GetSafe finished
+2026-07-17T07:28:23.018Z info: $GetOrgSvcs finished
+2026-07-17T07:28:23.032Z info: $GetSvcUrls finished
+2026-07-17T07:28:23.055Z info: PropsOfMyCreds : 2026-07-17T07:28:23.055Z
+2026-07-17T07:28:23.072Z info: PropsOfMyCreds finished
+2026-07-17T07:28:23.118Z info: Reloading orgs config OK
+2026-07-17T07:28:46.876Z info: AuteurDeId : 2026-07-17T07:28:46.876Z
+2026-07-17T07:28:46.890Z info: AuteurDeId finished
+2026-07-17T07:29:07.048Z info: UpdPropsCred : 2026-07-17T07:29:07.048Z
+2026-07-17T07:29:07.071Z info: UpdPropsCred finished
+2026-07-17T07:29:25.182Z info: PropsOfMyCreds : 2026-07-17T07:29:25.182Z
+2026-07-17T07:29:25.196Z info: PropsOfMyCreds finished
+2026-07-17T07:32:17.147Z info: 13 document Registry
+2026-07-17T07:32:17.151Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T07:32:17.152Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T07:32:17.153Z info: Firestore connector
+2026-07-17T07:32:17.153Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T07:32:17.171Z info: Reloading orgs config OK
+2026-07-17T07:32:17.176Z info: HTTP listen [8080]
+2026-07-17T07:34:03.111Z info: PropsOfMyCreds : 2026-07-17T07:34:03.111Z
+2026-07-17T07:34:03.180Z info: $mdUserGetICVS finished
+2026-07-17T07:34:03.223Z info: PropsOfMyCreds finished
+2026-07-17T07:34:24.330Z info: $OpenSafeByPin finished
+2026-07-17T07:34:24.372Z info: $GetSafe finished
+2026-07-17T07:34:28.582Z info: $GetOrgSvcs finished
+2026-07-17T07:34:28.599Z info: $GetSvcUrls finished
+2026-07-17T07:34:28.619Z info: PropsOfMyCreds : 2026-07-17T07:34:28.619Z
+2026-07-17T07:34:28.635Z info: PropsOfMyCreds finished
+2026-07-17T07:34:31.326Z info: AuteurDeId : 2026-07-17T07:34:31.326Z
+2026-07-17T07:34:31.339Z info: AuteurDeId finished
+2026-07-17T07:34:39.870Z info: UpdPropsCred : 2026-07-17T07:34:39.870Z
+2026-07-17T07:34:39.892Z info: UpdPropsCred finished
+2026-07-17T07:37:45.464Z info: PropsOfMyCreds : 2026-07-17T07:37:45.464Z
+2026-07-17T07:37:45.527Z info: Reloading orgs config OK
+2026-07-17T07:37:45.733Z info: PropsOfMyCreds finished
+2026-07-17T07:37:54.392Z info: AuteurDeId : 2026-07-17T07:37:54.391Z
+2026-07-17T07:37:54.405Z info: AuteurDeId finished
+2026-07-17T07:45:59.220Z info: AuteurDeId : 2026-07-17T07:45:59.220Z
+2026-07-17T07:45:59.235Z info: AuteurDeId finished
+2026-07-17T07:45:59.284Z info: Reloading orgs config OK
+2026-07-17T07:46:03.496Z info: AuteurDeId : 2026-07-17T07:46:03.496Z
+2026-07-17T07:46:03.508Z info: AuteurDeId finished
+2026-07-17T07:46:20.642Z info: AuteurDeId : 2026-07-17T07:46:20.642Z
+2026-07-17T07:46:20.656Z info: AuteurDeId finished
+2026-07-17T07:46:21.911Z info: AuteurDeId : 2026-07-17T07:46:21.911Z
+2026-07-17T07:46:21.924Z info: AuteurDeId finished
+2026-07-17T07:47:03.409Z info: $OpenSafeByPin finished
+2026-07-17T07:47:03.443Z info: $GetSafe finished
+2026-07-17T07:47:10.319Z info: $GetOrgSvcs finished
+2026-07-17T07:47:10.338Z info: $GetSvcUrls finished
+2026-07-17T07:47:10.357Z info: PropsOfMyCreds : 2026-07-17T07:47:10.357Z
+2026-07-17T07:47:10.373Z info: PropsOfMyCreds finished
+2026-07-17T07:47:16.304Z info: AuteurDeId : 2026-07-17T07:47:16.304Z
+2026-07-17T07:47:16.321Z info: AuteurDeId finished
+2026-07-17T07:50:35.692Z info: 13 document Registry
+2026-07-17T07:50:35.700Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T07:50:35.702Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T07:50:35.703Z info: Firestore connector
+2026-07-17T07:50:35.704Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T07:50:35.731Z info: Reloading orgs config OK
+2026-07-17T07:50:35.740Z info: HTTP listen [8080]
+2026-07-17T07:54:42.860Z info: PropsOfMyCreds : 2026-07-17T07:54:42.859Z
+2026-07-17T07:54:43.237Z info: $mdUserGetICVS finished
+2026-07-17T07:54:43.275Z info: PropsOfMyCreds finished
+2026-07-17T08:07:09.977Z info: 13 document Registry
+2026-07-17T08:07:09.981Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T08:07:09.982Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T08:07:09.984Z info: Firestore connector
+2026-07-17T08:07:09.985Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T08:07:10.003Z info: Reloading orgs config OK
+2026-07-17T08:07:10.011Z info: HTTP listen [8080]
+2026-07-17T08:08:39.470Z info: $OpenSafeByPin finished
+2026-07-17T08:08:39.523Z info: $GetSafe finished
+2026-07-17T08:08:43.962Z info: $GetOrgSvcs finished
+2026-07-17T08:08:43.975Z info: $GetSvcUrls finished
+2026-07-17T08:08:43.995Z info: PropsOfMyCreds : 2026-07-17T08:08:43.994Z
+2026-07-17T08:08:44.024Z info: $mdUserGetICVS finished
+2026-07-17T08:08:44.040Z info: PropsOfMyCreds finished
+2026-07-17T08:08:48.260Z info: AuteurDeId : 2026-07-17T08:08:48.260Z
+2026-07-17T08:08:48.275Z info: AuteurDeId finished
+2026-07-17T08:08:57.625Z info: UpdPropsCred : 2026-07-17T08:08:57.625Z
+2026-07-17T08:08:57.647Z info: UpdPropsCred finished
+2026-07-17T08:09:13.169Z info: MajAuteur : 2026-07-17T08:09:13.168Z
+2026-07-17T08:09:36.589Z info: MajAuteur finished
+2026-07-17T08:10:04.753Z info: AuteurDeId : 2026-07-17T08:10:04.753Z
+2026-07-17T08:10:04.764Z info: AuteurDeId finished
+2026-07-17T08:10:12.662Z info: UpdPropsCred : 2026-07-17T08:10:12.662Z
+2026-07-17T08:10:12.679Z info: UpdPropsCred finished
+2026-07-17T08:17:44.551Z info: PropsOfMyCreds : 2026-07-17T08:17:44.551Z
+2026-07-17T08:17:44.579Z info: PropsOfMyCreds finished
+2026-07-17T08:17:44.654Z info: Reloading orgs config OK
+2026-07-17T08:18:00.985Z info: 13 document Registry
+2026-07-17T08:18:00.989Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-17T08:18:00.990Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-17T08:18:00.990Z info: Firestore connector
+2026-07-17T08:18:00.991Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-17T08:18:01.010Z info: Reloading orgs config OK
+2026-07-17T08:18:01.016Z info: HTTP listen [8080]
+2026-07-17T08:19:36.081Z info: $OpenSafeByPin finished
+2026-07-17T08:19:36.131Z info: $GetSafe finished
+2026-07-17T08:19:40.837Z info: $GetOrgSvcs finished
+2026-07-17T08:19:40.852Z info: $GetSvcUrls finished
+2026-07-17T08:19:40.878Z info: PropsOfMyCreds : 2026-07-17T08:19:40.878Z
+2026-07-17T08:19:40.904Z info: $mdUserGetICVS finished
+2026-07-17T08:19:40.920Z info: PropsOfMyCreds finished
+2026-07-17T08:19:44.548Z info: AuteurDeId : 2026-07-17T08:19:44.547Z
+2026-07-17T08:19:44.558Z info: AuteurDeId finished
+2026-07-17T08:20:17.701Z info: MajAuteur : 2026-07-17T08:20:17.700Z
+2026-07-17T08:20:29.078Z info: MajAuteur finished
+2026-07-17T08:20:37.801Z info: $UpdateCredName finished
+2026-07-17T08:20:47.653Z info: PropsOfMyCreds : 2026-07-17T08:20:47.653Z
+2026-07-17T08:20:47.670Z info: PropsOfMyCreds finished
+2026-07-17T08:22:40.189Z info: PropsOfMyCreds : 2026-07-17T08:22:40.189Z
+2026-07-17T08:22:40.307Z info: PropsOfMyCreds finished
+2026-07-17T08:22:46.702Z info: AuteurDeId : 2026-07-17T08:22:46.702Z
+2026-07-17T08:22:46.716Z info: AuteurDeId finished
+2026-07-17T08:22:55.104Z info: MajAuteur : 2026-07-17T08:22:55.104Z
+2026-07-17T08:22:55.123Z info: MajAuteur finished
+2026-07-17T08:23:02.339Z info: $UpdateCredName finished
+2026-07-17T08:32:45.752Z info: $OpenSafeByPin finished
+2026-07-17T08:32:56.395Z info: $OpenSafeByPin finished
+2026-07-17T08:32:56.453Z info: $GetSafe finished
+2026-07-17T08:33:00.779Z info: $GetOrgSvcs finished
+2026-07-17T08:33:00.804Z info: $GetSvcUrls finished
+2026-07-17T08:33:00.831Z info: PropsOfMyCreds : 2026-07-17T08:33:00.831Z
+2026-07-17T08:33:00.851Z info: PropsOfMyCreds finished
+2026-07-17T08:33:00.886Z info: Reloading orgs config OK
+2026-07-17T08:33:02.734Z info: AuteurDeId : 2026-07-17T08:33:02.734Z
+2026-07-17T08:33:02.744Z info: AuteurDeId finished
+2026-07-17T08:34:59.074Z info: $OpenSafeByPin finished
+2026-07-17T08:34:59.113Z info: $GetSafe finished
+2026-07-17T08:35:03.572Z info: $GetOrgSvcs finished
+2026-07-17T08:35:03.586Z info: $GetSvcUrls finished
+2026-07-17T08:35:03.609Z info: PropsOfMyCreds : 2026-07-17T08:35:03.609Z
+2026-07-17T08:35:03.624Z info: PropsOfMyCreds finished
+2026-07-17T08:35:04.977Z info: AuteurDeId : 2026-07-17T08:35:04.976Z
+2026-07-17T08:35:04.989Z info: AuteurDeId finished
+2026-07-17T08:35:21.596Z info: MajAuteur : 2026-07-17T08:35:21.596Z
+2026-07-17T08:35:21.621Z info: MajAuteur finished
+2026-07-17T08:39:00.224Z info: MajAuteur : 2026-07-17T08:39:00.224Z
+2026-07-17T08:39:00.243Z info: MajAuteur finished
+2026-07-17T08:39:00.280Z info: Reloading orgs config OK
+2026-07-17T08:39:06.491Z info: MajAuteur : 2026-07-17T08:39:06.491Z
+2026-07-17T08:39:06.510Z info: MajAuteur finished
+2026-07-17T08:39:32.082Z info: $OpenSafeByPin finished
+2026-07-17T08:39:32.121Z info: $GetSafe finished
+2026-07-17T08:39:36.721Z info: PropsOfMyCreds : 2026-07-17T08:39:36.721Z
+2026-07-17T08:39:36.733Z info: $mdUserGetICVS finished
+2026-07-17T08:39:36.743Z info: PropsOfMyCreds finished
+2026-07-17T08:39:38.586Z info: AuteurDeId : 2026-07-17T08:39:38.586Z
+2026-07-17T08:39:38.596Z info: AuteurDeId finished
+2026-07-17T08:39:59.835Z info: MajAuteur : 2026-07-17T08:39:59.835Z
+2026-07-17T08:39:59.888Z info: MajAuteur finished
+2026-07-17T08:39:59.955Z info: $UpdateCredName finished
+2026-07-17T08:40:08.825Z info: MajAuteur : 2026-07-17T08:40:08.825Z
+2026-07-17T08:40:08.878Z info: MajAuteur finished
+2026-07-17T08:40:08.926Z info: $UpdateCredName finished
+2026-07-17T08:40:18.662Z info: UpdPropsCred : 2026-07-17T08:40:18.661Z
+2026-07-17T08:40:18.691Z info: UpdPropsCred finished
