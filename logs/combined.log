@@ -21875,3 +21875,49 @@ Error: read ECONNRESET
 2026-07-17T08:40:08.926Z info: $UpdateCredName finished
 2026-07-17T08:40:18.662Z info: UpdPropsCred : 2026-07-17T08:40:18.661Z
 2026-07-17T08:40:18.691Z info: UpdPropsCred finished
+2026-07-18T11:31:23.704Z info: 13 document Registry
+2026-07-18T11:31:23.711Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testa.db3]
+2026-07-18T11:31:23.712Z info: SQLite  DB path= [/home/daniel/git/asocial2-srv/sqlite/testz.db3]
+2026-07-18T11:31:23.713Z info: Firestore connector
+2026-07-18T11:31:23.714Z info: FilesystemStorage - path:[/home/daniel/git/asocial2-srv/filestorea
+2026-07-18T11:31:23.740Z info: Reloading orgs config OK
+2026-07-18T11:31:23.748Z info: HTTP listen [8080]
+2026-07-18T11:35:09.822Z info: $OpenSafeByPin finished
+2026-07-18T11:35:09.962Z info: $GetSafe finished
+2026-07-18T11:35:25.862Z info: $GetOrgSvcs finished
+2026-07-18T11:35:25.893Z info: $GetSvcUrls finished
+2026-07-18T11:35:25.977Z info: PropsOfMyCreds : 2026-07-18T11:35:25.976Z
+2026-07-18T11:35:26.042Z info: $mdUserGetICVS finished
+2026-07-18T11:35:26.072Z info: PropsOfMyCreds finished
+2026-07-18T11:35:27.534Z info: AuteurDeId : 2026-07-18T11:35:27.534Z
+2026-07-18T11:35:27.551Z info: AuteurDeId finished
+2026-07-18T11:37:49.378Z info: $OpenSafeByPin finished
+2026-07-18T11:37:49.488Z info: $GetSafe finished
+2026-07-18T11:39:23.492Z info: $OpenSafeByPin finished
+2026-07-18T11:39:23.622Z info: $GetSafe finished
+2026-07-18T11:49:51.107Z info: $OpenSafeByPin finished
+2026-07-18T11:49:51.206Z info: $GetSafe finished
+2026-07-18T11:53:31.052Z info: $OpenSafeByPin finished
+2026-07-18T11:53:31.158Z info: $GetSafe finished
+2026-07-18T11:56:54.357Z info: $OpenSafeByPin finished
+2026-07-18T11:56:54.465Z info: $GetSafe finished
+2026-07-18T12:00:39.776Z info: $OpenSafeByPin finished
+2026-07-18T12:00:39.992Z info: $GetSafe finished
+2026-07-18T12:02:34.730Z info: $OpenSafeByPin finished
+2026-07-18T12:02:34.848Z info: $GetSafe finished
+2026-07-18T12:03:07.292Z info: $OpenSafeByPin finished
+2026-07-18T12:03:07.383Z info: $GetSafe finished
+2026-07-18T12:03:52.942Z info: $OpenSafeByPin finished
+2026-07-18T12:03:53.055Z info: $GetSafe finished
+2026-07-18T12:09:00.425Z info: $OpenSafeByPin finished
+2026-07-18T12:09:00.538Z info: $GetSafe finished
+2026-07-18T12:15:45.146Z info: $OpenSafeByPin finished
+2026-07-18T12:15:45.292Z info: $GetSafe finished
+2026-07-18T12:26:17.306Z info: $OpenSafeByPin finished
+2026-07-18T12:26:17.412Z info: $GetSafe finished
+2026-07-18T12:27:55.871Z info: $OpenSafeByPin finished
+2026-07-18T12:27:55.966Z info: $GetSafe finished
+2026-07-18T12:33:07.680Z info: $OpenSafeByPin finished
+2026-07-18T12:33:07.805Z info: $GetSafe finished
+2026-07-18T12:52:27.681Z info: $OpenSafeByPin finished
+2026-07-18T12:52:27.783Z info: $GetSafe finished
