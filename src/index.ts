@@ -6,49 +6,14 @@ import webpush from 'web-push'
 // gcp = true SI hosté par Google: AppEngine ou gcloud run
 const gcp = false 
 
-import { encryptedKeys } from './keys'
-import { Util } from '../src-fw/util'
-import { keyFromB64 } from '../src-fw/b64'
-import { Crypt } from '../src-fw/crypt'
-import { BaseConfig, setConfig, config } from '../src-fw/config'
-import { Log } from '../src-fw/log'
-import { docTypeErrors, docTypeNb } from './docschema'
-import { DocType } from '../src-fw/doctypes'
-import { getExpressApp, startSRV } from '../src-fw/index'
-import { Tools } from '../src-fw/tools'
-import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
-// import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
-import { DbConnector } from '../src-fw/dbConnector'
-import { IStGeneric } from '../src-fw/iStGeneric'
-import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
-import { AppFirestoreConnector } from './firestore' // extension spécifique de App
-
-import { loadingDF } from '../src-fw/documents'
-loadingDF()
-
-import { loadingDA } from './documents'
-loadingDA()
-
-import { loadingOF } from '../src-fw/operations'
-loadingOF()
-
-import { loadingOA } from './operations'
-loadingOA()
-
-import { loadingOS } from '../src-fw/safeop'
-loadingOS()
-
-import { loadingOM } from '../src-fw/masterdir'
-loadingOM()
-
-const emulator = true
-if (emulator) {
-  env['STORAGE_EMULATOR_HOST'] = 'http://127.0.0.1:9199', // 'http://' est REQUIS
-  env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
-}
+// Admins du service pour l'opérateur
+const ADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
+// Admins du Safe: vide si le Safe généric n'est pas déployé ici
+const MASTERDIRADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
 
 const SRVKEY = env.SRVKEY || '2_b7DjJjC4x_oaYs2Z6J2_I6igIoLmuhsuv6nBRE3QE'
 
+import { encryptedKeys } from './keys'
 let keys : any
 // Chargement des "keys" cryptées dans config.keys
 try {
@@ -60,13 +25,10 @@ try {
   exit()
 }
 
-// Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
-// Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['XWKXNyRDkmwkgdK4XXqD'])
 
-setConfig(
-  {
+import { BaseConfig, setConfig, config } from '../src-fw/config'
+
+setConfig({
   SVC: 'AS2',
   ADMINUSERS,
   MASTERDIRADMINUSERS,
@@ -105,16 +67,58 @@ setConfig(
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
   FORMMAXLIFE: 10 * 86400, // 10 jours
   STATUSLAZYNESS: 3 * 60 // 3 minutes de prise en compte des changements de status
-  } as BaseConfig)
+  } as BaseConfig
+)
 
-new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)
 webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 
-if (docTypeErrors.length) {
-  Log.error(docTypeErrors.join('\n'))
+import { Log } from '../src-fw/log'
+new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)
+
+import { schemaExcFW } from '../src-fw/schema'
+import { schemaExcAS2 } from '../src-as2/schema'
+
+let exc = schemaExcFW()
+if (!exc) exc = schemaExcAS2()
+if (exc) {
+  Log.error(exc.toString())
   exit()
 }
-Log.info(docTypeNb + ' document Registry')
+
+import { keyFromB64 } from '../src-fw/b64'
+import { Crypt } from '../src-fw/crypt'
+import { getExpressApp, startSRV } from '../src-fw/index'
+import { Tools } from '../src-fw/tools'
+import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
+// import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
+import { DbConnector } from '../src-fw/dbConnector'
+import { IStGeneric } from '../src-fw/iStGeneric'
+import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
+import { AppFirestoreConnector } from './firestore' // extension spécifique de App
+
+import { loadingDF } from '../src-fw/documents'
+loadingDF()
+
+import { loadingDA } from '../src-as2/documents'
+loadingDA()
+
+import { loadingOF } from '../src-fw/operations'
+loadingOF()
+
+import { loadingOA } from './operations'
+loadingOA()
+
+import { loadingOS } from '../src-fw/safeop'
+loadingOS()
+
+import { loadingOM } from '../src-fw/masterdir'
+loadingOM()
+
+const emulator = true
+if (emulator) {
+  env['STORAGE_EMULATOR_HOST'] = 'http://127.0.0.1:9199', // 'http://' est REQUIS
+  env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
+}
 
 config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
 config.databases.set('sqlite_z', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A']))

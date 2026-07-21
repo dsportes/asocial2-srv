@@ -7,8 +7,10 @@ import { Registry } from '../src-fw/config'
 import { Operation } from '../src-fw/operation'
 import { filter } from '../src-fw/iDbGeneric'
 
+let nd = 0
+
 export function loadingDA () {
-  console.log('app documents loading: ', Registry.sizeD())
+  console.log('app documents loading: ', nd)
 }
 
 /*
@@ -27,42 +29,42 @@ new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
   }
 */ 
 
-class $Form_membrecodir extends $Form {
+class AS2$Form_membrecodir extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
 
   getDetail () { return [] }
   
 }
-Registry.registerD($Form_membrecodir)
+nd++; Registry.register(AS2$Form_membrecodir)
 
-class $Form_membreredaction extends $Form {
+class AS2$Form_membreredaction extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }
-Registry.registerD($Form_membreredaction)
+nd++; Registry.register(AS2$Form_membreredaction)
 
-class $Form_auteur extends $Form {
+class AS2$Form_auteur extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 
   async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
-    const autid = await Auteur.autidDeNom(op, this.opts.auteur.nomAuteur)
+    const autid = await AS2$Auteur.autidDeNom(op, this.opts.auteur.nomAuteur)
     if (autid) return  101
-    const doc = op.cache.newDoc('Auteur', this.opts.auteur ) as Auteur
+    const doc = op.cache.newDoc('Auteur', this.opts.auteur ) as AS2$Auteur
     doc.embedCred(this.opts.credTemplates)
     newDocs.push(doc)
     return 0 
   }
 }
-Registry.registerD($Form_auteur)
+nd++; Registry.register(AS2$Form_auteur)
 
-class $Form_coauteur extends $Form {
+class AS2$Form_coauteur extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }
-Registry.registerD($Form_coauteur)
+nd++; Registry.register(AS2$Form_coauteur)
 
-export class Auteur extends $Document {
+export class AS2$Auteur extends $Document {
   static release = 0
   static userCredProps = new Set(['trig'])
 
@@ -91,4 +93,4 @@ export class Auteur extends $Document {
     return autid
   }
 }
-Registry.registerD(Auteur)
+nd++; Registry.register(AS2$Auteur)

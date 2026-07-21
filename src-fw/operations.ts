@@ -948,9 +948,9 @@ class UpdPropsCred extends Operation {
     if (!credential || credential.credId !== this._credId) 
       { this.setRes('status', 1); return }
 
-    const cl = Registry.getD(this._docCl, {})
+    const cl = Registry.newD('', this._docCl, {})
     if (!cl) { this.setRes('status', 2); return }
-    const sp = cl.userCredProps as Set<string>
+    const sp = cl['userCredProps'] as Set<string>
     if (!sp || !sp.size) { this.setRes('status', 3); return }
 
     let upd = false

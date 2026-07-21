@@ -13,18 +13,20 @@ import { SetCred } from '../src-fw/safeop'
 
 // import { AuthRecord } from '../src-fw/operation'
 
-export function loadingDF () {
-  console.log('fw documents loading: ', Registry.sizeD())
-}
-
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
+
+let nd = 0
+
+export function loadingDF () {
+  console.log('fw documents loading: ', nd)
+}
 
 class $Task extends $Document {
   static release = 0
 
 }
-Registry.registerD($Task)
+nd++; Registry.register($Task)
 
 export class $Status extends $Document {
   static release = 0
@@ -37,7 +39,7 @@ export class $Status extends $Document {
   isRW () { return this.st === 1 }
   isDOWN () { return this.st === 9 }
 }
-Registry.registerD($Status)
+nd++; Registry.register($Status)
 
 /* 
 - sessionId : shaS de subJSON clé primaire
@@ -81,7 +83,7 @@ export class $Subs extends $Document {
     return op.cache.newDoc('$Subs', initVals)
   }
 }
-Registry.registerD($Subs)
+nd++; Registry.register($Subs)
 
 /* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
 et peut avoir trois formes:
@@ -158,7 +160,7 @@ export class $SubsItem extends $Document {
   }
 
 }
-Registry.registerD($SubsItem)
+nd++; Registry.register($SubsItem)
 
 export type $CredObj = {
   credId: string
@@ -259,7 +261,7 @@ export class $Credential extends $Document {
   }
 
   static new (credId: string, docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
-    const c = Registry.newD('$Credential', { docCl } )
+    const c = Registry.newD('', '$Credential', { docCl } ) as $Credential
     c.credId = credId
     c.docCl = docCl
     c.docPk = docPk
@@ -394,7 +396,6 @@ export class $Credential extends $Document {
   }
 
 }
-Registry.registerD($Credential)
 
 export type $FormObj = {
   formId: string  // ID universel aléatoire.
@@ -453,7 +454,7 @@ export class $Form extends $Document {
 
   // Utilisé sur opération getForm et liste filtrée
   static new (obj) : $Form {
-    const f = Registry.newD('$Form', obj)
+    const f = Registry.newD('', '$Form', obj) as $Form
     for (const p of $Form.lp1) f[p] = obj[p]
     return f
   }
@@ -588,4 +589,3 @@ export class $Form extends $Document {
   }
 
 }
-Registry.registerD($Form)

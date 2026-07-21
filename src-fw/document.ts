@@ -31,16 +31,16 @@ export class $Document {
   et de l'indicateur de mutation (false si inchangé)
   */
   static mutate (clazz: string, data: any, options?: Object) : [any, boolean] {
-    const cl = Registry.getD(clazz, data)
+    const cl = Registry.getClass('', clazz, data)
     if (!cl) return [data, false]
-    const f = cl.mutateCl
+    const f = cl['mutateCl']
     return f ? f(data, options) : [data, false]
   }
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {
-    const cl = Registry.getD(this._clazz, this)
-    return cl ? cl.release : 0
+    const cl = Registry.getClass('', this._clazz, this)
+    return cl ? cl['release'] : 0
   }
 
   // true si le Document est de la dernière release
@@ -126,11 +126,10 @@ export class $Document {
   Retourne le Document.
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : $Document {
-    const cl = Registry.getD(clazz, initVals)
-    const doc = new cl() as $Document
+    const doc = Registry.newD('', clazz, initVals)
     doc._clazz = clazz
     doc._status = status
-    doc.release = cl.release
+    doc.release = doc.constructor['release']
     doc.v = 0
     for (const [key, value] of Object.entries(initVals)) 
       if (!key.startsWith('_')) doc[key] = value

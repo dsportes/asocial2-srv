@@ -10,6 +10,6 @@
     "skipLibCheck": true
   },
 
-  "include": ["./src/**/*.ts", "./src-dbst/**/*.ts", "src-filesystem/**/*.ts", "./src-fw/**/*.ts", "src-sqlite/**/*.ts"],
+  "include": ["./src/**/*.ts", "./src-dbst/**/*.ts", "src-filesystem/**/*.ts", "./src-fw/**/*.ts", "src-sqlite/**/*.ts", "src-as2/documents.ts"],
   "exclude": ["node_modules"]
 }
