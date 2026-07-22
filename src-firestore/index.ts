@@ -6,7 +6,7 @@ import { writeFileSync } from 'node:fs'
 import path from 'path'
 
 import { encode } from '@msgpack/msgpack'
-import { DocType } from '../src-fw/doctypes'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
   expList, expListQ, updType, vdata, Safe, safeTable } from '../src-fw/iDbGeneric'

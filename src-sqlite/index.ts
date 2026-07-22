@@ -5,7 +5,8 @@ import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, MDTable, 
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
-import { DocType, propType } from '../src-fw/doctypes'
+import { propType } from '../src-fw/docDescriptor'
+import { Registry } from '../src-fw/config'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
@@ -90,7 +91,8 @@ export class SQLiteConnector extends DbConnector {
   static async genSchema () {
     const l = []
     l.push(t1)
-    for (const [,dt] of DocType.docTypes) {
+    for (const clazz of Registry.allClasses()) {
+      const dt = Registry.getDescr('', clazz)
       if (dt.virtual) continue
       l.push('')
       const cl = dt.name.toUpperCase()
@@ -114,7 +116,8 @@ export class SQLiteConnector extends DbConnector {
     console.log(schemaPath + ' written') 
 
     l.length = 0
-    for (const [,dt] of DocType.docTypes) {
+    for (const clazz of Registry.allClasses()) {
+      const dt = Registry.getDescr('', clazz)
       l.push('')
       const cl = dt.name.toUpperCase()
       l.push('DELETE FROM ' + cl + ';')
@@ -145,7 +148,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if (!e) {
       const lc = ['org', 'v', 'pk', 'ttl', 'data']
       const ll = []
-      const dt = DocType.get(clazz)
+      const dt = Registry.getDescr('', clazz)
       if (dt.hasColls) for (const [n, x] of dt.colls) {
         lc.push(n)
         if (x.list) ll.push(n)

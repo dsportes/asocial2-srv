@@ -1,9 +1,8 @@
 import { encode } from '@msgpack/msgpack'
 
-import { DocType } from '../src-fw/doctypes'
 import { row } from '../src-fw/iDbGeneric'
 import { Registry } from '../src-fw/config'
-import { Embed$Cred} from '../src-fw/documents'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 // import { AppExc } from '../src-fw/log'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
@@ -19,6 +18,7 @@ export class $Document {
   _status?: DocStatus
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
+  _docDescriptor: DocDescriptor
   v: number
   release: number // numéro de release de la structure de l'objet
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
@@ -48,14 +48,11 @@ export class $Document {
     return this.release === this.classRelease
   }
 
-  // Descriptif DocType du document
-  get docType () : DocType { return DocType.get(this._clazz) }
-
   // Retourne la VALEUR HASH de pk (séparation par / PUIS hash)
-  get myPk () : string { return this.docType.pkValue(this)}
+  get myPk () : string { return this._docDescriptor.pkValue(this)}
 
   // Retourne la VALEUR NON HACHEE de pk (séparation par /)
-  get myPkNH () : string { return this.docType.pkValue(this, true)}
+  get myPkNH () : string { return this._docDescriptor.pkValue(this, true)}
 
   // Retourne true si le document n'est pas _zombi_ et n'a pas dépassé sa maxLife
   isAlive (now: number) : boolean {
@@ -71,7 +68,7 @@ export class $Document {
   C'est un STRING[] des valeurs hachées.
   Quand la propriété de collection N'EST PAS une liste, sa valeur est [0]
   */
-  collValue (name: string) : string[] { return this.docType.getCollId(this, name)}
+  collValue (name: string) : string[] { return this._docDescriptor.getCollId(this, name)}
 
   /* Retourne la VALEUR la propriété d'index nommée name:
   Selon le type de cette propriété c'est:
@@ -79,7 +76,7 @@ export class $Document {
   - number : pour les types INTEGER FLOAT
   - string[] : pour le type LIST
   */
-  idxValue (name: string) : any { return this.docType.getIdx(this, name)}
+  idxValue (name: string) : any { return this._docDescriptor.getIdx(this, name)}
 
   /* Invoqué après lecture de DB, désérialisation du data et création
   du Document associé. Traitement éventuel, pour génération de propriétés
@@ -139,8 +136,8 @@ export class $Document {
       - valeur: valeur de la propriété clé de la collection dans le document 
         AVANT mise à jour éventuelle de cette valeur
     */
-   if (doc._status !== DocStatus.NEW && doc.docType.hasColls)
-      doc._before = doc.docType.extractColls(doc)
+   if (doc._status !== DocStatus.NEW && doc._docDescriptor.hasColls)
+      doc._before = doc._docDescriptor.extractColls(doc)
     return doc
   }
 
@@ -159,7 +156,7 @@ export class $Document {
       dataORIG: new Uint8Array(x)
     }
     const ml = this['maxLife']; if (ml) row.maxLife = ml
-    const dt = this.docType
+    const dt = this._docDescriptor
     if (dt.colls) for (const [n, c] of dt.colls) 
       row[n] = c.list ? this.collValue(n) : this.collValue(n)[0]
     if (dt.indexes) for (const [n, ] of dt.indexes) 

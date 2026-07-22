@@ -319,11 +319,9 @@ function checkOrigin(req: express.Request, res: express.Response, origins: Set<s
 
 // Opérations d'un service
 async function doSvcOp (res: express.Response, body: Buffer, baseUrl: string) {
-  let args: Object, opName: string = '', org: string = ''
+  let args: Object
   try {
     args = decode(body)
-    opName = args['opName']
-    org = args['org']
   } catch (e) {
     ExcDecode(res, 1)
     return
@@ -352,7 +350,7 @@ async function doMDOp(body: Buffer, res: express.Response) {
 }
 
 async function doSOp(body: Buffer, res: express.Response) {
-  let args: Object, opName: string = ''
+  let args: Object, opName: string
   try {
     args = decode(body)
     opName = args['opName']
@@ -437,6 +435,14 @@ let todayEpoch = 0
 
 export async function doOp (args: Object, res: express.Response, baseUrl: string) {
   const opName = args['opName']
+
+  if (opName === 'ADMIN$isAdmin') {
+    const u = args['authRecord'] ? args['authRecord'].userId : ''
+    const b = encode({ isadmin: config.ADMINUSERS.has(u) })
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+    return
+  }
+
   const org = opName.endsWith('$') ? 'A' : args['org']
 
   const now = Date.now()

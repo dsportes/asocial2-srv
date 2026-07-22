@@ -67,7 +67,13 @@ export class DocDescriptor {
 
   static size () { return DocDescriptor.all.size}
 
-  static get(clazz: string) { return this.all.get(clazz)}
+  /* clazz de la forme SVC@docCl_sub : 
+  - sub est ignoré si présent
+  */
+  static get(clazz: string) { 
+    let i = clazz.indexOf('_')
+    return this.all.get(i === -1 ? clazz : clazz.substring(0, i))
+  }
 
   svc: string
   name: string
@@ -85,7 +91,7 @@ export class DocDescriptor {
   colls : Map<string, collection> | null = null
   indexes: Map<string, idx> | null = null
 
-  get fullName () { return this.svc + '$' + this.name}
+  get fullName () { return this.svc + '$' + this.name }
 
   get hasColls () { return this.colls ? true : false }
 
@@ -100,6 +106,11 @@ export class DocDescriptor {
     if (src) this.pk.forEach(p => { x.push(src[p] || '') })
     p = x.join('/')
     return nohash || this.nohash ? p : Crypt.shaS(p)
+  }
+
+  isTestable (idxName: string) : boolean {
+    const idx = this.indexes.get(idxName)
+    return idx && idx.testable
   }
  
   /* Retourne la valeur d'une collection name d'une "source" ayant les propriétés citées */

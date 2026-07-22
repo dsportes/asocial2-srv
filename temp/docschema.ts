@@ -1,4 +1,4 @@
-import { propType, collection, idx, DocType, FormType } from '../src-fw/doctypes'
+import { propType, collection, idx, DocType, FormType } from './doctypes'
 
 new DocType(
   { name: '$Status', sync: true }, //header

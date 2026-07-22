@@ -7,7 +7,7 @@ import { Log, AppExc } from '../src-fw/log'
 import { DbConnector } from '../src-fw/dbConnector'
 import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
-import { DocType } from '../src-fw/doctypes'
+import { Registry } from '../src-fw/config'
 import { $Document, DocStatus } from '../src-fw/document'
 import { $Credential, Embed$Cred } from '../src-fw/documents'
 import { Publisher } from '../src-fw/publisher'
@@ -68,6 +68,7 @@ export class Operation implements OperationWC {
     Operation.factories.set(opName, factory)
   }
 
+  svc: string
   opName: string
   result: any
   args: any 
@@ -334,7 +335,7 @@ export class AuthRecord {
   creds: Map<string, $Credential>
   /* ref SANS Credential OU dont la signature est KO */
   koCreds: Set<string>
-  
+
   constructor (op: Operation) {
     this.op = op
     this.op.authRecord = this
@@ -376,10 +377,10 @@ export class AuthRecord {
       const i = ref.indexOf('/')
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
-      const dt = DocType.get(docCl)
+      const dt = Registry.getDescr(this.svc, docCl)
       let credential: $Credential
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
-        const d = await this.op.cache.getDoc(docCl, { pk: docPk }) as $Document
+        const d = await this.op.cache.getDoc(this.svc + '$' + docCl, { pk: docPk }) as $Document
         if (d && d.embedCreds) {
           const ecred = d.embedCreds[credId]
           if (ecred) {
@@ -391,7 +392,7 @@ export class AuthRecord {
           }
         }
       } else { // Recherche du Credential par sa pk
-        const c = await this.op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
+        const c = await this.op.cache.getDoc(this.svc + '$Credential', { credId, docCl }) as $Credential
         if (c && c.docCl === docCl && c.docPk === docPk) {
           if (c.cred.props && c.cred.props.limit && (c.cred.props.limit * 60000) < this.op.now) 
             this.op.cache.delDoc('$Credential', c.myPk)
@@ -477,7 +478,7 @@ export class Cache {
     : Promise<DocDescr> {
     const oc = Cache.orgCache(op)
     const now = Date.now()
-    const pk = DocType.getPk(clazz, src)
+    const pk = Registry.getPk('', clazz, src)
     const k = DocDescr.key(clazz, pk)
     const item = oc.get(k)
     if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
@@ -565,13 +566,13 @@ export class Cache {
   - src : objet contenant les propriétés de la pk
   */
   async getDoc (clazz: string, src?: Object, assert?: string) : Promise<$Document | null> {
-    const pk = !src ? '1' : (src['pk'] || DocType.getPk(clazz, src))
+    const pk = Registry.getPk('', clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = await Cache.getRow(this.op, clazz, src)
     if (!dd) {
-      if (assert) this.op.assertKO(assert, 25, [clazz, DocType.getPk(clazz, src, false)])
+      if (assert) this.op.assertKO(assert, 25, [clazz, Registry.getPk('', clazz, src, false)])
       return null
     }
     dd.init()
@@ -598,7 +599,7 @@ export class Cache {
   Retourne le document.
   */
   newDoc (clazz: string, src?: Object) : $Document {
-    const pk = DocType.getPk(clazz, src)
+    const pk = Registry.getPk('', clazz, src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
@@ -645,13 +646,13 @@ export class Cache {
         dd.row = row
         this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL
-        if (doc.docType.sync) {
+        if (doc._docDescriptor.sync) {
           row = doc.toZombiRow(this.op.now)
           this.db.writeRow(updType.UPDATE, dd.clazz, row)
         }
         else this.db.deleteRow(dd.clazz, dd.pk)
       }
-      if (doc.docType.sync && doc.docType.colls) 
+      if (doc._docDescriptor.sync && doc._docDescriptor.colls) 
         this.manageColls(dd, doc, row, is)
     }
   }
@@ -661,7 +662,7 @@ export class Cache {
     - création des rowQ : trace des disparitions des collections "mutables"
   */
   manageColls (dd: DocDescr, doc: $Document, row: row, is: ImpactedSub) {
-    for (const [n, collection] of doc.docType.colls) {
+    for (const [n, collection] of doc._docDescriptor.colls) {
     
       // b, a : valeurs de la propriété clé de la collection n AVANT / APRES mise à jour éventuelle
 

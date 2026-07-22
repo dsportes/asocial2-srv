@@ -2,12 +2,9 @@ import { encode, decode } from '@msgpack/msgpack'
 
 import { Operation } from '../src-fw/operation'
 import { Registry } from '../src-fw/config'
-import { AppExc } from '../src-fw/log'
-import { $Document, DocStatus } from '../src-fw/document'
-import { Auteur } from '../src-as2/documents'
-import { Crypt } from '../src-fw/crypt'
-import { filter } from '../src-fw/iDbGeneric'
-import { DocType } from '../src-fw/doctypes'
+// import { AppExc } from '../src-fw/log'
+import { DocStatus } from '../src-fw/document'
+import { AS2$Auteur } from '../src-as2/documents'
 
 export function loadingOA () {
   console.log('app operations loading: ', Registry.sizeOp())
@@ -21,7 +18,7 @@ class AutidDeNom extends Operation {
     this._nom = this.stringValue('nom', true)
   }
   async phase2 () {
-    const autid = await Auteur.autidDeNom(this, this._nom)
+    const autid = await AS2$Auteur.autidDeNom(this, this._nom)
     this.setRes('autid', autid)
   }
 }
@@ -40,9 +37,9 @@ class AuteurDeId extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const pk = DocType.getPk('Auteur', this.src)
+    const pk = Registry.getPk('', 'AS2$Auteur', this.src)
     this.getCred('Auteur', pk)
-    const aut = await this.cache.getDoc('Auteur', this.src)
+    const aut = await this.cache.getDoc('AS2$Auteur', this.src)
     this.setRes('auteur', aut || null)
   }
 }
@@ -61,9 +58,9 @@ class MajAuteur extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const pk = DocType.getPk('Auteur', { autid: this._autid })
+    const pk = Registry.getPk('', 'AS2$Auteur', { autid: this._autid })
     this.getCred('Auteur', pk)
-    const aut = await this.cache.getDoc('Auteur', { autid: this._autid }) as Auteur
+    const aut = await this.cache.getDoc('AS2$Auteur', { autid: this._autid }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false
     if (this._nomAuteur && this._nomAuteur !== aut.nomAuteur) {

@@ -5,7 +5,7 @@ import { encode, decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
 import { Operation } from '../src-fw/operation'
 import { Registry } from '../src-fw/config'
-import { DocType, FormType } from '../src-fw/doctypes'
+import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
 import { config } from '../src-fw/config'
 import { keyFromB64, keyToB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
@@ -253,7 +253,7 @@ export class $Credential extends $Document {
   // En cache d'opération SEULEMENT sur détection de credential par authRecord
   embeddingDoc?: $Document
 
-  get dt () { return DocType.get(this.docCl)}
+  get dt () { return DocDescriptor.get(this.docCl)}
   get isEmbed () { return this.dt.embedCreds }
   get isValid () {
     const p = this.cred.props
@@ -296,7 +296,7 @@ export class $Credential extends $Document {
   }
 
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
-    const dt = DocType.get(docCl)
+    const dt = Registry.getDescr('', docCl)
     let doc
     if (dt.embedCreds) {
       doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Document
@@ -319,7 +319,7 @@ export class $Credential extends $Document {
     const org = op.org
     const lst: $Cred[] = []
     let sel: string[] = []
-    for(const cl of DocType.managerClasses) 
+    for(const cl of Registry.managers) 
       sel.push(Crypt.shaS(cl + '/1'))
     if (sel.length) await op.db.selectDocs('$Credential', 'doc', filter.IN, sel, '', 0, 
       (bin: Uint8Array) => {
@@ -345,10 +345,10 @@ export class $Credential extends $Document {
   /* Liste les credentials NON embarqués d'un document donné par sa classe
   et les propriétés de sa pk.
   */
-  static async listByDoc (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
+  static async listByDoc (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
     const org = op.org
-    const docPk = DocType.getPk(docCl, src, true)
-    const dd = DocType.get('$Credential')
+    const docPk = Registry.getPk('', docCl, src, true)
+    const dd = Registry.getDescr(op.svc, 'Credential')
     const val = dd.getIdx({ docCl, docPk }, 'doc')
     const lst: $Cred[] = []
     await op.db.selectDocs('$Credential', 'doc', filter.EQ, val[0], '', 0, 
@@ -375,10 +375,10 @@ export class $Credential extends $Document {
   /* Liste les credentials EMBARQUES d'un document donné par sa classe
   et les propriétés de sa pk.
   */
-  static async listByDocEmbed (op: OperationWC, docCl: string, src: Object) : Promise<$Cred[]> {
+  static async listByDocEmbed (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
     const svc = config.SVC
     const org = op.org
-    const pk = DocType.getPk(docCl, src)
+    const pk = Registry.getPk(op.svc, docCl, src)
     const doc: any = await op.cache.getDoc(docCl, { pk })
     const creds: $Cred[] = doc && doc.creds ? Array.from(doc.creds.values()) : []
     const lst: $Cred[] = []
@@ -486,7 +486,7 @@ export class $Form extends $Document {
 
   get isOld () { return Date.now() > this.maxLife * 60000 }
 
-  get ft () : FormType { return FormType.formTypes.get(this.type) || FormType.formTypes.get('default')}
+  get ft () : FormType { return FormType.get('', this.type) }
   get kp () : { pub: Buffer, priv: Buffer } { 
     const x = config.keys['DCKeys'][this.ft.key]
     return { pub: keyFromB64(x.pub), priv: keyFromB64(x.priv) }

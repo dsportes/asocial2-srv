@@ -2,7 +2,7 @@ import { config } from './config'
 import { AbstractOperation } from '../src-fw/index'
 import { Log } from './log'
 import { testECDH, testSH } from './crypt'
-import { DocType } from '../src-fw/doctypes'
+import { Registry } from '../src-fw/config'
 
 import { parseArgs } from 'node:util'
 import { stdin, stdout } from 'node:process'
@@ -188,7 +188,8 @@ export class Tools {
     const resp = await this.prompt('Export / Import DB\nValider (o/N) ?')
     if (resp !== 'o' && resp !== 'O') throw 'Exécution interrompue.'
 
-    for(const [clazz, dt] of DocType.docTypes) {
+    for(const clazz of Registry.allClasses()) {
+      const dt = Registry.getDescr('', clazz)
       this.log2('Class ' + clazz)
       let mark = '1'
       let n = 0

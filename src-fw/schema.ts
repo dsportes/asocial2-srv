@@ -2,7 +2,7 @@ import { DocDescriptor, FormType, idx, propType } from '../src-fw/docDescriptor'
 
 let exc: Error | null = null
 
-let svc = DocDescriptor.declareService('FW')
+let svc = DocDescriptor.declareService('ADMIN')
 try {
   const nd = DocDescriptor.size()
   const nf = FormType.size()

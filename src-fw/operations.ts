@@ -8,7 +8,6 @@ import { config, Registry } from '../src-fw/config'
 import { $Status, $Subs, $subscription, $SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus } from '../src-fw/document'
-import { DocType } from '../src-fw/doctypes'
 // import { Util } from '../src-fw/util'
 
 export function loadingOF () {
@@ -26,6 +25,116 @@ export type CredRequest = {
   cond: Object
 }
 
+/* Operations d'administration ***********************************************************/
+
+/* Retourne une clé publique de cryptage de configuation */
+class GetCKey$ extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true, 0, 9)
+  }
+  async phase2 () {
+    const k = config.keys['DCKeys'][this._name]
+    this.setRes('key', k ? k.pub : '')
+  }
+}
+Registry.registerOp(GetCKey$)
+
+/* Retourne une clé publique de vérification de configuation */
+class GetVKey$ extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true, 0, 9)
+  }
+  async phase2 () {
+    const k = config.keys['SVKeys'][name]
+    this.setRes('key', k ? k.pub : '')
+  }
+}
+Registry.registerOp(GetVKey$)
+
+/* GetStatus$ retourne le status du service: { st, at, txt }
+  st: code 0: inconnu 1: UP 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+  Du fait de $, adresse la pseudo organisation 'A' (donc le service)
+*/
+class GetStatus$ extends Operation {
+  async phase2 () {
+    const dd = await Cache.getRow(this, 'ADMIN$Status', null, config.STATUSLAZYNESS)
+    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
+    else {
+      dd.init()
+      const s = dd.doc as $Status
+      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
+    }
+  }
+}
+Registry.registerOp(GetStatus$)
+
+/* SetStatus$ fixe le status du service: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  txt: texte explicatif éventuel de l'administrateur
+  ADMINISTRATEUR
+*/
+class SetStatus$ extends Operation {
+  _st: number
+  _txt: string
+  init () {
+    super.init()
+    this._st = this.intValue('st', true, 0, 9)
+    this._txt = this.stringValue('txt', true)
+  }
+  async phase2 () {
+    this.requireAdmin()
+    let doc: $Status = await this.cache.getDoc('ADMIN$Status') as $Status
+    if (doc) doc._status = DocStatus.UPD
+    else doc = this.cache.newDoc('$Status') as $Status
+    doc.at = Date.now()
+    doc.st = this._st
+    doc.txt = this._txt || ''
+  }
+}
+Registry.registerOp(SetStatus$)
+/* GetEnum retourne la liste des valeurs (string)
+- name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
+*/
+class GetEnum$ extends Operation {
+  _name: string
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+  }
+
+  async phase2 () {
+    const valx = await this.db.getSingleton('this._name') as string
+    let x: string[] = JSON.parse(valx || '[]') 
+    this.setRes('enum', x)
+  }
+}
+Registry.registerOp(GetEnum$)
+
+/* SetEnum fixe la liste des valeurs d'une enumération
+*/
+class SetEnum$ extends Operation {
+  _name: string
+  _value: string[]
+
+  init () {
+    super.init()
+    this._name = this.stringValue('name', true)
+    this._value = this.stringArrayValue('value', true)
+  }
+
+  async phase2 () {
+    await this.db.setSingleton(this._name, JSON.stringify(this._value))
+  }
+}
+Registry.registerOp(SetEnum$)
+
+/* Operations standard ***********************************************************/
 class Bug extends Operation {
   init () { super.init() }
   async phase2 () { await this.db.bug(); console.log('Bug op') }
@@ -39,62 +148,6 @@ class ErrorTest extends Operation {
   }
 }
 Registry.registerOp(ErrorTest)
-
-/* Retourne une clé publique de cryptage de configuation */
-class getCKey$ extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true, 0, 9)
-  }
-  async phase2 () {
-    const k = config.keys['DCKeys'][this._name]
-    this.setRes('key', k ? k.pub : '')
-  }
-}
-Registry.registerOp(getCKey$)
-
-/* Retourne une clé publique de vérification de configuation */
-class getVKey$ extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true, 0, 9)
-  }
-  async phase2 () {
-    const k = config.keys['SVKeys'][name]
-    this.setRes('key', k ? k.pub : '')
-  }
-}
-Registry.registerOp(getVKey$)
-
-/* SvcOpIsAdmin retourne true si l\'utilisateur est administrateur
-*/
-class SvcOpIsAdmin$ extends Operation {
-  async phase2 () {
-    this.setRes('isadmin', this.authRecord.isAdmin)
-  }
-}
-Registry.registerOp(SvcOpIsAdmin$)
-
-/* GetStatus$ retourne le status du service: { st, at, txt }
-  st: code 0: inconnu 1: UP 9: DOWN
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-  Du fait de $, adresse la pseudo organisation 'A' (donc le service)
-*/
-class GetStatus$ extends Operation {
-  async phase2 () {
-    const dd = await Cache.getRow(this, '$Status', null, config.STATUSLAZYNESS)
-    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
-    else {
-      dd.init()
-      const s = dd.doc as $Status
-      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
-    }
-  }
-}
-Registry.registerOp(GetStatus$)
 
 /* GetStatus retourne le status de l'organisation: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
@@ -113,31 +166,6 @@ class GetStatus extends Operation {
   }
 }
 Registry.registerOp(GetStatus)
-
-/* SetStatus$ fixe le status du service: { st, at, txt }
-  st: code 0: DOWN, 1: UP
-  txt: texte explicatif éventuel de l'administrateur
-  ADMINISTRATEUR
-*/
-class SetStatus$ extends Operation {
-  _st: number
-  _txt: string
-  init () {
-    super.init()
-    this._st = this.intValue('st', true, 0, 9)
-    this._txt = this.stringValue('txt', true)
-  }
-  async phase2 () {
-    this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc('$Status') as $Status
-    if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status') as $Status
-    doc.at = Date.now()
-    doc.st = this._st
-    doc.txt = this._txt || ''
-  }
-}
-Registry.registerOp(SetStatus$)
 
 /* SetStatus fixe le status de l'organisation: { st, at, txt }
   st: code 0: DOWN, 1: UP
@@ -217,7 +245,8 @@ class HasAlias extends Operation {
   }
 
   async phase2 () {
-    const testable = DocType.isTestable(this._docCl, this._aliasName)
+    const dd = Registry.getDescr('', this._docCl)
+    const testable = dd.isTestable(this._aliasName)
     if (!testable) this.setRes('hasalias', false)
     else {
       const doc = await this.db.oneRowByAlias(this._docCl, this._aliasName, this._aliasValue)
@@ -227,41 +256,6 @@ class HasAlias extends Operation {
 }
 Registry.registerOp(HasAlias)
 
-/* GetEnum retourne la liste des valeurs (string)
-- name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
-*/
-class GetEnum$ extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true)
-  }
-
-  async phase2 () {
-    const valx = await this.db.getSingleton('this._name') as string
-    let x: string[] = JSON.parse(valx || '[]') 
-    this.setRes('enum', x)
-  }
-}
-Registry.registerOp(GetEnum$)
-
-/* SetEnum fixe la liste des valeurs d'une enumération
-*/
-class SetEnum$ extends Operation {
-  _name: string
-  _value: string[]
-
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true)
-    this._value = this.stringArrayValue('value', true)
-  }
-
-  async phase2 () {
-    await this.db.setSingleton(this._name, JSON.stringify(this._value))
-  }
-}
-Registry.registerOp(SetEnum$)
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
 class GetPutUrl extends Operation {
@@ -408,7 +402,7 @@ class Sync extends Operation {
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
-    const dt = DocType.get(clazz)
+    const dt = Registry.getDescr('', clazz)
     if (dt.hasColls) {
       const x = dt.colls.get(colName)
       if (x) {
@@ -480,7 +474,7 @@ class AutoRevokeCred extends Operation {
     const cred = this.authRecord.getCred(this._docCl, this._docPk, true)
     if (!cred || cred.credId !== this._credId)
       throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docPk])
-    const dt = DocType.get(this._docCl)
+    const dt = Registry.getDescr('', this._docCl)
     if (dt.embedCreds) {
       const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
       const x = d.embedCreds
@@ -523,7 +517,7 @@ class credsByDoc extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const dt = DocType.get(this._docCl)
+    const dt = Registry.getDescr('', this._docCl)
     let lst: $Cred[]
     if (dt.embedCreds)
       lst = await $Credential.listByDocEmbed(this, this._docCl, this._src)
