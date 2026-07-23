@@ -19,77 +19,79 @@ export type CaseInfo1 = {
 type Dobj = {
   at: number, // date-heure de lecture
   v: number, // version: date-heure de dernière mise à jour
-  val: Object // selon la table
-  /* 
-    orgs: Clé org => { svc1:OP1, svc2:OP2 ...}
-    svcops: clé svc => { OP1:url1, OP2: url2 ...}
-  */
+  val: Object // Clé org => { svc1: site1, svc2: site2 ...}
 }
 
 /* Cache du MasterDir ************************************************/
+
+/* Par convention la pseudo organisation SAFE donne le "site"
+attribué à chaque code de "safeStore".
+On en obtient ensuite l'URL
+*/
 export async function getSafeUrl (op: AbstractOperation, safeStore: string)
  : Promise<string> {
-  const e: any = await MDCache.get(op, MDTable.SVCOPS, 'SAFE')
-  // e.val { $STD:url1, $MYSF1: url2 ...}
-  return !e.val ? '' : (e.val[safeStore] || '')
+  if (!safeStore) return config.STDSAFE_URL
+  const val = await MDCache.getOrgSvc(op, 'SAFE') 
+  // val : { MYSF1: site1, MYSF2: site2 ...}
+  const site = val ? val[safeStore] : null
+  if (!site)
+    throw new AppExc(103, 'unregistered_safestore', op, [safeStore])
+  const sites = await MDCache.getSitesUrls(op)
+  const url = sites[site]
+  if (!url)
+    throw new AppExc(103, 'unregistered_safestore_site', op, [safeStore, site])
+  return url
 }
 
 class MDCache {
   /* Cache des couples [clé C, clé V] par UserId */
   static cvs : Map<string, [string, string]> = new Map()
 
-  static svcops : Map<string, Dobj> = new Map()
+  static sites = { at: 0, v: 0, urls: {} }
   static orgs : Map<string, Dobj> = new Map()
-  
-  static ttl = 3 * 60
+  static ttl = 3 * 60000 // 3 minutes
 
-  /* Retourne l'objet associé à la table SVCOPS / ORGS
+  static async getSitesUrls (op: AbstractOperation) 
+    : Promise<Object | null> {
+    const now = Date.now()
+    if ((now - MDCache.sites.at) > MDCache.ttl) {
+      const [v, urls] = await op.db.mdGetValue('1', MDCache.sites.v)
+      if (urls) MDCache.sites = { at: now, v, urls: JSON.parse(urls) }
+    }
+    return MDCache.sites.urls
+  }
+
+  static async setSitesUrls (op: AbstractOperation, urls: Object) {
+    const now = Date.now()
+    MDCache.sites = { at: now, v: now, urls }
+    await op.db.mdSetValue('1', now, JSON.stringify(urls))
+  }
+
+  /* Retourne l'objet de la table ORGS pour l'organisation org
   - soit trouvé en cache et d'age correct
   - soit (re)lu de la table et gardé en cache
   */
-  static async get(op: AbstractOperation, st: MDTable, id: string) 
-  : Promise<Object | null> {
-    const now = Math.floor(Date.now() / 1000)
-    let e: Dobj
-    switch (st) {
-      case MDTable.SVCOPS : { e = MDCache.svcops.get(id); break }
-      case MDTable.ORGS : { e = MDCache.orgs.get(id); break }
-    }
-    if (!e || e.at < now - MDCache.ttl) { // pas trouvé en cache ou trop vieux
-      const x = await op.db.mdGet(st, id, 0)
-      if (!x) {
-        e = { at: now, v: 0, val: null}
-      } else {
-        let y = null
-        try { y = JSON.parse(x[1]) } catch(e) { console.log(e) }
-        e = { at: now, v: y ? x[0] : 0, val: y }
-      }
-      switch (st) {
-        case MDTable.SVCOPS : { MDCache.svcops.set(id, e); break }
-        case MDTable.ORGS : { MDCache.orgs.set(id, e); break }
-      }
+  static async getOrgSvc(op: AbstractOperation, org: string) 
+    : Promise<Object | null> {
+    const now = Date.now()
+    let e = MDCache.orgs.get(org)
+    if (e && e.at > now - MDCache.ttl) return e.val
+    const x = await op.db.mdGetValue(org, e ? e.v : 0) // x: [v, JSON]
+    if (x) { // trouvé un plus récent que e.v
+      const [v, json] = x
+      let val = null
+      try { val = json ? JSON.parse(json) : null } catch(e) { console.log(e) }
+      e = { at: now, v, val }
+      MDCache.orgs.set(org, e)
     }
     return e.val
   }
 
-  /* Sauvegarde l'objet associé à la table SVCOPS / ORGS pour la table et l'ID spécifiées.
-  Si val est null, supprime l'entrée. 
-  Toutefois en cache l'entrée existe toujours avec une val null pour évier une relecture
-  en base en cas de redemande.
-  */
-  static async set(op: AbstractOperation, st: MDTable, id: string, val: Object)
-    : Promise<void> {
-
-    const now = Math.floor(Date.now() / 1000)
-    const e = { at: now, v: now, val }
-    if (val) {
-      const value: string = JSON.stringify(val)
-      await op.db.mdSet(st, id, now, value)
-    } else await op.db.mdDel(st, id)
-    switch (st) {
-      case MDTable.SVCOPS : { MDCache.svcops.set(id, e); break }
-      case MDTable.ORGS : { MDCache.orgs.set(id, e); break }
-    }    
+  static async setOrgSvc(op: AbstractOperation, org: string, val: Object | null) {
+    const now = Date.now()
+    const e = { at: now, v: now, val: val ? JSON.stringify(val) : ''}
+    await op.db.mdSetValue(org, e.v, e.val)
+    MDCache.orgs.set(org, e)
   }
 }
 
@@ -127,14 +129,17 @@ export class MDOperation implements AbstractOperation {
   }
 
   async getUrl (svc: string, org: string) : Promise<string> {
-    const orgItem = await MDCache.get(this, MDTable.ORGS, org)
-    if (!orgItem) return ''
-    const oper = orgItem[svc]
-    if (!oper) return ''
-    const svcop = await MDCache.get(this, MDTable.SVCOPS, svc)
-    if (!svcop) return ''
-    const url = svcop[oper]
-    return url || ''
+    const orgItem = await MDCache.getOrgSvc(this, org)
+    if (!orgItem)
+      throw new AppExc(103, 'unregistered_org', this, [org])
+    const site = orgItem[svc]
+    if (!site)
+      throw new AppExc(103, 'unregistered_service_for_org', this, [svc, org])
+    const sites = await MDCache.getSitesUrls(this)
+    const url = sites[site]
+    if (!url)
+      throw new AppExc(103, 'unregistered_svc_org_site', this, [svc, org, site])
+    return url
   }
 
   /* Appel par HTTP d'une opération d'un service pour une organisation */
@@ -209,6 +214,66 @@ export class MDOperation implements AbstractOperation {
     throw new AppExc(101, 'masterdir_no_admin', this)
   }
 }
+
+/* Opérations de simple lecture des configuration des services / organisations
+Pas de contrôle d'accès. */
+
+/* Pour une organisation org map des services donnant leur site */
+class $GetOrgSvc extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const val = await MDCache.getOrgSvc(this, this.args.arg)
+    this.setRes('services', val)
+  }
+}
+Registry.registerOp($GetOrgSvc)
+
+/* Retourne la map donnant pour chaque site son URL */
+class $GetSitesUrls extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const urls = await MDCache.getSitesUrls(this)
+    this.setRes('urls', urls)
+  }
+}
+Registry.registerOp($GetSitesUrls)
+
+/* Operations de mise à jour avec controle d'accès 
+*****************************************************************/
+
+/* Enregistre le site d'un service pour une organisation:
+- si le site est '', supprime l'entrée pour ce service */
+class $SetOrgSvcSite extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const [org, svc, site] = await this.getParams(this.args)
+    if (site) {
+      const urls = await MDCache.getSitesUrls(this)
+      const url = urls[site]
+      if (!url)
+        throw new AppExc(103, 'unregistered_svc_org_site', this, [svc, org, site])
+      const val = await MDCache.getOrgSvc(this, org) || { }
+      val[svc] = site
+      await MDCache.setOrgSvc(this, org, val)
+    } else {
+      let val = await MDCache.getOrgSvc(this, org)
+      if (!val) return
+      delete val[svc]
+      if (Array.from(Object.keys(val)).length === 0) val = null
+      await MDCache.setOrgSvc(this, org, val)
+    }
+  }
+}
+Registry.registerOp($SetOrgSvcSite)
+
+/* Enregistre l'URL d'un site */
+class $SetSiteUrl extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const [site, url] = await this.getParams(this.args)
+    const urls = await MDCache.getSitesUrls(this)
+    if (url) urls[site] = url
+    else delete urls[site]
+    await MDCache.setSitesUrls(this, urls) 
+  }
+}
+Registry.registerOp($SetSiteUrl)
 
 /* Opérations sur _Master Directory 'users' ***********************
 Transactionnelles:
@@ -370,95 +435,6 @@ class $mdAliasFree extends MDOperation {
   }
 }
 Registry.registerOp($mdAliasFree)
-
-/* Opérations d'administration sur SVCOPS et ORGS ****************
-Les arguments sont signés.
-*/
-/* $SetOpUrl : déclare l'URL d'un service pour un opérateur. args: 
-- userId: un ADMINISTRATEUR du _Master Directory_
-- params: [SVC, $OP, url] - url vide, supprime l'entrée
-- time: date-heure de la requête
-- sign: signature par la clé S de userId de encode([time, params])
-*/
-class $SetOpUrl extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const [SVC, $OP, url] = await this.getParams(this.args)
-    let obj = await MDCache.get(this, MDTable.SVCOPS, SVC) as Object
-    if (obj) {
-      if (url) obj[$OP] = url
-      else {
-        delete obj[$OP]
-        if (Array.from(Object.entries(obj)).length === 0) obj = null
-      }
-    } else {
-      if (url) { obj = { }; obj[$OP] = url }
-    }
-    await MDCache.set(this, MDTable.SVCOPS, SVC, obj)
-  }
-}
-Registry.registerOp($SetOpUrl)
-
-/* $GrantSvcOpOrg : enregistre qu'une organisation est hébergée par l'opérateur $OP pour un service SVC
-Si $OP est null, l'organisation est révoquée pour ce service.
-args:
-- userId: un ADMINISTRATEUR du StoreSafe générique
-- params: [SVC, $OP, org]
-- time: date-heure de la requête
-- sign: signature par la clé S de userId de encode([time, params])
-*/
-class $GrantSvcOpOrg extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const [SVC, $OP, org] = await this.getParams(this.args)
-    if (SVC) { // Contrôle de l'existence de SVC et de son hébergement par OP
-      const obj = await MDCache.get(this, MDTable.SVCOPS, SVC)
-      if (!obj || !obj[$OP])
-        throw new AppExc(101, 'masterdir_svc_unkown_or_not_implemented_by_op', this, [SVC, $OP, org])
-    }
-    let obj = await MDCache.get(this, MDTable.ORGS, org) as Object
-    if (obj) {
-      if ($OP) obj[SVC] = $OP
-      else {
-        delete obj[SVC]
-        if (Array.from(Object.entries(obj)).length === 0) obj = null
-      }
-    } else {
-      if ($OP) { obj = { }; obj[SVC] = $OP }
-    }
-    await MDCache.set(this, MDTable.ORGS, org, obj)
-  }
-}
-Registry.registerOp($GrantSvcOpOrg)
-
-/* Opérations de simple lecture des configuration des services / organisations
-Pas de contrôle d'accès.
-*****************************************************************************/
-/* $GetSvcUrls: pour une liste de services, retrourne une map avec une entrée par service:
-Cette entrée est une map donnant par opérateur, son URL
-*/
-class $GetSvcUrls extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const l = this.args['lsvc'] as string[]
-    const urls = {}
-    for(const svc of l) {
-      const obj = await MDCache.get(this, MDTable.SVCOPS, svc)
-      if (obj) urls[svc] = obj
-    }
-    this.setRes('urls', urls)
-  }
-}
-Registry.registerOp($GetSvcUrls)
-
-/* $GetOrgSvcs: pour une organisation donnée, retrourne une map avec une entrée par service
-donnant l'opérateur qui en assure l'hébergement.
-*/
-class $GetOrgSvcs extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const org = this.args['org'] as string
-    const svcs = await MDCache.get(this, MDTable.ORGS, org)
-    if (svcs) this.setRes('svcs', svcs)
-  }
-}
-Registry.registerOp($GetOrgSvcs)
 
 type MDEvent = {
   // Immuables

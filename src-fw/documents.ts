@@ -204,7 +204,7 @@ export class $CredTempl {
     }
   }
 
-  async CreateSafeCred () : Promise<number>{
+  async CreateSafeCred (op: Operation) : Promise<number>{
     const setCred: SetCred = {
       userId: this.userId,
       signId: this.signId,
@@ -213,7 +213,7 @@ export class $CredTempl {
       credK: this.credK
     }
     try {
-      const res: any = await MDandSafe.doSafeOp(this.userId, '$CreateCred', setCred)
+      const res: any = await MDandSafe.doSafeOp(op, this.userId, '$CreateCred', setCred)
       return res.status || 0
     } catch (e) {
       return 98

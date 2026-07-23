@@ -27,33 +27,6 @@ export type CredRequest = {
 
 /* Operations d'administration ***********************************************************/
 
-/* Retourne une clé publique de cryptage de configuation */
-class GetCKey$ extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true, 0, 9)
-  }
-  async phase2 () {
-    const k = config.keys['DCKeys'][this._name]
-    this.setRes('key', k ? k.pub : '')
-  }
-}
-Registry.registerOp(GetCKey$)
-
-/* Retourne une clé publique de vérification de configuation */
-class GetVKey$ extends Operation {
-  _name: string
-  init () {
-    super.init()
-    this._name = this.stringValue('name', true, 0, 9)
-  }
-  async phase2 () {
-    const k = config.keys['SVKeys'][name]
-    this.setRes('key', k ? k.pub : '')
-  }
-}
-Registry.registerOp(GetVKey$)
 
 /* GetStatus$ retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
@@ -98,6 +71,7 @@ class SetStatus$ extends Operation {
   }
 }
 Registry.registerOp(SetStatus$)
+
 /* GetEnum retourne la liste des valeurs (string)
 - name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
 */
@@ -791,7 +765,7 @@ class ValidateForm extends Operation {
 
     // Création (éventuelle) des credentials en Safe Box de l'utilisateur cible
     for(const ct of this.credTemplates) {
-      this.st = await ct.CreateSafeCred()
+      this.st = await ct.CreateSafeCred(this)
       if (this.st) break
     }
     if (this.st) { // Echec très inattendu : l'opération devient un simple update
@@ -830,7 +804,7 @@ class ValidateForm extends Operation {
     for(const ct of this.credTemplates) {
       const args = { userId: ct.userId, credId: ct.credId, signId: ct.signId }
       setTimeout(async () => {
-        await MDandSafe.doSafeOp(ct.userId, '$FixOneCred', args)
+        await MDandSafe.doSafeOp(this, ct.userId, '$FixOneCred', args)
       }, 5)
     }
   }

@@ -443,6 +443,22 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     return
   }
 
+  /* Retourne une clé publique de cryptage de configuation */
+  if (opName === 'ADMIN$CKey') {
+    const k = config.keys['DCKeys'][this.args.name]
+    const b = encode({ key: k ? k.pub : ''})
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+    return
+  }
+
+  /* Retourne une clé publique de vérification de configuation */
+  if (opName === 'ADMIN$VKey') {
+    const k = config.keys['DCKeys'][this.args.name]
+    const b = encode({ key: k ? k.pub : ''})
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+    return
+  }
+
   const org = opName.endsWith('$') ? 'A' : args['org']
 
   const now = Date.now()
@@ -704,12 +720,12 @@ export class MDandSafe {
     return [icvs.c, icvs.v, icvs.s]
   }
 
-  static async doSafeOp (userId: string, opName: string, args: any) : Promise<Object> {
+  static async doSafeOp (op: Operation, userId: string, opName: string, args: any) : Promise<Object> {
     const cvs = await MDandSafe.getCVS(userId)
     if (!cvs) return { status: 101 }
-    const safeStore = cvs[2] || config.STDSAFE_URL
+    const url = await getSafeUrl(op, cvs[2])
     args.opName = opName
-    return await MDandSafe.postMDS(safeStore, args)
+    return await MDandSafe.postMDS(url, args)
   }
 
 }

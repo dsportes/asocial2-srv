@@ -4,7 +4,8 @@ import { AbstractOperation, DbConnector } from '../src-fw/index'
 /* Interface des services d'accès génériques à la DB */
 export enum MDTable { 
   ORGS = 'ZZORGS',
-  SVCOPS = 'ZZSVCOPS'
+  SVCOPS = 'ZZSVCOPS',
+  SITES = 'ZZSITES'
 }
 
 export enum MDopn { new, setAA, setS, del }
@@ -148,9 +149,8 @@ export interface IDbGeneric {
 
   /* Master Directory ************************************************/
 
-  mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> 
-  mdSet (st: MDTable, key: string, v: number, value: string) : Promise<void> 
-  mdDel (st: MDTable, key: string) : Promise<void> 
+  mdGetValue (key: string, v: number) : Promise<[number, string]> 
+  mdSetValue (key: string, v: number, value: string) : Promise<void> 
 
   /* ACID - Création / maj d'une entrée du Mester Directory
   - opn: code opération. new setAA setS setLLQ del

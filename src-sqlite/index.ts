@@ -206,22 +206,27 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   /******************************************************************************
   * Gestion du Master Directory  
   ******************************************************************************/
+  /* Retourne la map des urls par site, si modifiée après v (sinon [0, null])
+  Par convention la "pseudo" org '1' est la map des urls des sites.
+  */
+  async mdGetValue (key: string, v: number) : Promise<[number, string]> { // [v, json] { s1: u1, s2: u2 ...}
+    try {
+      const stmt = this.sql.prepare('SELECT value, v FROM ZZVALUES WHERE key = @key AND v > @v;')
+      let row = stmt.get({ key, v })
+      return row ? [row.v, row.value] : [0, null]
+    } catch (e: any) {
+      throw new AppExc (108, 'masterdir_db_error_mdGetValue', null, [e])
+    }
+  } 
 
-  async mdGet (st: MDTable, key: string, v: number) : Promise<[number, string]> {
-    const stmt = this.sql.prepare('SELECT value, v FROM ' + st + ' WHERE key = @key AND v > @v;')
-    let row = stmt.get({ key, v })
-    return row ? [row.v, row.value] : null
-  }
-
-  async mdSet (st: MDTable, key: string, v: number, value: string) : Promise<void> {
-    const stmt = this.sql.prepare('INSERT INTO ' + st +
-      ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
-    stmt.run({key, v, value})
-  }
-
-  async mdDel (st: MDTable, key: string) : Promise<void> {
-    const stmt = this.sql.prepare('DELETE FROM ' + st + ' WHERE key = @key')
-    stmt.run({ key })
+  async mdSetValue (key: string, v: number, value: string) : Promise<void> {
+    try {
+      const stmt = this.sql.prepare('INSERT INTO ZZVALUES ' +
+        ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
+      stmt.run({key, v, value})
+    } catch (e: any) {
+      throw new AppExc (108, 'masterdir_db_error_mdSetValue', null, [e])
+    }
   }
 
   async mdUserSet (opn: MDopn, args: MDuser | MDsetAA | MDsetS ) : Promise<number> {
