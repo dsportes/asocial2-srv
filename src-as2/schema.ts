@@ -3,9 +3,14 @@ import { DocDescriptor, FormType, idx, propType } from '../src-fw/docDescriptor'
 let exc: Error | null = null
 
 let svc = DocDescriptor.declareService('AS2')
+
 try {
   const nd = DocDescriptor.size()
   const nf = FormType.size()
+
+  new DocDescriptor(svc,
+    { name: 'Status', sync: true }
+  )
 
   new DocDescriptor(svc, 
     { name: 'Credential', pk: ['credId'], nohash: true, subClassBy: 'docCl' },

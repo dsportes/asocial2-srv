@@ -68,12 +68,13 @@ export class Operation implements OperationWC {
     Operation.factories.set(opName, factory)
   }
 
-  svc: string
   opName: string
   result: any
   args: any 
-  org: string
   now: number
+  svc: string
+  org: string
+  site: string
 
   public acceptBadCredential : boolean = false
 

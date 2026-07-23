@@ -27,14 +27,21 @@ export type CredRequest = {
 
 /* Operations d'administration ***********************************************************/
 
+class ADMIN$isAdmin extends Operation {
+  async phase2 () {
+    this.requireAuth()
+    this.setRes('isAdmin', this.authRecord.isAdmin)
+  }
+}
+Registry.registerOp(ADMIN$isAdmin)
 
-/* GetStatus$ retourne le status du service: { st, at, txt }
+/* ADMIN$getStatus retourne le status du site: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
   Du fait de $, adresse la pseudo organisation 'A' (donc le service)
 */
-class GetStatus$ extends Operation {
+class ADMIN$getStatus extends Operation {
   async phase2 () {
     const dd = await Cache.getRow(this, 'ADMIN$Status', null, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
@@ -45,14 +52,14 @@ class GetStatus$ extends Operation {
     }
   }
 }
-Registry.registerOp(GetStatus$)
+Registry.registerOp(ADMIN$getStatus)
 
-/* SetStatus$ fixe le status du service: { st, at, txt }
+/* ADMIN$SetStatus fixe le status du service: { st, at, txt }
   st: code 0: DOWN, 1: UP
   txt: texte explicatif éventuel de l'administrateur
   ADMINISTRATEUR
 */
-class SetStatus$ extends Operation {
+class ADMIN$SetStatus extends Operation {
   _st: number
   _txt: string
   init () {
@@ -70,12 +77,12 @@ class SetStatus$ extends Operation {
     doc.txt = this._txt || ''
   }
 }
-Registry.registerOp(SetStatus$)
+Registry.registerOp(ADMIN$SetStatus)
 
-/* GetEnum retourne la liste des valeurs (string)
+/* ADMIN$getEnum retourne la liste des valeurs (string)
 - name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
 */
-class GetEnum$ extends Operation {
+class ADMIN$getEnum extends Operation {
   _name: string
   init () {
     super.init()
@@ -88,11 +95,11 @@ class GetEnum$ extends Operation {
     this.setRes('enum', x)
   }
 }
-Registry.registerOp(GetEnum$)
+Registry.registerOp(ADMIN$getEnum)
 
-/* SetEnum fixe la liste des valeurs d'une enumération
+/* ADMIN$setEnum fixe la liste des valeurs d'une enumération
 */
-class SetEnum$ extends Operation {
+class ADMIN$setEnum extends Operation {
   _name: string
   _value: string[]
 
@@ -106,67 +113,9 @@ class SetEnum$ extends Operation {
     await this.db.setSingleton(this._name, JSON.stringify(this._value))
   }
 }
-Registry.registerOp(SetEnum$)
+Registry.registerOp(ADMIN$setEnum)
 
-/* Operations standard ***********************************************************/
-class Bug extends Operation {
-  init () { super.init() }
-  async phase2 () { await this.db.bug(); console.log('Bug op') }
-}
-Registry.registerOp(Bug)
-
-class ErrorTest extends Operation {
-  init () { super.init() }
-  async phase2 () { 
-    throw new AppExc(102, 'error_test', this, ['arg1', 'arg2'])
-  }
-}
-Registry.registerOp(ErrorTest)
-
-/* GetStatus retourne le status de l'organisation: { st, at, txt }
-  st: code 0: inconnu 1: UP 9: DOWN
-  at: time de dernière mise à jour
-  txt: texte explicatif éventuel de l'administrateur
-*/
-class GetStatus extends Operation {
-  async phase2 () {
-    const dd = await Cache.getRow(this, '$Status', null, config.STATUSLAZYNESS)
-    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
-    else {
-      dd.init()
-      const s = dd.doc as $Status
-      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
-    }
-  }
-}
-Registry.registerOp(GetStatus)
-
-/* SetStatus fixe le status de l'organisation: { st, at, txt }
-  st: code 0: DOWN, 1: UP
-  txt: texte explicatif éventuel de l'administrateur
-  ADMINISTRATEUR
-*/
-class SetStatus extends Operation {
-  _st: number
-  _txt: string
-  init () {
-    super.init()
-    this._st = this.intValue('st', true, 0, 9)
-    this._txt = this.stringValue('txt', true)
-  }
-  async phase2 () {
-    this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc('$Status') as $Status
-    if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status') as $Status
-    doc.at = Date.now()
-    doc.st = this._st
-    doc.txt = this._txt || ''
-  }
-}
-Registry.registerOp(SetStatus)
-
-class SetOrgConfig$ extends Operation {
+class ADMIN$setOrgConfig extends Operation {
   _torg: string
   _st: string
   _db: string
@@ -182,9 +131,9 @@ class SetOrgConfig$ extends Operation {
     this.setRes('orgconfig', { db: this._db, st: this._st })
   }
 }
-Registry.registerOp(SetOrgConfig$)
+Registry.registerOp(ADMIN$setOrgConfig)
 
-class GetOrgConfig$ extends Operation {
+class ADMIN$getOrgConfig extends Operation {
   _torg: string
   init () {
     super.init()
@@ -202,12 +151,71 @@ class GetOrgConfig$ extends Operation {
       this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
   }
 }
-Registry.registerOp(GetOrgConfig$)
+Registry.registerOp(ADMIN$getOrgConfig)
 
-/* HasAlias retourne true s'il existe un document de la classe docCl
+/* Operations standard ***********************************************************/
+class FW$Bug extends Operation {
+  init () { super.init() }
+  async phase2 () { await this.db.bug(); console.log('Bug op') }
+}
+Registry.registerOp(FW$Bug)
+
+class FW$ErrorTest extends Operation {
+  init () { super.init() }
+  async phase2 () { 
+    throw new AppExc(102, 'error_test', this, ['arg1', 'arg2'])
+  }
+}
+Registry.registerOp(FW$ErrorTest)
+
+/* GetStatus retourne le status de l'organisation: { st, at, txt }
+  st: code 0: inconnu 1: UP 9: DOWN
+  at: time de dernière mise à jour
+  txt: texte explicatif éventuel de l'administrateur
+*/
+class FW$getStatus extends Operation {
+  async phase2 () {
+    const dd = await Cache.getRow(this, this.svc + '$Status', null, config.STATUSLAZYNESS)
+    if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
+    else {
+      dd.init()
+      const s = dd.doc as $Status
+      this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
+    }
+  }
+}
+Registry.registerOp(FW$getStatus)
+
+/* SetStatus fixe le status de l'organisation: { st, at, txt }
+  st: code 0: DOWN, 1: UP
+  txt: texte explicatif éventuel de l'administrateur
+  ADMINISTRATEUR
+*/
+class FW$setStatus extends Operation {
+  _st: number
+  _txt: string
+  init () {
+    super.init()
+    this._st = this.intValue('st', true, 0, 9)
+    this._txt = this.stringValue('txt', true)
+  }
+  async phase2 () {
+    this.requireAdmin()
+    let doc: $Status = await this.cache.getDoc(this.svc + '$Status') as $Status
+    if (doc) doc._status = DocStatus.UPD
+    else doc = this.cache.newDoc('$Status') as $Status
+    doc.at = Date.now()
+    doc.st = this._st
+    doc.txt = this._txt || ''
+  }
+}
+Registry.registerOp(FW$setStatus)
+
+/* HasAlias retourne true s'il existe un document 
+de la classe docCl (SANS le préfixe svc$)
 dont l'index d'alias aliasName donné a la valeur donnée aliasValue.
 */
-class HasAlias extends Operation {
+class FW$hasAlias extends Operation {
   _docCl: string
   _aliasName: string
   _aliasValue: string
@@ -223,12 +231,13 @@ class HasAlias extends Operation {
     const testable = dd.isTestable(this._aliasName)
     if (!testable) this.setRes('hasalias', false)
     else {
-      const doc = await this.db.oneRowByAlias(this._docCl, this._aliasName, this._aliasValue)
+      const doc = await this.db.oneRowByAlias(
+        this.svc + '$' + this._docCl, this._aliasName, this._aliasValue)
       this.setRes('hasalias', doc !== null)
     }
   }
 }
-Registry.registerOp(HasAlias)
+Registry.registerOp(FW$hasAlias)
 
 
 // GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage

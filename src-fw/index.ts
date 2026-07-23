@@ -136,7 +136,7 @@ export class OrgsConfig {
       OrgsConfig.updating = false
       OrgsConfig.lastLoading = Date.now()
       if (config.debugLevel > 0) Log.debug('Reloading orgs config OK')
-        return true
+      return true
     } catch (e) {
       if (op && op.db) op.db.disconnect()
       Log.error('Reloading orgs-topics config KO: ' + e.toString())
@@ -434,33 +434,6 @@ let today = 0
 let todayEpoch = 0
 
 export async function doOp (args: Object, res: express.Response, baseUrl: string) {
-  const opName = args['opName']
-
-  if (opName === 'ADMIN$isAdmin') {
-    const u = args['authRecord'] ? args['authRecord'].userId : ''
-    const b = encode({ isadmin: config.ADMINUSERS.has(u) })
-    res.status(200).type('application/octet-stream').send(Buffer.from(b))
-    return
-  }
-
-  /* Retourne une clé publique de cryptage de configuation */
-  if (opName === 'ADMIN$CKey') {
-    const k = config.keys['DCKeys'][this.args.name]
-    const b = encode({ key: k ? k.pub : ''})
-    res.status(200).type('application/octet-stream').send(Buffer.from(b))
-    return
-  }
-
-  /* Retourne une clé publique de vérification de configuation */
-  if (opName === 'ADMIN$VKey') {
-    const k = config.keys['DCKeys'][this.args.name]
-    const b = encode({ key: k ? k.pub : ''})
-    res.status(200).type('application/octet-stream').send(Buffer.from(b))
-    return
-  }
-
-  const org = opName.endsWith('$') ? 'A' : args['org']
-
   const now = Date.now()
   const e = Math.floor(now / 86400000)
   if (e !== todayEpoch) { 
@@ -468,13 +441,35 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     today = Util.amj(now)
   }
 
-  try {
-    if (opName === 'yo'){
-      await Util.sleep(1000)
-      res.status(200).type('text/plain').send('yo ' + new Date().toISOString())
-      return
+  const opName = args['opName']
+
+  if (opName.startsWith('CONFIG$')) {
+    let obj : Object
+    switch (opName) {
+      case 'CONFIG$CKey' : 
+        const dc = config.keys['DCKeys'][this.args.name]
+        obj = { key: dc ? dc.pub : '' }
+        break
+      case 'CONFIG$VKey' : 
+        const sv = config.keys['SVKeys'][this.args.name]
+        obj = { key: sv ? sv.pub : '' }
+        break
+      case 'CONFIG$yo' : 
+        await Util.sleep(1000)
+        res.status(200).type('text/plain').send('yo ' + new Date().toISOString())
+        return
+      default :
+        const e = new AppExc(103, 'unknown_operation', null, [opName])
+        const b: Buffer = e.serial()
+        res.status(401).type('application/octet-stream').send(b)
+        return
     }
-    
+    const b = encode(obj)
+    res.status(200).type('application/octet-stream').send(Buffer.from(b))
+    return
+  }
+
+  try {
     const op = Registry.newOp(opName) as Operation
     if (!op) throw new AppExc(103, 'unknown_operation', null, [opName])
 
@@ -487,24 +482,28 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     op.today = today
     op.args = args
     op.opName = opName
-    op.org = org
     op.baseUrl = baseUrl
 
-    OrgsConfig.reload()
-    if (org === 'A') {
+    if (opName.startsWith('ADMIN$')) {
+      op.site = args['site']
       op.dbConnector = config.svcDB
     } else {
-      op.storage = OrgsConfig.getStorage(org)
-      op.dbConnector = OrgsConfig.getDbConnector(org)
+      op.svc = args['svc']
+      op.org = args['org']
+      OrgsConfig.reload()
+      op.storage = OrgsConfig.getStorage(op.org)
+      op.dbConnector = OrgsConfig.getDbConnector(op.org)
+      if (!op.dbConnector) 
+        throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
     }
-    if (!op.dbConnector) 
-      throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
 
     op.init()
 
     await op.run()
+
     if (config.debugLevel === 2)
       Log.info(opName + ' finished')
+
     const b = encode(op.result || {})
     res.status(200).type('application/octet-stream').send(Buffer.from(b))
   } catch(exc) {
@@ -661,6 +660,7 @@ export class MDandSafe {
     'Accept':       'application/octet-stream'   // expected data sent back
   }
 
+  /* SANS axios
   static async postMDS1 (url: string, args: any) : Promise<Object> {
     try {
       const body = Buffer.from(encode(args))
@@ -677,6 +677,7 @@ export class MDandSafe {
       throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)
     }
   }
+  */
 
   static async postMDS (url: string, args: any) : Promise<Object> {
     try {
