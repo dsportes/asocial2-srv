@@ -361,6 +361,7 @@ Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des docum
   Pour les 'def2', un objet { pk: data | v ... }
   - v: version du document si n'est PLUS dans la collection
   - data: data du document s'il est dans la collection
+  TODO
 */
 class Sync extends Operation {
   _toSync : subsToSync[]
