@@ -58,14 +58,16 @@ export class DocDescriptor {
   static isVarName (n: string) { return DocDescriptor.regvar.test(n)}
   static regdoc = /^[A-Z$][a-zA-Z_$0-9]*$/
   static isDocName (n: string) { return DocDescriptor.regdoc.test(n)}
-  static services: Set<string>
+
+  static services: Set<string> = new Set()
+  static all: Map<string, DocDescriptor> = new Map()
+
+  static size () { return DocDescriptor.all.size}
+
   static declareService (svc: string) : string {
     DocDescriptor.services.add(svc)
     return svc
   }
-  static all: Map<string, DocDescriptor> = new Map()
-
-  static size () { return DocDescriptor.all.size}
 
   /* clazz de la forme SVC@docCl_sub : 
   - sub est ignoré si présent
@@ -184,7 +186,7 @@ export class DocDescriptor {
     indexes?: Map<string, idx> | null) {
 
     if (!DocDescriptor.services.has(svc))
-      throw new AppExc(3, 'EX3_not_configured_service', 'docDescriptor', [svc])
+      throw new AppExc(3, 'not_configured_service', 'docDescriptor', [svc])
     this.svc = svc
     if (!DocDescriptor.isDocName(arg.name)) 
       throw new AppExc(3, 'document_name_syntax', 'docDescriptor', [arg.name])

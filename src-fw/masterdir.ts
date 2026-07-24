@@ -184,8 +184,8 @@ export class MDOperation implements AbstractOperation {
   }
 
   /* Retourne les paramètres d'une opération d'Administration du Safe
-  - userId doit être enregistré dans la configuration SAFEADMINUSERS ou ADMINUSERS
-  - params: string[] - Par exemple: [SVC, $OP, org] [SVC, $OP, url] ...
+  - userId doit être enregistré dans la configuration MASTERDIRADMINUSERS
+  - params: string[] - Par exemple: [org, svc, site] ...
   - time: date-heure de la requête
   - sign: signature par la clé S de userId de encode([time, params])
   Retourne "params" en cas de succès.

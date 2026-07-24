@@ -1,4 +1,4 @@
-import { DocDescriptor, FormType, idx, propType } from '../src-fw/docDescriptor'
+import { DocDescriptor, FormType, idx, collection, propType } from '../src-fw/docDescriptor'
 
 let exc: Error | null = null
 
@@ -29,15 +29,16 @@ try {
   )
 
   new DocDescriptor(svc, 
-    { name: 'Section', enum: ['roman', 'histoire', 'sf'] }
+    { name: 'Section', virtual: true, enum: ['roman', 'histoire', 'sf'] }
   )
 
   new DocDescriptor(svc, 
     { name: 'Auteur', pk: ['autId'], sync: true, embedCreds: true },
-    null,
+    new Map<string, collection>([
+      ['section',  { key: ['section'], mutable: true }]
+    ]),
     new Map<string, idx>([
-      ['nom',  { type: propType.STRING, key: ['nomAuteur'], testable: true }],
-      ['section',  { type: propType.HASH }]
+      ['nom',  { type: propType.STRING, key: ['nomAuteur'], testable: true }]
     ])
   )
 

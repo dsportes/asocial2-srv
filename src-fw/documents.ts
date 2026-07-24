@@ -12,9 +12,8 @@ import { MDandSafe, AppExc } from '../src-fw/index'
 import { SetCred } from '../src-fw/safeop'
 
 // import { AuthRecord } from '../src-fw/operation'
-
-const encoder = new TextEncoder()
-const decoder = new TextDecoder()
+// const encoder = new TextEncoder()
+// const decoder = new TextDecoder()
 
 let nd = 0
 
@@ -22,13 +21,13 @@ export function loadingDF () {
   console.log('fw documents loading: ', nd)
 }
 
-class $Task extends $Document {
+class ADMIN$Task extends $Document {
   static release = 0
 
 }
-nd++; Registry.register($Task)
+nd++; Registry.register(ADMIN$Task)
 
-export class $Status extends $Document {
+export class ADMIN$Status extends $Document {
   static release = 0
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
   at: number // time de dernière mise à jour
@@ -39,7 +38,7 @@ export class $Status extends $Document {
   isRW () { return this.st === 1 }
   isDOWN () { return this.st === 9 }
 }
-nd++; Registry.register($Status)
+nd++; Registry.register(ADMIN$Status)
 
 /* 
 - sessionId : shaS de subJSON clé primaire
@@ -61,7 +60,7 @@ export type $subscription = {
 
 /* Un document Subs décrit la souscription d'une session:
 */
-export class $Subs extends $Document {
+export class ADMIN$Subs extends $Document {
   static release = 0
 
   sessionId: string
@@ -83,10 +82,11 @@ export class $Subs extends $Document {
     return op.cache.newDoc('$Subs', initVals)
   }
 }
-nd++; Registry.register($Subs)
+nd++; Registry.register(ADMIN$Subs)
 
-/* Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
-et peut avoir trois formes:
+/* TODO : QUID de org ?
+Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
+et peut avoir trois formes: 
 - 0 : souscription à la classe de documents: tous changements des documents de la classe 
   dont les créations et les zombifications.
 - 1 : souscription à un document de pk citée. pk est un hash de la ou des
@@ -94,13 +94,13 @@ et peut avoir trois formes:
 - 2 : souscription à la sous-collection nommée des documents de la classe
 
 La définition def d'un SubsItem est le string:
-- type 0: clazz
+- type 0: clazz COMPLET (svc$docCl) OU (org/svc$docCl) ???
 - type 1: clazz/pkVal (c'est un shaC)
 - type 2: clazz/colName/colVal (c'est un shaC)
 def est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
-export class $SubsItem extends $Document {
+export class ADMIN$SubsItem extends $Document {
   static release = 0
 
   sessionId : string
@@ -160,7 +160,7 @@ export class $SubsItem extends $Document {
   }
 
 }
-nd++; Registry.register($SubsItem)
+nd++; Registry.register(ADMIN$SubsItem)
 
 export type $CredObj = {
   credId: string

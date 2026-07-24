@@ -5,9 +5,9 @@ import { AppExc } from '../src-fw/log'
 import { OrgsConfig, MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
-import { $Status, $Subs, $subscription, $SubsItem, $Credential, 
+import { ADMIN$Status, ADMIN$Subs, $subscription, ADMIN$SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
-import { DocStatus } from '../src-fw/document'
+import { DocStatus, $Document } from '../src-fw/document'
 // import { Util } from '../src-fw/util'
 
 export function loadingOF () {
@@ -47,7 +47,7 @@ class ADMIN$getStatus extends Operation {
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
-      const s = dd.doc as $Status
+      const s = dd.doc as ADMIN$Status
       this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
     }
   }
@@ -69,9 +69,9 @@ class ADMIN$SetStatus extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc('ADMIN$Status') as $Status
+    let doc: ADMIN$Status = await this.cache.getDoc('ADMIN$Status') as ADMIN$Status
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status') as $Status
+    else doc = this.cache.newDoc('$Status') as ADMIN$Status
     doc.at = Date.now()
     doc.st = this._st
     doc.txt = this._txt || ''
@@ -153,6 +153,86 @@ class ADMIN$getOrgConfig extends Operation {
 }
 Registry.registerOp(ADMIN$getOrgConfig)
 
+/* Gestion des souscriptions:
+- les documents sont: ADMIN$Subs ADMIN$SubsItem.
+- ils sont enregistrés au niveau du site (dans la db "par défaut" du site)
+- les opérations sont des ADMIN$... qui cite le "site"
+*/
+
+/* ADMIN$setSubscription enregistre la souscription d'une session *************************
+- Supprime la précédente s'il y en avait une
+- Créé une nouvelle si l'argument subscription n'est pas null
+*/
+class ADMIN$setSubscription extends Operation {
+  _subs: $subscription
+  _life: number
+  init () {
+    super.init()
+    this._subs = this.objectValue('subsscription', false) as $subscription
+    const longLife = this.boolValue('longLife', false)
+    this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
+  }
+  async phase2 () {
+    await ADMIN$SubsItem.deleteSessionId(this, this._subs.sessionId)
+    if (this._subs) {
+      const subs = ADMIN$Subs.newSubs(this, this._subs, this._life) as ADMIN$Subs
+      for (const def in subs.defs) {
+        // const msg = subs.defs[def] - pas enregistré dans SubsItem
+        ADMIN$SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+      }
+    }
+  }
+}
+Registry.registerOp(ADMIN$setSubscription)
+
+/* ADMIN$updateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
+Maj éventuelle de title / url
+Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
+*/
+class ADMIN$updateSubscription extends Operation {
+  _title: string
+  _url: string
+  _defs: Object
+  init () {
+    super.init()
+    this._title = this.stringValue('title', false)
+    this._url = this.stringValue('url', false)
+    this._defs = this.objectValue('defs', true)
+  }
+  async phase2 () {
+    const subs = await this.cache.getDoc('$Subs', { sessionId: this.sessionId}) as ADMIN$Subs
+    if (!subs) 
+      throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
+
+    if (this.args['title']) { subs.title = this._title; subs._status = DocStatus.UPD }
+
+    if (this.args['url']) { subs.url = this._url; subs._status = DocStatus.UPD }
+
+    for (const def in this._defs) {
+      const src = { sessionId: this.sessionId, def, maxLife: subs.maxLife }
+      const msg = this._defs[def]
+      if (msg === false) {
+        delete subs.defs[def]
+        await this.cache.getDoc('$SubsItem', src) as ADMIN$SubsItem
+        this.cache.delDoc('$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
+      } else {
+        subs.defs[def] = msg
+        let subsItem = await this.cache.getDoc('$SubsItem', src) as ADMIN$SubsItem
+        if (!subsItem) {
+          subsItem = this.cache.newDoc('$SubsItem', src) as ADMIN$SubsItem
+          subsItem._status = DocStatus.NEW
+        } else { 
+          subsItem.def = def
+          subsItem._status = DocStatus.UPD
+        }
+      }
+      subs._status = DocStatus.UPD
+    }
+  }
+}
+Registry.registerOp(ADMIN$updateSubscription)
+
+
 /* Operations standard ***********************************************************/
 class FW$Bug extends Operation {
   init () { super.init() }
@@ -179,7 +259,7 @@ class FW$getStatus extends Operation {
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
-      const s = dd.doc as $Status
+      const s: any = dd.doc
       this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
     }
   }
@@ -201,17 +281,17 @@ class FW$setStatus extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    let doc: $Status = await this.cache.getDoc(this.svc + '$Status') as $Status
+    let doc = await this.cache.getDoc(this.svc + '$Status') as $Document
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status') as $Status
-    doc.at = Date.now()
-    doc.st = this._st
-    doc.txt = this._txt || ''
+    else doc = this.cache.newDoc('$Status')
+    doc['at'] = Date.now()
+    doc['st'] = this._st
+    doc['txt'] = this._txt || ''
   }
 }
 Registry.registerOp(FW$setStatus)
 
-/* HasAlias retourne true s'il existe un document 
+/* FW$HasAlias retourne true s'il existe un document 
 de la classe docCl (SANS le préfixe svc$)
 dont l'index d'alias aliasName donné a la valeur donnée aliasValue.
 */
@@ -239,9 +319,8 @@ class FW$hasAlias extends Operation {
 }
 Registry.registerOp(FW$hasAlias)
 
-
-// GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
-class GetPutUrl extends Operation {
+// FW$GetPutUrl retourne l'URL de GET ou de PUT d'un fichier en storage
+class FW$GetPutUrl extends Operation {
   _id1 : string
   _id2 : string
   _id3 : string
@@ -260,80 +339,8 @@ class GetPutUrl extends Operation {
     this.setRes('url', url)
   }
 }
-Registry.registerOp(GetPutUrl)
+Registry.registerOp(FW$GetPutUrl)
 
-/* SetSubscription enregistre la sousciption d'une session *************************
-- Supprime la précédente s'il y en avait une
-- Créé une nouvelle si l'argument subscription n'est pas null
-*/
-class SetSubscription extends Operation {
-  _subs: $subscription
-  _life: number
-  init () {
-    super.init()
-    this._subs = this.objectValue('subsscription', false) as $subscription
-    const longLife = this.boolValue('longLife', false)
-    this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
-  }
-  async phase2 () {
-    await $SubsItem.deleteSessionId(this, this._subs.sessionId)
-    if (this._subs) {
-      const subs = $Subs.newSubs(this, this._subs, this._life) as $Subs
-      for (const def in subs.defs) {
-        // const msg = subs.defs[def] - pas enregistré dans SubsItem
-        $SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
-      }
-    }
-  }
-}
-Registry.registerOp(SetSubscription)
-
-/* UpdateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
-Maj éventuelle de title / url
-Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
-*/
-class UpdateSubscription extends Operation {
-  _title: string
-  _url: string
-  _defs: Object
-  init () {
-    super.init()
-    this._title = this.stringValue('title', false)
-    this._url = this.stringValue('url', false)
-    this._defs = this.objectValue('defs', true)
-  }
-  async phase2 () {
-    const subs = await this.cache.getDoc('$Subs', { sessionId: this.sessionId}) as $Subs
-    if (!subs) 
-      throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
-
-    if (this.args['title']) { subs.title = this._title; subs._status = DocStatus.UPD }
-
-    if (this.args['url']) { subs.url = this._url; subs._status = DocStatus.UPD }
-
-    for (const def in this._defs) {
-      const src = { sessionId: this.sessionId, def, maxLife: subs.maxLife }
-      const msg = this._defs[def]
-      if (msg === false) {
-        delete subs.defs[def]
-        await this.cache.getDoc('$SubsItem', src) as $SubsItem
-        this.cache.delDoc('$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
-      } else {
-        subs.defs[def] = msg
-        let subsItem = await this.cache.getDoc('$SubsItem', src) as $SubsItem
-        if (!subsItem) {
-          subsItem = this.cache.newDoc('$SubsItem', src) as $SubsItem
-          subsItem._status = DocStatus.NEW
-        } else { 
-          subsItem.def = def
-          subsItem._status = DocStatus.UPD
-        }
-      }
-      subs._status = DocStatus.UPD
-    }
-  }
-}
-Registry.registerOp(UpdateSubscription)
 
 type subsToSync = {
   def: string, 

@@ -5,7 +5,7 @@ import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe, MDTable, 
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
-import { propType } from '../src-fw/docDescriptor'
+import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { Registry } from '../src-fw/config'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
@@ -30,9 +30,20 @@ PRIMARY KEY(key));
 const t3 = `\t"data" BLOB,
 PRIMARY KEY(org, pk));` 
 
+const t3b = `\t"data" BLOB,
+PRIMARY KEY(pk));` 
+
 function t2 (cl: string) {
   const x = `CREATE TABLE IF NOT EXISTS "${cl}" (
   "org" TEXT,
+  "pk" TEXT,
+  "v" INTEGER,
+  "ttl" INTEGER,` 
+  return x
+}
+
+function t2b (cl: string) {
+  const x = `CREATE TABLE IF NOT EXISTS "${cl}" (
   "pk" TEXT,
   "v" INTEGER,
   "ttl" INTEGER,` 
@@ -71,6 +82,21 @@ CREATE INDEX IF NOT EXISTS "${cl}@${n}_ttl" ON "${cl}" ( "ttl" )  WHERE "ttl" > 
   return x
 }
 
+function t6b (cl: string, n: string) {
+  const x = `
+CREATE TABLE IF NOT EXISTS "${cl}@${n}" (
+  "pk" TEXT,
+  "v" INTEGER,
+  "col" TEXT,
+  "ttl" INTEGER,
+PRIMARY KEY(pk));
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_v" ON "${cl}" ( "v" );
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_col" ON "${cl}" ( "col" );
+CREATE INDEX IF NOT EXISTS "${cl}@${n}_ttl" ON "${cl}" ( "ttl" )  WHERE "ttl" > 0;
+`
+  return x
+}
+
 const sqlTypes = [ 'TEXT', 'INTEGER', 'REAL', 'TEXT', 'TEXT' ]
 
 export class SQLiteConnector extends DbConnector {
@@ -91,17 +117,17 @@ export class SQLiteConnector extends DbConnector {
   static async genSchema () {
     const l = []
     l.push(t1)
-    for (const clazz of Registry.allClasses()) {
-      const dt = Registry.getDescr('', clazz)
+    for (const [fn, dt] of DocDescriptor.all) {
       if (dt.virtual) continue
       l.push('')
-      const cl = dt.name.toUpperCase()
+      const cl = fn.toUpperCase()
+      const adm = dt.svc === 'ADMIN'
 
-      l.push(t2(cl))
+      l.push(adm ? t2b(cl) : t2(cl))
       if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t4(n, 'TEXT'))
       if (dt.hasIndexes) for (const [n, x] of dt.indexes) l.push(t4(n, sqlTypes[x.type]))
-      l.push(t3)
-      l.push(t5(cl, 'org'))
+      l.push(adm ? t3b : t3)
+      if (!adm) l.push(t5(cl, 'org'))
       l.push(t5(cl, 'v'))
       l.push(t5w(cl, 'ttl'))
       if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t5(cl, n))
@@ -109,17 +135,16 @@ export class SQLiteConnector extends DbConnector {
 
       if (dt.hasColls) 
         for (const [n, c] of dt.colls) 
-          if (c.mutable) l.push(t6(cl, n))
+          if (c.mutable) l.push(adm ? t6b(cl, n) : t6(cl, n))
     }
     const t = l.join('\n')
     writeFileSync(path.resolve(schemaPath), Buffer.from(t, 'utf8'))
     console.log(schemaPath + ' written') 
 
     l.length = 0
-    for (const clazz of Registry.allClasses()) {
-      const dt = Registry.getDescr('', clazz)
+    for (const [fn, dt] of DocDescriptor.all) {
       l.push('')
-      const cl = dt.name.toUpperCase()
+      const cl = fn.toUpperCase()
       l.push('DELETE FROM ' + cl + ';')
       if (dt.hasColls) for (const [n, x] of dt.colls) 
         l.push('DELETE FROM ' + cl + '@' + n + ';')

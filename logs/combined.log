@@ -21921,3 +21921,24 @@ Error: read ECONNRESET
 2026-07-18T12:33:07.805Z info: $GetSafe finished
 2026-07-18T12:52:27.681Z info: $OpenSafeByPin finished
 2026-07-18T12:52:27.783Z info: $GetSafe finished
+2026-07-24T15:09:26.090Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:20:06.988Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:20:06.991Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-24T15:20:06.992Z info: Firestore connector
+2026-07-24T15:20:06.993Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-24T15:21:28.855Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:21:28.858Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-24T15:21:28.859Z info: Firestore connector
+2026-07-24T15:21:28.860Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-24T15:24:03.224Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:24:03.227Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-24T15:24:03.227Z info: Firestore connector
+2026-07-24T15:24:03.228Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-24T15:27:53.114Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:27:53.117Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-24T15:27:53.117Z info: Firestore connector
+2026-07-24T15:27:53.118Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-24T15:51:12.552Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-24T15:51:12.618Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-24T15:51:12.620Z info: Firestore connector
+2026-07-24T15:51:12.621Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea

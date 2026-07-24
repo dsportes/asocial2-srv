@@ -1,4 +1,4 @@
-import { DocDescriptor, FormType, idx, propType } from '../src-fw/docDescriptor'
+import { DocDescriptor, FormType, idx, collection, propType } from '../src-fw/docDescriptor'
 
 let exc: Error | null = null
 
