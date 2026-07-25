@@ -80,7 +80,9 @@ class ADMIN$SetStatus extends Operation {
 Registry.registerOp(ADMIN$SetStatus)
 
 /* ADMIN$getEnum retourne la liste des valeurs (string)
-- name: nom du singleton - peut être relatif à une org: MyEnum_myOrg
+- name: nom du singleton: forme générale svc$name_org
+  - svc$ : espace de noms par service
+  - _org : facultatif, pour spécialiser des énumérations par organisation
 */
 class ADMIN$getEnum extends Operation {
   _name: string

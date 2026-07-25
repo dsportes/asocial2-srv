@@ -247,7 +247,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async mdSetValue (key: string, v: number, value: string) : Promise<void> {
     try {
       const stmt = this.sql.prepare('INSERT INTO ZZVALUES ' +
-        ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET value = excluded.value;')
+        ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET v = excluded.v, value = excluded.value;')
       stmt.run({key, v, value})
     } catch (e: any) {
       throw new AppExc (108, 'masterdir_db_error_mdSetValue', null, [e])

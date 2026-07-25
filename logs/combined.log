@@ -21942,3 +21942,86 @@ Error: read ECONNRESET
 2026-07-24T15:51:12.618Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
 2026-07-24T15:51:12.620Z info: Firestore connector
 2026-07-24T15:51:12.621Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-25T12:34:49.484Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-25T12:34:49.487Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-25T12:34:49.488Z info: Firestore connector
+2026-07-25T12:34:49.489Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-25T12:34:49.619Z info: Reloading orgs config OK
+2026-07-25T12:34:49.628Z info: HTTP listen [8080]
+2026-07-25T12:37:55.910Z info: $mdAliasFree finished
+2026-07-25T12:38:18.278Z info: $mdUserNew finished
+2026-07-25T12:38:18.298Z info: $CreateSafe finished
+2026-07-25T12:38:21.493Z info: $mdEventList finished
+2026-07-25T12:38:48.821Z info: $mdUserGetICVS finished
+2026-07-25T12:38:57.676Z info: $GetSafe finished
+2026-07-25T12:42:04.432Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-25T12:42:04.437Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-25T12:42:04.439Z info: Firestore connector
+2026-07-25T12:42:04.440Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-25T12:42:04.460Z info: Reloading orgs config OK
+2026-07-25T12:42:04.470Z info: HTTP listen [8080]
+2026-07-25T12:51:27.410Z info: AppExc: 103:masterdir_unknown_operation["$isMDAdmin"]
+2026-07-25T12:51:27.413Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:masterdir_unknown_operation["$isMDAdmin"]
+2026-07-25T12:51:27.421Z info: $isMDAdmin terminated on exception
+2026-07-25T12:51:27.433Z error: AppExc: 105:masterdir_unexpected_exception["AppExc: 103:masterdir_unknown_operation[\"$isMDAdmin\"]"]
+2026-07-25T12:54:49.330Z info: $mdUserGetICVS finished
+2026-07-25T12:54:56.255Z info: $GetSafe finished
+2026-07-25T12:54:59.350Z info: AppExc: 103:masterdir_unknown_operation["$isMDAdmin"]
+2026-07-25T12:54:59.351Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:masterdir_unknown_operation["$isMDAdmin"]
+2026-07-25T12:54:59.352Z info: $isMDAdmin terminated on exception
+2026-07-25T12:54:59.353Z error: AppExc: 105:masterdir_unexpected_exception["AppExc: 103:masterdir_unknown_operation[\"$isMDAdmin\"]"]
+2026-07-25T12:57:17.342Z info: $mdUserGetICVS finished
+2026-07-25T12:57:22.251Z info: $GetSafe finished
+2026-07-25T12:58:06.476Z info: $IsMDAdmin finished
+2026-07-25T12:59:45.259Z info: $mdUserGetICVS finished
+2026-07-25T12:59:45.290Z info: $mdUserGetICVS finished
+2026-07-25T12:59:58.553Z info: $mdUserGetICVS finished
+2026-07-25T13:00:03.092Z info: $GetSafe finished
+2026-07-25T13:10:20.900Z info: $IsMDAdmin finished
+2026-07-25T13:10:52.538Z info: $mdUserGetICVS finished
+2026-07-25T13:10:56.483Z info: $mdUserGetICVS finished
+2026-07-25T13:11:07.161Z info: $mdUserGetICVS finished
+2026-07-25T13:11:07.179Z info: $mdUserGetICVS finished
+2026-07-25T13:11:14.133Z info: $mdUserGetICVS finished
+2026-07-25T13:11:17.444Z info: $GetSafe finished
+2026-07-25T13:12:33.518Z info: $IsMDAdmin finished
+2026-07-25T13:14:01.457Z info: $TrustDevice finished
+2026-07-25T13:14:15.421Z info: $OpenSafeByPin finished
+2026-07-25T13:14:15.494Z info: $GetSafe finished
+2026-07-25T13:14:30.098Z info: $IsMDAdmin finished
+2026-07-25T15:46:27.985Z info: $OpenSafeByPin finished
+2026-07-25T15:46:28.024Z info: $GetSafe finished
+2026-07-25T15:47:28.319Z info: $GetSitesUrls finished
+2026-07-25T15:47:28.337Z info: $IsMDAdmin finished
+2026-07-25T15:49:45.324Z info: $GetSitesUrls finished
+2026-07-25T15:50:45.502Z info: $GetSitesUrls finished
+2026-07-25T15:54:09.744Z info: $GetSitesUrls finished
+2026-07-25T15:54:33.933Z info: $OpenSafeByPin finished
+2026-07-25T15:54:33.976Z info: $GetSafe finished
+2026-07-25T15:54:46.624Z info: $GetSitesUrls finished
+2026-07-25T15:54:46.636Z info: $IsMDAdmin finished
+2026-07-25T15:58:51.355Z info: $SetSiteUrl finished
+2026-07-25T15:58:51.371Z info: $GetSitesUrls finished
+2026-07-25T16:03:27.293Z info: $OpenSafeByPin finished
+2026-07-25T16:03:27.369Z info: $GetSafe finished
+2026-07-25T16:05:47.054Z info: $GetSitesUrls finished
+2026-07-25T16:05:47.071Z info: $IsMDAdmin finished
+2026-07-25T16:08:05.030Z info: $OpenSafeByPin finished
+2026-07-25T16:08:05.073Z info: $GetSafe finished
+2026-07-25T16:08:28.170Z info: $GetSitesUrls finished
+2026-07-25T16:08:28.186Z info: $IsMDAdmin finished
+2026-07-25T16:09:47.854Z info: $OpenSafeByPin finished
+2026-07-25T16:09:47.901Z info: $GetSafe finished
+2026-07-25T16:10:04.108Z info: $GetSitesUrls finished
+2026-07-25T16:10:04.123Z info: $IsMDAdmin finished
+2026-07-25T16:12:36.929Z info: $SetSiteUrl finished
+2026-07-25T16:15:27.460Z info: $SetSiteUrl finished
+2026-07-25T16:15:32.705Z info: $GetSitesUrls finished
+2026-07-25T16:18:04.063Z info: $SetSiteUrl finished
+2026-07-25T16:18:07.133Z info: $GetSitesUrls finished
+2026-07-25T16:19:10.919Z info: $SetSiteUrl finished
+2026-07-25T16:19:17.803Z info: $GetSitesUrls finished
+2026-07-25T16:20:06.950Z info: $SetSiteUrl finished
+2026-07-25T16:20:06.968Z info: $GetSitesUrls finished
+2026-07-25T16:24:09.822Z info: $SetSiteUrl finished
+2026-07-25T16:24:09.853Z info: $GetSitesUrls finished

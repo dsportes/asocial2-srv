@@ -190,7 +190,7 @@ export class MDOperation implements AbstractOperation {
   - sign: signature par la clé S de userId de encode([time, params])
   Retourne "params" en cas de succès.
   */
-  async getParams (args: Object) : Promise<string[]> {
+  async getParams (args: Object, noex?: boolean) : Promise<string[]> {
     const userId = args['userId']
     const time = args['time']
     /* const now = Date.now()
@@ -210,8 +210,10 @@ export class MDOperation implements AbstractOperation {
           console.log(e)
         }
       }
+    } else {
+      if (noex) return null
+      throw new AppExc(101, 'masterdir_no_admin', this)
     }
-    throw new AppExc(101, 'masterdir_no_admin', this)
   }
 }
 
@@ -238,6 +240,15 @@ Registry.registerOp($GetSitesUrls)
 
 /* Operations de mise à jour avec controle d'accès 
 *****************************************************************/
+
+/* Enregistre l'URL d'un site */
+class $IsMDAdmin extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const x = await this.getParams(this.args, true)
+    this.setRes('ismdadmin', x !== null)
+  }
+}
+Registry.registerOp($IsMDAdmin)
 
 /* Enregistre le site d'un service pour une organisation:
 - si le site est '', supprime l'entrée pour ce service */
