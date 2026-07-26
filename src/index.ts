@@ -25,10 +25,8 @@ try {
   exit()
 }
 
-
-import { BaseConfig, setConfig, config } from '../src-fw/config'
-
-setConfig({
+import { BaseConfig, setConfig } from '../src-fw/config'
+const config = {
   SVC: 'AS2',
   ADMINUSERS,
   MASTERDIRADMINUSERS,
@@ -53,27 +51,48 @@ setConfig({
   port: env['PORT'] || 8080,
   https: false,
   origins: new Set<string>(),
+  databases: null,
+  storages: null,
 
-  databases: new Map<string, DbConnector>(),
-  storages: new Map<string, IStGeneric>(),
-  safeDB: null,
-  masterDB: null,
-  svcDB: null,
   dbConnectors: {
     sqlite: AppSQLiteConnector,
     firestore: AppFirestoreConnector,
   },
-  directoryDB: null,
+
   SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
   FORMMAXLIFE: 10 * 86400, // 10 jours
   STATUSLAZYNESS: 3 * 60 // 3 minutes de prise en compte des changements de status
-  } as BaseConfig
-)
+} as BaseConfig
+setConfig(config)
 
 webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
 
 import { Log } from '../src-fw/log'
 new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)
+
+import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
+import { DbConnector } from '../src-fw/dbConnector'
+import { IStGeneric } from '../src-fw/iStGeneric'
+import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
+import { AppFirestoreConnector } from './firestore' // extension spécifique de App
+
+config.dbConnectors = {
+  sqlite: AppSQLiteConnector,
+  firestore: AppFirestoreConnector
+}
+
+config.databases = new Map<string, DbConnector>([
+  ['masterDB', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A'])],
+  ['safeDB', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A'])],
+  ['svcDB', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A'])],
+  // ['org1_DB', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A'])],
+  // ['svcDB', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A'])],
+])
+
+config.storages = new Map<string, IStGeneric>([
+  ['svcST', new FilesystemStorage(keys['storage_a'])],
+  // ['org1_ST', new FilesystemStorage(keys['storage_b'])]
+])
 
 import { schemaExcFW } from '../src-fw/schema'
 import { schemaExcAS2 } from '../src-as2/schema'
@@ -89,12 +108,6 @@ import { keyFromB64 } from '../src-fw/b64'
 import { Crypt } from '../src-fw/crypt'
 import { getExpressApp, startSRV } from '../src-fw/index'
 import { Tools } from '../src-fw/tools'
-import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
-// import { SQLiteConnector} from '../src-sqlite' // pas d'extension spécifique de App
-import { DbConnector } from '../src-fw/dbConnector'
-import { IStGeneric } from '../src-fw/iStGeneric'
-import { AppSQLiteConnector } from './dbSqlite' // extension spécifique de App
-import { AppFirestoreConnector } from './firestore' // extension spécifique de App
 
 import { loadingDF } from '../src-fw/documents'
 loadingDF()
@@ -119,17 +132,6 @@ if (emulator) {
   env['STORAGE_EMULATOR_HOST'] = 'http://127.0.0.1:9199', // 'http://' est REQUIS
   env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
 }
-
-config.databases.set('sqlite_a', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A']))
-config.databases.set('sqlite_z', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A']))
-config.databases.set('firestore', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A']))
-
-config.safeDB = config.databases.get('sqlite_z')
-config.masterDB = config.databases.get('sqlite_z')
-config.svcDB = config.databases.get('sqlite_a')
-
-config.storages.set('storage_a', new FilesystemStorage('storage_a', keys))
-// config.storages.set('storage_b', new FilesystemStorage(keys['storage_b']))
 
 export const asocialgcf = getExpressApp()
 

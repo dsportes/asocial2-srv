@@ -2,7 +2,7 @@
 import { Operation, Cache } from '../src-fw/operation'
 import { MDEventS } from '../src-fw/masterdir'
 import { AppExc } from '../src-fw/log'
-import { OrgsConfig, MDandSafe } from '../src-fw/index'
+import { MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { config, Registry } from '../src-fw/config'
 import { ADMIN$Status, ADMIN$Subs, $subscription, ADMIN$SubsItem, $Credential, 
@@ -54,12 +54,11 @@ class ADMIN$getStatus extends Operation {
 }
 Registry.registerOp(ADMIN$getStatus)
 
-/* ADMIN$SetStatus fixe le status du service: { st, at, txt }
+/* ADMIN$setStatus fixe le status du site: { st, at, txt }
   st: code 0: DOWN, 1: UP
   txt: texte explicatif éventuel de l'administrateur
-  ADMINISTRATEUR
 */
-class ADMIN$SetStatus extends Operation {
+class ADMIN$setStatus extends Operation {
   _st: number
   _txt: string
   init () {
@@ -71,13 +70,14 @@ class ADMIN$SetStatus extends Operation {
     this.requireAdmin()
     let doc: ADMIN$Status = await this.cache.getDoc('ADMIN$Status') as ADMIN$Status
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status') as ADMIN$Status
+    else doc = this.cache.newDoc('ADMIN$Status') as ADMIN$Status
     doc.at = Date.now()
     doc.st = this._st
     doc.txt = this._txt || ''
+    this.setRes('status', { st: doc.st, at: doc.at, txt: doc.txt})
   }
 }
-Registry.registerOp(ADMIN$SetStatus)
+Registry.registerOp(ADMIN$setStatus)
 
 /* ADMIN$getEnum retourne la liste des valeurs (string)
 - name: nom du singleton: forme générale svc$name_org
@@ -116,44 +116,6 @@ class ADMIN$setEnum extends Operation {
   }
 }
 Registry.registerOp(ADMIN$setEnum)
-
-class ADMIN$setOrgConfig extends Operation {
-  _torg: string
-  _st: string
-  _db: string
-  init () {
-    super.init()
-    this._torg = this.stringValue('torg', true)
-    this._st = this.stringValue('st', true, 0, 9)
-    this._db = this.stringValue('db', true)
-  }
-  async phase2 () {
-    this.requireAdmin()
-    OrgsConfig.save(this, this._torg, this._db, this._st)
-    this.setRes('orgconfig', { db: this._db, st: this._st })
-  }
-}
-Registry.registerOp(ADMIN$setOrgConfig)
-
-class ADMIN$getOrgConfig extends Operation {
-  _torg: string
-  init () {
-    super.init()
-    this._torg = this.stringValue('torg', true)
-  }
-  async phase2 () {
-    this.requireAdmin()
-    const dbs = Array.from(config.databases.keys())
-    const sts = Array.from(config.storages.keys())
-    const x = OrgsConfig.getDbSt(this._torg)
-    if (x) {
-      const [db, st] = x
-      this.setRes('orgconfig', { dbs, sts, db, st })
-    } else 
-      this.setRes('orgconfig', { dbs, sts, db: '', st: '' })
-  }
-}
-Registry.registerOp(ADMIN$getOrgConfig)
 
 /* Gestion des souscriptions:
 - les documents sont: ADMIN$Subs ADMIN$SubsItem.
@@ -202,7 +164,7 @@ class ADMIN$updateSubscription extends Operation {
     this._defs = this.objectValue('defs', true)
   }
   async phase2 () {
-    const subs = await this.cache.getDoc('$Subs', { sessionId: this.sessionId}) as ADMIN$Subs
+    const subs = await this.cache.getDoc('ADMIN$Subs', { sessionId: this.sessionId}) as ADMIN$Subs
     if (!subs) 
       throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
 
@@ -215,13 +177,13 @@ class ADMIN$updateSubscription extends Operation {
       const msg = this._defs[def]
       if (msg === false) {
         delete subs.defs[def]
-        await this.cache.getDoc('$SubsItem', src) as ADMIN$SubsItem
-        this.cache.delDoc('$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
+        await this.cache.getDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
+        this.cache.delDoc('ADMIN$$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
       } else {
         subs.defs[def] = msg
-        let subsItem = await this.cache.getDoc('$SubsItem', src) as ADMIN$SubsItem
+        let subsItem = await this.cache.getDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
         if (!subsItem) {
-          subsItem = this.cache.newDoc('$SubsItem', src) as ADMIN$SubsItem
+          subsItem = this.cache.newDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
           subsItem._status = DocStatus.NEW
         } else { 
           subsItem.def = def
@@ -289,6 +251,7 @@ class FW$setStatus extends Operation {
     doc['at'] = Date.now()
     doc['st'] = this._st
     doc['txt'] = this._txt || ''
+    this.setRes('status', { st: doc['st'], at: doc['at'], txt: doc['txt']})
   }
 }
 Registry.registerOp(FW$setStatus)

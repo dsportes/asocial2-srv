@@ -118,7 +118,7 @@ export class MDOperation implements AbstractOperation {
     op.args = args
     op.result = {}
     try {
-      await config.masterDB.getConnexion(op, '')
+      await config.databases.get('masterDB').getConnexion(op, '')
       await op.doTheJob()
       await op.db.disconnect()
       return op.result

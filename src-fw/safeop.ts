@@ -47,7 +47,7 @@ export class SafeOperation implements AbstractOperation {
     op.args = args
     op.result = {}
     try {
-      await config.safeDB.getConnexion(op, '')
+      await config.databases.get('safeDB').getConnexion(op, '')
       await op.doTheJob()
       await op.db.disconnect()
       return op.result

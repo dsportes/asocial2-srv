@@ -22025,3 +22025,224 @@ Error: read ECONNRESET
 2026-07-25T16:20:06.968Z info: $GetSitesUrls finished
 2026-07-25T16:24:09.822Z info: $SetSiteUrl finished
 2026-07-25T16:24:09.853Z info: $GetSitesUrls finished
+2026-07-25T16:30:16.018Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-25T16:30:16.021Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-25T16:30:16.022Z info: Firestore connector
+2026-07-25T16:30:16.023Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-25T16:30:16.038Z info: Reloading orgs config OK
+2026-07-25T16:30:16.044Z info: HTTP listen [8080]
+2026-07-25T16:30:30.543Z info: $OpenSafeByPin finished
+2026-07-25T16:30:30.583Z info: $GetSafe finished
+2026-07-25T16:30:35.122Z info: $GetSitesUrls finished
+2026-07-25T16:30:35.135Z info: $IsMDAdmin finished
+2026-07-26T08:34:39.354Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T08:34:39.357Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T08:34:39.358Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T08:34:39.359Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T08:34:39.373Z info: HTTP listen [8080]
+2026-07-26T08:35:02.214Z info: $OpenSafeByPin finished
+2026-07-26T08:35:02.255Z info: $GetSafe finished
+2026-07-26T08:35:06.703Z info: $GetSitesUrls finished
+2026-07-26T08:35:06.720Z info: $IsMDAdmin finished
+2026-07-26T08:39:53.258Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T08:39:53.262Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T08:39:53.263Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T08:39:53.264Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T08:39:53.283Z info: HTTP listen [8080]
+2026-07-26T08:40:10.269Z info: $OpenSafeByPin finished
+2026-07-26T08:40:10.309Z info: $GetSafe finished
+2026-07-26T08:40:14.240Z info: $GetSitesUrls finished
+2026-07-26T08:40:14.261Z info: $IsMDAdmin finished
+2026-07-26T09:16:03.861Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T09:16:03.865Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T09:16:03.865Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T09:16:03.866Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T09:16:03.886Z info: HTTP listen [8080]
+2026-07-26T09:44:50.415Z info: $OpenSafeByPin finished
+2026-07-26T09:44:50.467Z info: $GetSafe finished
+2026-07-26T09:44:55.005Z info: $GetSitesUrls finished
+2026-07-26T09:44:55.023Z info: $IsMDAdmin finished
+2026-07-26T09:49:20.410Z info: $OpenSafeByPin finished
+2026-07-26T09:49:20.456Z info: $GetSafe finished
+2026-07-26T09:49:24.357Z info: $GetSitesUrls finished
+2026-07-26T09:49:24.371Z info: $IsMDAdmin finished
+2026-07-26T09:52:15.047Z info: $IsMDAdmin finished
+2026-07-26T09:52:20.071Z info: $IsMDAdmin finished
+2026-07-26T09:52:34.909Z info: $IsMDAdmin finished
+2026-07-26T09:52:43.836Z info: ADMIN$getStatus : 2026-07-26T09:52:43.835Z
+2026-07-26T09:52:55.909Z error: ADMIN$getStatus : 2026-07-26T09:52:43.835Z : SqliteError: no such column: org
+2026-07-26T09:52:55.910Z info: ADMIN$getStatus terminated on exception
+2026-07-26T09:52:55.927Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T09:58:04.483Z info: $OpenSafeByPin finished
+2026-07-26T09:58:04.526Z info: $GetSafe finished
+2026-07-26T09:58:08.230Z info: $GetSitesUrls finished
+2026-07-26T09:58:08.243Z info: $IsMDAdmin finished
+2026-07-26T09:58:11.496Z info: ADMIN$getStatus : 2026-07-26T09:58:11.496Z
+2026-07-26T10:08:48.072Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T10:08:48.075Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T10:08:48.076Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T10:08:48.076Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T10:08:48.091Z info: HTTP listen [8080]
+2026-07-26T10:08:58.653Z info: ADMIN$getStatus : 2026-07-26T10:08:58.653Z
+2026-07-26T10:09:46.883Z info: ADMIN$getStatus finished
+2026-07-26T10:12:55.670Z info: $OpenSafeByPin finished
+2026-07-26T10:12:55.721Z info: $GetSafe finished
+2026-07-26T10:13:00.626Z info: $GetSitesUrls finished
+2026-07-26T10:13:00.641Z info: $IsMDAdmin finished
+2026-07-26T10:13:04.256Z info: ADMIN$getStatus : 2026-07-26T10:13:04.255Z
+2026-07-26T10:13:23.972Z info: ADMIN$getStatus finished
+2026-07-26T10:14:52.476Z info: ADMIN$getStatus : 2026-07-26T10:14:52.476Z
+2026-07-26T10:14:52.480Z info: ADMIN$getStatus finished
+2026-07-26T10:15:01.707Z info: ADMIN$getStatus : 2026-07-26T10:15:01.707Z
+2026-07-26T10:15:01.711Z info: ADMIN$getStatus finished
+2026-07-26T10:17:50.291Z info: $IsMDAdmin finished
+2026-07-26T10:17:52.941Z info: ADMIN$getStatus : 2026-07-26T10:17:52.940Z
+2026-07-26T10:17:52.945Z info: ADMIN$getStatus finished
+2026-07-26T10:17:55.835Z info: ADMIN$getStatus : 2026-07-26T10:17:55.835Z
+2026-07-26T10:17:55.839Z info: ADMIN$getStatus finished
+2026-07-26T10:18:26.960Z info: ADMIN$getStatus : 2026-07-26T10:18:26.960Z
+2026-07-26T10:18:26.964Z info: ADMIN$getStatus finished
+2026-07-26T10:24:14.318Z info: $OpenSafeByPin finished
+2026-07-26T10:24:14.362Z info: $GetSafe finished
+2026-07-26T10:24:20.107Z info: $GetSitesUrls finished
+2026-07-26T10:24:20.122Z info: $IsMDAdmin finished
+2026-07-26T10:24:21.788Z info: ADMIN$getStatus : 2026-07-26T10:24:21.788Z
+2026-07-26T10:24:21.793Z info: ADMIN$getStatus finished
+2026-07-26T10:24:24.562Z info: ADMIN$getStatus : 2026-07-26T10:24:24.562Z
+2026-07-26T10:24:24.565Z info: ADMIN$getStatus finished
+2026-07-26T12:44:24.091Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:44:24.094Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:44:24.094Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T12:44:24.095Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T12:44:24.159Z info: HTTP listen [8080]
+2026-07-26T12:44:31.425Z info: $OpenSafeByPin finished
+2026-07-26T12:44:31.464Z info: $GetSafe finished
+2026-07-26T12:44:38.120Z info: $GetSitesUrls finished
+2026-07-26T12:44:38.143Z info: $IsMDAdmin finished
+2026-07-26T12:45:54.359Z info: $OpenSafeByPin finished
+2026-07-26T12:45:54.404Z info: $GetSafe finished
+2026-07-26T12:45:57.711Z info: $GetSitesUrls finished
+2026-07-26T12:45:57.745Z info: $IsMDAdmin finished
+2026-07-26T12:46:02.323Z info: ADMIN$isAdmin : 2026-07-26T12:46:02.322Z
+2026-07-26T12:46:16.612Z info: ADMIN$isAdmin finished
+2026-07-26T12:46:16.639Z info: ADMIN$getStatus : 2026-07-26T12:46:16.639Z
+2026-07-26T12:46:16.645Z info: ADMIN$getStatus finished
+2026-07-26T12:46:29.604Z info: ADMIN$getStatus : 2026-07-26T12:46:29.604Z
+2026-07-26T12:46:29.608Z info: ADMIN$getStatus finished
+2026-07-26T12:47:38.295Z info: ADMIN$isAdmin : 2026-07-26T12:47:38.295Z
+2026-07-26T12:47:43.771Z info: ADMIN$isAdmin finished
+2026-07-26T12:47:47.119Z info: ADMIN$getStatus : 2026-07-26T12:47:47.119Z
+2026-07-26T12:47:47.123Z info: ADMIN$getStatus finished
+2026-07-26T12:48:40.358Z info: $OpenSafeByPin finished
+2026-07-26T12:48:40.398Z info: $GetSafe finished
+2026-07-26T12:48:44.138Z info: $GetSitesUrls finished
+2026-07-26T12:48:44.152Z info: $IsMDAdmin finished
+2026-07-26T12:48:54.195Z info: ADMIN$isAdmin : 2026-07-26T12:48:54.195Z
+2026-07-26T12:48:59.170Z info: ADMIN$isAdmin finished
+2026-07-26T12:49:06.058Z info: ADMIN$getStatus : 2026-07-26T12:49:06.058Z
+2026-07-26T12:49:06.062Z info: ADMIN$getStatus finished
+2026-07-26T12:49:48.551Z info: ADMIN$setStatus : 2026-07-26T12:49:48.551Z
+2026-07-26T12:50:01.884Z info: AppExc: 103:not_configured_doc_class["$Status"]
+2026-07-26T12:50:01.885Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:not_configured_doc_class["$Status"]
+2026-07-26T12:50:01.887Z error: ADMIN$setStatus : 2026-07-26T12:49:48.551Z : AppExc: 103:not_configured_doc_class["$Status"]
+2026-07-26T12:50:01.888Z info: ADMIN$setStatus terminated on exception
+2026-07-26T12:50:01.889Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Status\"]"]
+2026-07-26T12:50:52.747Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:50:52.750Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:50:52.750Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T12:50:52.751Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T12:50:52.769Z info: HTTP listen [8080]
+2026-07-26T12:51:02.415Z info: ADMIN$setStatus : 2026-07-26T12:51:02.414Z
+2026-07-26T12:53:50.671Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:53:50.675Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T12:53:50.676Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T12:53:50.677Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T12:53:50.694Z info: HTTP listen [8080]
+2026-07-26T12:54:01.276Z info: ADMIN$setStatus : 2026-07-26T12:54:01.275Z
+2026-07-26T12:54:50.658Z error: ADMIN$setStatus : 2026-07-26T12:54:01.275Z : TypeError: Cannot read properties of undefined (reading 'def0')
+2026-07-26T12:54:50.660Z info: ADMIN$setStatus terminated on exception
+2026-07-26T12:54:50.662Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'def0')"]
+2026-07-26T12:56:24.177Z info: ADMIN$getStatus : 2026-07-26T12:56:24.177Z
+2026-07-26T12:56:24.183Z info: ADMIN$getStatus finished
+2026-07-26T13:01:46.039Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:01:46.042Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:01:46.042Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:01:46.043Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:01:46.054Z info: HTTP listen [8080]
+2026-07-26T13:02:01.063Z info: ADMIN$setStatus : 2026-07-26T13:02:01.062Z
+2026-07-26T13:02:16.493Z error: ADMIN$setStatus : 2026-07-26T13:02:01.062Z : SqliteError: no such table: $SUBSITEM
+2026-07-26T13:02:16.495Z info: ADMIN$setStatus terminated on exception
+2026-07-26T13:02:16.522Z error: AppExc: 105:service_unexpected_exception["no such table: $SUBSITEM"]
+2026-07-26T13:03:18.283Z info: ADMIN$setStatus : 2026-07-26T13:03:18.283Z
+2026-07-26T13:07:32.782Z error: ADMIN$setStatus : 2026-07-26T13:03:18.283Z : SqliteError: no such table: $SUBSITEM
+2026-07-26T13:07:32.784Z info: ADMIN$setStatus terminated on exception
+2026-07-26T13:07:32.785Z error: AppExc: 105:service_unexpected_exception["no such table: $SUBSITEM"]
+2026-07-26T13:11:22.139Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:11:22.143Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:11:22.143Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:11:22.144Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:11:22.160Z info: HTTP listen [8080]
+2026-07-26T13:11:26.968Z info: ADMIN$getStatus : 2026-07-26T13:11:26.968Z
+2026-07-26T13:11:26.980Z info: ADMIN$getStatus finished
+2026-07-26T13:11:43.364Z info: ADMIN$setStatus : 2026-07-26T13:11:43.363Z
+2026-07-26T13:12:10.677Z error: ADMIN$setStatus : 2026-07-26T13:11:43.363Z : SqliteError: no such column: org
+2026-07-26T13:12:10.679Z info: ADMIN$setStatus terminated on exception
+2026-07-26T13:12:10.699Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T13:16:55.498Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:16:55.502Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:16:55.502Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:16:55.503Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:16:55.515Z info: HTTP listen [8080]
+2026-07-26T13:17:06.147Z info: ADMIN$setStatus : 2026-07-26T13:17:06.147Z
+2026-07-26T13:18:05.275Z error: ADMIN$setStatus : 2026-07-26T13:17:06.147Z : SqliteError: no such column: org
+2026-07-26T13:18:05.277Z info: ADMIN$setStatus terminated on exception
+2026-07-26T13:18:05.292Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T13:18:26.781Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:18:26.784Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:18:26.785Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:18:26.786Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:18:26.803Z info: HTTP listen [8080]
+2026-07-26T13:19:09.685Z info: ADMIN$setStatus : 2026-07-26T13:19:09.685Z
+2026-07-26T13:19:35.235Z error: ADMIN$setStatus : 2026-07-26T13:19:09.685Z : SqliteError: no such column: org
+2026-07-26T13:19:35.239Z info: ADMIN$setStatus terminated on exception
+2026-07-26T13:19:35.240Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T13:19:43.095Z info: ADMIN$setStatus : 2026-07-26T13:19:43.095Z
+2026-07-26T13:26:12.258Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:26:12.261Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:26:12.262Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:26:12.262Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:26:12.276Z info: HTTP listen [8080]
+2026-07-26T13:26:32.835Z info: ADMIN$setStatus : 2026-07-26T13:26:32.835Z
+2026-07-26T13:27:11.118Z info: ADMIN$setStatus finished
+2026-07-26T13:29:25.467Z info: $OpenSafeByPin finished
+2026-07-26T13:29:25.519Z info: $GetSafe finished
+2026-07-26T13:29:29.876Z info: $GetSitesUrls finished
+2026-07-26T13:29:29.892Z info: $IsMDAdmin finished
+2026-07-26T13:29:32.405Z info: ADMIN$isAdmin : 2026-07-26T13:29:32.405Z
+2026-07-26T13:29:32.409Z info: ADMIN$isAdmin finished
+2026-07-26T13:29:32.437Z info: ADMIN$getStatus : 2026-07-26T13:29:32.437Z
+2026-07-26T13:29:32.441Z info: ADMIN$getStatus finished
+2026-07-26T13:29:43.840Z info: ADMIN$setStatus : 2026-07-26T13:29:43.840Z
+2026-07-26T13:29:43.847Z info: ADMIN$setStatus finished
+2026-07-26T13:31:49.167Z info: $OpenSafeByPin finished
+2026-07-26T13:31:49.214Z info: $GetSafe finished
+2026-07-26T13:31:53.769Z info: $GetSitesUrls finished
+2026-07-26T13:31:53.783Z info: $IsMDAdmin finished
+2026-07-26T13:31:55.908Z info: ADMIN$isAdmin : 2026-07-26T13:31:55.908Z
+2026-07-26T13:31:55.912Z info: ADMIN$isAdmin finished
+2026-07-26T13:31:55.941Z info: ADMIN$getStatus : 2026-07-26T13:31:55.941Z
+2026-07-26T13:31:55.943Z info: ADMIN$getStatus finished
+2026-07-26T13:32:04.912Z info: ADMIN$setStatus : 2026-07-26T13:32:04.912Z
+2026-07-26T13:32:04.922Z info: ADMIN$setStatus finished
+2026-07-26T13:32:59.016Z info: ADMIN$setStatus : 2026-07-26T13:32:59.015Z
+2026-07-26T13:32:59.024Z info: ADMIN$setStatus finished
+2026-07-26T13:33:22.692Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:33:22.696Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-26T13:33:22.697Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-26T13:33:22.697Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-26T13:33:22.756Z info: HTTP listen [8080]
+2026-07-26T13:33:28.864Z info: ADMIN$setStatus : 2026-07-26T13:33:28.864Z
+2026-07-26T13:33:28.883Z info: ADMIN$setStatus finished
+2026-07-26T13:35:58.615Z info: $IsMDAdmin finished
+2026-07-26T13:36:01.434Z info: ADMIN$getStatus : 2026-07-26T13:36:01.434Z
+2026-07-26T13:36:01.438Z info: ADMIN$getStatus finished

@@ -14,8 +14,8 @@ import { Operation } from '../src-fw/operation'
 export class FilesystemStorage extends StorageGeneric implements IStGeneric {
   public rootpath: string
 
-  constructor (name, keys) {
-    super(name, keys)
+  constructor (credentials: Object) {
+    super(credentials, 'fileSystem')
     this.rootpath = path.resolve(this.credentials['path'])
     if (!existsSync(this.rootpath))
       throw new AppExc(110, 'FilesystemStorage_path_not_found', null, [this.rootpath])

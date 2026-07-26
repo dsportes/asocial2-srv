@@ -595,3 +595,19 @@ Error: read ECONNRESET
 2026-07-17T06:43:47.524Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"zG6lGjKo1Hrla9cKyn5N\"]"]
 2026-07-25T12:51:27.433Z error: AppExc: 105:masterdir_unexpected_exception["AppExc: 103:masterdir_unknown_operation[\"$isMDAdmin\"]"]
 2026-07-25T12:54:59.353Z error: AppExc: 105:masterdir_unexpected_exception["AppExc: 103:masterdir_unknown_operation[\"$isMDAdmin\"]"]
+2026-07-26T09:52:55.909Z error: ADMIN$getStatus : 2026-07-26T09:52:43.835Z : SqliteError: no such column: org
+2026-07-26T09:52:55.927Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T12:50:01.887Z error: ADMIN$setStatus : 2026-07-26T12:49:48.551Z : AppExc: 103:not_configured_doc_class["$Status"]
+2026-07-26T12:50:01.889Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Status\"]"]
+2026-07-26T12:54:50.658Z error: ADMIN$setStatus : 2026-07-26T12:54:01.275Z : TypeError: Cannot read properties of undefined (reading 'def0')
+2026-07-26T12:54:50.662Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'def0')"]
+2026-07-26T13:02:16.493Z error: ADMIN$setStatus : 2026-07-26T13:02:01.062Z : SqliteError: no such table: $SUBSITEM
+2026-07-26T13:02:16.522Z error: AppExc: 105:service_unexpected_exception["no such table: $SUBSITEM"]
+2026-07-26T13:07:32.782Z error: ADMIN$setStatus : 2026-07-26T13:03:18.283Z : SqliteError: no such table: $SUBSITEM
+2026-07-26T13:07:32.785Z error: AppExc: 105:service_unexpected_exception["no such table: $SUBSITEM"]
+2026-07-26T13:12:10.677Z error: ADMIN$setStatus : 2026-07-26T13:11:43.363Z : SqliteError: no such column: org
+2026-07-26T13:12:10.699Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T13:18:05.275Z error: ADMIN$setStatus : 2026-07-26T13:17:06.147Z : SqliteError: no such column: org
+2026-07-26T13:18:05.292Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
+2026-07-26T13:19:35.235Z error: ADMIN$setStatus : 2026-07-26T13:19:09.685Z : SqliteError: no such column: org
+2026-07-26T13:19:35.240Z error: AppExc: 105:service_unexpected_exception["no such column: org"]

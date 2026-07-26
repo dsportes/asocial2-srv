@@ -79,7 +79,7 @@ export class ADMIN$Subs extends $Document {
       defs: subs.defs,
       maxLife : maxLife
     }
-    return op.cache.newDoc('$Subs', initVals)
+    return op.cache.newDoc('ADMIN$Subs', initVals)
   }
 }
 nd++; Registry.register(ADMIN$Subs)
@@ -129,7 +129,7 @@ export class ADMIN$SubsItem extends $Document {
       def: def,
       maxLife : maxLife
     }
-    return op.cache.newDoc('$SubsItem', initVals)
+    return op.cache.newDoc('ADMIN$SubsItem', initVals)
   }
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
@@ -141,7 +141,7 @@ export class ADMIN$SubsItem extends $Document {
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    await op.db.selectDocs('$SubsItem', 'def', filter.EQ, def, '', 0, 
+    await op.db.selectDocs('ADMIN$SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -151,11 +151,11 @@ export class ADMIN$SubsItem extends $Document {
 
   static async deleteSessionId (op: OperationWC, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    await op.db.selectDocs('$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    await op.db.selectDocs('ADMIN$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
-        op.db.deleteRow('$SubsItem', pk)
+        op.db.deleteRow('ADMIN$SubsItem', pk)
       })
   }
 

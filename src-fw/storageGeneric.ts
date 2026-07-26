@@ -7,9 +7,9 @@ export class StorageGeneric { // Classe abstraite
   public credentials: Object
   public name: string
 
-  constructor (name, keys) {
+  constructor (credentials: Object, name: string) {
+    this.credentials = credentials
     this.name = name
-    this.credentials = keys[name]
   }
 
   encode3 (id1: string, id2: string, id3: string) : string {

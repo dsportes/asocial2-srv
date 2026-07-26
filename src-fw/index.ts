@@ -4,17 +4,15 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
-import axios from 'axios'
+// import axios from 'axios'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Log, setAdminAlert } from './log'
 import { config, Registry } from './config'
 import { Util } from './util'
-import { keyFromB64 } from './b64'
 
 import { IStGeneric } from './iStGeneric'
 import { IDbGeneric } from './iDbGeneric'
-// import { StorageGeneric } from './storageGeneric'
 import { Operation } from './operation'
 import { SafeOperation } from './safeop'
 import { MDOperation, getSafeUrl } from './masterdir'
@@ -56,116 +54,6 @@ export class DbConnexion {
     this.op = op
   }
 }
-
-/* Configuration des organisations *****************************************
-- depuis le SINGLETON 'orgs': { org1:[db1, st1], org2:[db1, st2], ...}
-- une configuration courante 'current' : remplacement atomique (global)
-- rechargement périodique
-- évite les rechargements simultannés
-*/
-export class OrgsConfig {
-  static current: OrgsConfig = null // configuration courante
-
-  static updating: boolean = false // verrou de chargement en cours
-  static lastLoading: number = 0 // date-heure de la configuartion courante
-
-  orgs : Map<string, [string, string]> // Map par org => [db, storage]
-  dbs : Map<string, Set<string>> // Map par db => Set des orgs
-  storages : Map<string, Set<string>> // Map par storage => Set des orgs
-
-  setOrgs (x: any) {
-    this.orgs = new Map<string, [string, string]>()
-    this.dbs = new Map<string, Set<string>>()
-    this.storages = new Map<string, Set<string>>()
-    for (const org in x) {
-      const [db, st] = x[org]
-      this.orgs.set(org, [db, st])
-      let e = this.dbs.get(db); if (!e) e = new Set<string>(); this.dbs.set(db, e)
-      e.add(org)
-      e = this.storages.get(st); if (!e) e = new Set<string>(); this.storages.set(st, e)
-      e.add(org)
-    }
-  }
-
-  // Retourne le couple db, storage d'une organisation
-  static getDbSt (org: string) : [string, string] {
-    OrgsConfig.reload()
-    const c = OrgsConfig.current
-    return !c ? null : c.orgs.get(org)
-  }
-
-  // Rechargement périodique de la configuration des organisations
-  static reload () {
-    if (OrgsConfig.updating) return
-    if (Date.now() - OrgsConfig.lastLoading < 300000) return
-    OrgsConfig.updating = true
-    setTimeout(async () => OrgsConfig.doReload(), 50)
-  }
-
-  // Sauvegarde la configuration d'une organisation
-  static async save (op: AbstractOperation, org: string, db: string, st: string) {
-    const val = await op.db.getSingleton('orgs') as string
-    const x = val ? JSON.parse(val) : {}
-    if (!db) delete(x[org])
-    else x[org] = [db, st]
-    const nval = JSON.stringify(x, null, '\t')
-    await op.db.setSingleton('orgs', nval)
-    const oc = new OrgsConfig()
-    oc.setOrgs(x)
-    OrgsConfig.current = oc
-    OrgsConfig.updating = false
-    OrgsConfig.lastLoading = Date.now()
-  }
-
-  /* Rechargement de la configuration
-  En cas d'échec, relance 1 minute plus tard
-  Si 'init' est spécifié, pas de relance mais retourne false
-  */
-  static async doReload (init?: boolean) : Promise<boolean> {
-    const op = new Operation()
-    op.now = Date.now()
-    try {
-      const dbConnector = config.svcDB
-      await dbConnector.getConnexion(op, '')
-      const valx = await op.db.getSingleton('orgs') as string
-      const x = JSON.parse(valx || '{}')
-      const oc = new OrgsConfig()
-      oc.setOrgs(x)
-      op.db.disconnect()
-      OrgsConfig.current = oc
-      OrgsConfig.updating = false
-      OrgsConfig.lastLoading = Date.now()
-      if (config.debugLevel > 0) Log.debug('Reloading orgs config OK')
-      return true
-    } catch (e) {
-      if (op && op.db) op.db.disconnect()
-      Log.error('Reloading orgs-topics config KO: ' + e.toString())
-      if (!init) setTimeout(OrgsConfig.doReload, 60000)
-      return false
-    }
-  }
-
-  // Retourne le DbConnector à la base configurée pour l'organisation org
-  static getDbConnector (org: string) : DbConnector | null {
-    OrgsConfig.reload()
-    const c = OrgsConfig.current
-    if (!c) return null
-    const e = c.orgs.get(org)
-    if (!e || !e[0]) return null
-    return config.databases.get(e[0]) || null
-  }
-
-  // Retourne le Storage configuré pour l'organisation org
-  static getStorage (org: string) : IStGeneric | null {
-    OrgsConfig.reload()
-    const c = OrgsConfig.current
-    if (!c) return null
-    const e = c.orgs.get(org)
-    if (!e || !e[1]) return null
-    return config.storages.get(e[1]) || null
-  }
-}
-/**********************************************************************/
 
 /** ExpressApp ********************************************************/
 export function getExpressApp (): express.Application {
@@ -399,7 +287,7 @@ function ExcOp (exc: any, opName: string, res: express.Response, src: number) {
 /* Lancement du serveur **************************************************/
 export function startSRV (app : any) : Promise<void> {
   return new Promise(async (resolve, reject) => {
-    if (!await OrgsConfig.doReload(true)) reject('Cannot get orgs config')
+    // if (!await OrgsConfig.doReload(true)) reject('Cannot get orgs config')
 
     let server : http.Server | https.Server
 
@@ -486,15 +374,12 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
 
     if (opName.startsWith('ADMIN$')) {
       op.site = args['site']
-      op.dbConnector = config.svcDB
+      op.dbConnector = config.databases.get('svcDB')
     } else {
       op.svc = args['svc']
       op.org = args['org']
-      OrgsConfig.reload()
-      op.storage = OrgsConfig.getStorage(op.org)
-      op.dbConnector = OrgsConfig.getDbConnector(op.org)
-      if (!op.dbConnector) 
-        throw new AppExc(103, 'unknown_organisation', null, [opName, op.org])
+      op.dbConnector = config.databases.get(op.org + '_DB') || config.databases.get('svcDB')
+      op.storage = config.storages.get(op.org + '_ST') || config.storages.get('svcST')
     }
 
     op.init()
@@ -682,15 +567,20 @@ export class MDandSafe {
   static async postMDS (url: string, args: any) : Promise<Object> {
     try {
       const body = Buffer.from(encode(args))
+      // Interface fetch
+      const response = await fetch(url, {
+        method: 'POST', headers: MDandSafe.headers, body
+      })
+      const buf = await response.bytes()
+      /*
+      // Interface axios
       const response = await axios.post(url, body, { 
-        headers: {
-          'Content-Type': 'application/octet-stream',  // sent request
-          'Accept':       'application/octet-stream'   // expected data sent back
-        },
+        headers: MDandSafe.headers,
         responseType: 'arraybuffer',
         timeout: 600000
       })
       const buf = Buffer.from(response.data)
+      */
       const obj = decode(buf)
       if (response.status === 200) return obj
       const txt = new TextDecoder().decode(buf)
