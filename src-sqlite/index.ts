@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { encode, decode } from '@msgpack/msgpack'
 import { config } from '../src-fw/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, Safe, MDTable, 
+  row, rowQ, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { Registry } from '../src-fw/config'

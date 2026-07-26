@@ -5,7 +5,7 @@ import { AbstractOperation } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { keyFromB64 } from '../src-fw/b64'
 import { config, Registry } from '../src-fw/config'
-import { MDTable, MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
+import { MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 
 export function loadingOM () {
   console.log('masterdir operations loading: ', Registry.sizeOp())
@@ -47,6 +47,7 @@ class MDCache {
   /* Cache des couples [clé C, clé V] par UserId */
   static cvs : Map<string, [string, string]> = new Map()
 
+  static services = { at: 0, v: 0, labels: '' } // labels est un JSON
   static sites = { at: 0, v: 0, urls: {} }
   static orgs : Map<string, Dobj> = new Map()
   static ttl = 3 * 60000 // 3 minutes
@@ -65,6 +66,22 @@ class MDCache {
     const now = Date.now()
     MDCache.sites = { at: now, v: now, urls }
     await op.db.mdSetValue('1', now, JSON.stringify(urls))
+  }
+
+  static async getServicesLabels (op: AbstractOperation) 
+    : Promise<Object | null> {
+    const now = Date.now()
+    if ((now - MDCache.services.at) > MDCache.ttl) {
+      const [v, labels] = await op.db.mdGetValue('2', MDCache.sites.v)
+      MDCache.services = { at: now, v, labels: labels || '{}' }
+    }
+    return MDCache.services.labels
+  }
+
+  static async setServicesLabels (op: AbstractOperation, labels: string) {
+    const now = Date.now()
+    MDCache.services = { at: now, v: now, labels }
+    await op.db.mdSetValue('2', now, labels)
   }
 
   /* Retourne l'objet de la table ORGS pour l'organisation org
@@ -237,6 +254,24 @@ class $GetSitesUrls extends MDOperation {
   }
 }
 Registry.registerOp($GetSitesUrls)
+
+/* Retourne la map donnant pour chaque site son URL */
+class $GetServicesLabels extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const labels = await MDCache.getServicesLabels(this)
+    this.setRes('labels', labels)
+  }
+}
+Registry.registerOp($GetServicesLabels)
+
+/* Enregistre les labels des services */
+class $SetServicesLabels extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const [json] = await this.getParams(this.args, true)
+    await MDCache.setServicesLabels(this, json)
+  }
+}
+Registry.registerOp($SetServicesLabels)
 
 /* Operations de mise à jour avec controle d'accès 
 *****************************************************************/

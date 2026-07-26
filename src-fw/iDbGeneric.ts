@@ -2,11 +2,6 @@
 import { AbstractOperation, DbConnector } from '../src-fw/index'
 
 /* Interface des services d'accès génériques à la DB */
-export enum MDTable { 
-  ORGS = 'ZZORGS',
-  SVCOPS = 'ZZSVCOPS',
-  SITES = 'ZZSITES'
-}
 
 export enum MDopn { new, setAA, setS, del }
 
