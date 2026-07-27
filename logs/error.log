@@ -612,3 +612,7 @@ Error: read ECONNRESET
 2026-07-26T13:19:35.235Z error: ADMIN$setStatus : 2026-07-26T13:19:09.685Z : SqliteError: no such column: org
 2026-07-26T13:19:35.240Z error: AppExc: 105:service_unexpected_exception["no such column: org"]
 2026-07-26T16:28:22.231Z error: AppExc: 105:masterdir_unexpected_exception["(intermediate value) is not iterable"]
+2026-07-27T17:09:39.198Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
+2026-07-27T17:54:14.431Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
+2026-07-27T17:59:54.265Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
+2026-07-27T18:29:35.113Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]

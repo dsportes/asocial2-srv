@@ -92,16 +92,18 @@ class MDCache {
     : Promise<Object | null> {
     const now = Date.now()
     let e = MDCache.orgs.get(org)
-    if (e && e.at > now - MDCache.ttl) return e.val
-    const x = await op.db.mdGetValue(org, e ? e.v : 0) // x: [v, JSON]
-    if (x) { // trouvé un plus récent que e.v
-      const [v, json] = x
+    if (e) {
+      const age = now - e.at
+      if (age < MDCache.ttl) return e.val
+    }
+    const [v, json] = await op.db.mdGetValue(org, e ? e.v : 0) // x: [v, JSON]
+    if (v) { // trouvé un plus récent que e.v
       let val = null
       try { val = json ? JSON.parse(json) : null } catch(e) { console.log(e) }
       e = { at: now, v, val }
       MDCache.orgs.set(org, e)
     }
-    return e.val
+    return e ? e.val : {}
   }
 
   static async setOrgSvc(op: AbstractOperation, org: string, val: Object | null) {
@@ -240,7 +242,7 @@ Pas de contrôle d'accès. */
 /* Pour une organisation org map des services donnant leur site */
 class $GetOrgSvc extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const val = await MDCache.getOrgSvc(this, this.args.arg)
+    const val = await MDCache.getOrgSvc(this, this.args.org)
     this.setRes('services', val)
   }
 }
@@ -290,21 +292,23 @@ Registry.registerOp($IsMDAdmin)
 class $SetOrgSvcSite extends MDOperation {
   async doTheJob () : Promise<void> { 
     const [org, svc, site] = await this.getParams(this.args)
+    let val
     if (site) {
       const urls = await MDCache.getSitesUrls(this)
       const url = urls[site]
       if (!url)
         throw new AppExc(103, 'unregistered_svc_org_site', this, [svc, org, site])
-      const val = await MDCache.getOrgSvc(this, org) || { }
+      val = await MDCache.getOrgSvc(this, org) || { }
       val[svc] = site
       await MDCache.setOrgSvc(this, org, val)
     } else {
-      let val = await MDCache.getOrgSvc(this, org)
+      val = await MDCache.getOrgSvc(this, org)
       if (!val) return
       delete val[svc]
       if (Array.from(Object.keys(val)).length === 0) val = null
       await MDCache.setOrgSvc(this, org, val)
     }
+    this.setRes('services', val)
   }
 }
 Registry.registerOp($SetOrgSvcSite)
