@@ -108,9 +108,9 @@ class MDCache {
 
   static async setOrgSvc(op: AbstractOperation, org: string, val: Object | null) {
     const now = Date.now()
-    const e = { at: now, v: now, val: val ? JSON.stringify(val) : ''}
-    await op.db.mdSetValue(org, e.v, e.val)
-    MDCache.orgs.set(org, e)
+    const json = val ? JSON.stringify(val) : null
+    await op.db.mdSetValue(org, now, json)
+    MDCache.orgs.set(org, { at: now, v: now, val })
   }
 }
 
@@ -248,6 +248,30 @@ class $GetOrgSvc extends MDOperation {
 }
 Registry.registerOp($GetOrgSvc)
 
+/* Enregistre le site d'un service pour une organisation:
+- si le site est '', supprime l'entrée pour ce service */
+class $SetOrgSvcSite extends MDOperation {
+  async doTheJob () : Promise<void> { 
+    const [org, svc, site] = await this.getParams(this.args)
+    let val
+    if (site) {
+      const urls = await MDCache.getSitesUrls(this)
+      const url = urls[site]
+      if (!url)
+        throw new AppExc(103, 'unregistered_svc_org_site', this, [svc, org, site])
+      val = await MDCache.getOrgSvc(this, org) || {}
+      val[svc] = site
+    } else {
+      val = await MDCache.getOrgSvc(this, org) || {}
+      delete val[svc]
+      if (Array.from(Object.keys(val)).length === 0) val = null
+    }
+    await MDCache.setOrgSvc(this, org, val)
+    this.setRes('services', val)
+  }
+}
+Registry.registerOp($SetOrgSvcSite)
+
 /* Retourne la map donnant pour chaque site son URL */
 class $GetSitesUrls extends MDOperation {
   async doTheJob () : Promise<void> { 
@@ -286,32 +310,6 @@ class $IsMDAdmin extends MDOperation {
   }
 }
 Registry.registerOp($IsMDAdmin)
-
-/* Enregistre le site d'un service pour une organisation:
-- si le site est '', supprime l'entrée pour ce service */
-class $SetOrgSvcSite extends MDOperation {
-  async doTheJob () : Promise<void> { 
-    const [org, svc, site] = await this.getParams(this.args)
-    let val
-    if (site) {
-      const urls = await MDCache.getSitesUrls(this)
-      const url = urls[site]
-      if (!url)
-        throw new AppExc(103, 'unregistered_svc_org_site', this, [svc, org, site])
-      val = await MDCache.getOrgSvc(this, org) || { }
-      val[svc] = site
-      await MDCache.setOrgSvc(this, org, val)
-    } else {
-      val = await MDCache.getOrgSvc(this, org)
-      if (!val) return
-      delete val[svc]
-      if (Array.from(Object.keys(val)).length === 0) val = null
-      await MDCache.setOrgSvc(this, org, val)
-    }
-    this.setRes('services', val)
-  }
-}
-Registry.registerOp($SetOrgSvcSite)
 
 /* Enregistre l'URL d'un site */
 class $SetSiteUrl extends MDOperation {

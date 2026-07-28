@@ -22668,3 +22668,192 @@ Error: read ECONNRESET
 2026-07-27T18:28:14.935Z info: $GetOrgSvc finished
 2026-07-27T18:29:35.106Z info: $GetOrgSvc terminated on exception
 2026-07-27T18:29:35.113Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
+2026-07-27T18:33:39.693Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-27T18:33:39.696Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-27T18:33:39.697Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-27T18:33:39.698Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-27T18:33:39.715Z info: HTTP listen [8080]
+2026-07-27T18:34:02.994Z info: $IsMDAdmin finished
+2026-07-27T18:34:53.807Z info: $OpenSafeByPin finished
+2026-07-27T18:34:53.879Z info: $GetSafe finished
+2026-07-27T18:35:00.709Z info: $GetServicesLabels finished
+2026-07-27T18:35:00.722Z info: $IsMDAdmin finished
+2026-07-27T18:35:00.749Z info: $GetSitesUrls finished
+2026-07-27T18:35:50.518Z info: $GetOrgSvc finished
+2026-07-27T18:38:05.418Z info: $OpenSafeByPin finished
+2026-07-27T18:38:05.503Z info: $GetSafe finished
+2026-07-27T18:38:10.782Z info: $GetServicesLabels finished
+2026-07-27T18:38:10.796Z info: $IsMDAdmin finished
+2026-07-27T18:38:10.836Z info: $GetSitesUrls finished
+2026-07-27T18:38:34.405Z info: $GetOrgSvc finished
+2026-07-27T18:39:26.194Z info: $GetOrgSvc finished
+2026-07-27T18:56:03.399Z info: $SetOrgSvcSite finished
+2026-07-27T18:57:25.337Z info: $SetOrgSvcSite finished
+2026-07-28T00:34:44.367Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T00:34:44.370Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T00:34:44.371Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T00:34:44.371Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T00:34:44.392Z info: HTTP listen [8080]
+2026-07-28T00:35:59.598Z info: $OpenSafeByPin finished
+2026-07-28T00:35:59.644Z info: $GetSafe finished
+2026-07-28T00:36:03.564Z info: $GetServicesLabels finished
+2026-07-28T00:36:03.580Z info: $IsMDAdmin finished
+2026-07-28T00:36:03.596Z info: $GetSitesUrls finished
+2026-07-28T00:36:11.011Z info: $GetOrgSvc finished
+2026-07-28T01:08:28.879Z info: $OpenSafeByPin finished
+2026-07-28T01:08:28.956Z info: $GetSafe finished
+2026-07-28T01:08:35.821Z info: $GetServicesLabels finished
+2026-07-28T01:08:35.834Z info: $IsMDAdmin finished
+2026-07-28T01:08:35.861Z info: $GetSitesUrls finished
+2026-07-28T01:08:42.272Z info: $GetOrgSvc finished
+2026-07-28T01:11:12.739Z info: $SetOrgSvcSite finished
+2026-07-28T01:13:39.105Z info: $SetOrgSvcSite finished
+2026-07-28T01:17:51.960Z info: $OpenSafeByPin finished
+2026-07-28T01:17:52.032Z info: $GetSafe finished
+2026-07-28T01:17:56.189Z info: $GetServicesLabels finished
+2026-07-28T01:17:56.203Z info: $IsMDAdmin finished
+2026-07-28T01:17:56.239Z info: $GetSitesUrls finished
+2026-07-28T01:18:11.871Z info: $GetOrgSvc finished
+2026-07-28T01:23:34.887Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:23:34.889Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:23:34.890Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T01:23:34.890Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T01:23:34.906Z info: HTTP listen [8080]
+2026-07-28T01:25:46.855Z info: $OpenSafeByPin finished
+2026-07-28T01:25:46.913Z info: $GetSafe finished
+2026-07-28T01:25:51.639Z info: $GetServicesLabels finished
+2026-07-28T01:25:51.655Z info: $IsMDAdmin finished
+2026-07-28T01:25:51.692Z info: $GetSitesUrls finished
+2026-07-28T01:26:00.314Z info: $GetOrgSvc finished
+2026-07-28T01:28:03.323Z info: $OpenSafeByPin finished
+2026-07-28T01:28:03.487Z info: $GetSafe finished
+2026-07-28T01:28:08.861Z info: $GetServicesLabels finished
+2026-07-28T01:28:08.874Z info: $IsMDAdmin finished
+2026-07-28T01:28:08.900Z info: $GetSitesUrls finished
+2026-07-28T01:28:15.499Z info: $GetOrgSvc finished
+2026-07-28T01:32:19.235Z info: $OpenSafeByPin finished
+2026-07-28T01:32:19.329Z info: $GetSafe finished
+2026-07-28T01:32:24.976Z info: $GetServicesLabels finished
+2026-07-28T01:32:24.991Z info: $IsMDAdmin finished
+2026-07-28T01:32:25.029Z info: $GetSitesUrls finished
+2026-07-28T01:33:52.635Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:33:52.638Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:33:52.638Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T01:33:52.639Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T01:33:52.654Z info: HTTP listen [8080]
+2026-07-28T01:44:00.994Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:44:00.998Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:44:00.999Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T01:44:01.000Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T01:44:01.013Z info: HTTP listen [8080]
+2026-07-28T01:44:13.467Z info: $OpenSafeByPin finished
+2026-07-28T01:44:13.566Z info: $GetSafe finished
+2026-07-28T01:44:19.382Z info: $GetServicesLabels finished
+2026-07-28T01:44:19.396Z info: $IsMDAdmin finished
+2026-07-28T01:44:19.422Z info: $GetSitesUrls finished
+2026-07-28T01:45:19.707Z info: $GetOrgSvc finished
+2026-07-28T01:46:12.692Z info: $OpenSafeByPin finished
+2026-07-28T01:46:12.776Z info: $GetSafe finished
+2026-07-28T01:46:16.811Z info: $GetServicesLabels finished
+2026-07-28T01:46:16.824Z info: $IsMDAdmin finished
+2026-07-28T01:46:16.854Z info: $GetSitesUrls finished
+2026-07-28T01:46:46.228Z info: $GetOrgSvc finished
+2026-07-28T01:57:47.576Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:57:47.579Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T01:57:47.579Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T01:57:47.580Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T01:57:47.594Z info: HTTP listen [8080]
+2026-07-28T01:58:11.731Z info: $OpenSafeByPin finished
+2026-07-28T01:58:11.799Z info: $GetSafe finished
+2026-07-28T01:58:15.777Z info: $GetServicesLabels finished
+2026-07-28T01:58:15.790Z info: $IsMDAdmin finished
+2026-07-28T01:58:15.815Z info: $GetSitesUrls finished
+2026-07-28T01:58:21.631Z info: $GetOrgSvc finished
+2026-07-28T01:59:52.389Z info: $OpenSafeByPin finished
+2026-07-28T01:59:52.468Z info: $GetSafe finished
+2026-07-28T01:59:57.285Z info: $GetServicesLabels finished
+2026-07-28T01:59:57.297Z info: $IsMDAdmin finished
+2026-07-28T01:59:57.328Z info: $GetSitesUrls finished
+2026-07-28T02:00:02.854Z info: $GetOrgSvc finished
+2026-07-28T02:04:14.339Z info: $OpenSafeByPin finished
+2026-07-28T02:04:14.415Z info: $GetSafe finished
+2026-07-28T02:04:18.290Z info: $GetServicesLabels finished
+2026-07-28T02:04:18.303Z info: $IsMDAdmin finished
+2026-07-28T02:04:18.351Z info: $GetSitesUrls finished
+2026-07-28T02:04:24.683Z info: $GetOrgSvc finished
+2026-07-28T02:06:36.469Z info: $IsMDAdmin finished
+2026-07-28T02:07:27.269Z info: $SetOrgSvcSite finished
+2026-07-28T02:25:30.030Z info: $OpenSafeByPin finished
+2026-07-28T02:25:30.112Z info: $GetSafe finished
+2026-07-28T02:25:34.496Z info: $GetServicesLabels finished
+2026-07-28T02:25:34.510Z info: $IsMDAdmin finished
+2026-07-28T02:25:34.543Z info: $GetSitesUrls finished
+2026-07-28T02:25:41.995Z info: $GetOrgSvc finished
+2026-07-28T02:25:56.407Z info: $SetOrgSvcSite finished
+2026-07-28T02:26:10.690Z info: $SetOrgSvcSite finished
+2026-07-28T02:29:26.822Z info: $SetOrgSvcSite finished
+2026-07-28T02:29:36.405Z info: $SetOrgSvcSite finished
+2026-07-28T02:33:26.531Z info: $SetOrgSvcSite finished
+2026-07-28T02:33:29.450Z info: $SetOrgSvcSite finished
+2026-07-28T02:34:05.287Z info: $SetOrgSvcSite terminated on exception
+2026-07-28T02:34:05.299Z error: AppExc: 105:masterdir_unexpected_exception["Cannot set properties of null (setting 'AS2')"]
+2026-07-28T02:36:38.999Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T02:36:39.002Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-28T02:36:39.003Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-28T02:36:39.003Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-28T02:36:39.017Z info: HTTP listen [8080]
+2026-07-28T02:36:43.424Z info: $SetOrgSvcSite finished
+2026-07-28T02:36:51.620Z info: $SetOrgSvcSite finished
+2026-07-28T02:36:57.161Z info: $SetOrgSvcSite finished
+2026-07-28T02:37:00.398Z info: $SetOrgSvcSite finished
+2026-07-28T02:39:23.744Z info: $SetOrgSvcSite finished
+2026-07-28T02:39:42.156Z info: $SetOrgSvcSite finished
+2026-07-28T02:39:48.484Z info: ADMIN$isAdmin : 2026-07-28T02:39:48.484Z
+2026-07-28T02:39:48.493Z info: ADMIN$isAdmin finished
+2026-07-28T02:39:48.524Z info: ADMIN$getStatus : 2026-07-28T02:39:48.524Z
+2026-07-28T02:39:48.530Z info: ADMIN$getStatus finished
+2026-07-28T02:40:05.938Z info: ADMIN$getStatus : 2026-07-28T02:40:05.938Z
+2026-07-28T02:40:05.944Z info: ADMIN$getStatus finished
+2026-07-28T02:40:11.940Z info: ADMIN$isAdmin : 2026-07-28T02:40:11.940Z
+2026-07-28T02:40:11.946Z info: ADMIN$isAdmin finished
+2026-07-28T02:40:12.000Z info: ADMIN$getStatus : 2026-07-28T02:40:12.000Z
+2026-07-28T02:40:12.109Z info: ADMIN$getStatus finished
+2026-07-28T02:40:14.531Z info: ADMIN$getStatus : 2026-07-28T02:40:14.531Z
+2026-07-28T02:40:14.536Z info: ADMIN$getStatus finished
+2026-07-28T02:43:11.605Z info: $SetSiteUrl finished
+2026-07-28T02:43:11.637Z info: $GetSitesUrls finished
+2026-07-28T02:43:50.686Z info: $SetSiteUrl finished
+2026-07-28T02:43:50.712Z info: $GetSitesUrls finished
+2026-07-28T02:43:58.531Z info: ADMIN$getStatus : 2026-07-28T02:43:58.531Z
+2026-07-28T02:43:58.538Z info: ADMIN$getStatus finished
+2026-07-28T02:44:01.229Z info: ADMIN$getStatus : 2026-07-28T02:44:01.229Z
+2026-07-28T02:44:01.235Z info: ADMIN$getStatus finished
+2026-07-28T02:44:03.018Z info: ADMIN$getStatus : 2026-07-28T02:44:03.018Z
+2026-07-28T02:44:03.024Z info: ADMIN$getStatus finished
+2026-07-28T02:44:40.068Z info: $SetSiteUrl finished
+2026-07-28T02:44:40.147Z info: $GetSitesUrls finished
+2026-07-28T02:44:40.221Z info: ADMIN$isAdmin : 2026-07-28T02:44:40.221Z
+2026-07-28T02:44:40.228Z info: ADMIN$isAdmin finished
+2026-07-28T02:44:40.258Z info: ADMIN$getStatus : 2026-07-28T02:44:40.258Z
+2026-07-28T02:44:40.263Z info: ADMIN$getStatus finished
+2026-07-28T02:52:44.290Z info: $OpenSafeByPin finished
+2026-07-28T02:52:44.360Z info: $GetSafe finished
+2026-07-28T02:52:50.703Z info: $GetServicesLabels finished
+2026-07-28T02:52:50.717Z info: $IsMDAdmin finished
+2026-07-28T02:52:50.756Z info: $GetSitesUrls finished
+2026-07-28T02:53:23.928Z info: $GetServicesLabels finished
+2026-07-28T02:53:23.941Z info: $IsMDAdmin finished
+2026-07-28T02:53:28.249Z info: ADMIN$isAdmin : 2026-07-28T02:53:28.249Z
+2026-07-28T02:53:28.255Z info: ADMIN$isAdmin finished
+2026-07-28T02:53:28.284Z info: ADMIN$getStatus : 2026-07-28T02:53:28.284Z
+2026-07-28T02:53:28.289Z info: ADMIN$getStatus finished
+2026-07-28T02:53:39.298Z info: ADMIN$getStatus : 2026-07-28T02:53:39.298Z
+2026-07-28T02:53:39.304Z info: ADMIN$getStatus finished
+2026-07-28T02:53:41.470Z info: $SetSiteUrl finished
+2026-07-28T02:53:41.498Z info: $GetSitesUrls finished
+2026-07-28T02:54:04.231Z info: $SetSiteUrl finished
+2026-07-28T02:54:04.266Z info: $GetSitesUrls finished
+2026-07-28T02:54:04.330Z info: ADMIN$getStatus : 2026-07-28T02:54:04.330Z
+2026-07-28T02:54:04.338Z info: ADMIN$getStatus finished
+2026-07-28T02:54:20.348Z info: ADMIN$setStatus : 2026-07-28T02:54:20.348Z
+2026-07-28T02:54:20.366Z info: ADMIN$setStatus finished
