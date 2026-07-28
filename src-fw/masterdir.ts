@@ -73,14 +73,20 @@ class MDCache {
     const now = Date.now()
     if ((now - MDCache.services.at) > MDCache.ttl) {
       const [v, labels] = await op.db.mdGetValue('2', MDCache.sites.v)
-      MDCache.services = { at: now, v, labels: labels || '{}' }
+      if (v > 0) {
+        MDCache.services.at = now
+        MDCache.services.v = v
+        MDCache.services.labels = labels || '{}' 
+      }
     }
     return MDCache.services.labels
   }
 
   static async setServicesLabels (op: AbstractOperation, labels: string) {
     const now = Date.now()
-    MDCache.services = { at: now, v: now, labels }
+    MDCache.services.at = now
+    MDCache.services.v = now
+    MDCache.services.labels = labels || '{}' 
     await op.db.mdSetValue('2', now, labels)
   }
 
