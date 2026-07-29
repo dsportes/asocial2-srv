@@ -23539,3 +23539,98 @@ Error: read ECONNRESET
 2026-07-29T13:16:29.836Z info: $GetOrgSvc finished
 2026-07-29T13:16:29.879Z info: ADMIN$isAdmin : 2026-07-29T13:16:29.879Z
 2026-07-29T13:16:29.886Z info: ADMIN$isAdmin finished
+2026-07-29T14:33:18.122Z info: Configuration pre-loaded
+2026-07-29T14:33:18.511Z info: FW document descriptors:4 forms descriptors:4
+2026-07-29T14:33:18.514Z info: AS2 document descriptors:7 forms descriptors:7
+2026-07-29T14:33:18.540Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-29T14:33:18.540Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-29T14:33:18.541Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-29T14:33:18.541Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-29T14:33:18.541Z info: fw documents loading: 4
+2026-07-29T14:33:18.541Z info: app operations loading: 6
+2026-07-29T14:33:18.542Z info: fw operations loading: 73
+2026-07-29T14:33:18.542Z info: app operations loading: 73
+2026-07-29T14:33:18.542Z info: safe operations loading: 73
+2026-07-29T14:33:18.542Z info: masterdir operations loading: 73
+2026-07-29T14:33:18.543Z info: Configuration completed
+2026-07-29T14:33:18.549Z info: Server started
+2026-07-29T14:33:18.550Z info: HTTP listen [8080]
+2026-07-29T14:35:19.526Z info: $mdAliasFree finished
+2026-07-29T14:36:58.956Z info: $mdUserNew finished
+2026-07-29T14:36:58.977Z info: $CreateSafe finished
+2026-07-29T14:37:01.298Z info: $mdEventList finished
+2026-07-29T14:37:09.281Z info: $IsMDAdmin finished
+2026-07-29T14:37:32.049Z info: $TrustDevice finished
+2026-07-29T14:37:55.384Z info: $OpenSafeByPin finished
+2026-07-29T14:38:34.007Z info: $mdUserGetICVS finished
+2026-07-29T14:38:44.374Z info: $GetSafe finished
+2026-07-29T14:38:47.991Z info: $IsMDAdmin finished
+2026-07-29T14:39:07.894Z info: $TrustDevice finished
+2026-07-29T14:39:20.134Z info: $OpenSafeByPin finished
+2026-07-29T14:39:44.800Z info: $OpenSafeByPin finished
+2026-07-29T14:44:17.855Z info: $OpenSafeByPin finished
+2026-07-29T14:44:43.440Z info: $mdUserGetICVS finished
+2026-07-29T14:44:50.350Z info: $GetSafe finished
+2026-07-29T14:44:53.450Z info: $IsMDAdmin finished
+2026-07-29T14:57:05.492Z info: $TrustDevice finished
+2026-07-29T15:01:47.985Z info: $OpenSafeByPin finished
+2026-07-29T15:02:01.143Z info: $GetSafe finished
+2026-07-29T15:03:20.228Z info: $mdAliasFree finished
+2026-07-29T15:03:45.553Z info: $mdUserNew finished
+2026-07-29T15:03:45.570Z info: $CreateSafe finished
+2026-07-29T15:03:47.983Z info: $mdEventList finished
+2026-07-29T15:04:09.319Z info: $IsMDAdmin finished
+2026-07-29T15:08:06.373Z info: Configuration pre-loaded
+2026-07-29T15:08:07.006Z info: FW document descriptors:4 forms descriptors:4
+2026-07-29T15:08:07.010Z info: AS2 document descriptors:7 forms descriptors:7
+2026-07-29T15:08:07.038Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-29T15:08:07.038Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-29T15:08:07.039Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-29T15:08:07.040Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-29T15:08:07.040Z info: fw documents loading: 4
+2026-07-29T15:08:07.041Z info: app operations loading: 6
+2026-07-29T15:08:07.042Z info: fw operations loading: 73
+2026-07-29T15:08:07.043Z info: app operations loading: 73
+2026-07-29T15:08:07.043Z info: safe operations loading: 73
+2026-07-29T15:08:07.044Z info: masterdir operations loading: 73
+2026-07-29T15:08:07.044Z info: Configuration completed
+2026-07-29T15:08:07.053Z info: Server started
+2026-07-29T15:08:07.055Z info: HTTP listen [8080]
+2026-07-29T15:10:37.060Z info: $TrustDevice finished
+2026-07-29T15:24:47.106Z info: $OpenSafeByPin finished
+2026-07-29T15:27:29.363Z info: $OpenSafeByPin finished
+2026-07-29T15:28:30.886Z info: $mdUserGetICVS finished
+2026-07-29T15:28:37.069Z info: $GetSafe finished
+2026-07-29T15:28:47.736Z info: $IsMDAdmin finished
+2026-07-29T15:37:25.217Z info: $TrustDevice finished
+2026-07-29T15:39:34.132Z info: $OpenSafeByPin finished
+2026-07-29T15:39:37.473Z info: $GetSafe finished
+2026-07-29T15:48:39.035Z info: $mdAliasFree finished
+2026-07-29T15:49:14.190Z info: $mdAliasFree finished
+2026-07-29T16:11:43.463Z info: $OpenSafeByPin finished
+2026-07-29T16:12:03.586Z info: $GetSafe finished
+2026-07-29T16:14:26.958Z info: $mdAliasFree finished
+2026-07-29T16:14:45.021Z info: $mdUserNew finished
+2026-07-29T16:14:45.041Z info: $CreateSafe finished
+2026-07-29T16:15:18.560Z info: $mdEventList finished
+2026-07-29T16:16:07.259Z info: $mdUserGetICVS finished
+2026-07-29T16:16:13.406Z info: $GetSafe finished
+2026-07-29T16:16:39.287Z info: $IsMDAdmin finished
+2026-07-29T16:19:18.120Z info: $TrustDevice finished
+2026-07-29T16:21:26.388Z info: $OpenSafeByPin finished
+2026-07-29T16:21:30.831Z info: $GetSafe finished
+2026-07-29T16:28:11.628Z info: $OpenSafeByPin finished
+2026-07-29T16:28:11.684Z info: $GetSafe finished
+2026-07-29T16:29:09.132Z info: $IsMDAdmin finished
+2026-07-29T16:29:50.510Z info: $TrustDevice finished
+2026-07-29T16:32:20.082Z info: $OpenSafeByPin finished
+2026-07-29T16:32:20.146Z info: $GetSafe finished
+2026-07-29T16:32:20.221Z info: $mdEventList finished
+2026-07-29T16:36:29.206Z info: $OpenSafeByPin finished
+2026-07-29T16:36:29.267Z info: $GetSafe finished
+2026-07-29T16:36:29.337Z info: $mdEventList finished
+2026-07-29T16:36:34.523Z info: $GetServicesLabels finished
+2026-07-29T16:44:25.590Z info: $GetOrgSvc finished
+2026-07-29T16:44:25.606Z info: $GetSitesUrls finished
+2026-07-29T16:44:25.633Z info: ADMIN$isAdmin : 2026-07-29T16:44:25.631Z
+2026-07-29T16:44:25.682Z info: ADMIN$isAdmin finished
