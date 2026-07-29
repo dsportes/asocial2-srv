@@ -1,12 +1,12 @@
 import Database from 'better-sqlite3'
 
-import { encode, decode } from '@msgpack/msgpack'
-import { config } from '../src-fw/config'
+import { encode } from '@msgpack/msgpack'
+import { config } from '../src/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
   row, rowQ, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
-import { Registry } from '../src-fw/config'
+import { Registry } from '../src-fw/registry'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
@@ -139,7 +139,7 @@ export class SQLiteConnector extends DbConnector {
     }
     const t = l.join('\n')
     writeFileSync(path.resolve(schemaPath), Buffer.from(t, 'utf8'))
-    console.log(schemaPath + ' written') 
+    Log.info(schemaPath + ' written') 
 
     l.length = 0
     for (const [fn, dt] of DocDescriptor.all) {
@@ -151,7 +151,7 @@ export class SQLiteConnector extends DbConnector {
     }
     const td = l.join('\n')
     writeFileSync(path.resolve(schemaPathd), Buffer.from(td, 'utf8'))
-    console.log(schemaPathd + ' written') 
+    Log.info(schemaPathd + ' written') 
 
   }
 }
@@ -272,7 +272,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       try { 
         this.sql.exec('ROLLBACK;')
       } catch (e2) { 
-        console.log('ROLLBACK exc :' + e2)
+        Log.error('ROLLBACK exc :' + e2)
       }
       throw e
     }
@@ -498,7 +498,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       try { 
         this.sql.exec('ROLLBACK;')
       } catch (e2) { 
-        console.log('ROLLBACK exc :' + e2)
+        Log.error('ROLLBACK exc :' + e2)
       }
       this.transaction = false
       return this.trap(e)

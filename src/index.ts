@@ -1,74 +1,9 @@
 import { env, exit } from 'process' 
-import webpush from 'web-push'
-// Pour appel en tant que gcloud function
-// import { HttpFunction } from '@google-cloud/functions-framework'
+import { config } from '../src/config'
+import { Log } from '../src-fw/log'
 
 // gcp = true SI hosté par Google: AppEngine ou gcloud run
-const gcp = false 
-
-// Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['VpOZWh0Zeh20Tk5C1BNi'])
-// Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['VpOZWh0Zeh20Tk5C1BNi'])
-
-const SRVKEY = env.SRVKEY || '2_b7DjJjC4x_oaYs2Z6J2_I6igIoLmuhsuv6nBRE3QE'
-
-import { encryptedKeys } from './keys'
-let keys : any
-// Chargement des "keys" cryptées dans config.keys
-try {
-  const key = Buffer.from(keyFromB64(SRVKEY))
-  const bin = Buffer.from(encryptedKeys, 'base64')
-  keys = JSON.parse(Crypt.syncDecrypt(key, bin).toString('utf-8'))
-} catch (e) {
-  console.error('encryptedkeys : failed to decrypt', e.toString())
-  exit()
-}
-
-import { BaseConfig, setConfig } from '../src-fw/config'
-const config = {
-  SVC: 'AS2',
-  ADMINUSERS,
-  MASTERDIRADMINUSERS,
-  MASTERDIR_URL: 'http://localhost:8080/master',
-  STDSAFE_URL: 'http://localhost:8080/safe',
-
-  PROD: env.NODE_ENV === 'production' ? true : false,
-  GCLOUDLOGGING: gcp ? true : false,
-
-  SRVKEY: SRVKEY,
-  keys: keys,
-  STORAGE_EMULATOR_HOST: env['STORAGE_EMULATOR_HOST'] || '',
-  FIRESTORE_EMULATOR_HOST: env['FIRESTORE_EMULATOR_HOST'] || '',
-
-  BUILD: 'v1.0',
-  API: 1,
-  APIVERSIONS: [1, 1],
-  debugLevel: 2, // 0: aucun, 1: standard: 2: élevé
-  adminAlerts: false, // false: simulation true: envoi de mail
-
-  logsPath: './logs', // Test et serveur Node
-  port: env['PORT'] || 8080,
-  https: false,
-  origins: new Set<string>(),
-  databases: null,
-  storages: null,
-
-  dbConnectors: {
-    sqlite: AppSQLiteConnector,
-    firestore: AppFirestoreConnector,
-  },
-
-  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
-  FORMMAXLIFE: 10 * 86400, // 10 jours
-  STATUSLAZYNESS: 3 * 60 // 3 minutes de prise en compte des changements de status
-} as BaseConfig
-setConfig(config)
-
-webpush.setVapidDetails('https://example.com/', config.keys['vapid_public_key'], config.keys['vapid_private_key'])
-
-import { Log } from '../src-fw/log'
-new Log(config.PROD, config.GCLOUDLOGGING, config.logsPath)
+const gcp = false
 
 import { FilesystemStorage } from '../src-filesystem' // pas d'extension spécifique de App
 import { DbConnector } from '../src-fw/dbConnector'
@@ -82,16 +17,16 @@ config.dbConnectors = {
 }
 
 config.databases = new Map<string, DbConnector>([
-  ['masterDB', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A'])],
-  ['safeDB', new AppSQLiteConnector(keys['sqlite_z'], keys['sites']['A'])],
-  ['svcDB', new AppSQLiteConnector(keys['sqlite_a'], keys['sites']['A'])],
-  // ['org1_DB', new AppSQLiteConnector(keys['sqlite_b'], keys['sites']['A'])],
-  // ['svcDB', new AppFirestoreConnector(keys['googleCloud'], keys['sites']['A'])],
+  ['masterDB', new AppSQLiteConnector(config.keys['sqlite_z'], config.keys['sites']['A'])],
+  ['safeDB', new AppSQLiteConnector(config.keys['sqlite_z'], config.keys['sites']['A'])],
+  ['svcDB', new AppSQLiteConnector(config.keys['sqlite_a'], config.keys['sites']['A'])],
+  // ['org1_DB', new AppSQLiteConnector(config.keys['sqlite_b'], config.keys['sites']['A'])],
+  // ['svcDB', new AppFirestoreConnector(config.keys['googleCloud'], config.keys['sites']['A'])],
 ])
 
 config.storages = new Map<string, IStGeneric>([
-  ['svcST', new FilesystemStorage(keys['storage_a'])],
-  // ['org1_ST', new FilesystemStorage(keys['storage_b'])]
+  ['svcST', new FilesystemStorage(config.keys['storage_a'])],
+  // ['org1_ST', new FilesystemStorage(config.keys['storage_b'])]
 ])
 
 import { schemaExcFW } from '../src-fw/schema'
@@ -104,8 +39,6 @@ if (exc) {
   exit()
 }
 
-import { keyFromB64 } from '../src-fw/b64'
-import { Crypt } from '../src-fw/crypt'
 import { getExpressApp, startSRV } from '../src-fw/index'
 import { Tools } from '../src-fw/tools'
 
@@ -133,23 +66,25 @@ if (emulator) {
   env['FIRESTORE_EMULATOR_HOST'] = 'localhost:8085'
 }
 
+Log.info('Configuration completed')
+
 export const asocialgcf = getExpressApp()
 
 if (process.argv.length > 2) {
   setTimeout(async () => {
     const [n, s] = await (new Tools()).run()
-    if (!n) console.log(s); else console.error(s)
+    if (!n) Log.info('' + s); else Log.error('' + s)
     exit()
   }, 50)
 } else {
   // Commenter si appel en gcloud functions
   if (!gcp) startSRV(asocialgcf)
   .then(() => {
-    console.log('Server started')
+    Log.info('Server started')
   })
   .catch(e => {
-    console.error(e.toString())
+    Log.error(e.toString())
     exit()
   })
 }
-// console.log('Fini')
+

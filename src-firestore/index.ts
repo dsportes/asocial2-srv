@@ -9,8 +9,8 @@ import { encode } from '@msgpack/msgpack'
 import { DocDescriptor } from '../src-fw/docDescriptor'
 import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
 import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
-  expList, expListQ, updType, vdata, Safe, safeTable } from '../src-fw/iDbGeneric'
-import { config } from '../src-fw/config'
+  expList, expListQ, updType, vdata, Safe } from '../src-fw/iDbGeneric'
+import { config } from '../src-fw/log'
 import { Log } from '../src-fw/log'
 import { Operation } from '../src-fw/operation'
 import { Crypt } from '../src-fw/crypt'
@@ -93,7 +93,7 @@ export class FirestoreConnector extends DbConnector {
     l.push('\n]\n}')
     const t = l.join('\n')
     writeFileSync(path.resolve(schemaPath), Buffer.from(t, 'utf8'))
-    console.log(schemaPath + ' written')
+    Log.info(schemaPath + ' written')
   }
 
 }

@@ -1,16 +1,16 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { $Document, DocStatus } from '../src-fw/document'
-import { $Form, $FormObj, $Credential, $Cred } from '../src-fw/documents'
-import { keyFromB64 } from '../src-fw/b64'
-import { Registry } from '../src-fw/config'
+import { $Form, $FormObj, ADMIN$Status, $Credential, $Cred } from '../src-fw/documents'
+import { Log } from '../src-fw/log'
+import { Registry } from '../src-fw/registry'
 import { Operation } from '../src-fw/operation'
 import { filter } from '../src-fw/iDbGeneric'
 
 let nd = 0
 
 export function loadingDA () {
-  console.log('app documents loading: ', nd)
+  Log.info('app operations loading: ' + nd)
 }
 
 /*
@@ -28,6 +28,10 @@ new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
     return await super.validate(op, newDocs)
   }
 */ 
+
+class AS2$Status extends ADMIN$Status {
+}
+nd++; Registry.register(AS2$Status)
 
 class AS2$Form_membrecodir extends $Form {
   constructor (obj?: $FormObj) { super(obj) }
@@ -87,7 +91,7 @@ export class AS2$Auteur extends $Document {
           const c: any = decode(bin)
           autid = c.autid
         } catch(e) {
-          console.log(e)
+          Log.error(e)
         }    
       }) 
     return autid

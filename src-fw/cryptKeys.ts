@@ -4,6 +4,7 @@ import path from 'path'
 import { keyToB64 } from './b64'
 import { Crypt } from './crypt'
 import { toUrl } from './b64'
+import { Log } from '../src-fw/log'
 
 /*****************************************************
  * Ligne de commande: npx tsx src-fw/cryptKeys.ts -i ./keys.json -o src/keys.ts -p "toto est tres tres beau"
@@ -24,10 +25,10 @@ export function cryptKeys () {
   const outf = cmdargs.values['out']
 
   const k = Crypt.syncStrongHash(pwd + pwd)
-  console.log('key= ' + toUrl(keyToB64(k)))
+  Log.info('key= ' + toUrl(keyToB64(k)))
   const pjson = path.resolve(inf)
   if (!existsSync(pjson)) {
-    console.log(pjson + ' NOT FOUND')
+    Log.error(pjson + ' NOT FOUND')
   } else {
     try {
       const buf = readFileSync(pjson)
@@ -37,9 +38,9 @@ export function cryptKeys () {
       const pmjs = path.resolve(outf)
       const x = 'export const encryptedKeys = \'' + b64 + '\'' + '\n'
       writeFileSync(pmjs, Buffer.from(x, 'utf8'))
-      console.log(pmjs + ' written')
+      Log.info(pmjs + ' written')
     } catch (e) {
-      console.log('Encryption failed. ' + e.message)
+      Log.error('Encryption failed. ' + e.message)
     }
   }
 }

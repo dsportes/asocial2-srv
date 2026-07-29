@@ -1,17 +1,19 @@
 // import { encode } from '@msgpack/msgpack'
+import { config } from '../src/config'
+import { Log } from '../src-fw/log'
 import { Operation, Cache } from '../src-fw/operation'
 import { MDEventS } from '../src-fw/masterdir'
 import { AppExc } from '../src-fw/log'
 import { MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
-import { config, Registry } from '../src-fw/config'
+import { Registry } from '../src-fw/registry'
 import { ADMIN$Status, ADMIN$Subs, $subscription, ADMIN$SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus, $Document } from '../src-fw/document'
 // import { Util } from '../src-fw/util'
 
 export function loadingOF () {
-  console.log('fw operations loading: ', Registry.sizeOp())
+  Log.info('fw operations loading: ' + Registry.sizeOp())
 }
 
 export type CredRequest = {
@@ -200,7 +202,7 @@ Registry.registerOp(ADMIN$updateSubscription)
 /* Operations standard ***********************************************************/
 class FW$Bug extends Operation {
   init () { super.init() }
-  async phase2 () { await this.db.bug(); console.log('Bug op') }
+  async phase2 () { await this.db.bug(); Log.info('Bug op') }
 }
 Registry.registerOp(FW$Bug)
 
@@ -247,7 +249,7 @@ class FW$setStatus extends Operation {
     this.requireAdmin()
     let doc = await this.cache.getDoc(this.svc + '$Status') as $Document
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('$Status')
+    else doc = this.cache.newDoc(this.svc + '$Status')
     doc['at'] = Date.now()
     doc['st'] = this._st
     doc['txt'] = this._txt || ''

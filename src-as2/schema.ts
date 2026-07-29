@@ -1,4 +1,5 @@
 import { DocDescriptor, FormType, idx, collection, propType } from '../src-fw/docDescriptor'
+import { Log } from '../src-fw/log'
 
 let exc: Error | null = null
 
@@ -56,7 +57,7 @@ try {
   // Un Auteur peut aussi nommer un co-auteur
   new FormType(svc, 'coauteur', 'auteurs', 'k2', ['Redaction/1', 'Auteur/$1'])
 
-  console.log('AS2 document descriptors:' + (DocDescriptor.size() - nd) 
+  Log.info('AS2 document descriptors:' + (DocDescriptor.size() - nd) 
     + ' forms descriptors:' + (FormType.size() - nf))
 
 } catch (e: any) {
@@ -64,6 +65,6 @@ try {
 }
 
 export const schemaExcAS2 = () : Error | null => {
-  if (exc)  console.log('Schema Exception: ', exc.toString())
+  if (exc)  Log.error('Schema Exception: ' + exc.toString())
   return exc
 }

@@ -2,12 +2,12 @@
 import { decode } from '@msgpack/msgpack'
 
 import { OperationWC, MDandSafe } from '../src-fw/index'
-import { config } from '../src-fw/config'
+import { config } from '../src/config'
 import { Log, AppExc } from '../src-fw/log'
 import { DbConnector } from '../src-fw/dbConnector'
 import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
-import { Registry } from '../src-fw/config'
+import { Registry } from './registry'
 import { $Document, DocStatus } from '../src-fw/document'
 import { $Credential, Embed$Cred } from '../src-fw/documents'
 import { Publisher } from '../src-fw/publisher'
@@ -411,7 +411,7 @@ export class AuthRecord {
       else if (this.isAdmin) dbg.push('ADMIN')
       for (const [ref, r] of this.creds)
         dbg.push('Status:[' + (this.koCreds.has(ref) ? 'KO' : 'OK') + '] - [' + ref + ']')
-      console.log('Auth status: ' + dbg.join('\n'))
+      Log.debug('Auth status: ' + dbg.join('\n'))
     }
       
     if (this.koCreds.size && !this.op.acceptBadCredential) 

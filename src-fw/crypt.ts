@@ -1,8 +1,8 @@
-import { encode, decode } from '@msgpack/msgpack'
 import crypto from 'crypto'
 // @ts-ignore
 // import rsa from 'jsrsasign'
 import { KJUR } from './dsportes_jsrsasign.mjs'
+import { Log } from '../src-fw/log'
 import { keyToB64 } from './b64'
 
 const encoder = new TextEncoder()
@@ -99,7 +99,7 @@ export class Crypt {
     const b1 = cipher.update(buf)
     const b2 = cipher.final()
     const authTag = cipher.getAuthTag()
-    // console.log('crypt authTag  ', authTag)
+    // Log.info('crypt authTag  ', authTag)
     return Buffer.concat([iv, b1, b2, authTag])
     // const bz = Crypt.syncDecrypt(key, bx)
   }
@@ -114,7 +114,7 @@ export class Crypt {
     const enc = buf.subarray(12, buf.byteLength - 16)
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
     const authTag = buf.subarray(buf.byteLength - 16)
-    // console.log('decrypt authTag ', Buffer.from(authTag).toString('hex'))
+    // Log.info('decrypt authTag ', Buffer.from(authTag).toString('hex'))
     decipher.setAuthTag(authTag)
     const b1 = decipher.update(Buffer.from(enc))
     const b2 = decipher.final()
@@ -146,7 +146,7 @@ export class Crypt {
         { name: 'AES-GCM', iv, tagLength: 128 }, key, buf))
       const x = Buffer.concat([iv, enc])
       // const authTag = buf.subarray(buf.byteLength - 16)
-      // console.log('crypt authTag ', Buffer.from(authTag).toString('hex'))
+      // Log.info('crypt authTag ', Buffer.from(authTag).toString('hex'))
       return x
     } catch (e) {
       return null
@@ -162,7 +162,7 @@ export class Crypt {
       const iv = buf.subarray(0, 12)
       const enc = buf.subarray(12)
       // const authTag = Buffer.from(buf.subarray(buf.byteLength - 16))
-      // console.log('decrypt authTag ', Buffer.from(authTag).toString('hex'))
+      // Log.info('decrypt authTag ', Buffer.from(authTag).toString('hex'))
       return new Uint8Array(await crypto.subtle.decrypt(
         { name: 'AES-GCM', iv, tagLength: 128 }, key, enc))
     } catch (e) {
@@ -313,24 +313,24 @@ static async strongHash (s: string | Uint8Array, pad?: boolean, bin?: boolean)
 
 export async function testSH () {
   const x = 'toto est tres tres beau'
-  console.log(Crypt.sha(x))
-  console.log(Crypt.shaS(x))
-  console.log(Crypt.shaInt(x))
+  Log.info(Crypt.sha(x))
+  Log.info(Crypt.shaS(x))
+  Log.info('' + Crypt.shaInt(x))
 
-  console.log(await Crypt.strongHash(x))
-  console.log(await Crypt.strongHash(encoder.encode(x)))
-  console.log(await Crypt.strongHash(x, true))
-  console.log(await Crypt.strongHash(encoder.encode(x), true))
-  console.log(Crypt.sha(x))
-  console.log(Crypt.sha(encoder.encode(x)))
-  console.log(Crypt.shaS(x))
-  console.log(Crypt.shaInt(x))
+  Log.info(await Crypt.strongHash(x) as string)
+  Log.info(await Crypt.strongHash(encoder.encode(x)) as string)
+  Log.info(await Crypt.strongHash(x, true) as string)
+  Log.info(await Crypt.strongHash(encoder.encode(x), true) as string)
+  Log.info(Crypt.sha(x))
+  Log.info(Crypt.sha(encoder.encode(x)))
+  Log.info(Crypt.shaS(x))
+  Log.info('' + Crypt.shaInt(x))
 
   /*
   const t = Date.now()
   for (let i= 0; i< 100000; i++) await Crypt.sha(x)
   const n = Date.now() - t
-  console.log('sha : ', n)
+  Log.info('sha : ', n)
   */
 }
 
@@ -342,51 +342,51 @@ export async function testECDH () {
   const appPair = await Crypt.getKeyPair()
   const appPub = toPem(appPair.pub, true)
   const appPriv = toPem(appPair.priv)
-  console.log('ECDH: APP crypt/decrypt')
-  console.log(appPub)
-  console.log(appPriv)
+  Log.info('ECDH: APP crypt/decrypt')
+  Log.info(appPub)
+  Log.info(appPriv)
 
   const appSVPair = await Crypt.getSVKeyPair()
   const appSVPub = toPem(appSVPair.pub, true)
   const appSVPriv = toPem(appSVPair.priv)
-  console.log('RSA: SRV sign/verify')
-  console.log(appSVPub)
-  console.log(appSVPriv)
+  Log.info('RSA: SRV sign/verify')
+  Log.info(appSVPub)
+  Log.info(appSVPriv)
   const sign = await Crypt.sign(appSVPair.priv, x)
   const signAsn1 = Crypt.signToAsn1(sign)
   const sign2 = Crypt.signFromAsn1(signAsn1)
   const h1 = u8ToHex(sign)
   const h2 = u8ToHex(signAsn1)
-  console.log('---- EC / ASN1 -------')
-  console.log(h1)
-  console.log(h2)
-  console.log('----------------------')
+  Log.info('---- EC / ASN1 -------')
+  Log.info(h1)
+  Log.info(h2)
+  Log.info('----------------------')
   const h3 = u8ToHex(sign2)
   if (h1 === h3)
-    console.log('trop cool !!!')
-  else console.log('TOO BAD !!!')
+    Log.info('trop cool !!!')
+  else Log.info('TOO BAD !!!')
   
   // Dans srv
   const verif1 = await Crypt.verify(fromPem(appSVPub, true), sign, x)
-  console.log('verif1 = ', verif1)
+  Log.info('verif1 = ' + verif1)
   const verif2 = await Crypt.verify(fromPem(appSVPub, true), sign, xx)
-  console.log('verif2 = ', verif2)
+  Log.info('verif2 = ' + verif2)
 
   const srvPair = await Crypt.getKeyPair()
   const srvPub = toPem(srvPair.pub, true)
   const srvPriv = toPem(srvPair.priv)
-  console.log('ECDH: SRV crypt/decrypt')
-  console.log(srvPub)
-  console.log(srvPriv)
+  Log.info('ECDH: SRV crypt/decrypt')
+  Log.info(srvPub)
+  Log.info(srvPriv)
 
   const aesSrv = await Crypt.getAESKey(fromPem(appPub, true), srvPair.priv)
-  console.log('aesSrv: ', keyToB64(Buffer.from(aesSrv)))
+  Log.info('aesSrv: ' + keyToB64(Buffer.from(aesSrv)))
   const x1 = await Crypt.crypt(aesSrv, x)
 
   // Dans app
   const aesApp = await Crypt.getAESKey(fromPem(srvPub, true), appPair.priv)
-  console.log('aesApp: ', keyToB64(Buffer.from(aesApp)))
+  Log.info('aesApp: ' + keyToB64(Buffer.from(aesApp)))
   const x3 = await Crypt.decrypt(aesApp, x1)
   const x2 = decoder.decode(x3)
-  console.log(x2)
+  Log.info(x2)
 }

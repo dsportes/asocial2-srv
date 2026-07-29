@@ -1,14 +1,15 @@
 import { encode, decode } from '@msgpack/msgpack'
 
-import { AppExc } from '../src-fw/log'
+import { Log, AppExc } from '../src-fw/log'
 import { AbstractOperation } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { keyFromB64 } from '../src-fw/b64'
-import { config, Registry } from '../src-fw/config'
+import { config } from '../src/config'
+import { Registry } from './registry'
 import { MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 
 export function loadingOM () {
-  console.log('masterdir operations loading: ', Registry.sizeOp())
+  Log.info('masterdir operations loading: ' + Registry.sizeOp())
 }
 
 export type CaseInfo1 = { 
@@ -105,7 +106,7 @@ class MDCache {
     const [v, json] = await op.db.mdGetValue(org, e ? e.v : 0) // x: [v, JSON]
     if (v) { // trouvé un plus récent que e.v
       let val = null
-      try { val = json ? JSON.parse(json) : null } catch(e) { console.log(e) }
+      try { val = json ? JSON.parse(json) : null } catch(e) { Log.error(e) }
       e = { at: now, v, val }
       MDCache.orgs.set(org, e)
     }
@@ -189,7 +190,7 @@ export class MDOperation implements AbstractOperation {
       const buf = await response.bytes()
       return response.status === 200 ? decode(buf) : null
     } catch (e: any) {
-      console.log(e.toString())
+      Log.error(e.toString())
       return null
     }
   }
@@ -232,7 +233,7 @@ export class MDOperation implements AbstractOperation {
           const b = await Crypt.verify(keyFromB64(cv[1]), sign, ch)
           if (b) return params
         } catch (e) {
-          console.log(e)
+          Log.error(e)
         }
       }
     } else {

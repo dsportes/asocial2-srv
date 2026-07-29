@@ -1,7 +1,7 @@
 import { encode } from '@msgpack/msgpack'
 
 import { row } from '../src-fw/iDbGeneric'
-import { Registry } from '../src-fw/config'
+import { Registry } from './registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
 // import { AppExc } from '../src-fw/log'
 

@@ -1,24 +1,21 @@
+import { config } from '../src/config'
+import { Log } from '../src-fw/log'
 import { $Document, DocStatus } from '../src-fw/document'
 import { Crypt } from '../src-fw/crypt'
 import { filter } from '../src-fw/iDbGeneric'
-import { encode, decode } from '@msgpack/msgpack'
+import { decode } from '@msgpack/msgpack'
 import { OperationWC } from './index'
 import { Operation } from '../src-fw/operation'
-import { Registry } from '../src-fw/config'
+import { Registry } from './registry'
 import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
-import { config } from '../src-fw/config'
-import { keyFromB64, keyToB64 } from '../src-fw/b64'
+import { keyFromB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
 import { SetCred } from '../src-fw/safeop'
-
-// import { AuthRecord } from '../src-fw/operation'
-// const encoder = new TextEncoder()
-// const decoder = new TextDecoder()
 
 let nd = 0
 
 export function loadingDF () {
-  console.log('fw documents loading: ', nd)
+  Log.info('fw documents loading: ' + nd)
 }
 
 class ADMIN$Task extends $Document {
@@ -336,7 +333,7 @@ export class $Credential extends $Document {
           if (!x.props.limit || x.props.limit * 60000 > op.now)
             lst.push(x)
         } catch(e) {
-          console.log(e)
+          Log.error(e)
         }    
       }) 
     return lst
@@ -366,7 +363,7 @@ export class $Credential extends $Document {
           if (!x.props.limit || x.props.limit * 60000 > op.now)
             lst.push(x)
         } catch(e) {
-          console.log(e)
+          Log.error(e)
         }
       })
     return lst
@@ -580,7 +577,7 @@ export class $Form extends $Document {
             await f.decryptMsgU()
             l.push(f.toFormObj())
           } catch (e) {
-            console.log(e)
+            Log.error(e)
           }
         }
       }

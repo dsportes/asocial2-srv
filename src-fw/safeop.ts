@@ -1,8 +1,9 @@
 import { encode, decode } from '@msgpack/msgpack'
 
-import { AppExc } from '../src-fw/log'
+import { config } from '../src/config'
+import { Log, AppExc } from '../src-fw/log'
 import { AbstractOperation } from '../src-fw/index'
-import { config, Registry } from '../src-fw/config'
+import { Registry } from './registry'
 import { Crypt } from '../src-fw/crypt'
 import { keyFromB64, keyToB64 } from '../src-fw/b64'
 import { Util } from '../src-fw/util'
@@ -12,7 +13,7 @@ const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
 export function loadingOS () {
-  console.log('safe operations loading: ', Registry.sizeOp())
+  Log.info('safe operations loading: ' + Registry.sizeOp())
 }
 
 type Device = {

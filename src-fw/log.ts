@@ -18,8 +18,7 @@ export class Log {
   private static _logger: winston.Logger;
 
   public static debug (msg: string) { this._logger.info(msg) }
-  public static info (msg: string) { 
-    this._logger.info(msg) }
+  public static info (msg: string) { Log._logger.info(msg) }
   public static error (msg: string) { this._logger.error(msg) }
 
   constructor (PROD: boolean, GCLOUDLOGGING: boolean, logsPath: string) {

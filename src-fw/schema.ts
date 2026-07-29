@@ -1,4 +1,5 @@
-import { DocDescriptor, FormType, idx, collection, propType } from '../src-fw/docDescriptor'
+import{ Log } from '../src-fw/log'
+import { DocDescriptor, FormType, idx, propType } from '../src-fw/docDescriptor'
 
 let exc: Error | null = null
 
@@ -32,7 +33,7 @@ try {
     ])
   )
 
-  console.log('FW document descriptors:' + (DocDescriptor.size() - nd) 
+  Log.info('FW document descriptors:' + (DocDescriptor.size() - nd) 
     + ' forms descriptors:' + (FormType.size() - nf))
 
 } catch (e: any) {
@@ -40,6 +41,6 @@ try {
 }
 
 export const schemaExcFW = () : Error | null => {
-  if (exc)  console.log('Schema Exception: ', exc.toString())
+  if (exc)  Log.error('Schema Exception: ' + exc.toString())
   return exc
 }

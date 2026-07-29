@@ -1,8 +1,8 @@
-import { config } from './config'
+import { config } from '../src/config'
 import { AbstractOperation } from '../src-fw/index'
-import { Log } from './log'
+import { Log } from '../src-fw/log'
 import { testECDH, testSH } from './crypt'
-import { Registry } from '../src-fw/config'
+import { Registry } from '../src-fw/registry'
 
 import { parseArgs } from 'node:util'
 import { stdin, stdout } from 'node:process'
@@ -147,7 +147,7 @@ export class Tools {
       names.push(e[0])
       this.connectors.set(e[0], { name: e[0], dbc: e[1]})
     }
-    console.log('Avalable providers: ' + names.join(' '))
+    Log.info('Avalable providers: ' + names.join(' '))
   }
 
   async setCfgDb (io: string) {
@@ -177,7 +177,7 @@ export class Tools {
       throw 'Argument --' + io + ' : Expected: org,provider,site : provider [' + x[1] + '] not declared'
 
     const cnx = eltCnx.dbc.getConnexion(this.op, org, cryptKey)
-    console.log('DB' + io + ': ' + eltCnx.name + ' connected. org:' + org + ' site:' + site)
+    Log.info('DB' + io + ': ' + eltCnx.name + ' connected. org:' + org + ' site:' + site)
     return cnx
   }
 

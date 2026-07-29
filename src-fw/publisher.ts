@@ -1,6 +1,6 @@
 import webpush from 'web-push'
 import { Log } from './log'
-import { Util } from './util'
+// import { Util } from './util'
 import { keyToB64 } from './b64'
 import { Operation, Cache, ImpactedSub } from './operation'
 import { ADMIN$SubsItem, $subscription } from './documents'
@@ -9,7 +9,7 @@ import { encode, decode } from '@msgpack/msgpack'
 
 /*
 const vapidKeys = webpush.generateVAPIDKeys()
-console.log(vapidKeys.publicKey, vapidKeys.privateKey)
+Log.debug(vapidKeys.publicKey, vapidKeys.privateKey)
 */
 
 /* Pour une sessionId, notifications à publier:

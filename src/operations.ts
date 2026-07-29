@@ -1,13 +1,13 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Operation } from '../src-fw/operation'
-import { Registry } from '../src-fw/config'
-// import { AppExc } from '../src-fw/log'
+import { Registry } from '../src-fw/registry'
+import { Log } from '../src-fw/log'
 import { DocStatus } from '../src-fw/document'
 import { AS2$Auteur } from '../src-as2/documents'
 
 export function loadingOA () {
-  console.log('app operations loading: ', Registry.sizeOp())
+  Log.info('app operations loading: ' + Registry.sizeOp())
 }
 
 /* Retourne une clé publique de cryptage de configuation */

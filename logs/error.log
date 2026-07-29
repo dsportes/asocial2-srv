@@ -617,3 +617,7 @@ Error: read ECONNRESET
 2026-07-27T17:59:54.265Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
 2026-07-27T18:29:35.113Z error: AppExc: 105:masterdir_unexpected_exception["Cannot read properties of undefined (reading 'val')"]
 2026-07-28T02:34:05.299Z error: AppExc: 105:masterdir_unexpected_exception["Cannot set properties of null (setting 'AS2')"]
+2026-07-29T09:32:42.603Z error: FW$getStatus : 2026-07-29T09:32:17.656Z : AppExc: 103:not_configured_doc_class["AS2$Status"]
+2026-07-29T09:32:42.621Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Status\"]"]
+2026-07-29T12:43:21.648Z error: FW$setStatus : 2026-07-29T12:42:50.190Z : AppExc: 103:not_configured_doc_class["$Status"]
+2026-07-29T12:43:21.650Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Status\"]"]

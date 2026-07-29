@@ -7,8 +7,9 @@ import { existsSync, readFileSync } from 'node:fs'
 // import axios from 'axios'
 import { encode, decode } from '@msgpack/msgpack'
 
+import { config } from '../src/config'
 import { Log, setAdminAlert } from './log'
-import { config, Registry } from './config'
+import { Registry } from './registry'
 import { Util } from './util'
 
 import { IStGeneric } from './iStGeneric'
@@ -127,7 +128,7 @@ export function getExpressApp (): express.Application {
       try {
         await config.messaging.send(message)
         res.status(200).json({ success: true, message: "Notification sent!" })
-        console.log('Sent : ', JSON.stringify(message))
+        Log.info('Sent : ' + JSON.stringify(message))
       } catch (e) {
         res.status(200).json({ success: false, message: e.toString() })
       }
@@ -606,7 +607,7 @@ export class MDandSafe {
     MDandSafe.icvsCache.set(userId, icvs)
     /* Test accès Safe
     const r: any = await this.doSafeOp(userId, '$Ping', {})
-    console.log(r.ping)
+    Log.info(r.ping)
     */
     return [icvs.c, icvs.v, icvs.s]
   }
