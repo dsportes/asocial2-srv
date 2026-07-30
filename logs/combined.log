@@ -23634,3 +23634,181 @@ Error: read ECONNRESET
 2026-07-29T16:44:25.606Z info: $GetSitesUrls finished
 2026-07-29T16:44:25.633Z info: ADMIN$isAdmin : 2026-07-29T16:44:25.631Z
 2026-07-29T16:44:25.682Z info: ADMIN$isAdmin finished
+2026-07-30T05:15:18.989Z info: Configuration pre-loaded
+2026-07-30T05:15:19.873Z info: FW document descriptors:4 forms descriptors:4
+2026-07-30T05:15:19.881Z info: AS2 document descriptors:7 forms descriptors:7
+2026-07-30T05:15:19.943Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-30T05:15:19.945Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-30T05:15:19.946Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-30T05:15:19.948Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-30T05:15:19.949Z info: fw documents loading: 4
+2026-07-30T05:15:19.951Z info: app operations loading: 6
+2026-07-30T05:15:19.954Z info: fw operations loading: 73
+2026-07-30T05:15:19.955Z info: app operations loading: 73
+2026-07-30T05:15:19.956Z info: safe operations loading: 73
+2026-07-30T05:15:19.958Z info: masterdir operations loading: 73
+2026-07-30T05:15:19.960Z info: Configuration completed
+2026-07-30T05:15:19.979Z info: Server started
+2026-07-30T05:15:19.982Z info: HTTP listen [8080]
+2026-07-30T05:19:25.423Z info: $OpenSafeByPin finished
+2026-07-30T05:19:25.471Z info: $GetSafe finished
+2026-07-30T05:19:32.041Z info: $mdEventList finished
+2026-07-30T05:19:38.272Z info: $GetServicesLabels finished
+2026-07-30T05:27:37.728Z info: $OpenSafeByPin finished
+2026-07-30T05:27:37.773Z info: $GetSafe finished
+2026-07-30T05:27:42.529Z info: $mdEventList finished
+2026-07-30T05:27:57.979Z info: $GetServicesLabels finished
+2026-07-30T10:05:11.273Z info: $OpenSafeByPin finished
+2026-07-30T10:05:11.322Z info: $GetSafe finished
+2026-07-30T10:05:15.984Z info: $GetServicesLabels finished
+2026-07-30T10:05:15.994Z info: $GetServicesLabels finished
+2026-07-30T10:05:16.017Z info: $IsMDAdmin finished
+2026-07-30T10:05:16.035Z info: $GetSitesUrls finished
+2026-07-30T10:08:46.396Z info: $OpenSafeByPin finished
+2026-07-30T10:08:46.439Z info: $GetSafe finished
+2026-07-30T10:08:51.536Z info: $GetServicesLabels finished
+2026-07-30T10:08:51.544Z info: $GetServicesLabels finished
+2026-07-30T10:08:51.560Z info: $IsMDAdmin finished
+2026-07-30T10:08:51.581Z info: $GetSitesUrls finished
+2026-07-30T10:08:58.984Z info: ADMIN$isAdmin : 2026-07-30T10:08:58.983Z
+2026-07-30T10:08:58.995Z info: ADMIN$isAdmin finished
+2026-07-30T10:08:59.002Z info: ADMIN$getStatus : 2026-07-30T10:08:59.001Z
+2026-07-30T10:08:59.009Z info: ADMIN$getStatus finished
+2026-07-30T10:09:15.962Z info: ADMIN$setStatus : 2026-07-30T10:09:15.962Z
+2026-07-30T10:09:15.979Z info: ADMIN$setStatus finished
+2026-07-30T10:09:23.290Z info: ADMIN$getStatus : 2026-07-30T10:09:23.290Z
+2026-07-30T10:09:23.313Z info: ADMIN$getStatus finished
+2026-07-30T10:09:23.324Z info: ADMIN$isAdmin : 2026-07-30T10:09:23.324Z
+2026-07-30T10:09:23.397Z info: ADMIN$isAdmin finished
+2026-07-30T10:09:28.977Z info: ADMIN$getStatus : 2026-07-30T10:09:28.977Z
+2026-07-30T10:09:28.982Z info: ADMIN$getStatus finished
+2026-07-30T10:11:00.236Z info: $GetOrgSvc finished
+2026-07-30T10:19:10.266Z info: ADMIN$getStatus : 2026-07-30T10:19:10.266Z
+2026-07-30T10:19:10.272Z info: ADMIN$getStatus finished
+2026-07-30T10:20:13.023Z info: $IsMDAdmin finished
+2026-07-30T10:27:10.345Z info: $OpenSafeByPin finished
+2026-07-30T10:27:10.388Z info: $GetSafe finished
+2026-07-30T10:27:15.732Z info: $GetServicesLabels finished
+2026-07-30T10:27:15.740Z info: $GetServicesLabels finished
+2026-07-30T10:27:15.755Z info: $IsMDAdmin finished
+2026-07-30T10:27:15.776Z info: $GetSitesUrls finished
+2026-07-30T10:27:27.947Z info: $GetOrgSvc finished
+2026-07-30T10:28:06.601Z info: $SetOrgSvcSite finished
+2026-07-30T10:28:51.412Z info: $SetOrgSvcSite finished
+2026-07-30T10:36:57.973Z info: $SetOrgSvcSite finished
+2026-07-30T10:37:21.042Z info: $SetOrgSvcSite finished
+2026-07-30T10:37:34.933Z info: $IsMDAdmin finished
+2026-07-30T10:40:06.271Z info: $SetOrgSvcSite finished
+2026-07-30T10:42:23.213Z info: $SetOrgSvcSite finished
+2026-07-30T10:42:50.850Z info: $IsMDAdmin finished
+2026-07-30T10:43:20.216Z info: $SetOrgSvcSite finished
+2026-07-30T11:03:40.835Z info: $SetOrgSvcSite finished
+2026-07-30T11:07:28.440Z info: $SetOrgSvcSite finished
+2026-07-30T11:08:13.387Z info: $SetOrgSvcSite finished
+2026-07-30T11:19:07.420Z info: $OpenSafeByPin finished
+2026-07-30T11:19:07.466Z info: $GetSafe finished
+2026-07-30T11:19:11.590Z info: $GetServicesLabels finished
+2026-07-30T11:19:11.599Z info: $GetServicesLabels finished
+2026-07-30T11:19:11.613Z info: $IsMDAdmin finished
+2026-07-30T11:19:11.635Z info: $GetSitesUrls finished
+2026-07-30T11:19:23.466Z info: $GetOrgSvc finished
+2026-07-30T11:20:35.813Z info: $SetOrgSvcSite finished
+2026-07-30T11:30:37.514Z info: $IsMDAdmin finished
+2026-07-30T11:31:30.779Z info: $SetOrgSvcSite finished
+2026-07-30T11:31:45.833Z info: $SetOrgSvcSite finished
+2026-07-30T11:33:14.149Z info: $SetOrgSvcSite finished
+2026-07-30T11:33:21.046Z info: $SetOrgSvcSite finished
+2026-07-30T12:42:19.142Z info: $SetOrgSvcSite finished
+2026-07-30T12:52:18.677Z info: $IsMDAdmin finished
+2026-07-30T12:53:04.306Z info: $IsMDAdmin finished
+2026-07-30T12:54:18.415Z info: ADMIN$isAdmin : 2026-07-30T12:54:18.415Z
+2026-07-30T12:54:18.424Z info: ADMIN$isAdmin finished
+2026-07-30T12:54:25.164Z info: FW$getStatus : 2026-07-30T12:54:25.163Z
+2026-07-30T12:54:25.174Z info: FW$getStatus finished
+2026-07-30T12:54:25.184Z info: ADMIN$getStatus : 2026-07-30T12:54:25.183Z
+2026-07-30T12:54:25.190Z info: ADMIN$getStatus finished
+2026-07-30T12:54:45.625Z info: ADMIN$setStatus : 2026-07-30T12:54:45.625Z
+2026-07-30T12:54:45.637Z info: ADMIN$setStatus finished
+2026-07-30T12:57:42.416Z info: FW$getStatus : 2026-07-30T12:57:42.416Z
+2026-07-30T12:57:42.423Z info: FW$getStatus finished
+2026-07-30T12:57:42.433Z info: ADMIN$getStatus : 2026-07-30T12:57:42.433Z
+2026-07-30T12:57:42.443Z info: ADMIN$getStatus finished
+2026-07-30T12:59:00.049Z info: $OpenSafeByPin finished
+2026-07-30T12:59:00.094Z info: $GetSafe finished
+2026-07-30T12:59:05.459Z info: $GetServicesLabels finished
+2026-07-30T12:59:05.465Z info: $GetServicesLabels finished
+2026-07-30T12:59:05.484Z info: $IsMDAdmin finished
+2026-07-30T12:59:05.507Z info: $GetSitesUrls finished
+2026-07-30T12:59:23.487Z info: $GetOrgSvc finished
+2026-07-30T12:59:23.518Z info: ADMIN$isAdmin : 2026-07-30T12:59:23.518Z
+2026-07-30T12:59:23.526Z info: ADMIN$isAdmin finished
+2026-07-30T12:59:27.261Z info: FW$getStatus : 2026-07-30T12:59:27.261Z
+2026-07-30T12:59:27.267Z info: FW$getStatus finished
+2026-07-30T12:59:27.271Z info: ADMIN$getStatus : 2026-07-30T12:59:27.271Z
+2026-07-30T12:59:27.279Z info: ADMIN$getStatus finished
+2026-07-30T13:00:28.333Z info: FW$setStatus : 2026-07-30T13:00:28.332Z
+2026-07-30T13:00:28.344Z info: FW$setStatus finished
+2026-07-30T13:05:26.807Z info: $mdEventList finished
+2026-07-30T13:07:51.600Z info: $OpenSafeByPin finished
+2026-07-30T13:07:51.649Z info: $GetSafe finished
+2026-07-30T13:07:56.941Z info: $mdEventList finished
+2026-07-30T13:08:00.906Z info: $GetServicesLabels finished
+2026-07-30T13:08:12.000Z info: $GetOrgSvc finished
+2026-07-30T13:08:12.020Z info: $GetSitesUrls finished
+2026-07-30T13:08:12.042Z info: ADMIN$isAdmin : 2026-07-30T13:08:12.041Z
+2026-07-30T13:08:12.047Z info: ADMIN$isAdmin finished
+2026-07-30T13:18:29.894Z info: $OpenSafeByPin finished
+2026-07-30T13:18:29.944Z info: $GetSafe finished
+2026-07-30T13:18:36.939Z info: $mdEventList finished
+2026-07-30T13:18:40.068Z info: $GetServicesLabels finished
+2026-07-30T13:18:50.815Z info: $GetOrgSvc finished
+2026-07-30T13:18:50.833Z info: $GetSitesUrls finished
+2026-07-30T13:18:50.853Z info: ADMIN$isAdmin : 2026-07-30T13:18:50.853Z
+2026-07-30T13:18:50.857Z info: ADMIN$isAdmin finished
+2026-07-30T13:20:58.158Z info: $mdEventList finished
+2026-07-30T13:29:54.588Z info: $OpenSafeByPin finished
+2026-07-30T13:29:54.633Z info: $GetSafe finished
+2026-07-30T13:29:59.113Z info: $mdEventList finished
+2026-07-30T13:30:03.010Z info: $GetServicesLabels finished
+2026-07-30T13:30:12.574Z info: $GetOrgSvc finished
+2026-07-30T13:30:12.591Z info: $GetSitesUrls finished
+2026-07-30T13:30:12.611Z info: ADMIN$isAdmin : 2026-07-30T13:30:12.611Z
+2026-07-30T13:30:12.616Z info: ADMIN$isAdmin finished
+2026-07-30T13:45:15.578Z info: $OpenSafeByPin finished
+2026-07-30T13:45:15.624Z info: $GetSafe finished
+2026-07-30T13:45:21.207Z info: $mdEventList finished
+2026-07-30T16:38:12.613Z info: Configuration pre-loaded
+2026-07-30T16:38:12.930Z info: FW document descriptors:4 forms descriptors:4
+2026-07-30T16:38:13.221Z info: AS2 document descriptors:7 forms descriptors:7
+2026-07-30T16:38:13.340Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-30T16:38:13.340Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-07-30T16:38:13.342Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-07-30T16:38:13.342Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-07-30T16:38:13.343Z info: fw documents loading: 4
+2026-07-30T16:38:13.344Z info: app operations loading: 6
+2026-07-30T16:38:13.344Z info: fw operations loading: 73
+2026-07-30T16:38:13.345Z info: app operations loading: 73
+2026-07-30T16:38:13.345Z info: safe operations loading: 73
+2026-07-30T16:38:13.346Z info: masterdir operations loading: 73
+2026-07-30T16:38:13.347Z info: Configuration completed
+2026-07-30T16:38:13.357Z info: Server started
+2026-07-30T16:38:13.359Z info: HTTP listen [8080]
+2026-07-30T16:38:28.637Z info: $OpenSafeByPin finished
+2026-07-30T16:38:28.679Z info: $GetSafe finished
+2026-07-30T16:38:32.916Z info: $mdEventList finished
+2026-07-30T16:44:28.320Z info: $OpenSafeByPin finished
+2026-07-30T16:44:28.363Z info: $GetSafe finished
+2026-07-30T16:45:09.647Z info: $mdEventList finished
+2026-07-30T16:45:19.572Z info: $GetServicesLabels finished
+2026-07-30T16:45:29.602Z info: $GetOrgSvc finished
+2026-07-30T16:45:29.620Z info: $GetSitesUrls finished
+2026-07-30T16:45:29.643Z info: ADMIN$isAdmin : 2026-07-30T16:45:29.643Z
+2026-07-30T16:45:29.650Z info: ADMIN$isAdmin finished
+2026-07-30T17:01:07.093Z info: $OpenSafeByPin finished
+2026-07-30T17:01:07.146Z info: $GetSafe finished
+2026-07-30T17:01:14.471Z info: $mdEventList finished
+2026-07-30T17:01:19.584Z info: $GetServicesLabels finished
+2026-07-30T17:01:33.384Z info: $GetOrgSvc finished
+2026-07-30T17:01:33.403Z info: $GetSitesUrls finished
+2026-07-30T17:01:33.424Z info: ADMIN$isAdmin : 2026-07-30T17:01:33.424Z
+2026-07-30T17:01:33.428Z info: ADMIN$isAdmin finished

@@ -51,12 +51,12 @@ try {
     { name: 'CoDir', virtual: true }
   )
 
-  new FormType(svc, 'membrecodir', 'ad', 'k1', ['A'])
-  new FormType(svc, 'membreredaction', 'ad', 'k1', ['A'])
-  new FormType(svc, 'auteur', 'auteurs', 'k2', ['Redaction/1'])
+  new FormType(svc, 'membrecodir', svc + '_' + 'ad', 'k1', ['A'])
+  new FormType(svc, 'membreredaction', svc + '_' + 'ad', 'k1', ['A'])
+  new FormType(svc, 'auteur', svc + '_' + 'auteurs', 'k2', ['Redaction/1'])
   // Un Auteur peut aussi nommer un co-auteur
   new FormType(svc, 'coauteur', 'auteurs', 'k2', ['Redaction/1', 'Auteur/$1'])
-
+  
   Log.info('AS2 document descriptors:' + (DocDescriptor.size() - nd) 
     + ' forms descriptors:' + (FormType.size() - nf))
 
