@@ -31,8 +31,7 @@ export type CredRequest = {
 
 class ADMIN$isAdmin extends Operation {
   async phase2 () {
-    this.requireAuth()
-    this.setRes('isAdmin', this.authRecord.isAdmin)
+    this.setRes('isAdmin', this.authRecord.userId && this.authRecord.isAdmin)
   }
 }
 Registry.registerOp(ADMIN$isAdmin)
