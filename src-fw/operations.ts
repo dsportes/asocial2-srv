@@ -113,6 +113,7 @@ class ADMIN$setEnum extends Operation {
   }
 
   async phase2 () {
+    // TODO requireAdmin ???
     await this.db.setSingleton(this._name, JSON.stringify(this._value))
   }
 }
@@ -389,9 +390,9 @@ class GetCredProps extends Operation {
   async phase2 () {
     this.requireAuth()
     if (!this.authRecord.koCreds.has(this._docCl + '/' + this._docPk)) {
-      const c = this.getCred(this._docCl, this._docPk, true)
-      if (c && c.credId === this._credId)
-        this.setRes('vprops', [c.v, c.cred.props])
+      const c = this.getCredRef(this._docCl, this._docPk, true)
+      if (c && c.cred.credId === this._credId)
+        this.setRes('vprops', [c.doc.v, c.cred.props])
     }
   }
 }
@@ -404,8 +405,8 @@ class PropsOfMyCreds extends Operation {
   async phase2 () {
     this.requireAuth()
     const props: Object = {}
-    for(const [,credential] of this.authRecord.creds)
-      props[credential.credId] = credential.cred.props
+    for(const [,credRef] of this.authRecord.creds)
+      props[credRef.cred.credId] = credRef.cred.props
     this.setRes('props', props)
   }
 }
@@ -428,8 +429,8 @@ class AutoRevokeCred extends Operation {
   async phase2 () {
     // this.requireAdmin()
     this.requireAuth()
-    const cred = this.authRecord.getCred(this._docCl, this._docPk, true)
-    if (!cred || cred.credId !== this._credId)
+    const credRef = this.authRecord.getCredRef(this._docCl, this._docPk, true)
+    if (!credRef || credRef.cred.credId !== this._credId)
       throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docPk])
     const dt = Registry.getDescr('', this._docCl)
     if (dt.embedCreds) {
@@ -500,7 +501,8 @@ class MDEventFull extends Operation {
     this._ch = this.stringValue('ch', true)
   }
   async phase2 () {
-    const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._eventId, type: this._type }) as $Form
     if (f && f.ch === this._ch) {
       f.setMaxLife()
       const x = { 
@@ -532,7 +534,8 @@ class MDEventSync extends Operation {
     this._chk = this.stringValue('chk', true)
   }
   async phase2 () {
-    const f = await this.cache.getDoc('$Form', { formId: this._eventId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._eventId, type: this._type }) as $Form
     if (f && f.chk(this) === this._chk && !f.isOld) {
       const x = { 
         v: this.now, 
@@ -560,10 +563,10 @@ class FormCreateByU extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    let f = await this.cache.getDoc('$Form', this._formObj) as $Form
+    let f = await this.cache.getDoc(this.svc + '$Form', this._formObj) as $Form
     if (f) 
       { this.setRes('status', 1); return }
-    f = this.cache.newDoc('$Form', this._formObj) as $Form
+    f = this.cache.newDoc(this.svc + '$Form', this._formObj) as $Form
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.status = 1
     f.msgT = null
@@ -588,7 +591,7 @@ class FormCreateByT extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    let f = await this.cache.getDoc('$Form', this._formObj) as $Form
+    let f = await this.cache.getDoc(this.svc + '$Form', this._formObj) as $Form
     if (f) 
       { this.setRes('status', 1); return }
     f = this.cache.newDoc('$Form', this._formObj) as $Form
@@ -619,7 +622,8 @@ class FormUpdByU extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form',
+      { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
@@ -651,7 +655,8 @@ class FormUpdByT extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
@@ -680,7 +685,8 @@ class FormCancel extends Operation {
 
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (f.userId !== this.authRecord.userId)
@@ -717,7 +723,8 @@ class ValidateForm extends Operation {
 
   async phase2 () : Promise<void> {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
@@ -761,8 +768,7 @@ class ValidateForm extends Operation {
 
     // Création (éventuelle) des documents credential
     for(const ct of this.credTemplates) {
-      const credential = ct.newCredential()
-      const doc = await credential.create(this)
+      const doc = await ct.createCredential(this)
       if (doc) newDocs.push(doc)
       else { this.st = 99; break } // embedding document not found
     }
@@ -827,7 +833,8 @@ class FormGet extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const f = await this.cache.getDoc('$Form', { formId: this._formId, type: this._type }) as $Form
+    const f = await this.cache.getDoc(this.svc + '$Form', 
+      { formId: this._formId, type: this._type }) as $Form
     if (!f || f.isOld) 
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
@@ -895,8 +902,8 @@ class UpdPropsCred extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const credential = this.getCred(this._docCl, this._docPk) as $Credential
-    if (!credential || credential.credId !== this._credId) 
+    const credRef = this.getCredRef(this._docCl, this._docPk)
+    if (!credRef || credRef.cred.credId !== this._credId) 
       { this.setRes('status', 1); return }
 
     const cl = Registry.newD('', this._docCl, {})
@@ -905,7 +912,10 @@ class UpdPropsCred extends Operation {
     if (!sp || !sp.size) { this.setRes('status', 3); return }
 
     let upd = false
-    const props = credential.cred.props
+    const cred = credRef.isEmbed ? credRef.doc.embedCred[credRef.cred.credId]
+      : credRef.doc['cred']
+
+    const props = cred.props
     for(const p of Object.keys(this._props)) {
       if (sp.has(p)) {
         const v = this._props[p]
@@ -917,9 +927,7 @@ class UpdPropsCred extends Operation {
     }
     this.setRes('props', props)
     if (!upd) return
-
-    const doc = credential.embeddingDoc || credential
-    doc._status = DocStatus.UPD
+    credRef.doc._status = DocStatus.UPD
   }
 }
 Registry.registerOp(UpdPropsCred)

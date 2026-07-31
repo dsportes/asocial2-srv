@@ -15,6 +15,7 @@ export type changedColl = {
 
 export class $Document {
   _clazz: string
+  _org: string
   _status?: DocStatus
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
@@ -24,6 +25,12 @@ export class $Document {
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document
   embedCreds?: Object
 
+  get _docCl () {
+    const x = this._clazz.substring(this._clazz.indexOf('$') + 1)
+    const i = x.indexOf('_')
+    return i === - 1 ? x : x.substring(0, i)
+  }
+  
   /* Mute un data en fonction de sa release et d'éventuelles options
   Met à jour, supprime ajoute les propriétés requises dans la
   dernière version en fonction de sa release actuell.
@@ -36,6 +43,8 @@ export class $Document {
     const f = cl['mutateCl']
     return f ? f(data, options) : [data, false]
   }
+
+  get _svc () { return this._clazz.substring(0, this._clazz.indexOf('$')) }
 
   // Numéro de release de la structure de la classe
   get classRelease() : number {

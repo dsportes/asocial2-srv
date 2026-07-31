@@ -9,7 +9,7 @@ import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
 import { Registry } from './registry'
 import { $Document, DocStatus } from '../src-fw/document'
-import { $Credential, Embed$Cred } from '../src-fw/documents'
+import { $Cred, $Credential, Embed$Cred } from '../src-fw/documents'
 import { Publisher } from '../src-fw/publisher'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
@@ -52,6 +52,7 @@ export class DocDescr {
     const d = decode(this.row.data)
     const [data, b] = $Document.mutate(this.clazz, d)
     this.doc = $Document.newDoc(this.clazz, DocStatus.NONE, data)
+    this.doc._org = this.row.org
   }
 
 }
@@ -151,9 +152,9 @@ export class Operation implements OperationWC {
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCred (docCl: string, docPk: string, noex?: boolean) : $Credential {
+  getCredRef (docCl: string, docPk: string, noex?: boolean) : CredRef {
     this.requireAuth()
-    return this.authRecord.getCred(docCl, docPk, noex || false)
+    return this.authRecord.getCredRef(docCl, docPk, noex || false)
   }
 
   async transac (): Promise<void> {
@@ -315,6 +316,33 @@ export class Operation implements OperationWC {
   }
 }
 
+export class CredRef {
+  isEmbed: boolean
+  doc: $Document // Le credential lui-même OU le document maître (isEmbed est true)
+  cred: $Cred
+
+  constructor (doc: $Document, ec: Embed$Cred, isEmbed: boolean) {
+    this.doc = doc
+    this.isEmbed = isEmbed
+    this.cred = {
+      credId: ec.credId,
+      svc: doc._svc,
+      org: doc._org,
+      docCl: isEmbed ? this.doc._docCl : this.doc['docCl'],
+      docPk: this.doc.myPk,
+      props: ec.props,
+      pubv: ec.pubv,
+      pubc: ec.pubc
+    }
+  }
+
+  get isValid () {
+    const p = this.cred.props
+    return p && (!p.limit || (p.limit * 60000) >= Date.now())
+  }
+  
+}
+
 export class AuthRecord {
   // devAppToken: string // token identifiant l'exécution de l'application
   op: Operation
@@ -333,7 +361,7 @@ export class AuthRecord {
   pemV: string // clé publique de vérification du userId
 
   /* Clé: ref : docCl/docId - Cred dont la signature est ok*/
-  creds: Map<string, $Credential>
+  creds: Map<string, CredRef>
   /* ref SANS Credential OU dont la signature est KO */
   koCreds: Set<string>
 
@@ -358,7 +386,7 @@ export class AuthRecord {
     }
   }
 
-  getCred(docCl: string, docPk: string, noex?: boolean) : $Credential {
+  getCredRef (docCl: string, docPk: string, noex?: boolean) : CredRef {
     const cr = this.creds.get(docCl + '/' + docPk)
     if (cr) return cr
     if (noex) return null
@@ -379,29 +407,24 @@ export class AuthRecord {
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
       const dt = Registry.getDescr(this.svc, docCl)
-      let credential: $Credential
+      let credRef: CredRef
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(this.svc + '$' + docCl, { pk: docPk }) as $Document
         if (d && d.embedCreds) {
-          const ecred = d.embedCreds[credId]
-          if (ecred) {
-            const c = $Credential.new(credId, docCl, docPk, ecred)
-            if (c && c.isValid) {
-              credential = c
-              c.embeddingDoc = d
-            }
-          }
+          const ec = d.embedCreds[credId]
+          if (ec) credRef = new CredRef(d, ec, true)
         }
       } else { // Recherche du Credential par sa pk
         const c = await this.op.cache.getDoc(this.svc + '$Credential', { credId, docCl }) as $Credential
         if (c && c.docCl === docCl && c.docPk === docPk) {
-          if (c.cred.props && c.cred.props.limit && (c.cred.props.limit * 60000) < this.op.now) 
-            this.op.cache.delDoc('$Credential', c.myPk)
-          else credential = c
+          credRef = new CredRef(c, c.cred, false)
+          if (!credRef.isValid)
+            this.op.cache.delDoc(this.svc + '$Credential', c.myPk)
         }
       }
-      const ok = !credential ? false : await Crypt.verify(Buffer.from(credential.cred.pubv), sign, this.challenge)
-      if (ok) this.creds.set(ref, credential) 
+      const ok = !credRef || !credRef.isValid ? false 
+        : await Crypt.verify(Buffer.from(credRef.cred.pubv), sign, this.challenge)
+      if (ok) this.creds.set(ref, credRef) 
       else this.koCreds.add(ref)
     }
 
@@ -606,6 +629,7 @@ export class Cache {
     if (dd) return dd.doc
     dd = new DocDescr(clazz, pk, null)
     dd.doc = $Document.newDoc(clazz, DocStatus.NEW, src || {})  
+    dd.doc._org = this.op.org
     this.docs.set(k, dd)
     return dd.doc
   }

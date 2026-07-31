@@ -159,6 +159,25 @@ export class ADMIN$SubsItem extends $Document {
 }
 nd++; Registry.register(ADMIN$SubsItem)
 
+export type $Cred = {
+  credId: string
+  svc: string
+  org: string
+  docCl: string
+  docPk: string
+  props: any
+  pubv?: Uint8Array
+  pubc?: Uint8Array
+}
+
+export type Embed$Cred = {
+  credId: string
+  pubv: Uint8Array
+  pubc: Uint8Array
+  props: any
+}
+
+/*
 export type $CredObj = {
   credId: string
   docCl: string
@@ -168,6 +187,7 @@ export type $CredObj = {
   props: Object | null
   maxLife?: number
 }
+*/
 
 export class $CredTempl {
   userId: string
@@ -190,6 +210,7 @@ export class $CredTempl {
     return { credId: this.credId, pubv: this.pubv, pubc: this.pubc, props: this.props }
   }
 
+  /*
   toCredObj () : $CredObj {
     return {
       credId: this.credId,
@@ -200,6 +221,7 @@ export class $CredTempl {
       props: this.props
     }
   }
+  */
 
   async CreateSafeCred (op: Operation) : Promise<number>{
     const setCred: SetCred = {
@@ -217,26 +239,40 @@ export class $CredTempl {
     }
   }
 
-  newCredential () : $Credential {
-    return $Credential.new(this.credId, this.docCl, this.docPk, this.toEmbedCred())
+  /* Création OU mise à jour d'un document svc$Credential depuis un "template":
+  - SOIT embedded dans son document svc$docCl : 
+    - le retour est celui du document "maître" mis à jour.
+  - SOIT comme document distinct svc$Credential_docCl
+    - le retour est celui du document credential
+  */
+  async createCredential (op: Operation) : Promise<$Document> {
+    const clazz = op.svc + '$' + this.docCl
+    const ec = this.toEmbedCred()
+    const dt = DocDescriptor.get(clazz)
+    if (dt.embedCreds) {
+      const doc = await op.cache.getDoc(clazz, { pk: this.docPk }) as $Document
+      if (!doc) return null
+      if (!doc.embedCreds) doc.embedCreds = {}
+      doc.embedCreds[this.credId] = ec
+      if (doc._status !== DocStatus.NEW)
+        doc._status = DocStatus.UPD
+      return doc
+    } 
+    const maxLife = ec.props['limit'] || 0
+    let doc = await op.cache.getDoc(op.svc + '$Credential', 
+      { credId: this.credId, docCl: this.docCl }) as $Credential
+    if (doc) {
+      doc.maxLife = maxLife
+      doc.cred.pubv = ec.pubv
+      doc.cred.pubc = ec.pubc
+      doc.cred.props = ec.props
+      doc._status = DocStatus.UPD
+    } else {
+      const obj = { credId: this.credId, docCl: this.docCl, docPk: this.docPk, maxLife, cred: ec }
+      doc = op.cache.newDoc(op.svc + '$Credential', obj) as $Credential
+    }
+    return doc
   }
-
-}
-
-export type $Cred = {
-  credId: string
-  svc: string
-  org: string
-  docCl: string
-  docPk: string
-  props: any
-}
-
-export type Embed$Cred = {
-  credId: string
-  pubv: Uint8Array
-  pubc: Uint8Array
-  props: any
 }
 
 export class $Credential extends $Document {
@@ -257,6 +293,7 @@ export class $Credential extends $Document {
     return p && (!p.limit || (p.limit * 60000) >= Date.now())
   }
 
+  /*
   static new (credId: string, docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
     const c = Registry.newD('', '$Credential', { docCl } ) as $Credential
     c.credId = credId
@@ -265,67 +302,40 @@ export class $Credential extends $Document {
     c.cred = ec
     return c
   }
-
-  async create (op: Operation): Promise<$Document> {
-    if (this.isEmbed) {
-      const doc = await op.cache.getDoc(this.docCl, { pk: this.docPk }) as $Document
-      if (!doc) return null
-      if (!doc.embedCreds)
-        doc.embedCreds = {}
-      doc.embedCreds[this.credId] = this.cred
-      if (doc._status !== DocStatus.NEW)
-        doc._status = DocStatus.UPD
-      return doc
-    }
-    const maxLife = this.cred.props['limit'] || 0
-    let doc = await op.cache.getDoc('$Credential', { credId: this.credId, docCl: this.docCl }) as $Credential
-    if (doc) {
-      doc.maxLife = maxLife
-      doc.cred.pubv = this.cred.pubv
-      doc.cred.pubc = this.cred.pubc
-      doc.cred.props = this.cred.props
-      doc._status = DocStatus.UPD
-    } else {
-      const obj = { credId: this.credId, docCl: this.docCl, docPk: this.docPk, maxLife, cred: this.cred }
-      doc = op.cache.newDoc('$Credential', obj) as $Credential
-    }
-    return doc
-  }
+  */
 
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
     const dt = Registry.getDescr('', docCl)
     let doc
     if (dt.embedCreds) {
-      doc = await op.cache.getDoc(docCl, { pk: docPk }) as $Document
+      doc = await op.cache.getDoc(op.svc + '$' + docCl, { pk: docPk }) as $Document
       if (!doc || !doc.embedCreds || !doc.embedCreds.has(credId)) return null
-      const e = doc.embedCreds.get(credId)
-      e.props = props
-      doc._status = DocStatus.UPD
+      const cred = doc.embedCreds.get(credId)
+      cred.props = props
     } else {
-      doc = await op.cache.getDoc('$Credential', { credId, docCl }) as $Credential
+      doc = await op.cache.getDoc(op.svc + '$Credential', { credId, docCl }) as $Credential
       if (!doc) return null
       doc.maxLife = props['limit'] || 0
       doc.cred.props = props
-      doc._status = DocStatus.UPD
     }
+    doc._status = DocStatus.UPD
     return doc
   }
 
   // Liste les credentials attribuable par un administrateur seulement
-  static async listManagers (op: OperationWC) : Promise<$Cred[]> {
-    const org = op.org
+  static async listManagers (op: Operation) : Promise<$Cred[]> {
     const lst: $Cred[] = []
     let sel: string[] = []
     for(const cl of Registry.managers) 
       sel.push(Crypt.shaS(cl + '/1'))
-    if (sel.length) await op.db.selectDocs('$Credential', 'doc', filter.IN, sel, '', 0, 
+    if (sel.length) await op.db.selectDocs(op.svc + '$Credential', 'doc', filter.IN, sel, '', 0, 
       (bin: Uint8Array) => {
         try {
           const c: any = decode(bin)
           const x = {
             credId: c.credId,
-            svc: config.SVC,
-            org: org,
+            svc: op.svc,
+            org: op.org,
             docCl: c.docCl,
             docPk: c.docPk,
             props: c.cred.props
@@ -343,8 +353,7 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDoc (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
-    const org = op.org
-    const docPk = Registry.getPk('', docCl, src, true)
+    const docPk = Registry.getPk(op.svc, docCl, src, true)
     const dd = Registry.getDescr(op.svc, 'Credential')
     const val = dd.getIdx({ docCl, docPk }, 'doc')
     const lst: $Cred[] = []
@@ -354,8 +363,8 @@ export class $Credential extends $Document {
           const c: any = decode(bin)
           const x = {
             credId: c.credId,
-            svc: config.SVC,
-            org: org,
+            svc: op.svc,
+            org: op.org,
             docCl: c.docCl,
             docPk: c.docPk,
             props: c.cred.props
@@ -373,18 +382,16 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDocEmbed (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
-    const svc = config.SVC
-    const org = op.org
     const pk = Registry.getPk(op.svc, docCl, src)
-    const doc: any = await op.cache.getDoc(docCl, { pk })
+    const doc: any = await op.cache.getDoc(op.svc + '$' + docCl, { pk })
     const creds: $Cred[] = doc && doc.creds ? Array.from(doc.creds.values()) : []
     const lst: $Cred[] = []
     for (const c of creds)
       if (!c.props.limit || c.props.limit * 60000 > op.now)
         lst.push({
           credId: c.credId,
-          svc: svc,
-          org: org,
+          svc: op.svc,
+          org: op.org,
           docCl: docCl,
           docPk: pk,
           props: c.props
@@ -395,6 +402,8 @@ export class $Credential extends $Document {
 }
 
 export type $FormObj = {
+  svc: string
+  org: string
   formId: string  // ID universel aléatoire.
   type: string  // type du formulaire.
   userId: string  // utilisateur cible.
@@ -449,10 +458,11 @@ export class $Form extends $Document {
     return 0 
   }
 
-  // Utilisé sur opération getForm et liste filtrée
-  static new (obj) : $Form {
-    const f = Registry.newD('', '$Form', obj) as $Form
+  // Utilisé sur opération liste filtrée
+  static new (obj: Object, svc: string, org: string) : $Form {
+    const f = Registry.newD(svc, '$Form', obj) as $Form
     for (const p of $Form.lp1) f[p] = obj[p]
+    if (org) f._org = org
     return f
   }
 
@@ -470,6 +480,8 @@ export class $Form extends $Document {
   toFormObj () : $FormObj {
     const obj = {}
     for (const p of $Form.lp1) obj[p] = this[p]
+    obj['svc'] = this._svc
+    obj['org'] = this._org
     return obj as $FormObj
   }
 
@@ -555,8 +567,8 @@ export class $Form extends $Document {
       return op.authRecord.isAdmin
     for (const c of creds) {
       const x = c.split('/')
-      const cred = op.getCred(x[0], x[1], true)
-      if (cred) return true
+      const credRef = op.getCredRef(x[0], x[1], true)
+      if (credRef) return true
     }
     return false
   }
@@ -569,7 +581,7 @@ export class $Form extends $Document {
     await op.db.selectDocs('$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
       async (bin) => {
       const obj = decode(bin) as $FormObj
-      const f = $Form.new(obj)
+      const f = $Form.new(obj, op.svc, op.org) as $Form
       if (!f.isOld) {
         if (f.checkAuthTP(op)) {
           try {

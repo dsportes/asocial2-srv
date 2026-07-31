@@ -54,7 +54,7 @@ class AS2$Form_auteur extends $Form {
   async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
     const autid = await AS2$Auteur.autidDeNom(op, this.opts.auteur.nomAuteur)
     if (autid) return  101
-    const doc = op.cache.newDoc('Auteur', this.opts.auteur ) as AS2$Auteur
+    const doc = op.cache.newDoc('AS2$Auteur', this.opts.auteur ) as AS2$Auteur
     doc.embedCred(this.opts.credTemplates)
     newDocs.push(doc)
     return 0 
@@ -85,7 +85,7 @@ export class AS2$Auteur extends $Document {
   static async autidDeNom (op: Operation, nom: string) : Promise<string> {
     const org = op.org
     let autid = ''
-    if (nom.length) await op.db.selectDocs('Auteur', 'nom', filter.EQ, nom, '', 1, 
+    if (nom.length) await op.db.selectDocs('AS2$Auteur', 'nom', filter.EQ, nom, '', 1, 
       (bin: Uint8Array) => {
         try {
           const c: any = decode(bin)

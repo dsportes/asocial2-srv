@@ -550,6 +550,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   */
   rowToAPP (clazz: string, row: row, nodecrypt?: boolean) : row | null{
     let sec = 0
+    row._org = this.org
     if (row.ttl) { 
       sec = row.ttl * 60
       delete row.ttl

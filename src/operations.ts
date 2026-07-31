@@ -38,7 +38,7 @@ class AuteurDeId extends Operation {
   async phase2 () {
     this.requireAuth()
     const pk = Registry.getPk('', 'AS2$Auteur', this.src)
-    this.getCred('Auteur', pk)
+    this.getCredRef('Auteur', pk)
     const aut = await this.cache.getDoc('AS2$Auteur', this.src)
     this.setRes('auteur', aut || null)
   }
@@ -59,7 +59,7 @@ class MajAuteur extends Operation {
   async phase2 () {
     this.requireAuth()
     const pk = Registry.getPk('', 'AS2$Auteur', { autid: this._autid })
-    this.getCred('Auteur', pk)
+    this.getCredRef('Auteur', pk)
     const aut = await this.cache.getDoc('AS2$Auteur', { autid: this._autid }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false
