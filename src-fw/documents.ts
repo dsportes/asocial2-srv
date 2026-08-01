@@ -460,9 +460,10 @@ export class $Form extends $Document {
 
   // Utilisé sur opération liste filtrée
   static new (obj: Object, svc: string, org: string) : $Form {
-    const f = Registry.newD(svc, '$Form', obj) as $Form
+    const f = Registry.newD(svc, 'Form', obj) as $Form
     for (const p of $Form.lp1) f[p] = obj[p]
     if (org) f._org = org
+    f._clazz = svc + '$Form'
     return f
   }
 
@@ -579,7 +580,7 @@ export class $Form extends $Document {
   */
   static async filteredList (op: Operation, f: string[]) : Promise<$FormObj[]> {    
     const l: $FormObj[] = []
-    await op.db.selectDocs('$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
+    await op.db.selectDocs(op.svc + '$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
       async (bin) => {
       const obj = decode(bin) as $FormObj
       const f = $Form.new(obj, op.svc, op.org) as $Form

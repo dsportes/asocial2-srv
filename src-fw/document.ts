@@ -19,7 +19,9 @@ export class $Document {
   _status?: DocStatus
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
-  _docDescriptor: DocDescriptor
+
+  get _docDescriptor () { return DocDescriptor.get(this.constructor.name) }
+
   v: number
   release: number // numéro de release de la structure de l'objet
   maxLife?: number // EPOCH en MINUTES de fin de vie logique du document

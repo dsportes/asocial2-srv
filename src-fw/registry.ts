@@ -15,18 +15,14 @@ export class Registry {
   static allClasses () : string[] { return Array.from(Registry.classes.keys()) }
 
   static register (clazz: Function) { 
-    let i = clazz.name.indexOf('_')
-    const topcl = i === -1 ? clazz.name : clazz.name.substring(0, i)
+    const topcl = topCl('', clazz.name)
     // const subCl = i === -1 ? '' : clazz.name.substring(i + 1)
-    i = clazz.name.indexOf('$')
+    const i = clazz.name.indexOf('$')
     const svc = topcl.substring(0, i)
     const docCl = topcl.substring(i + 1)
     if (!svc || !docCl)
       throw new AppExc(103, 'invalid_class_name', null, [clazz.name])
-    let dd = DocDescriptor.get(topcl)
-    if (!dd) 
-      throw new AppExc(103, 'not_configured_doc_class', null, [clazz.name])
-    clazz['docDescriptor'] = dd
+    DocDescriptor.get(topcl)
     if (clazz['manager']) Registry.managers.add(clazz.name)
     this.classes.set(clazz.name, clazz)
   }
@@ -41,13 +37,13 @@ export class Registry {
 
   // Retourne le DocDescriptor de la classe MAJEURE (sans sous classe)
   static getDescr (svc: string, docCl: string) : DocDescriptor {
-    const cl = Registry.getCl(svc, docCl)
-    return cl['docDescriptor']
+    return DocDescriptor.get(topCl(svc, docCl))
   }
 
   // Retourne le constructor de la SOUS-CLASSE de docCl selon la valeur de son data
   static getClass (svc: string, docCl: string, data: Object, nohash?: boolean ) : Function {
-    const subClassBy = Registry.getDescr(svc, docCl).subClassBy
+    const topcl = topCl(svc, docCl)
+    const subClassBy = DocDescriptor.get(topcl).subClassBy
     const cln = topCl(svc, docCl) + (subClassBy ? '_' + data[subClassBy] : '')
     const cl = Registry.classes.get(cln)
     if (!cl) 
@@ -66,7 +62,6 @@ export class Registry {
     const cl = Registry.getClass(svc, docCl, data)
     // @ts-expect-error
     const d = new cl() as $Document
-    d._docDescriptor = cl['docDescriptor']
     return d
   }
 

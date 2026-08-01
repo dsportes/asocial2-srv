@@ -627,3 +627,13 @@ Error: read ECONNRESET
 2026-08-01T12:59:20.294Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'creds')"]
 2026-08-01T13:10:50.499Z error: MDEventFull : 2026-08-01T13:10:28.882Z : AppExc: 103:not_configured_doc_class["undefined$Form"]
 2026-08-01T13:10:50.501Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$Form\"]"]
+2026-08-01T16:23:23.631Z error: FormFilteredList : 2026-08-01T16:23:23.619Z : SqliteError: no such table: $FORM
+2026-08-01T16:23:23.680Z error: AppExc: 105:service_unexpected_exception["no such table: $FORM"]
+2026-08-01T16:34:25.529Z error: FormFilteredList : 2026-08-01T16:31:27.717Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T16:34:25.531Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T17:07:58.399Z error: FormFilteredList : 2026-08-01T17:06:17.525Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:07:58.401Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T17:28:04.826Z error: FormFilteredList : 2026-08-01T17:27:53.521Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:28:04.829Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T17:36:36.736Z error: FormFilteredList : 2026-08-01T17:35:44.623Z : TypeError: Cannot read properties of undefined (reading 'substring')
+2026-08-01T17:36:36.739Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'substring')"]

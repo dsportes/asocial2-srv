@@ -72,9 +72,13 @@ export class DocDescriptor {
   /* clazz de la forme SVC@docCl_sub : 
   - sub est ignoré si présent
   */
-  static get(clazz: string) { 
+  static get(clazz: string, noex?: boolean) { 
     let i = clazz.indexOf('_')
-    return this.all.get(i === -1 ? clazz : clazz.substring(0, i))
+    const cl = i === -1 ? clazz : clazz.substring(0, i)
+    const dd = this.all.get(cl)
+    if (!dd) 
+      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl])
+    return dd
   }
 
   svc: string

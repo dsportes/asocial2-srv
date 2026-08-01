@@ -24372,3 +24372,193 @@ Error: read ECONNRESET
 2026-08-01T15:08:58.400Z info: $mdEventUser finished
 2026-08-01T15:08:58.442Z info: FormGet : 2026-08-01T15:08:58.442Z
 2026-08-01T15:08:58.514Z info: FormGet finished
+2026-08-01T15:10:14.579Z info: Configuration pre-loaded
+2026-08-01T15:10:14.956Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T15:10:14.960Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T15:10:15.013Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T15:10:15.013Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T15:10:15.014Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T15:10:15.015Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T15:10:15.015Z info: fw documents loading: 4
+2026-08-01T15:10:15.016Z info: app operations loading: 7
+2026-08-01T15:10:15.018Z info: fw operations loading: 73
+2026-08-01T15:10:15.018Z info: app operations loading: 73
+2026-08-01T15:10:15.019Z info: safe operations loading: 73
+2026-08-01T15:10:15.020Z info: masterdir operations loading: 73
+2026-08-01T15:10:15.020Z info: Configuration completed
+2026-08-01T15:10:15.029Z info: Server started
+2026-08-01T15:10:15.031Z info: HTTP listen [8080]
+2026-08-01T15:21:57.007Z info: $OpenSafeByPin finished
+2026-08-01T15:21:57.092Z info: $GetSafe finished
+2026-08-01T15:22:02.296Z info: $GetServicesLabels finished
+2026-08-01T15:23:21.838Z info: $GetOrgSvc finished
+2026-08-01T15:23:21.855Z info: $GetSitesUrls finished
+2026-08-01T15:23:21.880Z info: ADMIN$isAdmin : 2026-08-01T15:23:21.879Z
+2026-08-01T15:23:21.884Z info: ADMIN$isAdmin finished
+2026-08-01T16:06:02.361Z info: $OpenSafeByPin finished
+2026-08-01T16:06:02.426Z info: $GetSafe finished
+2026-08-01T16:06:06.733Z info: $GetServicesLabels finished
+2026-08-01T16:06:18.483Z info: $GetOrgSvc finished
+2026-08-01T16:06:30.231Z info: $GetSitesUrls finished
+2026-08-01T16:06:30.266Z info: ADMIN$isAdmin : 2026-08-01T16:06:30.266Z
+2026-08-01T16:06:30.273Z info: ADMIN$isAdmin finished
+2026-08-01T16:19:19.730Z info: $OpenSafeByPin finished
+2026-08-01T16:19:19.825Z info: $GetSafe finished
+2026-08-01T16:19:24.571Z info: $GetServicesLabels finished
+2026-08-01T16:19:40.199Z info: $GetOrgSvc finished
+2026-08-01T16:19:40.233Z info: $GetSitesUrls finished
+2026-08-01T16:19:40.274Z info: ADMIN$isAdmin : 2026-08-01T16:19:40.273Z
+2026-08-01T16:19:40.279Z info: ADMIN$isAdmin finished
+2026-08-01T16:23:23.620Z info: FormFilteredList : 2026-08-01T16:23:23.619Z
+2026-08-01T16:23:23.631Z error: FormFilteredList : 2026-08-01T16:23:23.619Z : SqliteError: no such table: $FORM
+2026-08-01T16:23:23.636Z info: FormFilteredList terminated on exception
+2026-08-01T16:23:23.680Z error: AppExc: 105:service_unexpected_exception["no such table: $FORM"]
+2026-08-01T16:26:32.173Z info: Configuration pre-loaded
+2026-08-01T16:26:32.515Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T16:26:32.518Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T16:26:32.939Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T16:26:32.940Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T16:26:32.941Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T16:26:32.942Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T16:26:32.942Z info: fw documents loading: 4
+2026-08-01T16:26:32.946Z info: app operations loading: 7
+2026-08-01T16:26:32.947Z info: fw operations loading: 73
+2026-08-01T16:26:32.948Z info: app operations loading: 73
+2026-08-01T16:26:32.948Z info: safe operations loading: 73
+2026-08-01T16:26:32.949Z info: masterdir operations loading: 73
+2026-08-01T16:26:32.949Z info: Configuration completed
+2026-08-01T16:26:32.963Z info: Server started
+2026-08-01T16:26:32.966Z info: HTTP listen [8080]
+2026-08-01T16:30:38.831Z info: $OpenSafeByPin finished
+2026-08-01T16:30:38.935Z info: $GetSafe finished
+2026-08-01T16:30:43.298Z info: $GetServicesLabels finished
+2026-08-01T16:30:51.656Z info: $GetOrgSvc finished
+2026-08-01T16:30:51.688Z info: $GetSitesUrls finished
+2026-08-01T16:30:51.751Z info: ADMIN$isAdmin : 2026-08-01T16:30:51.750Z
+2026-08-01T16:30:51.758Z info: ADMIN$isAdmin finished
+2026-08-01T16:31:27.717Z info: FormFilteredList : 2026-08-01T16:31:27.717Z
+2026-08-01T16:34:25.527Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T16:34:25.529Z error: FormFilteredList : 2026-08-01T16:31:27.717Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T16:34:25.530Z info: FormFilteredList terminated on exception
+2026-08-01T16:34:25.531Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T16:40:50.565Z info: $OpenSafeByPin finished
+2026-08-01T16:40:50.646Z info: $GetSafe finished
+2026-08-01T16:40:54.978Z info: $GetServicesLabels finished
+2026-08-01T16:41:05.893Z info: $GetOrgSvc finished
+2026-08-01T16:41:05.923Z info: $GetSitesUrls finished
+2026-08-01T16:41:05.979Z info: ADMIN$isAdmin : 2026-08-01T16:41:05.979Z
+2026-08-01T16:41:05.987Z info: ADMIN$isAdmin finished
+2026-08-01T16:45:09.389Z info: $OpenSafeByPin finished
+2026-08-01T16:45:09.507Z info: $GetSafe finished
+2026-08-01T16:45:13.637Z info: $GetServicesLabels finished
+2026-08-01T16:45:21.375Z info: $GetOrgSvc finished
+2026-08-01T16:45:21.409Z info: $GetSitesUrls finished
+2026-08-01T16:45:21.457Z info: ADMIN$isAdmin : 2026-08-01T16:45:21.457Z
+2026-08-01T16:45:21.463Z info: ADMIN$isAdmin finished
+2026-08-01T17:00:13.553Z info: $OpenSafeByPin finished
+2026-08-01T17:00:13.631Z info: $GetSafe finished
+2026-08-01T17:00:17.675Z info: $GetServicesLabels finished
+2026-08-01T17:00:24.550Z info: $GetOrgSvc finished
+2026-08-01T17:00:24.588Z info: $GetSitesUrls finished
+2026-08-01T17:00:24.635Z info: ADMIN$isAdmin : 2026-08-01T17:00:24.635Z
+2026-08-01T17:00:24.641Z info: ADMIN$isAdmin finished
+2026-08-01T17:06:17.525Z info: FormFilteredList : 2026-08-01T17:06:17.525Z
+2026-08-01T17:07:58.396Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:07:58.399Z error: FormFilteredList : 2026-08-01T17:06:17.525Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:07:58.400Z info: FormFilteredList terminated on exception
+2026-08-01T17:07:58.401Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T17:09:11.606Z info: FormFilteredList : 2026-08-01T17:09:11.606Z
+2026-08-01T17:27:13.246Z info: Configuration pre-loaded
+2026-08-01T17:27:13.855Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T17:27:13.858Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T17:27:13.922Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:27:13.923Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:27:13.924Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T17:27:13.924Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T17:27:13.925Z info: fw documents loading: 4
+2026-08-01T17:27:13.925Z info: app operations loading: 7
+2026-08-01T17:27:13.926Z info: fw operations loading: 73
+2026-08-01T17:27:13.926Z info: app operations loading: 73
+2026-08-01T17:27:13.927Z info: safe operations loading: 73
+2026-08-01T17:27:13.927Z info: masterdir operations loading: 73
+2026-08-01T17:27:13.928Z info: Configuration completed
+2026-08-01T17:27:13.936Z info: Server started
+2026-08-01T17:27:13.938Z info: HTTP listen [8080]
+2026-08-01T17:27:38.814Z info: $OpenSafeByPin finished
+2026-08-01T17:27:38.899Z info: $GetSafe finished
+2026-08-01T17:27:43.214Z info: $GetServicesLabels finished
+2026-08-01T17:27:51.387Z info: $GetOrgSvc finished
+2026-08-01T17:27:51.408Z info: $GetSitesUrls finished
+2026-08-01T17:27:51.488Z info: ADMIN$isAdmin : 2026-08-01T17:27:51.488Z
+2026-08-01T17:27:51.506Z info: ADMIN$isAdmin finished
+2026-08-01T17:27:53.522Z info: FormFilteredList : 2026-08-01T17:27:53.521Z
+2026-08-01T17:28:04.821Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:28:04.826Z error: FormFilteredList : 2026-08-01T17:27:53.521Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-01T17:28:04.828Z info: FormFilteredList terminated on exception
+2026-08-01T17:28:04.829Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-01T17:28:38.971Z info: FormFilteredList : 2026-08-01T17:28:38.971Z
+2026-08-01T17:32:58.366Z info: Configuration pre-loaded
+2026-08-01T17:32:59.307Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T17:32:59.312Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T17:33:07.559Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:33:07.560Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:33:07.561Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T17:33:07.563Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T17:33:07.564Z info: fw documents loading: 4
+2026-08-01T17:33:07.567Z info: app operations loading: 7
+2026-08-01T17:33:07.569Z info: fw operations loading: 73
+2026-08-01T17:33:07.570Z info: app operations loading: 73
+2026-08-01T17:33:07.572Z info: safe operations loading: 73
+2026-08-01T17:33:07.573Z info: masterdir operations loading: 73
+2026-08-01T17:33:07.574Z info: Configuration completed
+2026-08-01T17:33:07.587Z info: Server started
+2026-08-01T17:33:07.597Z info: HTTP listen [8080]
+2026-08-01T17:33:17.116Z info: FormFilteredList : 2026-08-01T17:33:17.116Z
+2026-08-01T17:35:35.105Z info: Configuration pre-loaded
+2026-08-01T17:35:35.617Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T17:35:35.621Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T17:35:35.959Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:35:35.960Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:35:35.961Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T17:35:35.962Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T17:35:35.964Z info: fw documents loading: 4
+2026-08-01T17:35:35.965Z info: app operations loading: 7
+2026-08-01T17:35:35.966Z info: fw operations loading: 73
+2026-08-01T17:35:35.967Z info: app operations loading: 73
+2026-08-01T17:35:35.968Z info: safe operations loading: 73
+2026-08-01T17:35:35.969Z info: masterdir operations loading: 73
+2026-08-01T17:35:35.969Z info: Configuration completed
+2026-08-01T17:35:35.982Z info: Server started
+2026-08-01T17:35:35.984Z info: HTTP listen [8080]
+2026-08-01T17:35:44.623Z info: FormFilteredList : 2026-08-01T17:35:44.623Z
+2026-08-01T17:36:36.736Z error: FormFilteredList : 2026-08-01T17:35:44.623Z : TypeError: Cannot read properties of undefined (reading 'substring')
+2026-08-01T17:36:36.738Z info: FormFilteredList terminated on exception
+2026-08-01T17:36:36.739Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'substring')"]
+2026-08-01T17:48:18.950Z info: Configuration pre-loaded
+2026-08-01T17:48:19.347Z info: FW document descriptors:4 forms descriptors:4
+2026-08-01T17:48:19.352Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-01T17:48:19.671Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:48:19.672Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-01T17:48:19.713Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-01T17:48:19.749Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-01T17:48:19.768Z info: fw documents loading: 4
+2026-08-01T17:48:19.770Z info: app operations loading: 7
+2026-08-01T17:48:19.771Z info: fw operations loading: 73
+2026-08-01T17:48:19.772Z info: app operations loading: 73
+2026-08-01T17:48:19.772Z info: safe operations loading: 73
+2026-08-01T17:48:19.773Z info: masterdir operations loading: 73
+2026-08-01T17:48:19.773Z info: Configuration completed
+2026-08-01T17:48:19.788Z info: Server started
+2026-08-01T17:48:19.802Z info: HTTP listen [8080]
+2026-08-01T17:48:26.097Z info: FormFilteredList : 2026-08-01T17:48:26.097Z
+2026-08-01T17:50:09.792Z info: $mdUserGetICVS finished
+2026-08-01T17:50:31.620Z info: FormFilteredList finished
+2026-08-01T17:52:27.865Z info: $OpenSafeByPin finished
+2026-08-01T17:52:27.941Z info: $GetSafe finished
+2026-08-01T17:52:32.223Z info: $GetServicesLabels finished
+2026-08-01T18:00:15.328Z info: $GetOrgSvc finished
+2026-08-01T18:00:15.381Z info: $GetSitesUrls finished
+2026-08-01T18:00:15.467Z info: ADMIN$isAdmin : 2026-08-01T18:00:15.467Z
+2026-08-01T18:00:15.490Z info: ADMIN$isAdmin finished
+2026-08-01T18:00:18.378Z info: FormFilteredList : 2026-08-01T18:00:18.378Z
+2026-08-01T18:00:39.822Z info: FormFilteredList finished
