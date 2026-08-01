@@ -621,3 +621,9 @@ Error: read ECONNRESET
 2026-07-29T09:32:42.621Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Status\"]"]
 2026-07-29T12:43:21.648Z error: FW$setStatus : 2026-07-29T12:42:50.190Z : AppExc: 103:not_configured_doc_class["$Status"]
 2026-07-29T12:43:21.650Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Status\"]"]
+2026-08-01T12:46:05.309Z error: FormCreateByU : 2026-08-01T12:46:05.254Z : AppExc: 103:not_configured_doc_class["AS2$Form"]
+2026-08-01T12:46:05.327Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Form\"]"]
+2026-08-01T12:59:20.284Z error: FormCreateByU : 2026-08-01T12:57:54.463Z : TypeError: Cannot read properties of undefined (reading 'creds')
+2026-08-01T12:59:20.294Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'creds')"]
+2026-08-01T13:10:50.499Z error: MDEventFull : 2026-08-01T13:10:28.882Z : AppExc: 103:not_configured_doc_class["undefined$Form"]
+2026-08-01T13:10:50.501Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$Form\"]"]

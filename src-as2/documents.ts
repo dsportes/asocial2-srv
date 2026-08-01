@@ -1,6 +1,6 @@
 import { encode, decode } from '@msgpack/msgpack'
 
-import { $Document, DocStatus } from '../src-fw/document'
+import { $Document } from '../src-fw/document'
 import { $Form, $FormObj, ADMIN$Status, $Credential, $Cred } from '../src-fw/documents'
 import { Log } from '../src-fw/log'
 import { Registry } from '../src-fw/registry'
@@ -33,7 +33,12 @@ class AS2$Status extends ADMIN$Status {
 }
 nd++; Registry.register(AS2$Status)
 
-class AS2$Form_membrecodir extends $Form {
+class AS2$Form extends $Form {
+  constructor (obj) { super(obj) }
+}
+nd++; Registry.register(AS2$Form)
+
+class AS2$Form_membrecodir extends AS2$Form {
   constructor (obj?: $FormObj) { super(obj) }
 
   getDetail () { return [] }
@@ -41,13 +46,13 @@ class AS2$Form_membrecodir extends $Form {
 }
 nd++; Registry.register(AS2$Form_membrecodir)
 
-class AS2$Form_membreredaction extends $Form {
+class AS2$Form_membreredaction extends AS2$Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }
 nd++; Registry.register(AS2$Form_membreredaction)
 
-class AS2$Form_auteur extends $Form {
+class AS2$Form_auteur extends AS2$Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 
@@ -62,7 +67,7 @@ class AS2$Form_auteur extends $Form {
 }
 nd++; Registry.register(AS2$Form_auteur)
 
-class AS2$Form_coauteur extends $Form {
+class AS2$Form_coauteur extends AS2$Form {
   constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }

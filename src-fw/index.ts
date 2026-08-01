@@ -336,11 +336,11 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     let obj : Object
     switch (opName) {
       case 'CONFIG$CKey' : 
-        const dc = config.keys['DCKeys'][this.args.name]
+        const dc = config.keys['DCKeys'][args['name']]
         obj = { key: dc ? dc.pub : '' }
         break
       case 'CONFIG$VKey' : 
-        const sv = config.keys['SVKeys'][this.args.name]
+        const sv = config.keys['SVKeys'][args['name']]
         obj = { key: sv ? sv.pub : '' }
         break
       case 'CONFIG$yo' : 

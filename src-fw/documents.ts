@@ -495,7 +495,8 @@ export class $Form extends $Document {
 
   get isOld () { return Date.now() > this.maxLife * 60000 }
 
-  get ft () : FormType { return FormType.get('', this.type) }
+  get ft () : FormType { 
+    return FormType.get(this._svc, this.type) }
   get kp () : { pub: Buffer, priv: Buffer } { 
     const x = config.keys['DCKeys'][this.ft.key]
     return { pub: keyFromB64(x.pub), priv: keyFromB64(x.priv) }

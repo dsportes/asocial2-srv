@@ -73,7 +73,7 @@ class MDCache {
     : Promise<Object | null> {
     const now = Date.now()
     if ((now - MDCache.services.at) > MDCache.ttl) {
-      const [v, labels] = await op.db.mdGetValue('2', MDCache.sites.v)
+      const [v, labels] = await op.db.mdGetValue('2', MDCache.services.v)
       if (v > 0) {
         MDCache.services.at = now
         MDCache.services.v = v
@@ -172,11 +172,11 @@ export class MDOperation implements AbstractOperation {
   async postSvcOp (svc: string, org: string, opName: string, args: any) 
     : Promise<any> {
     args.org = org
+    args.svc = svc
     args.opName = opName
-    let u = await this.getUrl(svc, org)
-    if (!u) return null
-    if (!u.endsWith('/')) u += '/'
-    const url = u + 'op/'
+    let url = await this.getUrl(svc, org)
+    if (!url) return null
+    if (!url.endsWith('/')) url += '/op'; else url += 'op'
     const body = new Uint8Array(encode(args))
     try {
       const response = await fetch(url, {
