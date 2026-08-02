@@ -286,7 +286,7 @@ export class $Credential extends $Document {
   // En cache d'opération SEULEMENT sur détection de credential par authRecord
   embeddingDoc?: $Document
 
-  get dt () { return DocDescriptor.get(this.docCl)}
+  get dt () { return DocDescriptor.get(this._svc + '$' + this.docCl)}
   get isEmbed () { return this.dt.embedCreds }
   get isValid () {
     const p = this.cred.props

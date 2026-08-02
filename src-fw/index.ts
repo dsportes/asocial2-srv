@@ -4,7 +4,7 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
-// import axios from 'axios'
+import axios from 'axios'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { config } from '../src/config'
@@ -528,6 +528,37 @@ type ICVS = {
   dh: number
 }
 
+async function requestWithRetry(config, maxRetries = 3) {
+  let lastError;
+  
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await axios(config);
+    } catch (error) {
+      lastError = error;
+      
+      // Check if it's a connection reset error
+      const isResetError = 
+        error.code === 'ECONNRESET' ||
+        error.code === 'EPIPE' ||
+        error.code === 'ECONNABORTED' ||
+        error.code === 'ETIMEDOUT';
+      
+      if (!isResetError || attempt === maxRetries) {
+        throw error;
+      }
+      
+      // Exponential backoff
+      const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+      const jitter = Math.floor(Math.random() * 250);
+      console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
+      await new Promise(resolve => setTimeout(resolve, delay + jitter));
+    }
+  }
+  
+  throw lastError;
+}
+
 export class MDandSafe {
   static icvsCache : Map<string, ICVS> = new Map()
   static lastClean : number = Date.now()
@@ -567,25 +598,55 @@ export class MDandSafe {
 
   static async postMDS (url: string, args: any) : Promise<Object> {
     try {
-      const body = Buffer.from(encode(args))
-      // Interface fetch
-      const response = await fetch(url, {
-        method: 'POST', headers: MDandSafe.headers, body
-      })
-      const buf = await response.bytes()
-      /*
-      // Interface axios
-      const response = await axios.post(url, body, { 
-        headers: MDandSafe.headers,
-        responseType: 'arraybuffer',
-        timeout: 600000
-      })
-      const buf = Buffer.from(response.data)
-      */
-      const obj = decode(buf)
-      if (response.status === 200) return obj
-      const txt = new TextDecoder().decode(buf)
-      throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
+      const maxRetries = 3
+      let lastError
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const body = Buffer.from(encode(args))
+          /*
+          // Interface fetch
+          const response = await fetch(url, {
+            method: 'POST', headers: MDandSafe.headers, body
+          })
+          const buf = await response.bytes()
+          */
+          
+          // Interface axios
+          const response = await axios.post(url, body, { 
+            headers: MDandSafe.headers,
+            responseType: 'arraybuffer',
+            timeout: 600000
+          })
+          const buf = Buffer.from(response.data)
+          
+          const obj = decode(buf)
+          if (response.status === 200) return obj
+          const txt = new TextDecoder().decode(buf)
+          throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
+        } catch (error) {
+          lastError = error;
+          
+          // Check if it's a connection reset error
+          const isResetError = 
+            error.code === 'ECONNRESET' ||
+            error.code === 'EPIPE' ||
+            error.code === 'ECONNABORTED' ||
+            error.code === 'ETIMEDOUT';
+          
+          if (!isResetError || attempt === maxRetries) {
+            throw error;
+          }
+          
+          // Exponential backoff
+          const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+          const jitter = Math.floor(Math.random() * 250);
+          console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
+          await new Promise(resolve => setTimeout(resolve, delay + jitter));
+        }
+  }
+  
+  throw lastError;
+      } 
     } catch (e: any) {
       if (e instanceof AppExc) throw e
       throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)

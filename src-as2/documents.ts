@@ -73,6 +73,27 @@ class AS2$Form_coauteur extends AS2$Form {
 }
 nd++; Registry.register(AS2$Form_coauteur)
 
+class AS2$Credential extends $Credential {
+  constructor (obj?: $FormObj) { 
+    super() }
+
+}
+class AS2$Credential_CoDir extends AS2$Credential {
+  constructor (obj?: $FormObj) { 
+    super(obj) }
+}
+nd++; Registry.register(AS2$Credential_CoDir)
+
+class AS2$Credential_Redaction extends AS2$Credential {
+  constructor (obj?: $FormObj) { super(obj) }
+}
+nd++; Registry.register(AS2$Credential_Redaction)
+
+class AS2$Credential_Auteur extends AS2$Credential {
+  constructor (obj?: $FormObj) { super(obj) }
+}
+nd++; Registry.register(AS2$Credential_Auteur)
+
 export class AS2$Auteur extends $Document {
   static release = 0
   static userCredProps = new Set(['trig'])

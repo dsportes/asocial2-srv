@@ -24562,3 +24562,296 @@ Error: read ECONNRESET
 2026-08-01T18:00:15.490Z info: ADMIN$isAdmin finished
 2026-08-01T18:00:18.378Z info: FormFilteredList : 2026-08-01T18:00:18.378Z
 2026-08-01T18:00:39.822Z info: FormFilteredList finished
+2026-08-02T11:31:44.857Z info: Configuration pre-loaded
+2026-08-02T11:31:45.380Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T11:31:45.385Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T11:31:45.455Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T11:31:45.456Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T11:31:45.458Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T11:31:45.459Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T11:31:45.459Z info: fw documents loading: 4
+2026-08-02T11:31:45.460Z info: app operations loading: 7
+2026-08-02T11:31:45.461Z info: fw operations loading: 73
+2026-08-02T11:31:45.462Z info: app operations loading: 73
+2026-08-02T11:31:45.463Z info: safe operations loading: 73
+2026-08-02T11:31:45.464Z info: masterdir operations loading: 73
+2026-08-02T11:31:45.465Z info: Configuration completed
+2026-08-02T11:31:45.475Z info: Server started
+2026-08-02T11:31:45.478Z info: HTTP listen [8080]
+2026-08-02T12:13:06.567Z info: $OpenSafeByPin finished
+2026-08-02T12:13:06.630Z info: $GetSafe finished
+2026-08-02T12:13:10.519Z info: $GetServicesLabels finished
+2026-08-02T12:13:18.975Z info: $GetOrgSvc finished
+2026-08-02T12:13:19.013Z info: $GetSitesUrls finished
+2026-08-02T12:13:19.090Z info: ADMIN$isAdmin : 2026-08-02T12:13:19.090Z
+2026-08-02T12:13:19.102Z info: ADMIN$isAdmin finished
+2026-08-02T12:13:21.659Z info: FormFilteredList : 2026-08-02T12:13:21.658Z
+2026-08-02T12:13:21.764Z info: $mdUserGetICVS finished
+2026-08-02T12:13:21.827Z info: FormFilteredList finished
+2026-08-02T12:14:10.546Z info: $OpenSafeByPin finished
+2026-08-02T12:14:10.598Z info: $GetSafe finished
+2026-08-02T12:14:14.296Z info: $GetServicesLabels finished
+2026-08-02T12:14:21.690Z info: $GetOrgSvc finished
+2026-08-02T12:14:21.717Z info: $GetSitesUrls finished
+2026-08-02T12:14:21.790Z info: ADMIN$isAdmin : 2026-08-02T12:14:21.790Z
+2026-08-02T12:14:21.796Z info: ADMIN$isAdmin finished
+2026-08-02T12:14:23.931Z info: FormFilteredList : 2026-08-02T12:14:23.930Z
+2026-08-02T12:14:23.971Z info: FormFilteredList finished
+2026-08-02T12:15:24.603Z info: FormFilteredList : 2026-08-02T12:15:24.603Z
+2026-08-02T12:15:24.656Z info: FormFilteredList finished
+2026-08-02T12:18:08.562Z info: $OpenSafeByPin finished
+2026-08-02T12:18:08.623Z info: $GetSafe finished
+2026-08-02T12:18:13.870Z info: $GetServicesLabels finished
+2026-08-02T12:18:21.194Z info: $GetOrgSvc finished
+2026-08-02T12:18:21.228Z info: $GetSitesUrls finished
+2026-08-02T12:18:21.268Z info: ADMIN$isAdmin : 2026-08-02T12:18:21.268Z
+2026-08-02T12:18:21.274Z info: ADMIN$isAdmin finished
+2026-08-02T12:18:23.008Z info: FormFilteredList : 2026-08-02T12:18:23.008Z
+2026-08-02T12:18:23.063Z info: FormFilteredList finished
+2026-08-02T12:22:49.221Z info: $OpenSafeByPin finished
+2026-08-02T12:22:49.288Z info: $GetSafe finished
+2026-08-02T12:22:54.582Z info: $GetServicesLabels finished
+2026-08-02T12:23:02.353Z info: $GetOrgSvc finished
+2026-08-02T12:23:02.392Z info: $GetSitesUrls finished
+2026-08-02T12:23:02.489Z info: ADMIN$isAdmin : 2026-08-02T12:23:02.488Z
+2026-08-02T12:23:02.502Z info: ADMIN$isAdmin finished
+2026-08-02T12:23:04.605Z info: FormFilteredList : 2026-08-02T12:23:04.605Z
+2026-08-02T12:23:04.652Z info: FormFilteredList finished
+2026-08-02T12:28:30.202Z info: $OpenSafeByPin finished
+2026-08-02T12:28:30.275Z info: $GetSafe finished
+2026-08-02T12:28:34.379Z info: $GetServicesLabels finished
+2026-08-02T12:28:42.114Z info: $GetOrgSvc finished
+2026-08-02T12:28:42.144Z info: $GetSitesUrls finished
+2026-08-02T12:28:42.199Z info: ADMIN$isAdmin : 2026-08-02T12:28:42.199Z
+2026-08-02T12:28:42.204Z info: ADMIN$isAdmin finished
+2026-08-02T12:28:44.803Z info: FormFilteredList : 2026-08-02T12:28:44.803Z
+2026-08-02T12:28:44.851Z info: FormFilteredList finished
+2026-08-02T13:00:22.211Z info: $OpenSafeByPin finished
+2026-08-02T13:00:22.336Z info: $GetSafe finished
+2026-08-02T13:00:28.023Z info: $GetServicesLabels finished
+2026-08-02T13:00:36.301Z info: $GetOrgSvc finished
+2026-08-02T13:00:36.340Z info: $GetSitesUrls finished
+2026-08-02T13:00:36.397Z info: ADMIN$isAdmin : 2026-08-02T13:00:36.397Z
+2026-08-02T13:00:36.403Z info: ADMIN$isAdmin finished
+2026-08-02T13:00:38.270Z info: FormFilteredList : 2026-08-02T13:00:38.270Z
+2026-08-02T13:00:38.295Z info: $mdUserGetICVS finished
+2026-08-02T13:00:38.361Z info: FormFilteredList finished
+2026-08-02T13:01:42.706Z info: $OpenSafeByPin finished
+2026-08-02T13:01:42.767Z info: $GetSafe finished
+2026-08-02T13:01:47.028Z info: $GetServicesLabels finished
+2026-08-02T13:01:58.556Z info: $GetOrgSvc finished
+2026-08-02T13:01:58.586Z info: $GetSitesUrls finished
+2026-08-02T13:01:58.620Z info: ADMIN$isAdmin : 2026-08-02T13:01:58.620Z
+2026-08-02T13:01:58.625Z info: ADMIN$isAdmin finished
+2026-08-02T13:02:00.805Z info: FormFilteredList : 2026-08-02T13:02:00.805Z
+2026-08-02T13:02:00.851Z info: FormFilteredList finished
+2026-08-02T13:04:58.485Z info: $OpenSafeByPin finished
+2026-08-02T13:04:58.577Z info: $GetSafe finished
+2026-08-02T13:05:04.126Z info: $GetServicesLabels finished
+2026-08-02T13:05:13.280Z info: $GetOrgSvc finished
+2026-08-02T13:05:13.312Z info: $GetSitesUrls finished
+2026-08-02T13:05:13.361Z info: ADMIN$isAdmin : 2026-08-02T13:05:13.361Z
+2026-08-02T13:05:13.370Z info: ADMIN$isAdmin finished
+2026-08-02T13:05:15.311Z info: FormFilteredList : 2026-08-02T13:05:15.311Z
+2026-08-02T13:05:15.354Z info: FormFilteredList finished
+2026-08-02T13:18:39.582Z info: $OpenSafeByPin finished
+2026-08-02T13:18:39.689Z info: $GetSafe finished
+2026-08-02T13:18:43.609Z info: $GetServicesLabels finished
+2026-08-02T13:18:51.767Z info: $GetOrgSvc finished
+2026-08-02T13:18:51.797Z info: $GetSitesUrls finished
+2026-08-02T13:18:51.834Z info: ADMIN$isAdmin : 2026-08-02T13:18:51.834Z
+2026-08-02T13:18:51.840Z info: ADMIN$isAdmin finished
+2026-08-02T13:18:53.829Z info: FormFilteredList : 2026-08-02T13:18:53.829Z
+2026-08-02T13:18:53.874Z info: FormFilteredList finished
+2026-08-02T13:26:05.190Z info: $OpenSafeByPin finished
+2026-08-02T13:26:05.278Z info: $GetSafe finished
+2026-08-02T13:26:09.364Z info: $GetServicesLabels finished
+2026-08-02T13:26:17.349Z info: $GetOrgSvc finished
+2026-08-02T13:26:17.381Z info: $GetSitesUrls finished
+2026-08-02T13:26:17.416Z info: ADMIN$isAdmin : 2026-08-02T13:26:17.416Z
+2026-08-02T13:26:17.422Z info: ADMIN$isAdmin finished
+2026-08-02T13:26:20.409Z info: FormFilteredList : 2026-08-02T13:26:20.409Z
+2026-08-02T13:26:20.478Z info: FormFilteredList finished
+2026-08-02T13:49:00.068Z info: $OpenSafeByPin finished
+2026-08-02T13:49:00.223Z info: $GetSafe finished
+2026-08-02T13:49:04.513Z info: $GetServicesLabels finished
+2026-08-02T13:49:12.009Z info: $GetOrgSvc finished
+2026-08-02T13:49:12.050Z info: $GetSitesUrls finished
+2026-08-02T13:49:12.092Z info: ADMIN$isAdmin : 2026-08-02T13:49:12.092Z
+2026-08-02T13:49:12.099Z info: ADMIN$isAdmin finished
+2026-08-02T13:49:13.910Z info: FormFilteredList : 2026-08-02T13:49:13.910Z
+2026-08-02T13:49:13.957Z info: FormFilteredList finished
+2026-08-02T13:58:11.241Z info: $OpenSafeByPin finished
+2026-08-02T13:58:11.314Z info: $GetSafe finished
+2026-08-02T13:58:15.351Z info: $GetServicesLabels finished
+2026-08-02T13:58:22.165Z info: $GetOrgSvc finished
+2026-08-02T13:58:22.198Z info: $GetSitesUrls finished
+2026-08-02T13:58:22.248Z info: ADMIN$isAdmin : 2026-08-02T13:58:22.248Z
+2026-08-02T13:58:22.254Z info: ADMIN$isAdmin finished
+2026-08-02T13:58:36.363Z info: FormFilteredList : 2026-08-02T13:58:36.363Z
+2026-08-02T13:58:36.407Z info: FormFilteredList finished
+2026-08-02T14:24:47.277Z info: $OpenSafeByPin finished
+2026-08-02T14:24:47.351Z info: $GetSafe finished
+2026-08-02T14:25:12.035Z info: $GetServicesLabels finished
+2026-08-02T14:26:07.285Z info: $OpenSafeByPin finished
+2026-08-02T14:26:07.434Z info: $GetSafe finished
+2026-08-02T14:27:03.658Z info: $GetServicesLabels finished
+2026-08-02T14:32:29.640Z info: $OpenSafeByPin finished
+2026-08-02T14:32:29.719Z info: $GetSafe finished
+2026-08-02T14:33:36.675Z info: $GetServicesLabels finished
+2026-08-02T14:34:59.485Z info: $OpenSafeByPin finished
+2026-08-02T14:34:59.557Z info: $GetSafe finished
+2026-08-02T14:35:03.268Z info: $GetServicesLabels finished
+2026-08-02T14:35:14.325Z info: $GetOrgSvc finished
+2026-08-02T14:35:14.355Z info: $GetSitesUrls finished
+2026-08-02T14:35:14.392Z info: ADMIN$isAdmin : 2026-08-02T14:35:14.392Z
+2026-08-02T14:35:14.398Z info: ADMIN$isAdmin finished
+2026-08-02T14:35:16.425Z info: FormFilteredList : 2026-08-02T14:35:16.425Z
+2026-08-02T14:35:16.446Z info: $mdUserGetICVS finished
+2026-08-02T14:35:16.508Z info: FormFilteredList finished
+2026-08-02T14:35:19.896Z info: FormFilteredList : 2026-08-02T14:35:19.896Z
+2026-08-02T14:35:19.944Z info: FormFilteredList finished
+2026-08-02T14:35:36.046Z info: $OpenSafeByPin finished
+2026-08-02T14:35:36.126Z info: $GetSafe finished
+2026-08-02T14:35:44.039Z info: $GetServicesLabels finished
+2026-08-02T14:49:34.896Z info: $OpenSafeByPin finished
+2026-08-02T14:49:34.951Z info: $GetSafe finished
+2026-08-02T14:49:40.706Z info: $GetServicesLabels finished
+2026-08-02T14:49:48.939Z info: $GetOrgSvc finished
+2026-08-02T14:49:48.975Z info: $GetSitesUrls finished
+2026-08-02T14:49:49.013Z info: ADMIN$isAdmin : 2026-08-02T14:49:49.013Z
+2026-08-02T14:49:49.019Z info: ADMIN$isAdmin finished
+2026-08-02T14:49:51.298Z info: FormFilteredList : 2026-08-02T14:49:51.298Z
+2026-08-02T14:49:51.340Z info: FormFilteredList finished
+2026-08-02T14:50:03.099Z info: $OpenSafeByPin finished
+2026-08-02T14:50:03.166Z info: $GetSafe finished
+2026-08-02T14:50:08.361Z info: $GetServicesLabels finished
+2026-08-02T14:50:11.059Z info: $GetOrgSvc finished
+2026-08-02T14:50:11.096Z info: $GetSitesUrls finished
+2026-08-02T14:50:11.135Z info: ADMIN$isAdmin : 2026-08-02T14:50:11.135Z
+2026-08-02T14:50:11.140Z info: ADMIN$isAdmin finished
+2026-08-02T14:50:14.257Z info: FormFilteredList : 2026-08-02T14:50:14.257Z
+2026-08-02T14:50:14.306Z info: FormFilteredList finished
+2026-08-02T14:53:54.927Z info: FormUpdByT : 2026-08-02T14:53:54.926Z
+2026-08-02T14:54:15.972Z error: FormUpdByT : 2026-08-02T14:53:54.926Z : TypeError: Cannot read properties of undefined (reading 'pkValue')
+2026-08-02T14:54:15.974Z info: FormUpdByT terminated on exception
+2026-08-02T14:54:15.975Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'pkValue')"]
+2026-08-02T14:57:56.172Z info: Configuration pre-loaded
+2026-08-02T14:58:00.381Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T14:58:00.400Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T14:58:00.646Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T14:58:00.647Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T14:58:00.647Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T14:58:00.648Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T14:58:00.649Z info: fw documents loading: 4
+2026-08-02T14:58:00.649Z info: app operations loading: 7
+2026-08-02T14:58:00.650Z info: fw operations loading: 73
+2026-08-02T14:58:00.650Z info: app operations loading: 73
+2026-08-02T14:58:00.651Z info: safe operations loading: 73
+2026-08-02T14:58:00.651Z info: masterdir operations loading: 73
+2026-08-02T14:58:00.651Z info: Configuration completed
+2026-08-02T14:58:00.661Z info: Server started
+2026-08-02T14:58:00.663Z info: HTTP listen [8080]
+2026-08-02T14:58:11.728Z info: FormUpdByT : 2026-08-02T14:58:11.727Z
+2026-08-02T14:58:37.768Z info: $mdUserGetICVS finished
+2026-08-02T14:58:41.717Z info: FormUpdByT finished
+2026-08-02T14:58:51.520Z info: MDEventSync : 2026-08-02T14:58:51.519Z
+2026-08-02T14:59:08.731Z info: MDEventSync finished
+2026-08-02T14:59:08.744Z info: $mdEventSync finished
+2026-08-02T14:59:23.314Z info: FormFilteredList : 2026-08-02T14:59:23.314Z
+2026-08-02T14:59:23.375Z info: FormFilteredList finished
+2026-08-02T15:01:56.725Z info: FormValidateByT : 2026-08-02T15:01:56.724Z
+2026-08-02T15:06:20.548Z info: $CreateCred finished
+2026-08-02T15:08:39.972Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:not_configured_doc_class["AS2$Credential_CoDir"]
+2026-08-02T15:08:39.976Z error: FormValidateByT : 2026-08-02T15:01:56.724Z : AppExc: 103:not_configured_doc_class["AS2$Credential_CoDir"]
+2026-08-02T15:08:39.978Z info: FormValidateByT terminated on exception
+2026-08-02T15:08:39.979Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Credential_CoDir\"]"]
+2026-08-02T15:18:20.931Z info: Configuration pre-loaded
+2026-08-02T15:18:21.602Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T15:18:21.606Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T15:18:21.669Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T15:18:21.669Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T15:18:21.670Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T15:18:21.671Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T15:18:21.671Z info: fw documents loading: 4
+2026-08-02T15:18:21.672Z info: app operations loading: 7
+2026-08-02T15:18:21.673Z info: fw operations loading: 73
+2026-08-02T15:18:21.674Z info: app operations loading: 73
+2026-08-02T15:18:21.674Z info: safe operations loading: 73
+2026-08-02T15:18:21.675Z info: masterdir operations loading: 73
+2026-08-02T15:18:21.675Z info: Configuration completed
+2026-08-02T15:18:21.683Z info: Server started
+2026-08-02T15:18:21.685Z info: HTTP listen [8080]
+2026-08-02T15:18:38.106Z info: FormValidateByT : 2026-08-02T15:18:38.106Z
+2026-08-02T15:18:54.948Z info: $mdUserGetICVS finished
+2026-08-02T15:19:03.378Z info: $CreateCred finished
+2026-08-02T17:07:10.586Z info: Configuration pre-loaded
+2026-08-02T17:07:15.118Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T17:07:15.149Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T17:07:15.427Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:07:15.428Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:07:15.428Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T17:07:15.429Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T17:07:15.430Z info: fw documents loading: 4
+2026-08-02T17:07:15.430Z info: app operations loading: 10
+2026-08-02T17:07:15.431Z info: fw operations loading: 73
+2026-08-02T17:07:15.431Z info: app operations loading: 73
+2026-08-02T17:07:15.432Z info: safe operations loading: 73
+2026-08-02T17:07:15.432Z info: masterdir operations loading: 73
+2026-08-02T17:07:15.432Z info: Configuration completed
+2026-08-02T17:07:15.441Z info: Server started
+2026-08-02T17:07:15.444Z info: HTTP listen [8080]
+2026-08-02T17:07:30.778Z info: FormValidateByT : 2026-08-02T17:07:30.777Z
+2026-08-02T17:08:12.039Z info: $mdUserGetICVS finished
+2026-08-02T17:08:21.866Z info: $CreateCred finished
+2026-08-02T17:10:07.307Z info: Configuration pre-loaded
+2026-08-02T17:10:07.667Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T17:10:07.672Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T17:10:07.794Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:10:07.795Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:10:07.796Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T17:10:07.797Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T17:10:07.797Z info: fw documents loading: 4
+2026-08-02T17:10:07.799Z info: app operations loading: 10
+2026-08-02T17:10:07.800Z info: fw operations loading: 73
+2026-08-02T17:10:07.801Z info: app operations loading: 73
+2026-08-02T17:10:07.802Z info: safe operations loading: 73
+2026-08-02T17:10:07.803Z info: masterdir operations loading: 73
+2026-08-02T17:10:07.804Z info: Configuration completed
+2026-08-02T17:10:07.817Z info: Server started
+2026-08-02T17:10:07.819Z info: HTTP listen [8080]
+2026-08-02T17:10:49.118Z info: FormValidateByT : 2026-08-02T17:10:49.117Z
+2026-08-02T17:11:16.258Z info: $mdUserGetICVS finished
+2026-08-02T17:11:23.648Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-08-02T17:11:23.650Z info: Mail sent to:daniel@sportes.fr subject:op:$CreateCred - AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:572:24)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:620:12)
+    at async $CredTempl.CreateSafeCred (D:\git\asocial2-srv\src-fw\documents.ts:235:24)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:758:17)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:164:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:493:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:184:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:388:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:218:3)
+2026-08-02T17:11:24.742Z info: FormValidateByT finished
+2026-08-02T17:12:40.369Z info: Configuration pre-loaded
+2026-08-02T17:12:40.761Z info: FW document descriptors:4 forms descriptors:4
+2026-08-02T17:12:40.765Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-02T17:12:40.855Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:12:40.856Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-02T17:12:40.857Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-02T17:12:40.857Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-02T17:12:40.858Z info: fw documents loading: 4
+2026-08-02T17:12:40.859Z info: app operations loading: 10
+2026-08-02T17:12:40.859Z info: fw operations loading: 73
+2026-08-02T17:12:40.860Z info: app operations loading: 73
+2026-08-02T17:12:40.860Z info: safe operations loading: 73
+2026-08-02T17:12:40.861Z info: masterdir operations loading: 73
+2026-08-02T17:12:40.861Z info: Configuration completed
+2026-08-02T17:12:40.870Z info: Server started
+2026-08-02T17:12:40.872Z info: HTTP listen [8080]
+2026-08-02T17:13:00.995Z info: FormValidateByT : 2026-08-02T17:13:00.995Z
+2026-08-02T17:13:01.107Z info: $mdUserGetICVS finished
+2026-08-02T17:14:15.863Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]

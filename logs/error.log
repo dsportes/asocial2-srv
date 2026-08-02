@@ -637,3 +637,9 @@ Error: read ECONNRESET
 2026-08-01T17:28:04.829Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
 2026-08-01T17:36:36.736Z error: FormFilteredList : 2026-08-01T17:35:44.623Z : TypeError: Cannot read properties of undefined (reading 'substring')
 2026-08-01T17:36:36.739Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'substring')"]
+2026-08-02T14:54:15.972Z error: FormUpdByT : 2026-08-02T14:53:54.926Z : TypeError: Cannot read properties of undefined (reading 'pkValue')
+2026-08-02T14:54:15.975Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'pkValue')"]
+2026-08-02T15:08:39.976Z error: FormValidateByT : 2026-08-02T15:01:56.724Z : AppExc: 103:not_configured_doc_class["AS2$Credential_CoDir"]
+2026-08-02T15:08:39.979Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Credential_CoDir\"]"]
+2026-08-02T17:11:23.648Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-08-02T17:14:15.863Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]

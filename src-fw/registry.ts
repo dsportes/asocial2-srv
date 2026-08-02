@@ -2,7 +2,7 @@ import { AppExc } from './log'
 import { $Document } from './document'
 import { DocDescriptor } from './docDescriptor'
 
-const topCl = (svc: string, docCl: string) : string => {
+export const topCl = (svc: string, docCl: string) : string => {
   const i = docCl.indexOf('_')
   const d = i === -1 ? docCl : docCl.substring(0, i)
   return d.indexOf('$') === -1 ? svc + '$' + d : d
@@ -47,14 +47,14 @@ export class Registry {
     const cln = topCl(svc, docCl) + (subClassBy ? '_' + data[subClassBy] : '')
     const cl = Registry.classes.get(cln)
     if (!cl) 
-      throw new AppExc(103, 'not_configured_doc_class', null, [cln])
+      throw new AppExc(103, 'not_configured_doc_class', Registry.getClass, [cln])
     return cl
   }
 
   // Retourne la pk de la SOUS-CLASSE de docCl selon la valeur de son data
   static getPk (svc: string, docCl: string, data: Object, nohash?: boolean) : string {
-    const cl = Registry.getClass(svc, docCl, data)
-    return cl['docDescriptor'].pkValue(data, nohash)
+    const dd = DocDescriptor.get(topCl(svc, docCl))
+    return dd.pkValue(data, nohash)
   }
 
   // Construit un document de la SOUS-CLASSE de docCl selon la valeur de son data
