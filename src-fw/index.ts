@@ -4,7 +4,7 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 import { existsSync, readFileSync } from 'node:fs'
-import axios from 'axios'
+// import axios from 'axios'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { config } from '../src/config'
@@ -553,21 +553,20 @@ export class MDandSafe {
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
         const body = Buffer.from(encode(args))
-        /* Interface fetch 
+        /* Interface fetch */
         const response = await fetch(url, {
           method: 'POST', headers: MDandSafe.headers, body
         })
         const buf = await response.bytes()
-        */
         
-        /* Interface axios */
+        /* Interface axios 
         const response = await axios.post(url, body, { 
           headers: MDandSafe.headers,
           responseType: 'arraybuffer',
           timeout: 600000
         })
         const buf = Buffer.from(response.data)
-        
+        */
 
         const obj = decode(buf)
         if (response.status === 200) return obj

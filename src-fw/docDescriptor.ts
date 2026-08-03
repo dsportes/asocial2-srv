@@ -203,7 +203,7 @@ export class DocDescriptor {
       this.pk = arg.pk 
     }
     this.nohash = arg.nohash || false
-    this.enum = this.enum
+    this.enum = arg.enum
     this.extenum = arg.extenum
     if (arg.subClassBy && !DocDescriptor.isVarName(arg.subClassBy)) 
       throw new AppExc(3, 'property_name_syntax', 'DocDescriptor', [this.name + '.' + arg.subClassBy])

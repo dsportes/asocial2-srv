@@ -594,7 +594,7 @@ class FormCreateByT extends Operation {
     let f = await this.cache.getDoc(this.svc + '$Form', this._formObj) as $Form
     if (f) 
       { this.setRes('status', 1); return }
-    f = this.cache.newDoc('$Form', this._formObj) as $Form
+    f = this.cache.newDoc(this.svc + '$Form', this._formObj) as $Form
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.status = 2
     f.msgU = null
@@ -730,6 +730,7 @@ class ValidateForm extends Operation {
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     if (f.status > 2 ) { this.setRes('status', 3); return }
+    f.opts = this._opts
     if (this.byU) {
       f.etcU = this.etc
       f.msgU = this.msg
@@ -792,9 +793,7 @@ class ValidateForm extends Operation {
     if (this.st || !this.credTemplates.length) return
     for(const ct of this.credTemplates) {
       const args = { userId: ct.userId, credId: ct.credId, signId: ct.signId }
-      setTimeout(async () => {
-        await MDandSafe.doSafeOp(this, ct.userId, '$FixOneCred', args)
-      }, 5)
+      await MDandSafe.doSafeOp(this, ct.userId, '$FixOneCred', args)
     }
   }
 }

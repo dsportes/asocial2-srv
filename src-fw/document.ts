@@ -3,6 +3,7 @@ import { encode } from '@msgpack/msgpack'
 import { row } from '../src-fw/iDbGeneric'
 import { Registry } from './registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
+import { $CredTempl } from '../src-fw/documents'
 // import { AppExc } from '../src-fw/log'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
@@ -112,19 +113,14 @@ export class $Document {
 
   /* Méthodes INTERNES au FW ***************************************************/
 
-  embedCred (credTemplates) {
+  embedCred (credTemplates: Object) {
     if (!this.embedCreds) this.embedCreds = {}
     if (credTemplates) for(let credId in credTemplates) {
-      const c = credTemplates[credId]
+      const c = new $CredTempl(credTemplates[credId])
       const i = c.docCl.indexOf('_')
-      const cl = i === - 1 ? c.docCl : c.docCl.substring(0, i)
+      const cl = c.svc + '$' + (i === - 1 ? c.docCl : c.docCl.substring(0, i))
       if (this._clazz === cl && this.myPk === c.docPk)
-        this.embedCreds[credId] = {
-          credId,
-          pubc: c.pubc,
-          pubv: c.pubv,
-          props: c.props
-        }
+        this.embedCreds[credId] = c.toEmbedCred()
     }
   }
 

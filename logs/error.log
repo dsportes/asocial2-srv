@@ -684,3 +684,7 @@ AggregateError: connect ECONNREFUSED ::1:8092; connect ECONNREFUSED 127.0.0.1:80
     at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:493:7)
     at async GetCredProps.run (D:\git\asocial2-srv\src-fw\operation.ts:184:30)
     at async doOp (D:\git\asocial2-srv\src-fw\index.ts:388:5)
+2026-08-03T11:54:06.831Z error: FormCreateByT : 2026-08-03T11:54:06.770Z : AppExc: 103:not_configured_doc_class["$Form"]
+2026-08-03T11:54:06.861Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
+2026-08-03T16:27:33.505Z error: FormValidateByU : 2026-08-03T16:26:55.542Z : TypeError: c.toEmbedCred is not a function
+2026-08-03T16:27:33.528Z error: AppExc: 105:service_unexpected_exception["c.toEmbedCred is not a function"]

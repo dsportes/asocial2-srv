@@ -190,6 +190,7 @@ export type $CredObj = {
 */
 
 export class $CredTempl {
+  svc: string
   userId: string
   credId: string
   docCl: string
@@ -209,19 +210,6 @@ export class $CredTempl {
   toEmbedCred () : Embed$Cred {
     return { credId: this.credId, pubv: this.pubv, pubc: this.pubc, props: this.props }
   }
-
-  /*
-  toCredObj () : $CredObj {
-    return {
-      credId: this.credId,
-      docCl: this.docCl,
-      docPk: this.docPk,
-      pubv: this.pubv,
-      pubc: this.pubc,
-      props: this.props
-    }
-  }
-  */
 
   async CreateSafeCred (op: Operation) : Promise<number>{
     const setCred: SetCred = {
