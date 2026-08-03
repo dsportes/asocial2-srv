@@ -34,12 +34,10 @@ class AS2$Status extends ADMIN$Status {
 nd++; Registry.register(AS2$Status)
 
 class AS2$Form extends $Form {
-  constructor (obj) { super(obj) }
 }
 nd++; Registry.register(AS2$Form)
 
 class AS2$Form_membrecodir extends AS2$Form {
-  constructor (obj?: $FormObj) { super(obj) }
 
   getDetail () { return [] }
   
@@ -47,13 +45,11 @@ class AS2$Form_membrecodir extends AS2$Form {
 nd++; Registry.register(AS2$Form_membrecodir)
 
 class AS2$Form_membreredaction extends AS2$Form {
-  constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }
 nd++; Registry.register(AS2$Form_membreredaction)
 
 class AS2$Form_auteur extends AS2$Form {
-  constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 
   async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
@@ -68,29 +64,22 @@ class AS2$Form_auteur extends AS2$Form {
 nd++; Registry.register(AS2$Form_auteur)
 
 class AS2$Form_coauteur extends AS2$Form {
-  constructor (obj?: $FormObj) { super(obj) }
   getDetail () { return [] }
 }
 nd++; Registry.register(AS2$Form_coauteur)
 
 class AS2$Credential extends $Credential {
-  constructor (obj?: $FormObj) { 
-    super() }
-
 }
+
 class AS2$Credential_CoDir extends AS2$Credential {
-  constructor (obj?: $FormObj) { 
-    super(obj) }
 }
 nd++; Registry.register(AS2$Credential_CoDir)
 
 class AS2$Credential_Redaction extends AS2$Credential {
-  constructor (obj?: $FormObj) { super(obj) }
 }
 nd++; Registry.register(AS2$Credential_Redaction)
 
 class AS2$Credential_Auteur extends AS2$Credential {
-  constructor (obj?: $FormObj) { super(obj) }
 }
 nd++; Registry.register(AS2$Credential_Auteur)
 

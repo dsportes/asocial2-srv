@@ -293,17 +293,6 @@ export class $Credential extends $Document {
     return p && (!p.limit || (p.limit * 60000) >= Date.now())
   }
 
-  /*
-  static new (credId: string, docCl: string, docPk: string, ec: Embed$Cred) : $Credential {
-    const c = Registry.newD('', '$Credential', { docCl } ) as $Credential
-    c.credId = credId
-    c.docCl = docCl
-    c.docPk = docPk
-    c.cred = ec
-    return c
-  }
-  */
-
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
     const dt = Registry.getDescr('', docCl)
     let doc
@@ -459,24 +448,16 @@ export class $Form extends $Document {
   }
 
   // Utilisé sur opération liste filtrée
-  static new (obj: Object, svc: string, org: string) : $Form {
+  static new (obj: $FormObj, svc: string, org: string) : $Form {
     const f = Registry.newD(svc, 'Form', obj) as $Form
     for (const p of $Form.lp1) f[p] = obj[p]
+    if (obj['ch']) f.ch = obj['ch']
     if (org) f._org = org
     f._clazz = svc + '$Form'
     return f
   }
 
   static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT', 'opts']
-
-  // Utilisé par newDoc dans les 2 opérations de create
-  constructor (obj?: $FormObj) {
-    super()
-    if (obj) {
-      for (const p of $Form.lp1) this[p] = obj[p]
-      if (obj.ch) this.ch = obj.ch
-    }
-  }
 
   toFormObj () : $FormObj {
     const obj = {}
@@ -502,8 +483,8 @@ export class $Form extends $Document {
     const x = config.keys['DCKeys'][this.ft.key]
     return { pub: keyFromB64(x.pub), priv: keyFromB64(x.priv) }
   }
-  async uPub () : Promise<Buffer> {
-    const cvs = await MDandSafe.getCVS(this.userId)
+  async uPub (op: Operation) : Promise<Buffer> {
+    const cvs = await MDandSafe.getCVS(op, this.userId)
     if (!cvs) throw new AppExc(105, 'userid_not_found_in_masterdir', null, [this.userId])
     return keyFromB64(cvs[0])
   }
@@ -512,9 +493,9 @@ export class $Form extends $Document {
   de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
   et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U). 
   */
-  async decryptMsgU () : Promise<void> {
+  async decryptMsgU (op: Operation) : Promise<void> {
     if (this.msgU) {
-      const pub = await this.uPub()
+      const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       const x = await Crypt.decrypt(aes, this.msgU)
       // const y = decoder.decode(x)
@@ -529,17 +510,17 @@ export class $Form extends $Document {
   - de la clé _privée_ de décryptage du formulaire (accessible dans l'opération du service)
   - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
   */
-  async cryptMsgT () : Promise<void> {
+  async cryptMsgT (op: Operation) : Promise<void> {
     if (this.msgT) {
-      const pub = await this.uPub()
+      const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.crypt(aes, this.msgT)
     }
   }
 
-  async decryptMsgT () : Promise<void> {
+  async decryptMsgT (op: Operation) : Promise<void> {
     if (this.msgT) {
-      const pub = await this.uPub()
+      const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.decrypt(aes, this.msgT as Uint8Array)
     }
@@ -587,8 +568,8 @@ export class $Form extends $Document {
       if (!f.isOld) {
         if (f.checkAuthTP(op)) {
           try {
-            await f.decryptMsgT()
-            await f.decryptMsgU()
+            await f.decryptMsgT(op)
+            await f.decryptMsgU(op)
             l.push(f.toFormObj())
           } catch (e) {
             Log.error(e)

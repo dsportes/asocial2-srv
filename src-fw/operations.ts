@@ -598,7 +598,7 @@ class FormCreateByT extends Operation {
     f.maxLife = Math.floor(this.now / 1000) + 10
     f.status = 2
     f.msgU = null
-    await f.cryptMsgT()
+    await f.cryptMsgT(this)
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
     this.setRes('status', 0)
@@ -665,7 +665,7 @@ class FormUpdByT extends Operation {
     f.etcT = this._etcT
     f.status = 2
     f.msgT = this._msgT
-    await f.cryptMsgT()
+    await f.cryptMsgT(this)
     f.setMaxLife()
     f._status = DocStatus.UPD
     this.setRes('status', 0)
@@ -736,7 +736,7 @@ class ValidateForm extends Operation {
     } else {
       f.etcT = this.etc
       f.msgT = this.msg
-      await f.cryptMsgT()
+      await f.cryptMsgT(this)
     }
     f.setMaxLife()
 
@@ -839,8 +839,8 @@ class FormGet extends Operation {
       { this.setRes('status', 1); return }
     if (!f.checkAuthTP(this))
       { this.setRes('status', 2); return }
-    await f.decryptMsgU()
-    await f.decryptMsgT()
+    await f.decryptMsgU(this)
+    await f.decryptMsgT(this)
     this.setRes('form', f.toFormObj())
   }
 }

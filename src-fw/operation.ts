@@ -395,7 +395,7 @@ export class AuthRecord {
 
   async process () : Promise<void> {
     if (!this.signatures) return
-    const cvs = await MDandSafe.getCVS(this.userId)
+    const cvs = await MDandSafe.getCVS(this.op, this.userId)
     if (!cvs) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
     const v = cvs[1]
     const ok = await Crypt.verify(keyFromB64(v), this.userSign, this.challenge)
@@ -406,16 +406,16 @@ export class AuthRecord {
       const i = ref.indexOf('/')
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
-      const dt = Registry.getDescr(this.svc, docCl)
+      const dt = Registry.getDescr(this.op.svc, docCl)
       let credRef: CredRef
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
-        const d = await this.op.cache.getDoc(this.svc + '$' + docCl, { pk: docPk }) as $Document
+        const d = await this.op.cache.getDoc(this.op.svc + '$' + docCl, { pk: docPk }) as $Document
         if (d && d.embedCreds) {
           const ec = d.embedCreds[credId]
           if (ec) credRef = new CredRef(d, ec, true)
         }
       } else { // Recherche du Credential par sa pk
-        const c = await this.op.cache.getDoc(this.svc + '$Credential', { credId, docCl }) as $Credential
+        const c = await this.op.cache.getDoc(this.op.svc + '$Credential', { credId, docCl }) as $Credential
         if (c && c.docCl === docCl && c.docPk === docPk) {
           credRef = new CredRef(c, c.cred, false)
           if (!credRef.isValid)

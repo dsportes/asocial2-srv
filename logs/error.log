@@ -643,3 +643,44 @@ Error: read ECONNRESET
 2026-08-02T15:08:39.979Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"AS2$Credential_CoDir\"]"]
 2026-08-02T17:11:23.648Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
 2026-08-02T17:14:15.863Z error: AppExc: 108:remote_md_safes_access_exc@$CreateCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-08-03T05:58:33.624Z error: AppExc: 105:safe_unexpected_exception["no such table: ZZSAFE"]
+2026-08-03T06:12:43.602Z error: AppExc: 108:remote_md_safes_access_exc@$FixOneCred:["http://localhost:8080/safe","TypeError: fetch failed"]
+2026-08-03T07:18:03.671Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","AggregateError: connect ECONNREFUSED ::1:8080; connect ECONNREFUSED 127.0.0.1:8080"]
+2026-08-03T07:18:03.674Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","AggregateError: connect ECONNREFUSED ::1:8080; connect ECONNREFUSED 127.0.0.1:8080"]
+2026-08-03T07:18:07.841Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","AggregateError: connect ECONNREFUSED ::1:8080; connect ECONNREFUSED 127.0.0.1:8080"]
+2026-08-03T07:18:07.843Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8080/master","AggregateError: connect ECONNREFUSED ::1:8080; connect ECONNREFUSED 127.0.0.1:8080"]
+2026-08-03T07:55:37.125Z error: GetCredProps : 2026-08-03T07:55:37.111Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T07:55:37.127Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T07:56:40.912Z error: GetCredProps : 2026-08-03T07:56:40.902Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T07:56:40.913Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T07:58:52.549Z error: GetCredProps : 2026-08-03T07:58:52.539Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T07:58:52.551Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T08:12:05.398Z error: GetCredProps : 2026-08-03T08:12:05.386Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T08:12:05.400Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T08:14:48.053Z error: GetCredProps : 2026-08-03T08:13:49.864Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T08:14:57.165Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T08:18:31.684Z error: GetCredProps : 2026-08-03T08:16:34.221Z : AppExc: 103:not_configured_doc_class["undefined$CoDir"]
+2026-08-03T08:18:31.686Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"undefined$CoDir\"]"]
+2026-08-03T09:12:29.522Z error: AppExc: 108:remote_md_safes_access_exc@$Ping:["http://localhost:8092/safe","AggregateError: connect ECONNREFUSED ::1:8092; connect ECONNREFUSED 127.0.0.1:8092"]
+2026-08-03T09:12:29.527Z error: GetCredProps : 2026-08-03T09:10:02.053Z : AppExc: 108:remote_md_safes_access_exc@$Ping:["http://localhost:8092/safe","AggregateError: connect ECONNREFUSED ::1:8092; connect ECONNREFUSED 127.0.0.1:8092"]
+AggregateError: connect ECONNREFUSED ::1:8092; connect ECONNREFUSED 127.0.0.1:8092
+    at AxiosError.from (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:1478:24)
+    at RedirectableRequest.handleRequestError (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:4427:25)
+    at RedirectableRequest.emit (node:events:530:35)
+    at eventHandlers.<computed> (D:\git\asocial2-srv\node_modules\follow-redirects\index.js:56:24)
+    at ClientRequest.emit (node:events:518:28)
+    at emitErrorEvent (node:_http_client:104:11)
+    at Socket.socketErrorListener (node:_http_client:518:5)
+    at Socket.emit (node:events:530:35)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at Axios.request (D:\git\asocial2-srv\node_modules\axios\dist\node\axios.cjs:5864:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:562:26)
+    at async Function.doSafeOp (D:\git\asocial2-srv\src-fw\index.ts:621:14)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:609:20)
+    at async AuthRecord.process (D:\git\asocial2-srv\src-fw\operation.ts:398:17)
+    at async GetCredProps.transac (D:\git\asocial2-srv\src-fw\operation.ts:163:7)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:493:7)
+    at async GetCredProps.run (D:\git\asocial2-srv\src-fw\operation.ts:184:30)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:388:5)

@@ -518,7 +518,9 @@ export interface OperationWC extends AbstractOperation {
 }
 
 /************************************************************
-Accès HTTP au MasterDir et aux Safes depuis les opérations
+Accès au MasterDir et aux Safes depuis les opérations
+- soit par appel direct de la fonction si hébergé par la même uRL que l'opération
+- soit par un applel HTTP au serveur correspondant
 **************************************************************/
 type ICVS = {
   i: string
@@ -526,37 +528,6 @@ type ICVS = {
   v: string
   s: string
   dh: number
-}
-
-async function requestWithRetry(config, maxRetries = 3) {
-  let lastError;
-  
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      return await axios(config);
-    } catch (error) {
-      lastError = error;
-      
-      // Check if it's a connection reset error
-      const isResetError = 
-        error.code === 'ECONNRESET' ||
-        error.code === 'EPIPE' ||
-        error.code === 'ECONNABORTED' ||
-        error.code === 'ETIMEDOUT';
-      
-      if (!isResetError || attempt === maxRetries) {
-        throw error;
-      }
-      
-      // Exponential backoff
-      const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
-      const jitter = Math.floor(Math.random() * 250);
-      console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
-      await new Promise(resolve => setTimeout(resolve, delay + jitter));
-    }
-  }
-  
-  throw lastError;
 }
 
 export class MDandSafe {
@@ -577,83 +548,53 @@ export class MDandSafe {
     'Accept':       'application/octet-stream'   // expected data sent back
   }
 
-  /* SANS axios
-  static async postMDS1 (url: string, args: any) : Promise<Object> {
-    try {
-      const body = Buffer.from(encode(args))
-      const response = await fetch(url, {
-        method: 'POST', headers: MDandSafe.headers, body
-      })
-      const buf = await response.bytes()
-      const obj = decode(buf)
-      if (response.status === 200) return obj
-      const txt = new TextDecoder().decode(buf)
-      throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
-    } catch (e: any) {
-      if (e instanceof AppExc) throw e
-      throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)
-    }
-  }
-  */
-
   static async postMDS (url: string, args: any) : Promise<Object> {
-    try {
-      const maxRetries = 3
-      let lastError
-      for (let attempt = 1; attempt <= 3; attempt++) {
-        try {
-          const body = Buffer.from(encode(args))
-          /*
-          // Interface fetch
-          const response = await fetch(url, {
-            method: 'POST', headers: MDandSafe.headers, body
-          })
-          const buf = await response.bytes()
-          */
-          
-          // Interface axios
-          const response = await axios.post(url, body, { 
-            headers: MDandSafe.headers,
-            responseType: 'arraybuffer',
-            timeout: 600000
-          })
-          const buf = Buffer.from(response.data)
-          
-          const obj = decode(buf)
-          if (response.status === 200) return obj
-          const txt = new TextDecoder().decode(buf)
-          throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
-        } catch (error) {
-          lastError = error;
-          
-          // Check if it's a connection reset error
-          const isResetError = 
-            error.code === 'ECONNRESET' ||
-            error.code === 'EPIPE' ||
-            error.code === 'ECONNABORTED' ||
-            error.code === 'ETIMEDOUT';
-          
-          if (!isResetError || attempt === maxRetries) {
-            throw error;
-          }
-          
-          // Exponential backoff
-          const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
-          const jitter = Math.floor(Math.random() * 250);
-          console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
-          await new Promise(resolve => setTimeout(resolve, delay + jitter));
+    const maxRetries = 3
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const body = Buffer.from(encode(args))
+        /* Interface fetch 
+        const response = await fetch(url, {
+          method: 'POST', headers: MDandSafe.headers, body
+        })
+        const buf = await response.bytes()
+        */
+        
+        /* Interface axios */
+        const response = await axios.post(url, body, { 
+          headers: MDandSafe.headers,
+          responseType: 'arraybuffer',
+          timeout: 600000
+        })
+        const buf = Buffer.from(response.data)
+        
+
+        const obj = decode(buf)
+        if (response.status === 200) return obj
+        const txt = new TextDecoder().decode(buf)
+        throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
+      } catch (error) {
+        // Check if it's a connection reset error
+        const isResetError = 
+          error.code === 'ECONNRESET' ||
+          error.code === 'EPIPE' ||
+          error.code === 'ECONNABORTED' ||
+          error.code === 'ETIMEDOUT'
+        if (!isResetError || attempt === maxRetries) {
+          if (error instanceof AppExc) throw error
+          throw new AppExc(108, 'remote_md_safes_access_exc', 
+            args, [(url || '?'), error.toString()], error.stack)
         }
-  }
-  
-  throw lastError;
-      } 
-    } catch (e: any) {
-      if (e instanceof AppExc) throw e
-      throw new AppExc(108, 'remote_md_safes_access_exc', args, [(url || '?'), e.toString()], e.stack)
+        // Exponential backoff
+        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+        const jitter = Math.floor(Math.random() * 250);
+        console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
+        await new Promise(resolve => setTimeout(resolve, delay + jitter));
+      }
     }
   }
 
-  static async getCVS (userId: string) : Promise<[string, string, string] | null> {
+  static async getCVS (op: Operation, userId: string) : Promise<[string, string, string] | null> {
     const now = MDandSafe.cleanCache()
     let icvs = MDandSafe.icvsCache.get(userId)
     if (icvs) return [icvs.c, icvs.v, icvs.s]
@@ -661,24 +602,34 @@ export class MDandSafe {
       opName: '$mdUserGetICVS',
       userId: userId
     }
-    const res: any = await MDandSafe.postMDS(config.MASTERDIR_URL, args)
+    const res: any = await MDandSafe.doMDOp(op, '$mdUserGetICVS', args)
     icvs = res.icvs
     if (!icvs) return null
     icvs.dh = now
     MDandSafe.icvsCache.set(userId, icvs)
     /* Test accès Safe
-    const r: any = await this.doSafeOp(userId, '$Ping', {})
+    const r: any = await MDandSafe.doSafeOp(op, userId, '$Ping', {})
     Log.info(r.ping)
     */
     return [icvs.c, icvs.v, icvs.s]
   }
 
   static async doSafeOp (op: Operation, userId: string, opName: string, args: any) : Promise<Object> {
-    const cvs = await MDandSafe.getCVS(userId)
+    const cvs = await MDandSafe.getCVS(op, userId)
     if (!cvs) return { status: 101 }
     const url = await getSafeUrl(op, cvs[2])
     args.opName = opName
-    return await MDandSafe.postMDS(url, args)
+    if (op.baseUrl + '/safe' !== url)
+      return await MDandSafe.postMDS(url, args)
+    const result = await SafeOperation.doOp(opName, args)
+    return result
   }
 
+  static async doMDOp (op: Operation, opName: string, args: any) : Promise<Object> {
+    args.opName = opName
+    if (op.baseUrl + '/master' !== config.MASTERDIR_URL)
+      return await MDandSafe.postMDS(config.MASTERDIR_URL, args)
+    const result = await MDOperation.doOp(opName, args)
+    return result
+  }
 }
