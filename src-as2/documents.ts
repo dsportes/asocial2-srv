@@ -1,7 +1,7 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { $Document } from '../src-fw/document'
-import { $Form, $FormObj, ADMIN$Status, $Credential, $Cred } from '../src-fw/documents'
+import { $Form, ADMIN$Status, $Credential } from '../src-fw/documents'
 import { Log } from '../src-fw/log'
 import { Registry } from '../src-fw/registry'
 import { Operation } from '../src-fw/operation'
@@ -38,9 +38,7 @@ class AS2$Form extends $Form {
 nd++; Registry.register(AS2$Form)
 
 class AS2$Form_membrecodir extends AS2$Form {
-
   getDetail () { return [] }
-  
 }
 nd++; Registry.register(AS2$Form_membrecodir)
 
@@ -65,6 +63,15 @@ nd++; Registry.register(AS2$Form_auteur)
 
 class AS2$Form_coauteur extends AS2$Form {
   getDetail () { return [] }
+
+  async validate (op: Operation, newDocs: $Document[]) : Promise<number> { 
+    const autid = await AS2$Auteur.autidDeNom(op, this.opts.auteur.nomAuteur)
+    if (autid !== this.opts.auteur.autid) return  102
+    const doc = await op.cache.getDoc('AS2$Auteur', { autid } ) as AS2$Auteur
+    doc.embedCred(this.opts.credTemplates)
+    newDocs.push(doc)
+    return 0 
+  }
 }
 nd++; Registry.register(AS2$Form_coauteur)
 
@@ -72,10 +79,12 @@ class AS2$Credential extends $Credential {
 }
 
 class AS2$Credential_CoDir extends AS2$Credential {
+  static manager = true
 }
 nd++; Registry.register(AS2$Credential_CoDir)
 
 class AS2$Credential_Redaction extends AS2$Credential {
+  static manager = true
 }
 nd++; Registry.register(AS2$Credential_Redaction)
 

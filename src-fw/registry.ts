@@ -23,7 +23,8 @@ export class Registry {
     if (!svc || !docCl)
       throw new AppExc(103, 'invalid_class_name', null, [clazz.name])
     DocDescriptor.get(topcl)
-    if (clazz['manager']) Registry.managers.add(clazz.name)
+    if (clazz['manager']) 
+      Registry.managers.add(clazz.name)
     this.classes.set(clazz.name, clazz)
   }
 

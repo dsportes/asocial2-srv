@@ -688,3 +688,22 @@ AggregateError: connect ECONNREFUSED ::1:8092; connect ECONNREFUSED 127.0.0.1:80
 2026-08-03T11:54:06.861Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$Form\"]"]
 2026-08-03T16:27:33.505Z error: FormValidateByU : 2026-08-03T16:26:55.542Z : TypeError: c.toEmbedCred is not a function
 2026-08-03T16:27:33.528Z error: AppExc: 105:service_unexpected_exception["c.toEmbedCred is not a function"]
+2026-08-04T06:45:46.977Z error: AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8092/master","TypeError: fetch failed"]
+2026-08-04T06:45:46.984Z error: FormValidateByT : 2026-08-04T06:45:38.377Z : AppExc: 108:remote_md_safes_access_exc@$mdUserGetICVS:["http://localhost:8092/master","TypeError: fetch failed"]
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13502:13
+    at async Function.postMDS (D:\git\asocial2-srv\src-fw\index.ts:557:26)
+    at async Function.doMDOp (D:\git\asocial2-srv\src-fw\index.ts:630:14)
+    at async Function.getCVS (D:\git\asocial2-srv\src-fw\index.ts:604:22)
+    at async AS2$Form_coauteur.uPub (D:\git\asocial2-srv\src-fw\documents.ts:475:17)
+    at async AS2$Form_coauteur.cryptMsgT (D:\git\asocial2-srv\src-fw\documents.ts:503:19)
+    at async FormValidateByT.phase2 (D:\git\asocial2-srv\src-fw\operations.ts:740:7)
+    at async FormValidateByT.transac (D:\git\asocial2-srv\src-fw\operation.ts:164:5)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:493:7)
+    at async FormValidateByT.run (D:\git\asocial2-srv\src-fw\operation.ts:184:30)
+2026-08-04T09:11:01.477Z error: ListManagers : 2026-08-04T09:09:17.648Z : TypeError: Cannot read properties of null (reading '0')
+2026-08-04T09:11:01.506Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of null (reading '0')"]
+2026-08-04T09:11:42.513Z error: ListManagers : 2026-08-04T09:11:12.780Z : TypeError: Cannot read properties of null (reading '0')
+2026-08-04T09:11:42.516Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of null (reading '0')"]
+2026-08-04T11:10:01.851Z error: UpdateCredential : 2026-08-04T11:09:48.834Z : AppExc: 103:not_configured_doc_class["$CoDir"]
+2026-08-04T11:10:01.860Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$CoDir\"]"]

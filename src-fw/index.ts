@@ -574,21 +574,22 @@ export class MDandSafe {
         throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
       } catch (error) {
         // Check if it's a connection reset error
+        const ec = error.code || error.cause.code
         const isResetError = 
-          error.code === 'ECONNRESET' ||
-          error.code === 'EPIPE' ||
-          error.code === 'ECONNABORTED' ||
-          error.code === 'ETIMEDOUT'
+          ec === 'ECONNRESET' ||
+          ec === 'EPIPE' ||
+          ec === 'ECONNABORTED' ||
+          ec === 'ETIMEDOUT'
         if (!isResetError || attempt === maxRetries) {
           if (error instanceof AppExc) throw error
           throw new AppExc(108, 'remote_md_safes_access_exc', 
             args, [(url || '?'), error.toString()], error.stack)
         }
         // Exponential backoff
-        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
-        const jitter = Math.floor(Math.random() * 250);
-        console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`);
-        await new Promise(resolve => setTimeout(resolve, delay + jitter));
+        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000)
+        const jitter = Math.floor(Math.random() * 250)
+        console.log(`Connection reset, retrying in ${delay + jitter}ms (attempt ${attempt}/${maxRetries})`)
+        await new Promise(resolve => setTimeout(resolve, delay + jitter))
       }
     }
   }

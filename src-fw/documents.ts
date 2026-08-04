@@ -282,7 +282,7 @@ export class $Credential extends $Document {
   }
 
   static async update (op: Operation, credId: string, docCl: string, docPk: string, props: Object): Promise<$Document> {
-    const dt = Registry.getDescr('', docCl)
+    const dt = DocDescriptor.get(op.svc + '$' + docCl)
     let doc
     if (dt.embedCreds) {
       doc = await op.cache.getDoc(op.svc + '$' + docCl, { pk: docPk }) as $Document
@@ -303,8 +303,14 @@ export class $Credential extends $Document {
   static async listManagers (op: Operation) : Promise<$Cred[]> {
     const lst: $Cred[] = []
     let sel: string[] = []
-    for(const cl of Registry.managers) 
-      sel.push(Crypt.shaS(cl + '/1'))
+    for(const cl of Registry.managers) {
+      let i = cl.indexOf('_')
+      const docCl = cl.substring(i + 1)
+      const dd = DocDescriptor.get(cl)
+      const x = dd.getIdx({ docCl: docCl, docPk: '1' }, 'doc')
+      sel.push(x)
+    }
+      
     if (sel.length) await op.db.selectDocs(op.svc + '$Credential', 'doc', filter.IN, sel, '', 0, 
       (bin: Uint8Array) => {
         try {
