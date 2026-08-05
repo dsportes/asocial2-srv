@@ -343,10 +343,9 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
         const sv = config.keys['SVKeys'][args['name']]
         obj = { key: sv ? sv.pub : '' }
         break
-      case 'CONFIG$yo' : 
-        await Util.sleep(1000)
-        res.status(200).type('text/plain').send('yo ' + new Date().toISOString())
-        return
+      case 'CONFIG$yo' :
+        obj = { yo: new Date().toISOString() }
+        break
       default :
         const e = new AppExc(103, 'unknown_operation', null, [opName])
         const b: Buffer = e.serial()

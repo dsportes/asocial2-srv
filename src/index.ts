@@ -16,12 +16,15 @@ config.dbConnectors = {
   firestore: AppFirestoreConnector
 }
 
+// const sqlb = new AppSQLiteConnector(config.keys['sqlite_b'], config.keys['sites']['A'])
+// const fs1 = new AppFirestoreConnector(config.keys['googleCloud'], config.keys['sites']['A'])
+
 config.databases = new Map<string, DbConnector>([
   ['masterDB', new AppSQLiteConnector(config.keys['sqlite_z'], config.keys['sites']['A'])],
   ['safeDB', new AppSQLiteConnector(config.keys['sqlite_z'], config.keys['sites']['A'])],
   ['svcDB', new AppSQLiteConnector(config.keys['sqlite_a'], config.keys['sites']['A'])],
-  // ['org1_DB', new AppSQLiteConnector(config.keys['sqlite_b'], config.keys['sites']['A'])],
-  // ['svcDB', new AppFirestoreConnector(config.keys['googleCloud'], config.keys['sites']['A'])],
+  // ['org1_DB', sqlb],
+  // ['svcDB', fs1],
 ])
 
 config.storages = new Map<string, IStGeneric>([

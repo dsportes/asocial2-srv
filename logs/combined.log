@@ -26665,3 +26665,172 @@ TypeError: fetch failed
 2026-08-04T11:14:45.746Z info: UpdateCredential finished
 2026-08-04T11:14:47.889Z info: ListManagers : 2026-08-04T11:14:47.889Z
 2026-08-04T11:14:47.895Z info: ListManagers finished
+2026-08-05T09:16:31.008Z info: Configuration pre-loaded
+2026-08-05T09:16:35.926Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T09:16:35.960Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T09:16:36.240Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T09:16:36.241Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T09:16:36.241Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T09:16:36.242Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T09:16:36.242Z info: fw documents loading: 4
+2026-08-05T09:16:36.243Z info: app operations loading: 10
+2026-08-05T09:16:36.243Z info: fw operations loading: 73
+2026-08-05T09:16:36.244Z info: app operations loading: 73
+2026-08-05T09:16:36.244Z info: safe operations loading: 73
+2026-08-05T09:16:36.245Z info: masterdir operations loading: 73
+2026-08-05T09:16:36.245Z info: Configuration completed
+2026-08-05T09:16:36.251Z info: Server started
+2026-08-05T09:16:36.253Z info: HTTP listen [8091]
+2026-08-05T09:17:26.062Z info: $GetSitesUrls finished
+2026-08-05T09:50:19.154Z info: Configuration pre-loaded
+2026-08-05T09:50:20.168Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T09:50:20.174Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T09:50:20.229Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T09:50:20.230Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T09:50:20.231Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T09:50:20.233Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T09:50:20.234Z info: fw documents loading: 4
+2026-08-05T09:50:20.236Z info: app operations loading: 10
+2026-08-05T09:50:20.237Z info: fw operations loading: 73
+2026-08-05T09:50:20.238Z info: app operations loading: 73
+2026-08-05T09:50:20.239Z info: safe operations loading: 73
+2026-08-05T09:50:20.240Z info: masterdir operations loading: 73
+2026-08-05T09:50:20.241Z info: Configuration completed
+2026-08-05T09:50:20.255Z info: Server started
+2026-08-05T09:50:20.258Z info: HTTP listen [8091]
+2026-08-05T09:51:50.693Z info: $OpenSafeByPin finished
+2026-08-05T09:51:59.254Z info: $GetSafe finished
+2026-08-05T09:52:08.641Z info: $GetServicesLabels finished
+2026-08-05T09:52:08.659Z info: $IsMDAdmin finished
+2026-08-05T09:52:08.678Z info: $GetSitesUrls finished
+2026-08-05T09:52:57.284Z info: $SetSiteUrl finished
+2026-08-05T09:52:57.297Z info: $GetSitesUrls finished
+2026-08-05T09:52:57.348Z info: ADMIN$isAdmin : 2026-08-05T09:52:57.348Z
+2026-08-05T09:52:57.357Z info: ADMIN$isAdmin finished
+2026-08-05T09:52:57.367Z info: ADMIN$getStatus : 2026-08-05T09:52:57.367Z
+2026-08-05T09:52:57.376Z info: ADMIN$getStatus finished
+2026-08-05T09:53:09.304Z info: ADMIN$isAdmin : 2026-08-05T09:53:09.304Z
+2026-08-05T09:53:09.310Z info: ADMIN$isAdmin finished
+2026-08-05T09:53:09.317Z info: ADMIN$getStatus : 2026-08-05T09:53:09.317Z
+2026-08-05T09:53:09.324Z info: ADMIN$getStatus finished
+2026-08-05T09:53:11.234Z info: ADMIN$getStatus : 2026-08-05T09:53:11.234Z
+2026-08-05T09:53:11.240Z info: ADMIN$getStatus finished
+2026-08-05T09:55:01.794Z info: $OpenSafeByPin finished
+2026-08-05T09:55:01.834Z info: $GetSafe finished
+2026-08-05T09:55:07.646Z info: $IsMDAdmin finished
+2026-08-05T09:55:09.609Z info: ADMIN$isAdmin : 2026-08-05T09:55:09.609Z
+2026-08-05T09:55:09.615Z info: ADMIN$isAdmin finished
+2026-08-05T09:55:09.621Z info: ADMIN$getStatus : 2026-08-05T09:55:09.621Z
+2026-08-05T09:55:09.629Z info: ADMIN$getStatus finished
+2026-08-05T09:55:21.793Z info: $SetSiteUrl finished
+2026-08-05T09:55:21.817Z info: $GetSitesUrls finished
+2026-08-05T09:55:21.870Z info: ADMIN$getStatus terminated on exception
+2026-08-05T09:55:21.939Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:00:42.258Z info: ADMIN$getStatus terminated on exception
+2026-08-05T10:00:42.260Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:01:22.691Z info: ADMIN$isAdmin : 2026-08-05T10:01:22.691Z
+2026-08-05T10:01:22.698Z info: ADMIN$isAdmin finished
+2026-08-05T10:01:22.710Z info: ADMIN$getStatus : 2026-08-05T10:01:22.710Z
+2026-08-05T10:01:22.715Z info: ADMIN$getStatus finished
+2026-08-05T10:01:33.946Z info: ADMIN$getStatus terminated on exception
+2026-08-05T10:01:33.948Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:04:36.794Z info: $OpenSafeByPin finished
+2026-08-05T10:04:36.838Z info: $GetSafe finished
+2026-08-05T10:04:41.247Z info: $GetServicesLabels finished
+2026-08-05T10:04:41.263Z info: $IsMDAdmin finished
+2026-08-05T10:04:41.280Z info: $GetSitesUrls finished
+2026-08-05T10:04:43.362Z info: ADMIN$isAdmin terminated on exception
+2026-08-05T10:04:43.363Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:04:43.374Z info: ADMIN$getStatus terminated on exception
+2026-08-05T10:04:43.378Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:06:45.795Z info: $SetSiteUrl finished
+2026-08-05T10:06:48.743Z info: $GetSitesUrls finished
+2026-08-05T10:11:19.580Z info: $SetSiteUrl finished
+2026-08-05T10:11:45.798Z info: $GetSitesUrls finished
+2026-08-05T10:12:47.044Z info: ADMIN$getStatus terminated on exception
+2026-08-05T10:12:47.045Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T10:12:47.053Z info: ADMIN$isAdmin terminated on exception
+2026-08-05T10:12:47.055Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T12:00:01.950Z info: Configuration pre-loaded
+2026-08-05T12:00:02.826Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T12:00:02.830Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T12:00:02.873Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T12:00:02.874Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T12:00:02.874Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T12:00:02.875Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T12:00:02.875Z info: fw documents loading: 4
+2026-08-05T12:00:02.876Z info: app operations loading: 10
+2026-08-05T12:00:02.876Z info: fw operations loading: 73
+2026-08-05T12:00:02.877Z info: app operations loading: 73
+2026-08-05T12:00:02.877Z info: safe operations loading: 73
+2026-08-05T12:00:02.878Z info: masterdir operations loading: 73
+2026-08-05T12:00:02.878Z info: Configuration completed
+2026-08-05T12:00:02.885Z info: Server started
+2026-08-05T12:00:02.887Z info: HTTP listen [8091]
+2026-08-05T12:01:19.423Z info: $OpenSafeByPin finished
+2026-08-05T12:01:19.476Z info: $GetSafe finished
+2026-08-05T12:01:29.049Z info: $GetServicesLabels finished
+2026-08-05T12:01:29.066Z info: $IsMDAdmin finished
+2026-08-05T12:01:37.668Z info: $GetSitesUrls finished
+2026-08-05T12:02:17.332Z info: $PingStore finished
+2026-08-05T12:02:17.350Z info: ADMIN$getStatus terminated on exception
+2026-08-05T12:02:17.367Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T12:03:21.847Z info: ADMIN$getStatus : 2026-08-05T12:03:21.846Z
+2026-08-05T12:03:21.857Z info: ADMIN$getStatus finished
+2026-08-05T12:03:21.861Z info: AppExc: 103:unknown_operation["CONFIG$YO"]
+2026-08-05T12:03:21.864Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["CONFIG$YO"]
+2026-08-05T12:03:58.293Z info: ADMIN$isAdmin : 2026-08-05T12:03:58.293Z
+2026-08-05T12:03:58.300Z info: ADMIN$isAdmin finished
+2026-08-05T12:06:57.413Z info: $OpenSafeByPin finished
+2026-08-05T12:06:57.462Z info: $GetSafe finished
+2026-08-05T12:07:02.657Z info: $GetServicesLabels finished
+2026-08-05T12:07:02.673Z info: $IsMDAdmin finished
+2026-08-05T12:07:02.695Z info: $GetSitesUrls finished
+2026-08-05T12:07:14.031Z info: ADMIN$getStatus : 2026-08-05T12:07:14.030Z
+2026-08-05T12:07:14.036Z info: ADMIN$getStatus finished
+2026-08-05T12:08:59.434Z info: $PingStore finished
+2026-08-05T12:08:59.450Z info: ADMIN$getStatus terminated on exception
+2026-08-05T12:08:59.457Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-05T12:22:36.402Z info: $OpenSafeByPin finished
+2026-08-05T12:22:36.446Z info: $GetSafe finished
+2026-08-05T12:22:40.204Z info: $GetServicesLabels finished
+2026-08-05T12:22:40.220Z info: $IsMDAdmin finished
+2026-08-05T12:22:40.247Z info: $GetSitesUrls finished
+2026-08-05T12:24:15.177Z info: $IsMDAdmin finished
+2026-08-05T12:24:36.328Z info: $OpenSafeByPin finished
+2026-08-05T12:24:36.369Z info: $GetSafe finished
+2026-08-05T12:24:39.804Z info: $GetServicesLabels finished
+2026-08-05T12:24:39.846Z info: $IsMDAdmin finished
+2026-08-05T12:24:39.876Z info: $GetSitesUrls finished
+2026-08-05T12:26:01.703Z info: $PingStore finished
+2026-08-05T12:27:00.288Z info: $PingStore finished
+2026-08-05T12:28:27.452Z info: $OpenSafeByPin finished
+2026-08-05T12:28:27.503Z info: $GetSafe finished
+2026-08-05T12:28:31.535Z info: $GetServicesLabels finished
+2026-08-05T12:28:31.551Z info: $IsMDAdmin finished
+2026-08-05T12:28:31.571Z info: $GetSitesUrls finished
+2026-08-05T12:32:00.755Z info: Configuration pre-loaded
+2026-08-05T12:32:01.350Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T12:32:01.355Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T12:32:01.385Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T12:32:01.385Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T12:32:01.386Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T12:32:01.387Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T12:32:01.388Z info: fw documents loading: 4
+2026-08-05T12:32:01.389Z info: app operations loading: 10
+2026-08-05T12:32:01.390Z info: fw operations loading: 73
+2026-08-05T12:32:01.390Z info: app operations loading: 73
+2026-08-05T12:32:01.391Z info: safe operations loading: 73
+2026-08-05T12:32:01.391Z info: masterdir operations loading: 73
+2026-08-05T12:32:01.392Z info: Configuration completed
+2026-08-05T12:32:01.400Z info: Server started
+2026-08-05T12:32:01.402Z info: HTTP listen [8091]
+2026-08-05T12:33:48.985Z info: $OpenSafeByPin finished
+2026-08-05T12:33:49.038Z info: $GetSafe finished
+2026-08-05T12:33:54.032Z info: $GetServicesLabels finished
+2026-08-05T12:33:54.050Z info: $IsMDAdmin finished
+2026-08-05T12:33:54.073Z info: $GetSitesUrls finished
+2026-08-05T12:34:00.082Z info: ADMIN$isAdmin : 2026-08-05T12:34:00.082Z
+2026-08-05T12:34:00.089Z info: ADMIN$isAdmin finished
+2026-08-05T12:34:00.094Z info: ADMIN$getStatus : 2026-08-05T12:34:00.094Z
+2026-08-05T12:34:00.102Z info: ADMIN$getStatus finished

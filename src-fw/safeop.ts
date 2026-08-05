@@ -555,9 +555,9 @@ class $DelSafe extends SafeOperation {
 Registry.registerOp($DelSafe)
 
 /* Ping */
-class $Ping extends SafeOperation {
+class $PingStore extends SafeOperation {
   async doTheJob () : Promise<void> {
-    this.setRes('ping', true)
+    this.setRes('pingstore', new Date().toISOString())
   }
 }
-Registry.registerOp($Ping)
+Registry.registerOp($PingStore)

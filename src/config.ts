@@ -19,8 +19,8 @@ export const config = {
   SVC: 'AS2',
   ADMINUSERS,
   MASTERDIRADMINUSERS,
-  MASTERDIR_URL: 'http://localhost:8092/master',
-  STDSAFE_URL: 'http://localhost:8092/safe',
+  MASTERDIR_URL: 'http://localhost:8091/master',
+  STDSAFE_URL: 'http://localhost:8091/safe',
 
   PROD: env.NODE_ENV === 'production' ? true : false,
   GCLOUDLOGGING: gcp ? true : false,
