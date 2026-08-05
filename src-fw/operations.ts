@@ -227,8 +227,13 @@ Registry.registerOp(FW$ErrorTest)
   txt: texte explicatif éventuel de l'administrateur
 */
 class FW$getStatus extends Operation {
+  _svc: string
+  init () { 
+    super.init() 
+    this._svc = this.stringValue('svc', true)
+  }
   async phase2 () {
-    const dd = await Cache.getRow(this, this.svc + '$Status', null, config.STATUSLAZYNESS)
+    const dd = await Cache.getRow(this, this.svc + '$Status', { svc: this._svc }, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
@@ -245,18 +250,20 @@ Registry.registerOp(FW$getStatus)
   ADMINISTRATEUR
 */
 class FW$setStatus extends Operation {
+  _svc: string
   _st: number
   _txt: string
   init () {
     super.init()
+    this._svc = this.stringValue('svc', true)
     this._st = this.intValue('st', true, 0, 9)
     this._txt = this.stringValue('txt', true)
   }
   async phase2 () {
     this.requireAdmin()
-    let doc = await this.cache.getDoc(this.svc + '$Status') as $Document
+    let doc = await this.cache.getDoc(this.svc + '$Status', { svc: this._svc }) as $Document
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc(this.svc + '$Status')
+    else doc = this.cache.newDoc(this.svc + '$Status', { svc: this._svc })
     doc['at'] = Date.now()
     doc['st'] = this._st
     doc['txt'] = this._txt || ''

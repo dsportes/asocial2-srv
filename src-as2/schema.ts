@@ -10,7 +10,7 @@ try {
   const nf = FormType.size()
 
   new DocDescriptor(svc,
-    { name: 'Status', sync: true }
+    { name: 'Status', sync: true, pk: ['svc'], nohash: true }
   )
 
   new DocDescriptor(svc, 
