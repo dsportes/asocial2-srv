@@ -16,7 +16,7 @@ const SRVKEY = env.SRVKEY || '2_b7DjJjC4x_oaYs2Z6J2_I6igIoLmuhsuv6nBRE3QE'
 
 import { BaseConfig } from '../src-fw/baseConfig'
 export const config = {
-  SVC: 'AS2',
+  SERVICES: new Set(['AS2']),
   ADMINUSERS,
   MASTERDIRADMINUSERS,
   MASTERDIR_URL: 'http://localhost:8091/master',

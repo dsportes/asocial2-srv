@@ -343,8 +343,8 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
         const sv = config.keys['SVKeys'][args['name']]
         obj = { key: sv ? sv.pub : '' }
         break
-      case 'CONFIG$yo' :
-        obj = { yo: new Date().toISOString() }
+      case 'CONFIG$Services' :
+        obj = { at: Date.now(), services: Array.from(config.SERVICES) }
         break
       default :
         const e = new AppExc(103, 'unknown_operation', null, [opName])

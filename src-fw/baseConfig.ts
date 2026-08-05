@@ -1,5 +1,5 @@
 export interface BaseConfig {
-  SVC: string // code service
+  SERVICES: Set<string> // codes des services hébergés sur le site
   ADMINUSERS: Set<string>
   MASTERDIRADMINUSERS: Set<string>
   MASTERDIR_URL: string

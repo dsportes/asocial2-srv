@@ -26834,3 +26834,143 @@ TypeError: fetch failed
 2026-08-05T12:34:00.089Z info: ADMIN$isAdmin finished
 2026-08-05T12:34:00.094Z info: ADMIN$getStatus : 2026-08-05T12:34:00.094Z
 2026-08-05T12:34:00.102Z info: ADMIN$getStatus finished
+2026-08-05T13:44:39.131Z info: Configuration pre-loaded
+2026-08-05T13:44:39.474Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T13:44:39.478Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T13:44:39.517Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:44:39.518Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:44:39.519Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T13:44:39.519Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T13:44:39.520Z info: fw documents loading: 4
+2026-08-05T13:44:39.520Z info: app operations loading: 10
+2026-08-05T13:44:39.521Z info: fw operations loading: 73
+2026-08-05T13:44:39.521Z info: app operations loading: 73
+2026-08-05T13:44:39.522Z info: safe operations loading: 73
+2026-08-05T13:44:39.522Z info: masterdir operations loading: 73
+2026-08-05T13:44:39.522Z info: Configuration completed
+2026-08-05T13:44:39.532Z info: Server started
+2026-08-05T13:44:39.534Z info: HTTP listen [8091]
+2026-08-05T13:44:47.516Z info: $OpenSafeByPin finished
+2026-08-05T13:44:47.561Z info: $GetSafe finished
+2026-08-05T13:44:52.411Z info: $IsMDAdmin finished
+2026-08-05T13:46:22.636Z info: $OpenSafeByPin finished
+2026-08-05T13:46:22.721Z info: $GetSafe finished
+2026-08-05T13:46:28.619Z info: $GetServicesLabels finished
+2026-08-05T13:46:28.631Z info: $IsMDAdmin finished
+2026-08-05T13:46:28.651Z info: $GetSitesUrls finished
+2026-08-05T13:47:23.745Z info: ADMIN$isAdmin : 2026-08-05T13:47:23.744Z
+2026-08-05T13:47:23.753Z info: ADMIN$isAdmin finished
+2026-08-05T13:49:38.295Z info: Configuration pre-loaded
+2026-08-05T13:49:38.641Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T13:49:38.645Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T13:49:38.673Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:49:38.674Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:49:38.675Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T13:49:38.676Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T13:49:38.676Z info: fw documents loading: 4
+2026-08-05T13:49:38.677Z info: app operations loading: 10
+2026-08-05T13:49:38.678Z info: fw operations loading: 73
+2026-08-05T13:49:38.678Z info: app operations loading: 73
+2026-08-05T13:49:38.678Z info: safe operations loading: 73
+2026-08-05T13:49:38.679Z info: masterdir operations loading: 73
+2026-08-05T13:49:38.679Z info: Configuration completed
+2026-08-05T13:49:38.688Z info: Server started
+2026-08-05T13:49:38.690Z info: HTTP listen [8091]
+2026-08-05T13:52:04.831Z info: Configuration pre-loaded
+2026-08-05T13:52:05.275Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T13:52:05.278Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T13:52:05.322Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:52:05.323Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T13:52:05.324Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T13:52:05.326Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T13:52:05.327Z info: fw documents loading: 4
+2026-08-05T13:52:05.328Z info: app operations loading: 10
+2026-08-05T13:52:05.329Z info: fw operations loading: 73
+2026-08-05T13:52:05.330Z info: app operations loading: 73
+2026-08-05T13:52:05.331Z info: safe operations loading: 73
+2026-08-05T13:52:05.332Z info: masterdir operations loading: 73
+2026-08-05T13:52:05.333Z info: Configuration completed
+2026-08-05T13:52:05.348Z info: Server started
+2026-08-05T13:52:05.352Z info: HTTP listen [8091]
+2026-08-05T13:52:37.522Z info: ADMIN$isAdmin : 2026-08-05T13:52:37.522Z
+2026-08-05T13:52:37.542Z info: ADMIN$isAdmin finished
+2026-08-05T14:09:23.551Z info: $OpenSafeByPin finished
+2026-08-05T14:09:23.603Z info: $GetSafe finished
+2026-08-05T14:09:27.289Z info: $GetServicesLabels finished
+2026-08-05T14:09:27.305Z info: $IsMDAdmin finished
+2026-08-05T14:09:27.323Z info: $GetSitesUrls finished
+2026-08-05T14:09:47.436Z info: ADMIN$isAdmin : 2026-08-05T14:09:47.436Z
+2026-08-05T14:09:47.440Z info: ADMIN$isAdmin finished
+2026-08-05T14:12:56.372Z info: $OpenSafeByPin finished
+2026-08-05T14:12:56.467Z info: $GetSafe finished
+2026-08-05T14:13:00.517Z info: $GetServicesLabels finished
+2026-08-05T14:13:00.532Z info: $IsMDAdmin finished
+2026-08-05T14:13:00.556Z info: $GetSitesUrls finished
+2026-08-05T14:14:39.738Z info: ADMIN$isAdmin : 2026-08-05T14:14:39.738Z
+2026-08-05T14:14:39.743Z info: ADMIN$isAdmin finished
+2026-08-05T14:24:18.588Z info: $OpenSafeByPin finished
+2026-08-05T14:24:18.637Z info: $GetSafe finished
+2026-08-05T14:24:23.992Z info: $GetServicesLabels finished
+2026-08-05T14:24:24.008Z info: $IsMDAdmin finished
+2026-08-05T14:24:24.031Z info: $GetSitesUrls finished
+2026-08-05T14:30:17.307Z info: $OpenSafeByPin finished
+2026-08-05T14:30:17.358Z info: $GetSafe finished
+2026-08-05T14:30:21.263Z info: $GetServicesLabels finished
+2026-08-05T14:30:21.279Z info: $IsMDAdmin finished
+2026-08-05T14:30:21.301Z info: $GetSitesUrls finished
+2026-08-05T14:38:47.902Z info: $OpenSafeByPin finished
+2026-08-05T14:38:47.943Z info: $GetSafe finished
+2026-08-05T14:38:51.804Z info: $GetServicesLabels finished
+2026-08-05T14:38:51.820Z info: $IsMDAdmin finished
+2026-08-05T14:38:51.842Z info: $GetSitesUrls finished
+2026-08-05T14:39:04.423Z info: ADMIN$isAdmin : 2026-08-05T14:39:04.423Z
+2026-08-05T14:39:04.427Z info: ADMIN$isAdmin finished
+2026-08-05T14:47:39.127Z info: ADMIN$isAdmin : 2026-08-05T14:47:39.127Z
+2026-08-05T14:47:39.129Z info: ADMIN$isAdmin finished
+2026-08-05T14:47:45.272Z info: $PingStore finished
+2026-08-05T15:46:03.790Z info: Configuration pre-loaded
+2026-08-05T15:46:04.704Z info: FW document descriptors:4 forms descriptors:4
+2026-08-05T15:46:04.708Z info: AS2 document descriptors:7 forms descriptors:7
+2026-08-05T15:46:04.776Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T15:46:04.777Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-05T15:46:04.778Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-05T15:46:04.779Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-05T15:46:04.780Z info: fw documents loading: 4
+2026-08-05T15:46:04.782Z info: app operations loading: 10
+2026-08-05T15:46:04.783Z info: fw operations loading: 73
+2026-08-05T15:46:04.784Z info: app operations loading: 73
+2026-08-05T15:46:04.785Z info: safe operations loading: 73
+2026-08-05T15:46:04.786Z info: masterdir operations loading: 73
+2026-08-05T15:46:04.787Z info: Configuration completed
+2026-08-05T15:46:04.798Z info: Server started
+2026-08-05T15:46:04.800Z info: HTTP listen [8091]
+2026-08-05T15:46:42.587Z info: $OpenSafeByPin finished
+2026-08-05T15:46:42.638Z info: $GetSafe finished
+2026-08-05T15:46:48.664Z info: $GetServicesLabels finished
+2026-08-05T15:46:48.680Z info: $IsMDAdmin finished
+2026-08-05T15:46:48.698Z info: $GetSitesUrls finished
+2026-08-05T15:47:33.334Z info: ADMIN$isAdmin : 2026-08-05T15:47:33.333Z
+2026-08-05T15:47:33.352Z info: ADMIN$isAdmin finished
+2026-08-05T15:47:33.356Z info: ADMIN$getStatus : 2026-08-05T15:47:33.356Z
+2026-08-05T15:48:02.840Z info: ADMIN$getStatus finished
+2026-08-05T15:48:27.231Z info: ADMIN$setStatus : 2026-08-05T15:48:27.231Z
+2026-08-05T15:48:57.555Z info: ADMIN$setStatus finished
+2026-08-05T15:49:48.246Z info: $GetOrgSvc finished
+2026-08-05T15:49:48.278Z info: ADMIN$getStatus : 2026-08-05T15:49:48.278Z
+2026-08-05T15:49:48.284Z info: ADMIN$getStatus finished
+2026-08-05T15:49:48.288Z info: FW$getStatus : 2026-08-05T15:49:48.288Z
+2026-08-05T15:49:48.295Z info: FW$getStatus finished
+2026-08-05T15:50:21.202Z info: FW$setStatus : 2026-08-05T15:50:21.201Z
+2026-08-05T15:50:21.208Z info: FW$setStatus finished
+2026-08-05T15:50:29.504Z info: ADMIN$getStatus : 2026-08-05T15:50:29.504Z
+2026-08-05T15:50:29.508Z info: ADMIN$getStatus finished
+2026-08-05T15:50:34.901Z info: FW$getStatus : 2026-08-05T15:50:34.901Z
+2026-08-05T15:50:34.905Z info: FW$getStatus finished
+2026-08-05T15:50:34.911Z info: ADMIN$getStatus : 2026-08-05T15:50:34.911Z
+2026-08-05T15:50:34.918Z info: ADMIN$getStatus finished
+2026-08-05T15:50:38.417Z info: ADMIN$getStatus : 2026-08-05T15:50:38.417Z
+2026-08-05T15:50:38.420Z info: ADMIN$getStatus finished
+2026-08-05T15:50:43.042Z info: FW$getStatus : 2026-08-05T15:50:43.041Z
+2026-08-05T15:50:43.046Z info: FW$getStatus finished
+2026-08-05T15:50:43.052Z info: ADMIN$getStatus : 2026-08-05T15:50:43.052Z
+2026-08-05T15:50:43.059Z info: ADMIN$getStatus finished

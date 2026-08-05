@@ -26,6 +26,7 @@ nd++; Registry.register(ADMIN$Task)
 
 export class ADMIN$Status extends $Document {
   static release = 0
+  svc: string // service (pk)
   st: number // code 0: inconnu 1: UP 2: READ-ONLY 9: DOWN
   at: number // time de dernière mise à jour
   txt: string // texte explicatif éventuel de l'administrateur
@@ -461,8 +462,8 @@ export class $Form extends $Document {
     return obj as $FormObj
   }
 
-  chk (op: OperationWC) { 
-    return Crypt.shaS([this.formId, this.type, this.userId, config.SVC, op.org].join('/')) 
+  chk (op: Operation) { 
+    return Crypt.shaS([this.formId, this.type, this.userId, op.svc, op.org].join('/')) 
   }
 
   setMaxLife () {

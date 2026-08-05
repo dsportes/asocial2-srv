@@ -36,15 +36,20 @@ class ADMIN$isAdmin extends Operation {
 }
 Registry.registerOp(ADMIN$isAdmin)
 
-/* ADMIN$getStatus retourne le status du site: { st, at, txt }
+/* ADMIN$getStatus retourne le status du service: { st, at, txt }
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
   Du fait de $, adresse la pseudo organisation 'A' (donc le service)
 */
 class ADMIN$getStatus extends Operation {
+  _svc: string
+  init () {
+    super.init()
+    this._svc = this.stringValue('svc', true)
+  }
   async phase2 () {
-    const dd = await Cache.getRow(this, 'ADMIN$Status', null, config.STATUSLAZYNESS)
+    const dd = await Cache.getRow(this, 'ADMIN$Status', { svc: this._svc}, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
@@ -60,18 +65,20 @@ Registry.registerOp(ADMIN$getStatus)
   txt: texte explicatif éventuel de l'administrateur
 */
 class ADMIN$setStatus extends Operation {
+  _svc: string
   _st: number
   _txt: string
   init () {
     super.init()
+    this._svc = this.stringValue('svc', true)
     this._st = this.intValue('st', true, 0, 9)
     this._txt = this.stringValue('txt', true)
   }
   async phase2 () {
     this.requireAdmin()
-    let doc: ADMIN$Status = await this.cache.getDoc('ADMIN$Status') as ADMIN$Status
+    let doc: ADMIN$Status = await this.cache.getDoc('ADMIN$Status', { svc: this._svc }) as ADMIN$Status
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc('ADMIN$Status') as ADMIN$Status
+    else doc = this.cache.newDoc('ADMIN$Status', { svc: this._svc }) as ADMIN$Status
     doc.at = Date.now()
     doc.st = this._st
     doc.txt = this._txt || ''
