@@ -58,7 +58,7 @@ export type $subscription = {
 
 /* Un document Subs décrit la souscription d'une session:
 */
-export class ADMIN$Subs extends $Document {
+export class $Subs extends $Document {
   static release = 0
 
   sessionId: string
@@ -68,7 +68,7 @@ export class ADMIN$Subs extends $Document {
   title: string
   maxLife: number
 
-  static newSubs (op: OperationWC, subs: $subscription, maxLife: number) : $Document {
+  static newSubs (op: Operation, subs: $subscription, maxLife: number) : $Document {
     const initVals = { 
       subJSON: subs.subJSON,
       sessionId: subs.sessionId,
@@ -77,12 +77,12 @@ export class ADMIN$Subs extends $Document {
       defs: subs.defs,
       maxLife : maxLife
     }
-    return op.cache.newDoc('ADMIN$Subs', initVals)
+    return op.cache.newDoc(op.svc + '$Subs', initVals)
   }
 }
-nd++; Registry.register(ADMIN$Subs)
 
-/* TODO : QUID de org ?
+
+/*
 Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
 et peut avoir trois formes: 
 - 0 : souscription à la classe de documents: tous changements des documents de la classe 
@@ -98,7 +98,7 @@ La définition def d'un SubsItem est le string:
 def est une propriété indexée: permet de récupérer tous les SubsItem 
   ayant même définition (donc les sessionId correspondantes)
 */
-export class ADMIN$SubsItem extends $Document {
+export class $SubsItem extends $Document {
   static release = 0
 
   sessionId : string
@@ -121,25 +121,25 @@ export class ADMIN$SubsItem extends $Document {
     return clazz + '/' + colName + '/' + val
   }
 
-  static newSubsItem (op: OperationWC, sessionId: string, def: string, maxLife: number) : $Document {
+  static newSubsItem (op: Operation, sessionId: string, def: string, maxLife: number) : $Document {
     const initVals = {
       sessionId: sessionId,
       def: def,
       maxLife : maxLife
     }
-    return op.cache.newDoc('ADMIN$SubsItem', initVals)
+    return op.cache.newDoc(op.svc + '$SubsItem', initVals)
   }
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
   (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
-  static async getSessionIds (op: OperationWC, def: string) : Promise<string[]> {
+  static async getSessionIds (op: Operation, def: string) : Promise<string[]> {
     /*
     selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
       order: string, limit: number, fn: Function)  : Promise<void>
     */
     const sids : string[] = []
-    await op.db.selectDocs('ADMIN$SubsItem', 'def', filter.EQ, def, '', 0, 
+    await op.db.selectDocs(op.svc + '$SubsItem', 'def', filter.EQ, def, '', 0, 
       (org: string, data: Uint8Array) => {
         const d = decode(data)
         sids.push(d['sessionId'])
@@ -147,9 +147,9 @@ export class ADMIN$SubsItem extends $Document {
     return sids
   }
 
-  static async deleteSessionId (op: OperationWC, sessionId: string) : Promise<void> {
+  static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    await op.db.selectDocs('ADMIN$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
+    await op.db.selectDocs(op.svc + '$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
       async (org: string, data: Uint8Array) => {
         const d = decode(data)
         const pk = Crypt.shaS(sessionId + '/' + d['def'])
@@ -158,7 +158,6 @@ export class ADMIN$SubsItem extends $Document {
   }
 
 }
-nd++; Registry.register(ADMIN$SubsItem)
 
 export type $Cred = {
   credId: string

@@ -7,7 +7,7 @@ import { AppExc } from '../src-fw/log'
 import { MDandSafe } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { Registry } from '../src-fw/registry'
-import { ADMIN$Status, ADMIN$Subs, $subscription, ADMIN$SubsItem, $Credential, 
+import { ADMIN$Status, $Subs, $subscription, $SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus, $Document } from '../src-fw/document'
 // import { Util } from '../src-fw/util'
@@ -132,11 +132,11 @@ Registry.registerOp(ADMIN$setEnum)
 - les opérations sont des ADMIN$... qui cite le "site"
 */
 
-/* ADMIN$setSubscription enregistre la souscription d'une session *************************
+/* FW$setSubscription enregistre la souscription d'une session *************************
 - Supprime la précédente s'il y en avait une
 - Créé une nouvelle si l'argument subscription n'est pas null
 */
-class ADMIN$setSubscription extends Operation {
+class FW$setSubscription extends Operation {
   _subs: $subscription
   _life: number
   init () {
@@ -146,23 +146,23 @@ class ADMIN$setSubscription extends Operation {
     this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
   async phase2 () {
-    await ADMIN$SubsItem.deleteSessionId(this, this._subs.sessionId)
+    await $SubsItem.deleteSessionId(this, this._subs.sessionId)
     if (this._subs) {
-      const subs = ADMIN$Subs.newSubs(this, this._subs, this._life) as ADMIN$Subs
+      const subs = $Subs.newSubs(this, this._subs, this._life) as $Subs
       for (const def in subs.defs) {
         // const msg = subs.defs[def] - pas enregistré dans SubsItem
-        ADMIN$SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+        $SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
       }
     }
   }
 }
-Registry.registerOp(ADMIN$setSubscription)
+Registry.registerOp(FW$setSubscription)
 
 /* ADMIN$updateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
 Maj éventuelle de title / url
 Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
 */
-class ADMIN$updateSubscription extends Operation {
+class FW$updateSubscription extends Operation {
   _title: string
   _url: string
   _defs: Object
@@ -173,7 +173,7 @@ class ADMIN$updateSubscription extends Operation {
     this._defs = this.objectValue('defs', true)
   }
   async phase2 () {
-    const subs = await this.cache.getDoc('ADMIN$Subs', { sessionId: this.sessionId}) as ADMIN$Subs
+    const subs = await this.cache.getDoc(this.svc + '$Subs', { sessionId: this.sessionId}) as $Subs
     if (!subs) 
       throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
 
@@ -186,13 +186,13 @@ class ADMIN$updateSubscription extends Operation {
       const msg = this._defs[def]
       if (msg === false) {
         delete subs.defs[def]
-        await this.cache.getDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
+        await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
         this.cache.delDoc('ADMIN$$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
       } else {
         subs.defs[def] = msg
-        let subsItem = await this.cache.getDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
+        let subsItem = await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
         if (!subsItem) {
-          subsItem = this.cache.newDoc('ADMIN$$SubsItem', src) as ADMIN$SubsItem
+          subsItem = this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
           subsItem._status = DocStatus.NEW
         } else { 
           subsItem.def = def
@@ -203,7 +203,7 @@ class ADMIN$updateSubscription extends Operation {
     }
   }
 }
-Registry.registerOp(ADMIN$updateSubscription)
+Registry.registerOp(FW$updateSubscription)
 
 
 /* Operations standard ***********************************************************/

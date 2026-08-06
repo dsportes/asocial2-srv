@@ -20,18 +20,6 @@ try {
       ['startTime',  { type: propType.STRING, global: true }]
     ])
   )
-  
-  new DocDescriptor(svc,
-    { name: 'Subs', pk: ['sessionId'] }
-  )
-  
-  new DocDescriptor(svc,
-    { name: 'SubsItem', pk: ['sessionId', 'def'] },
-    null,
-    new Map<string, idx>([
-      ['def',  { type: propType.STRING }]
-    ])
-  )
 
   Log.info('FW document descriptors:' + (DocDescriptor.size() - nd) 
     + ' forms descriptors:' + (FormType.size() - nf))

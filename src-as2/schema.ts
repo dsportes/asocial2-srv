@@ -13,6 +13,18 @@ try {
     { name: 'Status', sync: true, pk: ['svc'], nohash: true }
   )
 
+  new DocDescriptor(svc,
+    { name: 'Subs', pk: ['sessionId'] }
+  )
+  
+  new DocDescriptor(svc,
+    { name: 'SubsItem', pk: ['sessionId', 'def'] },
+    null,
+    new Map<string, idx>([
+      ['def',  { type: propType.STRING }]
+    ])
+  )
+
   new DocDescriptor(svc, 
     { name: 'Credential', pk: ['credId'], nohash: true, subClassBy: 'docCl' },
     null,

@@ -1,7 +1,7 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { $Document } from '../src-fw/document'
-import { $Form, ADMIN$Status, $Credential } from '../src-fw/documents'
+import { $Form, ADMIN$Status, $Credential, $Subs, $SubsItem } from '../src-fw/documents'
 import { Log } from '../src-fw/log'
 import { Registry } from '../src-fw/registry'
 import { Operation } from '../src-fw/operation'
@@ -32,6 +32,14 @@ new FormType('coauteur', 'k2', ['Readction/1', 'Auteur/$1'])
 class AS2$Status extends ADMIN$Status {
 }
 nd++; Registry.register(AS2$Status)
+
+class AS2$Subs extends $Subs {
+}
+nd++; Registry.register(AS2$Subs)
+
+class AS2$SubsItem extends $SubsItem {
+}
+nd++; Registry.register(AS2$SubsItem)
 
 class AS2$Form extends $Form {
 }

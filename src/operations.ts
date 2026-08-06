@@ -10,7 +10,7 @@ export function loadingOA () {
   Log.info('app operations loading: ' + Registry.sizeOp())
 }
 
-/* Retourne une clé publique de cryptage de configuation */
+/* Retourne l'id autid d'un auteur d'après son "nom" */
 class AutidDeNom extends Operation {
   _nom: string
   init () {
