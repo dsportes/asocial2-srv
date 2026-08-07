@@ -1,7 +1,7 @@
 import { encode } from '@msgpack/msgpack'
 
 import { row } from '../src-fw/iDbGeneric'
-import { Registry } from './registry'
+import { Registry, topCl } from './registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
 import { $CredTempl } from '../src-fw/documents'
 // import { AppExc } from '../src-fw/log'
@@ -21,7 +21,7 @@ export class $Document {
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
 
-  get _docDescriptor () { return DocDescriptor.get(this.constructor.name) }
+  get _docDescriptor () { return this.constructor['_docDescriptor'] }
 
   v: number
   release: number // numéro de release de la structure de l'objet

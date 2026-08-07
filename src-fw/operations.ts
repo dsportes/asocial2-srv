@@ -5,8 +5,8 @@ import { Operation, Cache } from '../src-fw/operation'
 import { MDEventS } from '../src-fw/masterdir'
 import { AppExc } from '../src-fw/log'
 import { MDandSafe } from '../src-fw/index'
-import { Crypt } from '../src-fw/crypt'
-import { Registry } from '../src-fw/registry'
+import { Registry, topCl } from '../src-fw/registry'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 import { ADMIN$Status, $Subs, $subscription, $SubsItem, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus, $Document } from '../src-fw/document'
@@ -126,85 +126,99 @@ class ADMIN$setEnum extends Operation {
 }
 Registry.registerOp(ADMIN$setEnum)
 
-/* Gestion des souscriptions:
-- les documents sont: ADMIN$Subs ADMIN$SubsItem.
-- ils sont enregistrés au niveau du site (dans la db "par défaut" du site)
-- les opérations sont des ADMIN$... qui cite le "site"
-*/
-
-/* FW$setSubscription enregistre la souscription d'une session *************************
-- Supprime la précédente s'il y en avait une
-- Créé une nouvelle si l'argument subscription n'est pas null
+/* FW$setSubscription enregistre la souscription d'une session (pour le svc / org de l'opération)
+- Si subs.defs est null : c'est une suppression
+  si elle existait suppression de subs et des subsitem
+- Sinon c'est une création OU une mise à jour:
+  pour une mise à jour supprime / ajoute ou met à jour les SubsItem
+  en considérant ceux existants et les nouveaux
 */
 class FW$setSubscription extends Operation {
   _subs: $subscription
-  _life: number
+  _maxLife: number
   init () {
     super.init()
-    this._subs = this.objectValue('subsscription', false) as $subscription
+    this._subs = this.objectValue('subscription', true) as $subscription
     const longLife = this.boolValue('longLife', false)
-    this._life = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
+    this._maxLife = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
   }
   async phase2 () {
-    await $SubsItem.deleteSessionId(this, this._subs.sessionId)
-    if (this._subs) {
-      const subs = $Subs.newSubs(this, this._subs, this._life) as $Subs
-      for (const def in subs.defs) {
-        // const msg = subs.defs[def] - pas enregistré dans SubsItem
-        $SubsItem.newSubsItem(this, this._subs.sessionId, def, this._life)
+    const subs = await this.cache.getDoc(this.svc + '$Subs', { sessionId: this.sessionId }) as $Subs
+
+    if (this._subs.defs) { // Création ou mise à jour
+      if (subs) { // Mise à jour
+        let upd = false
+        if (subs.url !== this._subs.url) { subs.url = this._subs.url; upd = true }
+        if (subs.title !== this._subs.title) { subs.title = this._subs.title; upd = true }
+        if (subs.maxLife !== this._maxLife) { subs.maxLife = this._maxLife; upd = true }
+        const olddefs = new Set(Object.keys(subs.defs))
+        const newdefs = new Set(Object.keys(this._subs.defs))      
+        const ddsi = DocDescriptor.get(this.svc + '$SubsItem')
+
+        // Suppression des defs anciens non repris
+        for (const def of olddefs) {
+          if (!newdefs.has(def)) {
+            const pk = ddsi.pkValue({ sessionId: subs.sessionId, def })
+            this.cache.delDoc(this.svc + '$SubsItem', pk)
+            upd = true
+          }
+        }
+
+        // Ajout des nouveaux defs qui n'existaient pas avant
+        for (const def of newdefs) {
+          if (!olddefs.has(def)) { 
+            const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
+            this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
+            upd = true
+          }
+        }
+
+        // Maj éventuelle du maxLife des defs toujours existants
+        for (const def of newdefs) {
+          if (olddefs.has(def)) { 
+            const newMsg = this._subs.defs[def]
+            const oldMsg = subs.defs[def]
+            if (newMsg !== oldMsg) upd = true
+            if (subs.maxLife !== this._maxLife) {
+              const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
+              let subsItem = await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
+              if (subsItem) { // ca devrait toujours être le cas
+                subsItem.maxLife = this._maxLife
+                subsItem._status = DocStatus.UPD
+              } else { // superstition, on le crée au cas où ...
+                const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
+                this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
+              }
+            }
+          }
+        }
+        if (upd) {
+          subs.defs = this._subs.defs
+          subs._status = DocStatus.UPD
+        }
+      } else { // Création
+        const initVals = { 
+          subJSON: this._subs.subJSON,
+          sessionId: this._subs.sessionId,
+          url: this._subs.url,
+          title: this._subs.title,
+          defs: this._subs.defs,
+          maxLife : this._maxLife
+        }
+        this.cache.newDoc(this.svc + '$Subs', initVals)
+        for (const def in this._subs.defs)
+          this.cache.newDoc(this.svc + '$SubsItem', 
+            { sessionId: this._subs.sessionId, def, maxLife : this._maxLife })
+      }
+    } else { // suppression de la subscription pour sessionId
+      if (subs) {
+        subs._status = DocStatus.DEL
+        await $SubsItem.deleteSessionId(this, this._subs.sessionId)
       }
     }
   }
 }
 Registry.registerOp(FW$setSubscription)
-
-/* ADMIN$updateSubscription corrige la sousciption d'une session SI ELLE EXISTAIT
-Maj éventuelle de title / url
-Ajoute des defs, met à jour leur message ou en enlève { def1: 'm1', def2: '', def3: false }
-*/
-class FW$updateSubscription extends Operation {
-  _title: string
-  _url: string
-  _defs: Object
-  init () {
-    super.init()
-    this._title = this.stringValue('title', false)
-    this._url = this.stringValue('url', false)
-    this._defs = this.objectValue('defs', true)
-  }
-  async phase2 () {
-    const subs = await this.cache.getDoc(this.svc + '$Subs', { sessionId: this.sessionId}) as $Subs
-    if (!subs) 
-      throw new AppExc(105, 'Subscription_unknown_session', this, [this.sessionId])
-
-    if (this.args['title']) { subs.title = this._title; subs._status = DocStatus.UPD }
-
-    if (this.args['url']) { subs.url = this._url; subs._status = DocStatus.UPD }
-
-    for (const def in this._defs) {
-      const src = { sessionId: this.sessionId, def, maxLife: subs.maxLife }
-      const msg = this._defs[def]
-      if (msg === false) {
-        delete subs.defs[def]
-        await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
-        this.cache.delDoc('ADMIN$$SubsItem', Crypt.shaS(this.sessionId + '/' + def))
-      } else {
-        subs.defs[def] = msg
-        let subsItem = await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
-        if (!subsItem) {
-          subsItem = this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
-          subsItem._status = DocStatus.NEW
-        } else { 
-          subsItem.def = def
-          subsItem._status = DocStatus.UPD
-        }
-      }
-      subs._status = DocStatus.UPD
-    }
-  }
-}
-Registry.registerOp(FW$updateSubscription)
-
 
 /* Operations standard ***********************************************************/
 class FW$Bug extends Operation {
@@ -288,7 +302,7 @@ class FW$hasAlias extends Operation {
   }
 
   async phase2 () {
-    const dd = Registry.getDescr('', this._docCl)
+    const dd = DocDescriptor.get(this._docCl)
     const testable = dd.isTestable(this._aliasName)
     if (!testable) this.setRes('hasalias', false)
     else {
@@ -374,9 +388,9 @@ class Sync extends Operation {
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
-    const dt = Registry.getDescr('', clazz)
-    if (dt.hasColls) {
-      const x = dt.colls.get(colName)
+    const dd = DocDescriptor.get(clazz)
+    if (dd.hasColls) {
+      const x = dd.colls.get(colName)
       if (x) {
         const datas = await this.db.getColl(clazz, colName, col, x.list, v)
         this.addRes(def, datas)
@@ -426,7 +440,7 @@ class PropsOfMyCreds extends Operation {
 }
 Registry.registerOp(PropsOfMyCreds)
 
-/* Auto-recvocation d'un credential.
+/* Auto-revocation d'un credential.
 Le user est authentifié et doit avoir présenté son credential:
 - sa possession est donc assuré, il peut le supprimer
 */
@@ -446,8 +460,8 @@ class AutoRevokeCred extends Operation {
     const credRef = this.authRecord.getCredRef(this._docCl, this._docPk, true)
     if (!credRef || credRef.cred.credId !== this._credId)
       throw new AppExc(103, 'no_cred_owner', this, [this._docCl, this._docPk])
-    const dt = Registry.getDescr('', this._docCl)
-    if (dt.embedCreds) {
+    const dd = DocDescriptor.get(topCl(this.svc, this._docCl))
+    if (dd.embedCreds) {
       const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
       const x = d.embedCreds
       if (x) delete x[this._credId]
@@ -489,9 +503,9 @@ class credsByDoc extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const dt = Registry.getDescr('', this._docCl)
+    const dd = DocDescriptor.get(topCl(this.svc, this._docCl))
     let lst: $Cred[]
-    if (dt.embedCreds)
+    if (dd.embedCreds)
       lst = await $Credential.listByDocEmbed(this, this._docCl, this._src)
     else
       lst = await $Credential.listByDoc(this, this._docCl, this._src)

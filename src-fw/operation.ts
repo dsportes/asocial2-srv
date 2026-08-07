@@ -7,7 +7,8 @@ import { Log, AppExc } from '../src-fw/log'
 import { DbConnector } from '../src-fw/dbConnector'
 import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
-import { Registry } from './registry'
+import { medCl, topCl } from '../src-fw/registry'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 import { $Document, DocStatus } from '../src-fw/document'
 import { $Cred, $Credential, Embed$Cred } from '../src-fw/documents'
 import { Publisher } from '../src-fw/publisher'
@@ -201,7 +202,7 @@ export class Operation implements OperationWC {
         }
 
         this.db.disconnect()
-        await Util.sleep(10000)
+        await Util.sleep(2000)
       }
 
       if (this.hasPhase3) {
@@ -212,7 +213,7 @@ export class Operation implements OperationWC {
 
       if (this.impactedSubs && this.impactedSubs.all.size) {
         const publisher = new Publisher(this)
-        for(const [,is] of this.impactedSubs.all) await publisher.publish(this, is)
+        for(const [,is] of this.impactedSubs.all) await publisher.publish(is)
         // notification : { title body url defs: 'def1 def2 ...' }
         const notification = publisher.getSessionNotifs()
         if (notification) this.setRes('notification', notification)
@@ -406,7 +407,7 @@ export class AuthRecord {
       const i = ref.indexOf('/')
       const docCl = i === -1 ? ref : ref.substring(0, i)
       const docPk = i === -1 ? '' : ref.substring(i + 1)
-      const dt = Registry.getDescr(this.op.svc, docCl)
+      const dt = DocDescriptor.get(topCl(this.op.svc, docCl))
       let credRef: CredRef
       if (dt.embedCreds) { // Recherche du Credential dans le creds du document
         const d = await this.op.cache.getDoc(this.op.svc + '$' + docCl, { pk: docPk }) as $Document
@@ -476,7 +477,7 @@ export class Cache {
   docs : Map<string, DocDescr>
 
   static MAX_CACHE_SIZE = 1000
-  static LAZY_MS = 1000
+  static LAZY_MS = 5000
 
   // Cache globale
   static globCache : Map<string, Map<string, cacheItem>> = new Map()
@@ -502,7 +503,7 @@ export class Cache {
     : Promise<DocDescr> {
     const oc = Cache.orgCache(op)
     const now = Date.now()
-    const pk = Registry.getPk('', clazz, src)
+    const pk = DocDescriptor.get(clazz).pkValue(src)
     const k = DocDescr.key(clazz, pk)
     const item = oc.get(k)
     if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
@@ -529,19 +530,6 @@ export class Cache {
 
     // Pas trouvé en base
     return null
-  }
-
-  /* SrvStatus : lazy
-  */
-  static async getSrvStatus (op: Operation, lazy?: number) {
-    if (!Cache.srvStatus || !lazy || ((op.now - Cache.srvStatus.now) > (lazy * Cache.LAZY_MS))) {
-      const val = await op.db.getSingleton('status')
-      const now = Date.now()
-      const obj = val ? JSON.parse(val) : { at: 0, st: 0, txt: ''}
-      obj.now = now
-      Cache.srvStatus = obj
-    }
-    return Cache.srvStatus
   }
 
   static updateCache (op: Operation, dd: DocDescr) {
@@ -590,13 +578,14 @@ export class Cache {
   - src : objet contenant les propriétés de la pk
   */
   async getDoc (clazz: string, src?: Object, assert?: string) : Promise<$Document | null> {
-    const pk = Registry.getPk('', clazz, src)
+    const dx = DocDescriptor.get(clazz)
+    const pk = dx.pkValue(src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
     dd = await Cache.getRow(this.op, clazz, src)
     if (!dd) {
-      if (assert) this.op.assertKO(assert, 25, [clazz, Registry.getPk('', clazz, src, false)])
+      if (assert) this.op.assertKO(assert, 25, [clazz, dx.pkValue(src, false)])
       return null
     }
     dd.init()
@@ -623,7 +612,7 @@ export class Cache {
   Retourne le document.
   */
   newDoc (clazz: string, src?: Object) : $Document {
-    const pk = Registry.getPk('', clazz, src)
+    const pk = DocDescriptor.get(topCl('', clazz)).pkValue(src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
@@ -661,7 +650,6 @@ export class Cache {
       this.op.updates.push(dd)
       const doc = dd.doc
       let row : row
-      const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
       if (doc._status === DocStatus.UPD) {
         row = doc.toRow(this.op.now)
         dd.row = row
@@ -677,8 +665,11 @@ export class Cache {
         }
         else this.db.deleteRow(dd.clazz, dd.pk)
       }
-      if (doc._docDescriptor.sync && doc._docDescriptor.colls) 
+      if (doc._docDescriptor.sync && doc._docDescriptor.colls) {
+        const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
         this.manageColls(dd, doc, row, is)
+      }
+        
     }
   }
 
@@ -764,7 +755,8 @@ export class ImpactedSub {
   */
 
   constructor (clazz: string, pk: string) {
-    this.clazz = clazz, this.pk = pk
+    this.clazz = medCl(clazz)
+    this.pk = pk
     this.colls = new Map()
   }
 

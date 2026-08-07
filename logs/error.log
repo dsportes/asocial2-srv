@@ -716,3 +716,48 @@ TypeError: fetch failed
 2026-08-05T10:12:47.055Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
 2026-08-05T12:02:17.367Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
 2026-08-05T12:08:59.457Z error: AppExc: 105:safe_unexpected_exception["op.doTheJob is not a function"]
+2026-08-07T11:45:11.221Z error: MajAuteur : 2026-08-07T11:45:11.195Z : AppExc: 103:not_configured_doc_class["$SubsItem"]
+2026-08-07T11:45:11.223Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$SubsItem\"]"]
+2026-08-07T11:57:59.360Z error: MajAuteur : 2026-08-07T11:57:59.323Z : AppExc: 103:not_configured_doc_class["$SubsItem"]
+Error: Captured for inspection
+    at Function.get (D:\git\asocial2-srv\src-fw\docDescriptor.ts:80:21)
+    at Function.getSessionIds (D:\git\asocial2-srv\src-fw\documents.ts:105:30)
+    at Publisher.doSids (D:\git\asocial2-srv\src-fw\publisher.ts:120:40)
+    at Publisher.publish (D:\git\asocial2-srv\src-fw\publisher.ts:104:16)
+    at MajAuteur.run (D:\git\asocial2-srv\src-fw\operation.ts:216:67)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:387:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:218:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:151:9)
+2026-08-07T11:57:59.363Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$SubsItem\"]"]
+2026-08-07T12:04:59.867Z error: MajAuteur : 2026-08-07T12:04:49.037Z : SqliteError: no such column: AS2$Auteur
+2026-08-07T12:04:59.896Z error: AppExc: 105:service_unexpected_exception["no such column: AS2$Auteur"]
+2026-08-07T13:10:53.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_argument[\"subsscription\"]"]
+2026-08-07T13:16:41.014Z error: FW$setSubscription : 2026-08-07T13:15:16.808Z : SqliteError: table AS2$SUBSITEM has no column named sessionId
+2026-08-07T13:16:41.016Z error: AppExc: 105:service_unexpected_exception["table AS2$SUBSITEM has no column named sessionId"]
+2026-08-07T14:20:23.253Z error: FW$setSubscription : 2026-08-07T14:20:23.248Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:20:23.257Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T14:28:13.131Z error: FW$setSubscription : 2026-08-07T14:24:10.281Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:28:13.134Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T14:30:46.956Z error: FW$setSubscription : 2026-08-07T14:30:01.233Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:30:46.959Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T15:17:25.003Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:18:15.791Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:18:47.519Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:19:10.138Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:20:21.343Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:21:09.821Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:21:50.073Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:22:25.246Z error: AuteurDeId : 2026-08-07T15:22:25.236Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:22:25.251Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-07T15:23:21.364Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:23:33.471Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:28:19.965Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:30:18.671Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:39:48.963Z error: AuteurDeId : 2026-08-07T15:39:48.959Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:39:48.965Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-07T15:40:14.391Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:40:50.744Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:42:05.703Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:42:46.182Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:45:00.032Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:45:19.414Z error: sendNotification: WebPushError: Received unexpected response code

@@ -4,9 +4,8 @@ import { $Document, DocStatus } from '../src-fw/document'
 import { Crypt } from '../src-fw/crypt'
 import { filter } from '../src-fw/iDbGeneric'
 import { decode } from '@msgpack/msgpack'
-import { OperationWC } from './index'
 import { Operation } from '../src-fw/operation'
-import { Registry } from './registry'
+import { Registry, topCl } from '../src-fw/registry'
 import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
 import { keyFromB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
@@ -67,20 +66,7 @@ export class $Subs extends $Document {
   url: string
   title: string
   maxLife: number
-
-  static newSubs (op: Operation, subs: $subscription, maxLife: number) : $Document {
-    const initVals = { 
-      subJSON: subs.subJSON,
-      sessionId: subs.sessionId,
-      url: subs.url,
-      title: subs.title,
-      defs: subs.defs,
-      maxLife : maxLife
-    }
-    return op.cache.newDoc(op.svc + '$Subs', initVals)
-  }
 }
-
 
 /*
 Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
@@ -101,59 +87,40 @@ def est une propriété indexée: permet de récupérer tous les SubsItem
 export class $SubsItem extends $Document {
   static release = 0
 
-  sessionId : string
-  def : string // INDEXE
-  maxLife : number
-
-  constructor () {
-    super()
-  }
-
-  static def0 (clazz: string) : string {
-    return clazz
-  }
-
-  static def1 (clazz: string, pk: string) : string {
-    return clazz + '/' + pk
-  }
-
+  static def0 (clazz: string) : string { return clazz }
+  static def1 (clazz: string, pk: string) : string { return clazz + '/' + pk }
   static def2 (clazz: string, colName: string, val: string) : string {
     return clazz + '/' + colName + '/' + val
   }
 
-  static newSubsItem (op: Operation, sessionId: string, def: string, maxLife: number) : $Document {
-    const initVals = {
-      sessionId: sessionId,
-      def: def,
-      maxLife : maxLife
-    }
-    return op.cache.newDoc(op.svc + '$SubsItem', initVals)
-  }
+  sessionId : string
+  def : string // INDEXE
+  maxLife : number
 
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
   (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
-  static async getSessionIds (op: Operation, def: string) : Promise<string[]> {
-    /*
-    selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
-      order: string, limit: number, fn: Function)  : Promise<void>
-    */
-    const sids : string[] = []
-    await op.db.selectDocs(op.svc + '$SubsItem', 'def', filter.EQ, def, '', 0, 
-      (org: string, data: Uint8Array) => {
+  static async getSessionIds (op: Operation, def: string) : Promise<Set<string>> {
+    const sids : Set<string> = new Set()
+    const dd = DocDescriptor.get(topCl(op.svc, 'SubsItem'))
+    const val = dd.getIdx({ def }, 'def')
+    await op.db.selectDocs(op.svc + '$SubsItem', 'def', filter.EQ, val, '', 0, 
+      (data: Uint8Array) => {
         const d = decode(data)
-        sids.push(d['sessionId'])
+        sids.add(d['sessionId'])
       })
     return sids
   }
 
   static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
     // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    await op.db.selectDocs(op.svc + '$SubsItem', 'sessionId', filter.EQ, sessionId, '', 0, 
-      async (org: string, data: Uint8Array) => {
+    const dd = DocDescriptor.get(topCl(op.svc, '$SubsItem'))
+    const val = dd.getIdx({ sessionId }, 'sessionId')
+    await op.db.selectDocs(op.svc + '$SubsItem', 'sessionId', filter.EQ, val, '', 0, 
+      async (data: Uint8Array) => {
         const d = decode(data)
-        const pk = Crypt.shaS(sessionId + '/' + d['def'])
-        op.db.deleteRow('ADMIN$SubsItem', pk)
+        const pk = dd.pkValue(d)
+        op.db.deleteRow(op.svc + '$SubsItem', pk)
       })
   }
 
@@ -336,8 +303,8 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDoc (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
-    const docPk = Registry.getPk(op.svc, docCl, src, true)
-    const dd = Registry.getDescr(op.svc, 'Credential')
+    const dd = DocDescriptor.get(topCl(op.svc, 'Credential'))
+    const docPk = dd.pkValue(src)
     const val = dd.getIdx({ docCl, docPk }, 'doc')
     const lst: $Cred[] = []
     await op.db.selectDocs('$Credential', 'doc', filter.EQ, val[0], '', 0, 
@@ -365,7 +332,7 @@ export class $Credential extends $Document {
   et les propriétés de sa pk.
   */
   static async listByDocEmbed (op: Operation, docCl: string, src: Object) : Promise<$Cred[]> {
-    const pk = Registry.getPk(op.svc, docCl, src)
+    const pk = DocDescriptor.get(topCl(op.svc, docCl)).pkValue(src)
     const doc: any = await op.cache.getDoc(op.svc + '$' + docCl, { pk })
     const creds: $Cred[] = doc && doc.creds ? Array.from(doc.creds.values()) : []
     const lst: $Cred[] = []

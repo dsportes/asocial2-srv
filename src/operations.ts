@@ -1,9 +1,10 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { Operation } from '../src-fw/operation'
-import { Registry } from '../src-fw/registry'
+import { Registry, topCl } from '../src-fw/registry'
 import { Log } from '../src-fw/log'
 import { DocStatus } from '../src-fw/document'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 import { AS2$Auteur } from '../src-as2/documents'
 
 export function loadingOA () {
@@ -37,7 +38,7 @@ class AuteurDeId extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const pk = Registry.getPk('', 'AS2$Auteur', this.src)
+    const pk = DocDescriptor.get('AS2$Auteur').pkValue(this.src)
     this.getCredRef('Auteur', pk)
     const aut = await this.cache.getDoc('AS2$Auteur', this.src)
     this.setRes('auteur', aut || null)
@@ -58,7 +59,7 @@ class MajAuteur extends Operation {
   }
   async phase2 () {
     this.requireAuth()
-    const pk = Registry.getPk('', 'AS2$Auteur', { autid: this._autid })
+    const pk = DocDescriptor.get('AS2$Auteur').pkValue({ autid: this._autid })
     this.getCredRef('Auteur', pk)
     const aut = await this.cache.getDoc('AS2$Auteur', { autid: this._autid }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }

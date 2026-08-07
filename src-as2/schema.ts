@@ -21,7 +21,8 @@ try {
     { name: 'SubsItem', pk: ['sessionId', 'def'] },
     null,
     new Map<string, idx>([
-      ['def',  { type: propType.STRING }]
+      ['def',  { type: propType.STRING }],
+      ['sessionId',  { type: propType.STRING }]
     ])
   )
 

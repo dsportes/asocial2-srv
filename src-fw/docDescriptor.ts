@@ -76,8 +76,10 @@ export class DocDescriptor {
     let i = clazz.indexOf('_')
     const cl = i === -1 ? clazz : clazz.substring(0, i)
     const dd = this.all.get(cl)
-    if (!dd) 
-      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl])
+    if (!dd) {
+      const trace = new Error("Captured for inspection")
+      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl], trace.stack)
+    }
     return dd
   }
 

@@ -2,8 +2,8 @@ import webpush from 'web-push'
 import { Log } from './log'
 // import { Util } from './util'
 import { keyToB64 } from './b64'
-import { Operation, Cache, ImpactedSub } from './operation'
-import { ADMIN$SubsItem, $subscription } from './documents'
+import { Operation, ImpactedSub } from './operation'
+import { $SubsItem, $Subs } from './documents'
 
 import { encode, decode } from '@msgpack/msgpack'
 
@@ -37,12 +37,16 @@ export class Publisher {
 
   toNotif: Map<string, notif> // key: sessionId value: notif (ci-dessus)
   op: Operation
+  svc: string
+  org: string
   sessionNotifs: string[]
   sessionId: string
 
   constructor (op: Operation) {
     this.toNotif = new Map()
     this.op = op
+    this.svc = op.svc
+    this.org = op.org
     this.sessionNotifs = []
     this.sessionId = op.sessionId
   }
@@ -68,6 +72,7 @@ export class Publisher {
     }
     */
     return {
+      svc: this.op.svc,
       org: this.op.org,
       now: this.op.now,
       title: notif.title,
@@ -86,7 +91,6 @@ export class Publisher {
 
   /* ImpactedSub : contient la liste des documents créés / mis à jour / supprimés d'une opération
   afin que le publisher rechercher les souscriptions correspondantes à notifier.
-  Voir manageRowQ() ci-dessus.
   Map : 
   - key: clazz/pk - identifiant du document
   - value: ImpactedSub { clazz, pk, colls }
@@ -95,17 +99,17 @@ export class Publisher {
       - value: colValues 
   publish est invoqué par l'opération pour chaque ImpactedSub.
   */
-  async publish (op: Operation, is: ImpactedSub) {
+  async publish (is: ImpactedSub) {
     // Souscriptions à la collection des documents
-    await this.doSids(ADMIN$SubsItem.def0(is.clazz))
+    await this.doSids($SubsItem.def0(is.clazz))
 
     // Souscriptions au document
-    await this.doSids(ADMIN$SubsItem.def1(is.clazz, is.pk))
+    await this.doSids($SubsItem.def1(is.clazz, is.pk))
 
     // Souscriptions aux sous-collections
     for(const [colName, values] of is.colls) {
       for (const colValue of values) 
-        await this.doSids(ADMIN$SubsItem.def2(is.clazz, colName, colValue))
+        await this.doSids($SubsItem.def2(is.clazz, colName, colValue))
     }
   }
 
@@ -113,13 +117,12 @@ export class Publisher {
   Pour chacune, créé / complète la liste des souscriptions à notifier:
   */
   async doSids (def: string) : Promise<void> {
-    const sessionIds = await ADMIN$SubsItem.getSessionIds(this.op, def)
-    if (sessionIds.length) for(const sessionId of sessionIds) {
+    const sessionIds = await $SubsItem.getSessionIds(this.op, def)
+    if (sessionIds.size) for(const sessionId of sessionIds) {
       let tn: notif = this.toNotif.get(sessionId)
       if (!tn) {
-        const rowSubs = await Cache.getRow(this.op, 'ADMIN$Subs', { sessionId }, 2)
-        if (!rowSubs) return
-        const subs: $subscription = decode(rowSubs.row.data) as $subscription
+        const subs = await this.op.cache.getDoc(this.op.svc + '$Subs', { sessionId }) as $Subs
+        if (!subs) return // cette session n'a pas de souscription
         const msg = subs.defs[def] // msg ou ''
         if (msg === undefined) return // cette session n'a pas (encore) de souscription à notifier
         tn = {

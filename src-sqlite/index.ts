@@ -6,7 +6,7 @@ import { IDbGeneric, zombiLapse, filter, expList, expListQ,
   row, rowQ, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
-import { Registry } from '../src-fw/registry'
+import { topCl } from '../src-fw/registry'
 import { Log } from '../src-fw/log'
 import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
@@ -175,7 +175,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       const lc = ['v', 'pk', 'ttl', 'data']
       if (!adm) lc.push('org')
       const ll = []
-      const dt = Registry.getDescr('', clazz)
+      const dt = DocDescriptor.get(topCl('', clazz))
       if (dt.hasColls) for (const [n, x] of dt.colls) {
         lc.push(n)
         if (x.list) ll.push(n)

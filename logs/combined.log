@@ -26974,3 +26974,693 @@ TypeError: fetch failed
 2026-08-05T15:50:43.046Z info: FW$getStatus finished
 2026-08-05T15:50:43.052Z info: ADMIN$getStatus : 2026-08-05T15:50:43.052Z
 2026-08-05T15:50:43.059Z info: ADMIN$getStatus finished
+2026-08-07T06:20:40.477Z info: Configuration pre-loaded
+2026-08-07T06:20:45.420Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T06:20:45.427Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T06:20:45.632Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T06:20:45.633Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T06:20:45.634Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T06:20:45.634Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T06:20:45.635Z info: fw documents loading: 2
+2026-08-07T06:20:45.636Z info: app operations loading: 12
+2026-08-07T06:20:45.637Z info: fw operations loading: 73
+2026-08-07T06:20:45.638Z info: app operations loading: 73
+2026-08-07T06:20:45.639Z info: safe operations loading: 73
+2026-08-07T06:20:45.640Z info: masterdir operations loading: 73
+2026-08-07T06:20:45.641Z info: Configuration completed
+2026-08-07T06:20:45.709Z info: ./sqlite/schema.sql written
+2026-08-07T11:25:08.980Z info: Configuration pre-loaded
+2026-08-07T11:25:14.393Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T11:25:14.415Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T11:25:14.641Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T11:25:14.642Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T11:25:14.643Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T11:25:14.644Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T11:25:14.644Z info: fw documents loading: 2
+2026-08-07T11:25:14.645Z info: app operations loading: 12
+2026-08-07T11:25:14.645Z info: fw operations loading: 72
+2026-08-07T11:25:14.646Z info: app operations loading: 72
+2026-08-07T11:25:14.646Z info: safe operations loading: 72
+2026-08-07T11:25:14.646Z info: masterdir operations loading: 72
+2026-08-07T11:25:14.647Z info: Configuration completed
+2026-08-07T11:25:14.655Z info: Server started
+2026-08-07T11:25:14.657Z info: HTTP listen [8091]
+2026-08-07T11:40:23.221Z info: $OpenSafeByPin finished
+2026-08-07T11:40:23.267Z info: $GetSafe finished
+2026-08-07T11:40:58.857Z info: $GetOrgSvc finished
+2026-08-07T11:40:58.878Z info: $GetSitesUrls finished
+2026-08-07T11:40:58.911Z info: PropsOfMyCreds : 2026-08-07T11:40:58.911Z
+2026-08-07T11:41:09.225Z info: PropsOfMyCreds finished
+2026-08-07T11:42:48.556Z info: $OpenSafeByPin finished
+2026-08-07T11:42:48.598Z info: $GetSafe finished
+2026-08-07T11:43:26.171Z info: PropsOfMyCreds : 2026-08-07T11:43:26.171Z
+2026-08-07T11:43:26.191Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T11:44:05.540Z info: PropsOfMyCreds finished
+2026-08-07T11:44:33.148Z info: AuteurDeId : 2026-08-07T11:44:33.147Z
+2026-08-07T11:44:33.170Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T11:44:33.173Z info: AuteurDeId finished
+2026-08-07T11:45:11.195Z info: MajAuteur : 2026-08-07T11:45:11.195Z
+2026-08-07T11:45:11.209Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T11:45:11.218Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:not_configured_doc_class["$SubsItem"]
+2026-08-07T11:45:11.221Z error: MajAuteur : 2026-08-07T11:45:11.195Z : AppExc: 103:not_configured_doc_class["$SubsItem"]
+2026-08-07T11:45:11.222Z info: MajAuteur terminated on exception
+2026-08-07T11:45:11.223Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$SubsItem\"]"]
+2026-08-07T11:55:52.592Z info: Configuration pre-loaded
+2026-08-07T11:55:52.955Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T11:55:52.958Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T11:55:52.985Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T11:55:52.986Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T11:55:52.987Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T11:55:52.987Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T11:55:52.988Z info: fw documents loading: 2
+2026-08-07T11:55:52.988Z info: app operations loading: 12
+2026-08-07T11:55:52.989Z info: fw operations loading: 72
+2026-08-07T11:55:52.989Z info: app operations loading: 72
+2026-08-07T11:55:52.990Z info: safe operations loading: 72
+2026-08-07T11:55:52.990Z info: masterdir operations loading: 72
+2026-08-07T11:55:52.990Z info: Configuration completed
+2026-08-07T11:55:52.998Z info: Server started
+2026-08-07T11:55:53.000Z info: HTTP listen [8091]
+2026-08-07T11:56:20.054Z info: MajAuteur : 2026-08-07T11:56:20.054Z
+2026-08-07T11:56:20.088Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T11:56:20.090Z info: MajAuteur finished
+2026-08-07T11:56:20.132Z info: $UpdateCredName finished
+2026-08-07T11:57:59.323Z info: MajAuteur : 2026-08-07T11:57:59.323Z
+2026-08-07T11:57:59.335Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T11:57:59.357Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:not_configured_doc_class["$SubsItem"]
+Error: Captured for inspection
+    at Function.get (D:\git\asocial2-srv\src-fw\docDescriptor.ts:80:21)
+    at Function.getSessionIds (D:\git\asocial2-srv\src-fw\documents.ts:105:30)
+    at Publisher.doSids (D:\git\asocial2-srv\src-fw\publisher.ts:120:40)
+    at Publisher.publish (D:\git\asocial2-srv\src-fw\publisher.ts:104:16)
+    at MajAuteur.run (D:\git\asocial2-srv\src-fw\operation.ts:216:67)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:387:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:218:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:151:9)
+2026-08-07T11:57:59.360Z error: MajAuteur : 2026-08-07T11:57:59.323Z : AppExc: 103:not_configured_doc_class["$SubsItem"]
+Error: Captured for inspection
+    at Function.get (D:\git\asocial2-srv\src-fw\docDescriptor.ts:80:21)
+    at Function.getSessionIds (D:\git\asocial2-srv\src-fw\documents.ts:105:30)
+    at Publisher.doSids (D:\git\asocial2-srv\src-fw\publisher.ts:120:40)
+    at Publisher.publish (D:\git\asocial2-srv\src-fw\publisher.ts:104:16)
+    at MajAuteur.run (D:\git\asocial2-srv\src-fw\operation.ts:216:67)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:387:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:218:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:151:9)
+2026-08-07T11:57:59.362Z info: MajAuteur terminated on exception
+2026-08-07T11:57:59.363Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:not_configured_doc_class[\"$SubsItem\"]"]
+2026-08-07T12:00:56.349Z info: MajAuteur : 2026-08-07T12:00:56.349Z
+2026-08-07T12:00:56.362Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:00:56.365Z info: MajAuteur finished
+2026-08-07T12:00:56.406Z info: $UpdateCredName finished
+2026-08-07T12:01:05.619Z info: MajAuteur : 2026-08-07T12:01:05.619Z
+2026-08-07T12:01:05.631Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:04:14.399Z info: Configuration pre-loaded
+2026-08-07T12:04:14.883Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T12:04:14.887Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T12:04:25.751Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:04:25.776Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:04:25.786Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T12:04:25.805Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T12:04:25.809Z info: fw documents loading: 2
+2026-08-07T12:04:25.811Z info: app operations loading: 12
+2026-08-07T12:04:25.812Z info: fw operations loading: 72
+2026-08-07T12:04:25.813Z info: app operations loading: 72
+2026-08-07T12:04:25.814Z info: safe operations loading: 72
+2026-08-07T12:04:25.816Z info: masterdir operations loading: 72
+2026-08-07T12:04:25.817Z info: Configuration completed
+2026-08-07T12:04:25.832Z info: Server started
+2026-08-07T12:04:25.834Z info: HTTP listen [8091]
+2026-08-07T12:04:49.038Z info: MajAuteur : 2026-08-07T12:04:49.037Z
+2026-08-07T12:04:49.152Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:04:59.867Z error: MajAuteur : 2026-08-07T12:04:49.037Z : SqliteError: no such column: AS2$Auteur
+2026-08-07T12:04:59.869Z info: MajAuteur terminated on exception
+2026-08-07T12:04:59.896Z error: AppExc: 105:service_unexpected_exception["no such column: AS2$Auteur"]
+2026-08-07T12:06:46.129Z info: Configuration pre-loaded
+2026-08-07T12:06:46.489Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T12:06:46.492Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T12:06:46.762Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:06:46.763Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:06:46.763Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T12:06:46.764Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T12:06:46.764Z info: fw documents loading: 2
+2026-08-07T12:06:46.765Z info: app operations loading: 12
+2026-08-07T12:06:46.766Z info: fw operations loading: 72
+2026-08-07T12:06:46.766Z info: app operations loading: 72
+2026-08-07T12:06:46.766Z info: safe operations loading: 72
+2026-08-07T12:06:46.767Z info: masterdir operations loading: 72
+2026-08-07T12:06:46.767Z info: Configuration completed
+2026-08-07T12:06:46.775Z info: Server started
+2026-08-07T12:06:46.777Z info: HTTP listen [8091]
+2026-08-07T12:07:03.745Z info: MajAuteur : 2026-08-07T12:07:03.745Z
+2026-08-07T12:07:03.776Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:19:41.130Z info: Configuration pre-loaded
+2026-08-07T12:19:41.790Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T12:19:41.794Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T12:19:41.847Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:19:41.847Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T12:19:41.848Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T12:19:41.849Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T12:19:41.849Z info: fw documents loading: 2
+2026-08-07T12:19:41.850Z info: app operations loading: 12
+2026-08-07T12:19:41.851Z info: fw operations loading: 72
+2026-08-07T12:19:41.851Z info: app operations loading: 72
+2026-08-07T12:19:41.852Z info: safe operations loading: 72
+2026-08-07T12:19:41.852Z info: masterdir operations loading: 72
+2026-08-07T12:19:41.853Z info: Configuration completed
+2026-08-07T12:19:41.864Z info: Server started
+2026-08-07T12:19:41.866Z info: HTTP listen [8091]
+2026-08-07T12:19:54.762Z info: MajAuteur : 2026-08-07T12:19:54.762Z
+2026-08-07T12:19:54.798Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:20:17.765Z info: MajAuteur finished
+2026-08-07T12:20:17.834Z info: $UpdateCredName finished
+2026-08-07T12:20:33.659Z info: MajAuteur : 2026-08-07T12:20:33.659Z
+2026-08-07T12:20:33.673Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T12:20:33.681Z info: MajAuteur finished
+2026-08-07T12:20:33.718Z info: $UpdateCredName finished
+2026-08-07T13:01:28.100Z info: Configuration pre-loaded
+2026-08-07T13:01:28.552Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:01:28.558Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:01:28.615Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:01:28.616Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:01:28.617Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:01:28.617Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:01:28.618Z info: fw documents loading: 2
+2026-08-07T13:01:28.618Z info: app operations loading: 12
+2026-08-07T13:01:28.619Z info: fw operations loading: 72
+2026-08-07T13:01:28.619Z info: app operations loading: 72
+2026-08-07T13:01:28.619Z info: safe operations loading: 72
+2026-08-07T13:01:28.620Z info: masterdir operations loading: 72
+2026-08-07T13:01:28.620Z info: Configuration completed
+2026-08-07T13:01:28.628Z info: Server started
+2026-08-07T13:01:28.630Z info: HTTP listen [8091]
+2026-08-07T13:01:58.451Z info: $OpenSafeByPin finished
+2026-08-07T13:01:58.496Z info: $GetSafe finished
+2026-08-07T13:02:02.583Z info: $GetOrgSvc finished
+2026-08-07T13:02:02.597Z info: $GetSitesUrls finished
+2026-08-07T13:02:02.618Z info: PropsOfMyCreds : 2026-08-07T13:02:02.617Z
+2026-08-07T13:02:02.634Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:02:02.636Z info: PropsOfMyCreds finished
+2026-08-07T13:02:04.383Z info: AuteurDeId : 2026-08-07T13:02:04.383Z
+2026-08-07T13:02:04.395Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:02:04.397Z info: AuteurDeId finished
+2026-08-07T13:04:31.155Z info: $OpenSafeByPin finished
+2026-08-07T13:04:31.211Z info: $GetSafe finished
+2026-08-07T13:04:35.765Z info: $GetOrgSvc finished
+2026-08-07T13:04:35.780Z info: $GetSitesUrls finished
+2026-08-07T13:04:35.800Z info: PropsOfMyCreds : 2026-08-07T13:04:35.799Z
+2026-08-07T13:04:35.814Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:04:35.816Z info: PropsOfMyCreds finished
+2026-08-07T13:04:38.101Z info: AuteurDeId : 2026-08-07T13:04:38.101Z
+2026-08-07T13:04:38.114Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:04:38.116Z info: AuteurDeId finished
+2026-08-07T13:05:52.620Z info: PropsOfMyCreds : 2026-08-07T13:05:52.620Z
+2026-08-07T13:05:52.647Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:05:52.649Z info: PropsOfMyCreds finished
+2026-08-07T13:06:02.943Z info: PropsOfMyCreds : 2026-08-07T13:06:02.943Z
+2026-08-07T13:06:02.953Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:06:02.955Z info: PropsOfMyCreds finished
+2026-08-07T13:06:04.979Z info: AuteurDeId : 2026-08-07T13:06:04.979Z
+2026-08-07T13:06:04.992Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:06:04.993Z info: AuteurDeId finished
+2026-08-07T13:06:33.072Z info: $OpenSafeByPin finished
+2026-08-07T13:06:33.113Z info: $GetSafe finished
+2026-08-07T13:06:37.212Z info: $GetOrgSvc finished
+2026-08-07T13:06:37.227Z info: $GetSitesUrls finished
+2026-08-07T13:06:37.247Z info: PropsOfMyCreds : 2026-08-07T13:06:37.247Z
+2026-08-07T13:06:37.259Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:06:37.260Z info: PropsOfMyCreds finished
+2026-08-07T13:06:38.289Z info: AuteurDeId : 2026-08-07T13:06:38.289Z
+2026-08-07T13:06:38.300Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:06:38.301Z info: AuteurDeId finished
+2026-08-07T13:07:31.931Z info: AppExc: 103:unknown_operation["FW$SetSubscription"]
+2026-08-07T13:07:32.012Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:unknown_operation["FW$SetSubscription"]
+2026-08-07T13:07:32.031Z info: FW$SetSubscription terminated on exception
+2026-08-07T13:10:32.793Z info: $OpenSafeByPin finished
+2026-08-07T13:10:32.834Z info: $GetSafe finished
+2026-08-07T13:10:37.849Z info: $GetOrgSvc finished
+2026-08-07T13:10:37.861Z info: $GetSitesUrls finished
+2026-08-07T13:10:37.880Z info: PropsOfMyCreds : 2026-08-07T13:10:37.880Z
+2026-08-07T13:10:37.902Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:10:37.903Z info: PropsOfMyCreds finished
+2026-08-07T13:10:39.534Z info: AuteurDeId : 2026-08-07T13:10:39.534Z
+2026-08-07T13:10:39.545Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:10:39.547Z info: AuteurDeId finished
+2026-08-07T13:10:53.452Z info: FW$setSubscription : 2026-08-07T13:10:53.452Z
+2026-08-07T13:10:53.506Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["subsscription"]
+2026-08-07T13:10:53.507Z info: FW$setSubscription terminated on exception
+2026-08-07T13:10:53.512Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_argument[\"subsscription\"]"]
+2026-08-07T13:14:39.941Z info: Configuration pre-loaded
+2026-08-07T13:14:44.482Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:14:44.572Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:14:45.208Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:14:45.209Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:14:45.210Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:14:45.211Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:14:45.211Z info: fw documents loading: 2
+2026-08-07T13:14:45.212Z info: app operations loading: 12
+2026-08-07T13:14:45.213Z info: fw operations loading: 72
+2026-08-07T13:14:45.213Z info: app operations loading: 72
+2026-08-07T13:14:45.214Z info: safe operations loading: 72
+2026-08-07T13:14:45.214Z info: masterdir operations loading: 72
+2026-08-07T13:14:45.215Z info: Configuration completed
+2026-08-07T13:14:45.221Z info: Server started
+2026-08-07T13:14:45.223Z info: HTTP listen [8091]
+2026-08-07T13:14:50.208Z info: $OpenSafeByPin finished
+2026-08-07T13:14:50.244Z info: $GetSafe finished
+2026-08-07T13:14:55.589Z info: $GetOrgSvc finished
+2026-08-07T13:14:55.602Z info: $GetSitesUrls finished
+2026-08-07T13:14:55.621Z info: PropsOfMyCreds : 2026-08-07T13:14:55.621Z
+2026-08-07T13:14:55.655Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:14:55.656Z info: PropsOfMyCreds finished
+2026-08-07T13:14:57.676Z info: AuteurDeId : 2026-08-07T13:14:57.676Z
+2026-08-07T13:14:57.684Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:14:57.686Z info: AuteurDeId finished
+2026-08-07T13:15:16.809Z info: FW$setSubscription : 2026-08-07T13:15:16.808Z
+2026-08-07T13:16:41.014Z error: FW$setSubscription : 2026-08-07T13:15:16.808Z : SqliteError: table AS2$SUBSITEM has no column named sessionId
+2026-08-07T13:16:41.015Z info: FW$setSubscription terminated on exception
+2026-08-07T13:16:41.016Z error: AppExc: 105:service_unexpected_exception["table AS2$SUBSITEM has no column named sessionId"]
+2026-08-07T13:18:53.064Z info: Configuration pre-loaded
+2026-08-07T13:18:53.444Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:18:53.448Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:18:53.554Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:18:53.555Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:18:53.557Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:18:53.558Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:18:53.559Z info: fw documents loading: 2
+2026-08-07T13:18:53.563Z info: app operations loading: 12
+2026-08-07T13:18:53.565Z info: fw operations loading: 72
+2026-08-07T13:18:53.566Z info: app operations loading: 72
+2026-08-07T13:18:53.567Z info: safe operations loading: 72
+2026-08-07T13:18:53.568Z info: masterdir operations loading: 72
+2026-08-07T13:18:53.569Z info: Configuration completed
+2026-08-07T13:18:53.633Z info: ./sqlite/schema.sql written
+2026-08-07T13:20:25.638Z info: Configuration pre-loaded
+2026-08-07T13:20:26.042Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:20:26.045Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:20:26.100Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:20:26.100Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:20:26.101Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:20:26.102Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:20:26.103Z info: fw documents loading: 2
+2026-08-07T13:20:26.103Z info: app operations loading: 12
+2026-08-07T13:20:26.104Z info: fw operations loading: 72
+2026-08-07T13:20:26.104Z info: app operations loading: 72
+2026-08-07T13:20:26.105Z info: safe operations loading: 72
+2026-08-07T13:20:26.105Z info: masterdir operations loading: 72
+2026-08-07T13:20:26.105Z info: Configuration completed
+2026-08-07T13:20:26.113Z info: Server started
+2026-08-07T13:20:26.115Z info: HTTP listen [8091]
+2026-08-07T13:22:53.292Z info: $OpenSafeByPin finished
+2026-08-07T13:22:53.339Z info: $GetSafe finished
+2026-08-07T13:22:56.845Z info: $GetOrgSvc finished
+2026-08-07T13:22:56.860Z info: $GetSitesUrls finished
+2026-08-07T13:22:56.881Z info: PropsOfMyCreds : 2026-08-07T13:22:56.880Z
+2026-08-07T13:22:56.906Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:22:56.907Z info: PropsOfMyCreds finished
+2026-08-07T13:22:58.295Z info: AuteurDeId : 2026-08-07T13:22:58.295Z
+2026-08-07T13:22:58.305Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:22:58.306Z info: AuteurDeId finished
+2026-08-07T13:22:58.339Z info: FW$setSubscription : 2026-08-07T13:22:58.339Z
+2026-08-07T13:23:10.739Z info: FW$setSubscription finished
+2026-08-07T13:24:49.794Z info: PropsOfMyCreds : 2026-08-07T13:24:49.794Z
+2026-08-07T13:24:49.819Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:24:49.891Z info: PropsOfMyCreds finished
+2026-08-07T13:25:03.083Z info: AuteurDeId : 2026-08-07T13:25:03.083Z
+2026-08-07T13:25:03.092Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:25:03.093Z info: AuteurDeId finished
+2026-08-07T13:25:03.113Z info: FW$setSubscription : 2026-08-07T13:25:03.113Z
+2026-08-07T13:27:29.098Z info: FW$setSubscription finished
+2026-08-07T13:31:02.554Z info: Configuration pre-loaded
+2026-08-07T13:31:02.974Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:31:02.979Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:31:03.404Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:31:03.405Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:31:03.406Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:31:03.407Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:31:03.408Z info: fw documents loading: 2
+2026-08-07T13:31:03.409Z info: app operations loading: 12
+2026-08-07T13:31:03.409Z info: fw operations loading: 72
+2026-08-07T13:31:03.410Z info: app operations loading: 72
+2026-08-07T13:31:03.411Z info: safe operations loading: 72
+2026-08-07T13:31:03.411Z info: masterdir operations loading: 72
+2026-08-07T13:31:03.412Z info: Configuration completed
+2026-08-07T13:31:03.420Z info: Server started
+2026-08-07T13:31:03.422Z info: HTTP listen [8091]
+2026-08-07T13:31:39.449Z info: MajAuteur : 2026-08-07T13:31:39.449Z
+2026-08-07T13:31:39.485Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:38:42.812Z info: Configuration pre-loaded
+2026-08-07T13:38:43.174Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:38:43.177Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:38:43.239Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:38:43.239Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:38:43.240Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:38:43.241Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:38:43.241Z info: fw documents loading: 2
+2026-08-07T13:38:43.242Z info: app operations loading: 12
+2026-08-07T13:38:43.242Z info: fw operations loading: 72
+2026-08-07T13:38:43.243Z info: app operations loading: 72
+2026-08-07T13:38:43.243Z info: safe operations loading: 72
+2026-08-07T13:38:43.244Z info: masterdir operations loading: 72
+2026-08-07T13:38:43.244Z info: Configuration completed
+2026-08-07T13:38:43.252Z info: Server started
+2026-08-07T13:38:43.254Z info: HTTP listen [8091]
+2026-08-07T13:39:03.135Z info: $OpenSafeByPin finished
+2026-08-07T13:39:03.181Z info: $GetSafe finished
+2026-08-07T13:39:08.533Z info: $GetOrgSvc finished
+2026-08-07T13:39:08.545Z info: $GetSitesUrls finished
+2026-08-07T13:39:08.565Z info: PropsOfMyCreds : 2026-08-07T13:39:08.565Z
+2026-08-07T13:39:08.588Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:39:08.589Z info: PropsOfMyCreds finished
+2026-08-07T13:39:10.104Z info: AuteurDeId : 2026-08-07T13:39:10.104Z
+2026-08-07T13:39:10.116Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:39:10.118Z info: AuteurDeId finished
+2026-08-07T13:39:10.156Z info: FW$setSubscription : 2026-08-07T13:39:10.156Z
+2026-08-07T13:42:28.877Z info: Configuration pre-loaded
+2026-08-07T13:42:29.253Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:42:29.257Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:42:29.316Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:42:29.316Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:42:29.317Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:42:29.317Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:42:29.318Z info: fw documents loading: 2
+2026-08-07T13:42:29.319Z info: app operations loading: 12
+2026-08-07T13:42:29.319Z info: fw operations loading: 72
+2026-08-07T13:42:29.320Z info: app operations loading: 72
+2026-08-07T13:42:29.320Z info: safe operations loading: 72
+2026-08-07T13:42:29.320Z info: masterdir operations loading: 72
+2026-08-07T13:42:29.321Z info: Configuration completed
+2026-08-07T13:42:29.329Z info: Server started
+2026-08-07T13:42:29.331Z info: HTTP listen [8091]
+2026-08-07T13:48:48.921Z info: Configuration pre-loaded
+2026-08-07T13:48:49.269Z info: FW document descriptors:2 forms descriptors:2
+2026-08-07T13:48:49.272Z info: AS2 document descriptors:9 forms descriptors:9
+2026-08-07T13:48:49.664Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:48:49.665Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-07T13:48:49.666Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-07T13:48:49.666Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-07T13:48:49.667Z info: fw documents loading: 2
+2026-08-07T13:48:49.667Z info: app operations loading: 12
+2026-08-07T13:48:49.668Z info: fw operations loading: 72
+2026-08-07T13:48:49.668Z info: app operations loading: 72
+2026-08-07T13:48:49.669Z info: safe operations loading: 72
+2026-08-07T13:48:49.669Z info: masterdir operations loading: 72
+2026-08-07T13:48:49.669Z info: Configuration completed
+2026-08-07T13:48:49.677Z info: Server started
+2026-08-07T13:48:49.679Z info: HTTP listen [8091]
+2026-08-07T13:49:26.739Z info: $OpenSafeByPin finished
+2026-08-07T13:49:26.789Z info: $GetSafe finished
+2026-08-07T13:49:31.339Z info: $GetOrgSvc finished
+2026-08-07T13:49:31.358Z info: $GetSitesUrls finished
+2026-08-07T13:49:31.385Z info: PropsOfMyCreds : 2026-08-07T13:49:31.385Z
+2026-08-07T13:49:31.399Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:49:31.400Z info: PropsOfMyCreds finished
+2026-08-07T13:49:32.696Z info: AuteurDeId : 2026-08-07T13:49:32.695Z
+2026-08-07T13:49:32.704Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:49:32.705Z info: AuteurDeId finished
+2026-08-07T13:49:32.737Z info: FW$setSubscription : 2026-08-07T13:49:32.737Z
+2026-08-07T13:49:48.847Z info: FW$setSubscription finished
+2026-08-07T13:50:25.799Z info: MajAuteur : 2026-08-07T13:50:25.799Z
+2026-08-07T13:50:25.836Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:52:22.651Z info: MajAuteur finished
+2026-08-07T13:55:08.299Z info: MajAuteur : 2026-08-07T13:55:08.299Z
+2026-08-07T13:55:08.318Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:55:17.066Z info: MajAuteur finished
+2026-08-07T13:57:54.427Z info: $OpenSafeByPin finished
+2026-08-07T13:57:54.474Z info: $GetSafe finished
+2026-08-07T13:57:59.580Z info: $GetOrgSvc finished
+2026-08-07T13:57:59.593Z info: $GetSitesUrls finished
+2026-08-07T13:57:59.612Z info: PropsOfMyCreds : 2026-08-07T13:57:59.611Z
+2026-08-07T13:57:59.623Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:57:59.624Z info: PropsOfMyCreds finished
+2026-08-07T13:58:38.479Z info: AuteurDeId : 2026-08-07T13:58:38.479Z
+2026-08-07T13:58:38.488Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:58:38.489Z info: AuteurDeId finished
+2026-08-07T13:58:38.518Z info: FW$setSubscription : 2026-08-07T13:58:38.518Z
+2026-08-07T13:58:38.522Z info: FW$setSubscription finished
+2026-08-07T13:58:45.855Z info: MajAuteur : 2026-08-07T13:58:45.855Z
+2026-08-07T13:58:45.865Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T13:58:45.869Z info: MajAuteur finished
+2026-08-07T14:00:28.952Z info: $OpenSafeByPin finished
+2026-08-07T14:00:28.997Z info: $GetSafe finished
+2026-08-07T14:00:34.027Z info: $GetOrgSvc finished
+2026-08-07T14:00:34.043Z info: $GetSitesUrls finished
+2026-08-07T14:00:34.061Z info: PropsOfMyCreds : 2026-08-07T14:00:34.060Z
+2026-08-07T14:00:34.072Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:00:34.073Z info: PropsOfMyCreds finished
+2026-08-07T14:00:35.766Z info: AuteurDeId : 2026-08-07T14:00:35.766Z
+2026-08-07T14:00:35.788Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:00:35.789Z info: AuteurDeId finished
+2026-08-07T14:00:35.819Z info: FW$setSubscription : 2026-08-07T14:00:35.819Z
+2026-08-07T14:00:35.824Z info: FW$setSubscription finished
+2026-08-07T14:00:43.072Z info: MajAuteur : 2026-08-07T14:00:43.071Z
+2026-08-07T14:00:43.083Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:00:43.088Z info: MajAuteur finished
+2026-08-07T14:00:43.147Z info: $UpdateCredName finished
+2026-08-07T14:14:14.509Z info: $OpenSafeByPin finished
+2026-08-07T14:14:14.550Z info: $GetSafe finished
+2026-08-07T14:14:19.338Z info: $GetOrgSvc finished
+2026-08-07T14:14:19.351Z info: $GetSitesUrls finished
+2026-08-07T14:14:19.369Z info: PropsOfMyCreds : 2026-08-07T14:14:19.369Z
+2026-08-07T14:14:19.390Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:14:19.391Z info: PropsOfMyCreds finished
+2026-08-07T14:14:20.992Z info: AuteurDeId : 2026-08-07T14:14:20.992Z
+2026-08-07T14:14:21.001Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:14:21.002Z info: AuteurDeId finished
+2026-08-07T14:14:21.033Z info: FW$setSubscription : 2026-08-07T14:14:21.033Z
+2026-08-07T14:14:21.036Z info: FW$setSubscription finished
+2026-08-07T14:14:27.447Z info: MajAuteur : 2026-08-07T14:14:27.447Z
+2026-08-07T14:14:27.461Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:14:27.466Z info: MajAuteur finished
+2026-08-07T14:14:27.547Z info: $UpdateCredName finished
+2026-08-07T14:19:26.767Z info: $mdUserGetICVS finished
+2026-08-07T14:19:31.678Z info: $GetSafe finished
+2026-08-07T14:19:37.380Z info: $IsMDAdmin finished
+2026-08-07T14:19:53.564Z info: $TrustDevice finished
+2026-08-07T14:20:20.967Z info: $GetOrgSvc finished
+2026-08-07T14:20:20.988Z info: $GetSitesUrls finished
+2026-08-07T14:20:21.013Z info: PropsOfMyCreds : 2026-08-07T14:20:21.013Z
+2026-08-07T14:20:21.022Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:20:21.023Z info: PropsOfMyCreds finished
+2026-08-07T14:20:23.204Z info: AuteurDeId : 2026-08-07T14:20:23.204Z
+2026-08-07T14:20:23.218Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:20:23.219Z info: AuteurDeId finished
+2026-08-07T14:20:23.248Z info: FW$setSubscription : 2026-08-07T14:20:23.248Z
+2026-08-07T14:20:23.253Z error: FW$setSubscription : 2026-08-07T14:20:23.248Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:20:23.254Z info: FW$setSubscription terminated on exception
+2026-08-07T14:20:23.257Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T14:24:01.277Z info: $OpenSafeByPin finished
+2026-08-07T14:24:01.313Z info: $GetSafe finished
+2026-08-07T14:24:06.182Z info: $GetOrgSvc finished
+2026-08-07T14:24:06.197Z info: $GetSitesUrls finished
+2026-08-07T14:24:06.221Z info: PropsOfMyCreds : 2026-08-07T14:24:06.221Z
+2026-08-07T14:24:06.231Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:24:06.231Z info: PropsOfMyCreds finished
+2026-08-07T14:24:10.235Z info: AuteurDeId : 2026-08-07T14:24:10.235Z
+2026-08-07T14:24:10.245Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:24:10.247Z info: AuteurDeId finished
+2026-08-07T14:24:10.281Z info: FW$setSubscription : 2026-08-07T14:24:10.281Z
+2026-08-07T14:28:13.131Z error: FW$setSubscription : 2026-08-07T14:24:10.281Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:28:13.133Z info: FW$setSubscription terminated on exception
+2026-08-07T14:28:13.134Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T14:29:52.782Z info: $OpenSafeByPin finished
+2026-08-07T14:29:52.813Z info: $GetSafe finished
+2026-08-07T14:29:57.511Z info: $GetOrgSvc finished
+2026-08-07T14:29:57.527Z info: $GetSitesUrls finished
+2026-08-07T14:29:57.789Z info: PropsOfMyCreds : 2026-08-07T14:29:57.788Z
+2026-08-07T14:29:57.821Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:29:57.826Z info: PropsOfMyCreds finished
+2026-08-07T14:30:01.188Z info: AuteurDeId : 2026-08-07T14:30:01.188Z
+2026-08-07T14:30:01.198Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T14:30:01.199Z info: AuteurDeId finished
+2026-08-07T14:30:01.234Z info: FW$setSubscription : 2026-08-07T14:30:01.233Z
+2026-08-07T14:30:46.956Z error: FW$setSubscription : 2026-08-07T14:30:01.233Z : RangeError: Missing named parameter "sessionId"
+2026-08-07T14:30:46.958Z info: FW$setSubscription terminated on exception
+2026-08-07T14:30:46.959Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"sessionId\""]
+2026-08-07T15:04:36.021Z info: $OpenSafeByPin finished
+2026-08-07T15:04:36.064Z info: $GetSafe finished
+2026-08-07T15:04:40.849Z info: $GetOrgSvc finished
+2026-08-07T15:04:40.878Z info: $GetSitesUrls finished
+2026-08-07T15:04:40.902Z info: PropsOfMyCreds : 2026-08-07T15:04:40.902Z
+2026-08-07T15:04:40.914Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:04:40.915Z info: PropsOfMyCreds finished
+2026-08-07T15:04:42.510Z info: AuteurDeId : 2026-08-07T15:04:42.510Z
+2026-08-07T15:04:42.521Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:04:42.523Z info: AuteurDeId finished
+2026-08-07T15:04:42.579Z info: FW$setSubscription : 2026-08-07T15:04:42.579Z
+2026-08-07T15:04:42.585Z info: FW$setSubscription finished
+2026-08-07T15:05:07.596Z info: MajAuteur : 2026-08-07T15:05:07.596Z
+2026-08-07T15:05:07.606Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:05:07.610Z info: MajAuteur finished
+2026-08-07T15:05:07.740Z info: $UpdateCredName finished
+2026-08-07T15:10:29.104Z info: $OpenSafeByPin finished
+2026-08-07T15:10:29.145Z info: $GetSafe finished
+2026-08-07T15:10:34.289Z info: $GetOrgSvc finished
+2026-08-07T15:10:34.302Z info: $GetSitesUrls finished
+2026-08-07T15:10:34.322Z info: PropsOfMyCreds : 2026-08-07T15:10:34.322Z
+2026-08-07T15:10:34.333Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:10:34.334Z info: PropsOfMyCreds finished
+2026-08-07T15:10:49.949Z info: AuteurDeId : 2026-08-07T15:10:49.949Z
+2026-08-07T15:10:49.958Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:10:49.958Z info: AuteurDeId finished
+2026-08-07T15:10:50.012Z info: FW$setSubscription : 2026-08-07T15:10:50.012Z
+2026-08-07T15:10:50.052Z info: FW$setSubscription finished
+2026-08-07T15:10:57.548Z info: MajAuteur : 2026-08-07T15:10:57.548Z
+2026-08-07T15:10:57.559Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:10:57.562Z info: MajAuteur finished
+2026-08-07T15:10:57.615Z info: $UpdateCredName finished
+2026-08-07T15:15:49.720Z info: $OpenSafeByPin finished
+2026-08-07T15:15:49.821Z info: $GetSafe finished
+2026-08-07T15:17:24.680Z info: MajAuteur : 2026-08-07T15:17:24.680Z
+2026-08-07T15:17:24.690Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:17:24.694Z info: MajAuteur finished
+2026-08-07T15:17:24.772Z info: $UpdateCredName finished
+2026-08-07T15:17:25.003Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:18:02.439Z info: $GetOrgSvc finished
+2026-08-07T15:18:02.468Z info: $GetSitesUrls finished
+2026-08-07T15:18:02.493Z info: PropsOfMyCreds : 2026-08-07T15:18:02.493Z
+2026-08-07T15:18:02.502Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:18:02.502Z info: PropsOfMyCreds finished
+2026-08-07T15:18:04.239Z info: AuteurDeId : 2026-08-07T15:18:04.239Z
+2026-08-07T15:18:04.247Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:18:04.248Z info: AuteurDeId finished
+2026-08-07T15:18:04.277Z info: FW$setSubscription : 2026-08-07T15:18:04.277Z
+2026-08-07T15:18:04.283Z info: FW$setSubscription finished
+2026-08-07T15:18:15.484Z info: MajAuteur : 2026-08-07T15:18:15.484Z
+2026-08-07T15:18:15.491Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:18:15.495Z info: MajAuteur finished
+2026-08-07T15:18:15.536Z info: $UpdateCredName finished
+2026-08-07T15:18:15.791Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:18:47.159Z info: MajAuteur : 2026-08-07T15:18:47.159Z
+2026-08-07T15:18:47.191Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:18:47.218Z info: MajAuteur finished
+2026-08-07T15:18:47.300Z info: $UpdateCredName finished
+2026-08-07T15:18:47.519Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:19:09.887Z info: MajAuteur : 2026-08-07T15:19:09.887Z
+2026-08-07T15:19:09.897Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:19:09.900Z info: MajAuteur finished
+2026-08-07T15:19:09.956Z info: $UpdateCredName finished
+2026-08-07T15:19:10.138Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:20:20.965Z info: MajAuteur : 2026-08-07T15:20:20.964Z
+2026-08-07T15:20:20.988Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:20:21.002Z info: MajAuteur finished
+2026-08-07T15:20:21.089Z info: $UpdateCredName finished
+2026-08-07T15:20:21.343Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:21:09.565Z info: MajAuteur : 2026-08-07T15:21:09.565Z
+2026-08-07T15:21:09.576Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:21:09.579Z info: MajAuteur finished
+2026-08-07T15:21:09.637Z info: $UpdateCredName finished
+2026-08-07T15:21:09.821Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:21:49.813Z info: MajAuteur : 2026-08-07T15:21:49.813Z
+2026-08-07T15:21:49.826Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:21:49.828Z info: MajAuteur finished
+2026-08-07T15:21:49.880Z info: $UpdateCredName finished
+2026-08-07T15:21:50.073Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:22:10.868Z info: $OpenSafeByPin finished
+2026-08-07T15:22:10.942Z info: $GetSafe finished
+2026-08-07T15:22:23.566Z info: $GetOrgSvc finished
+2026-08-07T15:22:23.580Z info: $GetSitesUrls finished
+2026-08-07T15:22:23.604Z info: PropsOfMyCreds : 2026-08-07T15:22:23.604Z
+2026-08-07T15:22:23.612Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:22:23.613Z info: PropsOfMyCreds finished
+2026-08-07T15:22:25.236Z info: AuteurDeId : 2026-08-07T15:22:25.236Z
+2026-08-07T15:22:25.243Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:AuteurDeId - AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:22:25.246Z error: AuteurDeId : 2026-08-07T15:22:25.236Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:22:25.249Z info: AuteurDeId terminated on exception
+2026-08-07T15:22:25.251Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-07T15:23:10.523Z info: AuteurDeId : 2026-08-07T15:23:10.523Z
+2026-08-07T15:23:10.529Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:23:10.530Z info: AuteurDeId finished
+2026-08-07T15:23:10.565Z info: FW$setSubscription : 2026-08-07T15:23:10.565Z
+2026-08-07T15:23:10.567Z info: FW$setSubscription finished
+2026-08-07T15:23:21.052Z info: MajAuteur : 2026-08-07T15:23:21.052Z
+2026-08-07T15:23:21.063Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:23:21.068Z info: MajAuteur finished
+2026-08-07T15:23:21.109Z info: $UpdateCredName finished
+2026-08-07T15:23:21.364Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:23:33.173Z info: MajAuteur : 2026-08-07T15:23:33.173Z
+2026-08-07T15:23:33.183Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:23:33.187Z info: MajAuteur finished
+2026-08-07T15:23:33.243Z info: $UpdateCredName finished
+2026-08-07T15:23:33.471Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:28:19.641Z info: MajAuteur : 2026-08-07T15:28:19.641Z
+2026-08-07T15:28:19.651Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:28:19.656Z info: MajAuteur finished
+2026-08-07T15:28:19.698Z info: $UpdateCredName finished
+2026-08-07T15:28:19.965Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:30:18.347Z info: MajAuteur : 2026-08-07T15:30:18.347Z
+2026-08-07T15:30:18.357Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:30:18.362Z info: MajAuteur finished
+2026-08-07T15:30:18.402Z info: $UpdateCredName finished
+2026-08-07T15:30:18.671Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:39:42.303Z info: $OpenSafeByPin finished
+2026-08-07T15:39:42.359Z info: $GetSafe finished
+2026-08-07T15:39:47.252Z info: $GetOrgSvc finished
+2026-08-07T15:39:47.268Z info: $GetSitesUrls finished
+2026-08-07T15:39:47.292Z info: PropsOfMyCreds : 2026-08-07T15:39:47.292Z
+2026-08-07T15:39:47.303Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:39:47.304Z info: PropsOfMyCreds finished
+2026-08-07T15:39:48.959Z info: AuteurDeId : 2026-08-07T15:39:48.959Z
+2026-08-07T15:39:48.962Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:AuteurDeId - AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:39:48.963Z error: AuteurDeId : 2026-08-07T15:39:48.959Z : AppExc: 103:missing_credential@AuteurDeId:[null,"Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-07T15:39:48.964Z info: AuteurDeId terminated on exception
+2026-08-07T15:39:48.965Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@AuteurDeId:[null,\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-07T15:39:58.046Z info: AuteurDeId : 2026-08-07T15:39:58.046Z
+2026-08-07T15:39:58.055Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:39:58.056Z info: AuteurDeId finished
+2026-08-07T15:39:58.090Z info: FW$setSubscription : 2026-08-07T15:39:58.090Z
+2026-08-07T15:39:58.096Z info: FW$setSubscription finished
+2026-08-07T15:40:14.057Z info: MajAuteur : 2026-08-07T15:40:14.057Z
+2026-08-07T15:40:14.064Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:40:14.067Z info: MajAuteur finished
+2026-08-07T15:40:14.108Z info: $UpdateCredName finished
+2026-08-07T15:40:14.391Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:40:50.475Z info: MajAuteur : 2026-08-07T15:40:50.475Z
+2026-08-07T15:40:50.485Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:40:50.489Z info: MajAuteur finished
+2026-08-07T15:40:50.532Z info: $UpdateCredName finished
+2026-08-07T15:40:50.744Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:41:47.802Z info: $OpenSafeByPin finished
+2026-08-07T15:41:47.842Z info: $GetSafe finished
+2026-08-07T15:41:52.947Z info: $GetOrgSvc finished
+2026-08-07T15:41:52.964Z info: $GetSitesUrls finished
+2026-08-07T15:41:52.983Z info: PropsOfMyCreds : 2026-08-07T15:41:52.983Z
+2026-08-07T15:41:52.993Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:41:52.994Z info: PropsOfMyCreds finished
+2026-08-07T15:41:55.016Z info: AuteurDeId : 2026-08-07T15:41:55.016Z
+2026-08-07T15:41:55.027Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:41:55.028Z info: AuteurDeId finished
+2026-08-07T15:41:55.053Z info: FW$setSubscription : 2026-08-07T15:41:55.053Z
+2026-08-07T15:41:55.057Z info: FW$setSubscription finished
+2026-08-07T15:42:05.441Z info: MajAuteur : 2026-08-07T15:42:05.441Z
+2026-08-07T15:42:05.451Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:42:05.455Z info: MajAuteur finished
+2026-08-07T15:42:05.525Z info: $UpdateCredName finished
+2026-08-07T15:42:05.703Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:42:33.506Z info: $OpenSafeByPin finished
+2026-08-07T15:42:33.589Z info: $GetSafe finished
+2026-08-07T15:42:37.825Z info: $GetOrgSvc finished
+2026-08-07T15:42:37.840Z info: $GetSitesUrls finished
+2026-08-07T15:42:37.862Z info: PropsOfMyCreds : 2026-08-07T15:42:37.862Z
+2026-08-07T15:42:37.871Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:42:37.873Z info: PropsOfMyCreds finished
+2026-08-07T15:42:39.419Z info: AuteurDeId : 2026-08-07T15:42:39.419Z
+2026-08-07T15:42:39.431Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:42:39.432Z info: AuteurDeId finished
+2026-08-07T15:42:39.468Z info: FW$setSubscription : 2026-08-07T15:42:39.468Z
+2026-08-07T15:42:39.474Z info: FW$setSubscription finished
+2026-08-07T15:42:45.773Z info: MajAuteur : 2026-08-07T15:42:45.773Z
+2026-08-07T15:42:45.785Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:42:45.790Z info: MajAuteur finished
+2026-08-07T15:42:45.837Z info: $UpdateCredName finished
+2026-08-07T15:42:46.182Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:44:59.742Z info: MajAuteur : 2026-08-07T15:44:59.742Z
+2026-08-07T15:44:59.749Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:44:59.752Z info: MajAuteur finished
+2026-08-07T15:44:59.792Z info: $UpdateCredName finished
+2026-08-07T15:45:00.032Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-07T15:45:19.127Z info: MajAuteur : 2026-08-07T15:45:19.127Z
+2026-08-07T15:45:19.138Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-07T15:45:19.142Z info: MajAuteur finished
+2026-08-07T15:45:19.179Z info: $UpdateCredName finished
+2026-08-07T15:45:19.414Z error: sendNotification: WebPushError: Received unexpected response code

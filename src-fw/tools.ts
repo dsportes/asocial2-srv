@@ -2,14 +2,15 @@ import { config } from '../src/config'
 import { AbstractOperation } from '../src-fw/index'
 import { Log } from '../src-fw/log'
 import { testECDH, testSH } from './crypt'
-import { Registry } from '../src-fw/registry'
+import { Registry, topCl } from '../src-fw/registry'
+import { DocDescriptor } from '../src-fw/docDescriptor'
 
 import { parseArgs } from 'node:util'
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'readline'
-import path from 'path'
-import { readFileSync, writeFileSync } from 'node:fs'
-import { decode } from '@msgpack/msgpack'
+// import path from 'path'
+// import { readFileSync, writeFileSync } from 'node:fs'
+// import { decode } from '@msgpack/msgpack'
 
 import { DbConnector } from './dbConnector'
 import { IDbGeneric } from './iDbGeneric'
@@ -189,7 +190,7 @@ export class Tools {
     if (resp !== 'o' && resp !== 'O') throw 'Exécution interrompue.'
 
     for(const clazz of Registry.allClasses()) {
-      const dt = Registry.getDescr('', clazz)
+      const dt = DocDescriptor.get(topCl('', clazz))
       this.log2('Class ' + clazz)
       let mark = '1'
       let n = 0
