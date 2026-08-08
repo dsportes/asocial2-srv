@@ -341,7 +341,7 @@ class Sync extends Operation {
     this._toSync = this.arrayValue('toSync', true) as subsToSync[]
   }
   async phase2 () {
-    for (const { def, v } of this._toSync) {Cache.getRow
+    for (const { def, v } of this._toSync) {
       const item = def.split('/')
       // 0: subs classe 1: subs document 2:subs coll
       const type = item.length - 1

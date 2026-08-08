@@ -552,15 +552,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let sec = 0
     row._org = this.org
     if (row.ttl) { 
-      sec = row.ttl * 60
+      sec = row.ttl
       delete row.ttl
     }
-    if (!row.data || (sec && (sec * 1000 < this.op.now))) {
+    if (!row.data || (sec && (sec * 60000 < this.op.now))) {
       row.deleted = true
       row.data = encode({ deleted: true, v: row.v, _pk: row.pk, _clazz: clazz })
       return row
     }
-    if (sec) row.maxLife = Math.floor(sec / 60)
+    if (sec) row.maxLife = sec
     if (!nodecrypt) {
       const x = Crypt.syncDecrypt(this.key, Buffer.from(row.data))
       row.data = x
@@ -732,7 +732,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const docs = stmt.all({org: this.org, v : v || 0})
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
-      if (v || !row.deleted) datas.push(row.data)
+      if (v) datas.push(row.data)
+      else if (!row.deleted) datas.push(row.data)
     }
     return datas
   }
@@ -744,7 +745,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const doc = stmt.get({org: this.org, v : v || 0, pk })
     if (!doc) return null
     const row = this.rowToAPP(clazz, doc as row)
-    return v || !row.deleted ? row : null
+    if (v) return row
+    return !row.deleted ? row : null
   }
 
   async oneRowByAlias (clazz: string, alias: string, value: string) : Promise<row | null> {
@@ -763,8 +765,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   - sinon documents ajoutés ou partis de la sous-collection (ou zombifiés) 
     depuis la version vs de la sous-collection connue en session.
   Retour: liste des documents (leur version la plus récente). 
-  - Certains d'entre eux peuvent ne plus appartenir à la collection ou être zombi
-    (à vérifier en session).
+  ATTENTION : retourne AUSSI les documents qui ont fait partie de 
+  la collection un jour. L'application détermine ceux qui sont encore ou non dans la collection
+  en testant la propriété de collection:
+  - le document y est encore,
+  - soit il en est parti,
+  - soit il est zombi (donc ne fait plus partie de la collection)
   */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
     : Promise<Uint8Array[]> {
@@ -776,7 +782,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let stmt = this.sql.prepare('SELECT * FROM ' + 
       this.cluc(clazz) +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') +
-      (isList ? ('instr(' + colName + ', @col') : (colName + ' = @col') ) +
+      (isList ? ('instr(' + colName + ', @col) > 0') : (colName + ' = @col') ) +
       (!vs ? ';' : ' AND v > @vs ;'))
     const docs = stmt.all({org: this.org, vs : vs || 0, col })
     for (let doc of docs) {
@@ -784,6 +790,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       if (!vs) {
         if (!row.deleted) datas.push(row.data)
       } else {
+        // ceux supprimés vont se retrouver par leur rowq
         if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
       }
     }
@@ -793,15 +800,22 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt = this.sql.prepare('SELECT pk, v FROM ' + 
       this.cluc(clazz) + '@' + colName +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' col = @col AND v > @vs AND ttl > @ttl;')
+    // rowq des supprimés / retirés de la collection
     const rowqs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
     for (const rowq of rowqs) {
       if (rowq.ttl * 60000 > this.op.now) {
+        // les rowqs ont par principe toujours un ttl
         const v = rowq.v
         const pk = rowq.pk
         const vd = m.get(pk)
         if (!vd || (v > vd.v)) {
           const r = await this.oneRow(clazz, pk, vs)
-          m.set(pk, { v: r.v, data: r.data })
+          if (r) {
+            m.set(pk, { v: r.v, data: r.data })
+          } else {
+            const data = encode({ deleted: true, v: v, _pk: pk, _clazz: clazz })
+            m.set(pk, { v, data })
+          }
         }
       }
     }
