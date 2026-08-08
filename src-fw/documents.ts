@@ -37,93 +37,65 @@ export class ADMIN$Status extends $Document {
 }
 nd++; Registry.register(ADMIN$Status)
 
-/* 
-- sessionId : shaS de subJSON clé primaire
-- subJSON : token web-push
-- url : url de l'application à ouvrir par le terminal sur web-push
-- title : titre des notifications web-push
-- v : version
-- defs : un object `{ def: msg ... }` liste les définitions
-  - def: sa définition.
-  - msg: est un message ou ''
-*/
-export type $subscription = {
+export type $SubsObj = {
   sessionId: string
   subJSON: string
   url: string
   title: string
-  defs: Object
+  defs: string[]
+  msgs: Object
+  longLife: boolean
 }
 
-/* Un document Subs décrit la souscription d'une session:
+/*
+- sessionId : shaS de subJSON clé primaire
+- subJSON : token web-push
+- url : url de l'application à ouvrir par le terminal sur web-push
+- title : titre des notifications web-push
+
+defs: liste des définitions élémentaires peut avoir trois formes: 
+- 0 : souscription à la classe de documents: tous changements des documents de la classe 
+  dont les créations et les zombifications. 
+  clazz
+- 1 : souscription à un document de pk citée. pk est un shaC de la ou des
+  propriétés de la clé primaire. 
+  clazz/pkVal (c'est un shaC)
+- 2 : souscription à la sous-collection nommée des documents de la classe
+  clazz/colName/colVal (c'est un shaC)
+
+msgs: chaque définition di dans defs _peut_ avoir un message associé dans msgs: { di: msgi }
 */
 export class $Subs extends $Document {
   static release = 0
 
   sessionId: string
   subJSON: string
-  defs: Object
   url: string
   title: string
   maxLife: number
-}
-
-/*
-Une souscription élémentaire SubsItem d'une sessionId est IMMUTABLE 
-et peut avoir trois formes: 
-- 0 : souscription à la classe de documents: tous changements des documents de la classe 
-  dont les créations et les zombifications.
-- 1 : souscription à un document de pk citée. pk est un hash de la ou des
-  propriétés de la clé primaire.
-- 2 : souscription à la sous-collection nommée des documents de la classe
-
-La définition def d'un SubsItem est le string:
-- type 0: clazz COMPLET (svc$docCl) OU (org/svc$docCl) ???
-- type 1: clazz/pkVal (c'est un shaC)
-- type 2: clazz/colName/colVal (c'est un shaC)
-def est une propriété indexée: permet de récupérer tous les SubsItem 
-  ayant même définition (donc les sessionId correspondantes)
-*/
-export class $SubsItem extends $Document {
-  static release = 0
+  defs: string[]
+  msgs: Object
 
   static def0 (clazz: string) : string { return clazz }
+
   static def1 (clazz: string, pk: string) : string { return clazz + '/' + pk }
+
   static def2 (clazz: string, colName: string, val: string) : string {
     return clazz + '/' + colName + '/' + val
   }
 
-  sessionId : string
-  def : string // INDEXE
-  maxLife : number
-
   /* Retourne la liste des sessionId des sessions ayant une souscription de définition def
-  (La méthode SubsItem.def(...) construit un def depuis des arguments )
   */
   static async getSessionIds (op: Operation, def: string) : Promise<Set<string>> {
     const sids : Set<string> = new Set()
-    const dd = DocDescriptor.get(topCl(op.svc, 'SubsItem'))
-    const val = dd.getIdx({ def }, 'def')
-    await op.db.selectDocs(op.svc + '$SubsItem', 'def', filter.EQ, val, '', 0, 
+    const val = Crypt.shaS(def)
+    await op.db.selectDocs(op.svc + '$Subs', 'defs', filter.IN, [val], '', 0, 
       (data: Uint8Array) => {
         const d = decode(data)
         sids.add(d['sessionId'])
       })
     return sids
   }
-
-  static async deleteSessionId (op: Operation, sessionId: string) : Promise<void> {
-    // deleteDoc (org: string, clazz: string, pk: string) : Promise<void>
-    const dd = DocDescriptor.get(topCl(op.svc, '$SubsItem'))
-    const val = dd.getIdx({ sessionId }, 'sessionId')
-    await op.db.selectDocs(op.svc + '$SubsItem', 'sessionId', filter.EQ, val, '', 0, 
-      async (data: Uint8Array) => {
-        const d = decode(data)
-        const pk = dd.pkValue(d)
-        op.db.deleteRow(op.svc + '$SubsItem', pk)
-      })
-  }
-
 }
 
 export type $Cred = {

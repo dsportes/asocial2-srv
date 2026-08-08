@@ -7,7 +7,7 @@ import { AppExc } from '../src-fw/log'
 import { MDandSafe } from '../src-fw/index'
 import { Registry, topCl } from '../src-fw/registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
-import { ADMIN$Status, $Subs, $subscription, $SubsItem, $Credential, 
+import { ADMIN$Status, $Subs, $SubsObj, $Credential, 
   $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
 import { DocStatus, $Document } from '../src-fw/document'
 // import { Util } from '../src-fw/util'
@@ -127,94 +127,70 @@ class ADMIN$setEnum extends Operation {
 Registry.registerOp(ADMIN$setEnum)
 
 /* FW$setSubscription enregistre la souscription d'une session (pour le svc / org de l'opération)
-- Si subs.defs est null : c'est une suppression
-  si elle existait suppression de subs et des subsitem
-- Sinon c'est une création OU une mise à jour:
-  pour une mise à jour supprime / ajoute ou met à jour les SubsItem
-  en considérant ceux existants et les nouveaux
+- Si subs.defs est vide : c'est une suppression
+  si elle existait suppression de subs
+- Sinon c'est une création OU une mise à jour.
 */
 class FW$setSubscription extends Operation {
-  _subs: $subscription
+  _subs: $SubsObj
   _maxLife: number
   init () {
     super.init()
-    this._subs = this.objectValue('subscription', true) as $subscription
+    this._subs = this.objectValue('subscription', true) as $SubsObj
     const longLife = this.boolValue('longLife', false)
-    this._maxLife = Math.floor(this.now / 1440000) + (longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE)
+    this._maxLife = longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE
   }
   async phase2 () {
     const subs = await this.cache.getDoc(this.svc + '$Subs', { sessionId: this.sessionId }) as $Subs
 
-    if (this._subs.defs) { // Création ou mise à jour
+    if (this._subs.defs && this._subs.defs.length) { // Création ou mise à jour
       if (subs) { // Mise à jour
-        let upd = false
-        if (subs.url !== this._subs.url) { subs.url = this._subs.url; upd = true }
-        if (subs.title !== this._subs.title) { subs.title = this._subs.title; upd = true }
-        if (subs.maxLife !== this._maxLife) { subs.maxLife = this._maxLife; upd = true }
-        const olddefs = new Set(Object.keys(subs.defs))
-        const newdefs = new Set(Object.keys(this._subs.defs))      
-        const ddsi = DocDescriptor.get(this.svc + '$SubsItem')
+        let upd = (subs.url !== this._subs.url) || (subs.title !== this._subs.title)
+          || (subs.maxLife !== this._maxLife)
+        subs.url = this._subs.url
+        subs.title = this._subs.title
+        subs.maxLife = this._maxLife
 
-        // Suppression des defs anciens non repris
-        for (const def of olddefs) {
-          if (!newdefs.has(def)) {
-            const pk = ddsi.pkValue({ sessionId: subs.sessionId, def })
-            this.cache.delDoc(this.svc + '$SubsItem', pk)
-            upd = true
-          }
+        if (!upd) {
+          const olddefs = new Set(subs.defs || [])
+          const newdefs = new Set(this._subs.defs || [])      
+          for (const def of olddefs) if (!newdefs.has(def)) upd = true
+          if (!upd) for (const def of olddefs) if (!newdefs.has(def)) upd = true
         }
+        subs.defs = this._subs.defs
 
-        // Ajout des nouveaux defs qui n'existaient pas avant
-        for (const def of newdefs) {
-          if (!olddefs.has(def)) { 
-            const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
-            this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
-            upd = true
+        if (!upd) {
+          const t1 = []
+          if (subs.msgs) {
+            for(const x in Object.keys(subs.msgs)) t1.push(x + '@' + subs.msgs[x])
+            t1.sort((a,b) => a < b ? -1 : (a > b ? 1 : 0))
           }
+          const s1 = t1.join('\n')
+          const t2 = []
+          if (this._subs.msgs) {
+            for(const x in Object.keys(subs.msgs)) t2.push(x + '@' + subs.msgs[x])
+            t2.sort((a,b) => a < b ? -1 : (a > b ? 1 : 0))
+          }
+          const s2 = t1.join('\n')
+          upd = s1 !== s2
         }
+        subs.msgs = this._subs.msgs || []
 
-        // Maj éventuelle du maxLife des defs toujours existants
-        for (const def of newdefs) {
-          if (olddefs.has(def)) { 
-            const newMsg = this._subs.defs[def]
-            const oldMsg = subs.defs[def]
-            if (newMsg !== oldMsg) upd = true
-            if (subs.maxLife !== this._maxLife) {
-              const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
-              let subsItem = await this.cache.getDoc(this.svc + '$SubsItem', src) as $SubsItem
-              if (subsItem) { // ca devrait toujours être le cas
-                subsItem.maxLife = this._maxLife
-                subsItem._status = DocStatus.UPD
-              } else { // superstition, on le crée au cas où ...
-                const src = { sessionId: subs.sessionId, def, maxLife: this._maxLife }
-                this.cache.newDoc(this.svc + '$SubsItem', src) as $SubsItem
-              }
-            }
-          }
-        }
-        if (upd) {
-          subs.defs = this._subs.defs
-          subs._status = DocStatus.UPD
-        }
+        if (upd) subs._status = DocStatus.UPD
       } else { // Création
         const initVals = { 
           subJSON: this._subs.subJSON,
           sessionId: this._subs.sessionId,
           url: this._subs.url,
           title: this._subs.title,
-          defs: this._subs.defs,
+          defs: this._subs.defs || null,
+          msgs: this._subs.msgs || null,
           maxLife : this._maxLife
         }
         this.cache.newDoc(this.svc + '$Subs', initVals)
-        for (const def in this._subs.defs)
-          this.cache.newDoc(this.svc + '$SubsItem', 
-            { sessionId: this._subs.sessionId, def, maxLife : this._maxLife })
       }
     } else { // suppression de la subscription pour sessionId
-      if (subs) {
-        subs._status = DocStatus.DEL
-        await $SubsItem.deleteSessionId(this, this._subs.sessionId)
-      }
+      if (subs) subs._status = DocStatus.DEL
     }
   }
 }
@@ -349,7 +325,7 @@ subsToSync = {
   v: number - version 'vs' la plus récente détenue en session
 }
 Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
-- si vs est absent: connue actuellement (à now)
+- si vs est absent: connue actuellement.
 - changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
     de la sous-collection connue en session.
 - { def0: [Uint8Array], def1: Uint8array, def2: { pk: data | v ... }}

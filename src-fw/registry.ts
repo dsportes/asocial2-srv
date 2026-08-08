@@ -20,6 +20,11 @@ export const topCl = (svc: string, docCl: string) : string => {
   return d.indexOf('$') === -1 ? svc + '$' + d : d
 }
 
+export const svcCl = (clazz: string) => {
+  const i = clazz.indexOf('$')
+  return i === -1 ? '' : clazz.substring(0, i)
+}
+
 export class Registry {
   static classes : Map<string, Function> = new Map()
   static managers : Set<string> = new Set()

@@ -49,7 +49,7 @@ export const config = {
     */
   },
 
-  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 2 * 24 * 60],
+  SUBSMAXLIFEINMINUTES: [3 * 24 * 60, 1 * 24 * 60],
   FORMMAXLIFE: 10 * 86400, // 10 jours
   STATUSLAZYNESS: 3 * 60 // 3 minutes de prise en compte des changements de status
 } as BaseConfig

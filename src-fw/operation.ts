@@ -99,8 +99,8 @@ export class Operation implements OperationWC {
 
   public cache : Cache
 
-  get SUBSSHORTMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[0] }
-  get SUBSLONGMAXLIFE() { return Math.floor(this.now / 1440000) + config.SUBSMAXLIFEINMINUTES[1] }
+  get SUBSSHORTMAXLIFE() { return Math.floor(this.now / 60000) + config.SUBSMAXLIFEINMINUTES[0] }
+  get SUBSLONGMAXLIFE() { return Math.floor(this.now / 60000) + config.SUBSMAXLIFEINMINUTES[1] }
 
   assertKO (src: string, code: number, args: string[]) {
     const x = args && args.length ? JSON.stringify(args) : ''

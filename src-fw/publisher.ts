@@ -3,9 +3,9 @@ import { Log } from './log'
 // import { Util } from './util'
 import { keyToB64 } from './b64'
 import { Operation, ImpactedSub } from './operation'
-import { $SubsItem, $Subs } from './documents'
+import { $Subs } from './documents'
 
-import { encode, decode } from '@msgpack/msgpack'
+import { encode } from '@msgpack/msgpack'
 
 /*
 const vapidKeys = webpush.generateVAPIDKeys()
@@ -21,10 +21,7 @@ type notif = {
   title: string
   url: string
   defs: Object // key: def, value: msg ou ''
-  allDefs: Object 
-  /* { def1:msg1, def2:'' ... } cache TOUTES les defs souscrites 
-  par la sessionId alors que defs ne comporte QUE celles à notifier.
-  */
+  // { def1:msg1, def2:'' ... } liste les defs souscrites par la sessionId à notifier.
 }
 
 /* Un "publisher" est créé pour chaque opération.
@@ -101,15 +98,15 @@ export class Publisher {
   */
   async publish (is: ImpactedSub) {
     // Souscriptions à la collection des documents
-    await this.doSids($SubsItem.def0(is.clazz))
+    await this.doSids($Subs.def0(is.clazz))
 
     // Souscriptions au document
-    await this.doSids($SubsItem.def1(is.clazz, is.pk))
+    await this.doSids($Subs.def1(is.clazz, is.pk))
 
     // Souscriptions aux sous-collections
     for(const [colName, values] of is.colls) {
       for (const colValue of values) 
-        await this.doSids($SubsItem.def2(is.clazz, colName, colValue))
+        await this.doSids($Subs.def2(is.clazz, colName, colValue))
     }
   }
 
@@ -117,27 +114,22 @@ export class Publisher {
   Pour chacune, créé / complète la liste des souscriptions à notifier:
   */
   async doSids (def: string) : Promise<void> {
-    const sessionIds = await $SubsItem.getSessionIds(this.op, def)
+    const sessionIds = await $Subs.getSessionIds(this.op, def)
     if (sessionIds.size) for(const sessionId of sessionIds) {
+      const subs = await this.op.cache.getDoc(this.op.svc + '$Subs', { sessionId }) as $Subs
+      if (!subs) return // cette session n'a pas de souscription
+      if (subs.defs.indexOf(def) === -1) return // cette session n'a pas (encore) de souscription à notifier
+
       let tn: notif = this.toNotif.get(sessionId)
-      if (!tn) {
-        const subs = await this.op.cache.getDoc(this.op.svc + '$Subs', { sessionId }) as $Subs
-        if (!subs) return // cette session n'a pas de souscription
-        const msg = subs.defs[def] // msg ou ''
-        if (msg === undefined) return // cette session n'a pas (encore) de souscription à notifier
-        tn = {
-          url: subs.url,
-          title: subs.title,
-          sub: JSON.parse(subs.subJSON) as webpush.PushSubscription,
-          defs: {}, // les defs de la souscription à notifier
-          allDefs: subs.defs // TOUTES les defs de la souscription, à notifier OU NON
-        }
-        tn.defs[def] = msg
-        this.toNotif.set(sessionId, tn)
-      } else { // La session a déjà une notif amorcée: elle est complétée (ou non)
-        const msg = tn.allDefs[def] // msg ou ''
-        if (msg !== undefined) tn.defs[def] = msg
+      if (!tn) tn = {
+        url: subs.url,
+        title: subs.title,
+        sub: JSON.parse(subs.subJSON) as webpush.PushSubscription,
+        defs: {}, // les defs de la souscription à notifier
       }
+      const msg = subs.msgs[def] || ''
+      tn.defs[def] = msg
+      this.toNotif.set(sessionId, tn)
     }
   }
 

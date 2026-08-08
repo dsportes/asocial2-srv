@@ -14,15 +14,10 @@ try {
   )
 
   new DocDescriptor(svc,
-    { name: 'Subs', pk: ['sessionId'] }
-  )
-  
-  new DocDescriptor(svc,
-    { name: 'SubsItem', pk: ['sessionId', 'def'] },
+    { name: 'Subs', pk: ['sessionId'] },
     null,
     new Map<string, idx>([
-      ['def',  { type: propType.STRING }],
-      ['sessionId',  { type: propType.STRING }]
+      ['defs', { type: propType.LIST}]
     ])
   )
 
