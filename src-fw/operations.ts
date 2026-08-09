@@ -367,16 +367,16 @@ export class FW$Sync extends Operation {
   async sync0 (def: string, v: number, clazz: string) : Promise<void> {
     if (!this.checker.check0())
       throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, '1'])
-    const datas = await this.db.allRowsData(clazz, v)
-
-    this.syncs[def] = datas
+    const vdatas = await this.db.allRowsData(clazz, v)
+    this.syncs[def] = vdatas
   }
 
   async sync1 (def: string, v: number, clazz: string, pk: string) : Promise<void> {
     if (!this.checker.check1(pk))
       throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, pk])
     const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
-    this.syncs[def] =  row ? [row.data] : []
+    this.syncs[def] =  row ? { v: row.v, datas: [row.data] } 
+      : { v: v, datas: [] }
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, val: string) : Promise<void> {
@@ -385,8 +385,8 @@ export class FW$Sync extends Operation {
       if (x) {
         if (!this.checker.check2(colName, val))
           throw new AppExc(105, 'credential_required_not_found', this, [this.svc, colName, val])
-        const datas = await this.db.getColl(clazz, colName, val, x.list, v)
-        this.syncs[def] = datas
+        const vdatas = await this.db.getColl(clazz, colName, val, x.list, v)
+        this.syncs[def] = vdatas
       }
     }
   }

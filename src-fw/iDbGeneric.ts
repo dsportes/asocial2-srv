@@ -34,6 +34,11 @@ export type MDdel = {
   hshK: string
 }
 
+export type CollData = {
+  v: number,
+  datas
+}
+
 export enum filter { LT, LE, EQ, NE, GE, GT, IN, CONTAINS, CONTAINSANY }
 
 export enum updType { SET, CREATE, UPDATE }
@@ -276,7 +281,7 @@ export interface IDbGeneric {
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou supprimés postérieueremt à v.
   */
-  allRowsData (clazz: string, v: number) : Promise<Uint8Array[]>
+  allRowsData (clazz: string, v: number) : Promise<CollData>
 
   /* Retourne le row de classe fixée ayant la pk fixée:
   - si v absent: ne retourne pas le row s'il est supprimé
@@ -301,7 +306,7 @@ export interface IDbGeneric {
   (à vérifier en session) ou être zombi.
   */
   getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<Uint8Array[]>
+    : Promise<CollData>
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.

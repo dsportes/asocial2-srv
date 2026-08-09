@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { encode } from '@msgpack/msgpack'
 import { config } from '../src/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowQ, updType, vdata, Safe,
+  row, rowQ, CollData, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { topCl } from '../src-fw/registry'
@@ -724,18 +724,20 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
   */
-  async allRowsData (clazz: string, v: number) : Promise<Uint8Array[]> {
+  async allRowsData (clazz: string, v: number) : Promise<CollData> {
     const adm = clazz.startsWith('ADMIN$')
     const datas: Uint8Array[] = []
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) +
       ' WHERE ' + (adm ? '' : 'org = @org ') + (!v ? ';' : ' AND v > @v ;'))
     const docs = stmt.all({org: this.org, v : v || 0})
+    let vmax = v || 0
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
+      if (row.v > vmax) vmax = row.v
       if (v) datas.push(row.data)
       else if (!row.deleted) datas.push(row.data)
     }
-    return datas
+    return { v: vmax, datas: datas }
   }
 
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
@@ -773,7 +775,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   - soit il est zombi (donc ne fait plus partie de la collection)
   */
   async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<Uint8Array[]> {
+    : Promise<CollData> {
     const adm = clazz.startsWith('ADMIN$')
     // Map des documents par pk
     const m: Map<string, vdata> = new Map<string, vdata>()
@@ -785,8 +787,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       (isList ? ('instr(' + colName + ', @col) > 0') : (colName + ' = @col') ) +
       (!vs ? ';' : ' AND v > @vs ;'))
     const docs = stmt.all({org: this.org, vs : vs || 0, col })
+    let vmax = vs || 0
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as row)
+      if (row.v > vmax) vmax = row.v
       if (!vs) {
         if (!row.deleted) datas.push(row.data)
       } else {
@@ -794,7 +798,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
       }
     }
-    if (!vs) return datas
+    if (!vs) return { v: vmax, datas: datas }
 
     const ttl = Math.round(this.op.now / 60000)
     stmt = this.sql.prepare('SELECT pk, v FROM ' + 
@@ -806,6 +810,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       if (rowq.ttl * 60000 > this.op.now) {
         // les rowqs ont par principe toujours un ttl
         const v = rowq.v
+        if (v > vmax) vmax = v
         const pk = rowq.pk
         const vd = m.get(pk)
         if (!vd || (v > vd.v)) {
@@ -820,7 +825,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       }
     }
     for(const [, {data}] of m) datas.push(data)
-    return datas
+    return { v: vmax, datas: datas}
   }
 
   compOp (colName: string, filter: filter, col: any) {
