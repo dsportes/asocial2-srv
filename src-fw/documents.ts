@@ -1,10 +1,11 @@
 import { config } from '../src/config'
 import { Log } from '../src-fw/log'
-import { $Document, DocStatus } from '../src-fw/document'
+import { $ADocument, $Document, DocStatus } from '../src-fw/document'
 import { Crypt } from '../src-fw/crypt'
 import { filter } from '../src-fw/iDbGeneric'
 import { decode } from '@msgpack/msgpack'
 import { Operation } from '../src-fw/operation'
+import { FW$Sync } from '../src-fw/operations'
 import { Registry, topCl } from '../src-fw/registry'
 import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
 import { keyFromB64 } from '../src-fw/b64'
@@ -36,6 +37,28 @@ export class ADMIN$Status extends $Document {
   isDOWN () { return this.st === 9 }
 }
 nd++; Registry.register(ADMIN$Status)
+
+export class $CredChecker extends $ADocument {
+  op: FW$Sync
+
+  credRef (pk: string, colClass? : string) {
+    const cl = colClass || this.op.dd.name
+    return this.op.getCredRef(cl, pk, true)
+  }
+
+  check0 () : boolean {
+    return this.credRef('1') ? true : false
+  }
+
+  check1 (pk: string) : boolean {
+    return this.credRef(pk) ? true : false
+  }
+
+  check2 (colName: string, val: string) : boolean {
+    const cl = this.op.dd.colls.get(colName).class
+    return this.credRef(val, cl) ? true : false
+  }
+}
 
 export type $SubsObj = {
   sessionId: string

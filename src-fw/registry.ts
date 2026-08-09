@@ -1,5 +1,5 @@
 import { AppExc } from './log'
-import { $Document } from './document'
+import { $ADocument } from './document'
 import { DocDescriptor } from './docDescriptor'
 
 export const subCl = (clazz: string) => {
@@ -42,17 +42,21 @@ export class Registry {
     const docCl = topcl.substring(i + 1)
     if (!svc || !docCl)
       throw new AppExc(103, 'invalid_class_name', null, [clazz.name])
-    clazz['_docDescriptor'] = DocDescriptor.get(topcl)
+    if (!clazz['_unregistered'])
+      clazz['_docDescriptor'] = DocDescriptor.get(topcl)
     if (clazz['manager']) 
       Registry.managers.add(clazz.name)
     this.classes.set(clazz.name, clazz)
   }
 
   // Retourne le constructor de la SOUS-CLASSE de docCl selon la valeur de son data
-  static getClass (svc: string, docCl: string, data: Object, nohash?: boolean ) : Function {
+  static getClass (svc: string, docCl: string, data?: Object, nohash?: boolean ) : Function {
     const topcl = topCl(svc, docCl)
-    const subClassBy = DocDescriptor.get(topcl).subClassBy
-    const cln = topCl(svc, docCl) + (subClassBy ? '_' + data[subClassBy] : '')
+    let cln = topcl
+    if (data) {
+      const subClassBy = DocDescriptor.get(topcl).subClassBy
+      cln += (subClassBy ? '_' + data[subClassBy] : '')
+    }
     const cl = Registry.classes.get(cln)
     if (!cl) {
       const trace = new Error("Captured for inspection")
@@ -62,10 +66,10 @@ export class Registry {
   }
 
   // Construit un document de la SOUS-CLASSE de docCl selon la valeur de son data
-  static newD (svc: string, docCl: string, data: Object ) : $Document {
+  static newD (svc: string, docCl: string, data?: Object ) : $ADocument {
     const cl = Registry.getClass(svc, docCl, data)
     // @ts-expect-error
-    const d = new cl() as $Document
+    const d = new cl() as $ADocument
     return d
   }
 

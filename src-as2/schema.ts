@@ -44,7 +44,7 @@ try {
   new DocDescriptor(svc, 
     { name: 'Auteur', pk: ['autId'], sync: true, embedCreds: true },
     new Map<string, collection>([
-      ['section',  { key: ['section'], mutable: true }]
+      ['section',  { key: ['section'], mutable: true, class: 'Section' }]
     ]),
     new Map<string, idx>([
       ['nom',  { type: propType.STRING, key: ['nomAuteur'], testable: true }]

@@ -1,27 +1,22 @@
 import { encode } from '@msgpack/msgpack'
 
 import { row } from '../src-fw/iDbGeneric'
-import { Registry, topCl } from './registry'
-import { DocDescriptor } from '../src-fw/docDescriptor'
+import { Registry } from './registry'
 import { $CredTempl } from '../src-fw/documents'
 // import { AppExc } from '../src-fw/log'
 
 export enum DocStatus { NONE, UPD, NEW, DEL }
 
-export type changedColl = {
-  n: string, // nom de la collection
-  a: string, // valeur actuelle
-  b: string // valeur avant
+export class $ADocument {
+  get _docDescriptor () { return this.constructor['_docDescriptor'] }
 }
 
-export class $Document {
+export class $Document extends $ADocument {
   _clazz: string
   _org: string
   _status?: DocStatus
   _before?: Map<string, string[]> // Map des valeurs des collections AVANT
   _deleted?: boolean
-
-  get _docDescriptor () { return this.constructor['_docDescriptor'] }
 
   v: number
   release: number // numéro de release de la structure de l'objet
@@ -130,7 +125,7 @@ export class $Document {
   Retourne le Document.
   */
   static newDoc (clazz: string, status: DocStatus, initVals: Object) : $Document {
-    const doc = Registry.newD('', clazz, initVals)
+    const doc = Registry.newD('', clazz, initVals) as $Document
     doc._clazz = clazz
     doc._status = status
     doc.release = doc.constructor['release']

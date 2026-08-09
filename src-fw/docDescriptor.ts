@@ -50,7 +50,8 @@ export type idx = {
 export type collection = {
   key: props,
   mutable: boolean,
-  list?: boolean
+  list?: boolean,
+  class: string
 }
 
 export class DocDescriptor {

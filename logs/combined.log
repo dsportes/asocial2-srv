@@ -27664,3 +27664,326 @@ Error: Captured for inspection
 2026-08-07T15:45:19.142Z info: MajAuteur finished
 2026-08-07T15:45:19.179Z info: $UpdateCredName finished
 2026-08-07T15:45:19.414Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-09T10:40:21.959Z info: Configuration pre-loaded
+2026-08-09T10:40:27.546Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T10:40:27.564Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T10:40:27.904Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T10:40:27.905Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T10:40:27.906Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T10:40:27.906Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T10:40:27.907Z info: fw documents loading: 2
+2026-08-09T10:40:27.907Z info: app operations loading: 12
+2026-08-09T10:40:27.908Z info: fw operations loading: 72
+2026-08-09T10:40:27.908Z info: app operations loading: 72
+2026-08-09T10:40:27.908Z info: safe operations loading: 72
+2026-08-09T10:40:27.909Z info: masterdir operations loading: 72
+2026-08-09T10:40:27.909Z info: Configuration completed
+2026-08-09T10:40:27.917Z info: Server started
+2026-08-09T10:40:27.920Z info: HTTP listen [8091]
+2026-08-09T10:44:28.156Z info: $OpenSafeByPin finished
+2026-08-09T10:44:28.195Z info: $GetSafe finished
+2026-08-09T10:44:32.543Z info: $GetOrgSvc finished
+2026-08-09T10:44:32.556Z info: $GetSitesUrls finished
+2026-08-09T10:44:32.576Z info: PropsOfMyCreds : 2026-08-09T10:44:32.575Z
+2026-08-09T10:44:32.596Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T10:44:32.598Z info: PropsOfMyCreds finished
+2026-08-09T10:48:26.965Z info: $OpenSafeByPin finished
+2026-08-09T10:48:27.010Z info: $GetSafe finished
+2026-08-09T10:48:31.898Z info: $GetOrgSvc finished
+2026-08-09T10:48:31.914Z info: $GetSitesUrls finished
+2026-08-09T10:48:31.932Z info: PropsOfMyCreds : 2026-08-09T10:48:31.932Z
+2026-08-09T10:48:31.943Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T10:48:31.945Z info: PropsOfMyCreds finished
+2026-08-09T10:50:02.516Z info: $OpenSafeByPin finished
+2026-08-09T10:50:02.575Z info: $GetSafe finished
+2026-08-09T10:50:07.108Z info: $GetOrgSvc finished
+2026-08-09T10:50:07.123Z info: $GetSitesUrls finished
+2026-08-09T10:50:07.143Z info: PropsOfMyCreds : 2026-08-09T10:50:07.143Z
+2026-08-09T10:50:07.156Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T10:50:07.158Z info: PropsOfMyCreds finished
+2026-08-09T10:56:10.529Z info: $OpenSafeByPin finished
+2026-08-09T10:56:10.574Z info: $GetSafe finished
+2026-08-09T10:56:14.154Z info: $GetOrgSvc finished
+2026-08-09T10:56:14.171Z info: $GetSitesUrls finished
+2026-08-09T10:56:14.189Z info: PropsOfMyCreds : 2026-08-09T10:56:14.189Z
+2026-08-09T10:56:14.200Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T10:56:14.202Z info: PropsOfMyCreds finished
+2026-08-09T11:00:23.900Z info: Configuration pre-loaded
+2026-08-09T11:00:24.385Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T11:00:24.389Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T11:00:24.723Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:00:24.724Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:00:24.724Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T11:00:24.725Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T11:00:24.725Z info: fw documents loading: 2
+2026-08-09T11:00:24.726Z info: app operations loading: 12
+2026-08-09T11:00:24.727Z info: fw operations loading: 72
+2026-08-09T11:00:24.727Z info: app operations loading: 72
+2026-08-09T11:00:24.727Z info: safe operations loading: 72
+2026-08-09T11:00:24.728Z info: masterdir operations loading: 72
+2026-08-09T11:00:24.728Z info: Configuration completed
+2026-08-09T11:00:24.736Z info: Server started
+2026-08-09T11:00:24.738Z info: HTTP listen [8091]
+2026-08-09T11:00:27.246Z info: $OpenSafeByPin finished
+2026-08-09T11:00:27.290Z info: $GetSafe finished
+2026-08-09T11:00:31.192Z info: $GetOrgSvc finished
+2026-08-09T11:00:31.204Z info: $GetSitesUrls finished
+2026-08-09T11:00:31.223Z info: PropsOfMyCreds : 2026-08-09T11:00:31.223Z
+2026-08-09T11:00:31.239Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:00:31.241Z info: PropsOfMyCreds finished
+2026-08-09T11:02:12.392Z info: $OpenSafeByPin finished
+2026-08-09T11:02:12.430Z info: $GetSafe finished
+2026-08-09T11:02:16.810Z info: $GetOrgSvc finished
+2026-08-09T11:02:16.824Z info: $GetSitesUrls finished
+2026-08-09T11:02:16.842Z info: PropsOfMyCreds : 2026-08-09T11:02:16.842Z
+2026-08-09T11:02:16.854Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:02:16.856Z info: PropsOfMyCreds finished
+2026-08-09T11:03:00.030Z info: FW$Sync : 2026-08-09T11:02:56.611Z
+2026-08-09T11:03:26.513Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:04:21.370Z info: Configuration pre-loaded
+2026-08-09T11:04:21.747Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T11:04:21.751Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T11:04:22.080Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:04:22.080Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:04:22.081Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T11:04:22.082Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T11:04:22.082Z info: fw documents loading: 2
+2026-08-09T11:04:22.083Z info: app operations loading: 12
+2026-08-09T11:04:22.083Z info: fw operations loading: 72
+2026-08-09T11:04:22.084Z info: app operations loading: 72
+2026-08-09T11:04:22.084Z info: safe operations loading: 72
+2026-08-09T11:04:22.084Z info: masterdir operations loading: 72
+2026-08-09T11:04:22.085Z info: Configuration completed
+2026-08-09T11:04:22.094Z info: Server started
+2026-08-09T11:04:22.096Z info: HTTP listen [8091]
+2026-08-09T11:04:55.101Z info: FW$Sync : 2026-08-09T11:04:49.210Z
+2026-08-09T11:04:55.167Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:06:13.507Z error: AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:06:13.509Z error: FW$Sync : 2026-08-09T11:04:49.210Z : AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:06:13.511Z info: FW$Sync terminated on exception
+2026-08-09T11:06:13.511Z error: AppExc: 105:service_unexpected_exception["AppExc: 105:credential_required_not_found@FW$Sync:[\"AS2\",\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-09T11:06:52.424Z info: FW$Sync : 2026-08-09T11:06:52.424Z
+2026-08-09T11:07:01.605Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:07:36.888Z error: AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:07:36.891Z error: FW$Sync : 2026-08-09T11:06:52.424Z : AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:07:36.892Z info: FW$Sync terminated on exception
+2026-08-09T11:07:36.893Z error: AppExc: 105:service_unexpected_exception["AppExc: 105:credential_required_not_found@FW$Sync:[\"AS2\",\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-09T11:07:59.090Z info: FW$Sync : 2026-08-09T11:07:59.090Z
+2026-08-09T11:07:59.102Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:09:17.616Z info: Configuration pre-loaded
+2026-08-09T11:09:17.963Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T11:09:17.967Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T11:09:18.278Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:09:18.279Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:09:18.280Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T11:09:18.282Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T11:09:18.285Z info: fw documents loading: 2
+2026-08-09T11:09:18.286Z info: app operations loading: 12
+2026-08-09T11:09:18.287Z info: fw operations loading: 72
+2026-08-09T11:09:18.288Z info: app operations loading: 72
+2026-08-09T11:09:18.289Z info: safe operations loading: 72
+2026-08-09T11:09:18.290Z info: masterdir operations loading: 72
+2026-08-09T11:09:18.291Z info: Configuration completed
+2026-08-09T11:09:18.308Z info: Server started
+2026-08-09T11:09:18.313Z info: HTTP listen [8091]
+2026-08-09T11:09:26.505Z info: FW$Sync : 2026-08-09T11:09:26.505Z
+2026-08-09T11:09:26.540Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:10:23.943Z error: FW$Sync : 2026-08-09T11:09:26.505Z : SqliteError: no such table: AUTEUR
+2026-08-09T11:10:23.944Z info: FW$Sync terminated on exception
+2026-08-09T11:10:23.945Z error: AppExc: 105:service_unexpected_exception["no such table: AUTEUR"]
+2026-08-09T11:11:11.077Z info: FW$Sync : 2026-08-09T11:11:11.077Z
+2026-08-09T11:11:11.089Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:11:53.707Z info: Configuration pre-loaded
+2026-08-09T11:11:54.058Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T11:11:54.061Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T11:11:54.437Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:11:54.438Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:11:54.439Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T11:11:54.440Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T11:11:54.441Z info: fw documents loading: 2
+2026-08-09T11:11:54.442Z info: app operations loading: 12
+2026-08-09T11:11:54.443Z info: fw operations loading: 72
+2026-08-09T11:11:54.444Z info: app operations loading: 72
+2026-08-09T11:11:54.444Z info: safe operations loading: 72
+2026-08-09T11:11:54.445Z info: masterdir operations loading: 72
+2026-08-09T11:11:54.446Z info: Configuration completed
+2026-08-09T11:11:54.459Z info: Server started
+2026-08-09T11:11:54.462Z info: HTTP listen [8091]
+2026-08-09T11:12:04.433Z info: FW$Sync : 2026-08-09T11:12:04.433Z
+2026-08-09T11:12:04.475Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:12:36.597Z info: FW$Sync finished
+2026-08-09T11:17:31.512Z info: $OpenSafeByPin finished
+2026-08-09T11:17:31.558Z info: $GetSafe finished
+2026-08-09T11:17:36.594Z info: $GetOrgSvc finished
+2026-08-09T11:17:36.610Z info: $GetSitesUrls finished
+2026-08-09T11:17:36.632Z info: PropsOfMyCreds : 2026-08-09T11:17:36.632Z
+2026-08-09T11:17:36.643Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:17:36.644Z info: PropsOfMyCreds finished
+2026-08-09T11:17:38.390Z info: FW$Sync : 2026-08-09T11:17:38.390Z
+2026-08-09T11:17:38.400Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:17:48.040Z info: FW$Sync finished
+2026-08-09T11:52:21.701Z info: Configuration pre-loaded
+2026-08-09T11:52:25.031Z info: FW document descriptors:2 forms descriptors:2
+2026-08-09T11:52:25.065Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-09T11:52:25.355Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:52:25.356Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-09T11:52:25.357Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-09T11:52:25.357Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-09T11:52:25.358Z info: fw documents loading: 2
+2026-08-09T11:52:25.358Z info: app operations loading: 12
+2026-08-09T11:52:25.359Z info: fw operations loading: 72
+2026-08-09T11:52:25.359Z info: app operations loading: 72
+2026-08-09T11:52:25.360Z info: safe operations loading: 72
+2026-08-09T11:52:25.360Z info: masterdir operations loading: 72
+2026-08-09T11:52:25.360Z info: Configuration completed
+2026-08-09T11:52:25.368Z info: Server started
+2026-08-09T11:52:25.370Z info: HTTP listen [8091]
+2026-08-09T11:52:26.567Z info: $OpenSafeByPin finished
+2026-08-09T11:52:26.611Z info: $GetSafe finished
+2026-08-09T11:52:31.490Z info: $GetOrgSvc finished
+2026-08-09T11:52:31.512Z info: $GetSitesUrls finished
+2026-08-09T11:52:31.553Z info: PropsOfMyCreds : 2026-08-09T11:52:31.552Z
+2026-08-09T11:52:31.608Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:52:31.610Z info: PropsOfMyCreds finished
+2026-08-09T11:52:33.318Z info: FW$Sync : 2026-08-09T11:52:33.317Z
+2026-08-09T11:52:33.328Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:52:46.686Z info: FW$Sync finished
+2026-08-09T11:53:25.040Z info: FW$Sync : 2026-08-09T11:53:25.040Z
+2026-08-09T11:53:25.048Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:53:25.050Z info: FW$Sync finished
+2026-08-09T11:53:48.288Z info: $OpenSafeByPin finished
+2026-08-09T11:53:48.358Z info: $GetSafe finished
+2026-08-09T11:53:53.601Z info: $GetOrgSvc finished
+2026-08-09T11:53:53.613Z info: $GetSitesUrls finished
+2026-08-09T11:53:53.631Z info: PropsOfMyCreds : 2026-08-09T11:53:53.631Z
+2026-08-09T11:53:53.642Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:53:53.644Z info: PropsOfMyCreds finished
+2026-08-09T11:53:55.310Z info: FW$Sync : 2026-08-09T11:53:55.310Z
+2026-08-09T11:53:55.320Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:53:55.321Z info: FW$Sync finished
+2026-08-09T11:54:44.599Z info: PropsOfMyCreds : 2026-08-09T11:54:44.599Z
+2026-08-09T11:54:44.607Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:54:44.608Z info: PropsOfMyCreds finished
+2026-08-09T11:54:47.193Z info: FW$Sync : 2026-08-09T11:54:47.193Z
+2026-08-09T11:54:47.205Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:54:47.207Z info: FW$Sync finished
+2026-08-09T11:55:34.615Z info: FW$Sync : 2026-08-09T11:55:34.614Z
+2026-08-09T11:55:34.626Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:55:34.628Z info: FW$Sync finished
+2026-08-09T11:56:09.071Z info: $OpenSafeByPin finished
+2026-08-09T11:56:09.111Z info: $GetSafe finished
+2026-08-09T11:56:15.207Z info: $GetOrgSvc finished
+2026-08-09T11:56:15.220Z info: $GetSitesUrls finished
+2026-08-09T11:56:15.266Z info: PropsOfMyCreds : 2026-08-09T11:56:15.265Z
+2026-08-09T11:56:15.280Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:56:15.282Z info: PropsOfMyCreds finished
+2026-08-09T11:57:51.245Z info: $OpenSafeByPin finished
+2026-08-09T11:57:51.286Z info: $GetSafe finished
+2026-08-09T11:58:00.560Z info: $GetOrgSvc finished
+2026-08-09T11:58:00.578Z info: $GetSitesUrls finished
+2026-08-09T11:58:00.612Z info: PropsOfMyCreds : 2026-08-09T11:58:00.612Z
+2026-08-09T11:58:00.634Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:58:00.640Z info: PropsOfMyCreds finished
+2026-08-09T11:58:30.049Z info: FW$Sync : 2026-08-09T11:58:30.049Z
+2026-08-09T11:58:30.063Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T11:58:30.067Z info: FW$Sync finished
+2026-08-09T12:03:42.301Z info: $OpenSafeByPin finished
+2026-08-09T12:03:42.344Z info: $GetSafe finished
+2026-08-09T12:04:16.029Z info: $GetOrgSvc finished
+2026-08-09T12:04:16.056Z info: $GetSitesUrls finished
+2026-08-09T12:04:16.132Z info: PropsOfMyCreds : 2026-08-09T12:04:16.132Z
+2026-08-09T12:04:16.166Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:04:16.170Z info: PropsOfMyCreds finished
+2026-08-09T12:04:36.384Z info: FW$Sync : 2026-08-09T12:04:36.384Z
+2026-08-09T12:04:36.397Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:04:36.400Z info: FW$Sync finished
+2026-08-09T12:06:07.417Z info: FW$setSubscription : 2026-08-09T12:06:07.416Z
+2026-08-09T12:06:07.434Z info: FW$setSubscription finished
+2026-08-09T12:06:18.869Z info: MajAuteur : 2026-08-09T12:06:18.869Z
+2026-08-09T12:06:18.882Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:06:18.892Z info: MajAuteur finished
+2026-08-09T12:06:18.941Z info: $UpdateCredName finished
+2026-08-09T12:12:11.355Z info: PropsOfMyCreds : 2026-08-09T12:12:11.355Z
+2026-08-09T12:12:11.401Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:12:11.404Z info: PropsOfMyCreds finished
+2026-08-09T12:12:25.161Z info: FW$Sync : 2026-08-09T12:12:25.161Z
+2026-08-09T12:12:25.170Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:12:25.172Z info: FW$Sync finished
+2026-08-09T12:12:36.103Z info: FW$setSubscription : 2026-08-09T12:12:36.103Z
+2026-08-09T12:12:36.115Z info: FW$setSubscription finished
+2026-08-09T12:12:49.073Z info: MajAuteur : 2026-08-09T12:12:49.073Z
+2026-08-09T12:12:49.084Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:12:49.092Z info: MajAuteur finished
+2026-08-09T12:12:55.755Z info: FW$Sync : 2026-08-09T12:12:55.755Z
+2026-08-09T12:12:55.773Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:12:55.776Z info: FW$Sync finished
+2026-08-09T12:13:16.348Z info: $UpdateCredName finished
+2026-08-09T12:13:27.223Z info: MajAuteur : 2026-08-09T12:13:27.223Z
+2026-08-09T12:13:27.239Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:13:27.247Z info: MajAuteur finished
+2026-08-09T12:13:35.944Z info: FW$Sync : 2026-08-09T12:13:35.943Z
+2026-08-09T12:13:35.962Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:13:35.965Z info: FW$Sync finished
+2026-08-09T12:13:36.007Z info: $UpdateCredName finished
+2026-08-09T12:53:30.330Z info: PropsOfMyCreds : 2026-08-09T12:53:30.330Z
+2026-08-09T12:53:30.354Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:53:30.361Z info: PropsOfMyCreds finished
+2026-08-09T12:53:47.463Z info: $OpenSafeByPin finished
+2026-08-09T12:53:47.512Z info: $GetSafe finished
+2026-08-09T12:54:04.354Z info: $GetOrgSvc finished
+2026-08-09T12:54:04.367Z info: $GetSitesUrls finished
+2026-08-09T12:54:04.385Z info: PropsOfMyCreds : 2026-08-09T12:54:04.385Z
+2026-08-09T12:54:04.396Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:54:04.398Z info: PropsOfMyCreds finished
+2026-08-09T12:54:27.930Z info: FW$Sync : 2026-08-09T12:54:27.930Z
+2026-08-09T12:54:27.944Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:54:27.946Z info: FW$Sync finished
+2026-08-09T12:55:52.634Z info: PropsOfMyCreds : 2026-08-09T12:55:52.634Z
+2026-08-09T12:55:52.677Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:55:52.735Z info: PropsOfMyCreds finished
+2026-08-09T12:56:09.334Z info: FW$Sync : 2026-08-09T12:56:09.334Z
+2026-08-09T12:56:09.351Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:56:09.354Z info: FW$Sync finished
+2026-08-09T12:56:23.737Z info: FW$Sync : 2026-08-09T12:56:23.737Z
+2026-08-09T12:56:23.748Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:56:23.750Z info: FW$Sync finished
+2026-08-09T12:57:07.595Z info: PropsOfMyCreds : 2026-08-09T12:57:07.595Z
+2026-08-09T12:57:07.623Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:57:07.651Z info: PropsOfMyCreds finished
+2026-08-09T12:57:21.852Z info: PropsOfMyCreds : 2026-08-09T12:57:21.852Z
+2026-08-09T12:57:21.879Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:57:21.881Z info: PropsOfMyCreds finished
+2026-08-09T12:57:26.236Z info: FW$Sync : 2026-08-09T12:57:26.236Z
+2026-08-09T12:57:26.248Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:57:26.250Z info: FW$Sync finished
+2026-08-09T12:57:39.120Z info: FW$setSubscription : 2026-08-09T12:57:39.120Z
+2026-08-09T12:57:39.153Z info: FW$setSubscription finished
+2026-08-09T12:57:50.613Z info: MajAuteur : 2026-08-09T12:57:50.613Z
+2026-08-09T12:57:50.627Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:57:50.634Z info: MajAuteur finished
+2026-08-09T12:59:13.088Z info: FW$Sync : 2026-08-09T12:59:13.088Z
+2026-08-09T12:59:13.100Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:59:13.103Z info: FW$Sync finished
+2026-08-09T12:59:13.117Z info: FW$setSubscription : 2026-08-09T12:59:13.117Z
+2026-08-09T12:59:13.126Z info: FW$setSubscription finished
+2026-08-09T12:59:57.731Z info: MajAuteur : 2026-08-09T12:59:57.731Z
+2026-08-09T12:59:57.752Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T12:59:57.766Z info: MajAuteur finished
+2026-08-09T13:03:24.410Z info: MajAuteur : 2026-08-09T13:03:24.410Z
+2026-08-09T13:03:24.426Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T13:03:24.437Z info: MajAuteur finished
+2026-08-09T13:06:28.534Z info: PropsOfMyCreds : 2026-08-09T13:06:28.534Z
+2026-08-09T13:06:28.549Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T13:06:28.551Z info: PropsOfMyCreds finished
+2026-08-09T13:06:38.517Z info: FW$Sync : 2026-08-09T13:06:38.517Z
+2026-08-09T13:06:38.533Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T13:06:38.536Z info: FW$Sync finished
+2026-08-09T13:06:38.569Z info: FW$setSubscription : 2026-08-09T13:06:38.569Z
+2026-08-09T13:06:38.577Z info: FW$setSubscription finished
+2026-08-09T13:06:44.885Z info: MajAuteur : 2026-08-09T13:06:44.885Z
+2026-08-09T13:06:44.896Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T13:06:44.903Z info: MajAuteur finished
+2026-08-09T13:06:52.912Z info: FW$Sync : 2026-08-09T13:06:52.912Z
+2026-08-09T13:06:52.927Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-09T13:06:52.931Z info: FW$Sync finished
+2026-08-09T13:06:52.971Z info: $UpdateCredName finished

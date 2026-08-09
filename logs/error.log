@@ -761,3 +761,11 @@ Error: Captured for inspection
 2026-08-07T15:42:46.182Z error: sendNotification: WebPushError: Received unexpected response code
 2026-08-07T15:45:00.032Z error: sendNotification: WebPushError: Received unexpected response code
 2026-08-07T15:45:19.414Z error: sendNotification: WebPushError: Received unexpected response code
+2026-08-09T11:06:13.507Z error: AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:06:13.509Z error: FW$Sync : 2026-08-09T11:04:49.210Z : AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:06:13.511Z error: AppExc: 105:service_unexpected_exception["AppExc: 105:credential_required_not_found@FW$Sync:[\"AS2\",\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-09T11:07:36.888Z error: AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:07:36.891Z error: FW$Sync : 2026-08-09T11:06:52.424Z : AppExc: 105:credential_required_not_found@FW$Sync:["AS2","Auteur","Qpj8HBSa-_TImW-5JCeu"]
+2026-08-09T11:07:36.893Z error: AppExc: 105:service_unexpected_exception["AppExc: 105:credential_required_not_found@FW$Sync:[\"AS2\",\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-09T11:10:23.943Z error: FW$Sync : 2026-08-09T11:09:26.505Z : SqliteError: no such table: AUTEUR
+2026-08-09T11:10:23.945Z error: AppExc: 105:service_unexpected_exception["no such table: AUTEUR"]

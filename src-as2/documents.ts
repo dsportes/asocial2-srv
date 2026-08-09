@@ -1,7 +1,7 @@
 import { encode, decode } from '@msgpack/msgpack'
 
 import { $Document } from '../src-fw/document'
-import { $Form, ADMIN$Status, $Credential, $Subs } from '../src-fw/documents'
+import { $Form, ADMIN$Status, $Credential, $Subs, $CredChecker } from '../src-fw/documents'
 import { Log } from '../src-fw/log'
 import { Registry } from '../src-fw/registry'
 import { Operation } from '../src-fw/operation'
@@ -34,6 +34,12 @@ nd++; Registry.register(AS2$Status)
 
 class AS2$Subs extends $Subs { }
 nd++; Registry.register(AS2$Subs)
+
+class AS2$CredChecker extends $CredChecker {
+  static _unregistered = true
+  // surcharge éventuelle des méthodes check0 check1 check2
+}
+nd++; Registry.register(AS2$CredChecker)
 
 class AS2$Form extends $Form { }
 nd++; Registry.register(AS2$Form)

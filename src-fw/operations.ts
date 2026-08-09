@@ -8,8 +8,8 @@ import { MDandSafe } from '../src-fw/index'
 import { Registry, topCl } from '../src-fw/registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
 import { ADMIN$Status, $Subs, $SubsObj, $Credential, 
-  $Cred, $Form, $FormObj, $CredTempl } from '../src-fw/documents'
-import { DocStatus, $Document } from '../src-fw/document'
+  $Cred, $Form, $FormObj, $CredTempl, $CredChecker } from '../src-fw/documents'
+import { DocStatus, $Document, $ADocument } from '../src-fw/document'
 // import { Util } from '../src-fw/util'
 
 export function loadingOF () {
@@ -313,7 +313,7 @@ class FW$GetPutUrl extends Operation {
 Registry.registerOp(FW$GetPutUrl)
 
 
-type subsToSync = {
+type SubsToSync = {
   def: string, 
   v: number
 }
@@ -332,49 +332,66 @@ Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des docum
   Pour les 'def2', un objet { pk: data | v ... }
   - v: version du document si n'est PLUS dans la collection
   - data: data du document s'il est dans la collection
-  TODO
+Retour: syncs, Object
+- une propriété par def
+- donne une liste de datas (0 ou 1 pour le type 1)
 */
-class Sync extends Operation {
-  _toSync : subsToSync[]
+export class FW$Sync extends Operation {
+  _toSync : SubsToSync[]
+  syncs: Object = {}
+  checker: $CredChecker
+  dd: DocDescriptor
+
   init () {
     super.init()
-    this._toSync = this.arrayValue('toSync', true) as subsToSync[]
+    this._toSync = this.arrayValue('toSync', true) as SubsToSync[]
+    this.checker = Registry.newD(this.svc, 'CredChecker') as $CredChecker
+    this.checker.op = this
   }
   async phase2 () {
+    this.requireAuth()
     for (const { def, v } of this._toSync) {
       const item = def.split('/')
-      // 0: subs classe 1: subs document 2:subs coll
+      // 0: classe, 1: document, 2: coll
       const type = item.length - 1
+      this.dd = DocDescriptor.get(this.svc + '$' + item[0])
       switch (type) {
         case 0 : { await this.sync0(def, v, item[0]); break }
         case 1 : { await this.sync1(def, v, item[0], item[1]); break }
         case 2 : { await this.sync2(def, v, item[0], item[1], item[2]); break }
       }
     }
+    this.setRes('syncs', this.syncs)
   }
 
   async sync0 (def: string, v: number, clazz: string) : Promise<void> {
+    if (!this.checker.check0())
+      throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, '1'])
     const datas = await this.db.allRowsData(clazz, v)
-    this.addRes(def, datas)
+
+    this.syncs[def] = datas
   }
 
   async sync1 (def: string, v: number, clazz: string, pk: string) : Promise<void> {
-    const row = await this.db.oneRow(clazz, pk, v)
-    this.addRes(def, row ? row.data : null)
+    if (!this.checker.check1(pk))
+      throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, pk])
+    const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
+    this.syncs[def] =  row ? [row.data] : []
   }
 
-  async sync2 (def: string, v: number, clazz: string, colName: string, col: string) : Promise<void> {
-    const dd = DocDescriptor.get(clazz)
-    if (dd.hasColls) {
-      const x = dd.colls.get(colName)
+  async sync2 (def: string, v: number, clazz: string, colName: string, val: string) : Promise<void> {
+    if (this.dd.hasColls) {
+      const x = this.dd.colls.get(colName)
       if (x) {
-        const datas = await this.db.getColl(clazz, colName, col, x.list, v)
-        this.addRes(def, datas)
+        if (!this.checker.check2(colName, val))
+          throw new AppExc(105, 'credential_required_not_found', this, [this.svc, colName, val])
+        const datas = await this.db.getColl(clazz, colName, val, x.list, v)
+        this.syncs[def] = datas
       }
     }
   }
 }
-Registry.registerOp(Sync)
+Registry.registerOp(FW$Sync)
 
 /* getCredUpdates retourne [v, props] d'un credential
 pour SON détenteur (signature vérifiée).
@@ -906,12 +923,10 @@ class UpdPropsCred extends Operation {
   async phase2 () {
     this.requireAuth()
     const credRef = this.getCredRef(this._docCl, this._docPk)
-    if (!credRef || credRef.cred.credId !== this._credId) 
+    if (!credRef || credRef.cred.credId !== this._credId || credRef.isEmbed) 
       { this.setRes('status', 1); return }
-
-    const cl = Registry.newD('', this._docCl, {})
-    if (!cl) { this.setRes('status', 2); return }
-    const sp = cl['userCredProps'] as Set<string>
+    const credCl = credRef.doc.constructor
+    const sp = credCl['userCredProps'] as Set<string>
     if (!sp || !sp.size) { this.setRes('status', 3); return }
 
     let upd = false
