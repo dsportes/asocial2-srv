@@ -318,23 +318,49 @@ type SubsToSync = {
   v: number
 }
 
-/* Sync : synchronise les souscriptions citées *************************
-- toSync = subsToSync[]
+/* FW$Sync : synchronise les defs des souscriptions citées *************************
+- toSync = SubsToSync[]
 subsToSync = {
   def: string, 
   v: number - version 'vs' la plus récente détenue en session
 }
-Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' des documents (par exemple: Article/auteurs/Zola)
-- si vs est absent: connue actuellement.
-- changements (documents ajoutés ou partis de la sous-collection ou zombifiés) depuis la version vs
-    de la sous-collection connue en session.
-- { def0: [Uint8Array], def1: Uint8array, def2: { pk: data | v ... }}
-  Pour les 'def2', un objet { pk: data | v ... }
-  - v: version du document si n'est PLUS dans la collection
-  - data: data du document s'il est dans la collection
-Retour: syncs, Object
-- une propriété par def
-- donne une liste de datas (0 ou 1 pour le type 1)
+Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' 
+des documents par exemple: 
+  - type 0: Auteur : collection de 0-N éléments.
+  - type 1: Auteur/sh(Zola) : 0-1 élément.
+  - type 2: Article/auteurs/sh(Zola) : collection de 0-N éléments.
+- pour chaque def d'entrée, un élément syncs[def] est retourné
+  - type 0 et 2: { v, datas: Uint8Array[] } 
+  - type 1: { v, datas: Uint8Array[] } datas 0 ou 1 élément
+
+- vs est 0: tous les éléments connus actuellement.
+- vs != 0: INCREMENTAL , liste des changements depuis vs:
+  - ceux ajoutés avec leur data complète: { v _pk _clazz ...}
+  - ceux supprimés avec une data: { deleted:true, v _pk, _clazz }
+    - v: version de suppression (dh de l'opération de suppression)
+
+- Type 2 INCREMENTAL : Article/auteurs/sh(Zola)
+  retourne une collection d'"Article" (dont l'un des Auteurs est Zola), PAS d'"Auteur"
+  a) ajoutés à la sous-collection ou toujours présents mais modifiés, 
+  b) partis de la sous-collection, 
+  b) zombifiés
+  - pour savoir si un article a1 est dans le cas a) ou b)
+    - la session recherche si Zola est ou non dans la liste d'auteurs,
+      - oui c'est un a), ajouté à la collection ou mis à jour
+      - non c'est un b), supprimé de la collection
+    - cas c): deleted est à true (Article supprimé)
+Retour:
+- syncs[def]: { v, datas: Uint8Array[] }
+- now : date-heure de l'opération IMPORTANTE. C'est la dh d'ASSERTION,
+  à cette date-heure l'image de la collection est celle-ci.
+  - si l'élément est { v: 0, datas: [] } IL N'Y A PAS eu de changements
+    depuis la dh vs fournie par la session. la version v de la collection est INCONNUE.
+  - si l'élément est { v: 12345, datas: [d1, ...] }.
+    - le ou les changements a) b) c) sont dans datas
+    - la version v de la collection est CONNUE (sa dh de dernier changement): 
+      - INCREMENTALE : c'est la plus haute de celles contenues dans les datas.
+      - INTEGRALE: v la plus haute des documents lus, y compris ceux
+        supprimés qui ne sont PAS dans datas.
 */
 export class FW$Sync extends Operation {
   _toSync : SubsToSync[]
@@ -374,9 +400,10 @@ export class FW$Sync extends Operation {
   async sync1 (def: string, v: number, clazz: string, pk: string) : Promise<void> {
     if (!this.checker.check1(pk))
       throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, pk])
+    let incr = v !== 0
     const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
-    this.syncs[def] =  row ? { v: row.v, datas: [row.data] } 
-      : { v: v, datas: [] }
+    this.syncs[def] =  row ? { incr, v: row.v, datas: [row.data] } 
+      : { incr, v: 0, datas: [] }
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, val: string) : Promise<void> {

@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { encode } from '@msgpack/msgpack'
 import { config } from '../src/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowQ, CollData, updType, vdata, Safe,
+  row, rowDB, rowQ, CollData, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { topCl } from '../src-fw/registry'
@@ -163,26 +163,31 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
 
-  static dbCols = new Map<string, string[][]>()
+  /* Pour chaque clazz, garde en cache les listes des colonnes pour la DB:
+  - lc : set de TOUTES les colonnes
+  - ll : set parmi celles-ci des colonnes liste
+  */
+  static dbCols = new Map<string, [Set<string>, Set<string>]>()
   public path: string
   public lastSql: string[]
   public sql: any
   
-  columns (clazz: string) : string[][] {
-    const adm = clazz.startsWith('ADMIN$')
+  /* Liste les colonnes APPLICATIVES pour la DB,
+  SANS les colonnes techniques { v pk ttl data org }
+  */
+  columns (clazz: string) : [Set<string>, Set<string>] {
     let e = SQLiteConnexion.dbCols.get(clazz)
     if (!e) {
-      const lc = ['v', 'pk', 'ttl', 'data']
-      if (!adm) lc.push('org')
-      const ll = []
+      const lc: Set<string> = new Set()
+      const ll: Set<string> = new Set()
       const dt = DocDescriptor.get(topCl('', clazz))
       if (dt.hasColls) for (const [n, x] of dt.colls) {
-        lc.push(n)
-        if (x.list) ll.push(n)
+        lc.add(n)
+        if (x.list) ll.add(n)
       }
       if (dt.hasIndexes) for (const [n, x] of dt.indexes) {
-        lc.push(n)
-        if (x.type === propType.LIST) ll.push(n)
+        lc.add(n)
+        if (x.type === propType.LIST) ll.add(n)
       }
       e = [lc, ll]
       SQLiteConnexion.dbCols.set(clazz, e)
@@ -512,33 +517,35 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run({key: '1', value: '1'})
   }
 
-  /* Transforme un row APP en row DB
+  /* Retourne un rowDB calculé depuis un row APP
   - calcul du TTL (EPOCH en MINUTES) éventuel selon deleted et maxLife / now
   - crypt data, sauf si nocrypt
-  - transforme les propriétés "list" en string avec séparateur $
-    pour recherche instr de SQL
-  Retourne le row
+  - ajoute les colonnes APPLICATIVES (coll et index)
+    - transforme les propriétés "list" en string avec séparateur $
+      pour recherche instr de SQL
   */
-  rowToDB (clazz: string, row: row, nocrypt?: boolean) : row {
+  rowToDB (clazz: string, row: row, org: string, nocrypt?: boolean) : rowDB {
+    // @ts-expect-error
+    let rdb: rowDB = { pk: row.pk, v: row.v,ttl: 0 }
+    if (org) rdb.org = org
     if (!row.data) { // deleted
-      row.ttl = Math.floor(row.v / 60000) + zombiLapse, 0
+      rdb.ttl = Math.floor(row.v / 60000) + zombiLapse, 0
     } else {
-      const [, ll] = this.columns(clazz)
-      ll.forEach(p => {
-        const a = row[p]
-        row[p] = a && a.length ? ('$' + a.join('$')) : ''
+      const [lc, ll] = this.columns(clazz)
+      lc.forEach(p => {
+        if (!ll.has(p)) rdb[p] = row[p]
       })
-      if (row.maxLife) {
-        if (row.maxLife * 60000 > this.op.now)
-          row.ttl = row.maxLife
-        delete row.maxLife
-      }
+      ll.forEach(p => {
+        if (!lc.has(p)) {
+          const a = row[p]
+          rdb[p] = a && a.length ? ('$' + a.join('$')) : ''
+        }
+      })
+      if (row.maxLife && (row.maxLife * 60000 > this.op.now))
+        rdb.ttl = row.maxLife
+      rdb.data = !nocrypt ? row.data : Crypt.syncCrypt(this.key, row.data)
     }
-    if (!nocrypt && row.data) {
-      const x = Crypt.syncCrypt(this.key, row.data)
-      row.data = x
-    }
-    return row
+    return rdb
   }
 
   /* Transforme un row DB en row APP et le retourne:
@@ -547,23 +554,23 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     - pas dépassé : converti en maxLife
   Si row.deleted: row.data est reconstitué NON crypté { deleted, v, _clazz, _pk }
   Sinon row.data est décrypté (ou non)
+    _org?: string
+    pk: string // primary key (hash)
+    v: number // version: time de la dernière opération de création / maj / suppression
+    maxLife?: number // time de fin de vie programmée par l'application (EPOCH en MINUTES)
+    deleted?: boolean
+    data: Uint8Array, // null si DELETED
   */
-  rowToAPP (clazz: string, row: row, nodecrypt?: boolean) : row | null{
-    let sec = 0
-    row._org = this.org
-    if (row.ttl) { 
-      sec = row.ttl
-      delete row.ttl
-    }
-    if (!row.data || (sec && (sec * 60000 < this.op.now))) {
+  rowToAPP (clazz: string, rdb: rowDB, org: string, nodecrypt?: boolean) : row{
+    // @ts-expect-error
+    const row: row = { pk: rdb.pk, v: rdb.v }
+    if (org) row._org = org
+    if (!rdb.data || (rdb.ttl && (rdb.ttl * 60000 < this.op.now))) {
       row.deleted = true
-      row.data = encode({ deleted: true, v: row.v, _pk: row.pk, _clazz: clazz })
-      return row
-    }
-    if (sec) row.maxLife = sec
-    if (!nodecrypt) {
-      const x = Crypt.syncDecrypt(this.key, Buffer.from(row.data))
-      row.data = x
+      row.data = encode({ deleted: true, v: rdb.v, _pk: rdb.pk, _clazz: clazz })
+    } else {
+      if (rdb.ttl) rdb.maxLife = rdb.ttl
+      row.data = nodecrypt ? rdb.data : Crypt.syncDecrypt(this.key, Buffer.from(rdb.data))
     }
     return row
   }
@@ -583,7 +590,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     for (let doc of docs) {
       n++
       lastMark = doc.pk
-      const row = this.rowToAPP(clazz, doc as row, true)
+      const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org, true)
       if (!row.deleted) rows.push(row)
     }
     return { rows, eox: n < limit, lastMark} 
@@ -603,30 +610,26 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   insRow (clazz: string, row: row) : void {
-    const [cols, ] = this.columns(clazz)
-    const lx = []; cols.forEach(c => { lx.push('@' + c)})
+    const adm = clazz.startsWith('ADMIN$')
+    const [lc, ] = this.columns(clazz)
+    const lx = []; lc.forEach(c => { lx.push('@' + c)})
     const stmt = this.sql.prepare('INSERT INTO ' + this.cluc(clazz) + 
-      ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ');')
-    const r = this.rowToDB(clazz, row)
-    const obj = { org: this.org, ttl: 0 }; 
-    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
-    stmt.run(obj)
+      ' (' + (Array.from(lc).join(', ')) + ') VALUES (' + lx.join(', ') + ');')
+    const r = this.rowToDB(clazz, row, adm ? '' : this.org)
+    stmt.run(r)
   }
 
   updRow (clazz: string, row: row) : void {
     const adm = clazz.startsWith('ADMIN$')
     if (row.data) { // c'est une vraie maj
-      const [cols, ] = this.columns(clazz)
-      const lx = []; cols.forEach(c => { lx.push(c + ' = @' + c)})
+      const [lc, ] = this.columns(clazz)
+      const lx = []; lc.forEach(c => { lx.push(c + ' = @' + c)})
       const stmt = this.sql.prepare('UPDATE ' + this.cluc(clazz) + ' SET ' +
         lx.join(', ') + ' WHERE ' + (adm ? '' : 'org = @org AND ') + ' pk = @pk;')
-      const r = this.rowToDB(clazz, row)
-      const obj = { org: this.org, ttl: 0 }; 
-      cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
-      stmt.run(obj)
+      const r = this.rowToDB(clazz, row, adm ? '' : this.org)
+      stmt.run(r)
     } else { // c'est une suppression (logique)
-      const r = this.rowToDB(clazz, row)
-      r.org = this.org
+      const r = this.rowToDB(clazz, row, adm ? '' : this.org)
       const stmt = this.sql.prepare('UPDATE ' + this.cluc(clazz) + 
         ' SET v = @v, ttl = @ttl, data = NULL WHERE ' + (adm ? '' : 'org = @org AND ') + ' pk = @pk;')
       stmt.run(r)
@@ -634,27 +637,26 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   setRow (clazz: string, row: row) : void {
-    // const adm = clazz.startsWith('ADMIN$')
-    const [cols, ] = this.columns(clazz)
-    const lx = []; cols.forEach(c => { lx.push('@' + c)})
-    const ly = []; cols.forEach(c => { 
+    const adm = clazz.startsWith('ADMIN$')
+    const [lc, ] = this.columns(clazz)
+    const lx = []; lc.forEach(c => { lx.push('@' + c)})
+    const ly = []; lc.forEach(c => { 
       if (c !== 'pk' && c !== 'org') ly.push(c + ' = excluded.' + c)
     })
     const stmt = this.sql.prepare('INSERT INTO ' + this.cluc(clazz) + 
-      ' (' + cols.join(', ') + ') VALUES (' + lx.join(', ') + ')' +
+      ' (' + (Array.from(lc).join(', ')) + ') VALUES (' + lx.join(', ') + ')' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' + ly.join(', ') + ';')
-    const r = this.rowToDB(clazz, row)
-    const obj = { org: this.org, ttl: 0 }; 
-    cols.forEach(c => { const x = r[c] ; if (x) obj[c] = x })
-    stmt.run(obj)
+    const r = this.rowToDB(clazz, row, adm ? '' : this.org)
+    stmt.run(r)
   }
 
   /*
   delRow (clazz: string, row: row) : Promise<void> {
+    const adm = clazz.startsWith('ADMIN$')
     const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz) + 
     ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk = @pk;')
-    const r = this.rowToDB(clazz, row, true)
-    const obj = { org: this.org, pk: row.pk }
+    const obj = { pk: row.pk }
+    if (!adm) obj.org = this.org
     stmt.run(obj)
   }
   */
@@ -730,14 +732,15 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) +
       ' WHERE ' + (adm ? '' : 'org = @org ') + (!v ? ';' : ' AND v > @v ;'))
     const docs = stmt.all({org: this.org, v : v || 0})
-    let vmax = v || 0
+    let vmax = 0
+    let incr = v !== 0
     for (let doc of docs) {
-      const row = this.rowToAPP(clazz, doc as row)
+      const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
       if (row.v > vmax) vmax = row.v
-      if (v) datas.push(row.data)
+      if (incr) datas.push(row.data) // INCREMENTAL
       else if (!row.deleted) datas.push(row.data)
     }
-    return { v: vmax, datas: datas }
+    return { incr, v: vmax, datas: datas }
   }
 
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
@@ -745,10 +748,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const w = ' WHERE ' + (adm ? '' : 'org = @org AND ') + 'pk = @pk' + (!v ? ';' : ' AND v > @v ;')
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) + w)
     const doc = stmt.get({org: this.org, v : v || 0, pk })
-    if (!doc) return null
-    const row = this.rowToAPP(clazz, doc as row)
-    if (v) return row
-    return !row.deleted ? row : null
+    return !doc ? null : this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
   }
 
   async oneRowByAlias (clazz: string, alias: string, value: string) : Promise<row | null> {
@@ -757,7 +757,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' WHERE ' + (adm ? '' :  'org = @org AND ') + alias + '= @value')
     const doc = stmt.get({org: this.org, value: value })
     if (!doc) return null
-    const row = this.rowToAPP(clazz, doc as row)
+    const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
     return !row.deleted ? row : null
   }
 
@@ -780,25 +780,26 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     // Map des documents par pk
     const m: Map<string, vdata> = new Map<string, vdata>()
     const datas: Uint8Array[] = []
+    let incr = vs !== 0
 
     let stmt = this.sql.prepare('SELECT * FROM ' + 
       this.cluc(clazz) +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') +
       (isList ? ('instr(' + colName + ', @col) > 0') : (colName + ' = @col') ) +
-      (!vs ? ';' : ' AND v > @vs ;'))
+      (!incr ? ';' : ' AND v > @vs ;'))
     const docs = stmt.all({org: this.org, vs : vs || 0, col })
     let vmax = vs || 0
     for (let doc of docs) {
-      const row = this.rowToAPP(clazz, doc as row)
+      const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
       if (row.v > vmax) vmax = row.v
-      if (!vs) {
+      if (!incr) {
         if (!row.deleted) datas.push(row.data)
       } else {
         // ceux supprimés vont se retrouver par leur rowq
         if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
       }
     }
-    if (!vs) return { v: vmax, datas: datas }
+    if (!incr) return { incr, v: vmax, datas: datas }
 
     const ttl = Math.round(this.op.now / 60000)
     stmt = this.sql.prepare('SELECT pk, v FROM ' + 
@@ -825,7 +826,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       }
     }
     for(const [, {data}] of m) datas.push(data)
-    return { v: vmax, datas: datas}
+    return { incr, v: vmax, datas: datas}
   }
 
   compOp (colName: string, filter: filter, col: any) {
@@ -863,13 +864,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const stmt = this.sql.prepare(x)
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
-      const row = this.rowToAPP(clazz, doc as row)
+      const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
       if (!row.deleted) await fn(row.data)
     }
   }
 
   async selectDocsGlobal(clazz: string, colName: string, filter: filter, col: any, 
     order: string, limit: number, fn: Function)  : Promise<void> {
+    const adm = clazz.startsWith('ADMIN$')
     const comp = opFilter[filter]
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz)
       + ' WHERE ' + this.compOp(colName, filter, col)
@@ -877,7 +879,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       + (limit ? ' LIMIT ' + limit : '') + ';')
     const docs = stmt.all({org: this.org, col })
     for (let doc of docs) {
-      const row = this.rowToAPP(clazz, doc as row)
+      const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
       if (!row.deleted) fn(doc.org, row)
     }
   }

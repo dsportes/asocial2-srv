@@ -1,11 +1,11 @@
 // @ts-ignore
-import { decode } from '@msgpack/msgpack'
+import { encode, decode } from '@msgpack/msgpack'
 
 import { OperationWC, MDandSafe } from '../src-fw/index'
 import { config } from '../src/config'
 import { Log, AppExc } from '../src-fw/log'
 import { DbConnector } from '../src-fw/dbConnector'
-import { IDbGeneric, row, srvStatus, updType } from '../src-fw/iDbGeneric'
+import { IDbGeneric, row, cloneRow, srvStatus, updType } from '../src-fw/iDbGeneric'
 import { IStGeneric } from '../src-fw/iStGeneric'
 import { medCl, topCl } from '../src-fw/registry'
 import { DocDescriptor } from '../src-fw/docDescriptor'
@@ -53,7 +53,7 @@ export class DocDescr {
     const d = decode(this.row.data)
     const [data, b] = $Document.mutate(this.clazz, d)
     this.doc = $Document.newDoc(this.clazz, DocStatus.NONE, data)
-    this.doc._org = this.row.org
+    if (this.row._org) this.doc._org = this.row._org
   }
 
 }
@@ -186,7 +186,7 @@ export class Operation implements OperationWC {
 
         if (st === 0) {
           for(let i = 0; i < this.updates.length; i++) {
-            const upd = this.updates[i]
+            const upd: DocDescr = this.updates[i]
             Cache.updateCache(this, upd)
             delete upd.doc
             this.updates[i] = upd
@@ -505,31 +505,34 @@ export class Cache {
     const now = Date.now()
     const pk = DocDescriptor.get(clazz).pkValue(src)
     const k = DocDescr.key(clazz, pk)
-    const item = oc.get(k)
+    let item = oc.get(k)
     if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
       item.lru = now
-      return new DocDescr(clazz, pk, item.row)
+      return new DocDescr(clazz, pk, cloneRow(item.row))
     }
 
-    if (item) { // item trouvé en cache
-      // lecture pour recherche d'un éventuel plus récent
-      const row = await op.db.oneRow(clazz, pk, item.row.v)
-      if (row && row.v > item.row.v) // celui lu est plus récent
-        item.row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
+    if (item) { // trouvé en cache, lecture pour recherche d'un éventuel plus récent
       item.lru = now
-      return new DocDescr(clazz, pk, item.row)
+      const row = await op.db.oneRow(clazz, pk, item.row.v)
+      if (row && row.v > item.row.v) { // celui lu est plus récent
+        if (row.deleted) {
+          item.row = row
+          return null
+        } else {
+          row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
+          item.row = row
+          return new DocDescr(clazz, pk, cloneRow(item.row))
+        }
+      }
     }
 
     // Pas trouvé en cache - recherche en base
     const row = await op.db.oneRow(clazz, pk, item ? item.row.v : 0)
-    if (row) { // trouvé en base, mis en cache
-      const item : cacheItem = { lru: now, time: now, row } 
-      oc.set(k, item)
-      return new DocDescr(clazz, pk, row)
-    }
-
-    // Pas trouvé en base
-    return null
+    if (!row) return null // Pas trouvé en base
+    // trouvé en base, mis en cache
+    item = { lru: now, time: now, row } 
+    oc.set(k, item)
+    return row.deleted ? null : new DocDescr(clazz, pk, cloneRow(row))
   }
 
   static updateCache (op: Operation, dd: DocDescr) {
@@ -537,22 +540,23 @@ export class Cache {
     const k = DocDescr.key(dd.clazz, dd.pk)
     let item = oc.get(k)
     if (dd.doc._status === DocStatus.DEL) { // suppression
-      if (item) oc.delete(k)
-      return
-    }
-    // Rétablissement du data NON encrypté
-    dd.row.data = dd.row.dataORIG
-    delete dd.row.dataORIG
-    if (item) { // remplacement éventuel
-      if (dd.row.v > item.row.v) {
-        item.row = dd.row
+      if (item) {
         item.lru = op.now
-        item.time = op.now
+        item.row.deleted = true
+        item.row.data = encode({ deleted: true, v: op.now, _pk: item.row.pk, _clazz: dd.clazz })
       }
-    } else { // insertion d'un nouveau
-      item = { lru: op.now, time: op.now, row: dd.row }
+    } else {
+      if (item) { // remplacement éventuel
+        if (dd.row.v > item.row.v) {
+          item.row = dd.row
+          item.lru = op.now
+          item.time = op.now
+        }
+      } else { // insertion d'un nouveau
+        item = { lru: op.now, time: op.now, row: dd.row }
+      }
     }
-    oc.set(k, item)
+    if (item) oc.set(k, item)
   }
 
   static _purge (op: Operation) {
@@ -647,20 +651,23 @@ export class Cache {
     this.op.updates = []
     for (const [k, dd] of this.docs) {
       if (dd.doc._status === DocStatus.NONE) continue
-      this.op.updates.push(dd)
       const doc = dd.doc
       let row : row
       if (doc._status === DocStatus.UPD) {
         row = doc.toRow(this.op.now)
         dd.row = row
+        this.op.updates.push(dd)
         this.db.writeRow(updType.UPDATE, dd.clazz, row)
       } else if (doc._status === DocStatus.NEW) {
         row = doc.toRow(this.op.now)
         dd.row = row
+        this.op.updates.push(dd)
         this.db.writeRow(updType.CREATE, dd.clazz, row)
       } else { // DocStatus.DEL
         if (doc._docDescriptor.sync) {
           row = doc.toZombiRow(this.op.now)
+          dd.row = row
+          this.op.updates.push(dd)
           this.db.writeRow(updType.UPDATE, dd.clazz, row)
         }
         else this.db.deleteRow(dd.clazz, dd.pk)

@@ -154,8 +154,7 @@ export class $Document extends $ADocument {
     const row: row = {
       v: now,
       pk: this.myPk,
-      data: x,
-      dataORIG: new Uint8Array(x)
+      data: x
     }
     const ml = this['maxLife']; if (ml) row.maxLife = ml
     const dt = this._docDescriptor
@@ -168,7 +167,7 @@ export class $Document extends $ADocument {
 
   /* Construit un "row minimal" pour DB - data null */
   toZombiRow (now: number) : row {
-    return { v: now, pk: this.myPk, data: null }
+    return { deleted: true, v: now, pk: this.myPk, data: null }
   }
 
 }

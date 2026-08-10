@@ -35,6 +35,7 @@ export type MDdel = {
 }
 
 export type CollData = {
+  incr: boolean,
   v: number,
   datas
 }
@@ -73,14 +74,28 @@ export type vdata = {
   data: Uint8Array
 }
 
-export type row = {
-  pk: string, // primary key (hash)
-  v: number, // version: time de la dernière opération de création / maj / suppression
-  maxLife?: number, // time de fin de vie programmée par l'application (EPOCH en MINUTES)
-  ttl?: any, // DB seulement - TTL pour purge automatique par la DB
+export interface row {
+  _org?: string
+  pk: string // primary key (hash)
+  v: number // version: time de la dernière opération de création / maj / suppression
+  maxLife?: number // time de fin de vie programmée par l'application (EPOCH en MINUTES)
+  deleted?: boolean
   data: Uint8Array, // null si DELETED
-  dataORIG?: Uint8Array, // data AVANT encryption pour DB
-  [index: string]:any
+}
+
+export function cloneRow (src: row) : row {
+  // @ts-expect-error
+  const r: row = { pk: src.pk, v: src.v }
+  r.data = src.data ? new Uint8Array(r.data) : null
+  if (src._org) r._org = src._org
+  if (src.deleted) r.deleted = true
+  if (src.maxLife) r.maxLife = src.maxLife
+  return r
+}
+
+export interface rowDB extends row {
+  org: string
+  ttl: number // TTL pour purge automatique par la DB
 }
 
 export type srvStatus = {
