@@ -34,10 +34,19 @@ export type MDdel = {
   hshK: string
 }
 
-export type CollData = {
-  incr: boolean,
-  v: number,
-  datas
+export interface $DCData {
+  v: number
+  incr?: boolean
+}
+
+export interface $DocData extends $DCData{
+  data?: Uint8Array
+}
+
+export interface $CollData extends $DCData{
+  datas?: Uint8Array[]
+  moved?: Uint8Array[]
+  deleted?: [string, number][]
 }
 
 export enum filter { LT, LE, EQ, NE, GE, GT, IN, CONTAINS, CONTAINSANY }
@@ -296,7 +305,7 @@ export interface IDbGeneric {
   - si v = 0: tous ceux existant réellement à l'instant t.
   - sinon: ceux mis à jour ou supprimés postérieueremt à v.
   */
-  allRowsData (clazz: string, v: number) : Promise<CollData>
+  allRowsData (clazz: string, v: number) : Promise<$CollData>
 
   /* Retourne le row de classe fixée ayant la pk fixée:
   - si v absent: ne retourne pas le row s'il est supprimé
@@ -321,7 +330,7 @@ export interface IDbGeneric {
   (à vérifier en session) ou être zombi.
   */
   getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<CollData>
+    : Promise<$CollData>
 
   /* Sélectionne les documents et les transmet à la fonction de traitement
   Par organisation.

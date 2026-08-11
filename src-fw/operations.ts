@@ -312,7 +312,6 @@ class FW$GetPutUrl extends Operation {
 }
 Registry.registerOp(FW$GetPutUrl)
 
-
 type SubsToSync = {
   def: string, 
   v: number
@@ -322,7 +321,8 @@ type SubsToSync = {
 - toSync = SubsToSync[]
 subsToSync = {
   def: string, 
-  v: number - version 'vs' la plus récente détenue en session
+  v: number - version la plus récente détenue en session
+    - si v == 0, INTEGRALE, sinon INCREMENTALE
 }
 Pour chaque 'def' retourne la sous-collection 'clazz/colName/colValue' 
 des documents par exemple: 
@@ -330,37 +330,42 @@ des documents par exemple:
   - type 1: Auteur/sh(Zola) : 0-1 élément.
   - type 2: Article/auteurs/sh(Zola) : collection de 0-N éléments.
 - pour chaque def d'entrée, un élément syncs[def] est retourné
-  - type 0 et 2: { v, datas: Uint8Array[] } 
-  - type 1: { v, datas: Uint8Array[] } datas 0 ou 1 élément
+  - type 0 et 2: { incr, v, datas: Uint8Array[], datasD: Uint8Array[], datasM: Uint8Array[] } 
+  - type 1: { incr, v, data: Uint8Array | null } datas 0 ou 1 élément
 
-- vs est 0: tous les éléments connus actuellement.
-- vs != 0: INCREMENTAL , liste des changements depuis vs:
-  - ceux ajoutés avec leur data complète: { v _pk _clazz ...}
-  - ceux supprimés avec une data: { deleted:true, v _pk, _clazz }
-    - v: version de suppression (dh de l'opération de suppression)
+- INTEGRALE: tous les éléments connus actuellement.
+  - pour le type 1 
+    - le document n'existe PAS : v == 0, data: absent
+    - le document existe : v: sa version data: son contenu
+  - pour les types 0 et 2 
+    - la collection est vide : v == 0 (datas datasM dels sont absents)
+    - la collection n'est PAS vide:
+      - datas : liste des contenus des documents
+      - v : version du document le plus récent de datas
 
-- Type 2 INCREMENTAL : Article/auteurs/sh(Zola)
-  retourne une collection d'"Article" (dont l'un des Auteurs est Zola), PAS d'"Auteur"
-  a) ajoutés à la sous-collection ou toujours présents mais modifiés, 
-  b) partis de la sous-collection, 
-  b) zombifiés
-  - pour savoir si un article a1 est dans le cas a) ou b)
-    - la session recherche si Zola est ou non dans la liste d'auteurs,
-      - oui c'est un a), ajouté à la collection ou mis à jour
-      - non c'est un b), supprimé de la collection
-    - cas c): deleted est à true (Article supprimé)
+- INCREMENTAL, liste des changements depuis vs:
+  - pour le type 1
+    - document ayant disparu DEPUIS vs: v version de disparition, data: null
+    - document ayant changé (pas disparu): v est sa version, data: son contenu
+    - document inchangé: v: 0
+  - pour les types 0 et 2, 
+    - collection inchangée: v: 0 (datas dels sont absents)
+    - collection changée: v et 1 à 3 listes
+      - v : version du changement le plus récent
+      - datas : [Uint8Array]
+        - ceux ajoutés à la collection depuis vs avec leur data complète
+        - ceux qui sont dans la collection et ont changé depuis vs avec data complète
+      - moved : [Uint8Array] type 2 seulement
+        - ceux ayant quitté la collection depuis vs avec leur data complète
+      - deleted : couples des [pk, v] des documents supprimés 
+        où v est leur dh de supression
+
 Retour:
-- syncs[def]: { v, datas: Uint8Array[] }
+- syncs[def]: { v, data: Uint8Array[], 
+  datas: Uint8Array[], moved :Uint8Array[], deleted: [[pk, v], ...]}
+  - si v == -1: credential non trouvé (autres éléments null)
 - now : date-heure de l'opération IMPORTANTE. C'est la dh d'ASSERTION,
   à cette date-heure l'image de la collection est celle-ci.
-  - si l'élément est { v: 0, datas: [] } IL N'Y A PAS eu de changements
-    depuis la dh vs fournie par la session. la version v de la collection est INCONNUE.
-  - si l'élément est { v: 12345, datas: [d1, ...] }.
-    - le ou les changements a) b) c) sont dans datas
-    - la version v de la collection est CONNUE (sa dh de dernier changement): 
-      - INCREMENTALE : c'est la plus haute de celles contenues dans les datas.
-      - INTEGRALE: v la plus haute des documents lus, y compris ceux
-        supprimés qui ne sont PAS dans datas.
 */
 export class FW$Sync extends Operation {
   _toSync : SubsToSync[]
@@ -391,8 +396,7 @@ export class FW$Sync extends Operation {
   }
 
   async sync0 (def: string, v: number, clazz: string) : Promise<void> {
-    if (!this.checker.check0())
-      throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, '1'])
+    if (!this.checker.check0()) this.syncs[def] = { v: -1 }
     const vdatas = await this.db.allRowsData(clazz, v)
     this.syncs[def] = vdatas
   }

@@ -674,7 +674,7 @@ export class Cache {
       }
       if (doc._docDescriptor.sync && doc._docDescriptor.colls) {
         const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
-        this.manageColls(dd, doc, row, is)
+        this.manageColls(dd.clazz, doc, row, is)
       }
         
     }
@@ -684,7 +684,8 @@ export class Cache {
     - inscription dans impactedSubs
     - création des rowQ : trace des disparitions des collections "mutables"
   */
-  manageColls (dd: DocDescr, doc: $Document, row: row, is: ImpactedSub) {
+  manageColls (clazz: string, doc: $Document, row: row, is: ImpactedSub) {
+
     for (const [n, collection] of doc._docDescriptor.colls) {
     
       // b, a : valeurs de la propriété clé de la collection n AVANT / APRES mise à jour éventuelle
@@ -704,9 +705,10 @@ export class Cache {
       // Ceux qui n'étaient pas AVANT n'ont pas à être inscrit en rowQ
       if (!b) continue
 
-      if (doc._status === DocStatus.DEL) { // le ou les termes "before" quittent le document
-        if (collection.list) for (const x of b) this.db.writeRowQ(dd.clazz, n, row.pk, row.v, x)
-        else this.db.writeRowQ(dd.clazz, n, row.pk, row.v, b[0])
+      if (doc._status === DocStatus.DEL) { 
+        // le ou les termes "before" quittent le ou les (list) documents
+        if (collection.list) for (const x of b) this.db.writeRowQ(clazz, n, row.pk, row.v, x)
+        else this.db.writeRowQ(clazz, n, row.pk, row.v, b[0])
         continue
       }
 
@@ -717,9 +719,9 @@ export class Cache {
         const as = a ? new Set(a) : new Set()
         for (const x of b) 
           if (!as.has(x))
-            this.db.writeRowQ(dd.clazz, n, row.pk, row.v, x)
+            this.db.writeRowQ(clazz, n, row.pk, row.v, x)
       } else if (a && (a[0] !== b[0])) 
-        this.db.writeRowQ(dd.clazz, n, row.pk, row.v, b[0])
+        this.db.writeRowQ(clazz, n, row.pk, row.v, b[0])
     }
   }
 } 

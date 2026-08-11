@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { encode } from '@msgpack/msgpack'
 import { config } from '../src/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowDB, rowQ, CollData, updType, vdata, Safe,
+  row, rowDB, rowQ, $CollData, $DCData, $DocData, updType, vdata, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { topCl } from '../src-fw/registry'
@@ -723,26 +723,47 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* Retourne les data sérialisés de tous les rows de la classe indiquée:
-  - si v = 0: tous ceux existant réellement à l'instant t.
-  - sinon: ceux mis à jour ou zombifiés postérieueremt à v.
+  INTEGRALE:
+    - la collection est vide : v: 0 (datas dels sont absents)
+    - la collection n'est PAS vide:
+      - datas : liste des contenus des documents
+      - v : version du document le plus récent de datas
+  INCREMENTALE:
+    - collection inchangée: v: 0 (datas dels sont absents)
+    - collection changée: v et 1 ou 2 listes
+      - v : version du changement le plus récent
+      - datas :
+        - ceux ajoutés à la collection depuis vs avec leur data complète
+        - ceux qui sont dans la collection et ont changé depuis vs avec data complète
+      - deleted : couples des [pk, v] des documents supprimés 
+        où v est leur dh de supression
   */
-  async allRowsData (clazz: string, v: number) : Promise<CollData> {
+  async allRowsData (clazz: string, v: number) : Promise<$CollData> {
     const adm = clazz.startsWith('ADMIN$')
-    const datas: Uint8Array[] = []
+    const incr = v !== 0
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) +
-      ' WHERE ' + (adm ? '' : 'org = @org ') + (!v ? ';' : ' AND v > @v ;'))
+      ' WHERE ' + (adm ? '' : 'org = @org ') + (!incr ? ';' : ' AND v > @v ;'))
     const docs = stmt.all({org: this.org, v : v || 0})
-    let vmax = 0
-    let incr = v !== 0
+    if (docs.length === 0) return { incr, v: 0 }
+
+    const cd: $CollData = { incr, v: 0, datas: [], deleted: [] }
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
-      if (row.v > vmax) vmax = row.v
-      if (incr) datas.push(row.data) // INCREMENTAL
-      else if (!row.deleted) datas.push(row.data)
+      if (row.v > cd.v) cd.v = row.v
+      if (!incr) {
+        if (!row.deleted) cd.datas.push(row.data)
+      } else {
+        if (!row.deleted) cd.datas.push(row.data)
+        else cd.deleted.push([row.pk, row.v])
+      }
     }
-    return { incr, v: vmax, datas: datas }
+    return cd
   }
 
+  /* Retourne LE document de la classe et pk indiqué:
+  INTEGRAL: null si n'existe pas
+  INCREMENTAL: null si n'existe pas OU inchangé depuis v
+  */
   async oneRow (clazz: string, pk: string, v: number) : Promise<row | null> {
     const adm = clazz.startsWith('ADMIN$')
     const w = ' WHERE ' + (adm ? '' : 'org = @org AND ') + 'pk = @pk' + (!v ? ';' : ' AND v > @v ;')
@@ -763,70 +784,78 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   /* Retourne la sous-collection 'clazz/colName/colValue' des documents 
   (par exemple: Article/auteurs/Zola)
-  - si vs est absent: connue actuellement (à now)
-  - sinon documents ajoutés ou partis de la sous-collection (ou zombifiés) 
-    depuis la version vs de la sous-collection connue en session.
-  Retour: liste des documents (leur version la plus récente). 
-  ATTENTION : retourne AUSSI les documents qui ont fait partie de 
-  la collection un jour. L'application détermine ceux qui sont encore ou non dans la collection
-  en testant la propriété de collection:
-  - le document y est encore,
-  - soit il en est parti,
-  - soit il est zombi (donc ne fait plus partie de la collection)
-  */
-  async getColl(clazz: string, colName: string, col: string, isList: boolean, vs: number) 
-    : Promise<CollData> {
-    const adm = clazz.startsWith('ADMIN$')
-    // Map des documents par pk
-    const m: Map<string, vdata> = new Map<string, vdata>()
-    const datas: Uint8Array[] = []
-    let incr = vs !== 0
+  INTEGRALE:
+    - la collection est vide : v == 0 (datas datasM dels sont absents)
+    - la collection n'est PAS vide:
+      - datas : liste des contenus des documents
+      - v : version du document le plus récent de datas
+  INCREMENTALE:
+    - collection inchangée: v: 0 (datas datasM dels sont absents)
+    - collection changée: v et 1 à 3 listes
+      - v : version du changement le plus récent
+      - datas :
+        - ceux ajoutés à la collection depuis vs avec leur data complète
+        - ceux qui sont dans la collection et ont changé depuis vs avec data complète
+      - moved : [Uint8Array] type 2 seulement
+        - ceux ayant quitté la collection depuis vs avec leur data complète
+      - deleted : couples des [pk, v] des documents supprimés 
+        où v est leur dh de supression
 
+  Exemple: Article, auteurs, sh(zola), true
+    Collection des articles dont un des auteurs est Zola
+    - dans moved: les articles qui ont eu Zola un jour et ne l'ont plus Zola depuis vs
+    - dans deleted: pk de ceux supprimés à une dh > vs
+  */
+  async getColl(clazz: string, colName: string, val: string, isList: boolean, vs: number) 
+    : Promise<$CollData> {
+    const adm = clazz.startsWith('ADMIN$')
+    const incr = vs !== 0
+    const cd: $CollData = { incr, v: 0, datas: [], moved: [], deleted: [] }
+    
     let stmt = this.sql.prepare('SELECT * FROM ' + 
       this.cluc(clazz) +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') +
       (isList ? ('instr(' + colName + ', @col) > 0') : (colName + ' = @col') ) +
       (!incr ? ';' : ' AND v > @vs ;'))
-    const docs = stmt.all({org: this.org, vs : vs || 0, col })
-    let vmax = vs || 0
+    const docs = stmt.all({org: this.org, vs : vs || 0, val })
+
+    if (docs.length === 0 && !incr) return { incr, v: 0 }
+    
     for (let doc of docs) {
       const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
-      if (row.v > vmax) vmax = row.v
-      if (!incr) {
-        if (!row.deleted) datas.push(row.data)
-      } else {
-        // ceux supprimés vont se retrouver par leur rowq
-        if (!row.deleted) m.set(row.pk, { v: row.v, data: row.data })
-      }
+      if (row.v > cd.v) cd.v = row.v
+      if (!row.deleted) cd.datas.push(row.data)
+      if (incr && row.deleted) cd.deleted.push([row.pk, row.v])
     }
-    if (!incr) return { incr, v: vmax, datas: datas }
+    if (!incr) return cd
 
+    // INCREMENTAL : recherche des moved
     const ttl = Math.round(this.op.now / 60000)
     stmt = this.sql.prepare('SELECT pk, v FROM ' + 
       this.cluc(clazz) + '@' + colName +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' col = @col AND v > @vs AND ttl > @ttl;')
-    // rowq des supprimés / retirés de la collection
-    const rowqs = stmt.all({org: this.org, vs: vs || 0, col, ttl })
+    // rowq des supprimés et/ou retirés de la collection 
+    const rowqs = stmt.all({org: this.org, vs, val, ttl })
+    // Pour ne garder par Article quitté que le départ le plus récent
+    // un article pourrait avoir été "Zola" puis plus "Zola" puis à nouveau "Zola" puis plus "Zola" ...
+    const m: Map<string, number> = new Map()
+
     for (const rowq of rowqs) {
       if (rowq.ttl * 60000 > this.op.now) {
         // les rowqs ont par principe toujours un ttl
         const v = rowq.v
-        if (v > vmax) vmax = v
         const pk = rowq.pk
-        const vd = m.get(pk)
-        if (!vd || (v > vd.v)) {
-          const r = await this.oneRow(clazz, pk, vs)
-          if (r) {
-            m.set(pk, { v: r.v, data: r.data })
-          } else {
-            const data = encode({ deleted: true, v: v, _pk: pk, _clazz: clazz })
-            m.set(pk, { v, data })
-          }
-        }
+        let vx = m.get(pk)
+        if (vx || vx < v) m.set(pk, v)
       }
     }
-    for(const [, {data}] of m) datas.push(data)
-    return { incr, v: vmax, datas: datas}
+    for (const [pk, v] of m) {
+      if (v > cd.v) cd.v = v
+      const r = await this.oneRow(clazz, pk, 0)
+      if (r) cd.moved.push(r.data)
+      else cd.deleted.push([pk, v])
+    }
+    return cd
   }
 
   compOp (colName: string, filter: filter, col: any) {
