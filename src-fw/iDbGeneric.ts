@@ -95,7 +95,7 @@ export interface row {
 export function cloneRow (src: row) : row {
   // @ts-expect-error
   const r: row = { pk: src.pk, v: src.v }
-  r.data = src.data ? new Uint8Array(r.data) : null
+  r.data = src.data ? new Uint8Array(src.data) : null
   if (src._org) r._org = src._org
   if (src.deleted) r.deleted = true
   if (src.maxLife) r.maxLife = src.maxLife

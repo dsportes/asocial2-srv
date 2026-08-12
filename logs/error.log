@@ -769,3 +769,21 @@ Error: Captured for inspection
 2026-08-09T11:07:36.893Z error: AppExc: 105:service_unexpected_exception["AppExc: 105:credential_required_not_found@FW$Sync:[\"AS2\",\"Auteur\",\"Qpj8HBSa-_TImW-5JCeu\"]"]
 2026-08-09T11:10:23.943Z error: FW$Sync : 2026-08-09T11:09:26.505Z : SqliteError: no such table: AUTEUR
 2026-08-09T11:10:23.945Z error: AppExc: 105:service_unexpected_exception["no such table: AUTEUR"]
+2026-08-12T06:05:59.928Z error: PropsOfMyCreds : 2026-08-12T06:05:59.910Z : RangeError: Offset is outside the bounds of the DataView
+2026-08-12T06:05:59.938Z error: AppExc: 105:service_unexpected_exception["Offset is outside the bounds of the DataView"]
+2026-08-12T06:15:36.845Z error: PropsOfMyCreds : 2026-08-12T06:08:37.211Z : AppExc: 101:operation_bad_credentials@PropsOfMyCreds:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-12T06:15:36.846Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@PropsOfMyCreds:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-12T06:28:56.424Z error: FW$setSubscription : 2026-08-12T06:28:40.518Z : RangeError: Missing named parameter "defs"
+2026-08-12T06:28:56.444Z error: AppExc: 105:service_unexpected_exception["Missing named parameter \"defs\""]
+2026-08-12T10:08:55.817Z error: FW$Sync : 2026-08-12T10:08:27.154Z : Error: Unsupported state or unable to authenticate data
+2026-08-12T10:08:55.819Z error: AppExc: 105:service_unexpected_exception["Unsupported state or unable to authenticate data"]
+2026-08-12T10:15:18.338Z error: FW$Sync : 2026-08-12T10:14:00.361Z : Error: Unsupported state or unable to authenticate data
+2026-08-12T10:15:18.343Z error: AppExc: 105:service_unexpected_exception["Unsupported state or unable to authenticate data"]
+2026-08-12T10:17:45.477Z error: PropsOfMyCreds : 2026-08-12T10:17:36.937Z : Error: Unsupported state or unable to authenticate data
+2026-08-12T10:17:45.539Z error: AppExc: 105:service_unexpected_exception["Unsupported state or unable to authenticate data"]
+2026-08-12T10:20:39.099Z error: PropsOfMyCreds : 2026-08-12T10:20:04.015Z : AppExc: 101:operation_bad_credentials@PropsOfMyCreds:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-12T10:20:39.101Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@PropsOfMyCreds:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-12T10:27:05.500Z error: FormFilteredList : 2026-08-12T10:26:52.215Z : Error: Unsupported state or unable to authenticate data
+2026-08-12T10:27:05.534Z error: AppExc: 105:service_unexpected_exception["Unsupported state or unable to authenticate data"]
+2026-08-12T10:31:28.513Z error: FW$setSubscription : 2026-08-12T10:30:27.962Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-08-12T10:31:28.516Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]

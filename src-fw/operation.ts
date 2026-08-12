@@ -515,15 +515,11 @@ export class Cache {
       item.lru = now
       const row = await op.db.oneRow(clazz, pk, item.row.v)
       if (row && row.v > item.row.v) { // celui lu est plus récent
-        if (row.deleted) {
-          item.row = row
-          return null
-        } else {
-          row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
-          item.row = row
-          return new DocDescr(clazz, pk, cloneRow(item.row))
-        }
+        item.row = row
+        if (row.deleted) return null
+        row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
       }
+      return new DocDescr(clazz, pk, cloneRow(item.row))
     }
 
     // Pas trouvé en cache - recherche en base

@@ -406,8 +406,8 @@ export class FW$Sync extends Operation {
       throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, pk])
     let incr = v !== 0
     const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
-    this.syncs[def] =  row ? { incr, v: row.v, datas: [row.data] } 
-      : { incr, v: 0, datas: [] }
+    this.syncs[def] =  row ? { incr, v: row.v, data: row.data } 
+      : { incr, v: 0, data: [] }
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, val: string) : Promise<void> {
