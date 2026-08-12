@@ -243,30 +243,6 @@ class $OpenSafeByPin extends SafeOperation {
 }
 Registry.registerOp($OpenSafeByPin)
 
-type SetAdmins = {
-  userId: string
-  shK: string
-  admins: string
-}
-/* Enregistrement de la liste admins.
-Status: 1 2
-*/
-class $SetAdmins extends SafeOperation {
-  async doTheJob () : Promise<void> {
-    const sa = this.args['setadmins'] as SetAdmins
-    const safe = await this.getSafe(sa)
-    if (!safe) return
-    let u = false
-    if (safe.auth.admins !== sa.admins) {
-      safe.auth.admins = sa.admins
-      u = true
-    }
-    await this.save(safe, u)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp($SetAdmins)
-
 type TrustDev = {
   userId: string
   shK: string
