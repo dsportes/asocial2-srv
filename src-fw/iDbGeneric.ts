@@ -146,9 +146,8 @@ export type Safe = {
   auth: Auth
   devices: Object | null
   creds: Object | null
-  profiles: Object | null
+  options: Object | null
   prefs: Object | null // pour chaque application, liste des préférences déclarées (ordonnée par date d'utilisation)
-  invits: Object | null// une propriété par invitation
 }
 
 export type EventRow = {

@@ -28618,3 +28618,331 @@ Error: Captured for inspection
 2026-08-12T10:32:35.770Z info: Configuration completed
 2026-08-12T10:32:35.778Z info: Server started
 2026-08-12T10:32:35.780Z info: HTTP listen [8091]
+2026-08-14T09:09:38.888Z info: Configuration pre-loaded
+2026-08-14T09:09:44.101Z info: FW document descriptors:2 forms descriptors:2
+2026-08-14T09:09:44.138Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-14T09:09:44.569Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-14T09:09:44.570Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-14T09:09:44.570Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-14T09:09:44.572Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-14T09:09:44.573Z info: fw documents loading: 2
+2026-08-14T09:09:44.574Z info: app operations loading: 12
+2026-08-14T09:09:44.575Z info: fw operations loading: 71
+2026-08-14T09:09:44.576Z info: app operations loading: 71
+2026-08-14T09:09:44.577Z info: safe operations loading: 71
+2026-08-14T09:09:44.577Z info: masterdir operations loading: 71
+2026-08-14T09:09:44.578Z info: Configuration completed
+2026-08-14T09:09:44.589Z info: Server started
+2026-08-14T09:09:44.593Z info: HTTP listen [8091]
+2026-08-14T09:55:12.097Z info: $OpenSafeByPin finished
+2026-08-14T09:55:12.147Z info: $GetSafe finished
+2026-08-14T09:55:41.583Z info: $GetOrgSvc finished
+2026-08-14T09:55:41.596Z info: $GetSitesUrls finished
+2026-08-14T09:55:41.618Z info: PropsOfMyCreds : 2026-08-14T09:55:41.618Z
+2026-08-14T09:55:41.641Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T09:55:41.643Z info: PropsOfMyCreds finished
+2026-08-14T09:55:44.679Z info: FW$setSubscription : 2026-08-14T09:55:44.679Z
+2026-08-14T09:55:44.692Z info: FW$setSubscription finished
+2026-08-14T09:55:44.724Z info: FW$Sync : 2026-08-14T09:55:44.723Z
+2026-08-14T09:55:44.734Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T09:55:44.736Z info: FW$Sync finished
+2026-08-14T09:55:53.578Z info: MajAuteur : 2026-08-14T09:55:53.578Z
+2026-08-14T09:55:53.593Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T09:55:53.603Z info: MajAuteur finished
+2026-08-14T09:56:29.874Z info: $UpdateCredName finished
+2026-08-14T11:09:29.495Z info: $OpenSafeByPin finished
+2026-08-14T11:09:29.589Z info: $GetSafe finished
+2026-08-14T11:09:34.327Z info: $GetOrgSvc finished
+2026-08-14T11:09:34.347Z info: $GetSitesUrls finished
+2026-08-14T11:09:34.373Z info: PropsOfMyCreds : 2026-08-14T11:09:34.373Z
+2026-08-14T11:09:34.390Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:09:34.392Z info: PropsOfMyCreds finished
+2026-08-14T11:09:35.887Z info: FW$setSubscription : 2026-08-14T11:09:35.887Z
+2026-08-14T11:09:35.895Z info: FW$setSubscription finished
+2026-08-14T11:09:35.947Z info: FW$Sync : 2026-08-14T11:09:35.947Z
+2026-08-14T11:09:35.974Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:09:35.980Z info: FW$Sync finished
+2026-08-14T11:09:42.029Z info: MajAuteur : 2026-08-14T11:09:42.029Z
+2026-08-14T11:09:42.041Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:09:42.049Z info: MajAuteur finished
+2026-08-14T11:11:24.545Z info: MajAuteur : 2026-08-14T11:11:24.545Z
+2026-08-14T11:11:24.557Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:11:24.569Z info: MajAuteur finished
+2026-08-14T11:13:04.608Z info: PropsOfMyCreds : 2026-08-14T11:13:04.607Z
+2026-08-14T11:13:04.661Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:13:04.666Z info: PropsOfMyCreds finished
+2026-08-14T11:13:19.654Z info: $OpenSafeByPin finished
+2026-08-14T11:13:19.694Z info: $GetSafe finished
+2026-08-14T11:13:23.465Z info: $GetOrgSvc finished
+2026-08-14T11:13:23.480Z info: $GetSitesUrls finished
+2026-08-14T11:13:23.497Z info: PropsOfMyCreds : 2026-08-14T11:13:23.497Z
+2026-08-14T11:13:23.508Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:13:23.510Z info: PropsOfMyCreds finished
+2026-08-14T11:13:25.053Z info: FW$setSubscription : 2026-08-14T11:13:25.053Z
+2026-08-14T11:13:25.061Z info: FW$setSubscription finished
+2026-08-14T11:13:25.085Z info: FW$Sync : 2026-08-14T11:13:25.085Z
+2026-08-14T11:13:25.094Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:13:25.096Z info: FW$Sync finished
+2026-08-14T11:13:30.932Z info: MajAuteur : 2026-08-14T11:13:30.931Z
+2026-08-14T11:13:30.943Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:13:30.951Z info: MajAuteur finished
+2026-08-14T11:14:06.773Z info: MajAuteur : 2026-08-14T11:14:06.773Z
+2026-08-14T11:14:06.786Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:14:06.788Z info: MajAuteur finished
+2026-08-14T11:14:06.827Z info: $UpdateCredName finished
+2026-08-14T11:14:24.750Z info: MajAuteur : 2026-08-14T11:14:24.750Z
+2026-08-14T11:14:24.761Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:14:24.770Z info: MajAuteur finished
+2026-08-14T11:15:16.123Z info: MajAuteur : 2026-08-14T11:15:16.123Z
+2026-08-14T11:15:16.133Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:15:16.141Z info: MajAuteur finished
+2026-08-14T11:22:36.913Z info: $OpenSafeByPin finished
+2026-08-14T11:22:36.956Z info: $GetSafe finished
+2026-08-14T11:22:41.067Z info: $GetOrgSvc finished
+2026-08-14T11:22:41.084Z info: $GetSitesUrls finished
+2026-08-14T11:22:41.104Z info: PropsOfMyCreds : 2026-08-14T11:22:41.104Z
+2026-08-14T11:22:41.115Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:22:41.117Z info: PropsOfMyCreds finished
+2026-08-14T11:22:42.286Z info: FW$setSubscription : 2026-08-14T11:22:42.286Z
+2026-08-14T11:22:42.296Z info: FW$setSubscription finished
+2026-08-14T11:22:51.689Z info: FW$Sync : 2026-08-14T11:22:51.689Z
+2026-08-14T11:22:51.709Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:22:51.712Z info: FW$Sync finished
+2026-08-14T11:23:00.236Z info: MajAuteur : 2026-08-14T11:23:00.236Z
+2026-08-14T11:23:00.248Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:23:00.254Z info: MajAuteur finished
+2026-08-14T11:23:31.044Z info: FW$Sync : 2026-08-14T11:23:31.044Z
+2026-08-14T11:23:31.060Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:23:31.063Z info: FW$Sync finished
+2026-08-14T11:27:37.106Z info: PropsOfMyCreds : 2026-08-14T11:27:37.106Z
+2026-08-14T11:27:37.144Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:27:37.167Z info: PropsOfMyCreds finished
+2026-08-14T11:27:55.052Z info: $OpenSafeByPin finished
+2026-08-14T11:27:55.094Z info: $GetSafe finished
+2026-08-14T11:27:58.950Z info: $GetOrgSvc finished
+2026-08-14T11:27:58.965Z info: $GetSitesUrls finished
+2026-08-14T11:27:58.981Z info: PropsOfMyCreds : 2026-08-14T11:27:58.981Z
+2026-08-14T11:27:58.992Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:27:58.994Z info: PropsOfMyCreds finished
+2026-08-14T11:28:02.755Z info: FW$setSubscription : 2026-08-14T11:28:02.755Z
+2026-08-14T11:28:02.765Z info: FW$setSubscription finished
+2026-08-14T11:28:11.330Z info: FW$Sync : 2026-08-14T11:28:11.329Z
+2026-08-14T11:28:11.345Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:28:11.348Z info: FW$Sync finished
+2026-08-14T11:28:34.647Z info: MajAuteur : 2026-08-14T11:28:34.646Z
+2026-08-14T11:28:34.672Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:28:34.694Z info: MajAuteur finished
+2026-08-14T11:28:41.845Z info: FW$Sync : 2026-08-14T11:28:41.845Z
+2026-08-14T11:28:41.863Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:28:41.866Z info: FW$Sync finished
+2026-08-14T11:33:20.271Z info: PropsOfMyCreds : 2026-08-14T11:33:20.271Z
+2026-08-14T11:33:20.302Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:33:20.327Z info: PropsOfMyCreds finished
+2026-08-14T11:39:12.904Z info: FW$setSubscription : 2026-08-14T11:39:12.904Z
+2026-08-14T11:39:12.916Z info: FW$setSubscription finished
+2026-08-14T11:39:16.791Z info: FW$Sync : 2026-08-14T11:39:16.791Z
+2026-08-14T11:39:16.810Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:39:16.813Z info: FW$Sync finished
+2026-08-14T11:39:26.503Z info: MajAuteur : 2026-08-14T11:39:26.503Z
+2026-08-14T11:39:26.515Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:39:26.523Z info: MajAuteur finished
+2026-08-14T11:39:35.123Z info: FW$Sync : 2026-08-14T11:39:35.123Z
+2026-08-14T11:39:35.139Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:39:35.142Z info: FW$Sync finished
+2026-08-14T11:49:14.427Z info: $OpenSafeByPin finished
+2026-08-14T11:49:14.468Z info: $GetSafe finished
+2026-08-14T11:49:20.619Z info: $GetOrgSvc finished
+2026-08-14T11:49:20.634Z info: $GetSitesUrls finished
+2026-08-14T11:49:20.651Z info: PropsOfMyCreds : 2026-08-14T11:49:20.651Z
+2026-08-14T11:49:20.662Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:49:20.663Z info: PropsOfMyCreds finished
+2026-08-14T11:49:21.977Z info: FW$setSubscription : 2026-08-14T11:49:21.976Z
+2026-08-14T11:49:21.986Z info: FW$setSubscription finished
+2026-08-14T11:49:31.215Z info: FW$Sync : 2026-08-14T11:49:31.215Z
+2026-08-14T11:49:31.232Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:49:31.235Z info: FW$Sync finished
+2026-08-14T11:49:43.660Z info: MajAuteur : 2026-08-14T11:49:43.660Z
+2026-08-14T11:49:43.672Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:49:43.680Z info: MajAuteur finished
+2026-08-14T11:49:43.701Z info: FW$Sync : 2026-08-14T11:49:43.701Z
+2026-08-14T11:49:43.713Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T11:49:43.715Z info: FW$Sync finished
+2026-08-14T11:49:43.764Z info: $UpdateCredName finished
+2026-08-14T11:58:23.926Z info: $OpenSafeByPin finished
+2026-08-14T11:58:23.975Z info: $GetSafe finished
+2026-08-14T12:00:26.306Z info: $OpenSafeByPin finished
+2026-08-14T12:00:26.349Z info: $GetSafe finished
+2026-08-14T12:00:33.543Z info: $GetOrgSvc finished
+2026-08-14T12:00:33.558Z info: $GetSitesUrls finished
+2026-08-14T12:00:33.577Z info: PropsOfMyCreds : 2026-08-14T12:00:33.577Z
+2026-08-14T12:00:33.589Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:00:33.590Z info: PropsOfMyCreds finished
+2026-08-14T12:00:35.386Z info: FW$setSubscription : 2026-08-14T12:00:35.386Z
+2026-08-14T12:00:35.397Z info: FW$setSubscription finished
+2026-08-14T12:00:35.424Z info: FW$Sync : 2026-08-14T12:00:35.424Z
+2026-08-14T12:00:35.433Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:00:35.434Z info: FW$Sync finished
+2026-08-14T12:01:03.675Z info: PropsOfMyCreds : 2026-08-14T12:01:03.675Z
+2026-08-14T12:01:03.712Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:01:03.724Z info: PropsOfMyCreds finished
+2026-08-14T12:01:16.863Z info: PropsOfMyCreds : 2026-08-14T12:01:16.862Z
+2026-08-14T12:01:16.872Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:01:16.873Z info: PropsOfMyCreds finished
+2026-08-14T12:01:18.385Z info: FW$setSubscription : 2026-08-14T12:01:18.385Z
+2026-08-14T12:01:18.394Z info: FW$setSubscription finished
+2026-08-14T12:01:18.411Z info: FW$Sync : 2026-08-14T12:01:18.411Z
+2026-08-14T12:01:18.421Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:01:18.423Z info: FW$Sync finished
+2026-08-14T12:01:24.978Z info: MajAuteur : 2026-08-14T12:01:24.978Z
+2026-08-14T12:01:24.989Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:01:24.996Z info: MajAuteur finished
+2026-08-14T12:01:25.030Z info: FW$Sync : 2026-08-14T12:01:25.030Z
+2026-08-14T12:01:25.059Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:01:25.073Z info: FW$Sync finished
+2026-08-14T12:01:25.136Z info: $UpdateCredName finished
+2026-08-14T12:04:43.625Z info: PropsOfMyCreds : 2026-08-14T12:04:43.625Z
+2026-08-14T12:04:43.643Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:04:43.645Z info: PropsOfMyCreds finished
+2026-08-14T12:40:14.960Z info: Configuration pre-loaded
+2026-08-14T12:40:15.824Z info: FW document descriptors:2 forms descriptors:2
+2026-08-14T12:40:15.830Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-14T12:40:15.896Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-14T12:40:15.896Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-14T12:40:15.897Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-14T12:40:15.898Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-14T12:40:15.899Z info: fw documents loading: 2
+2026-08-14T12:40:15.900Z info: app operations loading: 12
+2026-08-14T12:40:15.901Z info: fw operations loading: 71
+2026-08-14T12:40:15.902Z info: app operations loading: 71
+2026-08-14T12:40:15.903Z info: safe operations loading: 71
+2026-08-14T12:40:15.904Z info: masterdir operations loading: 71
+2026-08-14T12:40:15.905Z info: Configuration completed
+2026-08-14T12:40:15.916Z info: Server started
+2026-08-14T12:40:15.919Z info: HTTP listen [8091]
+2026-08-14T12:42:15.541Z info: $OpenSafeByPin finished
+2026-08-14T12:42:15.602Z info: $GetSafe finished
+2026-08-14T12:42:20.627Z info: $GetOrgSvc finished
+2026-08-14T12:42:20.640Z info: $GetSitesUrls finished
+2026-08-14T12:42:20.664Z info: PropsOfMyCreds : 2026-08-14T12:42:20.663Z
+2026-08-14T12:42:20.681Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:42:20.682Z info: PropsOfMyCreds finished
+2026-08-14T12:42:22.369Z info: FW$setSubscription : 2026-08-14T12:42:22.369Z
+2026-08-14T12:42:22.379Z info: FW$setSubscription finished
+2026-08-14T12:42:22.400Z info: FW$Sync : 2026-08-14T12:42:22.400Z
+2026-08-14T12:42:22.410Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:42:22.412Z info: FW$Sync finished
+2026-08-14T12:42:27.966Z info: MajAuteur : 2026-08-14T12:42:27.965Z
+2026-08-14T12:42:27.978Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:42:27.990Z info: MajAuteur finished
+2026-08-14T12:42:28.017Z info: FW$Sync : 2026-08-14T12:42:28.017Z
+2026-08-14T12:42:28.026Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:42:28.029Z info: FW$Sync finished
+2026-08-14T12:42:28.076Z info: $UpdateCredName finished
+2026-08-14T12:43:47.501Z info: $mdUserGetICVS finished
+2026-08-14T12:44:40.099Z info: $mdUserGetICVS finished
+2026-08-14T12:45:58.705Z info: $mdUserGetICVS finished
+2026-08-14T12:46:22.019Z info: $OpenSafeByPin finished
+2026-08-14T12:46:22.058Z info: $GetSafe finished
+2026-08-14T12:46:25.171Z info: $IsMDAdmin finished
+2026-08-14T12:46:44.520Z info: $IsMDAdmin finished
+2026-08-14T12:47:07.178Z info: $mdAliasFree finished
+2026-08-14T12:47:30.152Z info: $IsMDAdmin finished
+2026-08-14T12:48:06.476Z info: $SetPhraseSafe finished
+2026-08-14T12:48:22.796Z info: $mdUserGetICVS finished
+2026-08-14T12:50:54.724Z info: $mdUserGetICVS finished
+2026-08-14T12:52:42.884Z info: $mdUserGetICVS finished
+2026-08-14T12:55:50.261Z info: $mdUserGetICVS finished
+2026-08-14T12:55:58.271Z info: $GetSafe finished
+2026-08-14T12:57:06.938Z info: $GetOrgSvc finished
+2026-08-14T12:57:06.954Z info: $GetSitesUrls finished
+2026-08-14T12:57:06.973Z info: PropsOfMyCreds : 2026-08-14T12:57:06.972Z
+2026-08-14T12:57:06.978Z info: PropsOfMyCreds finished
+2026-08-14T12:57:42.266Z info: $OpenSafeByPin finished
+2026-08-14T12:57:42.308Z info: $GetSafe finished
+2026-08-14T12:57:46.527Z info: PropsOfMyCreds : 2026-08-14T12:57:46.527Z
+2026-08-14T12:57:46.540Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:57:46.541Z info: PropsOfMyCreds finished
+2026-08-14T12:57:48.400Z info: FW$setSubscription : 2026-08-14T12:57:48.400Z
+2026-08-14T12:57:48.410Z info: FW$setSubscription finished
+2026-08-14T12:57:48.432Z info: FW$Sync : 2026-08-14T12:57:48.432Z
+2026-08-14T12:57:48.441Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:57:48.442Z info: FW$Sync finished
+2026-08-14T12:58:15.001Z info: $mdUserGetICVS finished
+2026-08-14T12:58:21.038Z info: $GetSafe finished
+2026-08-14T12:58:26.657Z info: $GetOrgSvc finished
+2026-08-14T12:58:26.675Z info: $GetSitesUrls finished
+2026-08-14T12:58:26.699Z info: PropsOfMyCreds : 2026-08-14T12:58:26.699Z
+2026-08-14T12:58:26.709Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:58:26.710Z info: PropsOfMyCreds finished
+2026-08-14T12:58:28.299Z info: FW$setSubscription : 2026-08-14T12:58:28.299Z
+2026-08-14T12:58:28.310Z info: FW$setSubscription finished
+2026-08-14T12:58:28.335Z info: FW$Sync : 2026-08-14T12:58:28.335Z
+2026-08-14T12:58:28.346Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:58:28.348Z info: FW$Sync finished
+2026-08-14T12:58:37.782Z info: MajAuteur : 2026-08-14T12:58:37.782Z
+2026-08-14T12:58:37.794Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:58:37.802Z info: MajAuteur finished
+2026-08-14T12:58:37.878Z info: FW$Sync : 2026-08-14T12:58:37.878Z
+2026-08-14T12:58:37.889Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:58:37.891Z info: FW$Sync finished
+2026-08-14T12:58:37.988Z info: $UpdateCredName finished
+2026-08-14T12:58:45.678Z info: FW$Sync : 2026-08-14T12:58:45.678Z
+2026-08-14T12:58:45.693Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:58:45.738Z info: FW$Sync finished
+2026-08-14T12:59:19.018Z info: MajAuteur : 2026-08-14T12:59:19.018Z
+2026-08-14T12:59:19.030Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:59:19.039Z info: MajAuteur finished
+2026-08-14T12:59:19.060Z info: FW$Sync : 2026-08-14T12:59:19.060Z
+2026-08-14T12:59:19.073Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:59:19.075Z info: FW$Sync finished
+2026-08-14T12:59:19.125Z info: $UpdateCredName finished
+2026-08-14T12:59:19.393Z info: FW$Sync : 2026-08-14T12:59:19.393Z
+2026-08-14T12:59:19.400Z info: Auth status: Status:[OK] - [Auteur/Qpj8HBSa-_TImW-5JCeu]
+2026-08-14T12:59:19.402Z info: FW$Sync finished
+2026-08-16T14:42:12.141Z info: Configuration pre-loaded
+2026-08-16T14:42:16.703Z info: FW document descriptors:2 forms descriptors:2
+2026-08-16T14:42:16.744Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-16T14:42:17.047Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-16T14:42:17.048Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-16T14:42:17.049Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-16T14:42:17.049Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-16T14:42:17.050Z info: fw documents loading: 2
+2026-08-16T14:42:17.050Z info: app operations loading: 12
+2026-08-16T14:42:17.051Z info: fw operations loading: 70
+2026-08-16T14:42:17.051Z info: app operations loading: 70
+2026-08-16T14:42:17.052Z info: safe operations loading: 70
+2026-08-16T14:42:17.052Z info: masterdir operations loading: 70
+2026-08-16T14:42:17.052Z info: Configuration completed
+2026-08-16T14:42:17.062Z info: Server started
+2026-08-16T14:42:17.065Z info: HTTP listen [8091]
+2026-08-16T16:43:54.810Z info: $OpenSafeByPin finished
+2026-08-16T16:43:54.858Z info: $GetSafe finished
+2026-08-16T16:45:58.636Z info: $OpenSafeByPin finished
+2026-08-16T16:45:58.683Z info: $GetSafe finished
+2026-08-16T17:01:10.940Z info: $OpenSafeByPin finished
+2026-08-16T17:01:10.994Z info: $GetSafe finished
+2026-08-16T17:01:31.316Z info: $OpenSafeByPin finished
+2026-08-16T17:01:31.402Z info: $GetSafe finished
+2026-08-16T17:10:12.404Z info: $OpenSafeByPin finished
+2026-08-16T17:10:12.450Z info: $GetSafe finished
+2026-08-16T17:14:56.731Z info: $OpenSafeByPin finished
+2026-08-16T17:14:56.793Z info: $GetSafe finished
+2026-08-16T17:26:38.440Z info: $OpenSafeByPin finished
+2026-08-16T17:26:38.483Z info: $GetSafe finished
+2026-08-16T17:31:20.562Z info: $OpenSafeByPin finished
+2026-08-16T17:31:20.611Z info: $GetSafe finished
+2026-08-16T17:48:38.790Z info: $OpenSafeByPin finished
+2026-08-16T17:48:38.838Z info: $GetSafe finished
+2026-08-16T17:56:58.030Z info: $OpenSafeByPin finished
+2026-08-16T17:56:58.080Z info: $GetSafe finished
+2026-08-16T17:58:15.386Z info: $OpenSafeByPin finished
+2026-08-16T17:58:15.434Z info: $GetSafe finished
+2026-08-16T17:58:18.020Z info: $IsMDAdmin finished
+2026-08-16T17:59:19.676Z info: $OpenSafeByPin finished
+2026-08-16T17:59:19.722Z info: $GetSafe finished
+2026-08-16T18:06:51.878Z info: $OpenSafeByPin finished
+2026-08-16T18:06:51.921Z info: $GetSafe finished
+2026-08-16T18:10:33.393Z info: $IsMDAdmin finished
+2026-08-16T18:11:02.164Z info: $OpenSafeByPin finished
+2026-08-16T18:11:02.211Z info: $GetSafe finished
+2026-08-16T18:11:07.559Z info: $IsMDAdmin finished

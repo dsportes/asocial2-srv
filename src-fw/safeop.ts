@@ -424,64 +424,31 @@ class $FixCreds extends SafeOperation {
 }
 Registry.registerOp($FixCreds)
 
-/* Profiles *****************************************************/
-type SetProfiles = {
+/* Options *****************************************************/
+type SetOptions = {
+  app: string
   userId: string
   shK: string
-  app: string
-  profiles: Object | null // clé: profId, valeur: Objet Profile sérialisé crypté
-  delprofs: string[] // liste des profIds à supprimer
+  options: string // options cryptées par K de l'encode de l'objet (possiblement {})
 }
-/* Déclaration de profils et suppressions de profils
+/* Déclaration des options d'une application
 Status: 1 2
 */
-class $UpdateProfiles extends SafeOperation {
+class $SetOptions extends SafeOperation {
   async doTheJob () : Promise<void> {
-    const sp = this.args['setProfiles'] as SetProfiles
-    const safe = await this.getSafe(sp)
+    const so = this.args['setOptions'] as SetOptions
+    const safe = await this.getSafe(so)
     if (!safe) return
-    let u = false
 
-    if (!safe.profiles) safe.profiles = {}
-    let appp = safe.profiles[sp.app]
-    if (!appp) { appp = {}; safe.profiles[sp.app] = appp }
-    for(const profId in sp.profiles) { appp[profId] = sp.profiles[profId]; u = true }
-    for(const profId of sp.delprofs) { delete appp[profId]; u = true }
-    if (Object.keys(safe.profiles[sp.app]).length === 0) delete safe.profiles[sp.app]
-    if (Object.keys(safe.profiles).length === 0) delete safe.profiles
+    if (!safe.options) safe.options = {}
+    const u = safe.options[so.app] && safe.options[so.app] !== so.options
+    if (u) safe.options[so.app] = so.options
+    if (Object.keys(safe.options).length === 0) delete safe.options
     await this.save(safe, u)
     this.setRes('status', 0)
   }
 }
-Registry.registerOp($UpdateProfiles)
-
-type SetAboutProfile = {
-  userId: string
-  shK: string
-  app: string
-  profId: string
-  about: string
-}
-/* Maj de l'about d'un profil
-Status: 1 2
-*/
-class $SetAboutProfile extends SafeOperation {
-  async doTheJob () : Promise<void> {
-    const ab = this.args['aboutProfile'] as SetAboutProfile
-    const safe = await this.getSafe(ab)
-    if (!safe) return
-    let u = false
-    if (safe.profiles && safe.profiles[ab.app] && safe.profiles[ab.app][ab.profId]) {
-      const prf = decode(keyFromB64(safe.profiles[ab.app][ab.profId]))
-      prf['about'] = ab.about
-      safe.profiles[ab.app][ab.profId] = keyToB64(Buffer.from(encode(prf)))
-      u = true
-    }
-    await this.save(safe, u)
-    this.setRes('status', 0)
-  }
-}
-Registry.registerOp($SetAboutProfile)
+Registry.registerOp($SetOptions)
 
 /* Prefs ***************************************************************/
 type UpdatePrefs = {
