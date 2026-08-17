@@ -14,6 +14,7 @@ export type MDuser = {
   V: string // clé publique de vérification de U. En base 64.
   llq: number // _last quarter login_. Numéro du trimestre de dernier login, 0 étant le premier de l'an 2000.
   store: string // code du store où est stocké à l'instant actuel le _safe_ de U.
+  invit?: string
 }
 
 export type MDsetAA = {

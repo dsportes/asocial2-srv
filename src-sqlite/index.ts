@@ -330,6 +330,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return true
   }
 
+  isInvit (invit, row) {
+    return invit && invit === row.hsha1 && !row.hsha2 && !row.C  && !row.V
+  }
+
   readonly USERSCOLS = ['userId', 'hshK', 'hsha1', 'hsha2', 'C', 'V', 'llq', 'store']
 
   /* création d'une entrée dans 'users' pour un nouvel utilisateur.
@@ -339,9 +343,13 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async mdUserNew (mdUser: MDuser) : Promise<number> {
     let stmt = this.sql.prepare('SELECT * FROM ZZUSERS WHERE userId = @userId')
     let row = stmt.get( {userId: mdUser.userId} )
-    if (row) { 
-      if (this.eqObj(mdUser, row, this.USERSCOLS)) return 0
-      return 12
+    if (mdUser.invit) {
+      if (!row || mdUser.invit !== row.hsha1 || row.hshK || row.C || row.V) return 13
+    } else {
+      if (row) {
+        if (this.eqObj(mdUser, row, this.USERSCOLS)) return 0
+        return 12
+      }
     }
     stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha1 OR hsha2 = @hsha1')
     row = stmt.get( {hsha1: mdUser.hsha1} )
@@ -872,7 +880,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const cols = col instanceof Array ? col : [col]
     if (!cols.length) return ''
     const x = []
-    for(const v of cols) x.push(' instr(' + colName + ', \'' + v + '\') > 0 ')
+    for(const v of cols) x.push(' instr(' + colName + ', \'$' + v + '\') > 0 ')
     return x.length ?
       (x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) ')
       : ''

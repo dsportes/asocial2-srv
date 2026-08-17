@@ -11,6 +11,7 @@ import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
 import { keyFromB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
 import { SetCred } from '../src-fw/safeop'
+import { Util } from '../src-fw/util'
 
 let nd = 0
 
@@ -379,6 +380,7 @@ export class $Form extends $Document {
   etcT: Object | null = null // valeur de etc _avant_: en statut 1 c'est le dernier état en statut 2, en statut 2 c'est le dernier état en statut 1. Permet un _undo_ de remord de U quand il avait modifié etc mais que finalement il accepte la dernière proposition de T (et symétriquement pour T).
   msgU: Uint8Array | null = null // message écrit par U.
   msgT: Uint8Array | null = null // message écrit par le tiers.
+  isInvit?:boolean
   opts?: any = null // options éventuelles de validation (calculées par compileEtc)
 
   /* Propriétés reçues à la création par U ou T et à mettre à jour dans MDEvent
@@ -413,7 +415,7 @@ export class $Form extends $Document {
     return f
   }
 
-  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT', 'opts']
+  static lp1 = ['formId', 'type', 'userId', 'v', 'maxLife', 'status', 'etcU', 'etcT', 'msgU', 'msgT', 'isInvit', 'opts']
 
   toFormObj () : $FormObj {
     const obj = {}
@@ -455,7 +457,6 @@ export class $Form extends $Document {
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       const x = await Crypt.decrypt(aes, this.msgU)
       // const y = decoder.decode(x)
-      this.msgU = x
     }
   }
 
@@ -467,7 +468,7 @@ export class $Form extends $Document {
   - et de la clé _publique_ de cryptage de U (également accessible puisque `userId` est l'ID de U).
   */
   async cryptMsgT (op: Operation) : Promise<void> {
-    if (this.msgT) {
+    if (this.msgT && !this.isInvit) {
       const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.crypt(aes, this.msgT)
@@ -475,7 +476,7 @@ export class $Form extends $Document {
   }
 
   async decryptMsgT (op: Operation) : Promise<void> {
-    if (this.msgT) {
+    if (this.msgT && !this.isInvit) {
       const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       this.msgT = await Crypt.decrypt(aes, this.msgT as Uint8Array)

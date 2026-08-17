@@ -347,6 +347,7 @@ Status: 10 11 12
 class $mdUserNew extends MDOperation {
   async doTheJob () : Promise<void> { 
     const mdUser = this.args['mdUser'] as MDuser
+    if (mdUser.invit) mdUser.invit = Crypt.shaS(mdUser.invit)
     const status = await this.db.mdUserSet(MDopn.new, mdUser)
     this.setRes('status', status)
   }

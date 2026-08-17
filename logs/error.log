@@ -787,3 +787,11 @@ Error: Captured for inspection
 2026-08-12T10:27:05.534Z error: AppExc: 105:service_unexpected_exception["Unsupported state or unable to authenticate data"]
 2026-08-12T10:31:28.513Z error: FW$setSubscription : 2026-08-12T10:30:27.962Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
 2026-08-12T10:31:28.516Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-08-17T15:59:18.047Z error: Invalid keyData
+2026-08-17T16:24:48.196Z error: Invalid keyData
+2026-08-17T16:27:39.866Z error: Invalid keyData
+2026-08-17T16:36:09.470Z error: Invalid keyData
+2026-08-17T16:49:40.952Z error: Invalid keyData
+2026-08-17T16:56:25.716Z error: Invalid keyData
+2026-08-17T17:24:48.086Z error: Invalid keyData
+2026-08-17T17:28:17.498Z error: Invalid keyData
