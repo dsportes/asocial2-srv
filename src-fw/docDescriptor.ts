@@ -15,6 +15,7 @@ export type Descriptor = {
   sync?: boolean
   embedCreds?: boolean // les credentials sont embarqués dans la propriété creds
   virtual?: boolean
+  role?: string
 }
 
 /* Type d'index :
@@ -77,10 +78,8 @@ export class DocDescriptor {
     let i = clazz.indexOf('_')
     const cl = i === -1 ? clazz : clazz.substring(0, i)
     const dd = this.all.get(cl)
-    if (!dd) {
-      const trace = new Error("Captured for inspection")
-      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl], trace.stack)
-    }
+    if (!dd) 
+      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl])
     return dd
   }
 
@@ -91,6 +90,7 @@ export class DocDescriptor {
   enum?: string[]
   extenum?: string = ''
   subClassBy?: string = ''
+  role?: string = ''
 
   // Pour les services seulement
   sync?: boolean
@@ -112,7 +112,7 @@ export class DocDescriptor {
     let p = src['pk']
     if (p) return p
     const x = []
-    if (src) this.pk.forEach(p => { x.push(src[p] || '') })
+    if (src) this.pk.forEach(pr => { x.push(src[pr] || '') })
     p = x.join('/')
     return nohash || this.nohash ? p : Crypt.shaS(p)
   }
@@ -215,6 +215,7 @@ export class DocDescriptor {
     this.sync = arg.sync || false
     this.embedCreds = arg.embedCreds || false
     this.virtual = arg.virtual || false
+    this.role = arg.role || ''
 
     if (colls && colls.size) {
       for(const [nc, coll] of colls) {
@@ -247,7 +248,8 @@ export class FormType {
   static refClasses$ : Set<string> = new Set()
 
   static size () { return DocDescriptor.all.size}
-  static get (svc: string, type: string) { return this.all.get(svc + '$' + type)}
+  static get (svc: string, type: string) { 
+    return this.all.get(svc + '$' + type)}
 
   svc: string
   type: string
@@ -263,7 +265,7 @@ export class FormType {
     this.categ = categ
     this.key = key
     this.creds = creds
-    FormType.all.set(svc + '$' + type, this)
+    FormType.all.set(svc + '$' + this.type, this)
     for(const c of creds) {
       if (c !== 'A') {
         const cl = c.substring(0, c.indexOf('/'))
