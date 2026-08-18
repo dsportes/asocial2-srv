@@ -29324,3 +29324,301 @@ Error: Captured for inspection
 2026-08-17T17:37:42.429Z info: AutidDeNom finished
 2026-08-17T17:37:42.435Z info: AutidDeNom : 2026-08-17T17:37:42.435Z
 2026-08-17T17:37:42.440Z info: AutidDeNom finished
+2026-08-18T06:13:19.588Z info: Configuration pre-loaded
+2026-08-18T06:13:24.187Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T06:13:24.215Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T06:13:24.414Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:13:24.414Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:13:24.415Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T06:13:24.415Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T06:13:24.415Z info: fw documents loading: 2
+2026-08-18T06:13:24.416Z info: app operations loading: 12
+2026-08-18T06:13:24.416Z info: fw operations loading: 70
+2026-08-18T06:13:24.416Z info: app operations loading: 70
+2026-08-18T06:13:24.416Z info: safe operations loading: 70
+2026-08-18T06:13:24.417Z info: masterdir operations loading: 70
+2026-08-18T06:13:24.417Z info: Configuration completed
+2026-08-18T06:13:24.424Z info: Server started
+2026-08-18T06:13:24.425Z info: HTTP listen [8091]
+2026-08-18T06:22:27.215Z info: Configuration pre-loaded
+2026-08-18T06:22:27.649Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T06:22:27.656Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T06:22:27.697Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:22:27.698Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:22:27.699Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T06:22:27.699Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T06:22:27.700Z info: fw documents loading: 2
+2026-08-18T06:22:27.701Z info: app operations loading: 12
+2026-08-18T06:22:27.701Z info: fw operations loading: 70
+2026-08-18T06:22:27.702Z info: app operations loading: 70
+2026-08-18T06:22:27.702Z info: safe operations loading: 70
+2026-08-18T06:22:27.703Z info: masterdir operations loading: 70
+2026-08-18T06:22:27.703Z info: Configuration completed
+2026-08-18T06:22:27.712Z info: Server started
+2026-08-18T06:22:27.714Z info: HTTP listen [8091]
+2026-08-18T06:55:28.250Z info: Configuration pre-loaded
+2026-08-18T06:55:32.578Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T06:55:32.615Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T06:55:32.958Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:55:32.958Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T06:55:32.959Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T06:55:32.960Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T06:55:32.960Z info: fw documents loading: 2
+2026-08-18T06:55:32.961Z info: app operations loading: 12
+2026-08-18T06:55:32.962Z info: fw operations loading: 70
+2026-08-18T06:55:32.962Z info: app operations loading: 70
+2026-08-18T06:55:32.962Z info: safe operations loading: 70
+2026-08-18T06:55:32.963Z info: masterdir operations loading: 70
+2026-08-18T06:55:32.963Z info: Configuration completed
+2026-08-18T06:55:32.972Z info: Server started
+2026-08-18T06:55:32.974Z info: HTTP listen [8091]
+2026-08-18T07:29:56.388Z info: $GetServicesLabels finished
+2026-08-18T07:30:24.830Z info: $GetOrgSvc finished
+2026-08-18T07:30:24.860Z info: $GetSitesUrls finished
+2026-08-18T07:30:24.879Z info: ADMIN$isAdmin : 2026-08-18T07:30:24.879Z
+2026-08-18T07:30:24.889Z info: ADMIN$isAdmin finished
+2026-08-18T07:30:24.918Z info: ADMIN$getStatus : 2026-08-18T07:30:24.917Z
+2026-08-18T07:30:24.929Z info: ADMIN$getStatus finished
+2026-08-18T07:30:24.936Z info: FW$getStatus : 2026-08-18T07:30:24.936Z
+2026-08-18T07:30:24.944Z info: FW$getStatus finished
+2026-08-18T07:55:11.287Z info: $GetSitesUrls finished
+2026-08-18T07:57:25.610Z info: $GetSitesUrls finished
+2026-08-18T08:07:16.225Z info: $GetSitesUrls finished
+2026-08-18T08:21:23.020Z info: $GetSitesUrls finished
+2026-08-18T08:24:18.041Z info: $GetSitesUrls finished
+2026-08-18T08:45:44.747Z info: Configuration pre-loaded
+2026-08-18T08:45:45.163Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T08:45:45.167Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T08:45:45.204Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T08:45:45.205Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T08:45:45.205Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T08:45:45.206Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T08:45:45.206Z info: fw documents loading: 2
+2026-08-18T08:45:45.207Z info: app operations loading: 12
+2026-08-18T08:45:45.207Z info: fw operations loading: 70
+2026-08-18T08:45:45.208Z info: app operations loading: 70
+2026-08-18T08:45:45.208Z info: safe operations loading: 70
+2026-08-18T08:45:45.209Z info: masterdir operations loading: 70
+2026-08-18T08:45:45.209Z info: Configuration completed
+2026-08-18T08:45:45.217Z info: Server started
+2026-08-18T08:45:45.219Z info: HTTP listen [8091]
+2026-08-18T08:58:57.895Z info: Configuration pre-loaded
+2026-08-18T08:59:01.283Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T08:59:01.300Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T08:59:01.585Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T08:59:01.586Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T08:59:01.586Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T08:59:01.587Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T08:59:01.588Z info: fw documents loading: 2
+2026-08-18T08:59:01.588Z info: app operations loading: 12
+2026-08-18T08:59:01.589Z info: fw operations loading: 70
+2026-08-18T08:59:01.590Z info: app operations loading: 70
+2026-08-18T08:59:01.590Z info: safe operations loading: 70
+2026-08-18T08:59:01.590Z info: masterdir operations loading: 70
+2026-08-18T08:59:01.591Z info: Configuration completed
+2026-08-18T08:59:01.601Z info: Server started
+2026-08-18T08:59:01.602Z info: HTTP listen [8091]
+2026-08-18T09:16:02.187Z info: $GetSitesUrls finished
+2026-08-18T09:16:19.917Z info: $mdUserGetICVS finished
+2026-08-18T09:28:39.002Z info: $mdUserGetICVS finished
+2026-08-18T09:30:07.991Z info: $mdUserGetICVS finished
+2026-08-18T09:30:39.990Z info: $OpenSafeByPin finished
+2026-08-18T09:30:40.057Z info: $GetSafe finished
+2026-08-18T09:30:48.077Z info: $GetServicesLabels finished
+2026-08-18T09:30:50.888Z info: $GetOrgSvc finished
+2026-08-18T09:30:50.915Z info: $GetSitesUrls finished
+2026-08-18T09:30:50.978Z info: ADMIN$isAdmin : 2026-08-18T09:30:50.978Z
+2026-08-18T09:30:50.996Z info: ADMIN$isAdmin finished
+2026-08-18T09:30:57.459Z info: FormFilteredList : 2026-08-18T09:30:57.459Z
+2026-08-18T09:30:57.482Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-08-18T09:30:57.598Z info: FormFilteredList finished
+2026-08-18T09:31:02.081Z info: AutidDeNom : 2026-08-18T09:31:02.080Z
+2026-08-18T09:31:02.089Z info: AutidDeNom finished
+2026-08-18T09:31:02.093Z info: AutidDeNom : 2026-08-18T09:31:02.093Z
+2026-08-18T09:31:02.098Z info: AutidDeNom finished
+2026-08-18T09:31:02.109Z info: AutidDeNom : 2026-08-18T09:31:02.109Z
+2026-08-18T09:31:02.113Z info: AutidDeNom finished
+2026-08-18T09:33:55.814Z info: $mdUserGetICVS finished
+2026-08-18T09:35:05.760Z info: $mdUserGetICVS finished
+2026-08-18T09:41:52.965Z info: $mdUserGetICVS finished
+2026-08-18T09:58:19.429Z info: Configuration pre-loaded
+2026-08-18T09:58:19.958Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T09:58:19.963Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T09:58:20.027Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T09:58:20.028Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T09:58:20.029Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T09:58:20.030Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T09:58:20.030Z info: fw documents loading: 2
+2026-08-18T09:58:20.031Z info: app operations loading: 12
+2026-08-18T09:58:20.032Z info: fw operations loading: 70
+2026-08-18T09:58:20.032Z info: app operations loading: 70
+2026-08-18T09:58:20.033Z info: safe operations loading: 70
+2026-08-18T09:58:20.033Z info: masterdir operations loading: 70
+2026-08-18T09:58:20.034Z info: Configuration completed
+2026-08-18T09:58:20.047Z info: Server started
+2026-08-18T09:58:20.049Z info: HTTP listen [8091]
+2026-08-18T10:03:12.987Z info: $mdUserGetICVS finished
+2026-08-18T10:03:13.119Z info: $GetSitesUrls finished
+2026-08-18T10:05:25.773Z info: $mdAliasFree finished
+2026-08-18T10:09:23.051Z info: $mdUserGetICVS finished
+2026-08-18T10:09:44.453Z info: $mdAliasFree finished
+2026-08-18T10:14:17.528Z info: Configuration pre-loaded
+2026-08-18T10:14:18.276Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T10:14:18.282Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T10:14:18.325Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T10:14:18.326Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T10:14:18.327Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T10:14:18.327Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T10:14:18.328Z info: fw documents loading: 2
+2026-08-18T10:14:18.329Z info: app operations loading: 12
+2026-08-18T10:14:18.329Z info: fw operations loading: 70
+2026-08-18T10:14:18.330Z info: app operations loading: 70
+2026-08-18T10:14:18.330Z info: safe operations loading: 70
+2026-08-18T10:14:18.331Z info: masterdir operations loading: 70
+2026-08-18T10:14:18.332Z info: Configuration completed
+2026-08-18T10:14:18.341Z info: Server started
+2026-08-18T10:14:18.343Z info: HTTP listen [8091]
+2026-08-18T10:17:27.577Z info: $mdUserGetICVS finished
+2026-08-18T10:17:48.553Z info: $mdAliasFree finished
+2026-08-18T10:19:52.483Z info: $mdUserNew terminated on exception
+2026-08-18T10:19:52.485Z error: AppExc: 105:masterdir_unexpected_exception["UNIQUE constraint failed: ZZUSERS.userId"]
+2026-08-18T10:37:58.407Z info: Configuration pre-loaded
+2026-08-18T10:37:59.148Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T10:37:59.152Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T10:37:59.191Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T10:37:59.192Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T10:37:59.193Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T10:37:59.193Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T10:37:59.194Z info: fw documents loading: 2
+2026-08-18T10:37:59.194Z info: app operations loading: 12
+2026-08-18T10:37:59.195Z info: fw operations loading: 70
+2026-08-18T10:37:59.195Z info: app operations loading: 70
+2026-08-18T10:37:59.196Z info: safe operations loading: 70
+2026-08-18T10:37:59.196Z info: masterdir operations loading: 70
+2026-08-18T10:37:59.197Z info: Configuration completed
+2026-08-18T10:37:59.203Z info: Server started
+2026-08-18T10:37:59.205Z info: HTTP listen [8091]
+2026-08-18T11:43:15.556Z info: $mdUserGetICVS finished
+2026-08-18T11:43:15.691Z info: $GetSitesUrls finished
+2026-08-18T11:43:32.745Z info: $mdAliasFree finished
+2026-08-18T11:44:51.220Z info: $mdUserNew finished
+2026-08-18T11:44:51.263Z info: $CreateSafe finished
+2026-08-18T11:45:41.642Z info: $mdEventList finished
+2026-08-18T11:52:19.398Z info: $mdUserGetICVS finished
+2026-08-18T11:54:30.213Z info: $mdUserGetICVS finished
+2026-08-18T11:54:33.554Z info: $GetSafe finished
+2026-08-18T11:54:39.193Z info: $mdEventList finished
+2026-08-18T11:54:42.048Z info: $mdEventUser finished
+2026-08-18T11:54:42.074Z info: $GetOrgSvc finished
+2026-08-18T11:54:42.089Z info: $GetSitesUrls finished
+2026-08-18T11:54:42.138Z info: FormGet : 2026-08-18T11:54:42.138Z
+2026-08-18T11:54:42.157Z info: FormGet finished
+2026-08-18T11:55:10.091Z info: AutidDeNom : 2026-08-18T11:55:10.091Z
+2026-08-18T11:55:10.097Z info: AutidDeNom finished
+2026-08-18T11:55:18.079Z info: AutidDeNom : 2026-08-18T11:55:18.079Z
+2026-08-18T11:55:18.085Z info: AutidDeNom finished
+2026-08-18T11:55:18.481Z info: AutidDeNom : 2026-08-18T11:55:18.481Z
+2026-08-18T11:55:18.487Z info: AutidDeNom finished
+2026-08-18T11:55:18.625Z info: AutidDeNom : 2026-08-18T11:55:18.625Z
+2026-08-18T11:55:18.628Z info: AutidDeNom finished
+2026-08-18T11:55:18.889Z info: AutidDeNom : 2026-08-18T11:55:18.889Z
+2026-08-18T11:55:18.895Z info: AutidDeNom finished
+2026-08-18T11:55:19.175Z info: AutidDeNom : 2026-08-18T11:55:19.175Z
+2026-08-18T11:55:19.178Z info: AutidDeNom finished
+2026-08-18T11:55:19.679Z info: AutidDeNom : 2026-08-18T11:55:19.679Z
+2026-08-18T11:55:19.688Z info: AutidDeNom finished
+2026-08-18T11:55:24.768Z info: FormValidateByU : 2026-08-18T11:55:24.768Z
+2026-08-18T11:55:24.805Z error: FormValidateByU : 2026-08-18T11:55:24.768Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T11:55:24.807Z info: FormValidateByU terminated on exception
+2026-08-18T11:55:24.811Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:01:02.126Z info: FormValidateByU : 2026-08-18T12:01:02.126Z
+2026-08-18T12:06:58.528Z error: FormValidateByU : 2026-08-18T12:01:02.126Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:06:58.530Z info: FormValidateByU terminated on exception
+2026-08-18T12:06:58.531Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:16:06.094Z info: FormValidateByU : 2026-08-18T12:16:06.093Z
+2026-08-18T12:16:30.863Z error: FormValidateByU : 2026-08-18T12:16:06.093Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:16:30.864Z info: FormValidateByU terminated on exception
+2026-08-18T12:16:30.865Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:19:36.258Z info: FormValidateByU : 2026-08-18T12:19:36.258Z
+2026-08-18T12:19:36.284Z error: FormValidateByU : 2026-08-18T12:19:36.258Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:19:36.289Z info: FormValidateByU terminated on exception
+2026-08-18T12:19:36.296Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:19:56.883Z info: $mdUserGetICVS finished
+2026-08-18T12:20:01.872Z info: $GetSafe finished
+2026-08-18T12:20:07.730Z info: $GetServicesLabels finished
+2026-08-18T12:20:10.411Z info: $GetOrgSvc finished
+2026-08-18T12:20:10.454Z info: $GetSitesUrls finished
+2026-08-18T12:20:10.480Z info: ADMIN$isAdmin : 2026-08-18T12:20:10.480Z
+2026-08-18T12:20:10.485Z info: ADMIN$isAdmin finished
+2026-08-18T12:20:10.555Z info: FormFilteredList : 2026-08-18T12:20:10.555Z
+2026-08-18T12:20:10.565Z info: Auth status: 
+2026-08-18T12:20:10.568Z error: FormFilteredList : 2026-08-18T12:20:10.555Z : AppExc: 101:operation_bad_credentials@FormFilteredList:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-18T12:20:10.569Z info: FormFilteredList terminated on exception
+2026-08-18T12:20:10.570Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@FormFilteredList:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-18T12:20:37.953Z info: FormFilteredList : 2026-08-18T12:20:37.953Z
+2026-08-18T12:20:37.962Z info: Auth status: 
+2026-08-18T12:20:37.964Z error: FormFilteredList : 2026-08-18T12:20:37.953Z : AppExc: 101:operation_bad_credentials@FormFilteredList:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-18T12:20:37.965Z info: FormFilteredList terminated on exception
+2026-08-18T12:20:37.965Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@FormFilteredList:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-18T12:21:11.646Z info: $mdUserGetICVS finished
+2026-08-18T12:21:16.508Z info: $GetSafe finished
+2026-08-18T12:21:22.622Z info: $mdEventList finished
+2026-08-18T12:21:25.726Z info: $GetOrgSvc finished
+2026-08-18T12:21:25.764Z info: $GetSitesUrls finished
+2026-08-18T12:21:25.784Z info: FormGet : 2026-08-18T12:21:25.784Z
+2026-08-18T12:21:25.789Z info: FormGet finished
+2026-08-18T12:21:37.592Z info: AutidDeNom : 2026-08-18T12:21:37.591Z
+2026-08-18T12:21:37.597Z info: AutidDeNom finished
+2026-08-18T12:25:55.880Z info: $mdUserGetICVS finished
+2026-08-18T12:26:01.855Z info: $GetSafe finished
+2026-08-18T12:26:07.735Z info: $mdEventList finished
+2026-08-18T12:26:09.187Z info: $GetOrgSvc finished
+2026-08-18T12:26:09.222Z info: $GetSitesUrls finished
+2026-08-18T12:26:09.242Z info: FormGet : 2026-08-18T12:26:09.242Z
+2026-08-18T12:26:09.247Z info: FormGet finished
+2026-08-18T12:26:16.105Z info: AutidDeNom : 2026-08-18T12:26:16.105Z
+2026-08-18T12:26:16.109Z info: AutidDeNom finished
+2026-08-18T12:29:38.411Z info: $mdUserGetICVS finished
+2026-08-18T12:29:50.070Z info: $GetSafe finished
+2026-08-18T12:29:56.089Z info: $mdEventList finished
+2026-08-18T12:29:57.374Z info: $GetOrgSvc finished
+2026-08-18T12:29:57.404Z info: $GetSitesUrls finished
+2026-08-18T12:29:57.423Z info: FormGet : 2026-08-18T12:29:57.423Z
+2026-08-18T12:29:57.426Z info: FormGet finished
+2026-08-18T12:30:05.930Z info: AutidDeNom : 2026-08-18T12:30:05.930Z
+2026-08-18T12:30:05.934Z info: AutidDeNom finished
+2026-08-18T12:33:57.600Z info: Configuration pre-loaded
+2026-08-18T12:33:57.946Z info: FW document descriptors:2 forms descriptors:2
+2026-08-18T12:33:58.225Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-18T12:33:58.275Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T12:33:58.276Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-18T12:33:58.276Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-18T12:33:58.277Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-18T12:33:58.278Z info: fw documents loading: 2
+2026-08-18T12:33:58.278Z info: app operations loading: 12
+2026-08-18T12:33:58.279Z info: fw operations loading: 70
+2026-08-18T12:33:58.280Z info: app operations loading: 70
+2026-08-18T12:33:58.280Z info: safe operations loading: 70
+2026-08-18T12:33:58.281Z info: masterdir operations loading: 70
+2026-08-18T12:33:58.281Z info: Configuration completed
+2026-08-18T12:33:58.291Z info: Server started
+2026-08-18T12:33:58.293Z info: HTTP listen [8091]
+2026-08-18T12:36:11.787Z info: $mdUserGetICVS finished
+2026-08-18T12:36:15.433Z info: $GetSafe finished
+2026-08-18T12:36:19.906Z info: $mdEventList finished
+2026-08-18T12:36:21.040Z info: $GetOrgSvc finished
+2026-08-18T12:36:21.055Z info: $GetSitesUrls finished
+2026-08-18T12:36:21.092Z info: FormGet : 2026-08-18T12:36:21.092Z
+2026-08-18T12:36:21.101Z info: FormGet finished
+2026-08-18T12:36:27.681Z info: AutidDeNom : 2026-08-18T12:36:27.680Z
+2026-08-18T12:36:27.685Z info: AutidDeNom finished
+2026-08-18T12:36:45.871Z info: FormValidateByU : 2026-08-18T12:36:45.871Z
+2026-08-18T12:36:45.941Z info: FormValidateByU finished
+2026-08-18T12:36:46.152Z info: MDEventSync : 2026-08-18T12:36:46.151Z
+2026-08-18T12:36:46.156Z info: MDEventSync finished
+2026-08-18T12:36:46.175Z info: $mdEventSync finished
+2026-08-18T12:36:53.282Z info: $GetSafe finished
+2026-08-18T12:36:53.420Z info: $mdEventList finished
+2026-08-18T12:36:53.451Z info: $mdEventUser finished
+2026-08-18T12:36:53.488Z info: FormGet : 2026-08-18T12:36:53.488Z
+2026-08-18T12:36:53.520Z info: FormGet finished

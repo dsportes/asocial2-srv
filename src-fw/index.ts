@@ -8,15 +8,17 @@ import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { config } from '../src/config'
-import { Log, setAdminAlert } from './log'
-import { Registry } from './registry'
-import { Util } from './util'
+import { Log, setAdminAlert } from '../src-fw/log'
+import { Registry } from '../src-fw/registry'
+import { Util } from '../src-fw/util'
+import { Crypt } from '../src-fw/crypt'
+import { keyFromB64 } from '../src-fw/b64'
 
-import { IStGeneric } from './iStGeneric'
-import { IDbGeneric } from './iDbGeneric'
-import { Operation } from './operation'
-import { SafeOperation } from './safeop'
-import { MDOperation, getSafeUrl } from './masterdir'
+import { IStGeneric } from '../src-fw/iStGeneric'
+import { IDbGeneric } from '../src-fw/iDbGeneric'
+import { Operation } from '../src-fw/operation'
+import { SafeOperation } from '../src-fw/safeop'
+import { MDOperation, getSafeUrl } from '../src-fw/masterdir'
 
 export class DbConnector {
 
@@ -346,6 +348,11 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
       case 'CONFIG$Services' :
         obj = { at: Date.now(), services: Array.from(config.SERVICES) }
         break
+      case 'CONFIG$AdminID' :
+        const k = Crypt.shaS(keyFromB64(args['pwd']))
+        const id = config.ADMINIDS[k] || ''
+        obj = { at: Date.now(), id }
+        break
       default :
         const e = new AppExc(103, 'unknown_operation', null, [opName])
         const b: Buffer = e.serial()
@@ -605,7 +612,8 @@ export class MDandSafe {
     icvs = res.icvs
     if (!icvs) return null
     icvs.dh = now
-    MDandSafe.icvsCache.set(userId, icvs)
+    if (icvs.c) // ne stocke pas les IDs en invitation
+      MDandSafe.icvsCache.set(userId, icvs)
     /* Test accès Safe
     const r: any = await MDandSafe.doSafeOp(op, userId, '$Ping', {})
     Log.info(r.ping)

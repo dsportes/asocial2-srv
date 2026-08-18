@@ -288,7 +288,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   normRow (row: any) : MDuser{
-    const x = {}; for(const p of this.USERSCOLS) x[p] = row[p]
+    const x = {}; for(const p of this.USERSCOLSI) x[p] = row[p]
     if (!x['hsha1']) x['hsha1'] = ''
     if (!x['hsha2']) x['hsha2'] = ''
     const llq = Util.quarter(new Date())
@@ -334,7 +334,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return invit && invit === row.hsha1 && !row.hsha2 && !row.C  && !row.V
   }
 
-  readonly USERSCOLS = ['userId', 'hshK', 'hsha1', 'hsha2', 'C', 'V', 'llq', 'store']
+  readonly USERSCOLSI = ['userId', 'hshK', 'hsha1', 'hsha2', 'C', 'V', 'llq', 'store']
+  readonly USERSCOLSU = ['hshK', 'hsha1', 'hsha2', 'C', 'V', 'llq', 'store']
 
   /* création d'une entrée dans 'users' pour un nouvel utilisateur.
   S'il existe déjà avec le même contenu, OK.
@@ -347,7 +348,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       if (!row || mdUser.invit !== row.hsha1 || row.hshK || row.C || row.V) return 13
     } else {
       if (row) {
-        if (this.eqObj(mdUser, row, this.USERSCOLS)) return 0
+        if (this.eqObj(mdUser, row, this.USERSCOLSI)) return 0
         return 12
       }
     }
@@ -357,11 +358,17 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt = this.sql.prepare('SELECT userId FROM ZZUSERS WHERE hsha1 = @hsha2 OR hsha2 = @hsha2')
     row = stmt.get( {hsha2: mdUser.hsha2} )
     if (row) return 12
-    const s1 = this.USERSCOLS.join(',')
-    const s2 = this.USERSCOLS.join(', @')
-    stmt = this.sql.prepare('INSERT INTO ZZUSERS (' + s1 + ') VALUES (@' + s2 + ');')
+    if (mdUser.invit) { // ZZUSERS SET ssha1 = @ssha1, ssha2 = @ssha2 WHERE ...
+      const s1 = []
+      for(const x of this.USERSCOLSU) s1.push(x + ' = @' + x)
+      stmt = this.sql.prepare('UPDATE ZZUSERS SET ' + s1.join(', ') + ' WHERE userId = @userId;')
+    } else {
+      const s1 = this.USERSCOLSI.join(',')
+      const s2 = this.USERSCOLSI.join(', @')
+      stmt = this.sql.prepare('INSERT INTO ZZUSERS (' + s1 + ') VALUES (@' + s2 + ');')
+    }
     const x = {}
-    for(const p of this.USERSCOLS) x[p] = mdUser[p]
+    for(const p of this.USERSCOLSI) x[p] = mdUser[p]
     if (x['hsha1'] === '') x['hsha1'] = null
     if (x['hsha2'] === '') x['hsha2'] = null
     stmt.run(x)

@@ -7,18 +7,19 @@ import { encryptedKeys } from './keys'
 // gcp = true SI hosté par Google: AppEngine ou gcloud run
 const gcp = false 
 
-// Admins du service pour l'opérateur
-const ADMINUSERS = new Set(['VpOZWh0Zeh20Tk5C1BNi'])
-// Admins du Safe: vide si le Safe généric n'est pas déployé ici
-const MASTERDIRADMINUSERS = new Set(['VpOZWh0Zeh20Tk5C1BNi'])
+const admin1 = 'VpOZWh0Zeh20Tk5C1BNi'
+const admin2 = 'Q8v99KlnO04zV41Z1MVx'
 
 const SRVKEY = env.SRVKEY || '2_b7DjJjC4x_oaYs2Z6J2_I6igIoLmuhsuv6nBRE3QE'
 
 import { BaseConfig } from '../src-fw/baseConfig'
 export const config = {
   SERVICES: new Set(['AS2']),
-  ADMINUSERS,
-  MASTERDIRADMINUSERS,
+  ADMINIDS: { 
+    'C5ov-RUbygqXvwKL9TxC' : admin1, 
+    '8i3UFqA_HoNWPJB1SrKv' : admin2 },
+  ADMINUSERS: new Set([admin1, admin2]),
+  MASTERDIRADMINUSERS: new Set([admin1]),
   MASTERDIR_URL: 'http://localhost:8091/master',
   STDSAFE_URL: 'http://localhost:8091/safe',
 

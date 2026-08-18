@@ -42,7 +42,7 @@ try {
   )
 
   new DocDescriptor(svc, 
-    { name: 'Auteur', pk: ['autId'], sync: true, embedCreds: true },
+    { name: 'Auteur', pk: ['autid'], sync: true, embedCreds: true },
     new Map<string, collection>([
       ['section',  { key: ['section'], mutable: true, class: 'Section' }]
     ]),

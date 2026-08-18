@@ -45,8 +45,4 @@ static equ8(a: Uint8Array, b: Uint8Array) : boolean {
   return true
 }
 
-static isClear (a: Uint8Array) : boolean {
- return a && a.length > 3 && a[0] === 36 && a[1] === 33 && a[2] === 36 && a[3] === 33
-}
-
 }

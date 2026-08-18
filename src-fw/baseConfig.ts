@@ -1,5 +1,6 @@
 export interface BaseConfig {
   SERVICES: Set<string> // codes des services hébergés sur le site
+  ADMINIDS: Object,
   ADMINUSERS: Set<string>
   MASTERDIRADMINUSERS: Set<string>
   MASTERDIR_URL: string

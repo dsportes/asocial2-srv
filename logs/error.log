@@ -795,3 +795,16 @@ Error: Captured for inspection
 2026-08-17T16:56:25.716Z error: Invalid keyData
 2026-08-17T17:24:48.086Z error: Invalid keyData
 2026-08-17T17:28:17.498Z error: Invalid keyData
+2026-08-18T10:19:52.485Z error: AppExc: 105:masterdir_unexpected_exception["UNIQUE constraint failed: ZZUSERS.userId"]
+2026-08-18T11:55:24.805Z error: FormValidateByU : 2026-08-18T11:55:24.768Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T11:55:24.811Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:06:58.528Z error: FormValidateByU : 2026-08-18T12:01:02.126Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:06:58.531Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:16:30.863Z error: FormValidateByU : 2026-08-18T12:16:06.093Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:16:30.865Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:19:36.284Z error: FormValidateByU : 2026-08-18T12:19:36.258Z : SqliteError: UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk
+2026-08-18T12:19:36.296Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$AUTEUR.org, AS2$AUTEUR.pk"]
+2026-08-18T12:20:10.568Z error: FormFilteredList : 2026-08-18T12:20:10.555Z : AppExc: 101:operation_bad_credentials@FormFilteredList:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-18T12:20:10.570Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@FormFilteredList:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-18T12:20:37.964Z error: FormFilteredList : 2026-08-18T12:20:37.953Z : AppExc: 101:operation_bad_credentials@FormFilteredList:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
+2026-08-18T12:20:37.965Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@FormFilteredList:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
