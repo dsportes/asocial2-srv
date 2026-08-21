@@ -455,8 +455,8 @@ type UpdatePrefs = {
   userId: string
   shK: string
   app: string   
-  prefs: Object // clé: crId, valeur: Objet Credential sérialisé crypté
-  delprefs: string[] // liste des crIds à supprimer
+  prefs: Object // clé: code, valeur: Objet Credential sérialisé crypté
+  delprefs: string[] // liste des codes à supprimer
 }
 /* Enregistrement / suppression de préférences
 Status: 1 2
