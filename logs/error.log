@@ -812,3 +812,5 @@ Error: Captured for inspection
 2026-08-21T11:23:54.078Z error: AppExc: 105:service_unexpected_exception["AppExc: 103:missing_credential@MajAuteur:[null,\"Auteur\",\"c6d6c9I-pQsRh5_ZPTFE\"]"]
 2026-08-21T12:16:54.251Z error: PropsOfMyCreds : 2026-08-21T12:16:54.241Z : AppExc: 101:operation_bad_credentials@PropsOfMyCreds:["Auteur/Qpj8HBSa-_TImW-5JCeu"]
 2026-08-21T12:16:54.252Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@PropsOfMyCreds:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
+2026-08-21T17:57:43.869Z error: AppExc: 105:safe_unexpected_exception["no such table: ZZSAFE"]
+2026-08-21T17:57:52.844Z error: AppExc: 105:safe_unexpected_exception["no such table: ZZSAFE"]

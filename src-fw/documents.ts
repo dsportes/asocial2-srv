@@ -11,8 +11,9 @@ import { DocDescriptor, FormType } from '../src-fw/docDescriptor'
 import { keyFromB64 } from '../src-fw/b64'
 import { MDandSafe, AppExc } from '../src-fw/index'
 import { SetCred } from '../src-fw/safeop'
-import { Util } from '../src-fw/util'
+// import { Util } from '../src-fw/util'
 
+const decoder = new TextDecoder()
 let nd = 0
 
 export function loadingDF () {
@@ -456,7 +457,8 @@ export class $Form extends $Document {
       const pub = await this.uPub(op)
       const aes = await Crypt.getAESKey(pub, this.kp.priv)
       const x = await Crypt.decrypt(aes, this.msgU)
-      // const y = decoder.decode(x)
+      const y = decoder.decode(x)
+      console.log(y)
     }
   }
 
