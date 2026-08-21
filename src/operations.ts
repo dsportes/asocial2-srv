@@ -48,20 +48,20 @@ Registry.registerOp(AuteurDeId)
 
 /* Met à jour le nom et la section d'un auteur */
 class MajAuteur extends Operation {
-  _autid: string
+  _autpk: string
   _nomAuteur: string
   _section: string
   init () {
     super.init()
-    this._autid = this.stringValue('autid', true)
+    this._autpk = this.stringValue('autpk', true)
     this._nomAuteur = this.stringValue('nomAuteur', false)
     this._section = this.stringValue('section', false)
   }
   async phase2 () {
     this.requireAuth()
-    const pk = DocDescriptor.get('AS2$Auteur').pkValue({ autid: this._autid })
-    this.getCredRef('Auteur', pk)
-    const aut = await this.cache.getDoc('AS2$Auteur', { autid: this._autid }) as AS2$Auteur
+    // const pk = DocDescriptor.get('AS2$Auteur').pkValue({ autid: this._autid })
+    this.getCredRef('Auteur', this._autpk)
+    const aut = await this.cache.getDoc('AS2$Auteur', { pk: this._autpk }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false
     if (this._nomAuteur && this._nomAuteur !== aut.nomAuteur) {

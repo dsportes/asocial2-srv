@@ -639,7 +639,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const adm = clazz.startsWith('ADMIN$')
     if (row.data) { // c'est une vraie maj
       const [lc, ] = this.columns(clazz)
-      const lx = []; lc.forEach(c => { lx.push(c + ' = @' + c)})
+      const lx = []; lc.forEach(c => { 
+        if (c !== 'org' && c !== 'pk') lx.push(c + ' = @' + c)})
       const stmt = this.sql.prepare('UPDATE ' + this.cluc(clazz) + ' SET ' +
         lx.join(', ') + ' WHERE ' + (adm ? '' : 'org = @org AND ') + ' pk = @pk;')
       const r = this.rowToDB(clazz, row, adm ? '' : this.org)

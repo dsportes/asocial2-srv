@@ -218,12 +218,13 @@ class $OpenSafeByPin extends SafeOperation {
     // Rétablit la signature en EC - ce que ne fait pas la version PHP
     const s1 = keyFromB64(dev.sign)
     const sign = Crypt.signFromAsn1(s1)
+    console.log('PINCX !!!!!!!!!!!!!!!!!!!!!!!!!! ', pincx)
     const pcb = keyFromB64(pincx)
     const ok = await Crypt.verify(V, sign, pcb)
     
     if (!ok) {
       dev.nbe++
-      if (dev.nbe > 2) {
+      if (dev.nbe > 6) {
         delete safe.devices[devId]
         this.setRes('status', 5)
       } else this.setRes('status', 6)

@@ -1,5 +1,0 @@
-{
-  "doda": ["sqlite_a", "storage_a"],  
-  "coltes": ["sqlite_a", "storage_a"],
-  "test": ["sqlite_a", "storage_a"]
-}

@@ -32,21 +32,20 @@ Gestion de fin de session: souscription de "background" et son longLife
 Contexte d'ouverture de session: auths, sessionState
 
 # DB from scratch
-- safe.sql schema.sql
+- safe.sql 
+- générer schema.sql
+- dans base z lancer le script initsites.sql
+  - la première ligne peut ne pas être exécutée: le compte daniel peut créer les sites
+  - en revanche la seconde ligne déclarant les services ne peut pas être configurée
 
-- création du compte daniel
-
-Sous daniel
-- récupération de son ID (en session normale)
-- inscription dans src/index.ts en ADMINUSERS et relance du serveur
-- dans Settings >>> Outils Techniques >>> Hot
-  - déclarer le service AS2 pour l'opérateur $RED
-  - ASSO2 pou $RED
-  - Autoriser "doda" et "demo"
-- dans Menu >>> Ma Safe Box >>> Gérer mes rôles d'admin, ajouter AS2 $RED
-- dans Menu >>> Administration Technique >>> Service et Organisation
-  - déclarer org. doda
-- dans Menu >>> Données de sécurité >>> Certifier mon terminal
+- création du compte daniel - Invité, site "blue", mot de passe "adminadmin1"
+- se connecter par alias / phrase
+- dans Page Administration Technique
+  - déclarer le service AS2 UP
+  - déclarer une organisation doda sur site blue
+  - sur onglet Organisations,
+    - déclarer UP doda sur site blue
+- dans Menu >>> Ma Safe Box >>> Certifier mon terminal
 
 >>> 1 a
 
