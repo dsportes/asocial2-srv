@@ -1,11 +1,7 @@
 # BUGS
-Accès par code PIN sur terminal non certifié produit un mauvais message (?)
-
-Première session juste après création de compte : c'est comme si sf.auth n'était pas là
 
 
 # Safe
-- Gérer la mise à jour du volume des sessions par l'application.
 
 - gestion de la non régression du time d'une signature dans un service.
 
@@ -19,8 +15,6 @@ Export Db: fait ? à vérifier
 
 Export FS
 
-Operation sync colls: fait ? à vérifier 
-
 Tasks
 
 Compta
@@ -29,17 +23,16 @@ Compta
 
 Gestion de fin de session: souscription de "background" et son longLife
 
-Contexte d'ouverture de session: auths, sessionState
-
 # DB from scratch
 - safe.sql 
 - générer schema.sql
-- dans base z lancer le script initsites.sql
-  - la première ligne peut ne pas être exécutée: le compte daniel peut créer les sites
-  - en revanche la seconde ligne déclarant les services ne peut pas être configurée
+- dans base z lancer le script initsites.sql OU ... 
+  - le compte daniel pourra créer de puis la Page Administration:
+  - les Sites et les services (services.json et sites.json)
+  - Rappel: un code de site se terminant par st est un storage de Safe Box.
 
 - création du compte daniel - Invité, site "blue", mot de passe "adminadmin1"
-- se connecter par alias / phrase
+- se connecter par alias / phrase (ne semble plus requis, bug corrigé)
 - dans Page Administration Technique
   - déclarer le service AS2 UP
   - déclarer une organisation doda sur site blue

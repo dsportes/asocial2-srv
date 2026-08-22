@@ -30454,3 +30454,108 @@ Error: Captured for inspection
 2026-08-21T18:18:22.993Z info: $mdEventUser finished
 2026-08-21T18:18:23.016Z info: FormGet : 2026-08-21T18:18:23.016Z
 2026-08-21T18:18:23.043Z info: FormGet finished
+2026-08-22T08:00:18.742Z info: Configuration pre-loaded
+2026-08-22T08:00:24.570Z info: FW document descriptors:2 forms descriptors:2
+2026-08-22T08:00:24.600Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-22T08:00:24.894Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-22T08:00:24.894Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-22T08:00:24.895Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-22T08:00:24.895Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-22T08:00:24.896Z info: fw documents loading: 2
+2026-08-22T08:00:24.896Z info: app operations loading: 12
+2026-08-22T08:00:24.897Z info: fw operations loading: 70
+2026-08-22T08:00:24.897Z info: app operations loading: 70
+2026-08-22T08:00:24.897Z info: safe operations loading: 70
+2026-08-22T08:00:24.897Z info: masterdir operations loading: 70
+2026-08-22T08:00:24.898Z info: Configuration completed
+2026-08-22T08:00:24.908Z info: Server started
+2026-08-22T08:00:24.910Z info: HTTP listen [8091]
+2026-08-22T08:15:31.817Z info: $mdUserGetICVS finished
+2026-08-22T08:15:35.626Z info: $GetSafe finished
+2026-08-22T08:15:38.298Z info: $IsMDAdmin finished
+2026-08-22T08:16:31.217Z info: $mdUserGetICVS finished
+2026-08-22T08:16:37.722Z info: $GetSafe finished
+2026-08-22T08:16:40.768Z info: $IsMDAdmin finished
+2026-08-22T08:16:53.207Z info: $TrustDevice finished
+2026-08-22T08:17:03.453Z info: $GetServicesLabels finished
+2026-08-22T08:18:30.615Z info: $OpenSafeByPin finished
+2026-08-22T08:18:30.664Z info: $GetSafe finished
+2026-08-22T08:18:36.931Z info: $mdEventList finished
+2026-08-22T08:20:20.021Z info: $OpenSafeByPin finished
+2026-08-22T08:20:20.058Z info: $GetSafe finished
+2026-08-22T08:20:25.496Z info: $mdEventList finished
+2026-08-22T08:20:50.855Z info: $GetOrgSvc finished
+2026-08-22T08:20:50.873Z info: $GetSitesUrls finished
+2026-08-22T08:20:50.906Z info: FormGet : 2026-08-22T08:20:50.905Z
+2026-08-22T08:20:50.997Z info: FormGet finished
+2026-08-22T08:26:45.817Z info: Configuration pre-loaded
+2026-08-22T08:26:51.211Z info: FW document descriptors:2 forms descriptors:2
+2026-08-22T08:26:51.250Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-22T08:26:51.666Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-22T08:26:51.667Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-22T08:26:51.667Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-22T08:26:51.668Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-22T08:26:51.668Z info: fw documents loading: 2
+2026-08-22T08:26:51.668Z info: app operations loading: 12
+2026-08-22T08:26:51.669Z info: fw operations loading: 70
+2026-08-22T08:26:51.669Z info: app operations loading: 70
+2026-08-22T08:26:51.669Z info: safe operations loading: 70
+2026-08-22T08:26:51.670Z info: masterdir operations loading: 70
+2026-08-22T08:26:51.670Z info: Configuration completed
+2026-08-22T08:26:51.679Z info: Server started
+2026-08-22T08:26:51.681Z info: HTTP listen [8091]
+2026-08-22T08:32:00.695Z info: $OpenSafeByPin finished
+2026-08-22T08:32:00.738Z info: $GetSafe finished
+2026-08-22T08:33:15.921Z info: $mdEventList finished
+2026-08-22T08:33:32.222Z info: $GetOrgSvc finished
+2026-08-22T08:33:32.236Z info: $GetSitesUrls finished
+2026-08-22T08:33:32.260Z info: FormGet : 2026-08-22T08:33:32.260Z
+2026-08-22T08:33:32.296Z info: FormGet finished
+2026-08-22T08:47:47.496Z info: $OpenSafeByPin finished
+2026-08-22T08:47:47.545Z info: $GetSafe finished
+2026-08-22T08:48:12.294Z info: $mdEventList finished
+2026-08-22T08:49:35.835Z info: $mdEventList finished
+2026-08-22T08:50:26.568Z info: $OpenSafeByPin finished
+2026-08-22T08:50:26.651Z info: $GetSafe finished
+2026-08-22T08:50:31.263Z info: $GetServicesLabels finished
+2026-08-22T08:50:34.165Z info: $GetOrgSvc finished
+2026-08-22T08:50:34.205Z info: $GetSitesUrls finished
+2026-08-22T08:50:34.233Z info: ADMIN$isAdmin : 2026-08-22T08:50:34.233Z
+2026-08-22T08:50:34.260Z info: ADMIN$isAdmin finished
+2026-08-22T08:50:35.818Z info: FormFilteredList : 2026-08-22T08:50:35.818Z
+2026-08-22T08:50:35.851Z info: FormFilteredList finished
+2026-08-22T08:57:07.169Z info: $mdUserNew finished
+2026-08-22T08:57:32.767Z info: FormCreateByT : 2026-08-22T08:57:32.766Z
+2026-08-22T08:57:32.780Z info: FormCreateByT finished
+2026-08-22T08:57:32.892Z info: MDEventFull : 2026-08-22T08:57:32.892Z
+2026-08-22T08:57:32.899Z info: MDEventFull finished
+2026-08-22T08:57:32.919Z info: $mdEventNew finished
+2026-08-22T08:57:34.678Z info: FormFilteredList : 2026-08-22T08:57:34.678Z
+2026-08-22T08:57:34.703Z info: FormFilteredList finished
+2026-08-22T08:58:17.482Z info: $mdUserGetICVS finished
+2026-08-22T08:58:37.706Z info: $mdAliasFree finished
+2026-08-22T08:58:55.268Z info: $mdUserNew finished
+2026-08-22T08:58:55.303Z info: $CreateSafe finished
+2026-08-22T09:00:11.526Z info: $mdEventList finished
+2026-08-22T09:09:42.453Z info: $mdUserGetICVS finished
+2026-08-22T09:09:47.155Z info: $GetSafe finished
+2026-08-22T09:10:03.478Z info: ADMIN$isAdmin : 2026-08-22T09:10:03.478Z
+2026-08-22T09:10:03.482Z info: ADMIN$isAdmin finished
+2026-08-22T09:10:35.461Z info: $OpenSafeByPin finished
+2026-08-22T09:10:35.525Z info: $GetSafe finished
+2026-08-22T09:11:55.014Z info: $OpenSafeByPin finished
+2026-08-22T09:11:55.091Z info: $GetSafe finished
+2026-08-22T09:12:00.050Z info: $GetServicesLabels finished
+2026-08-22T09:12:02.751Z info: $GetOrgSvc finished
+2026-08-22T09:12:02.792Z info: $GetSitesUrls finished
+2026-08-22T09:12:02.822Z info: ADMIN$isAdmin : 2026-08-22T09:12:02.822Z
+2026-08-22T09:12:02.827Z info: ADMIN$isAdmin finished
+2026-08-22T09:12:08.852Z info: FormFilteredList : 2026-08-22T09:12:08.852Z
+2026-08-22T09:12:08.887Z info: FormFilteredList finished
+2026-08-22T09:12:24.488Z info: FormFilteredList : 2026-08-22T09:12:24.488Z
+2026-08-22T09:12:24.516Z info: FormFilteredList finished
+2026-08-22T09:27:32.986Z info: $OpenSafeByPin finished
+2026-08-22T09:27:33.039Z info: $GetSafe finished
+2026-08-22T09:27:37.647Z info: $GetServicesLabels finished
+2026-08-22T09:27:37.661Z info: $IsMDAdmin finished
+2026-08-22T09:27:37.702Z info: $GetSitesUrls finished
