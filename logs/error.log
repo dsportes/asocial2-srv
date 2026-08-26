@@ -814,3 +814,9 @@ Error: Captured for inspection
 2026-08-21T12:16:54.252Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_bad_credentials@PropsOfMyCreds:[\"Auteur/Qpj8HBSa-_TImW-5JCeu\"]"]
 2026-08-21T17:57:43.869Z error: AppExc: 105:safe_unexpected_exception["no such table: ZZSAFE"]
 2026-08-21T17:57:52.844Z error: AppExc: 105:safe_unexpected_exception["no such table: ZZSAFE"]
+2026-08-26T06:12:41.381Z error: MajAuteur : 2026-08-26T06:10:08.402Z : SqliteError: near "AS2$AUTEUR": syntax error
+2026-08-26T06:12:41.386Z error: AppExc: 105:service_unexpected_exception["near \"AS2$AUTEUR\": syntax error"]
+2026-08-26T06:16:07.374Z error: MajAuteur : 2026-08-26T06:15:59.851Z : SqliteError: near "AS2$AUTEUR": syntax error
+2026-08-26T06:16:07.377Z error: AppExc: 105:service_unexpected_exception["near \"AS2$AUTEUR\": syntax error"]
+2026-08-26T06:20:14.116Z error: MajAuteur : 2026-08-26T06:20:04.212Z : SqliteError: near "@section": syntax error
+2026-08-26T06:20:14.134Z error: AppExc: 105:service_unexpected_exception["near \"@section\": syntax error"]

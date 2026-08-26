@@ -30559,3 +30559,184 @@ Error: Captured for inspection
 2026-08-22T09:27:37.647Z info: $GetServicesLabels finished
 2026-08-22T09:27:37.661Z info: $IsMDAdmin finished
 2026-08-22T09:27:37.702Z info: $GetSitesUrls finished
+2026-08-26T05:51:02.919Z info: Configuration pre-loaded
+2026-08-26T05:51:07.435Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T05:51:07.478Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T05:51:07.770Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T05:51:07.770Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T05:51:07.771Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T05:51:07.771Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T05:51:07.772Z info: fw documents loading: 2
+2026-08-26T05:51:07.772Z info: app operations loading: 12
+2026-08-26T05:51:07.773Z info: fw operations loading: 70
+2026-08-26T05:51:07.773Z info: app operations loading: 70
+2026-08-26T05:51:07.773Z info: safe operations loading: 70
+2026-08-26T05:51:07.773Z info: masterdir operations loading: 70
+2026-08-26T05:51:07.773Z info: Configuration completed
+2026-08-26T05:51:07.780Z info: Server started
+2026-08-26T05:51:07.781Z info: HTTP listen [8091]
+2026-08-26T06:02:50.321Z info: $OpenSafeByPin finished
+2026-08-26T06:02:50.367Z info: $GetSafe finished
+2026-08-26T06:02:52.282Z info: $GetOrgSvc finished
+2026-08-26T06:02:52.295Z info: $GetSitesUrls finished
+2026-08-26T06:02:52.317Z info: FW$setSubscription : 2026-08-26T06:02:52.316Z
+2026-08-26T06:02:52.335Z info: FW$setSubscription finished
+2026-08-26T06:02:52.410Z info: FW$Sync : 2026-08-26T06:02:52.410Z
+2026-08-26T06:02:52.426Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:02:52.428Z info: FW$Sync finished
+2026-08-26T06:02:54.730Z info: PropsOfMyCreds : 2026-08-26T06:02:54.730Z
+2026-08-26T06:02:54.752Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:02:54.754Z info: PropsOfMyCreds finished
+2026-08-26T06:03:04.019Z info: MajAuteur : 2026-08-26T06:03:04.018Z
+2026-08-26T06:03:04.038Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:03:04.050Z info: MajAuteur finished
+2026-08-26T06:03:04.094Z info: FW$Sync : 2026-08-26T06:03:04.093Z
+2026-08-26T06:03:04.114Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:03:04.116Z info: FW$Sync finished
+2026-08-26T06:03:04.142Z info: $UpdateCredName finished
+2026-08-26T06:09:15.300Z info: Configuration pre-loaded
+2026-08-26T06:09:15.748Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T06:09:15.752Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T06:09:15.805Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:09:15.806Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:09:15.806Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T06:09:15.807Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T06:09:15.807Z info: fw documents loading: 2
+2026-08-26T06:09:15.808Z info: app operations loading: 12
+2026-08-26T06:09:15.809Z info: fw operations loading: 70
+2026-08-26T06:09:15.809Z info: app operations loading: 70
+2026-08-26T06:09:15.810Z info: safe operations loading: 70
+2026-08-26T06:09:15.810Z info: masterdir operations loading: 70
+2026-08-26T06:09:15.811Z info: Configuration completed
+2026-08-26T06:09:15.819Z info: Server started
+2026-08-26T06:09:15.821Z info: HTTP listen [8091]
+2026-08-26T06:10:08.402Z info: MajAuteur : 2026-08-26T06:10:08.402Z
+2026-08-26T06:10:08.443Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:12:41.381Z error: MajAuteur : 2026-08-26T06:10:08.402Z : SqliteError: near "AS2$AUTEUR": syntax error
+2026-08-26T06:12:41.384Z info: MajAuteur terminated on exception
+2026-08-26T06:12:41.386Z error: AppExc: 105:service_unexpected_exception["near \"AS2$AUTEUR\": syntax error"]
+2026-08-26T06:15:00.124Z info: MajAuteur : 2026-08-26T06:15:00.124Z
+2026-08-26T06:15:09.377Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:15:09.379Z info: MajAuteur finished
+2026-08-26T06:15:48.866Z info: $OpenSafeByPin finished
+2026-08-26T06:15:48.913Z info: $GetSafe finished
+2026-08-26T06:15:51.167Z info: $GetOrgSvc finished
+2026-08-26T06:15:51.190Z info: $GetSitesUrls finished
+2026-08-26T06:15:51.239Z info: FW$setSubscription : 2026-08-26T06:15:51.239Z
+2026-08-26T06:15:51.276Z info: FW$setSubscription finished
+2026-08-26T06:15:51.363Z info: FW$Sync : 2026-08-26T06:15:51.363Z
+2026-08-26T06:15:51.375Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:15:51.377Z info: FW$Sync finished
+2026-08-26T06:15:53.056Z info: PropsOfMyCreds : 2026-08-26T06:15:53.056Z
+2026-08-26T06:15:53.065Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:15:53.066Z info: PropsOfMyCreds finished
+2026-08-26T06:15:59.851Z info: MajAuteur : 2026-08-26T06:15:59.851Z
+2026-08-26T06:15:59.861Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:16:07.374Z error: MajAuteur : 2026-08-26T06:15:59.851Z : SqliteError: near "AS2$AUTEUR": syntax error
+2026-08-26T06:16:07.376Z info: MajAuteur terminated on exception
+2026-08-26T06:16:07.377Z error: AppExc: 105:service_unexpected_exception["near \"AS2$AUTEUR\": syntax error"]
+2026-08-26T06:17:53.515Z info: Configuration pre-loaded
+2026-08-26T06:17:54.189Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T06:17:54.193Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T06:17:54.230Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:17:54.230Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:17:54.231Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T06:17:54.232Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T06:17:54.232Z info: fw documents loading: 2
+2026-08-26T06:17:54.233Z info: app operations loading: 12
+2026-08-26T06:17:54.234Z info: fw operations loading: 70
+2026-08-26T06:17:54.235Z info: app operations loading: 70
+2026-08-26T06:17:54.236Z info: safe operations loading: 70
+2026-08-26T06:17:54.237Z info: masterdir operations loading: 70
+2026-08-26T06:17:54.238Z info: Configuration completed
+2026-08-26T06:17:54.248Z info: Server started
+2026-08-26T06:17:54.250Z info: HTTP listen [8091]
+2026-08-26T06:17:59.731Z info: PropsOfMyCreds : 2026-08-26T06:17:59.731Z
+2026-08-26T06:17:59.757Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:17:59.759Z info: PropsOfMyCreds finished
+2026-08-26T06:18:06.381Z info: MajAuteur : 2026-08-26T06:18:06.380Z
+2026-08-26T06:18:06.391Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:18:06.392Z info: MajAuteur finished
+2026-08-26T06:18:26.099Z info: $OpenSafeByPin finished
+2026-08-26T06:18:26.148Z info: $GetSafe finished
+2026-08-26T06:18:28.361Z info: $GetOrgSvc finished
+2026-08-26T06:18:28.386Z info: $GetSitesUrls finished
+2026-08-26T06:18:28.418Z info: FW$setSubscription : 2026-08-26T06:18:28.418Z
+2026-08-26T06:18:28.425Z info: FW$setSubscription finished
+2026-08-26T06:18:28.496Z info: FW$Sync : 2026-08-26T06:18:28.496Z
+2026-08-26T06:18:28.507Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:18:28.509Z info: FW$Sync finished
+2026-08-26T06:18:30.559Z info: PropsOfMyCreds : 2026-08-26T06:18:30.559Z
+2026-08-26T06:18:30.570Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:18:30.571Z info: PropsOfMyCreds finished
+2026-08-26T06:18:38.116Z info: MajAuteur : 2026-08-26T06:18:38.116Z
+2026-08-26T06:18:38.128Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:19:56.037Z info: Configuration pre-loaded
+2026-08-26T06:19:56.697Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T06:19:56.701Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T06:19:56.738Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:19:56.739Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:19:56.739Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T06:19:56.740Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T06:19:56.741Z info: fw documents loading: 2
+2026-08-26T06:19:56.742Z info: app operations loading: 12
+2026-08-26T06:19:56.743Z info: fw operations loading: 70
+2026-08-26T06:19:56.744Z info: app operations loading: 70
+2026-08-26T06:19:56.745Z info: safe operations loading: 70
+2026-08-26T06:19:56.746Z info: masterdir operations loading: 70
+2026-08-26T06:19:56.746Z info: Configuration completed
+2026-08-26T06:19:56.754Z info: Server started
+2026-08-26T06:19:56.756Z info: HTTP listen [8091]
+2026-08-26T06:20:04.212Z info: MajAuteur : 2026-08-26T06:20:04.212Z
+2026-08-26T06:20:04.238Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:20:14.116Z error: MajAuteur : 2026-08-26T06:20:04.212Z : SqliteError: near "@section": syntax error
+2026-08-26T06:20:14.118Z info: MajAuteur terminated on exception
+2026-08-26T06:20:14.134Z error: AppExc: 105:service_unexpected_exception["near \"@section\": syntax error"]
+2026-08-26T06:20:31.743Z info: MajAuteur : 2026-08-26T06:20:31.743Z
+2026-08-26T06:20:38.063Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:20:38.064Z info: MajAuteur finished
+2026-08-26T06:20:47.505Z info: MajAuteur : 2026-08-26T06:20:47.505Z
+2026-08-26T06:20:47.516Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:27:37.159Z info: Configuration pre-loaded
+2026-08-26T06:27:37.763Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T06:27:37.767Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T06:27:37.805Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:27:37.806Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:27:37.807Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T06:27:37.807Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T06:27:37.808Z info: fw documents loading: 2
+2026-08-26T06:27:37.809Z info: app operations loading: 12
+2026-08-26T06:27:37.809Z info: fw operations loading: 70
+2026-08-26T06:27:37.810Z info: app operations loading: 70
+2026-08-26T06:27:37.810Z info: safe operations loading: 70
+2026-08-26T06:27:37.811Z info: masterdir operations loading: 70
+2026-08-26T06:27:37.811Z info: Configuration completed
+2026-08-26T06:27:37.820Z info: Server started
+2026-08-26T06:27:37.822Z info: HTTP listen [8091]
+2026-08-26T06:27:47.215Z info: MajAuteur : 2026-08-26T06:27:47.215Z
+2026-08-26T06:27:47.240Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:29:41.956Z info: Configuration pre-loaded
+2026-08-26T06:29:42.622Z info: FW document descriptors:2 forms descriptors:2
+2026-08-26T06:29:42.625Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-26T06:29:42.662Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:29:42.663Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-26T06:29:42.663Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-26T06:29:42.664Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-26T06:29:42.665Z info: fw documents loading: 2
+2026-08-26T06:29:42.665Z info: app operations loading: 12
+2026-08-26T06:29:42.666Z info: fw operations loading: 70
+2026-08-26T06:29:42.666Z info: app operations loading: 70
+2026-08-26T06:29:42.667Z info: safe operations loading: 70
+2026-08-26T06:29:42.667Z info: masterdir operations loading: 70
+2026-08-26T06:29:42.667Z info: Configuration completed
+2026-08-26T06:29:42.674Z info: Server started
+2026-08-26T06:29:42.677Z info: HTTP listen [8091]
+2026-08-26T06:29:50.902Z info: MajAuteur : 2026-08-26T06:29:50.902Z
+2026-08-26T06:29:50.935Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:29:50.937Z info: MajAuteur finished
+2026-08-26T06:29:58.977Z info: MajAuteur : 2026-08-26T06:29:58.977Z
+2026-08-26T06:29:58.986Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:30:15.163Z info: MajAuteur finished
+2026-08-26T06:30:15.217Z info: FW$Sync : 2026-08-26T06:30:15.217Z
+2026-08-26T06:30:15.230Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-08-26T06:30:15.232Z info: FW$Sync finished

@@ -591,7 +591,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     return row
   }
 
-  cluc (clazz: string) { return '"' + clazz.toUpperCase() + '"'}
+  cluc (clazz: string, subClazz?: string) { 
+    const c = clazz + (subClazz ? '@' + subClazz : '')
+    return '"' + c.toUpperCase() + '"'
+  }
 
   async exportRows (clazz: string, mark: string, limit: number) : Promise<expList> {
     const adm = clazz.startsWith('ADMIN$')
@@ -667,8 +670,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     stmt.run(r)
   }
 
-  /*
-  delRow (clazz: string, row: row) : Promise<void> {
+  /* delRow (clazz: string, row: row) : Promise<void> {
     const adm = clazz.startsWith('ADMIN$')
     const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz) + 
     ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk = @pk;')
@@ -686,9 +688,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if (!mark) mark = '1'
     const rows: rowQ[] = []
     const ttl = Math.floor(this.op.now / 60000)
-    const stmt = this.sql.prepare('SELECT * FROM "' + 
-      this.cluc(clazz) + '@' + colName +
-      '" WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
+    const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz, colName) +
+      ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk > @mark AND ttl > @ttl ORDER BY pk DESC LIMIT @limit;')
     const docs = stmt.all({ org: this.org, mark, ttl, limit }) as rowQ[]
     for (let doc of docs) {
       n++
@@ -700,7 +701,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   /* En SQL on ignore limit : tous les rows sont purgés en un statement */
   async purgeRowsQ (clazz: string, colName: string, limit: number) : Promise<boolean> {
-    const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz) + '@' + colName + ' WHERE org = @org ;')
+    const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz, colName) + ' WHERE org = @org ;')
     stmt.run({ org: this.org })
     return false
   }
@@ -726,11 +727,11 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void {
-    const stmt = this.sql.prepare('INSERT INTO "' + 
-      this.cluc(clazz) + '@' + colName +
-      '" (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
+    const sql = 'INSERT INTO ' + this.cluc(clazz, colName) +
+      ' (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
-      'v = excluded.v, col = excluded.col, ttl = excluded.ttl;')
+      'v = excluded.v, col = excluded.col, ttl = excluded.ttl;'
+    const stmt = this.sql.prepare(sql)
     const x = { 
       pk, v, col, 
       org: this.org,
@@ -829,8 +830,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const incr = vs !== 0
     const cd: $CollData = { incr, v: 0, datas: [], moved: [], deleted: [] }
     
-    let stmt = this.sql.prepare('SELECT * FROM ' + 
-      this.cluc(clazz) +
+    let stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') +
       (isList ? ('instr(' + colName + ', @col) > 0') : (colName + ' = @col') ) +
       (!incr ? ';' : ' AND v > @vs ;'))
@@ -848,8 +848,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
     // INCREMENTAL : recherche des moved
     const ttl = Math.round(this.op.now / 60000)
-    stmt = this.sql.prepare('SELECT pk, v FROM ' + 
-      this.cluc(clazz) + '@' + colName +
+    stmt = this.sql.prepare('SELECT pk, v FROM ' + this.cluc(clazz, colName) +
       ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' col = @col AND v > @vs AND ttl > @ttl;')
     // rowq des supprimés et/ou retirés de la collection 
     const rowqs = stmt.all({org: this.org, vs, val, ttl })
