@@ -442,7 +442,7 @@ class $SetOptions extends SafeOperation {
     if (!safe) return
 
     if (!safe.options) safe.options = {}
-    const u = safe.options[so.app] && safe.options[so.app] !== so.options
+    const u = !safe.options[so.app] || safe.options[so.app] !== so.options
     if (u) safe.options[so.app] = so.options
     if (Object.keys(safe.options).length === 0) delete safe.options
     await this.save(safe, u)
