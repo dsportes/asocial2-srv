@@ -456,8 +456,7 @@ type UpdatePrefs = {
   userId: string
   shK: string
   app: string   
-  prefs: Object // clé: code, valeur: Objet Credential sérialisé crypté
-  delprefs: string[] // liste des codes à supprimer
+  prefs: string // Object prefs sérialisé crypté
 }
 /* Enregistrement / suppression de préférences
 Status: 1 2
@@ -467,17 +466,11 @@ class $UpdatePrefs extends SafeOperation {
     const up = this.args['updatePrefs'] as UpdatePrefs
     const safe = await this.getSafe(up)
     if (!safe) return
-    let u = false
 
     if (!safe.prefs) safe.prefs = {}
-    let appp = safe.prefs[up.app]
-    if (!appp) { appp = {}; safe.prefs[up.app] = appp }
-    for(const code in up.prefs) { appp[code] = up.prefs[code]; u = true }
-    for(const code of up.delprefs) { delete appp[code]; u = true }
-    if (Object.keys(safe.prefs[up.app]).length === 0) delete safe.prefs[up.app]
-    if (Object.keys(safe.prefs).length === 0) delete safe.prefs
+    safe.prefs[up.app] = up.prefs
 
-    await this.save(safe, u)
+    await this.save(safe, true)
     this.setRes('status', 0)
   }
 }

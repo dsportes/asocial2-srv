@@ -30949,3 +30949,20 @@ Error: Captured for inspection
 2026-08-29T11:13:58.229Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-08-29T11:13:58.232Z info: FW$Sync finished
 2026-08-29T11:13:58.258Z info: $UpdateCredName finished
+2026-08-29T11:17:19.256Z info: Configuration pre-loaded
+2026-08-29T11:17:19.683Z info: FW document descriptors:2 forms descriptors:2
+2026-08-29T11:17:19.687Z info: AS2 document descriptors:8 forms descriptors:8
+2026-08-29T11:17:19.730Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-29T11:17:19.731Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-08-29T11:17:19.731Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-08-29T11:17:19.732Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-08-29T11:17:19.732Z info: fw documents loading: 2
+2026-08-29T11:17:19.732Z info: app operations loading: 12
+2026-08-29T11:17:19.733Z info: fw operations loading: 70
+2026-08-29T11:17:19.733Z info: app operations loading: 70
+2026-08-29T11:17:19.733Z info: safe operations loading: 70
+2026-08-29T11:17:19.733Z info: masterdir operations loading: 70
+2026-08-29T11:17:19.733Z info: Configuration completed
+2026-08-29T11:17:19.741Z info: Server started
+2026-08-29T11:17:19.743Z info: HTTP listen [8091]
+2026-08-29T11:18:02.896Z info: $IsMDAdmin finished
