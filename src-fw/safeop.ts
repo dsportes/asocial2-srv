@@ -357,10 +357,9 @@ class $FixOneCred extends SafeOperation {
     const safe = decode(bin) as Safe
     if (!safe.creds) return
     const x = safe.creds[credId]
-    if (!x || !x[2]) return
     const v = keyFromB64(safe.auth.V)
     const b = await Crypt.verify(v, keyFromB64(signId), encoder.encode(credId))
-    if (!b) return
+    if (!x || !x[2] || !b) return
     x[2] = false
     safe.creds[credId] = x
     await this.save(safe, true)

@@ -30966,3 +30966,65 @@ Error: Captured for inspection
 2026-08-29T11:17:19.741Z info: Server started
 2026-08-29T11:17:19.743Z info: HTTP listen [8091]
 2026-08-29T11:18:02.896Z info: $IsMDAdmin finished
+2026-09-01T08:01:58.296Z info: Configuration pre-loaded
+2026-09-01T08:01:58.718Z info: FW document descriptors:2 forms descriptors:2
+2026-09-01T08:01:58.722Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-01T08:01:58.765Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:01:58.765Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:01:58.766Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-01T08:01:58.766Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-01T08:01:58.767Z info: fw documents loading: 2
+2026-09-01T08:01:58.767Z info: app operations loading: 12
+2026-09-01T08:01:58.767Z info: fw operations loading: 70
+2026-09-01T08:01:58.767Z info: app operations loading: 70
+2026-09-01T08:01:58.767Z info: safe operations loading: 70
+2026-09-01T08:01:58.768Z info: masterdir operations loading: 70
+2026-09-01T08:01:58.768Z info: Configuration completed
+2026-09-01T08:01:58.774Z info: Server started
+2026-09-01T08:01:58.776Z info: HTTP listen [8091]
+2026-09-01T08:54:39.022Z info: Configuration pre-loaded
+2026-09-01T08:54:43.692Z info: FW document descriptors:2 forms descriptors:2
+2026-09-01T08:54:43.729Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-01T08:54:44.390Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:54:44.391Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:54:44.392Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-01T08:54:44.393Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-01T08:54:44.394Z info: fw documents loading: 2
+2026-09-01T08:54:44.394Z info: app operations loading: 12
+2026-09-01T08:54:44.395Z info: fw operations loading: 71
+2026-09-01T08:54:44.395Z info: app operations loading: 71
+2026-09-01T08:54:44.396Z info: safe operations loading: 71
+2026-09-01T08:54:44.396Z info: masterdir operations loading: 71
+2026-09-01T08:54:44.397Z info: Configuration completed
+2026-09-01T08:54:44.404Z info: Server started
+2026-09-01T08:54:44.406Z info: HTTP listen [8091]
+2026-09-01T08:56:00.780Z info: Configuration pre-loaded
+2026-09-01T08:56:01.156Z info: FW document descriptors:2 forms descriptors:2
+2026-09-01T08:56:01.160Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-01T08:56:01.223Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:56:01.223Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-01T08:56:01.224Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-01T08:56:01.225Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-01T08:56:01.226Z info: fw documents loading: 2
+2026-09-01T08:56:01.226Z info: app operations loading: 12
+2026-09-01T08:56:01.227Z info: fw operations loading: 70
+2026-09-01T08:56:01.227Z info: app operations loading: 70
+2026-09-01T08:56:01.228Z info: safe operations loading: 70
+2026-09-01T08:56:01.228Z info: masterdir operations loading: 70
+2026-09-01T08:56:01.228Z info: Configuration completed
+2026-09-01T08:56:01.236Z info: Server started
+2026-09-01T08:56:01.238Z info: HTTP listen [8091]
+2026-09-01T09:06:20.793Z info: $OpenSafeByPin finished
+2026-09-01T09:06:20.843Z info: $GetSafe finished
+2026-09-01T09:08:38.627Z info: $OpenSafeByPin finished
+2026-09-01T09:08:38.675Z info: $GetSafe finished
+2026-09-01T09:09:04.916Z info: $GetOrgSvc finished
+2026-09-01T09:09:04.934Z info: $GetSitesUrls finished
+2026-09-01T09:09:04.965Z info: GetCredProps : 2026-09-01T09:09:04.965Z
+2026-09-01T09:09:04.996Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-01T09:09:04.999Z info: GetCredProps finished
+2026-09-01T09:09:20.319Z info: $FixOneCred finished
+2026-09-01T09:09:22.344Z info: GetCredProps : 2026-09-01T09:09:22.344Z
+2026-09-01T09:09:22.358Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-01T09:09:22.362Z info: GetCredProps finished
+2026-09-01T09:10:48.007Z info: $FixOneCred finished
