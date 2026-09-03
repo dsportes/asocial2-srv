@@ -484,10 +484,11 @@ export class Cache {
   static srvStatus : srvStatus = null
 
   static orgCache(op: Operation) : Map<string, cacheItem> {
-    let oc = Cache.globCache.get(op.org)
+    const org = op.org || (op.opName.startsWith('ADMIN') ? 'ADMIN$' :'')
+    let oc = Cache.globCache.get(org)
     if (!oc) {
       oc = new Map<string, cacheItem>()
-      Cache.globCache.set(op.org, oc)
+      Cache.globCache.set(org, oc)
     }
     return oc
   }

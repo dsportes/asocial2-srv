@@ -40,7 +40,7 @@ Registry.registerOp(ADMIN$isAdmin)
   st: code 0: inconnu 1: UP 9: DOWN
   at: time de dernière mise à jour
   txt: texte explicatif éventuel de l'administrateur
-  Du fait de $, adresse la pseudo organisation 'A' (donc le service)
+  Du fait de $, adresse la pseudo organisation 'ADMIN$' (donc le service)
 */
 class ADMIN$getStatus extends Operation {
   _svc: string
@@ -53,7 +53,7 @@ class ADMIN$getStatus extends Operation {
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
-      const s = dd.doc as ADMIN$Status
+      const s = dd.doc as ADMIN$Status // s.st: 1 2 ou 9
       this.setRes('status', { st: s.st, at: s.at, txt: s.txt})
     }
   }
@@ -86,6 +86,46 @@ class ADMIN$setStatus extends Operation {
   }
 }
 Registry.registerOp(ADMIN$setStatus)
+
+/* ADMIN$getAllStatus reçoit en argument:
+- un objet avec une entrée par service
+  - pour chaque entrée:
+    - une propriété $ST$ : reçue à 0 pour le statut du service
+    - une propriété org par organisation reçue à 0 pour le statut de l'organisation 
+  st: 0:inconnu, 1:UP, 2:RO 9:DOWN
+*/
+class ADMIN$getAllStatus extends Operation {
+  _status: Object
+  init () {
+    super.init()
+    this._status = this.objectValue('status', true)
+  }
+  async phase2 () {
+    for(const svc of Object.keys(this._status)) {
+      const obj = this._status[svc]
+      const dds = await Cache.getRow(this, 'ADMIN$Status', { svc: svc}, config.STATUSLAZYNESS)
+      if (!dds) obj['$ST$'] = 0
+      else {
+        dds.init()
+        const s = dds.doc as ADMIN$Status // s.st: 1 (UP) 2 (RO) ou 9(DOWN)
+        obj['$ST$'] = s.st
+        if (s.st !== 9) for(const org of Object.keys(obj)) {
+          if (org === '$ST$') continue
+          this.org = org
+          const ddo = await Cache.getRow(this, svc + '$Status', { svc }, config.STATUSLAZYNESS)
+          if (!ddo) obj[org] = 0
+          else {
+            ddo.init()
+            const s: any = ddo.doc
+            obj[org] = s.st
+          }
+        }
+      }
+    }
+    this.setRes('status', this._status)
+  }
+}
+Registry.registerOp(ADMIN$getAllStatus)
 
 /* ADMIN$getEnum retourne la liste des valeurs (string)
 - name: nom du singleton: forme générale svc$name_org

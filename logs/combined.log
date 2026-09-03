@@ -31028,3 +31028,89 @@ Error: Captured for inspection
 2026-09-01T09:09:22.358Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-09-01T09:09:22.362Z info: GetCredProps finished
 2026-09-01T09:10:48.007Z info: $FixOneCred finished
+2026-09-03T07:04:00.358Z info: Configuration pre-loaded
+2026-09-03T07:04:00.781Z info: FW document descriptors:2 forms descriptors:2
+2026-09-03T07:04:00.785Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-03T07:04:00.852Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:04:00.853Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:04:00.854Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-03T07:04:00.855Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-03T07:04:00.855Z info: fw documents loading: 2
+2026-09-03T07:04:00.856Z info: app operations loading: 12
+2026-09-03T07:04:00.856Z info: fw operations loading: 70
+2026-09-03T07:04:00.857Z info: app operations loading: 70
+2026-09-03T07:04:00.857Z info: safe operations loading: 70
+2026-09-03T07:04:00.857Z info: masterdir operations loading: 70
+2026-09-03T07:04:00.858Z info: Configuration completed
+2026-09-03T07:04:00.867Z info: Server started
+2026-09-03T07:04:00.869Z info: HTTP listen [8091]
+2026-09-03T07:04:47.161Z info: $OpenSafeByPin finished
+2026-09-03T07:04:47.222Z info: $GetSafe finished
+2026-09-03T07:04:59.626Z info: $GetServicesLabels finished
+2026-09-03T07:05:10.564Z info: $GetSitesUrls finished
+2026-09-03T07:05:10.612Z info: $IsMDAdmin finished
+2026-09-03T07:05:17.760Z info: ADMIN$isAdmin : 2026-09-03T07:05:17.759Z
+2026-09-03T07:07:29.101Z info: ADMIN$isAdmin finished
+2026-09-03T07:08:38.039Z info: ADMIN$getStatus : 2026-09-03T07:07:29.111Z
+2026-09-03T07:14:01.414Z info: ADMIN$getStatus finished
+2026-09-03T07:14:01.437Z info: $OpenSafeByPin finished
+2026-09-03T07:17:14.418Z info: $OpenSafeByPin finished
+2026-09-03T07:18:26.625Z info: $GetSafe finished
+2026-09-03T07:19:00.236Z info: $GetServicesLabels finished
+2026-09-03T07:19:09.885Z info: $IsMDAdmin finished
+2026-09-03T07:19:42.164Z info: $GetSitesUrls finished
+2026-09-03T07:21:43.346Z info: ADMIN$isAdmin : 2026-09-03T07:19:57.657Z
+2026-09-03T07:28:04.506Z info: Configuration pre-loaded
+2026-09-03T07:28:08.501Z info: FW document descriptors:2 forms descriptors:2
+2026-09-03T07:28:08.519Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-03T07:28:08.973Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:28:08.973Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:28:08.974Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-03T07:28:08.975Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-03T07:28:08.975Z info: fw documents loading: 2
+2026-09-03T07:28:08.976Z info: app operations loading: 12
+2026-09-03T07:28:08.976Z info: fw operations loading: 70
+2026-09-03T07:28:08.977Z info: app operations loading: 70
+2026-09-03T07:28:08.977Z info: safe operations loading: 70
+2026-09-03T07:28:08.978Z info: masterdir operations loading: 70
+2026-09-03T07:28:08.978Z info: Configuration completed
+2026-09-03T07:28:08.986Z info: Server started
+2026-09-03T07:28:08.990Z info: HTTP listen [8091]
+2026-09-03T07:28:56.866Z info: Configuration pre-loaded
+2026-09-03T07:28:57.242Z info: FW document descriptors:2 forms descriptors:2
+2026-09-03T07:28:57.246Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-03T07:28:57.627Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:28:57.628Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:28:57.628Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-03T07:28:57.629Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-03T07:28:57.630Z info: fw documents loading: 2
+2026-09-03T07:28:57.630Z info: app operations loading: 12
+2026-09-03T07:28:57.631Z info: fw operations loading: 70
+2026-09-03T07:28:57.631Z info: app operations loading: 70
+2026-09-03T07:28:57.632Z info: safe operations loading: 70
+2026-09-03T07:28:57.632Z info: masterdir operations loading: 70
+2026-09-03T07:28:57.632Z info: Configuration completed
+2026-09-03T07:28:57.640Z info: Server started
+2026-09-03T07:28:57.642Z info: HTTP listen [8091]
+2026-09-03T07:29:31.758Z info: ADMIN$isAdmin : 2026-09-03T07:29:24.526Z
+2026-09-03T07:29:46.398Z info: ADMIN$isAdmin finished
+2026-09-03T07:29:46.410Z info: ADMIN$getStatus : 2026-09-03T07:29:46.410Z
+2026-09-03T07:30:06.261Z info: ADMIN$getStatus finished
+2026-09-03T07:30:37.516Z info: Configuration pre-loaded
+2026-09-03T07:30:37.880Z info: FW document descriptors:2 forms descriptors:2
+2026-09-03T07:30:37.884Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-03T07:30:37.952Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:30:37.953Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-03T07:30:37.954Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-03T07:30:37.955Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-03T07:30:37.956Z info: fw documents loading: 2
+2026-09-03T07:30:37.956Z info: app operations loading: 12
+2026-09-03T07:30:37.957Z info: fw operations loading: 70
+2026-09-03T07:30:37.958Z info: app operations loading: 70
+2026-09-03T07:30:37.959Z info: safe operations loading: 70
+2026-09-03T07:30:37.959Z info: masterdir operations loading: 70
+2026-09-03T07:30:37.960Z info: Configuration completed
+2026-09-03T07:30:37.968Z info: Server started
+2026-09-03T07:30:37.970Z info: HTTP listen [8091]
+2026-09-03T07:31:03.568Z info: ADMIN$getStatus : 2026-09-03T07:31:03.568Z
+2026-09-03T07:35:08.759Z info: ADMIN$getStatus finished
