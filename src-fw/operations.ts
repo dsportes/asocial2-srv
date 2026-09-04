@@ -102,23 +102,22 @@ class ADMIN$getAllStatus extends Operation {
   }
   async phase2 () {
     for(const svc of Object.keys(this._status)) {
+      if (svc === '$ST$') continue
       const obj = this._status[svc]
       const dds = await Cache.getRow(this, 'ADMIN$Status', { svc: svc}, config.STATUSLAZYNESS)
-      if (!dds) obj['$ST$'] = 0
-      else {
-        dds.init()
-        const s = dds.doc as ADMIN$Status // s.st: 1 (UP) 2 (RO) ou 9(DOWN)
-        obj['$ST$'] = s.st
-        if (s.st !== 9) for(const org of Object.keys(obj)) {
-          if (org === '$ST$') continue
-          this.org = org
-          const ddo = await Cache.getRow(this, svc + '$Status', { svc }, config.STATUSLAZYNESS)
-          if (!ddo) obj[org] = 0
-          else {
-            ddo.init()
-            const s: any = ddo.doc
-            obj[org] = s.st
-          }
+      dds.init()
+      const s = dds.doc as ADMIN$Status // s.st: 1 (UP) 2 (RO) ou 9(DOWN)
+      obj['$ST$'] = s.st
+      if (s.st !== 9) for(const org of Object.keys(obj)) {
+        if (org === '$ST$') continue
+        this.org = org
+        await this.dbConnector.getConnexion(this, this.org)
+        const ddo = await Cache.getRow(this, svc + '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+        if (!ddo) obj[org] = 0
+        else {
+          ddo.init()
+          const s: any = ddo.doc
+          obj[org] = s.st
         }
       }
     }
@@ -263,7 +262,7 @@ class FW$getStatus extends Operation {
     this._svc = this.stringValue('svc', true)
   }
   async phase2 () {
-    const dd = await Cache.getRow(this, this.svc + '$Status', { svc: this._svc }, config.STATUSLAZYNESS)
+    const dd = await Cache.getRow(this, this._svc + '$Status', { pk: '1' }, config.STATUSLAZYNESS)
     if (!dd) this.setRes('status', { st: 0, at: 0, txt: '' })
     else {
       dd.init()
@@ -291,9 +290,9 @@ class FW$setStatus extends Operation {
   }
   async phase2 () {
     this.requireAdmin()
-    let doc = await this.cache.getDoc(this.svc + '$Status', { svc: this._svc }) as $Document
+    let doc = await this.cache.getDoc(this._svc + '$Status', { pk: '1' }) as $Document
     if (doc) doc._status = DocStatus.UPD
-    else doc = this.cache.newDoc(this.svc + '$Status', { svc: this._svc })
+    else doc = this.cache.newDoc(this._svc + '$Status', { pk: '1' })
     doc['at'] = Date.now()
     doc['st'] = this._st
     doc['txt'] = this._txt || ''

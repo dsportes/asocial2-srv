@@ -820,3 +820,7 @@ Error: Captured for inspection
 2026-08-26T06:16:07.377Z error: AppExc: 105:service_unexpected_exception["near \"AS2$AUTEUR\": syntax error"]
 2026-08-26T06:20:14.116Z error: MajAuteur : 2026-08-26T06:20:04.212Z : SqliteError: near "@section": syntax error
 2026-08-26T06:20:14.134Z error: AppExc: 105:service_unexpected_exception["near \"@section\": syntax error"]
+2026-09-04T08:33:52.898Z error: ADMIN$getAllStatus : 2026-09-04T08:33:48.948Z : TypeError: Cannot create property '$ST$' on number '0'
+2026-09-04T08:33:52.919Z error: AppExc: 105:service_unexpected_exception["Cannot create property '$ST$' on number '0'"]
+2026-09-04T08:35:56.382Z error: ADMIN$getAllStatus : 2026-09-04T08:35:51.769Z : TypeError: Cannot create property '$ST$' on number '0'
+2026-09-04T08:35:56.385Z error: AppExc: 105:service_unexpected_exception["Cannot create property '$ST$' on number '0'"]
