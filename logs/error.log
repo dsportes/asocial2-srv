@@ -824,3 +824,26 @@ Error: Captured for inspection
 2026-09-04T08:33:52.919Z error: AppExc: 105:service_unexpected_exception["Cannot create property '$ST$' on number '0'"]
 2026-09-04T08:35:56.382Z error: ADMIN$getAllStatus : 2026-09-04T08:35:51.769Z : TypeError: Cannot create property '$ST$' on number '0'
 2026-09-04T08:35:56.385Z error: AppExc: 105:service_unexpected_exception["Cannot create property '$ST$' on number '0'"]
+2026-09-05T12:46:37.973Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T12:48:54.806Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:39:43.442Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:40:40.526Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:42:20.622Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:42:20.640Z error: FW$Sync : 2026-09-05T13:42:20.613Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T13:42:20.642Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T13:49:16.596Z error: FW$Sync : 2026-09-05T13:49:16.579Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T13:49:16.599Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T13:49:16.604Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:52:38.012Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:53:58.023Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:55:50.495Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:00:06.708Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:00:42.719Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:00:57.799Z error: FW$Sync : 2026-09-05T14:00:57.785Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:00:57.801Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T14:04:24.604Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:04:42.191Z error: FW$Sync : 2026-09-05T14:04:42.177Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:04:42.194Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T14:07:27.939Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:07:39.135Z error: FW$Sync : 2026-09-05T14:07:39.107Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:07:39.137Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]

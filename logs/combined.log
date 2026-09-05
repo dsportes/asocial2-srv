@@ -31578,3 +31578,491 @@ Error: Captured for inspection
 2026-09-04T17:29:44.006Z info: $OpenSafeByPin finished
 2026-09-04T17:29:44.044Z info: $GetSafe finished
 2026-09-04T17:29:47.946Z info: $IsMDAdmin finished
+2026-09-05T09:23:18.972Z info: Configuration pre-loaded
+2026-09-05T09:23:22.820Z info: FW document descriptors:2 forms descriptors:2
+2026-09-05T09:23:22.849Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-05T09:23:23.126Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T09:23:23.127Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T09:23:23.127Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-05T09:23:23.128Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-05T09:23:23.129Z info: fw documents loading: 2
+2026-09-05T09:23:23.129Z info: app operations loading: 12
+2026-09-05T09:23:23.129Z info: fw operations loading: 71
+2026-09-05T09:23:23.130Z info: app operations loading: 71
+2026-09-05T09:23:23.130Z info: safe operations loading: 71
+2026-09-05T09:23:23.130Z info: masterdir operations loading: 71
+2026-09-05T09:23:23.130Z info: Configuration completed
+2026-09-05T09:23:23.138Z info: Server started
+2026-09-05T09:23:23.140Z info: HTTP listen [8091]
+2026-09-05T09:40:03.338Z info: $OpenSafeByPin finished
+2026-09-05T09:40:03.390Z info: $GetSafe finished
+2026-09-05T09:40:05.678Z info: $IsMDAdmin finished
+2026-09-05T09:41:17.040Z info: $IsMDAdmin finished
+2026-09-05T09:41:40.888Z info: $OpenSafeByPin finished
+2026-09-05T09:41:40.928Z info: $GetSafe finished
+2026-09-05T09:41:43.285Z info: $IsMDAdmin finished
+2026-09-05T09:42:55.792Z info: $OpenSafeByPin finished
+2026-09-05T09:42:55.838Z info: $GetSafe finished
+2026-09-05T09:42:58.198Z info: $IsMDAdmin finished
+2026-09-05T09:46:43.312Z info: $OpenSafeByPin finished
+2026-09-05T09:46:43.362Z info: $GetSafe finished
+2026-09-05T09:46:45.741Z info: $IsMDAdmin finished
+2026-09-05T09:47:23.253Z info: $IsMDAdmin finished
+2026-09-05T09:51:02.575Z info: $OpenSafeByPin finished
+2026-09-05T09:51:02.662Z info: $GetSafe finished
+2026-09-05T09:51:04.649Z info: $IsMDAdmin finished
+2026-09-05T09:54:57.033Z info: $OpenSafeByPin finished
+2026-09-05T09:54:57.078Z info: $GetSafe finished
+2026-09-05T09:54:59.567Z info: $IsMDAdmin finished
+2026-09-05T09:57:51.409Z info: $OpenSafeByPin finished
+2026-09-05T09:57:51.474Z info: $GetSafe finished
+2026-09-05T09:57:54.242Z info: $IsMDAdmin finished
+2026-09-05T10:01:12.722Z info: $OpenSafeByPin finished
+2026-09-05T10:01:12.767Z info: $GetSafe finished
+2026-09-05T10:01:14.833Z info: $IsMDAdmin finished
+2026-09-05T10:05:43.306Z info: $OpenSafeByPin finished
+2026-09-05T10:05:43.351Z info: $GetSafe finished
+2026-09-05T10:05:43.369Z info: $GetOrgSvc finished
+2026-09-05T10:05:53.050Z info: $GetSitesUrls finished
+2026-09-05T10:05:53.078Z info: ADMIN$getAllStatus : 2026-09-05T10:05:53.077Z
+2026-09-05T10:05:53.089Z info: ADMIN$getAllStatus finished
+2026-09-05T10:05:53.115Z info: FW$setSubscription : 2026-09-05T10:05:53.115Z
+2026-09-05T10:05:53.125Z info: FW$setSubscription finished
+2026-09-05T10:05:53.194Z info: FW$Sync : 2026-09-05T10:05:53.193Z
+2026-09-05T10:05:53.208Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T10:05:53.209Z info: FW$Sync finished
+2026-09-05T10:05:55.691Z info: PropsOfMyCreds : 2026-09-05T10:05:55.691Z
+2026-09-05T10:05:55.699Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T10:05:55.699Z info: PropsOfMyCreds finished
+2026-09-05T10:06:13.329Z info: $OpenSafeByPin finished
+2026-09-05T10:06:13.373Z info: $GetSafe finished
+2026-09-05T10:06:15.553Z info: $IsMDAdmin finished
+2026-09-05T10:06:36.218Z info: $IsMDAdmin finished
+2026-09-05T10:08:59.063Z info: $OpenSafeByPin finished
+2026-09-05T10:08:59.105Z info: $GetSafe finished
+2026-09-05T10:09:01.335Z info: $IsMDAdmin finished
+2026-09-05T10:23:12.953Z info: $OpenSafeByPin finished
+2026-09-05T10:23:13.000Z info: $GetSafe finished
+2026-09-05T10:23:15.786Z info: $IsMDAdmin finished
+2026-09-05T10:24:36.477Z info: $IsMDAdmin finished
+2026-09-05T10:27:57.004Z info: $mdUserGetICVS finished
+2026-09-05T10:28:02.784Z info: $GetSafe finished
+2026-09-05T10:28:06.099Z info: $IsMDAdmin finished
+2026-09-05T10:28:19.245Z info: $TrustDevice finished
+2026-09-05T10:28:39.358Z info: $OpenSafeByPin finished
+2026-09-05T10:28:39.445Z info: $GetSafe finished
+2026-09-05T10:29:02.346Z info: $OpenSafeByPin finished
+2026-09-05T10:29:02.386Z info: $GetSafe finished
+2026-09-05T10:29:04.248Z info: $IsMDAdmin finished
+2026-09-05T10:41:23.201Z info: $mdUserGetICVS finished
+2026-09-05T10:41:28.037Z info: $GetSafe finished
+2026-09-05T10:41:42.557Z info: $IsMDAdmin finished
+2026-09-05T10:42:42.133Z info: $IsMDAdmin finished
+2026-09-05T10:42:53.176Z info: $TrustDevice finished
+2026-09-05T10:42:59.758Z info: $IsMDAdmin finished
+2026-09-05T12:05:02.218Z info: $mdUserGetICVS finished
+2026-09-05T12:05:08.183Z info: $GetSafe finished
+2026-09-05T12:05:15.306Z info: $IsMDAdmin finished
+2026-09-05T12:06:23.741Z info: $UntrustDevices finished
+2026-09-05T12:06:33.964Z info: $IsMDAdmin finished
+2026-09-05T12:07:20.318Z info: $TrustDevice finished
+2026-09-05T12:07:37.979Z info: $IsMDAdmin finished
+2026-09-05T12:09:05.936Z info: $IsMDAdmin finished
+2026-09-05T12:11:34.124Z info: $IsMDAdmin finished
+2026-09-05T12:11:40.341Z info: $IsMDAdmin finished
+2026-09-05T12:14:04.038Z info: $UntrustDevices finished
+2026-09-05T12:14:08.110Z info: $IsMDAdmin finished
+2026-09-05T12:16:13.066Z info: $mdUserGetICVS finished
+2026-09-05T12:16:18.779Z info: $GetSafe finished
+2026-09-05T12:16:21.507Z info: $IsMDAdmin finished
+2026-09-05T12:16:34.717Z info: $IsMDAdmin finished
+2026-09-05T12:16:40.518Z info: $IsMDAdmin finished
+2026-09-05T12:17:17.050Z info: $TrustDevice finished
+2026-09-05T12:17:21.070Z info: $IsMDAdmin finished
+2026-09-05T12:18:31.109Z info: $OpenSafeByPin finished
+2026-09-05T12:18:49.819Z info: $mdUserGetICVS finished
+2026-09-05T12:18:57.768Z info: $GetSafe finished
+2026-09-05T12:19:00.238Z info: $IsMDAdmin finished
+2026-09-05T12:19:13.739Z info: $UntrustDevices finished
+2026-09-05T12:32:27.157Z info: $OpenSafeByPin finished
+2026-09-05T12:32:40.584Z info: $mdUserGetICVS finished
+2026-09-05T12:32:44.741Z info: $GetSafe finished
+2026-09-05T12:32:46.783Z info: $IsMDAdmin finished
+2026-09-05T12:32:58.230Z info: $IsMDAdmin finished
+2026-09-05T12:33:40.821Z info: $IsMDAdmin finished
+2026-09-05T12:33:57.800Z info: $TrustDevice finished
+2026-09-05T12:34:07.243Z info: $OpenSafeByPin finished
+2026-09-05T12:34:44.870Z info: $mdUserGetICVS finished
+2026-09-05T12:34:49.763Z info: $GetSafe finished
+2026-09-05T12:34:53.766Z info: $IsMDAdmin finished
+2026-09-05T12:35:05.863Z info: $TrustDevice finished
+2026-09-05T12:35:19.423Z info: $OpenSafeByPin finished
+2026-09-05T12:35:19.462Z info: $GetSafe finished
+2026-09-05T12:35:27.557Z info: $IsMDAdmin finished
+2026-09-05T12:35:40.205Z info: $IsMDAdmin finished
+2026-09-05T12:45:04.834Z info: $OpenSafeByPin finished
+2026-09-05T12:45:04.885Z info: $GetSafe finished
+2026-09-05T12:45:07.854Z info: $IsMDAdmin finished
+2026-09-05T12:45:43.663Z info: $mdUserGetICVS finished
+2026-09-05T12:45:47.767Z info: $GetSafe finished
+2026-09-05T12:45:47.814Z info: $GetOrgSvc finished
+2026-09-05T12:45:52.159Z info: $IsMDAdmin finished
+2026-09-05T12:46:08.600Z info: $TrustDevice finished
+2026-09-05T12:46:20.962Z info: $OpenSafeByPin finished
+2026-09-05T12:46:20.997Z info: $GetSafe finished
+2026-09-05T12:46:24.542Z info: $GetSitesUrls finished
+2026-09-05T12:46:24.561Z info: ADMIN$getAllStatus : 2026-09-05T12:46:24.561Z
+2026-09-05T12:46:24.571Z info: ADMIN$getAllStatus finished
+2026-09-05T12:46:24.609Z info: FW$setSubscription : 2026-09-05T12:46:24.609Z
+2026-09-05T12:46:24.611Z info: FW$setSubscription finished
+2026-09-05T12:46:24.692Z info: FW$Sync : 2026-09-05T12:46:24.692Z
+2026-09-05T12:46:24.699Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:46:24.700Z info: FW$Sync finished
+2026-09-05T12:46:27.162Z info: PropsOfMyCreds : 2026-09-05T12:46:27.162Z
+2026-09-05T12:46:27.168Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:46:27.168Z info: PropsOfMyCreds finished
+2026-09-05T12:46:37.790Z info: MajAuteur : 2026-09-05T12:46:37.789Z
+2026-09-05T12:46:37.800Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:46:37.809Z info: MajAuteur finished
+2026-09-05T12:46:37.921Z info: FW$Sync : 2026-09-05T12:46:37.920Z
+2026-09-05T12:46:37.932Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:46:37.935Z info: FW$Sync finished
+2026-09-05T12:46:37.973Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T12:46:52.825Z info: $IsMDAdmin finished
+2026-09-05T12:47:41.774Z info: $OpenSafeByPin finished
+2026-09-05T12:47:41.816Z info: $GetSafe finished
+2026-09-05T12:47:49.281Z info: $GetServicesLabels finished
+2026-09-05T12:47:49.309Z info: $IsMDAdmin finished
+2026-09-05T12:48:01.891Z info: ADMIN$isAdmin : 2026-09-05T12:48:01.890Z
+2026-09-05T12:48:01.892Z info: ADMIN$isAdmin finished
+2026-09-05T12:48:01.929Z info: FW$getStatus : 2026-09-05T12:48:01.929Z
+2026-09-05T12:48:01.932Z info: FW$getStatus finished
+2026-09-05T12:48:01.943Z info: ADMIN$getStatus : 2026-09-05T12:48:01.943Z
+2026-09-05T12:48:01.946Z info: ADMIN$getStatus finished
+2026-09-05T12:48:19.792Z info: $OpenSafeByPin finished
+2026-09-05T12:48:19.838Z info: $GetSafe finished
+2026-09-05T12:48:19.855Z info: $GetOrgSvc finished
+2026-09-05T12:48:21.867Z info: $GetSitesUrls finished
+2026-09-05T12:48:21.891Z info: ADMIN$getAllStatus : 2026-09-05T12:48:21.890Z
+2026-09-05T12:48:21.894Z info: ADMIN$getAllStatus finished
+2026-09-05T12:48:21.981Z info: FW$setSubscription : 2026-09-05T12:48:21.980Z
+2026-09-05T12:48:21.993Z info: FW$setSubscription finished
+2026-09-05T12:48:22.103Z info: FW$Sync : 2026-09-05T12:48:22.103Z
+2026-09-05T12:48:22.111Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:48:22.111Z info: FW$Sync finished
+2026-09-05T12:48:24.557Z info: PropsOfMyCreds : 2026-09-05T12:48:24.557Z
+2026-09-05T12:48:24.565Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:48:24.565Z info: PropsOfMyCreds finished
+2026-09-05T12:48:40.981Z info: FW$setStatus : 2026-09-05T12:48:40.981Z
+2026-09-05T12:48:40.985Z info: FW$setStatus finished
+2026-09-05T12:48:54.744Z info: MajAuteur : 2026-09-05T12:48:54.744Z
+2026-09-05T12:48:54.756Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:48:54.759Z info: MajAuteur finished
+2026-09-05T12:48:54.785Z info: FW$Sync : 2026-09-05T12:48:54.784Z
+2026-09-05T12:48:54.797Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:48:54.797Z info: FW$Sync finished
+2026-09-05T12:48:54.806Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T12:56:13.346Z info: Configuration pre-loaded
+2026-09-05T12:56:16.105Z info: FW document descriptors:2 forms descriptors:2
+2026-09-05T12:56:16.122Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-05T12:56:16.310Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T12:56:16.310Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T12:56:16.310Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-05T12:56:16.311Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-05T12:56:16.311Z info: fw documents loading: 2
+2026-09-05T12:56:16.312Z info: app operations loading: 12
+2026-09-05T12:56:16.312Z info: fw operations loading: 71
+2026-09-05T12:56:16.312Z info: app operations loading: 71
+2026-09-05T12:56:16.312Z info: safe operations loading: 71
+2026-09-05T12:56:16.313Z info: masterdir operations loading: 71
+2026-09-05T12:56:16.313Z info: Configuration completed
+2026-09-05T12:56:16.319Z info: Server started
+2026-09-05T12:56:16.320Z info: HTTP listen [8091]
+2026-09-05T12:56:31.251Z info: FW$setStatus : 2026-09-05T12:56:31.251Z
+2026-09-05T12:56:31.375Z info: FW$setStatus finished
+2026-09-05T12:56:41.461Z info: $OpenSafeByPin finished
+2026-09-05T12:56:41.512Z info: $GetSafe finished
+2026-09-05T12:56:41.532Z info: $GetOrgSvc finished
+2026-09-05T12:56:50.428Z info: $GetSitesUrls finished
+2026-09-05T12:56:50.468Z info: ADMIN$getAllStatus : 2026-09-05T12:56:50.467Z
+2026-09-05T12:56:50.476Z info: ADMIN$getAllStatus finished
+2026-09-05T12:56:52.090Z info: FW$setSubscription : 2026-09-05T12:56:52.090Z
+2026-09-05T12:56:52.100Z info: FW$setSubscription finished
+2026-09-05T12:56:53.381Z info: FW$Sync : 2026-09-05T12:56:53.381Z
+2026-09-05T12:56:53.406Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:56:53.407Z info: FW$Sync finished
+2026-09-05T12:56:57.052Z info: PropsOfMyCreds : 2026-09-05T12:56:57.052Z
+2026-09-05T12:56:57.064Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T12:56:57.066Z info: PropsOfMyCreds finished
+2026-09-05T13:05:33.664Z info: Configuration pre-loaded
+2026-09-05T13:05:34.041Z info: FW document descriptors:2 forms descriptors:2
+2026-09-05T13:05:34.045Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-05T13:05:34.088Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:05:34.088Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:05:34.088Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-05T13:05:34.089Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-05T13:05:34.089Z info: fw documents loading: 2
+2026-09-05T13:05:34.089Z info: app operations loading: 12
+2026-09-05T13:05:34.090Z info: fw operations loading: 71
+2026-09-05T13:05:34.090Z info: app operations loading: 71
+2026-09-05T13:05:34.090Z info: safe operations loading: 71
+2026-09-05T13:05:34.090Z info: masterdir operations loading: 71
+2026-09-05T13:05:34.090Z info: Configuration completed
+2026-09-05T13:05:34.097Z info: Server started
+2026-09-05T13:05:34.100Z info: HTTP listen [8091]
+2026-09-05T13:06:23.776Z info: $OpenSafeByPin finished
+2026-09-05T13:06:23.826Z info: $GetSafe finished
+2026-09-05T13:06:23.855Z info: $GetOrgSvc finished
+2026-09-05T13:06:34.744Z info: $GetSitesUrls finished
+2026-09-05T13:06:34.775Z info: ADMIN$getAllStatus : 2026-09-05T13:06:34.775Z
+2026-09-05T13:06:34.801Z info: ADMIN$getAllStatus finished
+2026-09-05T13:06:34.843Z info: FW$setSubscription : 2026-09-05T13:06:34.843Z
+2026-09-05T13:06:34.850Z info: FW$setSubscription finished
+2026-09-05T13:06:34.931Z info: FW$Sync : 2026-09-05T13:06:34.931Z
+2026-09-05T13:06:34.946Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:06:34.947Z info: FW$Sync finished
+2026-09-05T13:06:43.076Z info: PropsOfMyCreds : 2026-09-05T13:06:43.076Z
+2026-09-05T13:06:43.085Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:06:43.086Z info: PropsOfMyCreds finished
+2026-09-05T13:12:13.380Z info: Configuration pre-loaded
+2026-09-05T13:12:13.852Z info: FW document descriptors:2 forms descriptors:2
+2026-09-05T13:12:13.856Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-05T13:12:13.902Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:12:13.902Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:12:13.903Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-05T13:12:13.903Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-05T13:12:13.903Z info: fw documents loading: 2
+2026-09-05T13:12:13.904Z info: app operations loading: 12
+2026-09-05T13:12:13.904Z info: fw operations loading: 71
+2026-09-05T13:12:13.905Z info: app operations loading: 71
+2026-09-05T13:12:13.905Z info: safe operations loading: 71
+2026-09-05T13:12:13.905Z info: masterdir operations loading: 71
+2026-09-05T13:12:13.905Z info: Configuration completed
+2026-09-05T13:12:13.915Z info: Server started
+2026-09-05T13:12:13.917Z info: HTTP listen [8091]
+2026-09-05T13:12:32.678Z info: $OpenSafeByPin finished
+2026-09-05T13:12:32.724Z info: $GetSafe finished
+2026-09-05T13:12:32.746Z info: $GetOrgSvc finished
+2026-09-05T13:12:35.587Z info: $IsMDAdmin finished
+2026-09-05T13:12:44.877Z info: $GetSitesUrls finished
+2026-09-05T13:12:44.906Z info: ADMIN$getAllStatus : 2026-09-05T13:12:44.906Z
+2026-09-05T13:12:44.923Z info: ADMIN$getAllStatus finished
+2026-09-05T13:12:44.952Z info: FW$setSubscription : 2026-09-05T13:12:44.952Z
+2026-09-05T13:12:44.957Z info: FW$setSubscription finished
+2026-09-05T13:12:45.025Z info: FW$Sync : 2026-09-05T13:12:45.025Z
+2026-09-05T13:12:45.037Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:12:45.038Z info: FW$Sync finished
+2026-09-05T13:12:48.664Z info: PropsOfMyCreds : 2026-09-05T13:12:48.663Z
+2026-09-05T13:12:48.677Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:12:48.677Z info: PropsOfMyCreds finished
+2026-09-05T13:38:53.576Z info: Configuration pre-loaded
+2026-09-05T13:38:53.917Z info: FW document descriptors:2 forms descriptors:2
+2026-09-05T13:38:53.920Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-05T13:38:54.290Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:38:54.290Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-05T13:38:54.291Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-05T13:38:54.291Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-05T13:38:54.292Z info: fw documents loading: 2
+2026-09-05T13:38:54.292Z info: app operations loading: 12
+2026-09-05T13:38:54.293Z info: fw operations loading: 71
+2026-09-05T13:38:54.293Z info: app operations loading: 71
+2026-09-05T13:38:54.293Z info: safe operations loading: 71
+2026-09-05T13:38:54.294Z info: masterdir operations loading: 71
+2026-09-05T13:38:54.294Z info: Configuration completed
+2026-09-05T13:38:54.301Z info: Server started
+2026-09-05T13:38:54.304Z info: HTTP listen [8091]
+2026-09-05T13:39:03.446Z info: MajAuteur : 2026-09-05T13:39:03.446Z
+2026-09-05T13:39:37.683Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:39:37.703Z info: MajAuteur finished
+2026-09-05T13:39:38.052Z info: FW$Sync : 2026-09-05T13:39:38.052Z
+2026-09-05T13:39:43.387Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:39:43.390Z info: FW$Sync finished
+2026-09-05T13:39:43.442Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:40:40.447Z info: MajAuteur : 2026-09-05T13:40:40.447Z
+2026-09-05T13:40:40.458Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:40:40.470Z info: MajAuteur finished
+2026-09-05T13:40:40.498Z info: FW$Sync : 2026-09-05T13:40:40.498Z
+2026-09-05T13:40:40.516Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:40:40.519Z info: FW$Sync finished
+2026-09-05T13:40:40.526Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:41:34.129Z info: $OpenSafeByPin finished
+2026-09-05T13:41:34.187Z info: $GetSafe finished
+2026-09-05T13:41:46.840Z info: $GetServicesLabels finished
+2026-09-05T13:41:46.862Z info: $GetSitesUrls finished
+2026-09-05T13:41:46.881Z info: $IsMDAdmin finished
+2026-09-05T13:41:57.652Z info: $GetOrgSvc finished
+2026-09-05T13:41:57.709Z info: ADMIN$isAdmin : 2026-09-05T13:41:57.709Z
+2026-09-05T13:41:57.712Z info: ADMIN$isAdmin finished
+2026-09-05T13:41:57.747Z info: FW$getStatus : 2026-09-05T13:41:57.747Z
+2026-09-05T13:41:57.751Z info: FW$getStatus finished
+2026-09-05T13:41:57.756Z info: ADMIN$getStatus : 2026-09-05T13:41:57.755Z
+2026-09-05T13:41:57.763Z info: ADMIN$getStatus finished
+2026-09-05T13:42:08.546Z info: FW$setStatus : 2026-09-05T13:42:08.546Z
+2026-09-05T13:42:08.558Z info: FW$setStatus finished
+2026-09-05T13:42:20.554Z info: MajAuteur : 2026-09-05T13:42:20.554Z
+2026-09-05T13:42:20.570Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:42:20.577Z info: MajAuteur finished
+2026-09-05T13:42:20.613Z info: FW$Sync : 2026-09-05T13:42:20.613Z
+2026-09-05T13:42:20.622Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:42:20.638Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:42:20.640Z error: FW$Sync : 2026-09-05T13:42:20.613Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T13:42:20.641Z info: FW$Sync terminated on exception
+2026-09-05T13:42:20.642Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T13:45:35.804Z info: $OpenSafeByPin finished
+2026-09-05T13:45:35.854Z info: $GetSafe finished
+2026-09-05T13:45:38.680Z info: $IsMDAdmin finished
+2026-09-05T13:45:55.389Z info: $GetServicesLabels finished
+2026-09-05T13:45:55.402Z info: $IsMDAdmin finished
+2026-09-05T13:45:55.419Z info: $GetSitesUrls finished
+2026-09-05T13:46:06.934Z info: $GetOrgSvc finished
+2026-09-05T13:46:06.980Z info: ADMIN$isAdmin : 2026-09-05T13:46:06.980Z
+2026-09-05T13:46:07.003Z info: ADMIN$isAdmin finished
+2026-09-05T13:46:07.063Z info: FW$getStatus : 2026-09-05T13:46:07.063Z
+2026-09-05T13:46:07.069Z info: FW$getStatus finished
+2026-09-05T13:46:07.075Z info: ADMIN$getStatus : 2026-09-05T13:46:07.075Z
+2026-09-05T13:46:07.104Z info: ADMIN$getStatus finished
+2026-09-05T13:46:12.449Z info: FW$setStatus : 2026-09-05T13:46:12.449Z
+2026-09-05T13:46:12.459Z info: FW$setStatus finished
+2026-09-05T13:47:43.929Z info: $OpenSafeByPin finished
+2026-09-05T13:47:43.975Z info: $GetSafe finished
+2026-09-05T13:47:53.039Z info: $GetServicesLabels finished
+2026-09-05T13:47:53.068Z info: $GetSitesUrls finished
+2026-09-05T13:47:53.085Z info: $IsMDAdmin finished
+2026-09-05T13:48:07.066Z info: $GetOrgSvc finished
+2026-09-05T13:48:07.101Z info: ADMIN$isAdmin : 2026-09-05T13:48:07.101Z
+2026-09-05T13:48:07.106Z info: ADMIN$isAdmin finished
+2026-09-05T13:48:07.140Z info: FW$getStatus : 2026-09-05T13:48:07.140Z
+2026-09-05T13:48:07.147Z info: FW$getStatus finished
+2026-09-05T13:48:07.158Z info: ADMIN$getStatus : 2026-09-05T13:48:07.158Z
+2026-09-05T13:48:07.163Z info: ADMIN$getStatus finished
+2026-09-05T13:48:26.174Z info: $OpenSafeByPin finished
+2026-09-05T13:48:26.217Z info: $GetSafe finished
+2026-09-05T13:48:28.895Z info: ADMIN$getAllStatus : 2026-09-05T13:48:28.895Z
+2026-09-05T13:48:28.901Z info: ADMIN$getAllStatus finished
+2026-09-05T13:48:28.932Z info: FW$setSubscription : 2026-09-05T13:48:28.932Z
+2026-09-05T13:48:28.940Z info: FW$setSubscription finished
+2026-09-05T13:48:29.027Z info: FW$Sync : 2026-09-05T13:48:29.027Z
+2026-09-05T13:48:29.061Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:48:29.076Z info: FW$Sync finished
+2026-09-05T13:48:41.523Z info: PropsOfMyCreds : 2026-09-05T13:48:41.523Z
+2026-09-05T13:48:41.532Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:48:41.533Z info: PropsOfMyCreds finished
+2026-09-05T13:49:00.854Z info: FW$setStatus : 2026-09-05T13:49:00.854Z
+2026-09-05T13:49:00.859Z info: FW$setStatus finished
+2026-09-05T13:49:16.530Z info: MajAuteur : 2026-09-05T13:49:16.530Z
+2026-09-05T13:49:16.543Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:49:16.547Z info: MajAuteur finished
+2026-09-05T13:49:16.580Z info: FW$Sync : 2026-09-05T13:49:16.579Z
+2026-09-05T13:49:16.593Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:49:16.596Z error: FW$Sync : 2026-09-05T13:49:16.579Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T13:49:16.598Z info: FW$Sync terminated on exception
+2026-09-05T13:49:16.599Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T13:49:16.604Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:52:37.911Z info: MajAuteur : 2026-09-05T13:52:37.911Z
+2026-09-05T13:52:37.921Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:52:37.925Z info: MajAuteur finished
+2026-09-05T13:52:38.012Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:53:57.955Z info: MajAuteur : 2026-09-05T13:53:57.955Z
+2026-09-05T13:53:57.965Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:53:57.970Z info: MajAuteur finished
+2026-09-05T13:53:58.023Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:55:50.434Z info: MajAuteur : 2026-09-05T13:55:50.434Z
+2026-09-05T13:55:50.444Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:55:50.447Z info: MajAuteur finished
+2026-09-05T13:55:50.495Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T13:59:19.760Z info: FW$setStatus : 2026-09-05T13:59:19.760Z
+2026-09-05T13:59:19.765Z info: FW$setStatus finished
+2026-09-05T13:59:35.183Z info: $OpenSafeByPin finished
+2026-09-05T13:59:35.270Z info: $GetSafe finished
+2026-09-05T13:59:35.310Z info: $GetOrgSvc finished
+2026-09-05T13:59:37.914Z info: $GetSitesUrls finished
+2026-09-05T13:59:37.941Z info: ADMIN$getAllStatus : 2026-09-05T13:59:37.941Z
+2026-09-05T13:59:37.945Z info: ADMIN$getAllStatus finished
+2026-09-05T13:59:37.976Z info: FW$setSubscription : 2026-09-05T13:59:37.976Z
+2026-09-05T13:59:37.980Z info: FW$setSubscription finished
+2026-09-05T13:59:48.203Z info: FW$Sync : 2026-09-05T13:59:48.203Z
+2026-09-05T13:59:48.216Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:59:48.218Z info: FW$Sync finished
+2026-09-05T13:59:57.892Z info: PropsOfMyCreds : 2026-09-05T13:59:57.892Z
+2026-09-05T13:59:57.901Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T13:59:57.903Z info: PropsOfMyCreds finished
+2026-09-05T14:00:06.636Z info: MajAuteur : 2026-09-05T14:00:06.636Z
+2026-09-05T14:00:06.650Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:00:06.654Z info: MajAuteur finished
+2026-09-05T14:00:06.708Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:00:15.973Z info: FW$Sync : 2026-09-05T14:00:15.973Z
+2026-09-05T14:00:15.985Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:00:15.988Z info: FW$Sync finished
+2026-09-05T14:00:31.433Z info: FW$setStatus : 2026-09-05T14:00:31.433Z
+2026-09-05T14:00:31.438Z info: FW$setStatus finished
+2026-09-05T14:00:42.665Z info: MajAuteur : 2026-09-05T14:00:42.665Z
+2026-09-05T14:00:42.675Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:00:42.679Z info: MajAuteur finished
+2026-09-05T14:00:42.719Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:00:57.785Z info: FW$Sync : 2026-09-05T14:00:57.785Z
+2026-09-05T14:00:57.798Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:00:57.799Z error: FW$Sync : 2026-09-05T14:00:57.785Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:00:57.800Z info: FW$Sync terminated on exception
+2026-09-05T14:00:57.801Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T14:02:14.055Z info: FW$setStatus : 2026-09-05T14:02:14.055Z
+2026-09-05T14:02:14.059Z info: FW$setStatus finished
+2026-09-05T14:03:49.176Z info: $OpenSafeByPin finished
+2026-09-05T14:03:49.223Z info: $GetSafe finished
+2026-09-05T14:03:49.240Z info: $GetOrgSvc finished
+2026-09-05T14:03:52.247Z info: $GetSitesUrls finished
+2026-09-05T14:03:52.275Z info: ADMIN$getAllStatus : 2026-09-05T14:03:52.274Z
+2026-09-05T14:03:52.280Z info: ADMIN$getAllStatus finished
+2026-09-05T14:03:52.312Z info: FW$setSubscription : 2026-09-05T14:03:52.312Z
+2026-09-05T14:03:52.317Z info: FW$setSubscription finished
+2026-09-05T14:03:59.255Z info: FW$Sync : 2026-09-05T14:03:59.255Z
+2026-09-05T14:03:59.267Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:03:59.269Z info: FW$Sync finished
+2026-09-05T14:04:06.652Z info: PropsOfMyCreds : 2026-09-05T14:04:06.652Z
+2026-09-05T14:04:06.668Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:04:06.669Z info: PropsOfMyCreds finished
+2026-09-05T14:04:15.677Z info: FW$setStatus : 2026-09-05T14:04:15.677Z
+2026-09-05T14:04:15.680Z info: FW$setStatus finished
+2026-09-05T14:04:24.533Z info: MajAuteur : 2026-09-05T14:04:24.533Z
+2026-09-05T14:04:24.544Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:04:24.547Z info: MajAuteur finished
+2026-09-05T14:04:24.604Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:04:42.177Z info: FW$Sync : 2026-09-05T14:04:42.177Z
+2026-09-05T14:04:42.189Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:04:42.191Z error: FW$Sync : 2026-09-05T14:04:42.177Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:04:42.193Z info: FW$Sync terminated on exception
+2026-09-05T14:04:42.194Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T14:06:33.972Z info: FW$setStatus : 2026-09-05T14:06:33.972Z
+2026-09-05T14:06:33.976Z info: FW$setStatus finished
+2026-09-05T14:06:52.057Z info: $OpenSafeByPin finished
+2026-09-05T14:06:52.098Z info: $GetSafe finished
+2026-09-05T14:06:52.147Z info: $GetOrgSvc finished
+2026-09-05T14:06:56.033Z info: $GetSitesUrls finished
+2026-09-05T14:06:56.060Z info: ADMIN$getAllStatus : 2026-09-05T14:06:56.060Z
+2026-09-05T14:06:56.066Z info: ADMIN$getAllStatus finished
+2026-09-05T14:06:56.098Z info: FW$setSubscription : 2026-09-05T14:06:56.098Z
+2026-09-05T14:06:56.104Z info: FW$setSubscription finished
+2026-09-05T14:07:00.427Z info: FW$Sync : 2026-09-05T14:07:00.427Z
+2026-09-05T14:07:00.439Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:07:00.441Z info: FW$Sync finished
+2026-09-05T14:07:12.684Z info: FW$setStatus : 2026-09-05T14:07:12.684Z
+2026-09-05T14:07:12.687Z info: FW$setStatus finished
+2026-09-05T14:07:20.357Z info: PropsOfMyCreds : 2026-09-05T14:07:20.357Z
+2026-09-05T14:07:20.366Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:07:20.366Z info: PropsOfMyCreds finished
+2026-09-05T14:07:27.880Z info: MajAuteur : 2026-09-05T14:07:27.880Z
+2026-09-05T14:07:27.892Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:07:27.895Z info: MajAuteur finished
+2026-09-05T14:07:27.939Z error: sendNotification: WebPushError: Received unexpected response code
+2026-09-05T14:07:39.107Z info: FW$Sync : 2026-09-05T14:07:39.107Z
+2026-09-05T14:07:39.134Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-05T14:07:39.135Z error: FW$Sync : 2026-09-05T14:07:39.107Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["9"]
+2026-09-05T14:07:39.136Z info: FW$Sync terminated on exception
+2026-09-05T14:07:39.137Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"9\"]"]
+2026-09-05T14:08:47.197Z info: ADMIN$getAllStatus : 2026-09-05T14:08:47.197Z
+2026-09-05T14:08:47.203Z info: ADMIN$getAllStatus finished
+2026-09-05T14:09:37.059Z info: FW$setStatus : 2026-09-05T14:09:37.059Z
+2026-09-05T14:09:37.064Z info: FW$setStatus finished
+2026-09-05T14:09:44.931Z info: ADMIN$getAllStatus : 2026-09-05T14:09:44.931Z
+2026-09-05T14:09:44.937Z info: ADMIN$getAllStatus finished
+2026-09-05T14:10:17.326Z info: ADMIN$getAllStatus : 2026-09-05T14:10:17.326Z
+2026-09-05T14:10:17.331Z info: ADMIN$getAllStatus finished

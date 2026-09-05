@@ -149,6 +149,18 @@ export class Operation implements OperationWC {
       throw new AppExc(101, 'operation_authentication_required', this)
   }
 
+  requireR () {
+    const s = this.authRecord.svcOrgStatus
+    if (s === 0 || s === 9) 
+      throw new AppExc(101, 'operation_svcorg_read_required', this, ['' + s])
+  }
+
+  requireRW () {
+    const s = this.authRecord.svcOrgStatus
+    if (s === 0 || s === 2 || s === 9) 
+      throw new AppExc(101, 'operation_svcorg_readwrite_required', this, ['' + s])
+  }
+
   /* Retourne le Cred dont la signature a été vérifié
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
@@ -358,6 +370,7 @@ export class AuthRecord {
   signatures: Object
   challenge: Uint8Array
   isAdmin: boolean
+  svcOrgStatus: number
   pemC: string // clé publique de cryptage du userId
   pemV: string // clé publique de vérification du userId
 
@@ -385,6 +398,18 @@ export class AuthRecord {
       this.userId = ''
       this.isAdmin = false
     }
+  }
+
+  async getSvcOrgStatus () : Promise<number> {
+    let dd = await Cache.getRow(this.op, 'ADMIN$Status', { svc: this.op.args.svc}, config.STATUSLAZYNESS)
+    if (!dd) return 0
+    dd.init()
+    let s = dd.doc['st'] // s.st: 1 2 ou 9
+    if (s === 9) return 9
+    dd = await Cache.getRow(this.op, this.op.args.svc + '$Status', { pk: '1' }, config.STATUSLAZYNESS)
+    if (!dd) return 0
+    dd.init()
+    return dd.doc['st']
   }
 
   getCredRef (docCl: string, docPk: string, noex?: boolean) : CredRef {
@@ -427,6 +452,7 @@ export class AuthRecord {
         : await Crypt.verify(Buffer.from(credRef.cred.pubv), sign, this.challenge)
       if (ok) this.creds.set(ref, credRef) 
       else this.koCreds.add(ref)
+      this.svcOrgStatus = await this.getSvcOrgStatus()
     }
 
     if (config.debugLevel > 1) {

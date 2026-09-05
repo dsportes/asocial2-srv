@@ -420,6 +420,7 @@ export class FW$Sync extends Operation {
   }
   async phase2 () {
     this.requireAuth()
+    this.requireR()
     for (const { def, v } of this._toSync) {
       const item = def.split('/')
       // 0: classe, 1: document, 2: coll
