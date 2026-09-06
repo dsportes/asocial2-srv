@@ -8,7 +8,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { encode, decode } from '@msgpack/msgpack'
 
 import { config } from '../src/config'
-import { Log, setAdminAlert } from '../src-fw/log'
+import { Log, setAdminAlert, AppExc } from '../src-fw/log'
 import { Registry } from '../src-fw/registry'
 import { Util } from '../src-fw/util'
 import { Crypt } from '../src-fw/crypt'
@@ -28,9 +28,9 @@ export class DbConnector {
 
   constructor (credentials: Object, cryptKey: string) {
     if (!credentials)
-      throw new AppExc(110, 'DbConnector_credentials_not_found', null)
+      throw new AppExc(110, 'DbConnector_credentials_not_found', null, [this.constructor.name])
     if (!cryptKey) 
-      throw new AppExc(110, 'DbConnector_missing_crypt_key', null)
+      throw new AppExc(110, 'DbConnector_missing_crypt_key', null, [this.constructor.name])
     this.key = Buffer.from(cryptKey, 'base64')
     this.credentials = credentials
   }
@@ -354,7 +354,7 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
         obj = { at: Date.now(), id }
         break
       default :
-        const e = new AppExc(103, 'unknown_operation', null, [opName])
+        const e = new AppExc(103, 'unknown_config_operation', null, [opName])
         const b: Buffer = e.serial()
         res.status(401).type('application/octet-stream').send(b)
         return
@@ -368,16 +368,16 @@ export async function doOp (args: Object, res: express.Response, baseUrl: string
     const op = Registry.newOp(opName) as Operation
     if (!op) throw new AppExc(103, 'unknown_operation', null, [opName])
 
-    const apiv = args['APIVERSION'] || 0
-    if (apiv && (apiv < config.APIVERSIONS[0] || apiv > config.APIVERSIONS[1]))
-      throw new AppExc(103, 'unsupported_API', null, [config.APIVERSIONS[0], 
-        config.APIVERSIONS[1], apiv, config.BUILD])
-
     op.now = now
     op.today = today
     op.args = args
     op.opName = opName
     op.baseUrl = baseUrl
+
+    const apiv = args['APIVERSION'] || 0
+    if (apiv && (apiv < config.APIVERSIONS[0] || apiv > config.APIVERSIONS[1]))
+      throw new AppExc(103, 'unsupported_API', null, 
+        [op.args.svc || '?', config.APIVERSIONS[0], config.APIVERSIONS[1], apiv, config.BUILD])
 
     if (opName.startsWith('ADMIN$')) {
       op.site = args['site']
@@ -443,67 +443,6 @@ function adminAlert ( op: AbstractOperation, subject: string, text: string) {
 }
 setAdminAlert(adminAlert)
 
-/* Classe AppExc ********************************************************/
-export class AppExc {
-  /* codes:
-  Détecté par l'application
-  1: erreur fonctionnelle APP
-  2: erreur fonctionnelle FW
-  3: assertion FW - BUG: 
-  4: assertion APP - BUG:
-  8: FW : Exception technique DB / réseau
-  9: APP: Exception technique DB / réseau
-  10: FW : Exception technique DB / réseau : configuration suspectée
-  11: APP: Exception technique DB / réseau : configuration suspectée
-  99: Interruption actionnée par l'utilisateur
-
-  Remonté d'un service - assertions 13...16 transmises à l'adiministarteur
-  101: erreur fonctionnelle FW : non détectable par l'application
-  102: erreur fonctionnelle APP : non détectable par l'application
-  103: assertion FW - BUG: l'erreur fonctionnelle est censée avoir été bloquée par l'application
-  104: assertion APP - BUG: l'erreur fonctionnelle est censée avoir été bloquée par l'application
-  105: assertions FW - Données incohérentes non détectables par l'application
-  106: assertions APP - Données incohérentes non détectables par l'application
-  108: FW : Exception technique DB / réseau
-  109: APP : Exception technique DB / réseau
-  110: FW : Exception technique DB / réseau : configuration suspectée
-  111: APP : Exception technique DB / réseau : configuration suspectée
-  */
-
-  public code: number
-  public label: string
-  public opName: string
-  public org: string
-  public stack: string
-  public args: string[]
-
-  static important = new Set([103, 104, 108, 109, 110, 111])
-
-  constructor (code: number, label: string, op: AbstractOperation, args?: string[], stack?: string) {
-    this.label = label
-    this.code = code
-    this.opName = op ? op.opName : ''
-    this.org = op && op['org'] ? op['org'] : ''
-    this.args = args || []
-    this.stack = stack || ''
-    if (code > 103) Log.error(this.message)
-    else { if (config.debugLevel > 0) Log.debug(this.toString()) }
-    if (AppExc.important.has(code))
-      adminAlert(op, this.message, this.stack)
-  }
-
-  serial () { 
-    return Buffer.from(encode({code: this.code, label: this.label, opName: this.opName,
-      org: this.org, stack: this.stack, args: this.args}))
-  }
-
-  get message () { return 'AppExc: ' + this.code + ':' + this.label + 
-    (this.opName ? '@' + this.opName + ':' : '') 
-    + JSON.stringify(this.args || []) }
-
-  toString () { return this.message + (this.stack ? '\n' + this.stack : '')}
-}
-
 export interface AbstractOperation {
   opName: string
   result: any
@@ -554,7 +493,7 @@ export class MDandSafe {
     'Accept':       'application/octet-stream'   // expected data sent back
   }
 
-  static async postMDS (url: string, args: any) : Promise<Object> {
+  static async postMDS (op: Operation, url: string, args: any) : Promise<Object> {
     const maxRetries = 3
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
@@ -577,7 +516,8 @@ export class MDandSafe {
         const obj = decode(buf)
         if (response.status === 200) return obj
         const txt = new TextDecoder().decode(buf)
-        throw new AppExc(108, 'remote_md_safes_access_status', args, [(url || '?'), '' + response.status, txt])
+        throw new AppExc(108, 'remote_md_safes_access_status', args, 
+          [op.opName, op.args.svc || '?', op.args.org || '?', (url || '?'), '' + response.status, txt])
       } catch (error) {
         // Check if it's a connection reset error
         const ec = error.code || error.cause.code
@@ -588,8 +528,8 @@ export class MDandSafe {
           ec === 'ETIMEDOUT'
         if (!isResetError || attempt === maxRetries) {
           if (error instanceof AppExc) throw error
-          throw new AppExc(108, 'remote_md_safes_access_exc', 
-            args, [(url || '?'), error.toString()], error.stack)
+          throw new AppExc(108, 'remote_md_safes_access_exc', args, 
+            [op.opName, op.args.svc || '?', op.args.org || '?', (url || '?'), error.toString()], error.stack)
         }
         // Exponential backoff
         const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000)
@@ -627,7 +567,7 @@ export class MDandSafe {
     const url = await getSafeUrl(op, cvs[2])
     args.opName = opName
     if (op.baseUrl + '/safe' !== url)
-      return await MDandSafe.postMDS(url, args)
+      return await MDandSafe.postMDS(op, url, args)
     const result = await SafeOperation.doOp(opName, args)
     return result
   }
@@ -635,7 +575,7 @@ export class MDandSafe {
   static async doMDOp (op: Operation, opName: string, args: any) : Promise<Object> {
     args.opName = opName
     if (op.baseUrl + '/master' !== config.MASTERDIR_URL)
-      return await MDandSafe.postMDS(config.MASTERDIR_URL, args)
+      return await MDandSafe.postMDS(op, config.MASTERDIR_URL, args)
     const result = await MDOperation.doOp(opName, args)
     return result
   }

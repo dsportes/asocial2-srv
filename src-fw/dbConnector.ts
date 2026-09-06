@@ -10,9 +10,9 @@ export class DbConnector {
 
   constructor (credentials: Object, cryptKey: string) {
     if (!credentials)
-      throw new AppExc(110, 'DbConnector_credentials_not_found', null)
+      throw new AppExc(110, 'DbConnector_credentials_not_found', null, [this.constructor.name])
     if (!cryptKey) 
-      throw new AppExc(111, 'DbConnector_missing_crypt_key', null)
+      throw new AppExc(111, 'DbConnector_missing_crypt_key', null, [this.constructor.name])
     this.key = Buffer.from(cryptKey, 'base64')
     this.credentials = credentials
   }

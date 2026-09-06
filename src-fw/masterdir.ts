@@ -138,7 +138,7 @@ export class MDOperation implements AbstractOperation {
   static async doOp (opName: string, args: Object) : Promise<Object> {
     const op = Registry.newOp(opName)
     if (!op) 
-      throw new AppExc(103, 'masterdir_unknown_operation', null, [opName])
+      throw new AppExc(103, 'masterdir_unknown_master_operation', null, [opName])
     op.opName = opName
     op.now = Date.now()
     op.args = args
@@ -157,7 +157,7 @@ export class MDOperation implements AbstractOperation {
   async getUrl (svc: string, org: string) : Promise<string> {
     const orgItem = await MDCache.getOrgSvc(this, org)
     if (!orgItem)
-      throw new AppExc(103, 'unregistered_org', this, [org])
+      throw new AppExc(103, 'unregistered_org', this, [svc, org])
     const site = orgItem[svc]
     if (!site)
       throw new AppExc(103, 'unregistered_service_for_org', this, [svc, org])
@@ -216,12 +216,12 @@ export class MDOperation implements AbstractOperation {
   - sign: signature par la clé S de userId de encode([time, params])
   Retourne "params" en cas de succès.
   */
-  async getParams (args: Object, noex?: boolean) : Promise<string[]> {
+  async getParams (opName: string, args: Object, noex?: boolean) : Promise<string[]> {
     const userId = args['userId']
     const time = args['time']
     /* const now = Date.now()
       if (time < now - 3000 || time > now + 3000) 
-        throw new AppExc(108, 'masterdir_challenge_too_old', this)
+        throw new AppExc(108, 'masterdir_challenge_too_old', this, [opName])
     */
     if (config.MASTERDIRADMINUSERS.has(userId)) {
       const params = args['params']
@@ -238,7 +238,7 @@ export class MDOperation implements AbstractOperation {
       }
     } else {
       if (noex) return null
-      throw new AppExc(101, 'masterdir_no_admin', this)
+      throw new AppExc(101, 'masterdir_no_admin', this, [opName])
     }
   }
 }
@@ -259,7 +259,7 @@ Registry.registerOp($GetOrgSvc)
 - si le site est '', supprime l'entrée pour ce service */
 class $SetOrgSvcSite extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const [org, svc, site] = await this.getParams(this.args)
+    const [org, svc, site] = await this.getParams('SetOrgSvcSite', this.args)
     let val
     if (site) {
       const urls = await MDCache.getSitesUrls(this)
@@ -300,7 +300,7 @@ Registry.registerOp($GetServicesLabels)
 /* Enregistre les labels des services */
 class $SetServicesLabels extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const [json] = await this.getParams(this.args, true)
+    const [json] = await this.getParams('SetServicesLabels', this.args, true)
     await MDCache.setServicesLabels(this, json)
   }
 }
@@ -312,7 +312,7 @@ Registry.registerOp($SetServicesLabels)
 /* Enregistre l'URL d'un site */
 class $IsMDAdmin extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const x = await this.getParams(this.args, true)
+    const x = await this.getParams('IsMDAdmin', this.args, true)
     this.setRes('ismdadmin', x !== null)
   }
 }
@@ -321,7 +321,7 @@ Registry.registerOp($IsMDAdmin)
 /* Enregistre l'URL d'un site */
 class $SetSiteUrl extends MDOperation {
   async doTheJob () : Promise<void> { 
-    const [site, url] = await this.getParams(this.args)
+    const [site, url] = await this.getParams('SetSiteUrl', this.args)
     const urls = await MDCache.getSitesUrls(this)
     if (url) urls[site] = url
     else delete urls[site]
@@ -570,9 +570,10 @@ class $mdEventSync extends MDOperation {
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
     if (data) {
       const e = decode(data) as MDEvent
-      const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
+      const str = [e.eventId, e.type, e.userId, e.svc, e.org].join('/')
+      const chk2 = Crypt.shaS(str)
       if (chk2 !== chk) 
-        throw new AppExc(105, 'masterdir_case_chk', this)
+        throw new AppExc(105, 'masterdir_case_chk', this, [str])
       const ret = await this.postSvcOp(e.svc, e.org, 'MDEventSync', { eventId, type: e.type, chk } )
       const s:MDEventS = ret ? ret.mdsync : null
       if (s) {
@@ -608,9 +609,10 @@ class $mdEventUser extends MDOperation {
     const data = (await this.db.mdEventGet(eventId)) as Uint8Array
     if (data) {
       const e = decode(data) as MDEvent
-      const chk2 = Crypt.shaS([e.eventId, e.type, e.userId, e.svc, e.org].join('/'))
+      const str = [e.eventId, e.type, e.userId, e.svc, e.org].join('/')
+      const chk2 = Crypt.shaS(str)
       if (chk2 !== chk) 
-        throw new AppExc(105, 'masterdir_case_chk', this)
+        throw new AppExc(105, 'masterdir_case_chk', this, [str])
       if (setlv) e.lv = e.v
       if (comment) e.comment = comment.length ? comment : null
       await this.db.mdEventSet({

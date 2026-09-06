@@ -32066,3 +32066,507 @@ Error: Captured for inspection
 2026-09-05T14:09:44.937Z info: ADMIN$getAllStatus finished
 2026-09-05T14:10:17.326Z info: ADMIN$getAllStatus : 2026-09-05T14:10:17.326Z
 2026-09-05T14:10:17.331Z info: ADMIN$getAllStatus finished
+2026-09-06T11:48:56.126Z info: Configuration pre-loaded
+2026-09-06T11:49:01.279Z info: FW document descriptors:2 forms descriptors:2
+2026-09-06T11:49:01.301Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-06T11:49:01.467Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-06T11:49:01.468Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-06T11:49:01.469Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-06T11:49:01.469Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-06T11:49:01.470Z info: fw documents loading: 2
+2026-09-06T11:49:01.471Z info: app operations loading: 12
+2026-09-06T11:49:01.472Z info: fw operations loading: 71
+2026-09-06T11:49:01.473Z info: app operations loading: 71
+2026-09-06T11:49:01.474Z info: safe operations loading: 71
+2026-09-06T11:49:01.475Z info: masterdir operations loading: 71
+2026-09-06T11:49:01.476Z info: Configuration completed
+2026-09-06T11:49:01.487Z info: Server started
+2026-09-06T11:49:01.491Z info: HTTP listen [8091]
+2026-09-06T11:52:12.084Z info: $OpenSafeByPin finished
+2026-09-06T11:52:12.129Z info: $GetSafe finished
+2026-09-06T11:52:12.150Z info: $GetOrgSvc finished
+2026-09-06T11:52:56.594Z info: $OpenSafeByPin finished
+2026-09-06T11:52:56.681Z info: $GetSafe finished
+2026-09-06T11:53:01.544Z info: $IsMDAdmin finished
+2026-09-06T11:53:07.098Z info: $GetServicesLabels finished
+2026-09-06T11:53:07.118Z info: $GetSitesUrls finished
+2026-09-06T11:53:07.130Z info: $IsMDAdmin finished
+2026-09-06T11:53:19.575Z info: $GetOrgSvc finished
+2026-09-06T11:53:19.608Z info: ADMIN$isAdmin : 2026-09-06T11:53:19.607Z
+2026-09-06T11:53:19.635Z info: ADMIN$isAdmin finished
+2026-09-06T11:53:19.662Z info: FW$getStatus : 2026-09-06T11:53:19.662Z
+2026-09-06T11:53:19.669Z info: FW$getStatus finished
+2026-09-06T11:53:19.676Z info: ADMIN$getStatus : 2026-09-06T11:53:19.676Z
+2026-09-06T11:53:19.680Z info: ADMIN$getStatus finished
+2026-09-06T11:54:07.554Z info: $GetSitesUrls finished
+2026-09-06T11:54:07.581Z info: ADMIN$getAllStatus : 2026-09-06T11:54:07.581Z
+2026-09-06T11:54:07.588Z info: ADMIN$getAllStatus finished
+2026-09-06T11:54:07.650Z info: FW$setSubscription : 2026-09-06T11:54:07.649Z
+2026-09-06T11:54:07.740Z info: FW$setSubscription finished
+2026-09-06T11:54:16.397Z info: FW$Sync : 2026-09-06T11:54:16.396Z
+2026-09-06T11:54:16.424Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:54:16.428Z info: FW$Sync finished
+2026-09-06T11:54:24.710Z info: PropsOfMyCreds : 2026-09-06T11:54:24.709Z
+2026-09-06T11:54:24.719Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:54:24.720Z info: PropsOfMyCreds finished
+2026-09-06T11:54:31.462Z info: MajAuteur : 2026-09-06T11:54:31.462Z
+2026-09-06T11:54:31.473Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:54:31.480Z info: MajAuteur finished
+2026-09-06T11:54:44.300Z info: FW$Sync : 2026-09-06T11:54:44.300Z
+2026-09-06T11:54:44.313Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:54:44.316Z info: FW$Sync finished
+2026-09-06T11:54:59.479Z info: FW$setStatus : 2026-09-06T11:54:59.478Z
+2026-09-06T11:54:59.483Z info: FW$setStatus finished
+2026-09-06T11:55:09.778Z info: MajAuteur : 2026-09-06T11:55:09.778Z
+2026-09-06T11:55:09.791Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:55:09.796Z info: MajAuteur finished
+2026-09-06T11:55:20.002Z info: FW$Sync : 2026-09-06T11:55:20.002Z
+2026-09-06T11:55:20.015Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T11:55:20.017Z error: FW$Sync : 2026-09-06T11:55:20.002Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T11:55:20.019Z info: FW$Sync terminated on exception
+2026-09-06T11:55:20.022Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"AS2\",\"doda\",\"FW$Sync\",\"9\"]"]
+2026-09-06T12:04:50.919Z info: ADMIN$getAllStatus : 2026-09-06T12:04:50.918Z
+2026-09-06T12:04:50.926Z info: ADMIN$getAllStatus finished
+2026-09-06T12:09:33.455Z info: FW$setStatus : 2026-09-06T12:09:33.455Z
+2026-09-06T12:09:33.459Z info: FW$setStatus finished
+2026-09-06T12:09:57.256Z info: ADMIN$getAllStatus : 2026-09-06T12:09:57.256Z
+2026-09-06T12:09:57.264Z info: ADMIN$getAllStatus finished
+2026-09-06T12:25:18.344Z info: $OpenSafeByPin finished
+2026-09-06T12:25:18.387Z info: $GetSafe finished
+2026-09-06T12:25:18.406Z info: $GetOrgSvc finished
+2026-09-06T12:25:24.416Z info: $GetSitesUrls finished
+2026-09-06T12:25:24.452Z info: ADMIN$getAllStatus : 2026-09-06T12:25:24.452Z
+2026-09-06T12:25:24.460Z info: ADMIN$getAllStatus finished
+2026-09-06T12:25:25.539Z info: FW$setSubscription : 2026-09-06T12:25:25.539Z
+2026-09-06T12:25:25.546Z info: FW$setSubscription finished
+2026-09-06T12:25:28.312Z info: FW$Sync : 2026-09-06T12:25:28.312Z
+2026-09-06T12:25:28.333Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:25:28.339Z info: FW$Sync finished
+2026-09-06T12:25:33.971Z info: PropsOfMyCreds : 2026-09-06T12:25:33.971Z
+2026-09-06T12:25:33.982Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:25:33.983Z info: PropsOfMyCreds finished
+2026-09-06T12:25:56.359Z info: $OpenSafeByPin finished
+2026-09-06T12:25:56.391Z info: $GetSafe finished
+2026-09-06T12:26:03.317Z info: $GetServicesLabels finished
+2026-09-06T12:26:03.338Z info: $GetSitesUrls finished
+2026-09-06T12:26:03.350Z info: $IsMDAdmin finished
+2026-09-06T12:26:12.882Z info: $GetOrgSvc finished
+2026-09-06T12:26:12.908Z info: ADMIN$isAdmin : 2026-09-06T12:26:12.908Z
+2026-09-06T12:26:12.910Z info: ADMIN$isAdmin finished
+2026-09-06T12:26:12.928Z info: FW$getStatus : 2026-09-06T12:26:12.928Z
+2026-09-06T12:26:12.933Z info: FW$getStatus finished
+2026-09-06T12:26:12.939Z info: ADMIN$getStatus : 2026-09-06T12:26:12.939Z
+2026-09-06T12:26:12.942Z info: ADMIN$getStatus finished
+2026-09-06T12:26:16.810Z info: FW$setStatus : 2026-09-06T12:26:16.810Z
+2026-09-06T12:26:16.814Z info: FW$setStatus finished
+2026-09-06T12:26:24.567Z info: MajAuteur : 2026-09-06T12:26:24.567Z
+2026-09-06T12:26:24.577Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:26:24.584Z info: MajAuteur finished
+2026-09-06T12:26:48.963Z info: FW$Sync : 2026-09-06T12:26:48.963Z
+2026-09-06T12:26:48.976Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:26:48.977Z error: FW$Sync : 2026-09-06T12:26:48.963Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T12:26:48.979Z info: FW$Sync terminated on exception
+2026-09-06T12:26:48.979Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"AS2\",\"doda\",\"FW$Sync\",\"9\"]"]
+2026-09-06T12:29:44.903Z info: ADMIN$getAllStatus : 2026-09-06T12:29:44.902Z
+2026-09-06T12:29:44.908Z info: ADMIN$getAllStatus finished
+2026-09-06T12:30:05.885Z info: FW$setStatus : 2026-09-06T12:30:05.885Z
+2026-09-06T12:30:05.890Z info: FW$setStatus finished
+2026-09-06T12:30:22.507Z info: ADMIN$getAllStatus : 2026-09-06T12:30:22.507Z
+2026-09-06T12:30:22.514Z info: ADMIN$getAllStatus finished
+2026-09-06T12:34:28.065Z info: $OpenSafeByPin finished
+2026-09-06T12:34:28.109Z info: $GetSafe finished
+2026-09-06T12:34:28.127Z info: $GetOrgSvc finished
+2026-09-06T12:34:35.800Z info: $GetSitesUrls finished
+2026-09-06T12:34:35.830Z info: ADMIN$getAllStatus : 2026-09-06T12:34:35.830Z
+2026-09-06T12:34:35.848Z info: ADMIN$getAllStatus finished
+2026-09-06T12:34:35.912Z info: FW$setSubscription : 2026-09-06T12:34:35.912Z
+2026-09-06T12:34:35.917Z info: FW$setSubscription finished
+2026-09-06T12:34:38.347Z info: FW$Sync : 2026-09-06T12:34:38.347Z
+2026-09-06T12:34:38.361Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:34:38.363Z info: FW$Sync finished
+2026-09-06T12:34:47.266Z info: PropsOfMyCreds : 2026-09-06T12:34:47.266Z
+2026-09-06T12:34:47.289Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:34:47.291Z info: PropsOfMyCreds finished
+2026-09-06T12:39:34.486Z info: MajAuteur : 2026-09-06T12:39:34.486Z
+2026-09-06T12:39:34.499Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:39:34.505Z info: MajAuteur finished
+2026-09-06T12:39:44.246Z info: FW$Sync : 2026-09-06T12:39:44.245Z
+2026-09-06T12:39:44.259Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:39:44.262Z info: FW$Sync finished
+2026-09-06T12:40:42.635Z info: $OpenSafeByPin finished
+2026-09-06T12:40:42.677Z info: $GetSafe finished
+2026-09-06T12:40:49.235Z info: $GetServicesLabels finished
+2026-09-06T12:40:49.262Z info: $GetSitesUrls finished
+2026-09-06T12:40:49.278Z info: $IsMDAdmin finished
+2026-09-06T12:41:01.054Z info: $GetOrgSvc finished
+2026-09-06T12:41:01.075Z info: ADMIN$isAdmin : 2026-09-06T12:41:01.075Z
+2026-09-06T12:41:01.077Z info: ADMIN$isAdmin finished
+2026-09-06T12:41:01.101Z info: FW$getStatus : 2026-09-06T12:41:01.101Z
+2026-09-06T12:41:01.105Z info: FW$getStatus finished
+2026-09-06T12:41:01.116Z info: ADMIN$getStatus : 2026-09-06T12:41:01.116Z
+2026-09-06T12:41:01.118Z info: ADMIN$getStatus finished
+2026-09-06T12:41:08.090Z info: FW$setStatus : 2026-09-06T12:41:08.090Z
+2026-09-06T12:41:08.095Z info: FW$setStatus finished
+2026-09-06T12:41:22.067Z info: MajAuteur : 2026-09-06T12:41:22.067Z
+2026-09-06T12:41:22.081Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:41:22.085Z info: MajAuteur finished
+2026-09-06T12:41:26.586Z info: FW$Sync : 2026-09-06T12:41:26.586Z
+2026-09-06T12:41:26.600Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:41:26.601Z error: FW$Sync : 2026-09-06T12:41:26.586Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T12:41:26.602Z info: FW$Sync terminated on exception
+2026-09-06T12:50:10.732Z error: AppExc: 105:service_unexpected_exception["AppExc: 101:operation_svcorg_read_required@FW$Sync:[\"AS2\",\"doda\",\"FW$Sync\",\"9\"]"]
+2026-09-06T12:51:04.049Z info: ADMIN$getAllStatus : 2026-09-06T12:51:04.049Z
+2026-09-06T12:51:04.056Z info: ADMIN$getAllStatus finished
+2026-09-06T12:51:23.263Z info: ADMIN$getAllStatus : 2026-09-06T12:51:23.263Z
+2026-09-06T12:51:23.268Z info: ADMIN$getAllStatus finished
+2026-09-06T12:51:40.371Z info: FW$setStatus : 2026-09-06T12:51:40.371Z
+2026-09-06T12:51:40.376Z info: FW$setStatus finished
+2026-09-06T12:51:52.673Z info: ADMIN$getAllStatus : 2026-09-06T12:51:52.673Z
+2026-09-06T12:51:52.680Z info: ADMIN$getAllStatus finished
+2026-09-06T12:52:14.768Z info: ADMIN$getAllStatus : 2026-09-06T12:52:14.768Z
+2026-09-06T12:52:14.773Z info: ADMIN$getAllStatus finished
+2026-09-06T12:52:35.808Z info: FW$setStatus : 2026-09-06T12:52:35.808Z
+2026-09-06T12:52:35.812Z info: FW$setStatus finished
+2026-09-06T12:52:41.099Z info: MajAuteur : 2026-09-06T12:52:41.099Z
+2026-09-06T12:52:52.249Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:52:52.254Z info: MajAuteur finished
+2026-09-06T12:55:20.144Z info: $OpenSafeByPin finished
+2026-09-06T12:55:20.190Z info: $GetSafe finished
+2026-09-06T12:55:20.210Z info: $GetOrgSvc finished
+2026-09-06T12:55:38.078Z info: FW$setStatus : 2026-09-06T12:55:38.078Z
+2026-09-06T12:55:38.082Z info: FW$setStatus finished
+2026-09-06T12:55:50.471Z info: $GetSitesUrls finished
+2026-09-06T12:55:50.506Z info: ADMIN$getAllStatus : 2026-09-06T12:55:50.506Z
+2026-09-06T12:55:50.517Z info: ADMIN$getAllStatus finished
+2026-09-06T12:56:01.962Z info: FW$setStatus : 2026-09-06T12:56:01.962Z
+2026-09-06T12:56:01.967Z info: FW$setStatus finished
+2026-09-06T12:56:13.254Z info: ADMIN$getAllStatus : 2026-09-06T12:56:13.254Z
+2026-09-06T12:56:13.260Z info: ADMIN$getAllStatus finished
+2026-09-06T12:56:25.861Z info: ADMIN$getAllStatus : 2026-09-06T12:56:25.861Z
+2026-09-06T12:56:25.867Z info: ADMIN$getAllStatus finished
+2026-09-06T12:56:25.909Z info: FW$setSubscription : 2026-09-06T12:56:25.909Z
+2026-09-06T12:56:25.914Z info: FW$setSubscription finished
+2026-09-06T12:56:29.750Z info: FW$Sync : 2026-09-06T12:56:29.750Z
+2026-09-06T12:56:37.422Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:56:37.424Z info: FW$Sync finished
+2026-09-06T12:56:49.655Z info: PropsOfMyCreds : 2026-09-06T12:56:49.655Z
+2026-09-06T12:56:57.913Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:56:57.915Z info: PropsOfMyCreds finished
+2026-09-06T12:57:15.916Z info: FW$setStatus : 2026-09-06T12:57:15.916Z
+2026-09-06T12:57:15.920Z info: FW$setStatus finished
+2026-09-06T12:57:24.955Z info: MajAuteur : 2026-09-06T12:57:24.955Z
+2026-09-06T12:57:24.980Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T12:57:24.984Z info: MajAuteur finished
+2026-09-06T12:57:32.143Z info: FW$Sync : 2026-09-06T12:57:32.143Z
+2026-09-06T12:57:32.158Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:07:12.948Z info: Configuration pre-loaded
+2026-09-06T13:07:13.343Z info: FW document descriptors:2 forms descriptors:2
+2026-09-06T13:07:13.347Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-06T13:07:13.416Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-06T13:07:13.416Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-06T13:07:13.417Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-06T13:07:13.418Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-06T13:07:13.419Z info: fw documents loading: 2
+2026-09-06T13:07:13.420Z info: app operations loading: 12
+2026-09-06T13:07:13.420Z info: fw operations loading: 71
+2026-09-06T13:07:13.421Z info: app operations loading: 71
+2026-09-06T13:07:13.421Z info: safe operations loading: 71
+2026-09-06T13:07:13.422Z info: masterdir operations loading: 71
+2026-09-06T13:07:13.422Z info: Configuration completed
+2026-09-06T13:07:13.431Z info: Server started
+2026-09-06T13:07:13.432Z info: HTTP listen [8091]
+2026-09-06T13:07:30.998Z info: $OpenSafeByPin finished
+2026-09-06T13:07:31.044Z info: $GetSafe finished
+2026-09-06T13:07:31.077Z info: $GetOrgSvc finished
+2026-09-06T13:07:45.538Z info: FW$setStatus : 2026-09-06T13:07:45.538Z
+2026-09-06T13:07:45.556Z info: FW$setStatus finished
+2026-09-06T13:08:02.735Z info: $GetSitesUrls finished
+2026-09-06T13:08:02.766Z info: ADMIN$getAllStatus : 2026-09-06T13:08:02.765Z
+2026-09-06T13:08:02.778Z info: ADMIN$getAllStatus finished
+2026-09-06T13:08:02.830Z info: FW$setSubscription : 2026-09-06T13:08:02.830Z
+2026-09-06T13:08:02.839Z info: FW$setSubscription finished
+2026-09-06T13:08:10.351Z info: FW$Sync : 2026-09-06T13:08:10.350Z
+2026-09-06T13:08:10.382Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:08:10.385Z info: FW$Sync finished
+2026-09-06T13:08:20.733Z info: PropsOfMyCreds : 2026-09-06T13:08:20.732Z
+2026-09-06T13:08:20.745Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:08:20.746Z info: PropsOfMyCreds finished
+2026-09-06T13:08:34.348Z info: FW$setStatus : 2026-09-06T13:08:34.348Z
+2026-09-06T13:08:34.352Z info: FW$setStatus finished
+2026-09-06T13:08:42.923Z info: MajAuteur : 2026-09-06T13:08:42.923Z
+2026-09-06T13:08:42.935Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:08:42.940Z info: MajAuteur finished
+2026-09-06T13:08:43.034Z info: FW$Sync : 2026-09-06T13:08:43.034Z
+2026-09-06T13:08:43.042Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:08:56.532Z error: FW$Sync : 2026-09-06T13:08:43.034Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T13:08:58.854Z info: FW$Sync terminated on exception
+2026-09-06T13:17:04.016Z info: $OpenSafeByPin finished
+2026-09-06T13:17:04.062Z info: $GetSafe finished
+2026-09-06T13:17:11.243Z info: $GetServicesLabels finished
+2026-09-06T13:17:11.271Z info: $GetSitesUrls finished
+2026-09-06T13:17:11.287Z info: $IsMDAdmin finished
+2026-09-06T13:17:30.645Z info: $GetOrgSvc finished
+2026-09-06T13:17:30.683Z info: ADMIN$isAdmin : 2026-09-06T13:17:30.683Z
+2026-09-06T13:17:30.686Z info: ADMIN$isAdmin finished
+2026-09-06T13:17:30.713Z info: FW$getStatus : 2026-09-06T13:17:30.713Z
+2026-09-06T13:17:30.717Z info: FW$getStatus finished
+2026-09-06T13:17:30.736Z info: ADMIN$getStatus : 2026-09-06T13:17:30.736Z
+2026-09-06T13:17:30.738Z info: ADMIN$getStatus finished
+2026-09-06T13:17:35.593Z info: FW$setStatus : 2026-09-06T13:17:35.593Z
+2026-09-06T13:17:35.597Z info: FW$setStatus finished
+2026-09-06T13:17:51.196Z info: $OpenSafeByPin finished
+2026-09-06T13:17:51.242Z info: $GetSafe finished
+2026-09-06T13:17:51.259Z info: $GetOrgSvc finished
+2026-09-06T13:17:56.999Z info: $GetSitesUrls finished
+2026-09-06T13:17:57.032Z info: ADMIN$getAllStatus : 2026-09-06T13:17:57.032Z
+2026-09-06T13:17:57.058Z info: ADMIN$getAllStatus finished
+2026-09-06T13:17:57.103Z info: FW$setSubscription : 2026-09-06T13:17:57.103Z
+2026-09-06T13:17:57.110Z info: FW$setSubscription finished
+2026-09-06T13:17:57.194Z info: FW$Sync : 2026-09-06T13:17:57.194Z
+2026-09-06T13:17:57.206Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:17:57.208Z info: FW$Sync finished
+2026-09-06T13:18:01.470Z info: PropsOfMyCreds : 2026-09-06T13:18:01.470Z
+2026-09-06T13:18:01.480Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:18:01.481Z info: PropsOfMyCreds finished
+2026-09-06T13:18:17.137Z info: FW$setStatus : 2026-09-06T13:18:17.137Z
+2026-09-06T13:18:17.141Z info: FW$setStatus finished
+2026-09-06T13:18:25.400Z info: MajAuteur : 2026-09-06T13:18:25.400Z
+2026-09-06T13:18:25.410Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:18:25.415Z info: MajAuteur finished
+2026-09-06T13:18:25.448Z info: FW$Sync : 2026-09-06T13:18:25.448Z
+2026-09-06T13:18:25.464Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:18:36.759Z error: FW$Sync : 2026-09-06T13:18:25.448Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T13:18:41.210Z info: FW$Sync terminated on exception
+2026-09-06T13:19:09.423Z info: ADMIN$getAllStatus : 2026-09-06T13:19:09.423Z
+2026-09-06T13:19:09.429Z info: ADMIN$getAllStatus finished
+2026-09-06T13:21:37.155Z info: FW$setStatus : 2026-09-06T13:21:37.155Z
+2026-09-06T13:21:37.158Z info: FW$setStatus finished
+2026-09-06T13:39:49.844Z info: ADMIN$getAllStatus : 2026-09-06T13:39:49.844Z
+2026-09-06T13:39:49.849Z info: ADMIN$getAllStatus finished
+2026-09-06T13:42:14.129Z info: $OpenSafeByPin finished
+2026-09-06T13:42:14.176Z info: $GetSafe finished
+2026-09-06T13:42:14.194Z info: $GetOrgSvc finished
+2026-09-06T13:42:21.232Z info: $GetSitesUrls finished
+2026-09-06T13:42:21.269Z info: ADMIN$getAllStatus : 2026-09-06T13:42:21.269Z
+2026-09-06T13:42:21.277Z info: ADMIN$getAllStatus finished
+2026-09-06T13:42:21.317Z info: FW$setSubscription : 2026-09-06T13:42:21.317Z
+2026-09-06T13:42:21.321Z info: FW$setSubscription finished
+2026-09-06T13:42:21.412Z info: FW$Sync : 2026-09-06T13:42:21.412Z
+2026-09-06T13:42:21.421Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:42:21.423Z info: FW$Sync finished
+2026-09-06T13:42:26.812Z info: PropsOfMyCreds : 2026-09-06T13:42:26.812Z
+2026-09-06T13:42:26.838Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:42:26.855Z info: PropsOfMyCreds finished
+2026-09-06T13:43:03.461Z info: $OpenSafeByPin finished
+2026-09-06T13:43:03.506Z info: $GetSafe finished
+2026-09-06T13:43:15.999Z info: $GetServicesLabels finished
+2026-09-06T13:43:16.029Z info: $GetSitesUrls finished
+2026-09-06T13:43:16.056Z info: $IsMDAdmin finished
+2026-09-06T13:43:29.269Z info: $GetOrgSvc finished
+2026-09-06T13:43:38.183Z info: $GetOrgSvc finished
+2026-09-06T13:43:38.214Z info: ADMIN$isAdmin : 2026-09-06T13:43:38.214Z
+2026-09-06T13:43:38.215Z info: ADMIN$isAdmin finished
+2026-09-06T13:43:38.244Z info: FW$getStatus : 2026-09-06T13:43:38.244Z
+2026-09-06T13:43:38.247Z info: FW$getStatus finished
+2026-09-06T13:43:38.257Z info: ADMIN$getStatus : 2026-09-06T13:43:38.257Z
+2026-09-06T13:43:38.259Z info: ADMIN$getStatus finished
+2026-09-06T13:43:43.603Z info: FW$setStatus : 2026-09-06T13:43:43.603Z
+2026-09-06T13:43:43.608Z info: FW$setStatus finished
+2026-09-06T13:43:50.999Z info: MajAuteur : 2026-09-06T13:43:50.999Z
+2026-09-06T13:43:51.011Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:43:51.016Z info: MajAuteur finished
+2026-09-06T13:43:51.047Z info: FW$Sync : 2026-09-06T13:43:51.047Z
+2026-09-06T13:43:51.075Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:43:51.076Z error: FW$Sync : 2026-09-06T13:43:51.047Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T13:43:51.077Z info: FW$Sync terminated on exception
+2026-09-06T13:50:19.466Z info: ADMIN$getAllStatus : 2026-09-06T13:50:19.466Z
+2026-09-06T13:50:19.474Z info: ADMIN$getAllStatus finished
+2026-09-06T13:50:35.842Z info: FW$setStatus : 2026-09-06T13:50:35.842Z
+2026-09-06T13:50:35.845Z info: FW$setStatus finished
+2026-09-06T13:50:45.240Z info: ADMIN$getAllStatus : 2026-09-06T13:50:45.240Z
+2026-09-06T13:50:45.246Z info: ADMIN$getAllStatus finished
+2026-09-06T13:51:17.338Z info: ADMIN$getAllStatus : 2026-09-06T13:51:17.338Z
+2026-09-06T13:51:17.343Z info: ADMIN$getAllStatus finished
+2026-09-06T13:54:12.901Z info: $OpenSafeByPin finished
+2026-09-06T13:54:12.944Z info: $GetSafe finished
+2026-09-06T13:54:12.968Z info: $GetOrgSvc finished
+2026-09-06T13:54:25.544Z info: $GetSitesUrls finished
+2026-09-06T13:54:25.567Z info: ADMIN$getAllStatus : 2026-09-06T13:54:25.567Z
+2026-09-06T13:54:25.572Z info: ADMIN$getAllStatus finished
+2026-09-06T13:54:25.663Z info: FW$setSubscription : 2026-09-06T13:54:25.662Z
+2026-09-06T13:54:25.678Z info: FW$setSubscription finished
+2026-09-06T13:54:25.775Z info: FW$Sync : 2026-09-06T13:54:25.775Z
+2026-09-06T13:54:25.783Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:54:25.784Z info: FW$Sync finished
+2026-09-06T13:54:28.070Z info: PropsOfMyCreds : 2026-09-06T13:54:28.070Z
+2026-09-06T13:54:28.081Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:54:28.081Z info: PropsOfMyCreds finished
+2026-09-06T13:54:41.364Z info: FW$setStatus : 2026-09-06T13:54:41.364Z
+2026-09-06T13:54:41.368Z info: FW$setStatus finished
+2026-09-06T13:54:47.412Z info: MajAuteur : 2026-09-06T13:54:47.412Z
+2026-09-06T13:54:47.425Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:54:47.428Z info: MajAuteur finished
+2026-09-06T13:54:47.468Z info: FW$Sync : 2026-09-06T13:54:47.468Z
+2026-09-06T13:54:47.479Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:54:47.482Z error: FW$Sync : 2026-09-06T13:54:47.468Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T13:54:47.484Z info: FW$Sync terminated on exception
+2026-09-06T13:54:53.533Z info: ADMIN$getAllStatus : 2026-09-06T13:54:53.533Z
+2026-09-06T13:54:53.540Z info: ADMIN$getAllStatus finished
+2026-09-06T13:55:04.060Z info: FW$setStatus : 2026-09-06T13:55:04.060Z
+2026-09-06T13:55:04.066Z info: FW$setStatus finished
+2026-09-06T13:55:10.179Z info: ADMIN$getAllStatus : 2026-09-06T13:55:10.179Z
+2026-09-06T13:55:10.184Z info: ADMIN$getAllStatus finished
+2026-09-06T13:55:19.716Z info: MajAuteur : 2026-09-06T13:55:19.716Z
+2026-09-06T13:55:19.725Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:55:19.726Z info: MajAuteur finished
+2026-09-06T13:55:32.890Z info: MajAuteur : 2026-09-06T13:55:32.890Z
+2026-09-06T13:55:32.932Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:55:32.937Z info: MajAuteur finished
+2026-09-06T13:56:48.580Z info: MajAuteur : 2026-09-06T13:56:48.580Z
+2026-09-06T13:56:48.590Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:56:48.593Z info: MajAuteur finished
+2026-09-06T13:57:16.517Z info: MajAuteur : 2026-09-06T13:57:16.517Z
+2026-09-06T13:57:16.527Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:57:16.530Z info: MajAuteur finished
+2026-09-06T13:58:34.484Z info: MajAuteur : 2026-09-06T13:58:34.483Z
+2026-09-06T13:58:34.495Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T13:58:34.498Z info: MajAuteur finished
+2026-09-06T14:02:01.262Z info: $OpenSafeByPin finished
+2026-09-06T14:02:01.311Z info: $GetSafe finished
+2026-09-06T14:02:01.328Z info: $GetOrgSvc finished
+2026-09-06T14:02:08.154Z info: $GetSitesUrls finished
+2026-09-06T14:02:08.177Z info: ADMIN$getAllStatus : 2026-09-06T14:02:08.177Z
+2026-09-06T14:02:08.183Z info: ADMIN$getAllStatus finished
+2026-09-06T14:02:08.215Z info: FW$setSubscription : 2026-09-06T14:02:08.215Z
+2026-09-06T14:02:08.218Z info: FW$setSubscription finished
+2026-09-06T14:02:11.982Z info: FW$Sync : 2026-09-06T14:02:11.982Z
+2026-09-06T14:02:11.994Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:02:11.997Z info: FW$Sync finished
+2026-09-06T14:02:14.924Z info: PropsOfMyCreds : 2026-09-06T14:02:14.924Z
+2026-09-06T14:02:14.933Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:02:14.934Z info: PropsOfMyCreds finished
+2026-09-06T14:02:38.109Z info: FW$setStatus : 2026-09-06T14:02:38.109Z
+2026-09-06T14:02:38.113Z info: FW$setStatus finished
+2026-09-06T14:02:46.003Z info: MajAuteur : 2026-09-06T14:02:46.003Z
+2026-09-06T14:02:46.016Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:02:46.021Z info: MajAuteur finished
+2026-09-06T14:03:20.331Z info: FW$Sync : 2026-09-06T14:03:20.331Z
+2026-09-06T14:03:20.351Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:03:20.353Z error: FW$Sync : 2026-09-06T14:03:20.331Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T14:03:20.355Z info: FW$Sync terminated on exception
+2026-09-06T14:04:15.868Z info: ADMIN$getAllStatus : 2026-09-06T14:04:15.868Z
+2026-09-06T14:04:15.873Z info: ADMIN$getAllStatus finished
+2026-09-06T14:05:10.490Z info: FW$setStatus : 2026-09-06T14:05:10.490Z
+2026-09-06T14:05:10.495Z info: FW$setStatus finished
+2026-09-06T14:05:16.404Z info: ADMIN$getAllStatus : 2026-09-06T14:05:16.404Z
+2026-09-06T14:05:16.409Z info: ADMIN$getAllStatus finished
+2026-09-06T14:07:09.069Z info: $OpenSafeByPin finished
+2026-09-06T14:07:09.115Z info: $GetSafe finished
+2026-09-06T14:07:11.889Z info: ADMIN$getAllStatus : 2026-09-06T14:07:11.889Z
+2026-09-06T14:07:11.895Z info: ADMIN$getAllStatus finished
+2026-09-06T14:07:11.927Z info: FW$setSubscription : 2026-09-06T14:07:11.927Z
+2026-09-06T14:07:11.931Z info: FW$setSubscription finished
+2026-09-06T14:07:11.986Z info: FW$Sync : 2026-09-06T14:07:11.985Z
+2026-09-06T14:07:11.997Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:07:11.998Z info: FW$Sync finished
+2026-09-06T14:07:14.316Z info: PropsOfMyCreds : 2026-09-06T14:07:14.316Z
+2026-09-06T14:07:14.329Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:07:14.330Z info: PropsOfMyCreds finished
+2026-09-06T14:07:25.960Z info: FW$setStatus : 2026-09-06T14:07:25.960Z
+2026-09-06T14:07:25.963Z info: FW$setStatus finished
+2026-09-06T14:07:32.172Z info: MajAuteur : 2026-09-06T14:07:32.172Z
+2026-09-06T14:07:32.185Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:07:32.189Z info: MajAuteur finished
+2026-09-06T14:07:43.753Z info: FW$Sync : 2026-09-06T14:07:43.753Z
+2026-09-06T14:07:43.794Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:07:43.796Z error: FW$Sync : 2026-09-06T14:07:43.753Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T14:07:43.798Z info: FW$Sync terminated on exception
+2026-09-06T14:07:52.141Z info: ADMIN$getAllStatus : 2026-09-06T14:07:52.141Z
+2026-09-06T14:07:52.147Z info: ADMIN$getAllStatus finished
+2026-09-06T14:08:00.727Z info: FW$setStatus : 2026-09-06T14:08:00.727Z
+2026-09-06T14:08:00.730Z info: FW$setStatus finished
+2026-09-06T14:08:07.351Z info: ADMIN$getAllStatus : 2026-09-06T14:08:07.350Z
+2026-09-06T14:08:07.356Z info: ADMIN$getAllStatus finished
+2026-09-06T14:10:07.833Z info: $OpenSafeByPin finished
+2026-09-06T14:10:07.878Z info: $GetSafe finished
+2026-09-06T14:10:07.902Z info: $GetOrgSvc finished
+2026-09-06T14:10:10.215Z info: $GetSitesUrls finished
+2026-09-06T14:10:10.240Z info: ADMIN$getAllStatus : 2026-09-06T14:10:10.240Z
+2026-09-06T14:10:10.244Z info: ADMIN$getAllStatus finished
+2026-09-06T14:10:10.275Z info: FW$setSubscription : 2026-09-06T14:10:10.275Z
+2026-09-06T14:10:10.280Z info: FW$setSubscription finished
+2026-09-06T14:10:10.348Z info: FW$Sync : 2026-09-06T14:10:10.348Z
+2026-09-06T14:10:10.359Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:10:10.360Z info: FW$Sync finished
+2026-09-06T14:10:18.459Z info: PropsOfMyCreds : 2026-09-06T14:10:18.459Z
+2026-09-06T14:10:18.468Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:10:18.469Z info: PropsOfMyCreds finished
+2026-09-06T14:10:53.567Z info: $OpenSafeByPin finished
+2026-09-06T14:10:53.611Z info: $GetSafe finished
+2026-09-06T14:11:01.073Z info: $GetServicesLabels finished
+2026-09-06T14:11:01.104Z info: $GetSitesUrls finished
+2026-09-06T14:11:01.119Z info: $IsMDAdmin finished
+2026-09-06T14:11:16.137Z info: $GetOrgSvc finished
+2026-09-06T14:11:16.164Z info: ADMIN$isAdmin : 2026-09-06T14:11:16.164Z
+2026-09-06T14:11:16.166Z info: ADMIN$isAdmin finished
+2026-09-06T14:11:16.203Z info: FW$getStatus : 2026-09-06T14:11:16.203Z
+2026-09-06T14:11:16.207Z info: FW$getStatus finished
+2026-09-06T14:11:16.216Z info: ADMIN$getStatus : 2026-09-06T14:11:16.216Z
+2026-09-06T14:11:16.219Z info: ADMIN$getStatus finished
+2026-09-06T14:11:32.478Z info: FW$setStatus : 2026-09-06T14:11:32.478Z
+2026-09-06T14:11:32.482Z info: FW$setStatus finished
+2026-09-06T14:11:37.677Z info: MajAuteur : 2026-09-06T14:11:37.677Z
+2026-09-06T14:11:37.687Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:11:37.690Z info: MajAuteur finished
+2026-09-06T14:11:43.676Z info: FW$Sync : 2026-09-06T14:11:43.676Z
+2026-09-06T14:11:43.696Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:11:43.699Z error: FW$Sync : 2026-09-06T14:11:43.676Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T14:11:43.702Z info: FW$Sync terminated on exception
+2026-09-06T14:11:48.746Z info: ADMIN$getAllStatus : 2026-09-06T14:11:48.746Z
+2026-09-06T14:11:48.759Z info: ADMIN$getAllStatus finished
+2026-09-06T14:11:55.012Z info: FW$setStatus : 2026-09-06T14:11:55.012Z
+2026-09-06T14:11:55.027Z info: FW$setStatus finished
+2026-09-06T14:12:01.404Z info: ADMIN$getAllStatus : 2026-09-06T14:12:01.404Z
+2026-09-06T14:12:01.410Z info: ADMIN$getAllStatus finished
+2026-09-06T14:12:48.554Z info: MajAuteur : 2026-09-06T14:12:48.554Z
+2026-09-06T14:12:48.565Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:12:48.566Z info: MajAuteur finished
+2026-09-06T14:13:21.747Z info: MajAuteur : 2026-09-06T14:13:21.747Z
+2026-09-06T14:13:21.758Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:13:21.766Z info: MajAuteur finished
+2026-09-06T14:14:05.350Z info: FW$Sync : 2026-09-06T14:14:05.350Z
+2026-09-06T14:14:05.371Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:14:05.374Z info: FW$Sync finished
+2026-09-06T14:14:05.427Z info: FW$Sync : 2026-09-06T14:14:05.427Z
+2026-09-06T14:14:05.442Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:14:05.444Z info: FW$Sync finished
+2026-09-06T14:14:31.912Z info: MajAuteur : 2026-09-06T14:14:31.912Z
+2026-09-06T14:14:31.924Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:14:31.927Z info: MajAuteur finished
+2026-09-06T14:14:42.721Z info: FW$Sync : 2026-09-06T14:14:42.721Z
+2026-09-06T14:14:42.742Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:14:42.744Z info: FW$Sync finished
+2026-09-06T14:15:04.105Z info: FW$setStatus : 2026-09-06T14:15:04.105Z
+2026-09-06T14:15:04.110Z info: FW$setStatus finished
+2026-09-06T14:15:14.539Z info: MajAuteur : 2026-09-06T14:15:14.539Z
+2026-09-06T14:15:14.552Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:15:14.555Z info: MajAuteur finished
+2026-09-06T14:15:14.605Z info: FW$Sync : 2026-09-06T14:15:14.605Z
+2026-09-06T14:15:14.654Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:15:14.669Z error: FW$Sync : 2026-09-06T14:15:14.605Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-06T14:15:14.690Z info: FW$Sync terminated on exception
+2026-09-06T14:15:17.080Z info: ADMIN$getAllStatus : 2026-09-06T14:15:17.080Z
+2026-09-06T14:15:17.084Z info: ADMIN$getAllStatus finished
+2026-09-06T14:15:26.817Z info: FW$setStatus : 2026-09-06T14:15:26.817Z
+2026-09-06T14:15:26.821Z info: FW$setStatus finished
+2026-09-06T14:15:32.375Z info: ADMIN$getAllStatus : 2026-09-06T14:15:32.375Z
+2026-09-06T14:15:32.381Z info: ADMIN$getAllStatus finished
+2026-09-06T14:15:42.144Z info: MajAuteur : 2026-09-06T14:15:42.144Z
+2026-09-06T14:15:42.157Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:15:42.160Z info: MajAuteur finished
+2026-09-06T14:15:42.189Z info: FW$Sync : 2026-09-06T14:15:42.189Z
+2026-09-06T14:15:42.202Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:15:42.205Z info: FW$Sync finished
+2026-09-06T14:15:42.238Z info: FW$Sync : 2026-09-06T14:15:42.238Z
+2026-09-06T14:15:42.250Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-06T14:15:42.251Z info: FW$Sync finished

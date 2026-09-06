@@ -7,8 +7,8 @@ import { IDbGeneric, zombiLapse, filter, expList, expListQ,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { topCl } from '../src-fw/registry'
-import { Log } from '../src-fw/log'
-import { AppExc, AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
+import { Log, AppExc } from '../src-fw/log'
+import { AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
 import { Util } from '../src-fw/util'
 
@@ -106,10 +106,10 @@ export class SQLiteConnector extends DbConnector {
     super(credentials, cryptKey)
     const p = credentials['path']
     if (!p)
-      throw new AppExc(110, 'SQLite_path_missing', null)
+      throw new AppExc(110, 'SQLite_path_missing', null, [this.constructor.name, this.path])
     this.path = path.resolve(p)
     if (!existsSync(this.path))
-      throw new AppExc(110, 'SQLite_path_not_found', null, [this.path])
+      throw new AppExc(110, 'SQLite_path_not_found', null, [this.constructor.name, this.path])
     Log.info('SQLite ' + ' DB path= [' + this.path + ']')
     this.factory = SQLiteConnexion.newConnexion
   }
@@ -222,7 +222,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       this.sql = new Database(this.path, sqloptions), 
       this.sql.pragma('journal_mode = WAL')
     } catch (e) {
-      throw new AppExc(108, 'SQLite_connexion_failed', this.op, [e.message])
+      throw new AppExc(108, 'SQLite_connexion_failed', this.op, 
+        [this.op.opName, this.op.args.svc || '?', this.op.args.org || '?', e.message])
     }
   }
 
@@ -251,7 +252,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       let row = stmt.get({ key, v })
       return row ? [row.v, row.value] : [0, null]
     } catch (e: any) {
-      throw new AppExc (108, 'masterdir_db_error_mdGetValue', null, [e])
+      throw new AppExc (108, 'masterdir_db_error', null, ['mdGetValue', e])
     }
   } 
 
@@ -261,7 +262,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
         ' (key, v, value) VALUES (@key, @v, @value) ON CONFLICT (key) DO UPDATE SET v = excluded.v, value = excluded.value;')
       stmt.run({key, v, value})
     } catch (e: any) {
-      throw new AppExc (108, 'masterdir_db_error_mdSetValue', null, [e])
+      throw new AppExc (108, 'masterdir_db_error', null, ['mdSetValue', e])
     }
   }
 

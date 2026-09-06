@@ -194,7 +194,7 @@ export class DocDescriptor {
       throw new AppExc(3, 'not_configured_service', 'docDescriptor', [svc])
     this.svc = svc
     if (!DocDescriptor.isDocName(arg.name)) 
-      throw new AppExc(3, 'document_name_syntax', 'docDescriptor', [arg.name])
+      throw new AppExc(3, 'invalid_class_name', 'docDescriptor', [arg.name])
     const fn = this.svc + '$' + arg.name
     if (DocDescriptor.all.get(fn))
       throw new AppExc(3, 'document_name_duplicated', 'docDescriptor', [fn])

@@ -146,19 +146,21 @@ export class Operation implements OperationWC {
 
   requireAuth () {
     if (!this.authRecord.userId) 
-      throw new AppExc(101, 'operation_authentication_required', this)
+      throw new AppExc(101, 'operation_authentication_required', this, [this.opName])
   }
 
   requireR () {
     const s = this.authRecord.svcOrgStatus
     if (s === 0 || s === 9) 
-      throw new AppExc(101, 'operation_svcorg_read_required', this, ['' + s])
+      throw new AppExc(101, 'operation_svcorg_read_required', this, 
+        [this.args.svc || '?', this.args.org || '?', this.opName, '' + s])
   }
 
   requireRW () {
     const s = this.authRecord.svcOrgStatus
     if (s === 0 || s === 2 || s === 9) 
-      throw new AppExc(101, 'operation_svcorg_readwrite_required', this, ['' + s])
+      throw new AppExc(101, 'operation_svcorg_readwrite_required', this, 
+        [this.args.svc || '?', this.args.org || '?', this.opName, '' + s])
   }
 
   /* Retourne le Cred dont la signature a été vérifié
@@ -210,7 +212,7 @@ export class Operation implements OperationWC {
         // st === 1 - DB lock / contention
         if (retry === 2) {
           this.trace ('Op.run.phase2', 'DB lock', detail, true)
-          throw new AppExc(110, 'DB_lock', this, [detail])
+          throw new AppExc(110, 'DB_lock', this, [this.opName, this.args.svc || '?', this.args.site || '?', detail])
         }
 
         this.db.disconnect()
@@ -251,22 +253,23 @@ export class Operation implements OperationWC {
 
   // Contrôle des types d'arguments
   type (par: string, req: boolean) : [boolean, any, string] { // present, value, type
-    if (par === undefined) throw new AppExc(103, 'missing_argument_name', null, ['?'])
+    if (par === undefined) throw new AppExc(103, 'missing_argument_name', null, [this.opName, this.args.svc || '', '?'])
     const v = this.args[par]
     if (v === undefined) {
-      if (req) throw new AppExc(103, 'missing_argument', null, [par])
+      if (req) throw new AppExc(103, 'missing_argument', null, [this.opName, this.args.svc || '', par])
       return [false, null, '']
     }
     return [true, v, typeof v]
   }
 
-  invalid (par: string) { throw new AppExc(103, 'invalid_argument', this, [par])}
+  invalid (par: string) { 
+    throw new AppExc(103, 'invalid_argument', this, [this.opName, this.args.svc || '', par]) }
 
   objectValue (par: string, req: boolean) : Object {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return null
     if (present && type !== 'object')
-      throw new AppExc(103, 'invalid_object_argument', this, [par])
+      throw new AppExc(103, 'invalid_object_argument', this, [this.opName, this.args.svc || '', par])
     return value
   }
 
@@ -274,7 +277,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return null
     if (present && type !== 'object' && !(value instanceof Uint8Array))
-      throw new AppExc(103, 'invalid_bin_argument', this, [par])
+      throw new AppExc(103, 'invalid_bin_argument', this, [this.opName, this.args.svc || '', par])
     return value
   }
 
@@ -282,7 +285,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return ''
     if (present && !Array.isArray(value))
-      throw new AppExc(103, 'invalid_array_argument', this, [par])
+      throw new AppExc(103, 'invalid_array_argument', this, [this.opName, this.args.svc || '', par])
     return value
   }
 
@@ -292,7 +295,7 @@ export class Operation implements OperationWC {
     if (present && type !== 'string'
       || (minlg !== undefined && value.length < minlg) 
       || (maxlg !== undefined && value.length > maxlg)) {
-        throw new AppExc(103, 'invalid_string_argument', this, [par])
+        throw new AppExc(103, 'invalid_string_argument', this, [this.opName, this.args.svc || '', par])
       }
     return value
   }
@@ -301,7 +304,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return []
     if (present && !Array.isArray(value))
-      throw new AppExc(103, 'invalid_string_array_argument', this, [par])
+      throw new AppExc(103, 'invalid_string_array_argument', this, [this.opName, this.args.svc || '', par])
     return value
   }
 
@@ -311,7 +314,7 @@ export class Operation implements OperationWC {
     if (type !== 'number' || !Number.isInteger(value)
       || (min !== undefined && value < min) 
       || (max !== undefined && value > max)) {
-        throw new AppExc(103, 'invalid_intargument', this, [par])
+        throw new AppExc(103, 'invalid_int_argument', this, [this.opName, this.args.svc || '', par])
       }
     return value
   }
@@ -320,7 +323,7 @@ export class Operation implements OperationWC {
     const [present, value, type] = this.type(par, req)
     if (!present && !req) return false
     if (type !== 'boolean')
-      throw new AppExc(103, 'invalid_bool_argument', this, [par])
+      throw new AppExc(103, 'invalid_bool_argument', this, [this.opName, this.args.svc || '', par])
     return value
   }
 
@@ -416,16 +419,17 @@ export class AuthRecord {
     const cr = this.creds.get(docCl + '/' + docPk)
     if (cr) return cr
     if (noex) return null
-    throw new AppExc(103, 'missing_credential', this.op, [this.org, docCl, docPk])
+    throw new AppExc(103, 'missing_credential', this.op, 
+      [this.op.opName, this.op.args.svc || '?', this.op.args.org || '?', docCl, docPk])
   }
 
   async process () : Promise<void> {
     if (!this.signatures) return
     const cvs = await MDandSafe.getCVS(this.op, this.userId)
-    if (!cvs) throw new AppExc(101, 'operation_no_user_keys_cv', this.op)
+    if (!cvs) throw new AppExc(101, 'operation_no_user_keys_cv', this.op, [this.op.opName, this.userId])
     const v = cvs[1]
     const ok = await Crypt.verify(keyFromB64(v), this.userSign, this.challenge)
-    if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op)
+    if (!ok) throw new AppExc(101, 'operation_bad_signature', this.op, [this.op.opName, this.userId])
     
     for (const ref in this.signatures) {
       const [credId, sign] = this.signatures[ref]
@@ -465,7 +469,8 @@ export class AuthRecord {
     }
       
     if (this.koCreds.size && !this.op.acceptBadCredential) 
-      throw new AppExc(101, 'operation_bad_credentials', this.op, [Array.from(this.koCreds).join('\n')])
+      throw new AppExc(101, 'operation_bad_credentials', this.op,
+        [this.op.opName, this.userId, Array.from(this.koCreds).join('\n')])
   }
 }
 
