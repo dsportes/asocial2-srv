@@ -755,7 +755,7 @@ export class Cache {
 } 
 
 /* Contient la liste des documents créés / mis à jour / supprimés d'une opération
-afin que le publisher rechercher les souscriptions correspondantes à notifier.
+afin que le publisher recherche les souscriptions correspondantes à notifier.
 Voir manageColls() ci-dessus.
 Map : 
 - key: clazz/pk - identifiant du document impacté
