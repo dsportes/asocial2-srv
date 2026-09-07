@@ -549,7 +549,7 @@ export class Cache {
       if (row && row.v > item.row.v) { // celui lu est plus récent
         item.row = row
         if (row.deleted) return null
-        row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
+        // row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
       }
       return new DocDescr(clazz, pk, cloneRow(item.row))
     }
