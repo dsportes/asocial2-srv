@@ -88,12 +88,14 @@ export class Operation implements OperationWC {
   public dbConnector: DbConnector
   public storage: IStGeneric
   public authRecord : AuthRecord
+  public hbc: number // heart beat count
   public auths: Set<string> // Set des codes des autorisations accordées
   public sessionId: string
   public db: IDbGeneric
 
   public conso : conso
   public updates : DocDescr[]
+  public hasUpdates : boolean
   public impactedSubs : ImpactedSubs
   public hasTasks : boolean
 
@@ -178,7 +180,6 @@ export class Operation implements OperationWC {
       await authRecord.process()
     await this.phase2(this.args)
     this.cache.commit()
-    await this.db.commit()
   }
 
   async run () : Promise<void>{
@@ -196,9 +197,11 @@ export class Operation implements OperationWC {
         this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
         this.result = { now: this.now, srvBUILD: config.BUILD }
         
-        const [st, detail] = await this.db.doTransaction() // Fait un appel à transac
+        const [hbc, detail] = await this.db.doTransaction() // Fait un appel à transac
 
-        if (st === 0) {
+        if (hbc >= 0) {
+          this.hbc = hbc
+          this.setRes('hbc', hbc)
           for(let i = 0; i < this.updates.length; i++) {
             const upd: DocDescr = this.updates[i]
             Cache.updateCache(this, upd)
@@ -549,7 +552,6 @@ export class Cache {
       if (row && row.v > item.row.v) { // celui lu est plus récent
         item.row = row
         if (row.deleted) return null
-        // row.data = Crypt.syncDecrypt(op.db.key, Buffer.from(row['data']))
       }
       return new DocDescr(clazz, pk, cloneRow(item.row))
     }
@@ -704,8 +706,8 @@ export class Cache {
         const is = this.op.impactedSubs.getEntry(dd.clazz, dd.pk)
         this.manageColls(dd.clazz, doc, row, is)
       }
-        
     }
+    this.op.hasUpdates = this.op.updates.length !== 0
   }
 
   /* Traitement des collections créées / modifiées / supprimées:

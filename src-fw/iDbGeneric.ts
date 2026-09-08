@@ -230,14 +230,12 @@ export interface IDbGeneric {
 
   /* Exécute dans une transaction la méthode async transac() de l'opération.
   Retour 'normaux':
-  - [0, ''] : OK
-  - [1, s] : s: libellé de l'exception "Saturation DB" de la base de donnée
-  - [2, s] : s: libellé d'une autre exception de la base de donnée
+  - [hbc >= 0, ''] : OK - hbc : heart beat count
+  - [-1, s] : s: libellé de l'exception "Saturation DB" de la base de donnée
+  - [-2, s] : s: libellé d'une autre exception de la base de donnée
   Les autres exceptions ne sont pas trappées et sortent en exception (pas en retour 'normal')
   */
   doTransaction () : Promise<[number, string]> 
-
-  commit () : Promise<void>
 
   bug () : Promise<void>
 

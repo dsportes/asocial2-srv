@@ -6,14 +6,16 @@ import { writeFileSync } from 'node:fs'
 import path from 'path'
 
 import { encode } from '@msgpack/msgpack'
-import { DocDescriptor } from '../src-fw/docDescriptor'
-import { DbConnector, DbConnexion } from '../src-fw/dbConnector'
-import { IDbGeneric, srvStatus, filter, row, rowQ, zombiLapse, safeLapse,
-  expList, expListQ, updType, vdata, Safe } from '../src-fw/iDbGeneric'
-import { config } from '../src-fw/log'
-import { Log } from '../src-fw/log'
-import { Operation } from '../src-fw/operation'
+import { config } from '../src/config'
+import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
+  row, rowDB, rowQ, $CollData, updType, Safe,
+  MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
+import { DocDescriptor, propType } from '../src-fw/docDescriptor'
+import { topCl } from '../src-fw/registry'
+import { Log, AppExc } from '../src-fw/log'
+import { AbstractOperation, OperationWC, DbConnector, DbConnexion } from '../src-fw/index'
 import { Crypt } from '../src-fw/crypt'
+import { Util } from '../src-fw/util'
 
 const schemaPath = './emulators/firestore.indexes.json'
 
@@ -136,7 +138,7 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     if (e.constructor.name !== 'FirestoreError') throw e
     if (e.code && e.code !== 'ABORTED') throw e
     const s = (e.code || '???') + ' - ' + (e.message || '?')
-    return [1, s]
+    return [-1, s]
   }
 
   async getSingleton (key: string) : Promise<string> {
@@ -256,7 +258,23 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
     this.updates.push({type: null, dr})
   }
 
-  async commit () {
+  /* Retourne le HBC de la sessionId pour l'organisation:
+  si incr:
+    - si HBS existait: lit la valeur actuelle, l'incrémente et retourne la valeur
+    - sinon: insère une valeur à 1 et retourne 1
+  si pas incr:
+    - si HBS existait: retourne la valeur actuelle
+    - sinon: retourne 0
+  */
+  async getHeartBeatCount (org: string, sessionId: string, incr: boolean) : Promise<number> {
+    return 1
+  }
+
+  async commit (sessionId: string, incr: boolean) : Promise<number> {
+    const hbc = sessionId ? await this.getHeartBeatCount(this.org, sessionId, incr) : 0
+
+    // TOUTES LES LECTURES ayant été faites (et interdites désormais) 
+    // mise à jour effective en DB
     for (const u of this.updates) {
       u.row['org'] = this.org
       if (!u.type) { 
@@ -269,18 +287,23 @@ export class FirestoreConnexion extends DbConnexion implements IDbGeneric {
         if (this.transaction) this.transaction.set(u.dr, u.row); else if (u.row) await u.dr.set(u.row)
       }
     }
+
+    return hbc
   }
   
   async doTransaction () : Promise<[number, string]> {
     try {
+      let hbc = 0
       await this.fs.runTransaction(async (transaction) => {
+        const opx = this.op as OperationWC
+        const sessionId = opx.authRecord ? opx.authRecord.sessionId || '' : ''
         this.transaction = transaction
         this.updates = []
-        await this.op.transac()
-        await this.commit()
+        await opx.transac() // met à jour hasUpdates
+        hbc = await this.commit(sessionId, opx.hasUpdates)
       })
       this.transaction = null
-      return [0, '']
+      return [hbc, '']
     } catch (e) {
       this.transaction = null
       return this.trap(e)

@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { encode } from '@msgpack/msgpack'
 import { config } from '../src/config'
 import { IDbGeneric, zombiLapse, filter, expList, expListQ, 
-  row, rowDB, rowQ, $CollData, $DCData, $DocData, updType, vdata, Safe,
+  row, rowDB, rowQ, $CollData, updType, Safe,
   MDopn, MDuser, MDsetAA, MDsetS, MDdel, EventRow } from '../src-fw/iDbGeneric'
 import { DocDescriptor, propType } from '../src-fw/docDescriptor'
 import { topCl } from '../src-fw/registry'
@@ -15,7 +15,6 @@ import { Util } from '../src-fw/util'
 import path from 'path'
 import { existsSync } from 'node:fs'
 import { writeFileSync } from 'node:fs'
-// import { MDEventS, MDEventU } from '../src-fw/masterdir'
 
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
@@ -97,6 +96,19 @@ CREATE INDEX IF NOT EXISTS "${cl}@${n}_ttl" ON "${cl}" ( "ttl" )  WHERE "ttl" > 
   return x
 }
 
+function t7 (svc: string) {
+  const  x = `
+CREATE TABLE IF NOT EXISTS "${svc}$HBC" (
+  "org" TEXT,
+  "sessionId" TEXT,
+  "v" INTEGER,
+  "hbc" INTEGER,
+PRIMARY KEY(org, sessionId));
+CREATE INDEX IF NOT EXISTS "${svc}$HBC_v" ON "${svc}$HBC" ( "v" );
+`
+  return x
+}
+
 const sqlTypes = [ 'TEXT', 'INTEGER', 'REAL', 'TEXT', 'TEXT' ]
 
 export class SQLiteConnector extends DbConnector {
@@ -122,6 +134,9 @@ export class SQLiteConnector extends DbConnector {
       l.push('')
       const cl = fn.toUpperCase()
       const adm = dt.svc === 'ADMIN'
+
+      if (cl === "STATUS" && !adm)
+        l.push(t7(dt.svc))
 
       l.push(adm ? t2b(cl) : t2(cl))
       if (dt.hasColls) for (const [n, x] of dt.colls) l.push(t4(n, 'TEXT'))
@@ -159,6 +174,7 @@ export class SQLiteConnector extends DbConnector {
 const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
+  incr: boolean
   public static newConnexion (connector: SQLiteConnector, op: AbstractOperation, cryptKey?: string) {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
@@ -237,7 +253,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if (e.code && !e.code.startsWith('SQLITE_BUSY')) throw e
     const s = (e.code || '???') + '\n' + (e.message || '') + '\n' + 
       (e.stack ? e.stack + '\n' : '') + this.lastSql.join('\n')
-    return [1, s]
+    return [-1, s]
   }
 
   /******************************************************************************
@@ -510,15 +526,86 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   Opérations sur documents
   ******************************************************************************/
 
+  /* EN UNE TRANSACTION:
+  - lit le HBC
+  - si n'existait pas l'insère à 1
+  - si existait incrémente et met à jour
+  - retourne HBC
+  */
+  async incrHeartBeatCount (svc: string, org: string, sessionId: string, now: number) : Promise<number> {
+    let hbc = 1
+    let stmt
+    this.sql.exec('BEGIN;')
+
+    stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
+    ' WHERE org = @org AND sessionId = @sessionId;')
+    const row = stmt.get({ org, sessionId })
+
+    if (!row) {
+      stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
+        ' (org, sessionId, v, hbc) VALUES ( @org, @sessionId, @v, @hbc);')
+      stmt.run({ org, sessionId, v: now, hbc })
+    } else {
+      hbc = row.hbc + 1
+      stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+        ' SET v = @v, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
+      stmt.run({ org, sessionId, v: now, hbc })
+    }
+
+    this.sql.exec('COMMIT;')
+    return hbc
+  }
+
+  /* A la fin de la transaction standard, juste avant "commit"
+  retourne le HBC de la sessionId pour l'organisation:
+  si incr:
+    - si HBS existait: lit la valeur actuelle, l'incrémente et retourne la valeur
+    - sinon: insère une valeur à 1 et retourne 1
+  si pas incr:
+    - si HBS existait: retourne la valeur actuelle
+    - sinon: retourne 0
+  */
+  async getHeartBeatCount (svc: string, org: string, sessionId: string, incr: boolean, now: number) 
+  : Promise<number> {
+    let hbc = 0
+
+    let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
+    ' WHERE org = @org AND sessionId = @sessionId;')
+    const row = stmt.get({ org, sessionId })
+    if (row) {
+      if (incr) {
+        hbc = row.hbc + 1
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+          ' SET v = @v, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
+        stmt.run({ org, sessionId, v: now, hbc })
+      } else {
+        hbc = row.hbc
+      }
+    } else if (incr) {
+      hbc = 1
+      stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
+      ' (org, sessionId, v, hbc) VALUES ( @org, @sessionId, @v, @hbc);')
+      stmt.run({ org, sessionId, v: now, hbc })
+    }
+    return hbc
+  }
+
+  async commit (svc: string, sessionId: string, incr: boolean, now: number) : Promise<number> {
+    return sessionId ? await this.getHeartBeatCount(svc, this.org, sessionId, incr, now) : 0
+  }
+
   async doTransaction () : Promise<[number, string]> {
     try {
       const opx = this.op as OperationWC
       this.transaction = true
+      this.incr = false
+      const sessionId = opx.authRecord ? opx.authRecord.sessionId || '' : ''
       this.sql.exec('BEGIN;')
-      await opx.transac()
+      await opx.transac() // met à jour hasUpdates
+      const hbc = await this.commit(opx['svc'], sessionId, opx.hasUpdates, opx['now'])
       this.sql.exec('COMMIT;')
       this.transaction = false
-      return [0, '']
+      return [hbc, '']
     } catch (e) {
       try { 
         this.sql.exec('ROLLBACK;')
@@ -529,8 +616,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       return this.trap(e)
     }
   }
-
-  async commit () : Promise<void> {}
 
   async  bug () : Promise<void> {
     const stmt = this.sql.prepare('INSERT INTO BUG (key, value) VALUES (@key, @value)')
@@ -713,6 +798,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   writeRow (ut: updType, clazz: string, row: row) : void {
+    this.incr = true
     switch (ut) {
       case updType.CREATE : { this.insRow(clazz, row); return }
       case updType.UPDATE : { this.updRow(clazz, row); return }
@@ -721,6 +807,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   deleteRow (clazz: string, pk: string) : void {
+    this.incr = true
     const adm = clazz.startsWith('ADMIN$')
     const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz) +
      ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk = @pk;')
@@ -728,6 +815,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void {
+    this.incr = true
     const sql = 'INSERT INTO ' + this.cluc(clazz, colName) +
       ' (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
