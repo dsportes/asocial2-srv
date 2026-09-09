@@ -458,8 +458,8 @@ export interface OperationWC extends AbstractOperation {
   org: string
   cache: any
   authRecord: any
-  hasUpdates?: boolean
 
+  hbcMode () :  number
   transac () : Promise<void>
 }
 

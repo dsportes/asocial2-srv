@@ -235,8 +235,10 @@ export interface IDbGeneric {
   - [-2, s] : s: libellé d'une autre exception de la base de donnée
   Les autres exceptions ne sont pas trappées et sortent en exception (pas en retour 'normal')
   */
-  doTransaction () : Promise<[number, string]> 
+  doTransaction () : Promise<[string, string]> 
 
+  incrHeartBeatCount (svc: string, org: string, sessionId: string) : Promise<string> 
+  
   bug () : Promise<void>
 
   /* Exportation des rows n'ayant pas dépassé leur TTL

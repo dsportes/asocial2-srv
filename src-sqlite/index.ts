@@ -19,6 +19,8 @@ import { writeFileSync } from 'node:fs'
 const schemaPath = './sqlite/schema.sql'
 const schemaPathd = './sqlite/delete.sql'
 
+const ttlSession = 5 // nombre de minutes d'inactivité d'une session
+
 const t1 = `CREATE TABLE IF NOT EXISTS "SINGLETONS" (
   "key" TEXT,
   "value" TEXT,
@@ -101,10 +103,10 @@ function t7 (svc: string) {
 CREATE TABLE IF NOT EXISTS "${svc}$HBC" (
   "org" TEXT,
   "sessionId" TEXT,
-  "v" INTEGER,
-  "hbc" INTEGER,
+  "ttl" INTEGER,
+  "hbc" TEXT,
 PRIMARY KEY(org, sessionId));
-CREATE INDEX IF NOT EXISTS "${svc}$HBC_v" ON "${svc}$HBC" ( "v" );
+CREATE INDEX IF NOT EXISTS "${svc}$HBC_ttl" ON "${svc}$HBC" ( "ttl" );
 `
   return x
 }
@@ -248,12 +250,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     try { this.sql.close() } catch (e2) { /* */ }
   }
 
-  private trap (e: any) : [number, string] { // 1: busy, 0: OK - sinon exception
+  private trap (e: any) : [string, string] { // 1: busy, 0: OK - sinon exception
     if (e.constructor.name !== 'SqliteError') throw e
     if (e.code && !e.code.startsWith('SQLITE_BUSY')) throw e
     const s = (e.code || '???') + '\n' + (e.message || '') + '\n' + 
       (e.stack ? e.stack + '\n' : '') + this.lastSql.join('\n')
-    return [-1, s]
+    return [null, s]
   }
 
   /******************************************************************************
@@ -527,29 +529,26 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   ******************************************************************************/
 
   /* EN UNE TRANSACTION:
-  - lit le HBC
-  - si n'existait pas l'insère à 1
-  - si existait incrémente et met à jour
-  - retourne HBC
+  - lecture du row: ne fait rien s'il n'existe pas.
+  - `ttl` est inchangé.
+  - `hbc`:
+    - `dh`: inchangé
+    - `c`:  valeur précédente incrémentée de 1.
   */
-  async incrHeartBeatCount (svc: string, org: string, sessionId: string, now: number) : Promise<number> {
-    let hbc = 1
-    let stmt
+  async incrHeartBeatCount (svc: string, org: string, sessionId: string) : Promise<string> {
+    let hbc = ''
     this.sql.exec('BEGIN;')
 
-    stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
+    let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
     ' WHERE org = @org AND sessionId = @sessionId;')
     const row = stmt.get({ org, sessionId })
-
-    if (!row) {
-      stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
-        ' (org, sessionId, v, hbc) VALUES ( @org, @sessionId, @v, @hbc);')
-      stmt.run({ org, sessionId, v: now, hbc })
-    } else {
-      hbc = row.hbc + 1
+    if (row) {
+      const i = row.hbc.indexOf(' ')
+      const c = parseInt(row.hbc.substring(i + 1)) + 1
+      hbc = row.hbc.substring(0, i + 1) + c
       stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
-        ' SET v = @v, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
-      stmt.run({ org, sessionId, v: now, hbc })
+        ' SET hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
+      stmt.run({ org, sessionId, hbc })
     }
 
     this.sql.exec('COMMIT;')
@@ -557,55 +556,94 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   /* A la fin de la transaction standard, juste avant "commit"
-  retourne le HBC de la sessionId pour l'organisation:
-  si incr:
-    - si HBS existait: lit la valeur actuelle, l'incrémente et retourne la valeur
-    - sinon: insère une valeur à 1 et retourne 1
-  si pas incr:
-    - si HBS existait: retourne la valeur actuelle
-    - sinon: retourne 0
+  hbcMode 1 : sync générale
+    - création ou remplacement du row.
+    - `ttl` est mis à `now` en minutes + X minutes.
+    - `hbc`:
+      - `dh`: `now`
+      - `c`: 1
+  hbcMode 2 : sync sélective
+    - lecture du row: - retourne '' si n'existe pas.
+    - `ttl` est mis à `now` en minutes + X minutes.
+    - `hbc`:
+      - `dh`: inchangé
+      - `c`:  valeur précédente incrémentée de 1.
+  hbcMode 3: heart beat
+    - lecture du row: return '' s'il n'existe pas.
+    - `ttl` est mis à `now` en minutes + X minutes.
+    - `hbc`:
+      - `dh`: inchangé
+      - `c`:  inchangé.
+  hbcMode 4: op avec notif
+    - lecture du row: return '' s'il n'existe pas.
+    - `ttl` est mis à `now` en minutes + X minutes.
+    - `hbc`:
+      - `dh`: inchangé
+      - `c`:  valeur précédente incrémentée de 1.
   */
-  async getHeartBeatCount (svc: string, org: string, sessionId: string, incr: boolean, now: number) 
-  : Promise<number> {
-    let hbc = 0
-
+  async getHeartBeatCount (svc: string, org: string, sessionId: string, hbcMode: number, now: number) 
+  : Promise<string> {
     let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
     ' WHERE org = @org AND sessionId = @sessionId;')
     const row = stmt.get({ org, sessionId })
-    if (row) {
-      if (incr) {
-        hbc = row.hbc + 1
+    if (!row && hbcMode !== 1) return ''
+    const i = row.hbc.indexOf(' ')
+    let hbc = row.hbc
+    const dh = row.hbc.substring(0, i + 1)
+    const c = parseInt(row.hbc.substring(i + 1))
+
+    const ttl = Math.floor(now / 1440000) + ttlSession
+
+    switch (hbcMode) {
+      case 1 :
+        hbc = '' + now + ' 1'
+        if (row) {
         stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
-          ' SET v = @v, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
-        stmt.run({ org, sessionId, v: now, hbc })
-      } else {
-        hbc = row.hbc
+          ' SET ttl = @ttl, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
+        } else {
+          stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
+          ' (org, sessionId, ttl, hbc) VALUES ( @org, @sessionId, @ttl, @hbc);')
+        }
+        stmt.run({ org, sessionId, ttl, hbc })
+        break
+
+      case 2 :
+      case 4 :
+        hbc: dh + (c + 1)
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+          ' SET ttl = @ttl, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
+        stmt.run({ org, sessionId, ttl, hbc })
+        break
+
+      case 3 :
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+          ' SET ttl = @ttl WHERE org = @org AND sessionId = @sessionId;')
+        stmt.run({ org, sessionId, ttl })
+        break
       }
-    } else if (incr) {
-      hbc = 1
-      stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
-      ' (org, sessionId, v, hbc) VALUES ( @org, @sessionId, @v, @hbc);')
-      stmt.run({ org, sessionId, v: now, hbc })
-    }
     return hbc
   }
 
-  async commit (svc: string, sessionId: string, incr: boolean, now: number) : Promise<number> {
-    return sessionId ? await this.getHeartBeatCount(svc, this.org, sessionId, incr, now) : 0
+  async commit (svc: string, sessionId: string, hbcMode: number, now: number) 
+    : Promise<string> {
+    return !hbcMode ? '' : 
+      await this.getHeartBeatCount(svc, this.org, sessionId, hbcMode, now)
   }
 
-  async doTransaction () : Promise<[number, string]> {
+  async doTransaction () : Promise<[string, string]> {
     try {
       const opx = this.op as OperationWC
       this.transaction = true
-      this.incr = false
       const sessionId = opx.authRecord ? opx.authRecord.sessionId || '' : ''
       this.sql.exec('BEGIN;')
       await opx.transac() // met à jour hasUpdates
-      const hbc = await this.commit(opx['svc'], sessionId, opx.hasUpdates, opx['now'])
+      const hbcMode = opx.hbcMode()
+      const hbc = await this.commit(opx['svc'], sessionId, hbcMode, opx['now'])
+      if (hbcMode && !hbc)
+        throw new AppExc(105, 'session_synch_failure', opx, [opx.opName, opx['svc'], this.org])
       this.sql.exec('COMMIT;')
       this.transaction = false
-      return [hbc, '']
+      return [hbc, null]
     } catch (e) {
       try { 
         this.sql.exec('ROLLBACK;')

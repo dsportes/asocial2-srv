@@ -358,6 +358,7 @@ type SubsToSync = {
 
 /* FW$Sync : synchronise les defs des souscriptions citées *************************
 - toSync = SubsToSync[]
+- general : boolean - synchro générale après subs
 subsToSync = {
   def: string, 
   v: number - version la plus récente détenue en session
@@ -411,9 +412,11 @@ export class FW$Sync extends Operation {
   syncs: Object = {}
   checker: $CredChecker
   dd: DocDescriptor
+  general: boolean
 
   init () {
     super.init()
+    this.general = this.boolValue('general', false)
     this._toSync = this.arrayValue('toSync', true) as SubsToSync[]
     this.checker = Registry.newD(this.svc, 'CredChecker') as $CredChecker
     this.checker.op = this
@@ -463,6 +466,17 @@ export class FW$Sync extends Operation {
   }
 }
 Registry.registerOp(FW$Sync)
+
+export class FW$HeartBeat extends Operation {
+  init () {
+    super.init()
+  }
+  async phase2 () {
+    this.requireAuth()
+    this.requireR()
+  }
+}
+Registry.registerOp(FW$HeartBeat)
 
 /* getCredUpdates retourne [v, props] d'un credential
 pour SON détenteur (signature vérifiée).

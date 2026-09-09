@@ -88,7 +88,7 @@ export class Operation implements OperationWC {
   public dbConnector: DbConnector
   public storage: IStGeneric
   public authRecord : AuthRecord
-  public hbc: number // heart beat count
+  public hbc: string // heart beat count
   public auths: Set<string> // Set des codes des autorisations accordées
   public sessionId: string
   public db: IDbGeneric
@@ -197,11 +197,11 @@ export class Operation implements OperationWC {
         this.conso = { ndr: 0, ndw: 0, vdr: 0, vdw: 0, nfr: 0, nfw: 0, vfr: 0, vfw: 0 }
         this.result = { now: this.now, srvBUILD: config.BUILD }
         
-        const [hbc, detail] = await this.db.doTransaction() // Fait un appel à transac
+        const [hbc, err] = await this.db.doTransaction() // Fait un appel à transac
 
-        if (hbc >= 0) {
-          this.hbc = hbc
-          this.setRes('hbc', hbc)
+        if (!err) {
+          if (hbc) 
+            this.setRes('hbc', hbc)
           for(let i = 0; i < this.updates.length; i++) {
             const upd: DocDescr = this.updates[i]
             Cache.updateCache(this, upd)
@@ -214,8 +214,8 @@ export class Operation implements OperationWC {
 
         // st === 1 - DB lock / contention
         if (retry === 2) {
-          this.trace ('Op.run.phase2', 'DB lock', detail, true)
-          throw new AppExc(110, 'DB_lock', this, [this.opName, this.args.svc || '?', this.args.site || '?', detail])
+          this.trace ('Op.run.phase2', 'DB lock', err, true)
+          throw new AppExc(110, 'DB_lock', this, [this.opName, this.args.svc || '?', this.args.site || '?', err])
         }
 
         this.db.disconnect()
@@ -332,6 +332,14 @@ export class Operation implements OperationWC {
 
   orgValue (req: boolean) : string {
     return this.stringValue('org', req, 4, 16)
+  }
+
+  // 1: synchro gen, 2:synchro sel, 3: heart beat 4: opavec notif
+  hbcMode () :  number {
+    if (this.opName === 'FW$Sync')
+      return this['genral'] ? 1 : 2
+    if (this.opName === 'FW$HeartBeat') return 3
+    return this.impactedSubs && this.impactedSubs.all.size ? 4 : 0
   }
 }
 
