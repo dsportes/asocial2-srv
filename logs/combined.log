@@ -32570,3 +32570,358 @@ Error: Captured for inspection
 2026-09-06T14:15:42.238Z info: FW$Sync : 2026-09-06T14:15:42.238Z
 2026-09-06T14:15:42.250Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-09-06T14:15:42.251Z info: FW$Sync finished
+2026-09-09T13:07:09.064Z info: Configuration pre-loaded
+2026-09-09T13:07:14.244Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:07:14.344Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:07:14.613Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:07:14.615Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:07:14.616Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:07:14.618Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:07:14.619Z info: fw documents loading: 2
+2026-09-09T13:07:14.620Z info: app operations loading: 12
+2026-09-09T13:07:14.625Z info: fw operations loading: 72
+2026-09-09T13:07:14.626Z info: app operations loading: 72
+2026-09-09T13:07:14.627Z info: safe operations loading: 72
+2026-09-09T13:07:14.629Z info: masterdir operations loading: 72
+2026-09-09T13:07:14.629Z info: Configuration completed
+2026-09-09T13:07:14.644Z info: Server started
+2026-09-09T13:07:14.647Z info: HTTP listen [8091]
+2026-09-09T13:07:46.482Z info: $OpenSafeByPin finished
+2026-09-09T13:07:46.529Z info: $GetSafe finished
+2026-09-09T13:07:46.549Z info: $GetOrgSvc finished
+2026-09-09T13:09:18.764Z info: $GetSitesUrls finished
+2026-09-09T13:09:18.791Z info: ADMIN$getAllStatus : 2026-09-09T13:09:18.791Z
+2026-09-09T13:09:18.824Z info: ADMIN$getAllStatus finished
+2026-09-09T13:09:18.855Z info: FW$setSubscription : 2026-09-09T13:09:18.854Z
+2026-09-09T13:12:06.947Z info: Configuration pre-loaded
+2026-09-09T13:12:07.352Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:12:07.356Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:12:07.400Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:12:07.401Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:12:07.402Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:12:07.402Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:12:07.403Z info: fw documents loading: 2
+2026-09-09T13:12:07.403Z info: app operations loading: 12
+2026-09-09T13:12:07.404Z info: fw operations loading: 72
+2026-09-09T13:12:07.404Z info: app operations loading: 72
+2026-09-09T13:12:07.405Z info: safe operations loading: 72
+2026-09-09T13:12:07.405Z info: masterdir operations loading: 72
+2026-09-09T13:12:07.405Z info: Configuration completed
+2026-09-09T13:12:07.412Z info: Server started
+2026-09-09T13:12:07.415Z info: HTTP listen [8091]
+2026-09-09T13:12:10.175Z info: ADMIN$getAllStatus : 2026-09-09T13:12:10.175Z
+2026-09-09T13:14:31.009Z info: ADMIN$getAllStatus finished
+2026-09-09T13:14:52.680Z info: Configuration pre-loaded
+2026-09-09T13:14:53.368Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:14:53.373Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:14:53.419Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:14:53.420Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:14:53.422Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:14:53.423Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:14:53.424Z info: fw documents loading: 2
+2026-09-09T13:14:53.425Z info: app operations loading: 12
+2026-09-09T13:14:53.427Z info: fw operations loading: 72
+2026-09-09T13:14:53.428Z info: app operations loading: 72
+2026-09-09T13:14:53.429Z info: safe operations loading: 72
+2026-09-09T13:14:53.431Z info: masterdir operations loading: 72
+2026-09-09T13:14:53.431Z info: Configuration completed
+2026-09-09T13:14:53.446Z info: Server started
+2026-09-09T13:14:53.448Z info: HTTP listen [8091]
+2026-09-09T13:15:10.067Z info: $OpenSafeByPin finished
+2026-09-09T13:15:10.112Z info: $GetSafe finished
+2026-09-09T13:15:10.137Z info: $GetOrgSvc finished
+2026-09-09T13:15:12.453Z info: $GetSitesUrls finished
+2026-09-09T13:15:12.477Z info: ADMIN$getAllStatus : 2026-09-09T13:15:12.477Z
+2026-09-09T13:15:23.616Z info: ADMIN$getAllStatus finished
+2026-09-09T13:15:23.664Z info: FW$setSubscription : 2026-09-09T13:15:23.664Z
+2026-09-09T13:15:30.009Z error: AppExc: 105:session_synch_failure@FW$setSubscription:["FW$setSubscription","AS2","doda"]
+2026-09-09T13:15:30.012Z error: FW$setSubscription : 2026-09-09T13:15:23.664Z : AppExc: 105:session_synch_failure@FW$setSubscription:["FW$setSubscription","AS2","doda"]
+2026-09-09T13:15:30.013Z info: FW$setSubscription terminated on exception
+2026-09-09T13:16:00.098Z info: $OpenSafeByPin finished
+2026-09-09T13:16:00.141Z info: $GetSafe finished
+2026-09-09T13:16:00.159Z info: $GetOrgSvc finished
+2026-09-09T13:16:02.627Z info: $GetSitesUrls finished
+2026-09-09T13:16:02.654Z info: ADMIN$getAllStatus : 2026-09-09T13:16:02.654Z
+2026-09-09T13:16:13.371Z info: ADMIN$getAllStatus finished
+2026-09-09T13:16:13.431Z info: FW$setSubscription : 2026-09-09T13:16:13.431Z
+2026-09-09T13:18:39.368Z info: Configuration pre-loaded
+2026-09-09T13:18:39.755Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:18:39.759Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:18:40.049Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:18:40.050Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:18:40.050Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:18:40.051Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:18:40.052Z info: fw documents loading: 2
+2026-09-09T13:18:40.052Z info: app operations loading: 12
+2026-09-09T13:18:40.053Z info: fw operations loading: 72
+2026-09-09T13:18:40.053Z info: app operations loading: 72
+2026-09-09T13:18:40.054Z info: safe operations loading: 72
+2026-09-09T13:18:40.054Z info: masterdir operations loading: 72
+2026-09-09T13:18:40.054Z info: Configuration completed
+2026-09-09T13:18:40.062Z info: Server started
+2026-09-09T13:18:40.064Z info: HTTP listen [8091]
+2026-09-09T13:19:20.493Z info: $OpenSafeByPin finished
+2026-09-09T13:19:20.541Z info: $GetSafe finished
+2026-09-09T13:19:20.569Z info: $GetOrgSvc finished
+2026-09-09T13:19:24.339Z info: $GetSitesUrls finished
+2026-09-09T13:19:24.364Z info: ADMIN$getAllStatus : 2026-09-09T13:19:24.364Z
+2026-09-09T13:19:35.919Z info: ADMIN$getAllStatus finished
+2026-09-09T13:19:35.955Z info: FW$setSubscription : 2026-09-09T13:19:35.955Z
+2026-09-09T13:37:37.796Z info: Configuration pre-loaded
+2026-09-09T13:37:38.456Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:37:38.461Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:37:38.528Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:37:38.529Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:37:38.530Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:37:38.532Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:37:38.532Z info: fw documents loading: 2
+2026-09-09T13:37:38.533Z info: app operations loading: 12
+2026-09-09T13:37:38.534Z info: fw operations loading: 72
+2026-09-09T13:37:38.534Z info: app operations loading: 72
+2026-09-09T13:37:38.535Z info: safe operations loading: 72
+2026-09-09T13:37:38.535Z info: masterdir operations loading: 72
+2026-09-09T13:37:38.536Z info: Configuration completed
+2026-09-09T13:37:38.546Z info: Server started
+2026-09-09T13:37:38.548Z info: HTTP listen [8091]
+2026-09-09T13:37:51.069Z info: $OpenSafeByPin finished
+2026-09-09T13:37:51.117Z info: $GetSafe finished
+2026-09-09T13:37:51.139Z info: $GetOrgSvc finished
+2026-09-09T13:37:53.431Z info: $GetSitesUrls finished
+2026-09-09T13:37:53.463Z info: ADMIN$getAllStatus : 2026-09-09T13:37:53.463Z
+2026-09-09T13:38:16.458Z info: ADMIN$getAllStatus finished
+2026-09-09T13:38:16.522Z info: FW$setSubscription : 2026-09-09T13:38:16.521Z
+2026-09-09T13:39:21.490Z error: FW$setSubscription : 2026-09-09T13:38:16.521Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:39:21.493Z info: FW$setSubscription terminated on exception
+2026-09-09T13:39:21.495Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-09T13:42:29.645Z info: Configuration pre-loaded
+2026-09-09T13:42:30.024Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:42:30.028Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:42:30.068Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:42:30.069Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:42:30.070Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:42:30.070Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:42:30.071Z info: fw documents loading: 2
+2026-09-09T13:42:30.072Z info: app operations loading: 12
+2026-09-09T13:42:30.072Z info: fw operations loading: 72
+2026-09-09T13:42:30.073Z info: app operations loading: 72
+2026-09-09T13:42:30.073Z info: safe operations loading: 72
+2026-09-09T13:42:30.073Z info: masterdir operations loading: 72
+2026-09-09T13:42:30.074Z info: Configuration completed
+2026-09-09T13:42:30.082Z info: Server started
+2026-09-09T13:42:30.084Z info: HTTP listen [8091]
+2026-09-09T13:42:47.644Z info: $OpenSafeByPin finished
+2026-09-09T13:42:47.687Z info: $GetSafe finished
+2026-09-09T13:42:47.712Z info: $GetOrgSvc finished
+2026-09-09T13:42:49.850Z info: $GetSitesUrls finished
+2026-09-09T13:42:49.874Z info: ADMIN$getAllStatus : 2026-09-09T13:42:49.874Z
+2026-09-09T13:42:58.626Z info: ADMIN$getAllStatus finished
+2026-09-09T13:42:58.669Z info: FW$setSubscription : 2026-09-09T13:42:58.669Z
+2026-09-09T13:43:07.178Z error: FW$setSubscription : 2026-09-09T13:42:58.669Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:43:07.179Z info: FW$setSubscription terminated on exception
+2026-09-09T13:43:07.193Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-09T13:44:05.782Z info: ADMIN$getAllStatus : 2026-09-09T13:44:05.781Z
+2026-09-09T13:44:25.839Z info: ADMIN$getAllStatus finished
+2026-09-09T13:44:39.181Z info: ADMIN$getAllStatus : 2026-09-09T13:44:39.181Z
+2026-09-09T13:45:01.722Z info: ADMIN$getAllStatus finished
+2026-09-09T13:45:01.746Z info: $OpenSafeByPin finished
+2026-09-09T13:45:01.865Z info: $GetSafe finished
+2026-09-09T13:45:01.898Z info: $GetOrgSvc finished
+2026-09-09T13:45:15.377Z info: $GetSitesUrls finished
+2026-09-09T13:45:15.400Z info: ADMIN$getAllStatus : 2026-09-09T13:45:15.400Z
+2026-09-09T13:45:20.346Z info: ADMIN$getAllStatus finished
+2026-09-09T13:45:20.390Z info: FW$setSubscription : 2026-09-09T13:45:20.390Z
+2026-09-09T13:46:38.135Z error: FW$setSubscription : 2026-09-09T13:45:20.390Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:46:38.137Z info: FW$setSubscription terminated on exception
+2026-09-09T13:46:38.138Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-09T13:49:00.850Z info: Configuration pre-loaded
+2026-09-09T13:49:01.608Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:49:01.612Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:49:01.659Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:49:01.660Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:49:01.661Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:49:01.661Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:49:01.662Z info: fw documents loading: 2
+2026-09-09T13:49:01.662Z info: app operations loading: 12
+2026-09-09T13:49:01.663Z info: fw operations loading: 72
+2026-09-09T13:49:01.663Z info: app operations loading: 72
+2026-09-09T13:49:01.664Z info: safe operations loading: 72
+2026-09-09T13:49:01.664Z info: masterdir operations loading: 72
+2026-09-09T13:49:01.665Z info: Configuration completed
+2026-09-09T13:49:01.678Z info: Server started
+2026-09-09T13:49:01.680Z info: HTTP listen [8091]
+2026-09-09T13:49:23.576Z info: $OpenSafeByPin finished
+2026-09-09T13:49:23.620Z info: $GetSafe finished
+2026-09-09T13:49:23.642Z info: $GetOrgSvc finished
+2026-09-09T13:49:25.846Z info: $GetSitesUrls finished
+2026-09-09T13:49:25.872Z info: ADMIN$getAllStatus : 2026-09-09T13:49:25.872Z
+2026-09-09T13:49:33.373Z info: ADMIN$getAllStatus finished
+2026-09-09T13:49:33.418Z info: FW$setSubscription : 2026-09-09T13:49:33.418Z
+2026-09-09T13:53:43.675Z info: Configuration pre-loaded
+2026-09-09T13:53:44.317Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:53:44.322Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:53:44.362Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:53:44.363Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:53:44.365Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:53:44.366Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:53:44.368Z info: fw documents loading: 2
+2026-09-09T13:53:44.369Z info: app operations loading: 12
+2026-09-09T13:53:44.370Z info: fw operations loading: 72
+2026-09-09T13:53:44.371Z info: app operations loading: 72
+2026-09-09T13:53:44.372Z info: safe operations loading: 72
+2026-09-09T13:53:44.373Z info: masterdir operations loading: 72
+2026-09-09T13:53:44.374Z info: Configuration completed
+2026-09-09T13:53:44.385Z info: Server started
+2026-09-09T13:53:44.386Z info: HTTP listen [8091]
+2026-09-09T13:53:56.763Z info: $OpenSafeByPin finished
+2026-09-09T13:53:56.810Z info: $GetSafe finished
+2026-09-09T13:53:56.832Z info: $GetOrgSvc finished
+2026-09-09T13:53:58.537Z info: $GetSitesUrls finished
+2026-09-09T13:53:58.560Z info: ADMIN$getAllStatus : 2026-09-09T13:53:58.559Z
+2026-09-09T13:54:09.603Z info: ADMIN$getAllStatus finished
+2026-09-09T13:54:09.659Z info: FW$setSubscription : 2026-09-09T13:54:09.658Z
+2026-09-09T13:57:24.438Z info: Configuration pre-loaded
+2026-09-09T13:57:25.245Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T13:57:25.249Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T13:57:25.297Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:57:25.297Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T13:57:25.298Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T13:57:25.299Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T13:57:25.299Z info: fw documents loading: 2
+2026-09-09T13:57:25.300Z info: app operations loading: 12
+2026-09-09T13:57:25.301Z info: fw operations loading: 72
+2026-09-09T13:57:25.302Z info: app operations loading: 72
+2026-09-09T13:57:25.302Z info: safe operations loading: 72
+2026-09-09T13:57:25.304Z info: masterdir operations loading: 72
+2026-09-09T13:57:25.304Z info: Configuration completed
+2026-09-09T13:57:25.313Z info: Server started
+2026-09-09T13:57:25.314Z info: HTTP listen [8091]
+2026-09-09T13:57:37.795Z info: $OpenSafeByPin finished
+2026-09-09T13:57:37.840Z info: $GetSafe finished
+2026-09-09T13:57:37.862Z info: $GetOrgSvc finished
+2026-09-09T13:57:40.242Z info: $GetSitesUrls finished
+2026-09-09T13:57:40.274Z info: ADMIN$getAllStatus : 2026-09-09T13:57:40.273Z
+2026-09-09T13:57:46.934Z info: ADMIN$getAllStatus finished
+2026-09-09T13:57:46.979Z info: FW$setSubscription : 2026-09-09T13:57:46.979Z
+2026-09-09T13:58:28.888Z info: FW$setSubscription finished
+2026-09-09T13:58:57.593Z info: FW$Sync : 2026-09-09T13:58:57.593Z
+2026-09-09T13:58:57.616Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:01:12.631Z info: Configuration pre-loaded
+2026-09-09T14:01:13.249Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T14:01:13.253Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T14:01:13.293Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T14:01:13.294Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T14:01:13.295Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T14:01:13.295Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T14:01:13.296Z info: fw documents loading: 2
+2026-09-09T14:01:13.297Z info: app operations loading: 12
+2026-09-09T14:01:13.297Z info: fw operations loading: 72
+2026-09-09T14:01:13.298Z info: app operations loading: 72
+2026-09-09T14:01:13.299Z info: safe operations loading: 72
+2026-09-09T14:01:13.300Z info: masterdir operations loading: 72
+2026-09-09T14:01:13.301Z info: Configuration completed
+2026-09-09T14:01:13.308Z info: Server started
+2026-09-09T14:01:13.310Z info: HTTP listen [8091]
+2026-09-09T14:01:49.243Z info: $OpenSafeByPin finished
+2026-09-09T14:01:49.295Z info: $GetSafe finished
+2026-09-09T14:01:49.324Z info: $GetOrgSvc finished
+2026-09-09T14:01:51.527Z info: $GetSitesUrls finished
+2026-09-09T14:01:51.579Z info: ADMIN$getAllStatus : 2026-09-09T14:01:51.578Z
+2026-09-09T14:01:57.389Z info: ADMIN$getAllStatus finished
+2026-09-09T14:01:57.434Z info: FW$setSubscription : 2026-09-09T14:01:57.434Z
+2026-09-09T14:01:59.205Z info: FW$setSubscription finished
+2026-09-09T14:02:02.980Z info: FW$Sync : 2026-09-09T14:02:02.980Z
+2026-09-09T14:02:03.004Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:02:16.445Z info: FW$Sync finished
+2026-09-09T14:02:34.946Z info: PropsOfMyCreds : 2026-09-09T14:02:34.945Z
+2026-09-09T14:02:34.964Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:03:23.687Z info: PropsOfMyCreds finished
+2026-09-09T14:03:35.744Z info: MajAuteur : 2026-09-09T14:03:35.744Z
+2026-09-09T14:03:35.756Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:15:06.839Z info: Configuration pre-loaded
+2026-09-09T14:15:07.197Z info: FW document descriptors:2 forms descriptors:2
+2026-09-09T14:15:07.202Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-09T14:15:07.307Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T14:15:07.308Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-09T14:15:07.309Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-09T14:15:07.310Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-09T14:15:07.310Z info: fw documents loading: 2
+2026-09-09T14:15:07.312Z info: app operations loading: 12
+2026-09-09T14:15:07.318Z info: fw operations loading: 72
+2026-09-09T14:15:07.319Z info: app operations loading: 72
+2026-09-09T14:15:07.320Z info: safe operations loading: 72
+2026-09-09T14:15:07.321Z info: masterdir operations loading: 72
+2026-09-09T14:15:07.322Z info: Configuration completed
+2026-09-09T14:15:07.334Z info: Server started
+2026-09-09T14:15:07.336Z info: HTTP listen [8091]
+2026-09-09T14:15:16.963Z info: $OpenSafeByPin finished
+2026-09-09T14:15:17.008Z info: $GetSafe finished
+2026-09-09T14:15:17.059Z info: $GetOrgSvc finished
+2026-09-09T14:15:19.417Z info: $GetSitesUrls finished
+2026-09-09T14:15:19.443Z info: ADMIN$getAllStatus : 2026-09-09T14:15:19.443Z
+2026-09-09T14:15:19.458Z info: ADMIN$getAllStatus finished
+2026-09-09T14:15:19.487Z info: FW$setSubscription : 2026-09-09T14:15:19.487Z
+2026-09-09T14:15:19.498Z info: FW$setSubscription finished
+2026-09-09T14:15:22.850Z info: FW$Sync : 2026-09-09T14:15:22.850Z
+2026-09-09T14:15:22.872Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:15:33.063Z info: FW$Sync finished
+2026-09-09T14:15:43.973Z info: PropsOfMyCreds : 2026-09-09T14:15:43.973Z
+2026-09-09T14:15:43.984Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:15:43.985Z info: PropsOfMyCreds finished
+2026-09-09T14:15:58.514Z info: MajAuteur : 2026-09-09T14:15:58.513Z
+2026-09-09T14:15:58.529Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:16:16.642Z info: MajAuteur finished
+2026-09-09T14:16:16.687Z info: FW$Sync : 2026-09-09T14:16:16.687Z
+2026-09-09T14:16:16.719Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:16:16.726Z info: FW$Sync finished
+2026-09-09T14:17:03.406Z info: MajAuteur : 2026-09-09T14:17:03.406Z
+2026-09-09T14:17:03.417Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:17:03.422Z info: MajAuteur finished
+2026-09-09T14:17:03.452Z info: FW$Sync : 2026-09-09T14:17:03.452Z
+2026-09-09T14:17:03.466Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:17:03.468Z info: FW$Sync finished
+2026-09-09T14:41:58.059Z info: $OpenSafeByPin finished
+2026-09-09T14:41:58.106Z info: $GetSafe finished
+2026-09-09T14:41:58.129Z info: $GetOrgSvc finished
+2026-09-09T14:42:00.437Z info: $GetSitesUrls finished
+2026-09-09T14:42:00.465Z info: ADMIN$getAllStatus : 2026-09-09T14:42:00.464Z
+2026-09-09T14:42:00.469Z info: ADMIN$getAllStatus finished
+2026-09-09T14:42:00.495Z info: FW$setSubscription : 2026-09-09T14:42:00.494Z
+2026-09-09T14:42:00.498Z info: FW$setSubscription finished
+2026-09-09T14:42:04.732Z info: FW$Sync : 2026-09-09T14:42:04.732Z
+2026-09-09T14:42:04.746Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:42:04.759Z info: FW$Sync finished
+2026-09-09T14:42:23.469Z info: PropsOfMyCreds : 2026-09-09T14:42:23.469Z
+2026-09-09T14:42:23.479Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:42:23.480Z info: PropsOfMyCreds finished
+2026-09-09T14:42:47.091Z info: MajAuteur : 2026-09-09T14:42:47.091Z
+2026-09-09T14:42:47.116Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:42:47.121Z info: MajAuteur finished
+2026-09-09T14:44:34.139Z info: FW$Sync : 2026-09-09T14:44:34.139Z
+2026-09-09T14:44:34.160Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:44:34.163Z info: FW$Sync finished
+2026-09-09T14:47:14.918Z info: MajAuteur : 2026-09-09T14:47:14.918Z
+2026-09-09T14:47:14.929Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:47:14.933Z info: MajAuteur finished
+2026-09-09T14:48:24.735Z info: FW$Sync : 2026-09-09T14:48:24.735Z
+2026-09-09T14:48:24.810Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:48:24.841Z info: FW$Sync finished
+2026-09-09T14:50:18.568Z info: $OpenSafeByPin finished
+2026-09-09T14:50:18.614Z info: $GetSafe finished
+2026-09-09T14:50:18.637Z info: $GetOrgSvc finished
+2026-09-09T14:50:21.075Z info: $GetSitesUrls finished
+2026-09-09T14:50:21.099Z info: ADMIN$getAllStatus : 2026-09-09T14:50:21.099Z
+2026-09-09T14:50:21.105Z info: ADMIN$getAllStatus finished
+2026-09-09T14:50:21.133Z info: FW$setSubscription : 2026-09-09T14:50:21.133Z
+2026-09-09T14:50:21.138Z info: FW$setSubscription finished
+2026-09-09T14:50:25.972Z info: FW$Sync : 2026-09-09T14:50:25.972Z
+2026-09-09T14:50:25.997Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:50:25.999Z info: FW$Sync finished
+2026-09-09T14:50:42.860Z info: PropsOfMyCreds : 2026-09-09T14:50:42.860Z
+2026-09-09T14:50:42.869Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:50:42.870Z info: PropsOfMyCreds finished
+2026-09-09T14:50:49.517Z info: MajAuteur : 2026-09-09T14:50:49.517Z
+2026-09-09T14:50:49.527Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:50:49.530Z info: MajAuteur finished
+2026-09-09T14:51:17.380Z info: FW$Sync : 2026-09-09T14:51:17.379Z
+2026-09-09T14:51:17.406Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-09T14:51:17.409Z info: FW$Sync finished

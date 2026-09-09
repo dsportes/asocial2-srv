@@ -180,6 +180,8 @@ class FW$setSubscription extends Operation {
     this._maxLife = longLife ? this.SUBSLONGMAXLIFE : this.SUBSSHORTMAXLIFE
   }
   async phase2 () {
+    this.requireAuth()
+    this.requireR()
     const subs = await this.cache.getDoc(this.svc + '$Subs', { sessionId: this.sessionId }) as $Subs
 
     if (this._subs.defs && this._subs.defs.length) { // Création ou mise à jour
@@ -412,11 +414,9 @@ export class FW$Sync extends Operation {
   syncs: Object = {}
   checker: $CredChecker
   dd: DocDescriptor
-  general: boolean
 
   init () {
     super.init()
-    this.general = this.boolValue('general', false)
     this._toSync = this.arrayValue('toSync', true) as SubsToSync[]
     this.checker = Registry.newD(this.svc, 'CredChecker') as $CredChecker
     this.checker.op = this

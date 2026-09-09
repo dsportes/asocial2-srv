@@ -862,3 +862,11 @@ Error: Captured for inspection
 2026-09-06T14:07:43.796Z error: FW$Sync : 2026-09-06T14:07:43.753Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
 2026-09-06T14:11:43.699Z error: FW$Sync : 2026-09-06T14:11:43.676Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
 2026-09-06T14:15:14.669Z error: FW$Sync : 2026-09-06T14:15:14.605Z : AppExc: 101:operation_svcorg_read_required@FW$Sync:["AS2","doda","FW$Sync","9"]
+2026-09-09T13:15:30.009Z error: AppExc: 105:session_synch_failure@FW$setSubscription:["FW$setSubscription","AS2","doda"]
+2026-09-09T13:15:30.012Z error: FW$setSubscription : 2026-09-09T13:15:23.664Z : AppExc: 105:session_synch_failure@FW$setSubscription:["FW$setSubscription","AS2","doda"]
+2026-09-09T13:39:21.490Z error: FW$setSubscription : 2026-09-09T13:38:16.521Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:39:21.495Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-09T13:43:07.178Z error: FW$setSubscription : 2026-09-09T13:42:58.669Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:43:07.193Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-09T13:46:38.135Z error: FW$setSubscription : 2026-09-09T13:45:20.390Z : SqliteError: no such table: AS2@HBC
+2026-09-09T13:46:38.138Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]

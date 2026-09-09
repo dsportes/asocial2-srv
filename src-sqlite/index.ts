@@ -539,14 +539,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     let hbc = ''
     this.sql.exec('BEGIN;')
 
-    let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
+    let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '$HBC') + 
     ' WHERE org = @org AND sessionId = @sessionId;')
     const row = stmt.get({ org, sessionId })
     if (row) {
       const i = row.hbc.indexOf(' ')
       const c = parseInt(row.hbc.substring(i + 1)) + 1
       hbc = row.hbc.substring(0, i + 1) + c
-      stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+      stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '$HBC') + 
         ' SET hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
       stmt.run({ org, sessionId, hbc })
     }
@@ -583,14 +583,17 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   */
   async getHeartBeatCount (svc: string, org: string, sessionId: string, hbcMode: number, now: number) 
   : Promise<string> {
-    let stmt = this.sql.prepare('SELECT hbc FROM ' + this.cluc(svc + '@HBC') + 
-    ' WHERE org = @org AND sessionId = @sessionId;')
+    let sql = 'SELECT hbc FROM ' + this.cluc(svc + '$HBC') + ' WHERE org = @org AND sessionId = @sessionId;'
+    let stmt = this.sql.prepare(sql)
     const row = stmt.get({ org, sessionId })
     if (!row && hbcMode !== 1) return ''
+    let hbc: string, dh: string, c: number
+    if (row) {
     const i = row.hbc.indexOf(' ')
-    let hbc = row.hbc
-    const dh = row.hbc.substring(0, i + 1)
-    const c = parseInt(row.hbc.substring(i + 1))
+      hbc = row.hbc
+      dh = row.hbc.substring(0, i + 1)
+      c = parseInt(row.hbc.substring(i + 1))
+    }
 
     const ttl = Math.floor(now / 1440000) + ttlSession
 
@@ -598,10 +601,10 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       case 1 :
         hbc = '' + now + ' 1'
         if (row) {
-        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '$HBC') + 
           ' SET ttl = @ttl, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
         } else {
-          stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '@HBC') + 
+          stmt = this.sql.prepare('INSERT INTO ' + this.cluc(svc + '$HBC') + 
           ' (org, sessionId, ttl, hbc) VALUES ( @org, @sessionId, @ttl, @hbc);')
         }
         stmt.run({ org, sessionId, ttl, hbc })
@@ -609,14 +612,14 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
       case 2 :
       case 4 :
-        hbc: dh + (c + 1)
-        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+        hbc = dh + (c + 1)
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '$HBC') + 
           ' SET ttl = @ttl, hbc = @hbc WHERE org = @org AND sessionId = @sessionId;')
         stmt.run({ org, sessionId, ttl, hbc })
         break
 
       case 3 :
-        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '@HBC') + 
+        stmt = this.sql.prepare('UPDATE ' + this.cluc(svc + '$HBC') + 
           ' SET ttl = @ttl WHERE org = @org AND sessionId = @sessionId;')
         stmt.run({ org, sessionId, ttl })
         break
@@ -626,18 +629,19 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
   async commit (svc: string, sessionId: string, hbcMode: number, now: number) 
     : Promise<string> {
-    return !hbcMode ? '' : 
-      await this.getHeartBeatCount(svc, this.org, sessionId, hbcMode, now)
+    if (sessionId && hbcMode) 
+      return await this.getHeartBeatCount(svc, this.org, sessionId, hbcMode, now)
+    else return ''
   }
 
   async doTransaction () : Promise<[string, string]> {
     try {
       const opx = this.op as OperationWC
       this.transaction = true
-      const sessionId = opx.authRecord ? opx.authRecord.sessionId || '' : ''
       this.sql.exec('BEGIN;')
       await opx.transac() // met à jour hasUpdates
       const hbcMode = opx.hbcMode()
+      const sessionId = opx.authRecord ? opx.authRecord.sessionId || '' : ''
       const hbc = await this.commit(opx['svc'], sessionId, hbcMode, opx['now'])
       if (hbcMode && !hbc)
         throw new AppExc(105, 'session_synch_failure', opx, [opx.opName, opx['svc'], this.org])

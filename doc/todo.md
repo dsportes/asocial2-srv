@@ -98,7 +98,7 @@ Les rows ayant un `ttl` dépassé sont ignorés et peuvent être techniquement p
 
 Pour une session donnée `sessionId` et un couple `svc org` les opérations suivantes agissent sur svc@HBC.
 
-#### Synchronisation _générale_ de date d'opération `now`:
+#### Subscription de date d'opération `now`:
 Effectué **dans la transaction** de synchronisation:
 - création ou remplacement du row.
 - `ttl` est mis à `now` en minutes + X minutes.
@@ -106,7 +106,7 @@ Effectué **dans la transaction** de synchronisation:
   - `dh`: `now`
   - `c`: 1
 
-#### Synchronisation _sélective_ de date d'opération `now`:
+#### Synchronisation de date d'opération `now`:
 Effectué **dans la transaction** de synchronisation:
 - lecture du row: exception s'il n'existe pas.
 - `ttl` est mis à `now` en minutes + X minutes.
@@ -153,18 +153,18 @@ Effectué **dans la transaction** de l'opération:
 
 ### Contrôle de l'absence de _perte_ de synchronisation
 #### Mode strict
-Dans ce mode la session vérifie que les hbc reçus,
-- ont un dh égal à celui de la dernière synchronisation _générale_ (sinon les ignore).
-_ que le c est bien égal au c actuellement connu + 1.
+Dans ce mode la session vérifie que les `hbc` reçus,
+- ont un `dh` égal à celui de la dernière synchronisation _générale_ (sinon les ignore).
+_ que le `c` est bien égal au c actuellement connu + 1.
 
 Si ce n'est pas le cas,
 - soit des _notifications_ ont été perdues,
-- soit une opération de _synchro sélective_ s'est mal terminé **après** le _commit_: bref le résultat de la synchro n'a pas été reçu. Mais _normalement_ ce dernier cas doit se traduire en session par une exception en retour de l'opération _Sync_. 
+- soit une opération de _synchronisation_ s'est mal terminé **après** le _commit_: bref le résultat de la synchro n'a pas été reçu. Mais _normalement_ ce dernier cas devrait se traduire en session par une exception en retour de l'opération _Sync_. 
 
-Problème : les notifications sont _poussées_ par un circuit externe qui peut avoir des lenteurs et/ou ne pas respecter un ordre de distribution respectant l'ordre de génération.
+**Problème** : les notifications sont _poussées_ par un circuit externe qui peut avoir des lenteurs et/ou ne pas respecter un ordre de distribution respectant l'ordre de génération.
 
 #### Mode souple
-Dans ce mode on garde l'historique des c reçus.
+Dans ce mode on garde l'historique des `c` reçus.
 - à chaque fois que l'historique est une séquence continue, il est réduit à son dernier terme (le plus récent).
 - quand il y a des _trous_ dans l'historique, c'est _peut-être_ dû à un retard d'acheminement d'une notification. On ne déclare pas immédiatement que la synchronisation est _cassée_.
 - toutefois quand un historique est _troué_ depuis plus d'un certain temps, on considère que la perte de notification(s) est définitive et la synchro est déclarée _cassée_.

@@ -178,6 +178,7 @@ export class Operation implements OperationWC {
     const authRecord = new AuthRecord(this)
     if (authRecord.userId)
       await authRecord.process()
+    
     await this.phase2(this.args)
     this.cache.commit()
   }
@@ -334,10 +335,10 @@ export class Operation implements OperationWC {
     return this.stringValue('org', req, 4, 16)
   }
 
-  // 1: synchro gen, 2:synchro sel, 3: heart beat 4: opavec notif
+  // 1: souscription, 2:synchronisation, 3: heart beat 4: op avec notif
   hbcMode () :  number {
-    if (this.opName === 'FW$Sync')
-      return this['genral'] ? 1 : 2
+    if (this.opName === 'FW$setSubscription') return 1
+    if (this.opName === 'FW$Sync') return 2
     if (this.opName === 'FW$HeartBeat') return 3
     return this.impactedSubs && this.impactedSubs.all.size ? 4 : 0
   }
