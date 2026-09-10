@@ -870,3 +870,9 @@ Error: Captured for inspection
 2026-09-09T13:43:07.193Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
 2026-09-09T13:46:38.135Z error: FW$setSubscription : 2026-09-09T13:45:20.390Z : SqliteError: no such table: AS2@HBC
 2026-09-09T13:46:38.138Z error: AppExc: 105:service_unexpected_exception["no such table: AS2@HBC"]
+2026-09-10T11:55:20.083Z error: FW$setSubscription : 2026-09-10T11:55:20.080Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-10T11:55:20.095Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-10T14:49:32.483Z error: UpdPropsCred : 2026-09-10T14:49:14.255Z : TypeError: Cannot read properties of undefined (reading 'props')
+2026-09-10T14:49:32.513Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'props')"]
+2026-09-10T14:53:08.361Z error: FW$setSubscription : 2026-09-10T14:53:08.358Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-10T14:53:08.376Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]

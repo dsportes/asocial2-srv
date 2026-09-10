@@ -14,7 +14,7 @@ try {
   )
 
   new DocDescriptor(svc,
-    { name: 'Subs', pk: ['sessionId'] },
+    { name: 'Subs', pk: ['sessionId'], nohash: true },
     null,
     new Map<string, idx>([
       ['defs', { type: propType.LIST}]

@@ -4,8 +4,11 @@ import { Log } from './log'
 import { keyToB64 } from './b64'
 import { Operation, ImpactedSub } from './operation'
 import { $Subs } from './documents'
+import { AbstractOperation } from '../src-fw/index'
 
 import { encode } from '@msgpack/msgpack'
+import { IDbGeneric } from './iDbGeneric'
+import { DbConnector } from './dbConnector'
 
 /*
 const vapidKeys = webpush.generateVAPIDKeys()
@@ -27,28 +30,39 @@ type notif = {
 /* Un "publisher" est créé pour chaque opération.
 Il a une entrée par sessionId devant être notifiée.
 */
-export class Publisher {
+export class Publisher implements AbstractOperation {
   static objToB64 (obj: any) : string {
     return !obj ? '' : keyToB64(Buffer.from(encode(obj)))
   }
 
+  opName: string
+  result: any
+  args: any
   toNotif: Map<string, notif> // key: sessionId value: notif (ci-dessus)
   op: Operation
+  dbConnector: DbConnector
+  db: IDbGeneric
   svc: string
   org: string
+  now : number
   sessionNotifs: string[]
   sessionId: string
+
+  setRes(prop: string, val: any) : void {}
 
   constructor (op: Operation) {
     this.toNotif = new Map()
     this.op = op
+    this.dbConnector = this.op.dbConnector
+    this.opName = this.op.opName
+    this.now = this.op.now
     this.svc = op.svc
     this.org = op.org
     this.sessionNotifs = []
     this.sessionId = op.sessionId
   }
 
-  buildMessage (notif: notif, sessionId: string) : Object {
+  async buildMessage (notif: notif, sessionId: string) : Promise<Object> {
     /* Construit UN message par session 
     Le message n'est pas envoyé à la session en cours qui recevra l'info
     en retour d'opération */
@@ -61,7 +75,7 @@ export class Publisher {
     }
 
     // async incrHeartBeatCount (svc: string, org: string, sessionId: string) : Promise<string> {
-    const hbc = sessionId ? this.op.db.incrHeartBeatCount(this.svc, this.org, sessionId) : ''
+    const hbc = sessionId ? await this.db.incrHeartBeatCount(this.svc, this.org, sessionId) : ''
 
     /* buf : objet "message" sérialisé en base64
     const message = {
@@ -73,9 +87,9 @@ export class Publisher {
     }
     */
     const m = {
-      svc: this.op.svc,
-      org: this.op.org,
-      now: this.op.now,
+      svc: this.svc,
+      org: this.org,
+      now: this.now,
       title: notif.title,
       url: notif.url,
       body: lines.join('\n'),
@@ -85,10 +99,10 @@ export class Publisher {
     return m
   }
 
-  getSessionNotifs () : Object {
+  async getSessionNotifs () : Promise<Object> {
     const notif = this.toNotif.get(this.sessionId)
     if (!notif) return null
-    const message = this.buildMessage(notif, null)
+    const message = await this.buildMessage(notif, null)
     return Publisher.objToB64(message)
   }
 
@@ -140,10 +154,11 @@ export class Publisher {
   }
 
   async sendNotifications() {
+    await this.dbConnector.getConnexion(this, this.org)
     for(const [sessionId, notif] of this.toNotif) {
       if (sessionId !== this.sessionId)
       try {
-        const message = this.buildMessage(notif, sessionId)
+        const message = await this.buildMessage(notif, sessionId)
         const buf = Publisher.objToB64(message)
         await webpush.sendNotification(notif.sub, buf, { TTL: 0 })
       } catch (error) {

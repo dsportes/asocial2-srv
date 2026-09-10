@@ -233,9 +233,10 @@ export class Operation implements OperationWC {
         const publisher = new Publisher(this)
         for(const [,is] of this.impactedSubs.all) await publisher.publish(is)
         // notification : { title body url defs: 'def1 def2 ...' }
-        const notification = publisher.getSessionNotifs()
+        const notification = await publisher.getSessionNotifs()
         if (notification) this.setRes('notification', notification)
-        setTimeout(async () => { await publisher.sendNotifications() }, 1)
+        setTimeout(async () => { 
+          await publisher.sendNotifications() }, 1)
       }
 
       this.setRes('conso', this.conso)

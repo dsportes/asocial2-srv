@@ -1008,14 +1008,14 @@ class UpdPropsCred extends Operation {
   async phase2 () {
     this.requireAuth()
     const credRef = this.getCredRef(this._docCl, this._docPk)
-    if (!credRef || credRef.cred.credId !== this._credId || credRef.isEmbed) 
+    if (!credRef || credRef.cred.credId !== this._credId) 
       { this.setRes('status', 1); return }
     const credCl = credRef.doc.constructor
     const sp = credCl['userCredProps'] as Set<string>
     if (!sp || !sp.size) { this.setRes('status', 3); return }
 
     let upd = false
-    const cred = credRef.isEmbed ? credRef.doc.embedCred[credRef.cred.credId]
+    const cred = credRef.isEmbed ? credRef.doc.embedCreds[credRef.cred.credId]
       : credRef.doc['cred']
 
     const props = cred.props

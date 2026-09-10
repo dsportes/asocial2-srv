@@ -176,7 +176,7 @@ export class SQLiteConnector extends DbConnector {
 const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
-  incr: boolean
+
   public static newConnexion (connector: SQLiteConnector, op: AbstractOperation, cryptKey?: string) {
     return new SQLiteConnexion(connector, op, cryptKey)
   }
@@ -840,7 +840,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   writeRow (ut: updType, clazz: string, row: row) : void {
-    this.incr = true
     switch (ut) {
       case updType.CREATE : { this.insRow(clazz, row); return }
       case updType.UPDATE : { this.updRow(clazz, row); return }
@@ -849,7 +848,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   deleteRow (clazz: string, pk: string) : void {
-    this.incr = true
     const adm = clazz.startsWith('ADMIN$')
     const stmt = this.sql.prepare('DELETE FROM ' + this.cluc(clazz) +
      ' WHERE ' + (adm ? '' :  'org = @org AND ') + ' pk = @pk;')
@@ -857,7 +855,6 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   }
 
   writeRowQ (clazz: string, colName: string, pk: string, v: number, col: string) : void {
-    this.incr = true
     const sql = 'INSERT INTO ' + this.cluc(clazz, colName) +
       ' (org, pk, v, col, ttl) VALUES (@org, @pk, @v, @col, @ttl)' +
       ' ON CONFLICT (org, pk) DO UPDATE SET ' +
