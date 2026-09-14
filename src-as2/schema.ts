@@ -37,9 +37,7 @@ try {
     ])
   )
 
-  new DocDescriptor(svc, 
-    { name: 'Section', virtual: true, enum: ['roman', 'histoire', 'sf'] }
-  )
+  new DocDescriptor(svc, { name: 'Section', virtual: true, enumCred: 'Redaction' })
 
   new DocDescriptor(svc, 
     { name: 'Auteur', pk: ['autid'], sync: true, embedCreds: true },

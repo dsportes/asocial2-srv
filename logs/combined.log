@@ -33732,3 +33732,1477 @@ Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-09-10T16:40:55.380Z info: Auth status: ADMIN
 Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-09-10T16:40:55.382Z info: FW$Sync finished
+2026-09-11T06:54:24.003Z info: Configuration pre-loaded
+2026-09-11T06:54:27.745Z info: FW document descriptors:2 forms descriptors:2
+2026-09-11T06:54:27.764Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-11T06:54:27.931Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-11T06:54:27.931Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-11T06:54:27.932Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-11T06:54:27.932Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-11T06:54:27.933Z info: fw documents loading: 2
+2026-09-11T06:54:27.933Z info: app operations loading: 12
+2026-09-11T06:54:27.933Z info: fw operations loading: 72
+2026-09-11T06:54:27.934Z info: app operations loading: 72
+2026-09-11T06:54:27.934Z info: safe operations loading: 72
+2026-09-11T06:54:27.934Z info: masterdir operations loading: 72
+2026-09-11T06:54:27.934Z info: Configuration completed
+2026-09-11T06:54:27.940Z info: Server started
+2026-09-11T06:54:27.942Z info: HTTP listen [8091]
+2026-09-11T06:57:41.307Z info: $OpenSafeByPin finished
+2026-09-11T06:57:41.351Z info: $GetSafe finished
+2026-09-11T06:57:41.374Z info: $GetOrgSvc finished
+2026-09-11T06:57:44.420Z info: $GetSitesUrls finished
+2026-09-11T06:57:44.446Z info: ADMIN$getAllStatus : 2026-09-11T06:57:44.446Z
+2026-09-11T06:57:44.457Z info: ADMIN$getAllStatus finished
+2026-09-11T06:57:44.496Z info: FW$setSubscription : 2026-09-11T06:57:44.496Z
+2026-09-11T06:57:44.505Z info: FW$setSubscription finished
+2026-09-11T06:57:44.581Z info: FW$Sync : 2026-09-11T06:57:44.580Z
+2026-09-11T06:57:44.610Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T06:57:44.613Z info: FW$Sync finished
+2026-09-11T06:57:48.158Z info: PropsOfMyCreds : 2026-09-11T06:57:48.158Z
+2026-09-11T06:57:48.166Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T06:57:48.167Z info: PropsOfMyCreds finished
+2026-09-11T06:57:56.541Z info: $mdEventList finished
+2026-09-11T07:01:46.968Z info: PropsOfMyCreds : 2026-09-11T07:01:46.968Z
+2026-09-11T07:01:46.985Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T07:01:46.985Z info: PropsOfMyCreds finished
+2026-09-11T07:14:19.452Z info: $mdEventList finished
+2026-09-11T07:14:37.171Z info: $OpenSafeByPin finished
+2026-09-11T07:14:37.212Z info: $GetSafe finished
+2026-09-11T07:14:37.234Z info: $GetOrgSvc finished
+2026-09-11T07:14:40.835Z info: $GetSitesUrls finished
+2026-09-11T07:14:40.860Z info: ADMIN$getAllStatus : 2026-09-11T07:14:40.860Z
+2026-09-11T07:14:40.864Z info: ADMIN$getAllStatus finished
+2026-09-11T07:14:40.907Z info: FW$setSubscription : 2026-09-11T07:14:40.907Z
+2026-09-11T07:14:40.910Z info: FW$setSubscription finished
+2026-09-11T07:14:40.981Z info: FW$Sync : 2026-09-11T07:14:40.981Z
+2026-09-11T07:14:40.993Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T07:14:40.995Z info: FW$Sync finished
+2026-09-11T07:14:43.181Z info: $mdEventList finished
+2026-09-11T07:27:57.589Z info: $GetServicesLabels finished
+2026-09-11T07:27:57.599Z info: $IsMDAdmin finished
+2026-09-11T07:30:53.803Z info: $OpenSafeByPin finished
+2026-09-11T07:30:53.892Z info: $GetSafe finished
+2026-09-11T07:30:53.929Z info: $GetOrgSvc finished
+2026-09-11T07:30:56.793Z info: $GetSitesUrls finished
+2026-09-11T07:30:56.841Z info: ADMIN$getAllStatus : 2026-09-11T07:30:56.841Z
+2026-09-11T07:30:56.845Z info: ADMIN$getAllStatus finished
+2026-09-11T07:30:56.930Z info: FW$setSubscription : 2026-09-11T07:30:56.930Z
+2026-09-11T07:30:56.934Z info: FW$setSubscription finished
+2026-09-11T07:30:57.037Z info: FW$Sync : 2026-09-11T07:30:57.036Z
+2026-09-11T07:30:57.047Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T07:30:57.048Z info: FW$Sync finished
+2026-09-11T07:31:00.056Z info: $GetServicesLabels finished
+2026-09-11T07:31:00.068Z info: $IsMDAdmin finished
+2026-09-11T07:38:01.139Z info: $OpenSafeByPin finished
+2026-09-11T07:38:01.207Z info: $GetSafe finished
+2026-09-11T07:38:01.238Z info: $GetOrgSvc finished
+2026-09-11T07:45:44.416Z info: $OpenSafeByPin finished
+2026-09-11T07:45:44.489Z info: $GetSafe finished
+2026-09-11T07:45:44.507Z info: $GetOrgSvc finished
+2026-09-11T07:45:47.009Z info: $GetSitesUrls finished
+2026-09-11T07:45:47.064Z info: ADMIN$getAllStatus : 2026-09-11T07:45:47.064Z
+2026-09-11T07:45:47.069Z info: ADMIN$getAllStatus finished
+2026-09-11T07:45:47.135Z info: FW$setSubscription : 2026-09-11T07:45:47.135Z
+2026-09-11T07:45:47.139Z info: FW$setSubscription finished
+2026-09-11T07:45:47.234Z info: FW$Sync : 2026-09-11T07:45:47.234Z
+2026-09-11T07:45:47.255Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T07:45:47.256Z info: FW$Sync finished
+2026-09-11T07:45:52.878Z info: $GetServicesLabels finished
+2026-09-11T08:03:22.430Z info: $OpenSafeByPin finished
+2026-09-11T08:03:22.553Z info: $GetSafe finished
+2026-09-11T08:03:22.609Z info: $GetOrgSvc finished
+2026-09-11T08:03:26.507Z info: $GetSitesUrls finished
+2026-09-11T08:03:26.547Z info: ADMIN$getAllStatus : 2026-09-11T08:03:26.547Z
+2026-09-11T08:03:26.551Z info: ADMIN$getAllStatus finished
+2026-09-11T08:03:26.607Z info: FW$setSubscription : 2026-09-11T08:03:26.607Z
+2026-09-11T08:03:26.611Z info: FW$setSubscription finished
+2026-09-11T08:03:26.743Z info: FW$Sync : 2026-09-11T08:03:26.743Z
+2026-09-11T08:03:26.755Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:03:26.757Z info: FW$Sync finished
+2026-09-11T08:05:39.156Z info: $OpenSafeByPin finished
+2026-09-11T08:05:39.294Z info: $GetSafe finished
+2026-09-11T08:05:39.334Z info: $GetOrgSvc finished
+2026-09-11T08:05:41.999Z info: $GetSitesUrls finished
+2026-09-11T08:05:42.047Z info: ADMIN$getAllStatus : 2026-09-11T08:05:42.047Z
+2026-09-11T08:05:42.051Z info: ADMIN$getAllStatus finished
+2026-09-11T08:05:42.103Z info: FW$setSubscription : 2026-09-11T08:05:42.103Z
+2026-09-11T08:05:42.107Z info: FW$setSubscription finished
+2026-09-11T08:05:42.228Z info: FW$Sync : 2026-09-11T08:05:42.228Z
+2026-09-11T08:05:42.239Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:05:42.240Z info: FW$Sync finished
+2026-09-11T08:08:03.914Z info: $OpenSafeByPin finished
+2026-09-11T08:08:04.041Z info: $GetSafe finished
+2026-09-11T08:08:04.084Z info: $GetOrgSvc finished
+2026-09-11T08:08:06.349Z info: $GetSitesUrls finished
+2026-09-11T08:08:06.387Z info: ADMIN$getAllStatus : 2026-09-11T08:08:06.387Z
+2026-09-11T08:08:06.391Z info: ADMIN$getAllStatus finished
+2026-09-11T08:08:06.454Z info: FW$setSubscription : 2026-09-11T08:08:06.454Z
+2026-09-11T08:08:06.458Z info: FW$setSubscription finished
+2026-09-11T08:08:06.570Z info: FW$Sync : 2026-09-11T08:08:06.570Z
+2026-09-11T08:08:06.579Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:08:06.580Z info: FW$Sync finished
+2026-09-11T08:12:20.317Z info: $OpenSafeByPin finished
+2026-09-11T08:12:20.375Z info: $GetSafe finished
+2026-09-11T08:12:20.392Z info: $GetOrgSvc finished
+2026-09-11T08:12:22.166Z info: $GetSitesUrls finished
+2026-09-11T08:12:22.224Z info: ADMIN$getAllStatus : 2026-09-11T08:12:22.224Z
+2026-09-11T08:12:22.227Z info: ADMIN$getAllStatus finished
+2026-09-11T08:12:22.281Z info: FW$setSubscription : 2026-09-11T08:12:22.281Z
+2026-09-11T08:12:22.284Z info: FW$setSubscription finished
+2026-09-11T08:12:22.388Z info: FW$Sync : 2026-09-11T08:12:22.388Z
+2026-09-11T08:12:22.398Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:12:22.399Z info: FW$Sync finished
+2026-09-11T08:17:29.923Z info: $OpenSafeByPin finished
+2026-09-11T08:17:29.985Z info: $GetSafe finished
+2026-09-11T08:17:30.016Z info: $GetOrgSvc finished
+2026-09-11T08:17:31.611Z info: $GetSitesUrls finished
+2026-09-11T08:17:31.685Z info: ADMIN$getAllStatus : 2026-09-11T08:17:31.685Z
+2026-09-11T08:17:31.701Z info: ADMIN$getAllStatus finished
+2026-09-11T08:17:31.802Z info: FW$setSubscription : 2026-09-11T08:17:31.802Z
+2026-09-11T08:17:31.806Z info: FW$setSubscription finished
+2026-09-11T08:17:31.899Z info: FW$Sync : 2026-09-11T08:17:31.899Z
+2026-09-11T08:17:31.909Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:17:31.911Z info: FW$Sync finished
+2026-09-11T08:20:18.119Z info: $OpenSafeByPin finished
+2026-09-11T08:20:18.203Z info: $GetSafe finished
+2026-09-11T08:20:18.236Z info: $GetOrgSvc finished
+2026-09-11T08:20:20.067Z info: $GetSitesUrls finished
+2026-09-11T08:20:20.110Z info: ADMIN$getAllStatus : 2026-09-11T08:20:20.110Z
+2026-09-11T08:20:20.114Z info: ADMIN$getAllStatus finished
+2026-09-11T08:20:20.181Z info: FW$setSubscription : 2026-09-11T08:20:20.181Z
+2026-09-11T08:20:20.186Z info: FW$setSubscription finished
+2026-09-11T08:20:20.278Z info: FW$Sync : 2026-09-11T08:20:20.278Z
+2026-09-11T08:20:20.287Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:20:20.288Z info: FW$Sync finished
+2026-09-11T08:25:52.013Z info: $OpenSafeByPin finished
+2026-09-11T08:25:52.056Z info: $GetSafe finished
+2026-09-11T08:25:52.070Z info: $GetOrgSvc finished
+2026-09-11T08:25:57.390Z info: $GetSitesUrls finished
+2026-09-11T08:25:57.412Z info: ADMIN$getAllStatus : 2026-09-11T08:25:57.412Z
+2026-09-11T08:25:57.416Z info: ADMIN$getAllStatus finished
+2026-09-11T08:25:57.456Z info: FW$setSubscription : 2026-09-11T08:25:57.456Z
+2026-09-11T08:25:57.459Z info: FW$setSubscription finished
+2026-09-11T08:25:57.521Z info: FW$Sync : 2026-09-11T08:25:57.521Z
+2026-09-11T08:25:57.532Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:25:57.533Z info: FW$Sync finished
+2026-09-11T08:29:18.804Z info: $OpenSafeByPin finished
+2026-09-11T08:29:18.849Z info: $GetSafe finished
+2026-09-11T08:29:18.865Z info: $GetOrgSvc finished
+2026-09-11T08:29:22.490Z info: $GetSitesUrls finished
+2026-09-11T08:29:22.516Z info: ADMIN$getAllStatus : 2026-09-11T08:29:22.516Z
+2026-09-11T08:29:22.519Z info: ADMIN$getAllStatus finished
+2026-09-11T08:29:22.548Z info: FW$setSubscription : 2026-09-11T08:29:22.548Z
+2026-09-11T08:29:22.550Z info: FW$setSubscription finished
+2026-09-11T08:29:22.613Z info: FW$Sync : 2026-09-11T08:29:22.613Z
+2026-09-11T08:29:22.623Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T08:29:22.624Z info: FW$Sync finished
+2026-09-11T08:30:05.725Z info: $OpenSafeByPin finished
+2026-09-11T08:30:05.808Z info: $GetSafe finished
+2026-09-11T08:30:05.839Z info: $GetOrgSvc finished
+2026-09-11T08:32:56.048Z info: $OpenSafeByPin finished
+2026-09-11T08:32:56.092Z info: $GetSafe finished
+2026-09-11T08:32:56.108Z info: $GetOrgSvc finished
+2026-09-11T08:33:53.450Z info: $OpenSafeByPin finished
+2026-09-11T08:33:53.482Z info: $GetSafe finished
+2026-09-11T08:33:53.515Z info: $GetOrgSvc finished
+2026-09-11T08:36:19.564Z info: $OpenSafeByPin finished
+2026-09-11T08:36:19.606Z info: $GetSafe finished
+2026-09-11T08:37:53.458Z info: $OpenSafeByPin finished
+2026-09-11T08:37:53.494Z info: $GetSafe finished
+2026-09-11T08:37:53.520Z info: $GetOrgSvc finished
+2026-09-11T08:40:01.889Z info: $OpenSafeByPin finished
+2026-09-11T08:40:01.927Z info: $GetSafe finished
+2026-09-11T08:43:28.475Z info: $OpenSafeByPin finished
+2026-09-11T08:43:28.531Z info: $GetSafe finished
+2026-09-11T08:45:56.323Z info: $OpenSafeByPin finished
+2026-09-11T08:45:56.360Z info: $GetSafe finished
+2026-09-11T08:45:56.396Z info: $GetOrgSvc finished
+2026-09-11T09:05:27.288Z info: $GetSitesUrls finished
+2026-09-11T09:05:27.305Z info: ADMIN$getAllStatus : 2026-09-11T09:05:27.305Z
+2026-09-11T09:05:27.321Z info: ADMIN$getAllStatus finished
+2026-09-11T09:05:27.362Z info: FW$setSubscription : 2026-09-11T09:05:27.362Z
+2026-09-11T09:05:27.365Z info: FW$setSubscription finished
+2026-09-11T09:05:27.441Z info: FW$Sync : 2026-09-11T09:05:27.440Z
+2026-09-11T09:05:27.453Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:05:27.454Z info: FW$Sync finished
+2026-09-11T09:05:58.307Z info: $OpenSafeByPin finished
+2026-09-11T09:05:58.345Z info: $GetSafe finished
+2026-09-11T09:06:00.663Z info: ADMIN$getAllStatus : 2026-09-11T09:06:00.663Z
+2026-09-11T09:06:00.667Z info: ADMIN$getAllStatus finished
+2026-09-11T09:06:00.690Z info: FW$setSubscription : 2026-09-11T09:06:00.690Z
+2026-09-11T09:06:00.693Z info: FW$setSubscription finished
+2026-09-11T09:18:57.498Z info: PropsOfMyCreds : 2026-09-11T09:18:57.497Z
+2026-09-11T09:18:57.515Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:18:57.516Z info: PropsOfMyCreds finished
+2026-09-11T09:22:41.073Z info: $OpenSafeByPin finished
+2026-09-11T09:22:41.118Z info: $GetSafe finished
+2026-09-11T09:22:41.139Z info: $GetOrgSvc finished
+2026-09-11T09:22:43.493Z info: $GetSitesUrls finished
+2026-09-11T09:22:43.521Z info: ADMIN$getAllStatus : 2026-09-11T09:22:43.521Z
+2026-09-11T09:22:43.523Z info: ADMIN$getAllStatus finished
+2026-09-11T09:22:43.549Z info: FW$setSubscription : 2026-09-11T09:22:43.549Z
+2026-09-11T09:22:43.553Z info: FW$setSubscription finished
+2026-09-11T09:22:43.635Z info: FW$Sync : 2026-09-11T09:22:43.635Z
+2026-09-11T09:22:43.667Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:22:43.689Z info: FW$Sync finished
+2026-09-11T09:22:45.726Z info: PropsOfMyCreds : 2026-09-11T09:22:45.726Z
+2026-09-11T09:22:45.736Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:22:45.737Z info: PropsOfMyCreds finished
+2026-09-11T09:25:46.809Z info: $OpenSafeByPin finished
+2026-09-11T09:25:46.852Z info: $GetSafe finished
+2026-09-11T09:25:46.873Z info: $GetOrgSvc finished
+2026-09-11T09:25:49.071Z info: $GetSitesUrls finished
+2026-09-11T09:25:49.096Z info: ADMIN$getAllStatus : 2026-09-11T09:25:49.096Z
+2026-09-11T09:25:49.099Z info: ADMIN$getAllStatus finished
+2026-09-11T09:25:49.141Z info: FW$setSubscription : 2026-09-11T09:25:49.141Z
+2026-09-11T09:25:49.143Z info: FW$setSubscription finished
+2026-09-11T09:25:49.214Z info: FW$Sync : 2026-09-11T09:25:49.214Z
+2026-09-11T09:25:49.223Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:25:49.224Z info: FW$Sync finished
+2026-09-11T09:25:50.827Z info: PropsOfMyCreds : 2026-09-11T09:25:50.827Z
+2026-09-11T09:25:50.834Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:25:50.835Z info: PropsOfMyCreds finished
+2026-09-11T09:59:32.346Z info: $OpenSafeByPin finished
+2026-09-11T09:59:32.392Z info: $GetSafe finished
+2026-09-11T09:59:32.408Z info: $GetOrgSvc finished
+2026-09-11T09:59:34.339Z info: $GetSitesUrls finished
+2026-09-11T09:59:34.365Z info: ADMIN$getAllStatus : 2026-09-11T09:59:34.365Z
+2026-09-11T09:59:34.367Z info: ADMIN$getAllStatus finished
+2026-09-11T09:59:34.394Z info: FW$setSubscription : 2026-09-11T09:59:34.394Z
+2026-09-11T09:59:34.397Z info: FW$setSubscription finished
+2026-09-11T09:59:34.464Z info: FW$Sync : 2026-09-11T09:59:34.464Z
+2026-09-11T09:59:34.476Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T09:59:34.477Z info: FW$Sync finished
+2026-09-11T10:00:35.313Z info: $OpenSafeByPin finished
+2026-09-11T10:00:35.353Z info: $GetSafe finished
+2026-09-11T10:00:35.368Z info: $GetOrgSvc finished
+2026-09-11T10:00:38.345Z info: $GetSitesUrls finished
+2026-09-11T10:00:38.366Z info: ADMIN$getAllStatus : 2026-09-11T10:00:38.366Z
+2026-09-11T10:00:38.369Z info: ADMIN$getAllStatus finished
+2026-09-11T10:00:38.398Z info: FW$setSubscription : 2026-09-11T10:00:38.398Z
+2026-09-11T10:00:38.402Z info: FW$setSubscription finished
+2026-09-11T10:00:38.467Z info: FW$Sync : 2026-09-11T10:00:38.467Z
+2026-09-11T10:00:38.476Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:00:38.477Z info: FW$Sync finished
+2026-09-11T10:11:23.568Z info: $OpenSafeByPin finished
+2026-09-11T10:11:23.600Z info: $GetSafe finished
+2026-09-11T10:11:23.622Z info: $GetOrgSvc finished
+2026-09-11T10:11:25.947Z info: $GetSitesUrls finished
+2026-09-11T10:11:25.973Z info: ADMIN$getAllStatus : 2026-09-11T10:11:25.973Z
+2026-09-11T10:11:25.977Z info: ADMIN$getAllStatus finished
+2026-09-11T10:11:26.006Z info: FW$setSubscription : 2026-09-11T10:11:26.006Z
+2026-09-11T10:11:26.008Z info: FW$setSubscription finished
+2026-09-11T10:11:26.078Z info: FW$Sync : 2026-09-11T10:11:26.078Z
+2026-09-11T10:11:26.090Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:11:26.091Z info: FW$Sync finished
+2026-09-11T10:12:43.884Z info: $OpenSafeByPin finished
+2026-09-11T10:12:43.925Z info: $GetSafe finished
+2026-09-11T10:12:43.951Z info: $GetOrgSvc finished
+2026-09-11T10:12:46.040Z info: $GetSitesUrls finished
+2026-09-11T10:12:46.126Z info: ADMIN$getAllStatus : 2026-09-11T10:12:46.126Z
+2026-09-11T10:12:46.176Z info: ADMIN$getAllStatus finished
+2026-09-11T10:12:46.219Z info: FW$setSubscription : 2026-09-11T10:12:46.219Z
+2026-09-11T10:12:46.230Z info: FW$setSubscription finished
+2026-09-11T10:12:46.305Z info: FW$Sync : 2026-09-11T10:12:46.305Z
+2026-09-11T10:12:46.314Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:12:46.314Z info: FW$Sync finished
+2026-09-11T10:12:48.342Z info: PropsOfMyCreds : 2026-09-11T10:12:48.342Z
+2026-09-11T10:12:48.350Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:12:48.351Z info: PropsOfMyCreds finished
+2026-09-11T10:12:57.780Z info: PropsOfMyCreds : 2026-09-11T10:12:57.780Z
+2026-09-11T10:12:57.791Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:12:57.791Z info: PropsOfMyCreds finished
+2026-09-11T10:13:24.711Z info: PropsOfMyCreds : 2026-09-11T10:13:24.711Z
+2026-09-11T10:13:24.722Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:13:24.723Z info: PropsOfMyCreds finished
+2026-09-11T10:20:51.995Z info: $OpenSafeByPin finished
+2026-09-11T10:20:52.038Z info: $GetSafe finished
+2026-09-11T10:20:52.060Z info: $GetOrgSvc finished
+2026-09-11T10:20:53.994Z info: $GetSitesUrls finished
+2026-09-11T10:20:54.020Z info: ADMIN$getAllStatus : 2026-09-11T10:20:54.020Z
+2026-09-11T10:20:54.022Z info: ADMIN$getAllStatus finished
+2026-09-11T10:20:54.060Z info: FW$setSubscription : 2026-09-11T10:20:54.060Z
+2026-09-11T10:20:54.062Z info: FW$setSubscription finished
+2026-09-11T10:20:54.135Z info: FW$Sync : 2026-09-11T10:20:54.135Z
+2026-09-11T10:20:54.144Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:20:54.144Z info: FW$Sync finished
+2026-09-11T10:20:56.902Z info: PropsOfMyCreds : 2026-09-11T10:20:56.902Z
+2026-09-11T10:20:56.912Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:20:56.913Z info: PropsOfMyCreds finished
+2026-09-11T10:24:13.947Z info: PropsOfMyCreds : 2026-09-11T10:24:13.946Z
+2026-09-11T10:24:13.963Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:24:13.964Z info: PropsOfMyCreds finished
+2026-09-11T10:24:26.645Z info: PropsOfMyCreds : 2026-09-11T10:24:26.645Z
+2026-09-11T10:24:26.656Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:24:26.657Z info: PropsOfMyCreds finished
+2026-09-11T10:28:11.490Z info: PropsOfMyCreds : 2026-09-11T10:28:11.490Z
+2026-09-11T10:28:11.502Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:28:11.509Z info: PropsOfMyCreds finished
+2026-09-11T10:28:51.677Z info: PropsOfMyCreds : 2026-09-11T10:28:51.676Z
+2026-09-11T10:28:51.690Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:28:51.691Z info: PropsOfMyCreds finished
+2026-09-11T10:29:49.359Z info: PropsOfMyCreds : 2026-09-11T10:29:49.359Z
+2026-09-11T10:29:49.369Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:29:49.369Z info: PropsOfMyCreds finished
+2026-09-11T10:34:01.715Z info: $OpenSafeByPin finished
+2026-09-11T10:34:01.761Z info: $GetSafe finished
+2026-09-11T10:34:01.779Z info: $GetOrgSvc finished
+2026-09-11T10:34:03.479Z info: $GetSitesUrls finished
+2026-09-11T10:34:03.504Z info: ADMIN$getAllStatus : 2026-09-11T10:34:03.504Z
+2026-09-11T10:34:03.507Z info: ADMIN$getAllStatus finished
+2026-09-11T10:34:03.534Z info: FW$setSubscription : 2026-09-11T10:34:03.534Z
+2026-09-11T10:34:03.537Z info: FW$setSubscription finished
+2026-09-11T10:34:03.680Z info: FW$Sync : 2026-09-11T10:34:03.679Z
+2026-09-11T10:34:03.699Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:34:03.704Z info: FW$Sync finished
+2026-09-11T10:34:05.048Z info: PropsOfMyCreds : 2026-09-11T10:34:05.048Z
+2026-09-11T10:34:05.057Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T10:34:05.058Z info: PropsOfMyCreds finished
+2026-09-11T11:32:21.136Z info: PropsOfMyCreds : 2026-09-11T11:32:21.136Z
+2026-09-11T11:32:21.166Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:32:21.167Z info: PropsOfMyCreds finished
+2026-09-11T11:41:09.338Z info: PropsOfMyCreds : 2026-09-11T11:41:09.337Z
+2026-09-11T11:41:09.355Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:41:09.356Z info: PropsOfMyCreds finished
+2026-09-11T11:42:48.931Z info: PropsOfMyCreds : 2026-09-11T11:42:48.931Z
+2026-09-11T11:42:48.941Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:42:48.942Z info: PropsOfMyCreds finished
+2026-09-11T11:51:45.600Z info: $OpenSafeByPin finished
+2026-09-11T11:51:45.676Z info: $GetSafe finished
+2026-09-11T11:51:45.707Z info: $GetOrgSvc finished
+2026-09-11T11:51:47.840Z info: $GetSitesUrls finished
+2026-09-11T11:51:47.865Z info: ADMIN$getAllStatus : 2026-09-11T11:51:47.865Z
+2026-09-11T11:51:47.869Z info: ADMIN$getAllStatus finished
+2026-09-11T11:51:47.900Z info: FW$setSubscription : 2026-09-11T11:51:47.900Z
+2026-09-11T11:51:47.904Z info: FW$setSubscription finished
+2026-09-11T11:51:47.976Z info: FW$Sync : 2026-09-11T11:51:47.976Z
+2026-09-11T11:51:47.985Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:51:47.987Z info: FW$Sync finished
+2026-09-11T11:54:25.653Z info: $OpenSafeByPin finished
+2026-09-11T11:54:25.699Z info: $GetSafe finished
+2026-09-11T11:54:25.715Z info: $GetOrgSvc finished
+2026-09-11T11:54:27.931Z info: $GetSitesUrls finished
+2026-09-11T11:54:27.958Z info: ADMIN$getAllStatus : 2026-09-11T11:54:27.958Z
+2026-09-11T11:54:27.961Z info: ADMIN$getAllStatus finished
+2026-09-11T11:54:27.988Z info: FW$setSubscription : 2026-09-11T11:54:27.988Z
+2026-09-11T11:54:27.990Z info: FW$setSubscription finished
+2026-09-11T11:54:28.074Z info: FW$Sync : 2026-09-11T11:54:28.074Z
+2026-09-11T11:54:28.095Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:54:28.116Z info: FW$Sync finished
+2026-09-11T11:54:42.094Z info: PropsOfMyCreds : 2026-09-11T11:54:42.094Z
+2026-09-11T11:54:42.109Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T11:54:42.110Z info: PropsOfMyCreds finished
+2026-09-11T12:01:54.483Z info: $OpenSafeByPin finished
+2026-09-11T12:01:54.524Z info: $GetSafe finished
+2026-09-11T12:01:54.539Z info: $GetOrgSvc finished
+2026-09-11T12:01:56.841Z info: $GetSitesUrls finished
+2026-09-11T12:01:56.868Z info: ADMIN$getAllStatus : 2026-09-11T12:01:56.868Z
+2026-09-11T12:01:56.872Z info: ADMIN$getAllStatus finished
+2026-09-11T12:01:56.901Z info: FW$setSubscription : 2026-09-11T12:01:56.901Z
+2026-09-11T12:01:56.904Z info: FW$setSubscription finished
+2026-09-11T12:01:56.971Z info: FW$Sync : 2026-09-11T12:01:56.971Z
+2026-09-11T12:01:56.981Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:01:56.981Z info: FW$Sync finished
+2026-09-11T12:04:43.904Z info: PropsOfMyCreds : 2026-09-11T12:04:43.904Z
+2026-09-11T12:04:43.919Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:04:43.920Z info: PropsOfMyCreds finished
+2026-09-11T12:04:44.048Z info: PropsOfMyCreds : 2026-09-11T12:04:44.048Z
+2026-09-11T12:04:44.065Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:04:44.066Z info: PropsOfMyCreds finished
+2026-09-11T12:05:21.333Z info: PropsOfMyCreds : 2026-09-11T12:05:21.333Z
+2026-09-11T12:05:21.347Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:05:21.350Z info: PropsOfMyCreds finished
+2026-09-11T12:05:21.460Z info: PropsOfMyCreds : 2026-09-11T12:05:21.460Z
+2026-09-11T12:05:21.477Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:05:21.478Z info: PropsOfMyCreds finished
+2026-09-11T12:06:55.128Z info: PropsOfMyCreds : 2026-09-11T12:06:55.127Z
+2026-09-11T12:06:55.139Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:06:55.159Z info: PropsOfMyCreds finished
+2026-09-11T12:06:55.269Z info: PropsOfMyCreds : 2026-09-11T12:06:55.269Z
+2026-09-11T12:06:55.286Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:06:55.287Z info: PropsOfMyCreds finished
+2026-09-11T12:07:03.640Z info: PropsOfMyCreds : 2026-09-11T12:07:03.640Z
+2026-09-11T12:07:03.649Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:07:03.650Z info: PropsOfMyCreds finished
+2026-09-11T12:19:46.655Z info: $OpenSafeByPin finished
+2026-09-11T12:19:46.713Z info: $GetSafe finished
+2026-09-11T12:19:46.737Z info: $GetOrgSvc finished
+2026-09-11T12:19:49.064Z info: $GetSitesUrls finished
+2026-09-11T12:19:49.095Z info: ADMIN$getAllStatus : 2026-09-11T12:19:49.095Z
+2026-09-11T12:19:49.099Z info: ADMIN$getAllStatus finished
+2026-09-11T12:19:49.121Z info: FW$setSubscription : 2026-09-11T12:19:49.121Z
+2026-09-11T12:19:49.124Z info: FW$setSubscription finished
+2026-09-11T12:19:49.193Z info: FW$Sync : 2026-09-11T12:19:49.193Z
+2026-09-11T12:19:49.204Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:19:49.205Z info: FW$Sync finished
+2026-09-11T12:19:50.775Z info: PropsOfMyCreds : 2026-09-11T12:19:50.775Z
+2026-09-11T12:19:50.783Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:19:50.784Z info: PropsOfMyCreds finished
+2026-09-11T12:21:33.029Z info: PropsOfMyCreds : 2026-09-11T12:21:33.029Z
+2026-09-11T12:21:33.043Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:21:33.049Z info: PropsOfMyCreds finished
+2026-09-11T12:25:15.784Z info: PropsOfMyCreds : 2026-09-11T12:25:15.784Z
+2026-09-11T12:25:15.797Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:25:15.798Z info: PropsOfMyCreds finished
+2026-09-11T12:25:15.964Z info: PropsOfMyCreds : 2026-09-11T12:25:15.964Z
+2026-09-11T12:25:15.984Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:25:15.998Z info: PropsOfMyCreds finished
+2026-09-11T12:26:03.962Z info: PropsOfMyCreds : 2026-09-11T12:26:03.962Z
+2026-09-11T12:26:03.976Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:26:03.976Z info: PropsOfMyCreds finished
+2026-09-11T12:31:32.148Z info: PropsOfMyCreds : 2026-09-11T12:31:32.148Z
+2026-09-11T12:31:32.210Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:31:32.232Z info: PropsOfMyCreds finished
+2026-09-11T12:32:02.146Z info: PropsOfMyCreds : 2026-09-11T12:32:02.145Z
+2026-09-11T12:32:02.159Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:32:02.176Z info: PropsOfMyCreds finished
+2026-09-11T12:37:00.868Z info: PropsOfMyCreds : 2026-09-11T12:37:00.868Z
+2026-09-11T12:37:00.893Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:37:00.915Z info: PropsOfMyCreds finished
+2026-09-11T12:37:14.989Z info: PropsOfMyCreds : 2026-09-11T12:37:14.989Z
+2026-09-11T12:37:15.007Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:37:15.068Z info: PropsOfMyCreds finished
+2026-09-11T12:40:18.450Z info: PropsOfMyCreds : 2026-09-11T12:40:18.450Z
+2026-09-11T12:40:18.464Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:40:18.465Z info: PropsOfMyCreds finished
+2026-09-11T12:40:26.967Z info: PropsOfMyCreds : 2026-09-11T12:40:26.967Z
+2026-09-11T12:40:26.976Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:40:26.976Z info: PropsOfMyCreds finished
+2026-09-11T12:41:39.762Z info: PropsOfMyCreds : 2026-09-11T12:41:39.761Z
+2026-09-11T12:41:39.774Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:41:39.775Z info: PropsOfMyCreds finished
+2026-09-11T12:43:35.319Z info: PropsOfMyCreds : 2026-09-11T12:43:35.319Z
+2026-09-11T12:43:35.335Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:43:35.335Z info: PropsOfMyCreds finished
+2026-09-11T12:43:37.553Z info: PropsOfMyCreds : 2026-09-11T12:43:37.553Z
+2026-09-11T12:43:37.566Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:43:37.566Z info: PropsOfMyCreds finished
+2026-09-11T12:44:11.886Z info: $OpenSafeByPin finished
+2026-09-11T12:44:11.921Z info: $GetSafe finished
+2026-09-11T12:44:11.937Z info: $GetOrgSvc finished
+2026-09-11T12:44:14.033Z info: $GetSitesUrls finished
+2026-09-11T12:44:14.066Z info: ADMIN$getAllStatus : 2026-09-11T12:44:14.066Z
+2026-09-11T12:44:14.072Z info: ADMIN$getAllStatus finished
+2026-09-11T12:44:14.115Z info: FW$setSubscription : 2026-09-11T12:44:14.115Z
+2026-09-11T12:44:14.120Z info: FW$setSubscription finished
+2026-09-11T12:44:14.195Z info: FW$Sync : 2026-09-11T12:44:14.195Z
+2026-09-11T12:44:14.203Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:44:14.204Z info: FW$Sync finished
+2026-09-11T12:44:28.598Z info: PropsOfMyCreds : 2026-09-11T12:44:28.598Z
+2026-09-11T12:44:28.615Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:44:28.616Z info: PropsOfMyCreds finished
+2026-09-11T12:46:49.507Z info: $OpenSafeByPin finished
+2026-09-11T12:46:49.608Z info: $GetSafe finished
+2026-09-11T12:46:49.654Z info: $GetOrgSvc finished
+2026-09-11T12:46:51.853Z info: $GetSitesUrls finished
+2026-09-11T12:46:51.878Z info: ADMIN$getAllStatus : 2026-09-11T12:46:51.878Z
+2026-09-11T12:46:51.881Z info: ADMIN$getAllStatus finished
+2026-09-11T12:46:51.908Z info: FW$setSubscription : 2026-09-11T12:46:51.908Z
+2026-09-11T12:46:51.913Z info: FW$setSubscription finished
+2026-09-11T12:46:51.984Z info: FW$Sync : 2026-09-11T12:46:51.984Z
+2026-09-11T12:46:51.994Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:46:51.995Z info: FW$Sync finished
+2026-09-11T12:47:07.370Z info: PropsOfMyCreds : 2026-09-11T12:47:07.370Z
+2026-09-11T12:47:07.383Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:47:07.383Z info: PropsOfMyCreds finished
+2026-09-11T12:51:39.354Z info: PropsOfMyCreds : 2026-09-11T12:51:39.354Z
+2026-09-11T12:51:39.372Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:51:39.373Z info: PropsOfMyCreds finished
+2026-09-11T12:52:51.137Z info: PropsOfMyCreds : 2026-09-11T12:52:51.136Z
+2026-09-11T12:52:51.149Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:52:51.149Z info: PropsOfMyCreds finished
+2026-09-11T12:53:44.942Z info: PropsOfMyCreds : 2026-09-11T12:53:44.942Z
+2026-09-11T12:53:44.974Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:53:44.975Z info: PropsOfMyCreds finished
+2026-09-11T12:55:10.267Z info: $OpenSafeByPin finished
+2026-09-11T12:55:10.397Z info: $GetSafe finished
+2026-09-11T12:55:10.448Z info: $GetOrgSvc finished
+2026-09-11T12:55:12.412Z info: $GetSitesUrls finished
+2026-09-11T12:55:12.458Z info: ADMIN$getAllStatus : 2026-09-11T12:55:12.458Z
+2026-09-11T12:55:12.461Z info: ADMIN$getAllStatus finished
+2026-09-11T12:55:12.530Z info: FW$setSubscription : 2026-09-11T12:55:12.530Z
+2026-09-11T12:55:12.533Z info: FW$setSubscription finished
+2026-09-11T12:55:12.625Z info: FW$Sync : 2026-09-11T12:55:12.625Z
+2026-09-11T12:55:12.635Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:55:12.636Z info: FW$Sync finished
+2026-09-11T12:57:36.101Z info: $OpenSafeByPin finished
+2026-09-11T12:57:36.173Z info: $GetSafe finished
+2026-09-11T12:57:36.192Z info: $GetOrgSvc finished
+2026-09-11T12:57:38.653Z info: $GetSitesUrls finished
+2026-09-11T12:57:38.706Z info: ADMIN$getAllStatus : 2026-09-11T12:57:38.706Z
+2026-09-11T12:57:38.710Z info: ADMIN$getAllStatus finished
+2026-09-11T12:57:38.778Z info: FW$setSubscription : 2026-09-11T12:57:38.778Z
+2026-09-11T12:57:38.783Z info: FW$setSubscription finished
+2026-09-11T12:57:38.889Z info: FW$Sync : 2026-09-11T12:57:38.889Z
+2026-09-11T12:57:38.898Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:57:38.899Z info: FW$Sync finished
+2026-09-11T12:57:40.538Z info: PropsOfMyCreds : 2026-09-11T12:57:40.538Z
+2026-09-11T12:57:40.547Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:57:40.547Z info: PropsOfMyCreds finished
+2026-09-11T12:59:26.124Z info: PropsOfMyCreds : 2026-09-11T12:59:26.124Z
+2026-09-11T12:59:26.140Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:59:26.140Z info: PropsOfMyCreds finished
+2026-09-11T12:59:34.114Z info: PropsOfMyCreds : 2026-09-11T12:59:34.113Z
+2026-09-11T12:59:34.123Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T12:59:34.123Z info: PropsOfMyCreds finished
+2026-09-11T13:02:06.464Z info: PropsOfMyCreds : 2026-09-11T13:02:06.464Z
+2026-09-11T13:02:06.494Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:02:06.513Z info: PropsOfMyCreds finished
+2026-09-11T13:02:54.987Z info: PropsOfMyCreds : 2026-09-11T13:02:54.987Z
+2026-09-11T13:02:54.996Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:02:54.997Z info: PropsOfMyCreds finished
+2026-09-11T13:03:52.474Z info: PropsOfMyCreds : 2026-09-11T13:03:52.473Z
+2026-09-11T13:03:52.487Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:03:52.487Z info: PropsOfMyCreds finished
+2026-09-11T13:08:17.849Z info: PropsOfMyCreds : 2026-09-11T13:08:17.849Z
+2026-09-11T13:08:17.887Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:08:17.890Z info: PropsOfMyCreds finished
+2026-09-11T13:10:14.765Z info: PropsOfMyCreds : 2026-09-11T13:10:14.764Z
+2026-09-11T13:10:14.932Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:10:14.972Z info: PropsOfMyCreds finished
+2026-09-11T13:10:17.634Z info: PropsOfMyCreds : 2026-09-11T13:10:17.634Z
+2026-09-11T13:10:17.656Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:10:17.657Z info: PropsOfMyCreds finished
+2026-09-11T13:11:35.776Z info: $OpenSafeByPin finished
+2026-09-11T13:11:35.844Z info: $GetSafe finished
+2026-09-11T13:11:35.874Z info: $GetOrgSvc finished
+2026-09-11T13:11:37.973Z info: $GetSitesUrls finished
+2026-09-11T13:11:38.013Z info: ADMIN$getAllStatus : 2026-09-11T13:11:38.013Z
+2026-09-11T13:11:38.016Z info: ADMIN$getAllStatus finished
+2026-09-11T13:11:38.078Z info: FW$setSubscription : 2026-09-11T13:11:38.078Z
+2026-09-11T13:11:38.082Z info: FW$setSubscription finished
+2026-09-11T13:11:38.176Z info: FW$Sync : 2026-09-11T13:11:38.175Z
+2026-09-11T13:11:38.183Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:11:38.184Z info: FW$Sync finished
+2026-09-11T13:11:43.266Z info: PropsOfMyCreds : 2026-09-11T13:11:43.265Z
+2026-09-11T13:11:43.282Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:11:43.282Z info: PropsOfMyCreds finished
+2026-09-11T13:12:13.970Z info: PropsOfMyCreds : 2026-09-11T13:12:13.970Z
+2026-09-11T13:12:13.982Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:12:13.983Z info: PropsOfMyCreds finished
+2026-09-11T13:13:38.239Z info: $OpenSafeByPin finished
+2026-09-11T13:13:38.320Z info: $GetSafe finished
+2026-09-11T13:13:38.355Z info: $GetOrgSvc finished
+2026-09-11T13:13:42.295Z info: $GetSitesUrls finished
+2026-09-11T13:13:42.339Z info: ADMIN$getAllStatus : 2026-09-11T13:13:42.339Z
+2026-09-11T13:13:42.344Z info: ADMIN$getAllStatus finished
+2026-09-11T13:13:42.402Z info: FW$setSubscription : 2026-09-11T13:13:42.402Z
+2026-09-11T13:13:42.405Z info: FW$setSubscription finished
+2026-09-11T13:13:42.575Z info: FW$Sync : 2026-09-11T13:13:42.575Z
+2026-09-11T13:13:42.582Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:13:42.583Z info: FW$Sync finished
+2026-09-11T13:13:46.902Z info: PropsOfMyCreds : 2026-09-11T13:13:46.902Z
+2026-09-11T13:13:46.929Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:13:46.930Z info: PropsOfMyCreds finished
+2026-09-11T13:16:24.185Z info: PropsOfMyCreds : 2026-09-11T13:16:24.185Z
+2026-09-11T13:16:24.202Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:16:24.204Z info: PropsOfMyCreds finished
+2026-09-11T13:16:42.732Z info: $OpenSafeByPin finished
+2026-09-11T13:16:42.806Z info: $GetSafe finished
+2026-09-11T13:16:42.835Z info: $GetOrgSvc finished
+2026-09-11T13:16:47.983Z info: $GetSitesUrls finished
+2026-09-11T13:16:48.032Z info: ADMIN$getAllStatus : 2026-09-11T13:16:48.031Z
+2026-09-11T13:16:48.035Z info: ADMIN$getAllStatus finished
+2026-09-11T13:16:48.101Z info: FW$setSubscription : 2026-09-11T13:16:48.101Z
+2026-09-11T13:16:48.104Z info: FW$setSubscription finished
+2026-09-11T13:16:48.194Z info: FW$Sync : 2026-09-11T13:16:48.194Z
+2026-09-11T13:16:48.202Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:16:48.203Z info: FW$Sync finished
+2026-09-11T13:16:50.123Z info: PropsOfMyCreds : 2026-09-11T13:16:50.122Z
+2026-09-11T13:16:50.132Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:16:50.132Z info: PropsOfMyCreds finished
+2026-09-11T13:21:40.114Z info: $IsMDAdmin finished
+2026-09-11T13:21:45.708Z info: $GetServicesLabels finished
+2026-09-11T13:21:45.718Z info: $IsMDAdmin finished
+2026-09-11T13:24:34.012Z info: $IsMDAdmin finished
+2026-09-11T13:24:55.611Z info: $OpenSafeByPin finished
+2026-09-11T13:24:55.693Z info: $GetSafe finished
+2026-09-11T13:24:55.712Z info: $GetOrgSvc finished
+2026-09-11T13:24:58.520Z info: $GetSitesUrls finished
+2026-09-11T13:24:58.570Z info: ADMIN$getAllStatus : 2026-09-11T13:24:58.570Z
+2026-09-11T13:24:58.573Z info: ADMIN$getAllStatus finished
+2026-09-11T13:24:58.636Z info: FW$setSubscription : 2026-09-11T13:24:58.636Z
+2026-09-11T13:24:58.639Z info: FW$setSubscription finished
+2026-09-11T13:24:58.801Z info: FW$Sync : 2026-09-11T13:24:58.801Z
+2026-09-11T13:24:58.815Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:24:58.817Z info: FW$Sync finished
+2026-09-11T13:25:01.538Z info: $IsMDAdmin finished
+2026-09-11T13:25:07.242Z info: $GetServicesLabels finished
+2026-09-11T13:25:07.250Z info: $IsMDAdmin finished
+2026-09-11T13:25:12.162Z info: PropsOfMyCreds : 2026-09-11T13:25:12.161Z
+2026-09-11T13:25:12.174Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:25:12.175Z info: PropsOfMyCreds finished
+2026-09-11T13:41:37.506Z info: PropsOfMyCreds : 2026-09-11T13:41:37.506Z
+2026-09-11T13:41:37.529Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:41:37.535Z info: PropsOfMyCreds finished
+2026-09-11T13:48:26.918Z info: $OpenSafeByPin finished
+2026-09-11T13:48:27.011Z info: $GetSafe finished
+2026-09-11T13:48:27.039Z info: $GetOrgSvc finished
+2026-09-11T13:48:29.649Z info: $GetSitesUrls finished
+2026-09-11T13:48:29.698Z info: ADMIN$getAllStatus : 2026-09-11T13:48:29.698Z
+2026-09-11T13:48:29.701Z info: ADMIN$getAllStatus finished
+2026-09-11T13:48:29.762Z info: FW$setSubscription : 2026-09-11T13:48:29.762Z
+2026-09-11T13:48:29.765Z info: FW$setSubscription finished
+2026-09-11T13:48:29.869Z info: FW$Sync : 2026-09-11T13:48:29.869Z
+2026-09-11T13:48:29.877Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:48:29.878Z info: FW$Sync finished
+2026-09-11T13:48:31.594Z info: PropsOfMyCreds : 2026-09-11T13:48:31.594Z
+2026-09-11T13:48:31.603Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T13:48:31.604Z info: PropsOfMyCreds finished
+2026-09-11T14:10:10.730Z info: PropsOfMyCreds : 2026-09-11T14:10:10.730Z
+2026-09-11T14:10:10.750Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T14:10:10.798Z info: PropsOfMyCreds finished
+2026-09-11T14:10:38.335Z info: PropsOfMyCreds : 2026-09-11T14:10:38.335Z
+2026-09-11T14:10:38.347Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T14:10:38.347Z info: PropsOfMyCreds finished
+2026-09-11T14:11:49.772Z info: PropsOfMyCreds : 2026-09-11T14:11:49.772Z
+2026-09-11T14:11:49.787Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T14:11:49.788Z info: PropsOfMyCreds finished
+2026-09-11T14:12:34.099Z info: PropsOfMyCreds : 2026-09-11T14:12:34.099Z
+2026-09-11T14:12:34.119Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-11T14:12:34.119Z info: PropsOfMyCreds finished
+2026-09-12T07:06:56.157Z info: Configuration pre-loaded
+2026-09-12T07:06:59.721Z info: FW document descriptors:2 forms descriptors:2
+2026-09-12T07:06:59.748Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-12T07:07:00.007Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-12T07:07:00.007Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-12T07:07:00.008Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-12T07:07:00.009Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-12T07:07:00.009Z info: fw documents loading: 2
+2026-09-12T07:07:00.010Z info: app operations loading: 12
+2026-09-12T07:07:00.010Z info: fw operations loading: 72
+2026-09-12T07:07:00.011Z info: app operations loading: 72
+2026-09-12T07:07:00.011Z info: safe operations loading: 72
+2026-09-12T07:07:00.011Z info: masterdir operations loading: 72
+2026-09-12T07:07:00.011Z info: Configuration completed
+2026-09-12T07:07:00.024Z info: Server started
+2026-09-12T07:07:00.027Z info: HTTP listen [8091]
+2026-09-12T07:11:38.637Z info: $OpenSafeByPin finished
+2026-09-12T07:11:38.701Z info: $GetSafe finished
+2026-09-12T07:11:38.733Z info: $GetOrgSvc finished
+2026-09-12T07:11:40.714Z info: $GetSitesUrls finished
+2026-09-12T07:11:40.777Z info: ADMIN$getAllStatus : 2026-09-12T07:11:40.776Z
+2026-09-12T07:11:40.840Z info: ADMIN$getAllStatus finished
+2026-09-12T07:11:40.924Z info: FW$setSubscription : 2026-09-12T07:11:40.924Z
+2026-09-12T07:11:40.930Z info: FW$setSubscription finished
+2026-09-12T07:11:41.025Z info: FW$Sync : 2026-09-12T07:11:41.025Z
+2026-09-12T07:11:41.042Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:11:41.045Z info: FW$Sync finished
+2026-09-12T07:11:42.854Z info: PropsOfMyCreds : 2026-09-12T07:11:42.854Z
+2026-09-12T07:11:42.865Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:11:42.865Z info: PropsOfMyCreds finished
+2026-09-12T07:15:03.217Z info: MajAuteur : 2026-09-12T07:15:03.217Z
+2026-09-12T07:15:03.228Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:15:03.238Z info: MajAuteur finished
+2026-09-12T07:15:03.406Z info: FW$Sync : 2026-09-12T07:15:03.406Z
+2026-09-12T07:15:03.430Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:15:03.431Z info: FW$Sync finished
+2026-09-12T07:18:34.949Z info: MajAuteur : 2026-09-12T07:18:34.949Z
+2026-09-12T07:18:34.959Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:18:34.963Z info: MajAuteur finished
+2026-09-12T07:18:35.010Z info: FW$Sync : 2026-09-12T07:18:35.010Z
+2026-09-12T07:18:35.065Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:18:35.099Z info: FW$Sync finished
+2026-09-12T07:33:35.673Z info: PropsOfMyCreds : 2026-09-12T07:33:35.673Z
+2026-09-12T07:33:35.683Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:33:35.684Z info: PropsOfMyCreds finished
+2026-09-12T07:33:48.356Z info: $OpenSafeByPin finished
+2026-09-12T07:33:48.444Z info: $GetSafe finished
+2026-09-12T07:33:48.487Z info: $GetOrgSvc finished
+2026-09-12T07:33:50.497Z info: $GetSitesUrls finished
+2026-09-12T07:33:50.545Z info: ADMIN$getAllStatus : 2026-09-12T07:33:50.545Z
+2026-09-12T07:33:50.548Z info: ADMIN$getAllStatus finished
+2026-09-12T07:33:50.610Z info: FW$setSubscription : 2026-09-12T07:33:50.610Z
+2026-09-12T07:33:50.614Z info: FW$setSubscription finished
+2026-09-12T07:33:50.741Z info: FW$Sync : 2026-09-12T07:33:50.741Z
+2026-09-12T07:33:50.756Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:33:50.763Z info: FW$Sync finished
+2026-09-12T07:33:57.240Z info: PropsOfMyCreds : 2026-09-12T07:33:57.240Z
+2026-09-12T07:33:57.252Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:33:57.253Z info: PropsOfMyCreds finished
+2026-09-12T07:34:44.891Z info: PropsOfMyCreds : 2026-09-12T07:34:44.891Z
+2026-09-12T07:34:44.901Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:34:44.901Z info: PropsOfMyCreds finished
+2026-09-12T07:35:32.045Z info: $OpenSafeByPin finished
+2026-09-12T07:35:32.131Z info: $GetSafe finished
+2026-09-12T07:35:32.165Z info: $GetOrgSvc finished
+2026-09-12T07:35:33.939Z info: $GetSitesUrls finished
+2026-09-12T07:35:33.987Z info: ADMIN$getAllStatus : 2026-09-12T07:35:33.987Z
+2026-09-12T07:35:33.990Z info: ADMIN$getAllStatus finished
+2026-09-12T07:35:34.072Z info: FW$setSubscription : 2026-09-12T07:35:34.072Z
+2026-09-12T07:35:34.078Z info: FW$setSubscription finished
+2026-09-12T07:35:34.182Z info: FW$Sync : 2026-09-12T07:35:34.182Z
+2026-09-12T07:35:34.191Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:35:34.192Z info: FW$Sync finished
+2026-09-12T07:35:35.763Z info: PropsOfMyCreds : 2026-09-12T07:35:35.763Z
+2026-09-12T07:35:35.773Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:35:35.773Z info: PropsOfMyCreds finished
+2026-09-12T07:37:37.323Z info: Configuration pre-loaded
+2026-09-12T07:37:37.672Z info: FW document descriptors:2 forms descriptors:2
+2026-09-12T07:37:37.907Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-12T07:37:37.947Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-12T07:37:37.947Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-12T07:37:37.948Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-12T07:37:37.949Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-12T07:37:37.949Z info: fw documents loading: 2
+2026-09-12T07:37:37.950Z info: app operations loading: 12
+2026-09-12T07:37:37.951Z info: fw operations loading: 72
+2026-09-12T07:37:37.951Z info: app operations loading: 72
+2026-09-12T07:37:37.952Z info: safe operations loading: 72
+2026-09-12T07:37:37.952Z info: masterdir operations loading: 72
+2026-09-12T07:37:37.952Z info: Configuration completed
+2026-09-12T07:37:37.960Z info: Server started
+2026-09-12T07:37:37.963Z info: HTTP listen [8091]
+2026-09-12T07:37:51.558Z info: $OpenSafeByPin finished
+2026-09-12T07:37:51.637Z info: $GetSafe finished
+2026-09-12T07:37:51.690Z info: $GetOrgSvc finished
+2026-09-12T07:37:53.947Z info: $GetSitesUrls finished
+2026-09-12T07:37:53.991Z info: ADMIN$getAllStatus : 2026-09-12T07:37:53.991Z
+2026-09-12T07:37:54.012Z info: ADMIN$getAllStatus finished
+2026-09-12T07:37:54.122Z info: FW$setSubscription : 2026-09-12T07:37:54.122Z
+2026-09-12T07:37:54.137Z info: FW$setSubscription finished
+2026-09-12T07:37:54.243Z info: FW$Sync : 2026-09-12T07:37:54.243Z
+2026-09-12T07:37:54.259Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:37:54.261Z info: FW$Sync finished
+2026-09-12T07:37:55.888Z info: PropsOfMyCreds : 2026-09-12T07:37:55.888Z
+2026-09-12T07:37:55.900Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:37:55.902Z info: PropsOfMyCreds finished
+2026-09-12T07:38:28.354Z info: $OpenSafeByPin finished
+2026-09-12T07:38:28.425Z info: $GetSafe finished
+2026-09-12T07:38:28.448Z info: $GetOrgSvc finished
+2026-09-12T07:38:30.896Z info: $GetSitesUrls finished
+2026-09-12T07:38:30.953Z info: ADMIN$getAllStatus : 2026-09-12T07:38:30.953Z
+2026-09-12T07:38:30.960Z info: ADMIN$getAllStatus finished
+2026-09-12T07:38:31.024Z info: FW$setSubscription : 2026-09-12T07:38:31.024Z
+2026-09-12T07:38:31.031Z info: FW$setSubscription finished
+2026-09-12T07:38:31.125Z info: FW$Sync : 2026-09-12T07:38:31.125Z
+2026-09-12T07:38:31.133Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:38:31.135Z info: FW$Sync finished
+2026-09-12T07:38:33.123Z info: PropsOfMyCreds : 2026-09-12T07:38:33.123Z
+2026-09-12T07:38:33.134Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:38:33.136Z info: PropsOfMyCreds finished
+2026-09-12T07:41:46.529Z info: MajAuteur : 2026-09-12T07:41:46.528Z
+2026-09-12T07:41:46.542Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:41:46.553Z info: MajAuteur finished
+2026-09-12T07:41:46.739Z info: FW$Sync : 2026-09-12T07:41:46.739Z
+2026-09-12T07:41:46.761Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:41:46.764Z info: FW$Sync finished
+2026-09-12T07:43:24.039Z info: PropsOfMyCreds : 2026-09-12T07:43:24.039Z
+2026-09-12T07:43:24.057Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:43:24.061Z info: PropsOfMyCreds finished
+2026-09-12T07:49:54.388Z info: $OpenSafeByPin finished
+2026-09-12T07:49:54.455Z info: $GetSafe finished
+2026-09-12T07:49:54.479Z info: $GetOrgSvc finished
+2026-09-12T07:49:56.515Z info: $GetSitesUrls finished
+2026-09-12T07:49:56.554Z info: ADMIN$getAllStatus : 2026-09-12T07:49:56.554Z
+2026-09-12T07:49:56.561Z info: ADMIN$getAllStatus finished
+2026-09-12T07:49:56.627Z info: FW$setSubscription : 2026-09-12T07:49:56.627Z
+2026-09-12T07:49:56.633Z info: FW$setSubscription finished
+2026-09-12T07:49:56.724Z info: FW$Sync : 2026-09-12T07:49:56.724Z
+2026-09-12T07:49:56.734Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:49:56.738Z info: FW$Sync finished
+2026-09-12T07:49:58.156Z info: PropsOfMyCreds : 2026-09-12T07:49:58.156Z
+2026-09-12T07:49:58.192Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:49:58.245Z info: PropsOfMyCreds finished
+2026-09-12T07:53:42.040Z info: $OpenSafeByPin finished
+2026-09-12T07:53:42.121Z info: $GetSafe finished
+2026-09-12T07:53:42.149Z info: $GetOrgSvc finished
+2026-09-12T07:53:44.090Z info: $GetSitesUrls finished
+2026-09-12T07:53:44.130Z info: ADMIN$getAllStatus : 2026-09-12T07:53:44.130Z
+2026-09-12T07:53:44.138Z info: ADMIN$getAllStatus finished
+2026-09-12T07:53:44.205Z info: FW$setSubscription : 2026-09-12T07:53:44.205Z
+2026-09-12T07:53:44.211Z info: FW$setSubscription finished
+2026-09-12T07:53:44.301Z info: FW$Sync : 2026-09-12T07:53:44.301Z
+2026-09-12T07:53:44.312Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:53:44.315Z info: FW$Sync finished
+2026-09-12T07:53:46.249Z info: PropsOfMyCreds : 2026-09-12T07:53:46.249Z
+2026-09-12T07:53:46.262Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:53:46.264Z info: PropsOfMyCreds finished
+2026-09-12T07:55:16.932Z info: $OpenSafeByPin finished
+2026-09-12T07:55:17.006Z info: $GetSafe finished
+2026-09-12T07:55:17.038Z info: $GetOrgSvc finished
+2026-09-12T07:55:18.763Z info: $GetSitesUrls finished
+2026-09-12T07:55:18.824Z info: ADMIN$getAllStatus : 2026-09-12T07:55:18.824Z
+2026-09-12T07:55:18.833Z info: ADMIN$getAllStatus finished
+2026-09-12T07:55:18.899Z info: FW$setSubscription : 2026-09-12T07:55:18.899Z
+2026-09-12T07:55:18.904Z info: FW$setSubscription finished
+2026-09-12T07:55:19.000Z info: FW$Sync : 2026-09-12T07:55:19.000Z
+2026-09-12T07:55:19.012Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:55:19.014Z info: FW$Sync finished
+2026-09-12T07:55:21.262Z info: PropsOfMyCreds : 2026-09-12T07:55:21.262Z
+2026-09-12T07:55:21.272Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:55:21.274Z info: PropsOfMyCreds finished
+2026-09-12T07:57:46.675Z info: PropsOfMyCreds : 2026-09-12T07:57:46.675Z
+2026-09-12T07:57:46.688Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T07:57:46.689Z info: PropsOfMyCreds finished
+2026-09-12T08:01:15.504Z info: $OpenSafeByPin finished
+2026-09-12T08:01:15.576Z info: $GetSafe finished
+2026-09-12T08:01:15.610Z info: $GetOrgSvc finished
+2026-09-12T08:01:17.690Z info: $GetSitesUrls finished
+2026-09-12T08:01:17.726Z info: ADMIN$getAllStatus : 2026-09-12T08:01:17.726Z
+2026-09-12T08:01:17.731Z info: ADMIN$getAllStatus finished
+2026-09-12T08:01:17.795Z info: FW$setSubscription : 2026-09-12T08:01:17.795Z
+2026-09-12T08:01:17.799Z info: FW$setSubscription finished
+2026-09-12T08:01:17.892Z info: FW$Sync : 2026-09-12T08:01:17.892Z
+2026-09-12T08:01:17.901Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:01:17.903Z info: FW$Sync finished
+2026-09-12T08:01:21.232Z info: PropsOfMyCreds : 2026-09-12T08:01:21.232Z
+2026-09-12T08:01:21.245Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:01:21.247Z info: PropsOfMyCreds finished
+2026-09-12T08:01:47.049Z info: MajAuteur : 2026-09-12T08:01:47.049Z
+2026-09-12T08:01:47.064Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:01:47.071Z info: MajAuteur finished
+2026-09-12T08:01:47.115Z info: FW$Sync : 2026-09-12T08:01:47.115Z
+2026-09-12T08:01:47.144Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:01:47.146Z info: FW$Sync finished
+2026-09-12T08:07:00.399Z info: PropsOfMyCreds : 2026-09-12T08:07:00.399Z
+2026-09-12T08:07:00.427Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:07:00.459Z info: PropsOfMyCreds finished
+2026-09-12T08:07:29.894Z info: MajAuteur : 2026-09-12T08:07:29.894Z
+2026-09-12T08:07:29.920Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:07:29.933Z info: MajAuteur finished
+2026-09-12T08:07:30.009Z info: FW$Sync : 2026-09-12T08:07:30.009Z
+2026-09-12T08:07:30.035Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:07:30.038Z info: FW$Sync finished
+2026-09-12T08:25:09.890Z info: PropsOfMyCreds : 2026-09-12T08:25:09.890Z
+2026-09-12T08:25:09.933Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:25:09.942Z info: PropsOfMyCreds finished
+2026-09-12T08:29:32.176Z info: $OpenSafeByPin finished
+2026-09-12T08:29:32.284Z info: $GetSafe finished
+2026-09-12T08:29:32.322Z info: $GetOrgSvc finished
+2026-09-12T08:29:35.949Z info: $GetSitesUrls finished
+2026-09-12T08:29:35.989Z info: ADMIN$getAllStatus : 2026-09-12T08:29:35.989Z
+2026-09-12T08:29:35.997Z info: ADMIN$getAllStatus finished
+2026-09-12T08:29:36.065Z info: FW$setSubscription : 2026-09-12T08:29:36.065Z
+2026-09-12T08:29:36.071Z info: FW$setSubscription finished
+2026-09-12T08:29:36.164Z info: FW$Sync : 2026-09-12T08:29:36.164Z
+2026-09-12T08:29:36.174Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:29:36.177Z info: FW$Sync finished
+2026-09-12T08:29:37.942Z info: PropsOfMyCreds : 2026-09-12T08:29:37.942Z
+2026-09-12T08:29:37.955Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:29:37.956Z info: PropsOfMyCreds finished
+2026-09-12T08:40:33.638Z info: PropsOfMyCreds : 2026-09-12T08:40:33.638Z
+2026-09-12T08:40:33.661Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:40:33.665Z info: PropsOfMyCreds finished
+2026-09-12T08:42:07.659Z info: MajAuteur : 2026-09-12T08:42:07.659Z
+2026-09-12T08:42:07.672Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:42:07.673Z info: MajAuteur finished
+2026-09-12T08:51:51.427Z info: $OpenSafeByPin finished
+2026-09-12T08:51:51.507Z info: $GetSafe finished
+2026-09-12T08:51:51.545Z info: $GetOrgSvc finished
+2026-09-12T08:51:54.186Z info: $GetSitesUrls finished
+2026-09-12T08:51:54.228Z info: ADMIN$getAllStatus : 2026-09-12T08:51:54.227Z
+2026-09-12T08:51:54.233Z info: ADMIN$getAllStatus finished
+2026-09-12T08:51:54.327Z info: FW$setSubscription : 2026-09-12T08:51:54.327Z
+2026-09-12T08:51:54.375Z info: FW$setSubscription finished
+2026-09-12T08:51:54.502Z info: FW$Sync : 2026-09-12T08:51:54.502Z
+2026-09-12T08:51:54.553Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:51:54.577Z info: FW$Sync finished
+2026-09-12T08:51:56.004Z info: PropsOfMyCreds : 2026-09-12T08:51:56.004Z
+2026-09-12T08:51:56.018Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T08:51:56.019Z info: PropsOfMyCreds finished
+2026-09-12T09:02:18.138Z info: PropsOfMyCreds : 2026-09-12T09:02:18.138Z
+2026-09-12T09:02:18.155Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:02:18.156Z info: PropsOfMyCreds finished
+2026-09-12T09:18:47.357Z info: MajAuteur : 2026-09-12T09:18:47.357Z
+2026-09-12T09:18:47.370Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:18:47.375Z info: MajAuteur finished
+2026-09-12T09:18:47.418Z info: FW$Sync : 2026-09-12T09:18:47.418Z
+2026-09-12T09:18:47.444Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:18:47.446Z info: FW$Sync finished
+2026-09-12T09:31:31.004Z info: PropsOfMyCreds : 2026-09-12T09:31:31.004Z
+2026-09-12T09:31:31.031Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:31:31.048Z info: PropsOfMyCreds finished
+2026-09-12T09:33:49.091Z info: MajAuteur : 2026-09-12T09:33:49.091Z
+2026-09-12T09:33:49.111Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:33:49.119Z info: MajAuteur finished
+2026-09-12T09:33:49.221Z info: FW$Sync : 2026-09-12T09:33:49.221Z
+2026-09-12T09:33:49.251Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:33:49.253Z info: FW$Sync finished
+2026-09-12T09:46:05.214Z info: PropsOfMyCreds : 2026-09-12T09:46:05.214Z
+2026-09-12T09:46:05.239Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T09:46:05.241Z info: PropsOfMyCreds finished
+2026-09-12T10:01:04.912Z info: PropsOfMyCreds : 2026-09-12T10:01:04.912Z
+2026-09-12T10:01:04.924Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:01:04.926Z info: PropsOfMyCreds finished
+2026-09-12T10:09:27.729Z info: PropsOfMyCreds : 2026-09-12T10:09:27.729Z
+2026-09-12T10:09:27.752Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:09:27.755Z info: PropsOfMyCreds finished
+2026-09-12T10:19:33.279Z info: $OpenSafeByPin finished
+2026-09-12T10:19:33.364Z info: $GetSafe finished
+2026-09-12T10:19:33.394Z info: $GetOrgSvc finished
+2026-09-12T10:19:35.459Z info: $GetSitesUrls finished
+2026-09-12T10:19:35.500Z info: ADMIN$getAllStatus : 2026-09-12T10:19:35.500Z
+2026-09-12T10:19:35.509Z info: ADMIN$getAllStatus finished
+2026-09-12T10:19:35.559Z info: FW$setSubscription : 2026-09-12T10:19:35.559Z
+2026-09-12T10:19:35.565Z info: FW$setSubscription finished
+2026-09-12T10:19:35.734Z info: FW$Sync : 2026-09-12T10:19:35.734Z
+2026-09-12T10:19:35.743Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:19:35.745Z info: FW$Sync finished
+2026-09-12T10:19:37.860Z info: PropsOfMyCreds : 2026-09-12T10:19:37.860Z
+2026-09-12T10:19:37.870Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:19:37.871Z info: PropsOfMyCreds finished
+2026-09-12T10:22:58.040Z info: $OpenSafeByPin finished
+2026-09-12T10:22:58.110Z info: $GetSafe finished
+2026-09-12T10:22:58.136Z info: $GetOrgSvc finished
+2026-09-12T10:23:00.509Z info: $GetSitesUrls finished
+2026-09-12T10:23:00.550Z info: ADMIN$getAllStatus : 2026-09-12T10:23:00.550Z
+2026-09-12T10:23:00.558Z info: ADMIN$getAllStatus finished
+2026-09-12T10:23:00.623Z info: FW$setSubscription : 2026-09-12T10:23:00.623Z
+2026-09-12T10:23:00.736Z info: FW$setSubscription finished
+2026-09-12T10:23:00.861Z info: FW$Sync : 2026-09-12T10:23:00.861Z
+2026-09-12T10:23:00.874Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:23:00.876Z info: FW$Sync finished
+2026-09-12T10:23:02.374Z info: PropsOfMyCreds : 2026-09-12T10:23:02.373Z
+2026-09-12T10:23:02.384Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:23:02.385Z info: PropsOfMyCreds finished
+2026-09-12T10:30:11.550Z info: PropsOfMyCreds : 2026-09-12T10:30:11.550Z
+2026-09-12T10:30:11.568Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:30:11.572Z info: PropsOfMyCreds finished
+2026-09-12T10:30:13.250Z info: PropsOfMyCreds : 2026-09-12T10:30:13.250Z
+2026-09-12T10:30:13.257Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:30:13.258Z info: PropsOfMyCreds finished
+2026-09-12T10:32:21.076Z info: $OpenSafeByPin finished
+2026-09-12T10:32:21.354Z info: $GetSafe finished
+2026-09-12T10:32:21.462Z info: $GetOrgSvc finished
+2026-09-12T10:32:23.528Z info: $GetSitesUrls finished
+2026-09-12T10:32:23.571Z info: ADMIN$getAllStatus : 2026-09-12T10:32:23.570Z
+2026-09-12T10:32:23.575Z info: ADMIN$getAllStatus finished
+2026-09-12T10:32:23.623Z info: FW$setSubscription : 2026-09-12T10:32:23.623Z
+2026-09-12T10:32:23.629Z info: FW$setSubscription finished
+2026-09-12T10:32:23.732Z info: FW$Sync : 2026-09-12T10:32:23.732Z
+2026-09-12T10:32:23.742Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:32:23.743Z info: FW$Sync finished
+2026-09-12T10:32:25.516Z info: PropsOfMyCreds : 2026-09-12T10:32:25.516Z
+2026-09-12T10:32:25.528Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:32:25.530Z info: PropsOfMyCreds finished
+2026-09-12T10:33:40.260Z info: $OpenSafeByPin finished
+2026-09-12T10:33:40.321Z info: $GetSafe finished
+2026-09-12T10:33:40.376Z info: $GetOrgSvc finished
+2026-09-12T10:33:42.454Z info: $GetSitesUrls finished
+2026-09-12T10:33:42.496Z info: ADMIN$getAllStatus : 2026-09-12T10:33:42.495Z
+2026-09-12T10:33:42.503Z info: ADMIN$getAllStatus finished
+2026-09-12T10:33:42.575Z info: FW$setSubscription : 2026-09-12T10:33:42.575Z
+2026-09-12T10:33:42.580Z info: FW$setSubscription finished
+2026-09-12T10:33:42.669Z info: FW$Sync : 2026-09-12T10:33:42.669Z
+2026-09-12T10:33:42.678Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:33:42.680Z info: FW$Sync finished
+2026-09-12T10:33:44.371Z info: PropsOfMyCreds : 2026-09-12T10:33:44.371Z
+2026-09-12T10:33:44.382Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:33:44.383Z info: PropsOfMyCreds finished
+2026-09-12T10:36:02.816Z info: $OpenSafeByPin finished
+2026-09-12T10:36:02.887Z info: $GetSafe finished
+2026-09-12T10:36:02.911Z info: $GetOrgSvc finished
+2026-09-12T10:36:05.017Z info: $GetSitesUrls finished
+2026-09-12T10:36:05.062Z info: ADMIN$getAllStatus : 2026-09-12T10:36:05.062Z
+2026-09-12T10:36:05.068Z info: ADMIN$getAllStatus finished
+2026-09-12T10:36:05.134Z info: FW$setSubscription : 2026-09-12T10:36:05.134Z
+2026-09-12T10:36:05.139Z info: FW$setSubscription finished
+2026-09-12T10:36:05.236Z info: FW$Sync : 2026-09-12T10:36:05.236Z
+2026-09-12T10:36:05.246Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:36:05.247Z info: FW$Sync finished
+2026-09-12T10:36:07.129Z info: PropsOfMyCreds : 2026-09-12T10:36:07.129Z
+2026-09-12T10:36:07.155Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:36:07.163Z info: PropsOfMyCreds finished
+2026-09-12T10:38:39.468Z info: PropsOfMyCreds : 2026-09-12T10:38:39.468Z
+2026-09-12T10:38:39.479Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:38:39.481Z info: PropsOfMyCreds finished
+2026-09-12T10:43:36.450Z info: PropsOfMyCreds : 2026-09-12T10:43:36.450Z
+2026-09-12T10:43:36.465Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:43:36.465Z info: PropsOfMyCreds finished
+2026-09-12T10:50:37.745Z info: PropsOfMyCreds : 2026-09-12T10:50:37.745Z
+2026-09-12T10:50:37.769Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T10:50:37.771Z info: PropsOfMyCreds finished
+2026-09-12T11:05:30.827Z info: MajAuteur : 2026-09-12T11:05:30.826Z
+2026-09-12T11:05:30.841Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:05:30.842Z info: MajAuteur finished
+2026-09-12T11:05:46.867Z info: MajAuteur : 2026-09-12T11:05:46.867Z
+2026-09-12T11:05:46.881Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:05:46.887Z info: MajAuteur finished
+2026-09-12T11:05:47.017Z info: FW$Sync : 2026-09-12T11:05:47.017Z
+2026-09-12T11:05:47.106Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:05:47.120Z info: FW$Sync finished
+2026-09-12T11:09:21.272Z info: $OpenSafeByPin finished
+2026-09-12T11:09:21.302Z info: $GetSafe finished
+2026-09-12T11:09:21.356Z info: $GetOrgSvc finished
+2026-09-12T11:09:26.159Z info: $GetSitesUrls finished
+2026-09-12T11:09:26.188Z info: ADMIN$getAllStatus : 2026-09-12T11:09:26.188Z
+2026-09-12T11:09:26.200Z info: ADMIN$getAllStatus finished
+2026-09-12T11:09:26.227Z info: FW$setSubscription : 2026-09-12T11:09:26.227Z
+2026-09-12T11:09:26.230Z info: FW$setSubscription finished
+2026-09-12T11:09:26.312Z info: FW$Sync : 2026-09-12T11:09:26.312Z
+2026-09-12T11:09:26.320Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:09:26.323Z info: FW$Sync finished
+2026-09-12T11:09:29.347Z info: PropsOfMyCreds : 2026-09-12T11:09:29.347Z
+2026-09-12T11:09:29.355Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:09:29.357Z info: PropsOfMyCreds finished
+2026-09-12T11:10:18.191Z info: MajAuteur : 2026-09-12T11:10:18.191Z
+2026-09-12T11:10:18.198Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:10:18.205Z info: MajAuteur finished
+2026-09-12T11:10:18.239Z info: FW$Sync : 2026-09-12T11:10:18.239Z
+2026-09-12T11:10:18.258Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:10:18.259Z info: FW$Sync finished
+2026-09-12T11:10:18.357Z info: FW$Sync : 2026-09-12T11:10:18.357Z
+2026-09-12T11:10:18.378Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-12T11:10:18.381Z info: FW$Sync finished
+2026-09-14T08:37:47.832Z info: Configuration pre-loaded
+2026-09-14T08:37:55.106Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T08:37:55.124Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T08:37:55.327Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T08:37:55.328Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T08:37:55.328Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T08:37:55.329Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T08:37:55.330Z info: fw documents loading: 2
+2026-09-14T08:37:55.330Z info: app operations loading: 12
+2026-09-14T08:37:55.331Z info: fw operations loading: 72
+2026-09-14T08:37:55.331Z info: app operations loading: 72
+2026-09-14T08:37:55.332Z info: safe operations loading: 72
+2026-09-14T08:37:55.332Z info: masterdir operations loading: 72
+2026-09-14T08:37:55.332Z info: Configuration completed
+2026-09-14T08:37:55.342Z info: Server started
+2026-09-14T08:37:55.344Z info: HTTP listen [8091]
+2026-09-14T08:38:11.120Z info: $OpenSafeByPin finished
+2026-09-14T08:38:11.197Z info: $GetSafe finished
+2026-09-14T08:38:11.227Z info: $GetOrgSvc finished
+2026-09-14T08:38:16.836Z info: $GetSitesUrls finished
+2026-09-14T08:38:16.889Z info: ADMIN$getAllStatus : 2026-09-14T08:38:16.888Z
+2026-09-14T08:38:16.928Z info: ADMIN$getAllStatus finished
+2026-09-14T08:38:16.990Z info: FW$setSubscription : 2026-09-14T08:38:16.990Z
+2026-09-14T08:38:17.001Z info: FW$setSubscription finished
+2026-09-14T08:38:17.126Z info: FW$Sync : 2026-09-14T08:38:17.126Z
+2026-09-14T08:38:17.161Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T08:38:17.186Z info: FW$Sync finished
+2026-09-14T08:38:19.253Z info: PropsOfMyCreds : 2026-09-14T08:38:19.253Z
+2026-09-14T08:38:19.266Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T08:38:19.268Z info: PropsOfMyCreds finished
+2026-09-14T08:38:38.317Z info: ADMIN$getEnum : 2026-09-14T08:38:38.317Z
+2026-09-14T08:38:38.323Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["ADMIN$getEnum","","name"]
+2026-09-14T08:38:38.324Z info: ADMIN$getEnum terminated on exception
+2026-09-14T08:43:57.522Z info: Configuration pre-loaded
+2026-09-14T08:43:57.847Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T08:43:58.142Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T08:43:58.225Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T08:43:58.226Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T08:43:58.226Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T08:43:58.227Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T08:43:58.228Z info: fw documents loading: 2
+2026-09-14T08:43:58.229Z info: app operations loading: 12
+2026-09-14T08:43:58.230Z info: fw operations loading: 72
+2026-09-14T08:43:58.231Z info: app operations loading: 72
+2026-09-14T08:43:58.232Z info: safe operations loading: 72
+2026-09-14T08:43:58.232Z info: masterdir operations loading: 72
+2026-09-14T08:43:58.233Z info: Configuration completed
+2026-09-14T08:43:58.242Z info: Server started
+2026-09-14T08:43:58.244Z info: HTTP listen [8091]
+2026-09-14T08:44:09.736Z info: $OpenSafeByPin finished
+2026-09-14T08:44:09.811Z info: $GetSafe finished
+2026-09-14T08:44:09.871Z info: $GetOrgSvc finished
+2026-09-14T08:44:12.207Z info: $GetSitesUrls finished
+2026-09-14T08:44:12.278Z info: ADMIN$getAllStatus : 2026-09-14T08:44:12.278Z
+2026-09-14T08:44:12.303Z info: ADMIN$getAllStatus finished
+2026-09-14T08:44:12.389Z info: FW$setSubscription : 2026-09-14T08:44:12.389Z
+2026-09-14T08:44:12.399Z info: FW$setSubscription finished
+2026-09-14T08:44:12.502Z info: FW$Sync : 2026-09-14T08:44:12.502Z
+2026-09-14T08:44:12.516Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T08:44:12.519Z info: FW$Sync finished
+2026-09-14T08:44:14.153Z info: PropsOfMyCreds : 2026-09-14T08:44:14.153Z
+2026-09-14T08:44:14.164Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T08:44:14.165Z info: PropsOfMyCreds finished
+2026-09-14T08:44:55.167Z info: ADMIN$getEnum : 2026-09-14T08:44:55.167Z
+2026-09-14T08:46:09.588Z info: ADMIN$getEnum finished
+2026-09-14T08:51:11.956Z info: PropsOfMyCreds : 2026-09-14T08:51:11.956Z
+2026-09-14T08:51:11.993Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T08:51:12.046Z info: PropsOfMyCreds finished
+2026-09-14T09:01:39.419Z info: $OpenSafeByPin finished
+2026-09-14T09:01:39.563Z info: $GetSafe finished
+2026-09-14T09:01:39.614Z info: $GetOrgSvc finished
+2026-09-14T09:01:41.234Z info: $GetSitesUrls finished
+2026-09-14T09:01:41.292Z info: ADMIN$getAllStatus : 2026-09-14T09:01:41.292Z
+2026-09-14T09:01:41.334Z info: ADMIN$getAllStatus finished
+2026-09-14T09:01:41.412Z info: FW$setSubscription : 2026-09-14T09:01:41.412Z
+2026-09-14T09:01:41.417Z info: FW$setSubscription finished
+2026-09-14T09:01:41.509Z info: FW$Sync : 2026-09-14T09:01:41.508Z
+2026-09-14T09:01:41.520Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:01:41.522Z info: FW$Sync finished
+2026-09-14T09:01:44.640Z info: PropsOfMyCreds : 2026-09-14T09:01:44.640Z
+2026-09-14T09:01:44.656Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:01:44.658Z info: PropsOfMyCreds finished
+2026-09-14T09:19:17.720Z info: $GetOrgSvc finished
+2026-09-14T09:19:20.634Z info: $GetOrgSvc finished
+2026-09-14T09:19:30.273Z info: $OpenSafeByPin finished
+2026-09-14T09:19:30.342Z info: $GetSafe finished
+2026-09-14T09:19:30.386Z info: $GetOrgSvc finished
+2026-09-14T09:19:31.920Z info: $GetSitesUrls finished
+2026-09-14T09:19:31.960Z info: ADMIN$getAllStatus : 2026-09-14T09:19:31.960Z
+2026-09-14T09:19:31.966Z info: ADMIN$getAllStatus finished
+2026-09-14T09:19:32.034Z info: FW$setSubscription : 2026-09-14T09:19:32.034Z
+2026-09-14T09:19:32.039Z info: FW$setSubscription finished
+2026-09-14T09:19:32.146Z info: FW$Sync : 2026-09-14T09:19:32.146Z
+2026-09-14T09:19:32.156Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:19:32.157Z info: FW$Sync finished
+2026-09-14T09:19:33.721Z info: PropsOfMyCreds : 2026-09-14T09:19:33.721Z
+2026-09-14T09:19:33.733Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:19:33.734Z info: PropsOfMyCreds finished
+2026-09-14T09:21:09.423Z info: $OpenSafeByPin finished
+2026-09-14T09:21:09.494Z info: $GetSafe finished
+2026-09-14T09:21:09.531Z info: $GetOrgSvc finished
+2026-09-14T09:21:11.867Z info: $GetSitesUrls finished
+2026-09-14T09:21:11.911Z info: ADMIN$getAllStatus : 2026-09-14T09:21:11.911Z
+2026-09-14T09:21:11.916Z info: ADMIN$getAllStatus finished
+2026-09-14T09:21:11.986Z info: FW$setSubscription : 2026-09-14T09:21:11.986Z
+2026-09-14T09:21:11.993Z info: FW$setSubscription finished
+2026-09-14T09:21:12.082Z info: FW$Sync : 2026-09-14T09:21:12.082Z
+2026-09-14T09:21:12.094Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:21:12.097Z info: FW$Sync finished
+2026-09-14T09:21:14.215Z info: PropsOfMyCreds : 2026-09-14T09:21:14.215Z
+2026-09-14T09:21:14.226Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:21:14.227Z info: PropsOfMyCreds finished
+2026-09-14T09:21:35.975Z info: $GetOrgSvc finished
+2026-09-14T09:23:17.033Z info: PropsOfMyCreds : 2026-09-14T09:23:17.033Z
+2026-09-14T09:23:17.046Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:23:17.047Z info: PropsOfMyCreds finished
+2026-09-14T09:24:03.770Z info: $OpenSafeByPin finished
+2026-09-14T09:24:03.842Z info: $GetSafe finished
+2026-09-14T09:24:03.894Z info: $GetOrgSvc finished
+2026-09-14T09:24:05.860Z info: $GetSitesUrls finished
+2026-09-14T09:24:05.900Z info: ADMIN$getAllStatus : 2026-09-14T09:24:05.900Z
+2026-09-14T09:24:05.906Z info: ADMIN$getAllStatus finished
+2026-09-14T09:24:06.044Z info: FW$setSubscription : 2026-09-14T09:24:06.044Z
+2026-09-14T09:24:06.051Z info: FW$setSubscription finished
+2026-09-14T09:24:06.151Z info: FW$Sync : 2026-09-14T09:24:06.151Z
+2026-09-14T09:24:06.161Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:24:06.162Z info: FW$Sync finished
+2026-09-14T09:24:11.079Z info: PropsOfMyCreds : 2026-09-14T09:24:11.079Z
+2026-09-14T09:24:11.091Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:24:11.092Z info: PropsOfMyCreds finished
+2026-09-14T09:24:20.980Z info: ADMIN$getEnum : 2026-09-14T09:24:20.980Z
+2026-09-14T09:31:56.027Z info: ADMIN$getEnum finished
+2026-09-14T09:32:35.816Z info: PropsOfMyCreds : 2026-09-14T09:32:35.816Z
+2026-09-14T09:32:35.835Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:32:35.837Z info: PropsOfMyCreds finished
+2026-09-14T09:32:47.054Z info: ADMIN$getEnum : 2026-09-14T09:32:47.054Z
+2026-09-14T09:33:04.273Z info: ADMIN$getEnum finished
+2026-09-14T09:33:15.432Z info: Configuration pre-loaded
+2026-09-14T09:33:15.781Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T09:33:15.785Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T09:33:15.835Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T09:33:15.836Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T09:33:15.838Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T09:33:15.839Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T09:33:15.840Z info: fw documents loading: 2
+2026-09-14T09:33:15.842Z info: app operations loading: 12
+2026-09-14T09:33:15.843Z info: fw operations loading: 72
+2026-09-14T09:33:15.845Z info: app operations loading: 72
+2026-09-14T09:33:15.847Z info: safe operations loading: 72
+2026-09-14T09:33:15.848Z info: masterdir operations loading: 72
+2026-09-14T09:33:15.849Z info: Configuration completed
+2026-09-14T09:33:15.864Z info: Server started
+2026-09-14T09:33:15.869Z info: HTTP listen [8091]
+2026-09-14T09:33:27.220Z info: PropsOfMyCreds : 2026-09-14T09:33:27.219Z
+2026-09-14T09:33:27.264Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:33:27.265Z info: PropsOfMyCreds finished
+2026-09-14T09:33:40.407Z info: PropsOfMyCreds : 2026-09-14T09:33:40.407Z
+2026-09-14T09:33:40.418Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:33:40.419Z info: PropsOfMyCreds finished
+2026-09-14T09:33:42.262Z info: ADMIN$getEnum : 2026-09-14T09:33:42.262Z
+2026-09-14T09:35:04.477Z info: ADMIN$getEnum finished
+2026-09-14T09:35:37.008Z info: PropsOfMyCreds : 2026-09-14T09:35:37.008Z
+2026-09-14T09:35:37.023Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:35:37.032Z info: PropsOfMyCreds finished
+2026-09-14T09:35:38.548Z info: ADMIN$getEnum : 2026-09-14T09:35:38.548Z
+2026-09-14T09:36:46.135Z info: Configuration pre-loaded
+2026-09-14T09:36:46.523Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T09:36:46.527Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T09:36:46.807Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T09:36:46.808Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T09:36:46.809Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T09:36:46.810Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T09:36:46.810Z info: fw documents loading: 2
+2026-09-14T09:36:46.811Z info: app operations loading: 12
+2026-09-14T09:36:46.811Z info: fw operations loading: 72
+2026-09-14T09:36:46.812Z info: app operations loading: 72
+2026-09-14T09:36:46.812Z info: safe operations loading: 72
+2026-09-14T09:36:46.813Z info: masterdir operations loading: 72
+2026-09-14T09:36:46.813Z info: Configuration completed
+2026-09-14T09:36:46.823Z info: Server started
+2026-09-14T09:36:46.825Z info: HTTP listen [8091]
+2026-09-14T09:36:49.316Z info: PropsOfMyCreds : 2026-09-14T09:36:49.315Z
+2026-09-14T09:36:49.369Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T09:36:49.371Z info: PropsOfMyCreds finished
+2026-09-14T09:36:50.906Z info: ADMIN$getEnum : 2026-09-14T09:36:50.905Z
+2026-09-14T09:37:16.865Z info: ADMIN$getEnum finished
+2026-09-14T11:12:41.198Z info: Configuration pre-loaded
+2026-09-14T11:12:41.772Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T11:12:41.780Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T11:12:41.844Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:12:41.845Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:12:41.847Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T11:12:41.848Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T11:12:41.849Z info: fw documents loading: 2
+2026-09-14T11:12:41.850Z info: app operations loading: 12
+2026-09-14T11:12:41.851Z info: fw operations loading: 72
+2026-09-14T11:12:41.853Z info: app operations loading: 72
+2026-09-14T11:12:41.853Z info: safe operations loading: 72
+2026-09-14T11:12:41.854Z info: masterdir operations loading: 72
+2026-09-14T11:12:41.855Z info: Configuration completed
+2026-09-14T11:12:41.866Z info: Server started
+2026-09-14T11:12:41.870Z info: HTTP listen [8091]
+2026-09-14T11:12:51.207Z info: $OpenSafeByPin finished
+2026-09-14T11:12:51.281Z info: $GetSafe finished
+2026-09-14T11:12:51.325Z info: $GetOrgSvc finished
+2026-09-14T11:12:53.478Z info: $GetSitesUrls finished
+2026-09-14T11:12:53.514Z info: ADMIN$getAllStatus : 2026-09-14T11:12:53.514Z
+2026-09-14T11:12:53.526Z info: ADMIN$getAllStatus finished
+2026-09-14T11:12:53.609Z info: FW$setSubscription : 2026-09-14T11:12:53.608Z
+2026-09-14T11:12:57.673Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.updRow (D:\git\asocial2-srv\src-sqlite\index.ts:778:12)
+    at AppSQLiteConnexion.writeRow (D:\git\asocial2-srv\src-sqlite\index.ts:845:36)
+    at Cache.commit (D:\git\asocial2-srv\src-fw\operation.ts:700:17)
+    at FW$setSubscription.transac (D:\git\asocial2-srv\src-fw\operation.ts:183:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:642:7)
+    at async FW$setSubscription.run (D:\git\asocial2-srv\src-fw\operation.ts:201:28)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:394:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:220:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:153:9)
+ROLLBACK;
+UPDATE "AS2$SUBS" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';
+SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;
+2026-09-14T11:12:57.675Z error: AppExc: 110:DB_lock@FW$setSubscription:["FW$setSubscription","AS2","blue","SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.updRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:778:12)\n    at AppSQLiteConnexion.writeRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:845:36)\n    at Cache.commit (D:\\git\\asocial2-srv\\src-fw\\operation.ts:700:17)\n    at FW$setSubscription.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:183:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:642:7)\n    at async FW$setSubscription.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:201:28)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:394:5)\n    at async doSvcOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:220:3)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:153:9)\nROLLBACK;\nUPDATE \"AS2$SUBS\" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';\nSELECT * FROM \"AS2$SUBS\" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;"]
+2026-09-14T11:12:57.676Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:FW$setSubscription - AppExc: 110:DB_lock@FW$setSubscription:["FW$setSubscription","AS2","blue","SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.updRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:778:12)\n    at AppSQLiteConnexion.writeRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:845:36)\n    at Cache.commit (D:\\git\\asocial2-srv\\src-fw\\operation.ts:700:17)\n    at FW$setSubscription.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:183:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:642:7)\n    at async FW$setSubscription.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:201:28)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:394:5)\n    at async doSvcOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:220:3)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:153:9)\nROLLBACK;\nUPDATE \"AS2$SUBS\" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';\nSELECT * FROM \"AS2$SUBS\" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;"]
+2026-09-14T11:12:57.677Z error: FW$setSubscription : 2026-09-14T11:12:57.667Z : AppExc: 110:DB_lock@FW$setSubscription:["FW$setSubscription","AS2","blue","SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.updRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:778:12)\n    at AppSQLiteConnexion.writeRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:845:36)\n    at Cache.commit (D:\\git\\asocial2-srv\\src-fw\\operation.ts:700:17)\n    at FW$setSubscription.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:183:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:642:7)\n    at async FW$setSubscription.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:201:28)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:394:5)\n    at async doSvcOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:220:3)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:153:9)\nROLLBACK;\nUPDATE \"AS2$SUBS\" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';\nSELECT * FROM \"AS2$SUBS\" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;"]
+2026-09-14T11:12:57.678Z info: FW$setSubscription terminated on exception
+2026-09-14T11:13:29.125Z info: Configuration pre-loaded
+2026-09-14T11:13:29.506Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T11:13:29.509Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T11:13:29.548Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:13:29.549Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:13:29.550Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T11:13:29.550Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T11:13:29.551Z info: fw documents loading: 2
+2026-09-14T11:13:29.551Z info: app operations loading: 12
+2026-09-14T11:13:29.552Z info: fw operations loading: 72
+2026-09-14T11:13:29.552Z info: app operations loading: 72
+2026-09-14T11:13:29.553Z info: safe operations loading: 72
+2026-09-14T11:13:29.553Z info: masterdir operations loading: 72
+2026-09-14T11:13:29.553Z info: Configuration completed
+2026-09-14T11:13:29.560Z info: Server started
+2026-09-14T11:13:29.562Z info: HTTP listen [8091]
+2026-09-14T11:13:38.257Z info: ADMIN$getAllStatus : 2026-09-14T11:13:38.256Z
+2026-09-14T11:13:38.369Z info: ADMIN$getAllStatus finished
+2026-09-14T11:13:40.584Z info: ADMIN$getAllStatus : 2026-09-14T11:13:40.584Z
+2026-09-14T11:13:40.589Z info: ADMIN$getAllStatus finished
+2026-09-14T11:13:40.621Z info: FW$setSubscription : 2026-09-14T11:13:40.621Z
+2026-09-14T11:13:40.630Z info: FW$setSubscription finished
+2026-09-14T11:13:40.667Z info: FW$Sync : 2026-09-14T11:13:40.667Z
+2026-09-14T11:13:40.692Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T11:13:40.695Z info: FW$Sync finished
+2026-09-14T11:13:48.834Z info: $OpenSafeByPin finished
+2026-09-14T11:13:48.922Z info: $GetSafe finished
+2026-09-14T11:13:48.950Z info: $GetOrgSvc finished
+2026-09-14T11:13:50.555Z info: $GetSitesUrls finished
+2026-09-14T11:13:50.624Z info: ADMIN$getAllStatus : 2026-09-14T11:13:50.624Z
+2026-09-14T11:13:50.668Z info: ADMIN$getAllStatus finished
+2026-09-14T11:13:50.746Z info: FW$setSubscription : 2026-09-14T11:13:50.746Z
+2026-09-14T11:13:50.751Z info: FW$setSubscription finished
+2026-09-14T11:13:50.850Z info: FW$Sync : 2026-09-14T11:13:50.850Z
+2026-09-14T11:13:50.864Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T11:13:50.866Z info: FW$Sync finished
+2026-09-14T11:13:52.552Z info: PropsOfMyCreds : 2026-09-14T11:13:52.552Z
+2026-09-14T11:13:52.563Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T11:13:52.564Z info: PropsOfMyCreds finished
+2026-09-14T11:13:53.944Z info: ADMIN$getEnum : 2026-09-14T11:13:53.944Z
+2026-09-14T11:14:26.240Z info: ADMIN$getEnum finished
+2026-09-14T11:35:05.032Z info: $OpenSafeByPin finished
+2026-09-14T11:35:05.177Z info: $GetSafe finished
+2026-09-14T11:38:02.731Z info: $GetOrgSvc finished
+2026-09-14T11:38:25.857Z info: $GetSitesUrls finished
+2026-09-14T11:38:25.877Z info: ADMIN$setEnum : 2026-09-14T11:38:25.876Z
+2026-09-14T11:38:25.880Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["ADMIN$setEnum","","value"]
+2026-09-14T11:38:25.881Z info: ADMIN$setEnum terminated on exception
+2026-09-14T11:40:47.901Z info: $OpenSafeByPin finished
+2026-09-14T11:40:47.964Z info: $GetSafe finished
+2026-09-14T11:40:55.541Z info: $GetOrgSvc finished
+2026-09-14T11:40:55.573Z info: $GetSitesUrls finished
+2026-09-14T11:40:55.613Z info: ADMIN$setEnum : 2026-09-14T11:40:55.613Z
+2026-09-14T11:41:14.263Z error: ADMIN$setEnum : 2026-09-14T11:40:55.613Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:41:14.265Z info: ADMIN$setEnum terminated on exception
+2026-09-14T11:41:14.267Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:45:11.639Z info: ADMIN$setEnum : 2026-09-14T11:45:11.639Z
+2026-09-14T11:46:38.997Z error: ADMIN$setEnum : 2026-09-14T11:45:11.639Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:46:38.999Z info: ADMIN$setEnum terminated on exception
+2026-09-14T11:46:39.000Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:47:27.891Z info: ADMIN$setEnum : 2026-09-14T11:47:27.890Z
+2026-09-14T11:47:33.045Z error: ADMIN$setEnum : 2026-09-14T11:47:27.890Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:47:33.045Z info: ADMIN$setEnum terminated on exception
+2026-09-14T11:47:33.046Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:47:44.251Z info: $OpenSafeByPin finished
+2026-09-14T11:47:44.317Z info: $GetSafe finished
+2026-09-14T11:47:50.739Z info: $GetOrgSvc finished
+2026-09-14T11:47:55.894Z info: $GetSitesUrls finished
+2026-09-14T11:48:01.473Z info: ADMIN$setEnum : 2026-09-14T11:48:01.473Z
+2026-09-14T11:48:15.342Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T11:48:15.358Z error: ADMIN$setEnum : 2026-09-14T11:48:01.473Z : AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T11:48:15.371Z info: ADMIN$setEnum terminated on exception
+2026-09-14T11:53:05.423Z info: ADMIN$setEnum : 2026-09-14T11:53:05.423Z
+2026-09-14T11:59:08.072Z info: Configuration pre-loaded
+2026-09-14T11:59:08.462Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T11:59:08.467Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T11:59:08.785Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:59:08.786Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T11:59:08.787Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T11:59:08.787Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T11:59:08.788Z info: fw documents loading: 2
+2026-09-14T11:59:08.789Z info: app operations loading: 12
+2026-09-14T11:59:08.789Z info: fw operations loading: 72
+2026-09-14T11:59:08.790Z info: app operations loading: 72
+2026-09-14T11:59:08.790Z info: safe operations loading: 72
+2026-09-14T11:59:08.791Z info: masterdir operations loading: 72
+2026-09-14T11:59:08.791Z info: Configuration completed
+2026-09-14T11:59:08.803Z info: Server started
+2026-09-14T11:59:08.805Z info: HTTP listen [8091]
+2026-09-14T11:59:22.914Z info: ADMIN$setEnum : 2026-09-14T11:59:22.913Z
+2026-09-14T11:59:42.116Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T11:59:42.118Z error: ADMIN$setEnum : 2026-09-14T11:59:22.913Z : AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T11:59:42.119Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:02:04.784Z info: Configuration pre-loaded
+2026-09-14T12:02:05.205Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:02:05.210Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:02:05.553Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:02:05.554Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:02:05.554Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:02:05.555Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:02:05.556Z info: fw documents loading: 2
+2026-09-14T12:02:05.556Z info: app operations loading: 12
+2026-09-14T12:02:05.557Z info: fw operations loading: 72
+2026-09-14T12:02:05.558Z info: app operations loading: 72
+2026-09-14T12:02:05.558Z info: safe operations loading: 72
+2026-09-14T12:02:05.559Z info: masterdir operations loading: 72
+2026-09-14T12:02:05.559Z info: Configuration completed
+2026-09-14T12:02:05.570Z info: Server started
+2026-09-14T12:02:05.572Z info: HTTP listen [8091]
+2026-09-14T12:02:12.107Z info: ADMIN$setEnum : 2026-09-14T12:02:12.107Z
+2026-09-14T12:02:12.109Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Section"]
+2026-09-14T12:02:12.111Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:02:53.511Z info: ADMIN$setEnum : 2026-09-14T12:02:53.511Z
+2026-09-14T12:02:59.578Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Section"]
+2026-09-14T12:04:23.261Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:04:34.526Z info: ADMIN$setEnum : 2026-09-14T12:04:34.525Z
+2026-09-14T12:04:44.619Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Section"]
+2026-09-14T12:05:01.655Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:05:45.319Z info: Configuration pre-loaded
+2026-09-14T12:05:45.778Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:05:45.781Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:05:46.118Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:05:46.119Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:05:46.121Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:05:46.122Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:05:46.124Z info: fw documents loading: 2
+2026-09-14T12:05:46.126Z info: app operations loading: 12
+2026-09-14T12:05:46.127Z info: fw operations loading: 72
+2026-09-14T12:05:46.128Z info: app operations loading: 72
+2026-09-14T12:05:46.129Z info: safe operations loading: 72
+2026-09-14T12:05:46.130Z info: masterdir operations loading: 72
+2026-09-14T12:05:46.131Z info: Configuration completed
+2026-09-14T12:05:46.147Z info: Server started
+2026-09-14T12:05:46.151Z info: HTTP listen [8091]
+2026-09-14T12:05:52.960Z info: ADMIN$setEnum : 2026-09-14T12:05:52.960Z
+2026-09-14T12:10:56.780Z info: Auth status: 
+2026-09-14T12:10:56.783Z error: ADMIN$setEnum : 2026-09-14T12:05:52.960Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-14T12:10:56.785Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:11:09.423Z info: ADMIN$setEnum : 2026-09-14T12:11:09.423Z
+2026-09-14T12:13:07.149Z info: Auth status: 
+2026-09-14T12:13:07.151Z error: ADMIN$setEnum : 2026-09-14T12:11:09.423Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-14T12:13:07.152Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:13:20.517Z info: ADMIN$setEnum : 2026-09-14T12:13:20.517Z
+2026-09-14T12:14:18.458Z info: Auth status: 
+2026-09-14T12:14:18.462Z error: ADMIN$setEnum : 2026-09-14T12:13:20.517Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-14T12:14:18.463Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:19:02.023Z info: Configuration pre-loaded
+2026-09-14T12:19:02.464Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:19:02.469Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:19:02.773Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:19:02.774Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:19:02.775Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:19:02.775Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:19:02.776Z info: fw documents loading: 2
+2026-09-14T12:19:02.777Z info: app operations loading: 12
+2026-09-14T12:19:02.777Z info: fw operations loading: 72
+2026-09-14T12:19:02.778Z info: app operations loading: 72
+2026-09-14T12:19:02.778Z info: safe operations loading: 72
+2026-09-14T12:19:02.779Z info: masterdir operations loading: 72
+2026-09-14T12:19:02.779Z info: Configuration completed
+2026-09-14T12:19:02.787Z info: Server started
+2026-09-14T12:19:02.789Z info: HTTP listen [8091]
+2026-09-14T12:19:24.064Z info: $OpenSafeByPin finished
+2026-09-14T12:19:24.278Z info: $GetSafe finished
+2026-09-14T12:19:33.829Z info: $GetOrgSvc finished
+2026-09-14T12:19:37.426Z info: $GetSitesUrls finished
+2026-09-14T12:19:37.464Z info: ADMIN$setEnum : 2026-09-14T12:19:37.464Z
+2026-09-14T12:19:37.467Z info: Mail sent to:daniel@sportes.fr subject:AppExc: 103:missing_argument["ADMIN$setEnum","","org"]
+2026-09-14T12:19:37.468Z info: ADMIN$setEnum terminated on exception
+2026-09-14T12:20:39.892Z info: $OpenSafeByPin finished
+2026-09-14T12:20:39.965Z info: $GetSafe finished
+2026-09-14T12:20:49.654Z info: $GetOrgSvc finished
+2026-09-14T12:20:52.531Z info: $GetSitesUrls finished
+2026-09-14T12:20:52.555Z info: ADMIN$setEnum : 2026-09-14T12:20:52.555Z
+2026-09-14T12:23:59.537Z info: Configuration pre-loaded
+2026-09-14T12:23:59.909Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:23:59.913Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:24:00.330Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:24:00.331Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:24:00.332Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:24:00.333Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:24:00.334Z info: fw documents loading: 2
+2026-09-14T12:24:00.334Z info: app operations loading: 12
+2026-09-14T12:24:00.335Z info: fw operations loading: 72
+2026-09-14T12:24:00.336Z info: app operations loading: 72
+2026-09-14T12:24:00.337Z info: safe operations loading: 72
+2026-09-14T12:24:00.337Z info: masterdir operations loading: 72
+2026-09-14T12:24:00.338Z info: Configuration completed
+2026-09-14T12:24:00.350Z info: Server started
+2026-09-14T12:24:00.352Z info: HTTP listen [8091]
+2026-09-14T12:24:07.383Z info: ADMIN$setEnum : 2026-09-14T12:24:07.383Z
+2026-09-14T12:25:29.428Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-14T12:25:52.366Z info: ADMIN$setEnum finished
+2026-09-14T12:26:53.657Z info: Configuration pre-loaded
+2026-09-14T12:26:54.128Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:26:54.134Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:26:54.497Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:26:54.497Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:26:54.498Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:26:54.499Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:26:54.500Z info: fw documents loading: 2
+2026-09-14T12:26:54.501Z info: app operations loading: 12
+2026-09-14T12:26:54.501Z info: fw operations loading: 72
+2026-09-14T12:26:54.502Z info: app operations loading: 72
+2026-09-14T12:26:54.502Z info: safe operations loading: 72
+2026-09-14T12:26:54.503Z info: masterdir operations loading: 72
+2026-09-14T12:26:54.504Z info: Configuration completed
+2026-09-14T12:26:54.513Z info: Server started
+2026-09-14T12:26:54.515Z info: HTTP listen [8091]
+2026-09-14T12:26:59.256Z info: ADMIN$setEnum : 2026-09-14T12:26:59.256Z
+2026-09-14T12:27:15.521Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-14T12:27:31.455Z info: ADMIN$setEnum finished

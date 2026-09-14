@@ -7,6 +7,8 @@
 
 # Serveur
 
+Emission de heartbeats
+
 GetLock : hors transaction.
 
 Non régression de v pour un document à gérer.

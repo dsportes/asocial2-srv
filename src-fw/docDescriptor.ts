@@ -4,12 +4,20 @@ import { AppExc } from '../src-fw/log'
 // Liste ordonnnée de noms de propriétés identifiantes
 export type props = string[]
 
+/*
+  Enumérations:
+  - si enum est string[] n vide -> donne l'énumération
+  - si vide ([]) l'énumération est un singleton
+    - si enumCred est absent: singleton SVC$name -> requireAdmin
+    - si enumCred est présent: singleton SVC$name_ORG
+      enumCred est le docCl du credential requis pour maj (docPk: '1')
+*/
 export type Descriptor = {
   name: string
   pk?: props
   nohash?: boolean
   enum?: string[]
-  extenum?: string
+  enumCred?: string
   subClassBy?: string
   // Pour les services seulement
   sync?: boolean
@@ -78,7 +86,7 @@ export class DocDescriptor {
     const cl = i === -1 ? clazz : clazz.substring(0, i)
     const dd = this.all.get(cl)
     if (!dd) 
-      throw new AppExc(103, 'not_configured_doc_class', 'DocDescriptor.get', [cl])
+      throw new AppExc(103, 'invalid_class_name', 'DocDescriptor.get', [cl])
     return dd
   }
 
@@ -87,7 +95,7 @@ export class DocDescriptor {
   pk?: string[]
   nohash?: boolean
   enum?: string[]
-  extenum?: string = ''
+  enumCred?: string = ''
   subClassBy?: string = ''
 
   // Pour les services seulement
@@ -113,6 +121,11 @@ export class DocDescriptor {
     if (src) this.pk.forEach(pr => { x.push(src[pr] || '') })
     p = x.join('/')
     return nohash || this.nohash ? p : Crypt.shaS(p)
+  }
+
+  colClass (name: string) {
+    const c = this.colls.get(name)
+    return c ? c.class : ''
   }
 
   isTestable (idxName: string) : boolean {
@@ -205,7 +218,7 @@ export class DocDescriptor {
     }
     this.nohash = arg.nohash || false
     this.enum = arg.enum
-    this.extenum = arg.extenum
+    this.enumCred = arg.enumCred
     if (arg.subClassBy && !DocDescriptor.isVarName(arg.subClassBy)) 
       throw new AppExc(3, 'property_name_syntax', 'DocDescriptor', [this.name + '.' + arg.subClassBy])
     this.subClassBy = arg.subClassBy

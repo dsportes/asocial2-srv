@@ -132,14 +132,14 @@ Registry.registerOp(ADMIN$getAllStatus)
   - _org : facultatif, pour spécialiser des énumérations par organisation
 */
 class ADMIN$getEnum extends Operation {
-  _name: string
+  _enumName: string
   init () {
     super.init()
-    this._name = this.stringValue('name', true)
+    this._enumName = this.stringValue('enumName', true)
   }
 
   async phase2 () {
-    const valx = await this.db.getSingleton('this._name') as string
+    const valx = await this.db.getSingleton(this._enumName) as string
     let x: string[] = JSON.parse(valx || '[]') 
     this.setRes('enum', x)
   }
@@ -149,18 +149,36 @@ Registry.registerOp(ADMIN$getEnum)
 /* ADMIN$setEnum fixe la liste des valeurs d'une enumération
 */
 class ADMIN$setEnum extends Operation {
-  _name: string
+  _enumName: string
   _value: string[]
+  _enumCred: string
 
   init () {
     super.init()
-    this._name = this.stringValue('name', true)
+    this._enumName = this.stringValue('enumName', true)
     this._value = this.stringArrayValue('value', true)
+    let i = this._enumName.indexOf('$')
+    let n = this._enumName.substring(i + 1)
+    // Ruse pour avoir une opération ADMIN avec des credentials d'un svc / org
+    this.svc = this._enumName.substring(0, i)
+    this.org = this.stringValue('org', true)
+    i = n.indexOf('_')
+    const name = i === -1 ? n : n.substring(0, i)
+    const dd = DocDescriptor.get(this.svc + '$' + name)
+    if (!dd)
+      throw new AppExc(3, 'invalid_class_name', this, [name])
+    this._enumCred = dd.enumCred
   }
 
   async phase2 () {
-    // TODO requireAdmin ???
-    await this.db.setSingleton(this._name, JSON.stringify(this._value))
+    this.requireAuth()
+    if (this._enumCred) {
+      /* const cr = */ this.getCredRef(this._enumCred, '1')
+      // console.log('ok')
+    } else {
+      this.requireAdmin()
+    }
+    await this.db.setSingleton(this._enumName, JSON.stringify(this._value))
   }
 }
 Registry.registerOp(ADMIN$setEnum)

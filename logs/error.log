@@ -876,3 +876,31 @@ Error: Captured for inspection
 2026-09-10T14:49:32.513Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of undefined (reading 'props')"]
 2026-09-10T14:53:08.361Z error: FW$setSubscription : 2026-09-10T14:53:08.358Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
 2026-09-10T14:53:08.376Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-14T11:12:57.673Z error: Op.run.phase2 - DB lock - SQLITE_BUSY
+database is locked
+SqliteError: database is locked
+    at AppSQLiteConnexion.updRow (D:\git\asocial2-srv\src-sqlite\index.ts:778:12)
+    at AppSQLiteConnexion.writeRow (D:\git\asocial2-srv\src-sqlite\index.ts:845:36)
+    at Cache.commit (D:\git\asocial2-srv\src-fw\operation.ts:700:17)
+    at FW$setSubscription.transac (D:\git\asocial2-srv\src-fw\operation.ts:183:16)
+    at async AppSQLiteConnexion.doTransaction (D:\git\asocial2-srv\src-sqlite\index.ts:642:7)
+    at async FW$setSubscription.run (D:\git\asocial2-srv\src-fw\operation.ts:201:28)
+    at async doOp (D:\git\asocial2-srv\src-fw\index.ts:394:5)
+    at async doSvcOp (D:\git\asocial2-srv\src-fw\index.ts:220:3)
+    at async IncomingMessage.<anonymous> (D:\git\asocial2-srv\src-fw\index.ts:153:9)
+ROLLBACK;
+UPDATE "AS2$SUBS" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';
+SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;
+2026-09-14T11:12:57.675Z error: AppExc: 110:DB_lock@FW$setSubscription:["FW$setSubscription","AS2","blue","SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.updRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:778:12)\n    at AppSQLiteConnexion.writeRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:845:36)\n    at Cache.commit (D:\\git\\asocial2-srv\\src-fw\\operation.ts:700:17)\n    at FW$setSubscription.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:183:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:642:7)\n    at async FW$setSubscription.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:201:28)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:394:5)\n    at async doSvcOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:220:3)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:153:9)\nROLLBACK;\nUPDATE \"AS2$SUBS\" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';\nSELECT * FROM \"AS2$SUBS\" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;"]
+2026-09-14T11:12:57.677Z error: FW$setSubscription : 2026-09-14T11:12:57.667Z : AppExc: 110:DB_lock@FW$setSubscription:["FW$setSubscription","AS2","blue","SQLITE_BUSY\ndatabase is locked\nSqliteError: database is locked\n    at AppSQLiteConnexion.updRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:778:12)\n    at AppSQLiteConnexion.writeRow (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:845:36)\n    at Cache.commit (D:\\git\\asocial2-srv\\src-fw\\operation.ts:700:17)\n    at FW$setSubscription.transac (D:\\git\\asocial2-srv\\src-fw\\operation.ts:183:16)\n    at async AppSQLiteConnexion.doTransaction (D:\\git\\asocial2-srv\\src-sqlite\\index.ts:642:7)\n    at async FW$setSubscription.run (D:\\git\\asocial2-srv\\src-fw\\operation.ts:201:28)\n    at async doOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:394:5)\n    at async doSvcOp (D:\\git\\asocial2-srv\\src-fw\\index.ts:220:3)\n    at async IncomingMessage.<anonymous> (D:\\git\\asocial2-srv\\src-fw\\index.ts:153:9)\nROLLBACK;\nUPDATE \"AS2$SUBS\" SET defs = '$PmzCHsR4AjQIHQMxji3V', v = 1789384377667.0, ttl = 29827392.0, data = x'250578b6a83fceb59be45da3d4066dc0d1abe52567a65c443e6631329efae883'/*+569 bytes*/ WHERE org = 'doda' AND  pk = '-53wTBNZ71DvGOWxGcqR';\nSELECT * FROM \"AS2$SUBS\" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND v > 1789377846044.0 ;"]
+2026-09-14T11:41:14.263Z error: ADMIN$setEnum : 2026-09-14T11:40:55.613Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:41:14.267Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:46:38.997Z error: ADMIN$setEnum : 2026-09-14T11:45:11.639Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:46:39.000Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:47:33.045Z error: ADMIN$setEnum : 2026-09-14T11:47:27.890Z : TypeError: Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView.
+2026-09-14T11:47:33.046Z error: AppExc: 105:service_unexpected_exception["Failed to execute 'verify' on 'SubtleCrypto': 3rd argument is not instance of ArrayBuffer, Buffer, TypedArray, or DataView."]
+2026-09-14T11:48:15.358Z error: ADMIN$setEnum : 2026-09-14T11:48:01.473Z : AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T11:59:42.118Z error: ADMIN$setEnum : 2026-09-14T11:59:22.913Z : AppExc: 103:invalid_class_name["undefined$Redaction"]
+2026-09-14T12:10:56.783Z error: ADMIN$setEnum : 2026-09-14T12:05:52.960Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-14T12:13:07.151Z error: ADMIN$setEnum : 2026-09-14T12:11:09.423Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-14T12:14:18.462Z error: ADMIN$setEnum : 2026-09-14T12:13:20.517Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
