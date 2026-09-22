@@ -904,3 +904,6 @@ SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND 
 2026-09-14T12:10:56.783Z error: ADMIN$setEnum : 2026-09-14T12:05:52.960Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
 2026-09-14T12:13:07.151Z error: ADMIN$setEnum : 2026-09-14T12:11:09.423Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
 2026-09-14T12:14:18.462Z error: ADMIN$setEnum : 2026-09-14T12:13:20.517Z : AppExc: 101:operation_bad_credentials@ADMIN$setEnum:["ADMIN$setEnum","h3I54WYl2poUKnxaMUVa","Redaction/1"]
+2026-09-22T14:40:25.154Z error: ListeAuteursSection : 2026-09-22T14:39:54.676Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-09-22T14:40:25.173Z error: AppExc: 105:service_unexpected_exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-09-22T15:00:51.205Z error: ListeAuteursSection : 2026-09-22T15:00:47.731Z : AppExc: 103:missing_credential@ListeAuteursSection:["ListeAuteursSection","AS2","doda","AS2$Auteur","1"]

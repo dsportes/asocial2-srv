@@ -1,4 +1,4 @@
-// import { encode } from '@msgpack/msgpack'
+// import { decode } from '@msgpack/msgpack'
 import { config } from '../src/config'
 import { Log } from '../src-fw/log'
 import { Operation, Cache } from '../src-fw/operation'

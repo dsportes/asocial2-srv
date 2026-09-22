@@ -173,7 +173,7 @@ export class SQLiteConnector extends DbConnector {
   }
 }
 
-const opFilter = [ '<', '<=', '==', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
+const opFilter = [ '<', '<=', '=', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 

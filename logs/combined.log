@@ -35206,3 +35206,574 @@ SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND 
 2026-09-14T12:26:59.256Z info: ADMIN$setEnum : 2026-09-14T12:26:59.256Z
 2026-09-14T12:27:15.521Z info: Auth status: Status:[OK] - [Redaction/1]
 2026-09-14T12:27:31.455Z info: ADMIN$setEnum finished
+2026-09-14T12:31:29.612Z info: Configuration pre-loaded
+2026-09-14T12:31:29.999Z info: FW document descriptors:2 forms descriptors:2
+2026-09-14T12:31:30.003Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-14T12:31:30.299Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:31:30.300Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-14T12:31:30.300Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-14T12:31:30.301Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-14T12:31:30.302Z info: fw documents loading: 2
+2026-09-14T12:31:30.302Z info: app operations loading: 12
+2026-09-14T12:31:30.303Z info: fw operations loading: 72
+2026-09-14T12:31:30.303Z info: app operations loading: 72
+2026-09-14T12:31:30.303Z info: safe operations loading: 72
+2026-09-14T12:31:30.304Z info: masterdir operations loading: 72
+2026-09-14T12:31:30.304Z info: Configuration completed
+2026-09-14T12:31:30.315Z info: Server started
+2026-09-14T12:31:30.317Z info: HTTP listen [8091]
+2026-09-14T15:34:07.925Z info: $OpenSafeByPin finished
+2026-09-14T15:34:08.010Z info: $GetSafe finished
+2026-09-14T15:39:23.170Z info: $OpenSafeByPin finished
+2026-09-14T15:39:23.283Z info: $GetSafe finished
+2026-09-14T15:40:02.140Z info: $GetOrgSvc finished
+2026-09-14T15:40:02.184Z info: $GetSitesUrls finished
+2026-09-14T15:40:02.217Z info: ADMIN$getEnum : 2026-09-14T15:40:02.217Z
+2026-09-14T15:40:02.226Z info: ADMIN$getEnum finished
+2026-09-14T15:44:50.858Z info: ADMIN$getEnum : 2026-09-14T15:44:50.858Z
+2026-09-14T15:44:50.885Z info: ADMIN$getEnum finished
+2026-09-14T15:48:19.722Z info: $OpenSafeByPin finished
+2026-09-14T15:48:19.789Z info: $GetSafe finished
+2026-09-14T15:48:34.795Z info: $GetOrgSvc finished
+2026-09-14T15:48:34.833Z info: $GetSitesUrls finished
+2026-09-14T15:48:34.849Z info: ADMIN$getEnum : 2026-09-14T15:48:34.849Z
+2026-09-14T15:48:34.854Z info: ADMIN$getEnum finished
+2026-09-14T16:21:57.388Z info: $OpenSafeByPin finished
+2026-09-14T16:21:57.495Z info: $GetSafe finished
+2026-09-14T16:22:05.500Z info: $GetOrgSvc finished
+2026-09-14T16:22:05.548Z info: $GetSitesUrls finished
+2026-09-14T16:22:05.569Z info: ADMIN$getEnum : 2026-09-14T16:22:05.569Z
+2026-09-14T16:22:05.575Z info: ADMIN$getEnum finished
+2026-09-14T16:22:59.410Z info: $OpenSafeByPin finished
+2026-09-14T16:22:59.472Z info: $GetSafe finished
+2026-09-14T16:23:07.534Z info: $GetOrgSvc finished
+2026-09-14T16:23:07.576Z info: $GetSitesUrls finished
+2026-09-14T16:23:07.603Z info: ADMIN$getEnum : 2026-09-14T16:23:07.602Z
+2026-09-14T16:23:07.607Z info: ADMIN$getEnum finished
+2026-09-14T16:26:24.125Z info: $OpenSafeByPin finished
+2026-09-14T16:26:24.193Z info: $GetSafe finished
+2026-09-14T16:26:31.176Z info: $GetOrgSvc finished
+2026-09-14T16:26:31.216Z info: $GetSitesUrls finished
+2026-09-14T16:26:31.239Z info: ADMIN$getEnum : 2026-09-14T16:26:31.239Z
+2026-09-14T16:26:31.242Z info: ADMIN$getEnum finished
+2026-09-14T16:28:18.193Z info: $OpenSafeByPin finished
+2026-09-14T16:28:18.264Z info: $GetSafe finished
+2026-09-14T16:28:18.365Z info: $GetOrgSvc finished
+2026-09-14T16:28:20.273Z info: $GetSitesUrls finished
+2026-09-14T16:28:20.312Z info: ADMIN$getAllStatus : 2026-09-14T16:28:20.312Z
+2026-09-14T16:28:20.322Z info: ADMIN$getAllStatus finished
+2026-09-14T16:28:20.382Z info: FW$setSubscription : 2026-09-14T16:28:20.382Z
+2026-09-14T16:28:20.389Z info: FW$setSubscription finished
+2026-09-14T16:28:20.484Z info: FW$Sync : 2026-09-14T16:28:20.484Z
+2026-09-14T16:28:20.501Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-09-14T16:28:20.504Z info: FW$Sync finished
+2026-09-14T16:28:26.644Z info: ADMIN$getEnum : 2026-09-14T16:28:26.644Z
+2026-09-14T16:28:26.647Z info: ADMIN$getEnum finished
+2026-09-14T16:36:12.729Z info: ADMIN$getEnum : 2026-09-14T16:36:12.729Z
+2026-09-14T16:36:12.733Z info: ADMIN$getEnum finished
+2026-09-14T16:37:47.458Z info: ADMIN$getEnum : 2026-09-14T16:37:47.458Z
+2026-09-14T16:37:47.461Z info: ADMIN$getEnum finished
+2026-09-14T16:39:59.162Z info: ADMIN$getEnum : 2026-09-14T16:39:59.162Z
+2026-09-14T16:39:59.166Z info: ADMIN$getEnum finished
+2026-09-14T16:43:02.440Z info: $OpenSafeByPin finished
+2026-09-14T16:43:02.497Z info: $GetSafe finished
+2026-09-14T16:43:12.356Z info: $GetOrgSvc finished
+2026-09-14T16:43:12.401Z info: $GetSitesUrls finished
+2026-09-14T16:43:12.455Z info: ADMIN$getEnum : 2026-09-14T16:43:12.455Z
+2026-09-14T16:43:12.459Z info: ADMIN$getEnum finished
+2026-09-14T16:44:25.487Z info: ADMIN$getEnum : 2026-09-14T16:44:25.487Z
+2026-09-14T16:44:25.490Z info: ADMIN$getEnum finished
+2026-09-14T16:48:47.430Z info: ADMIN$getEnum : 2026-09-14T16:48:47.430Z
+2026-09-14T16:48:47.434Z info: ADMIN$getEnum finished
+2026-09-14T16:53:28.005Z info: ADMIN$getEnum : 2026-09-14T16:53:28.004Z
+2026-09-14T16:53:28.008Z info: ADMIN$getEnum finished
+2026-09-14T17:03:27.859Z info: $OpenSafeByPin finished
+2026-09-14T17:03:27.948Z info: $GetSafe finished
+2026-09-14T17:03:34.913Z info: $GetOrgSvc finished
+2026-09-14T17:03:34.958Z info: $GetSitesUrls finished
+2026-09-14T17:03:34.981Z info: ADMIN$getEnum : 2026-09-14T17:03:34.981Z
+2026-09-14T17:03:34.984Z info: ADMIN$getEnum finished
+2026-09-14T17:05:42.024Z info: ADMIN$getEnum : 2026-09-14T17:05:42.024Z
+2026-09-14T17:05:42.028Z info: ADMIN$getEnum finished
+2026-09-14T17:09:03.507Z info: ADMIN$getEnum : 2026-09-14T17:09:03.507Z
+2026-09-14T17:09:03.510Z info: ADMIN$getEnum finished
+2026-09-14T17:11:17.103Z info: ADMIN$getEnum : 2026-09-14T17:11:17.103Z
+2026-09-14T17:11:17.107Z info: ADMIN$getEnum finished
+2026-09-14T17:12:35.793Z info: $OpenSafeByPin finished
+2026-09-14T17:12:35.846Z info: $GetSafe finished
+2026-09-14T17:12:42.899Z info: $GetOrgSvc finished
+2026-09-14T17:12:42.940Z info: $GetSitesUrls finished
+2026-09-14T17:12:42.964Z info: ADMIN$getEnum : 2026-09-14T17:12:42.964Z
+2026-09-14T17:12:42.967Z info: ADMIN$getEnum finished
+2026-09-14T17:19:53.132Z info: ADMIN$getEnum : 2026-09-14T17:19:53.132Z
+2026-09-14T17:19:53.136Z info: ADMIN$getEnum finished
+2026-09-14T17:22:13.026Z info: ADMIN$getEnum : 2026-09-14T17:22:13.026Z
+2026-09-14T17:22:13.030Z info: ADMIN$getEnum finished
+2026-09-14T17:23:22.839Z info: ADMIN$getEnum : 2026-09-14T17:23:22.839Z
+2026-09-14T17:23:22.843Z info: ADMIN$getEnum finished
+2026-09-14T17:25:37.418Z info: ADMIN$getEnum : 2026-09-14T17:25:37.418Z
+2026-09-14T17:25:37.422Z info: ADMIN$getEnum finished
+2026-09-14T17:30:33.572Z info: ADMIN$getEnum : 2026-09-14T17:30:33.572Z
+2026-09-14T17:30:33.575Z info: ADMIN$getEnum finished
+2026-09-14T17:30:50.283Z info: $OpenSafeByPin finished
+2026-09-14T17:30:50.378Z info: $GetSafe finished
+2026-09-14T17:30:58.137Z info: $GetOrgSvc finished
+2026-09-14T17:30:58.176Z info: $GetSitesUrls finished
+2026-09-14T17:30:58.202Z info: ADMIN$getEnum : 2026-09-14T17:30:58.202Z
+2026-09-14T17:30:58.205Z info: ADMIN$getEnum finished
+2026-09-14T17:33:20.378Z info: ADMIN$getEnum : 2026-09-14T17:33:20.378Z
+2026-09-14T17:33:20.380Z info: ADMIN$getEnum finished
+2026-09-22T09:52:55.865Z info: Configuration pre-loaded
+2026-09-22T09:52:59.117Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T09:52:59.124Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T09:52:59.210Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T09:52:59.211Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T09:52:59.211Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T09:52:59.212Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T09:52:59.213Z info: fw documents loading: 2
+2026-09-22T09:52:59.213Z info: app operations loading: 12
+2026-09-22T09:52:59.214Z info: fw operations loading: 72
+2026-09-22T09:52:59.214Z info: app operations loading: 72
+2026-09-22T09:52:59.215Z info: safe operations loading: 72
+2026-09-22T09:52:59.215Z info: masterdir operations loading: 72
+2026-09-22T09:52:59.216Z info: Configuration completed
+2026-09-22T09:52:59.227Z info: Server started
+2026-09-22T09:52:59.229Z info: HTTP listen [8091]
+2026-09-22T09:53:05.382Z info: $OpenSafeByPin finished
+2026-09-22T09:53:05.455Z info: $GetSafe finished
+2026-09-22T09:56:28.695Z info: $OpenSafeByPin finished
+2026-09-22T09:56:28.742Z info: $GetSafe finished
+2026-09-22T09:57:21.912Z info: $GetOrgSvc finished
+2026-09-22T09:57:21.940Z info: $GetOrgSvc finished
+2026-09-22T09:57:39.432Z info: $OpenSafeByPin finished
+2026-09-22T09:57:39.475Z info: $GetSafe finished
+2026-09-22T09:57:42.554Z info: $GetOrgSvc finished
+2026-09-22T09:57:42.562Z info: $GetOrgSvc finished
+2026-09-22T09:57:42.587Z info: $GetOrgSvc finished
+2026-09-22T09:57:42.597Z info: $GetOrgSvc finished
+2026-09-22T09:57:59.161Z info: $GetOrgSvc finished
+2026-09-22T09:57:59.182Z info: $GetSitesUrls finished
+2026-09-22T09:57:59.204Z info: ADMIN$getEnum : 2026-09-22T09:57:59.203Z
+2026-09-22T09:57:59.212Z info: ADMIN$getEnum finished
+2026-09-22T10:03:48.898Z info: $OpenSafeByPin finished
+2026-09-22T10:03:48.947Z info: $GetSafe finished
+2026-09-22T10:04:48.502Z info: $GetOrgSvc finished
+2026-09-22T10:04:48.522Z info: $GetSitesUrls finished
+2026-09-22T10:04:48.539Z info: ADMIN$getEnum : 2026-09-22T10:04:48.539Z
+2026-09-22T10:04:48.546Z info: ADMIN$getEnum finished
+2026-09-22T10:10:27.832Z info: $OpenSafeByPin finished
+2026-09-22T10:10:27.874Z info: $GetSafe finished
+2026-09-22T10:10:34.638Z info: $GetOrgSvc finished
+2026-09-22T10:10:34.656Z info: $GetSitesUrls finished
+2026-09-22T10:10:34.673Z info: ADMIN$getEnum : 2026-09-22T10:10:34.673Z
+2026-09-22T10:10:34.679Z info: ADMIN$getEnum finished
+2026-09-22T10:12:01.391Z info: ADMIN$getEnum : 2026-09-22T10:12:01.391Z
+2026-09-22T10:12:01.397Z info: ADMIN$getEnum finished
+2026-09-22T10:12:21.229Z info: ADMIN$getEnum : 2026-09-22T10:12:21.229Z
+2026-09-22T10:12:21.234Z info: ADMIN$getEnum finished
+2026-09-22T10:14:08.109Z info: ADMIN$getEnum : 2026-09-22T10:14:08.108Z
+2026-09-22T10:14:08.117Z info: ADMIN$getEnum finished
+2026-09-22T10:14:29.475Z info: $OpenSafeByPin finished
+2026-09-22T10:14:29.519Z info: $GetSafe finished
+2026-09-22T10:14:38.989Z info: $GetOrgSvc finished
+2026-09-22T10:14:39.002Z info: $GetOrgSvc finished
+2026-09-22T10:14:49.589Z info: $GetOrgSvc finished
+2026-09-22T10:14:49.600Z info: $GetOrgSvc finished
+2026-09-22T10:14:49.618Z info: $GetSitesUrls finished
+2026-09-22T10:14:49.630Z info: $GetSitesUrls finished
+2026-09-22T10:14:49.647Z info: ADMIN$getEnum : 2026-09-22T10:14:49.646Z
+2026-09-22T10:14:49.653Z info: ADMIN$getEnum finished
+2026-09-22T10:14:49.656Z info: ADMIN$getEnum : 2026-09-22T10:14:49.656Z
+2026-09-22T10:14:49.661Z info: ADMIN$getEnum finished
+2026-09-22T10:17:35.448Z info: ADMIN$getEnum : 2026-09-22T10:17:35.448Z
+2026-09-22T10:17:35.453Z info: ADMIN$getEnum finished
+2026-09-22T10:17:41.668Z info: ADMIN$getEnum : 2026-09-22T10:17:41.668Z
+2026-09-22T10:17:41.673Z info: ADMIN$getEnum finished
+2026-09-22T10:17:58.921Z info: $OpenSafeByPin finished
+2026-09-22T10:17:59.027Z info: $GetSafe finished
+2026-09-22T10:18:06.493Z info: $GetOrgSvc finished
+2026-09-22T10:18:06.513Z info: $GetSitesUrls finished
+2026-09-22T10:18:06.528Z info: ADMIN$getEnum : 2026-09-22T10:18:06.528Z
+2026-09-22T10:18:06.534Z info: ADMIN$getEnum finished
+2026-09-22T10:18:08.368Z info: ADMIN$getEnum : 2026-09-22T10:18:08.368Z
+2026-09-22T10:18:08.374Z info: ADMIN$getEnum finished
+2026-09-22T10:23:47.327Z info: $OpenSafeByPin finished
+2026-09-22T10:23:47.376Z info: $GetSafe finished
+2026-09-22T10:23:55.601Z info: $GetOrgSvc finished
+2026-09-22T10:23:55.622Z info: $GetSitesUrls finished
+2026-09-22T10:23:55.634Z info: ADMIN$getEnum : 2026-09-22T10:23:55.634Z
+2026-09-22T10:23:55.640Z info: ADMIN$getEnum finished
+2026-09-22T10:24:10.560Z info: ADMIN$getEnum : 2026-09-22T10:24:10.560Z
+2026-09-22T10:24:10.565Z info: ADMIN$getEnum finished
+2026-09-22T10:48:49.590Z info: $GetOrgSvc finished
+2026-09-22T10:48:49.872Z info: $GetOrgSvc finished
+2026-09-22T11:45:06.985Z info: $OpenSafeByPin finished
+2026-09-22T11:45:07.028Z info: $GetSafe finished
+2026-09-22T11:45:31.695Z info: $GetOrgSvc finished
+2026-09-22T11:45:31.717Z info: $GetSitesUrls finished
+2026-09-22T11:45:31.733Z info: ADMIN$getEnum : 2026-09-22T11:45:31.733Z
+2026-09-22T11:45:31.738Z info: ADMIN$getEnum finished
+2026-09-22T11:49:24.051Z info: ADMIN$getEnum : 2026-09-22T11:49:24.051Z
+2026-09-22T11:49:24.059Z info: ADMIN$getEnum finished
+2026-09-22T11:49:38.673Z info: $OpenSafeByPin finished
+2026-09-22T11:49:38.762Z info: $GetSafe finished
+2026-09-22T11:49:45.309Z info: $GetOrgSvc finished
+2026-09-22T11:49:45.331Z info: $GetSitesUrls finished
+2026-09-22T11:49:45.344Z info: ADMIN$getEnum : 2026-09-22T11:49:45.344Z
+2026-09-22T11:49:45.350Z info: ADMIN$getEnum finished
+2026-09-22T11:53:50.311Z info: ADMIN$getEnum : 2026-09-22T11:53:50.311Z
+2026-09-22T11:53:50.316Z info: ADMIN$getEnum finished
+2026-09-22T11:59:00.776Z info: $OpenSafeByPin finished
+2026-09-22T11:59:00.823Z info: $GetSafe finished
+2026-09-22T11:59:08.233Z info: $GetOrgSvc finished
+2026-09-22T11:59:08.253Z info: $GetSitesUrls finished
+2026-09-22T11:59:08.265Z info: ADMIN$getEnum : 2026-09-22T11:59:08.265Z
+2026-09-22T11:59:08.270Z info: ADMIN$getEnum finished
+2026-09-22T11:59:15.853Z info: ADMIN$getEnum : 2026-09-22T11:59:15.853Z
+2026-09-22T11:59:15.857Z info: ADMIN$getEnum finished
+2026-09-22T11:59:48.466Z info: $GetOrgSvc finished
+2026-09-22T11:59:48.602Z info: $GetOrgSvc finished
+2026-09-22T12:00:02.423Z info: $OpenSafeByPin finished
+2026-09-22T12:00:02.467Z info: $GetSafe finished
+2026-09-22T12:00:09.816Z info: $GetOrgSvc finished
+2026-09-22T12:00:09.838Z info: $GetSitesUrls finished
+2026-09-22T12:00:09.854Z info: ADMIN$getEnum : 2026-09-22T12:00:09.854Z
+2026-09-22T12:00:09.858Z info: ADMIN$getEnum finished
+2026-09-22T12:00:11.501Z info: ADMIN$getEnum : 2026-09-22T12:00:11.501Z
+2026-09-22T12:00:11.506Z info: ADMIN$getEnum finished
+2026-09-22T12:04:02.896Z info: $OpenSafeByPin finished
+2026-09-22T12:04:02.941Z info: $GetSafe finished
+2026-09-22T12:04:10.386Z info: $GetOrgSvc finished
+2026-09-22T12:04:10.411Z info: $GetSitesUrls finished
+2026-09-22T12:04:10.425Z info: ADMIN$getEnum : 2026-09-22T12:04:10.425Z
+2026-09-22T12:04:10.430Z info: ADMIN$getEnum finished
+2026-09-22T12:04:46.153Z info: ADMIN$getEnum : 2026-09-22T12:04:46.153Z
+2026-09-22T12:04:46.158Z info: ADMIN$getEnum finished
+2026-09-22T12:07:43.694Z info: ADMIN$getEnum : 2026-09-22T12:07:43.694Z
+2026-09-22T12:07:43.699Z info: ADMIN$getEnum finished
+2026-09-22T12:10:45.539Z info: ADMIN$getEnum : 2026-09-22T12:10:45.539Z
+2026-09-22T12:10:45.544Z info: ADMIN$getEnum finished
+2026-09-22T12:11:19.468Z info: ADMIN$getEnum : 2026-09-22T12:11:19.468Z
+2026-09-22T12:11:19.477Z info: ADMIN$getEnum finished
+2026-09-22T12:14:26.263Z info: ADMIN$setEnum : 2026-09-22T12:14:26.261Z
+2026-09-22T12:14:34.649Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T12:14:34.658Z info: ADMIN$setEnum finished
+2026-09-22T12:14:43.210Z info: ADMIN$setEnum : 2026-09-22T12:14:43.210Z
+2026-09-22T12:14:43.227Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T12:14:43.229Z info: ADMIN$setEnum finished
+2026-09-22T12:15:32.402Z info: ADMIN$setEnum : 2026-09-22T12:15:32.401Z
+2026-09-22T12:15:32.413Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T12:15:32.414Z info: ADMIN$setEnum finished
+2026-09-22T12:37:23.840Z info: $OpenSafeByPin finished
+2026-09-22T12:37:23.892Z info: $GetSafe finished
+2026-09-22T12:37:30.473Z info: $GetOrgSvc finished
+2026-09-22T12:37:30.492Z info: $GetSitesUrls finished
+2026-09-22T12:37:30.507Z info: ADMIN$getEnum : 2026-09-22T12:37:30.507Z
+2026-09-22T12:37:30.512Z info: ADMIN$getEnum finished
+2026-09-22T12:37:32.747Z info: ADMIN$getEnum : 2026-09-22T12:37:32.747Z
+2026-09-22T12:37:32.757Z info: ADMIN$getEnum finished
+2026-09-22T12:39:30.779Z info: ADMIN$getEnum : 2026-09-22T12:39:30.779Z
+2026-09-22T12:39:30.785Z info: ADMIN$getEnum finished
+2026-09-22T12:41:09.649Z info: ADMIN$getEnum : 2026-09-22T12:41:09.649Z
+2026-09-22T12:41:09.659Z info: ADMIN$getEnum finished
+2026-09-22T12:42:45.017Z info: ADMIN$getEnum : 2026-09-22T12:42:45.017Z
+2026-09-22T12:42:45.023Z info: ADMIN$getEnum finished
+2026-09-22T12:44:09.962Z info: ADMIN$getEnum : 2026-09-22T12:44:09.962Z
+2026-09-22T12:44:09.978Z info: ADMIN$getEnum finished
+2026-09-22T12:54:19.956Z info: $OpenSafeByPin finished
+2026-09-22T12:54:20.005Z info: $GetSafe finished
+2026-09-22T12:54:27.206Z info: $GetOrgSvc finished
+2026-09-22T12:54:27.223Z info: $GetSitesUrls finished
+2026-09-22T12:54:27.240Z info: ADMIN$getEnum : 2026-09-22T12:54:27.240Z
+2026-09-22T12:54:27.245Z info: ADMIN$getEnum finished
+2026-09-22T12:54:35.467Z info: ADMIN$getEnum : 2026-09-22T12:54:35.467Z
+2026-09-22T12:54:35.472Z info: ADMIN$getEnum finished
+2026-09-22T12:56:23.542Z info: ADMIN$getEnum : 2026-09-22T12:56:23.542Z
+2026-09-22T12:56:23.547Z info: ADMIN$getEnum finished
+2026-09-22T12:59:40.741Z info: $OpenSafeByPin finished
+2026-09-22T12:59:40.783Z info: $GetSafe finished
+2026-09-22T12:59:48.510Z info: $GetOrgSvc finished
+2026-09-22T12:59:48.530Z info: $GetSitesUrls finished
+2026-09-22T12:59:48.551Z info: ADMIN$getEnum : 2026-09-22T12:59:48.551Z
+2026-09-22T12:59:48.558Z info: ADMIN$getEnum finished
+2026-09-22T12:59:54.057Z info: ADMIN$getEnum : 2026-09-22T12:59:54.057Z
+2026-09-22T12:59:54.061Z info: ADMIN$getEnum finished
+2026-09-22T13:02:50.394Z info: $OpenSafeByPin finished
+2026-09-22T13:02:50.438Z info: $GetSafe finished
+2026-09-22T13:02:57.713Z info: $GetOrgSvc finished
+2026-09-22T13:02:57.740Z info: $GetSitesUrls finished
+2026-09-22T13:02:57.753Z info: ADMIN$getEnum : 2026-09-22T13:02:57.753Z
+2026-09-22T13:02:57.758Z info: ADMIN$getEnum finished
+2026-09-22T13:02:59.333Z info: ADMIN$getEnum : 2026-09-22T13:02:59.333Z
+2026-09-22T13:02:59.336Z info: ADMIN$getEnum finished
+2026-09-22T13:04:24.644Z info: ADMIN$getEnum : 2026-09-22T13:04:24.644Z
+2026-09-22T13:04:24.649Z info: ADMIN$getEnum finished
+2026-09-22T13:07:50.716Z info: $OpenSafeByPin finished
+2026-09-22T13:07:50.762Z info: $GetSafe finished
+2026-09-22T13:07:58.448Z info: $GetOrgSvc finished
+2026-09-22T13:07:58.467Z info: $GetSitesUrls finished
+2026-09-22T13:07:58.485Z info: ADMIN$getEnum : 2026-09-22T13:07:58.485Z
+2026-09-22T13:07:58.489Z info: ADMIN$getEnum finished
+2026-09-22T13:08:00.076Z info: ADMIN$getEnum : 2026-09-22T13:08:00.076Z
+2026-09-22T13:08:00.080Z info: ADMIN$getEnum finished
+2026-09-22T13:12:37.082Z info: $OpenSafeByPin finished
+2026-09-22T13:12:37.126Z info: $GetSafe finished
+2026-09-22T13:12:46.164Z info: $GetOrgSvc finished
+2026-09-22T13:12:46.183Z info: $GetSitesUrls finished
+2026-09-22T13:12:46.193Z info: ADMIN$getEnum : 2026-09-22T13:12:46.193Z
+2026-09-22T13:12:46.208Z info: ADMIN$getEnum finished
+2026-09-22T13:14:26.614Z info: $OpenSafeByPin finished
+2026-09-22T13:14:26.718Z info: $GetSafe finished
+2026-09-22T13:14:34.657Z info: $GetOrgSvc finished
+2026-09-22T13:14:34.678Z info: $GetSitesUrls finished
+2026-09-22T13:14:34.696Z info: ADMIN$getEnum : 2026-09-22T13:14:34.696Z
+2026-09-22T13:14:34.699Z info: ADMIN$getEnum finished
+2026-09-22T13:19:48.413Z info: $OpenSafeByPin finished
+2026-09-22T13:19:48.457Z info: $GetSafe finished
+2026-09-22T13:19:58.025Z info: $GetOrgSvc finished
+2026-09-22T13:19:58.047Z info: $GetSitesUrls finished
+2026-09-22T13:19:58.060Z info: ADMIN$getEnum : 2026-09-22T13:19:58.060Z
+2026-09-22T13:19:58.063Z info: ADMIN$getEnum finished
+2026-09-22T13:21:03.078Z info: ADMIN$getEnum : 2026-09-22T13:21:03.078Z
+2026-09-22T13:21:03.081Z info: ADMIN$getEnum finished
+2026-09-22T13:23:31.407Z info: ADMIN$getEnum : 2026-09-22T13:23:31.406Z
+2026-09-22T13:23:31.412Z info: ADMIN$getEnum finished
+2026-09-22T13:23:53.882Z info: ADMIN$getEnum : 2026-09-22T13:23:53.882Z
+2026-09-22T13:23:53.884Z info: ADMIN$getEnum finished
+2026-09-22T13:25:39.028Z info: ADMIN$getEnum : 2026-09-22T13:25:39.028Z
+2026-09-22T13:25:39.036Z info: ADMIN$getEnum finished
+2026-09-22T13:32:00.462Z info: $OpenSafeByPin finished
+2026-09-22T13:32:00.508Z info: $GetSafe finished
+2026-09-22T13:32:08.060Z info: $GetOrgSvc finished
+2026-09-22T13:32:08.080Z info: $GetSitesUrls finished
+2026-09-22T13:32:08.095Z info: ADMIN$getEnum : 2026-09-22T13:32:08.095Z
+2026-09-22T13:32:08.099Z info: ADMIN$getEnum finished
+2026-09-22T13:32:10.476Z info: ADMIN$getEnum : 2026-09-22T13:32:10.476Z
+2026-09-22T13:32:10.478Z info: ADMIN$getEnum finished
+2026-09-22T13:36:01.430Z info: ADMIN$getEnum : 2026-09-22T13:36:01.430Z
+2026-09-22T13:36:01.436Z info: ADMIN$getEnum finished
+2026-09-22T13:36:08.964Z info: ADMIN$getEnum : 2026-09-22T13:36:08.964Z
+2026-09-22T13:36:08.968Z info: ADMIN$getEnum finished
+2026-09-22T13:37:22.553Z info: ADMIN$setEnum : 2026-09-22T13:37:22.553Z
+2026-09-22T13:37:22.573Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T13:37:22.574Z info: ADMIN$setEnum finished
+2026-09-22T13:42:01.977Z info: ADMIN$setEnum : 2026-09-22T13:42:01.977Z
+2026-09-22T13:42:01.991Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T13:42:01.995Z info: ADMIN$setEnum finished
+2026-09-22T13:42:18.326Z info: ADMIN$setEnum : 2026-09-22T13:42:18.326Z
+2026-09-22T13:42:18.355Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T13:42:18.370Z info: ADMIN$setEnum finished
+2026-09-22T13:44:01.194Z info: $OpenSafeByPin finished
+2026-09-22T13:44:01.239Z info: $GetSafe finished
+2026-09-22T13:44:10.457Z info: $GetOrgSvc finished
+2026-09-22T13:44:10.475Z info: $GetSitesUrls finished
+2026-09-22T13:44:10.490Z info: ADMIN$getEnum : 2026-09-22T13:44:10.490Z
+2026-09-22T13:44:10.494Z info: ADMIN$getEnum finished
+2026-09-22T14:22:03.626Z info: Configuration pre-loaded
+2026-09-22T14:22:04.093Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T14:22:04.098Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T14:22:04.531Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:22:04.533Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:22:04.534Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T14:22:04.535Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T14:22:04.536Z info: fw documents loading: 2
+2026-09-22T14:22:04.537Z info: app operations loading: 12
+2026-09-22T14:22:04.539Z info: fw operations loading: 73
+2026-09-22T14:22:04.540Z info: app operations loading: 73
+2026-09-22T14:22:04.541Z info: safe operations loading: 73
+2026-09-22T14:22:04.543Z info: masterdir operations loading: 73
+2026-09-22T14:22:04.543Z info: Configuration completed
+2026-09-22T14:22:04.556Z info: Server started
+2026-09-22T14:22:04.563Z info: HTTP listen [8091]
+2026-09-22T14:22:50.393Z info: $OpenSafeByPin finished
+2026-09-22T14:22:50.443Z info: $GetSafe finished
+2026-09-22T14:24:25.798Z info: $OpenSafeByPin finished
+2026-09-22T14:24:25.843Z info: $GetSafe finished
+2026-09-22T14:24:32.572Z info: $GetOrgSvc finished
+2026-09-22T14:24:32.587Z info: $GetSitesUrls finished
+2026-09-22T14:24:32.603Z info: ADMIN$getEnum : 2026-09-22T14:24:32.603Z
+2026-09-22T14:24:32.617Z info: ADMIN$getEnum finished
+2026-09-22T14:24:55.182Z info: ListeAuteursSection : 2026-09-22T14:24:55.182Z
+2026-09-22T14:25:04.595Z info: ListeAuteursSection finished
+2026-09-22T14:25:44.571Z info: ListeAuteursSection : 2026-09-22T14:25:44.570Z
+2026-09-22T14:25:52.836Z info: ListeAuteursSection finished
+2026-09-22T14:27:11.056Z info: ListeAuteursSection : 2026-09-22T14:27:11.056Z
+2026-09-22T14:32:13.155Z info: ListeAuteursSection finished
+2026-09-22T14:36:15.647Z info: Configuration pre-loaded
+2026-09-22T14:36:16.294Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T14:36:16.300Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T14:36:16.368Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:36:16.368Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:36:16.369Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T14:36:16.371Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T14:36:16.372Z info: fw documents loading: 2
+2026-09-22T14:36:16.373Z info: app operations loading: 12
+2026-09-22T14:36:16.374Z info: fw operations loading: 73
+2026-09-22T14:36:16.375Z info: app operations loading: 73
+2026-09-22T14:36:16.375Z info: safe operations loading: 73
+2026-09-22T14:36:16.376Z info: masterdir operations loading: 73
+2026-09-22T14:36:16.377Z info: Configuration completed
+2026-09-22T14:36:16.388Z info: Server started
+2026-09-22T14:36:16.390Z info: HTTP listen [8091]
+2026-09-22T14:36:23.789Z info: ListeAuteursSection : 2026-09-22T14:36:23.789Z
+2026-09-22T14:37:33.436Z info: ListeAuteursSection finished
+2026-09-22T14:39:47.869Z info: Configuration pre-loaded
+2026-09-22T14:39:48.217Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T14:39:48.221Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T14:39:48.476Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:39:48.476Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:39:48.477Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T14:39:48.477Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T14:39:48.478Z info: fw documents loading: 2
+2026-09-22T14:39:48.478Z info: app operations loading: 12
+2026-09-22T14:39:48.479Z info: fw operations loading: 73
+2026-09-22T14:39:48.479Z info: app operations loading: 73
+2026-09-22T14:39:48.480Z info: safe operations loading: 73
+2026-09-22T14:39:48.480Z info: masterdir operations loading: 73
+2026-09-22T14:39:48.480Z info: Configuration completed
+2026-09-22T14:39:48.488Z info: Server started
+2026-09-22T14:39:48.490Z info: HTTP listen [8091]
+2026-09-22T14:39:54.676Z info: ListeAuteursSection : 2026-09-22T14:39:54.676Z
+2026-09-22T14:40:25.154Z error: ListeAuteursSection : 2026-09-22T14:39:54.676Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
+2026-09-22T14:40:25.156Z info: ListeAuteursSection terminated on exception
+2026-09-22T14:40:25.173Z error: AppExc: 105:service_unexpected_exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
+2026-09-22T14:41:33.416Z info: ListeAuteursSection : 2026-09-22T14:41:33.416Z
+2026-09-22T14:42:23.865Z info: Configuration pre-loaded
+2026-09-22T14:42:24.254Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T14:42:24.258Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T14:42:24.634Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:42:24.635Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:42:24.636Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T14:42:24.637Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T14:42:24.638Z info: fw documents loading: 2
+2026-09-22T14:42:24.639Z info: app operations loading: 12
+2026-09-22T14:42:24.640Z info: fw operations loading: 73
+2026-09-22T14:42:24.641Z info: app operations loading: 73
+2026-09-22T14:42:24.642Z info: safe operations loading: 73
+2026-09-22T14:42:24.643Z info: masterdir operations loading: 73
+2026-09-22T14:42:24.643Z info: Configuration completed
+2026-09-22T14:42:24.654Z info: Server started
+2026-09-22T14:42:24.656Z info: HTTP listen [8091]
+2026-09-22T14:42:27.565Z info: ListeAuteursSection : 2026-09-22T14:42:27.565Z
+2026-09-22T14:42:49.339Z info: ListeAuteursSection finished
+2026-09-22T14:44:19.758Z info: ListeAuteursSection : 2026-09-22T14:44:19.758Z
+2026-09-22T14:44:19.762Z info: ListeAuteursSection finished
+2026-09-22T14:44:22.857Z info: ListeAuteursSection : 2026-09-22T14:44:22.857Z
+2026-09-22T14:44:22.862Z info: ListeAuteursSection finished
+2026-09-22T14:59:44.116Z info: Configuration pre-loaded
+2026-09-22T14:59:44.454Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T14:59:44.458Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T14:59:44.713Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:59:44.725Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T14:59:44.744Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T14:59:44.779Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T14:59:44.781Z info: fw documents loading: 2
+2026-09-22T14:59:44.782Z info: app operations loading: 12
+2026-09-22T14:59:44.783Z info: fw operations loading: 73
+2026-09-22T14:59:44.783Z info: app operations loading: 73
+2026-09-22T14:59:44.784Z info: safe operations loading: 73
+2026-09-22T14:59:44.785Z info: masterdir operations loading: 73
+2026-09-22T14:59:44.785Z info: Configuration completed
+2026-09-22T14:59:44.796Z info: Server started
+2026-09-22T14:59:44.806Z info: HTTP listen [8091]
+2026-09-22T15:00:31.685Z info: ADMIN$getEnum : 2026-09-22T15:00:31.685Z
+2026-09-22T15:00:31.698Z info: ADMIN$getEnum finished
+2026-09-22T15:00:47.731Z info: ListeAuteursSection : 2026-09-22T15:00:47.731Z
+2026-09-22T15:00:47.763Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:00:51.203Z info: Mail sent to:daniel@sportes.fr subject:org:doda - op:ListeAuteursSection - AppExc: 103:missing_credential@ListeAuteursSection:["ListeAuteursSection","AS2","doda","AS2$Auteur","1"]
+2026-09-22T15:00:51.205Z error: ListeAuteursSection : 2026-09-22T15:00:47.731Z : AppExc: 103:missing_credential@ListeAuteursSection:["ListeAuteursSection","AS2","doda","AS2$Auteur","1"]
+2026-09-22T15:00:51.206Z info: ListeAuteursSection terminated on exception
+2026-09-22T15:02:35.026Z info: Configuration pre-loaded
+2026-09-22T15:02:35.478Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T15:02:35.482Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T15:02:35.799Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:02:35.799Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:02:35.800Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T15:02:35.801Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T15:02:35.801Z info: fw documents loading: 2
+2026-09-22T15:02:35.802Z info: app operations loading: 12
+2026-09-22T15:02:35.802Z info: fw operations loading: 73
+2026-09-22T15:02:35.802Z info: app operations loading: 73
+2026-09-22T15:02:35.803Z info: safe operations loading: 73
+2026-09-22T15:02:35.804Z info: masterdir operations loading: 73
+2026-09-22T15:02:35.805Z info: Configuration completed
+2026-09-22T15:02:35.813Z info: Server started
+2026-09-22T15:02:35.815Z info: HTTP listen [8091]
+2026-09-22T15:02:49.342Z info: ListeAuteursSection : 2026-09-22T15:02:49.341Z
+2026-09-22T15:02:49.387Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:02:58.684Z info: ListeAuteursSection finished
+2026-09-22T15:43:00.048Z info: $OpenSafeByPin finished
+2026-09-22T15:43:00.096Z info: $GetSafe finished
+2026-09-22T15:43:17.639Z info: Configuration pre-loaded
+2026-09-22T15:43:18.014Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T15:43:18.018Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T15:43:18.263Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:43:18.263Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:43:18.264Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T15:43:18.264Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T15:43:18.265Z info: fw documents loading: 2
+2026-09-22T15:43:18.265Z info: app operations loading: 12
+2026-09-22T15:43:18.266Z info: fw operations loading: 73
+2026-09-22T15:43:18.267Z info: app operations loading: 73
+2026-09-22T15:43:18.267Z info: safe operations loading: 73
+2026-09-22T15:43:18.268Z info: masterdir operations loading: 73
+2026-09-22T15:43:18.269Z info: Configuration completed
+2026-09-22T15:43:18.277Z info: Server started
+2026-09-22T15:43:18.280Z info: HTTP listen [8091]
+2026-09-22T15:43:26.648Z info: $GetOrgSvc finished
+2026-09-22T15:43:26.663Z info: $GetSitesUrls finished
+2026-09-22T15:43:26.681Z info: ADMIN$getEnum : 2026-09-22T15:43:26.680Z
+2026-09-22T15:43:26.689Z info: ADMIN$getEnum finished
+2026-09-22T15:43:30.617Z info: ListeAuteursSection : 2026-09-22T15:43:30.617Z
+2026-09-22T15:43:30.642Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:43:30.644Z info: ListeAuteursSection finished
+2026-09-22T15:46:22.656Z info: $OpenSafeByPin finished
+2026-09-22T15:46:22.703Z info: $GetSafe finished
+2026-09-22T15:46:29.705Z info: $GetOrgSvc finished
+2026-09-22T15:46:29.725Z info: $GetSitesUrls finished
+2026-09-22T15:46:29.741Z info: ADMIN$getEnum : 2026-09-22T15:46:29.741Z
+2026-09-22T15:46:29.744Z info: ADMIN$getEnum finished
+2026-09-22T15:46:31.921Z info: ListeAuteursSection : 2026-09-22T15:46:31.921Z
+2026-09-22T15:46:31.931Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:46:31.932Z info: ListeAuteursSection finished
+2026-09-22T15:51:04.760Z info: ADMIN$getEnum : 2026-09-22T15:51:04.760Z
+2026-09-22T15:51:04.763Z info: ADMIN$getEnum finished
+2026-09-22T15:51:07.746Z info: ListeAuteursSection : 2026-09-22T15:51:07.746Z
+2026-09-22T15:51:07.755Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:51:07.757Z info: ListeAuteursSection finished
+2026-09-22T15:51:55.253Z info: $OpenSafeByPin finished
+2026-09-22T15:51:55.299Z info: $GetSafe finished
+2026-09-22T15:52:01.036Z info: $GetOrgSvc finished
+2026-09-22T15:52:01.052Z info: $GetSitesUrls finished
+2026-09-22T15:52:01.065Z info: ADMIN$getEnum : 2026-09-22T15:52:01.065Z
+2026-09-22T15:52:01.069Z info: ADMIN$getEnum finished
+2026-09-22T15:52:03.966Z info: ListeAuteursSection : 2026-09-22T15:52:03.966Z
+2026-09-22T15:52:03.975Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:52:03.976Z info: ListeAuteursSection finished
+2026-09-22T15:53:21.569Z info: Configuration pre-loaded
+2026-09-22T15:53:21.951Z info: FW document descriptors:2 forms descriptors:2
+2026-09-22T15:53:21.956Z info: AS2 document descriptors:8 forms descriptors:8
+2026-09-22T15:53:22.350Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:53:22.351Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-09-22T15:53:22.352Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-09-22T15:53:22.353Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-09-22T15:53:22.353Z info: fw documents loading: 2
+2026-09-22T15:53:22.354Z info: app operations loading: 12
+2026-09-22T15:53:22.355Z info: fw operations loading: 73
+2026-09-22T15:53:22.356Z info: app operations loading: 73
+2026-09-22T15:53:22.356Z info: safe operations loading: 73
+2026-09-22T15:53:22.357Z info: masterdir operations loading: 73
+2026-09-22T15:53:22.358Z info: Configuration completed
+2026-09-22T15:53:22.369Z info: Server started
+2026-09-22T15:53:22.371Z info: HTTP listen [8091]
+2026-09-22T15:53:38.505Z info: ListeAuteursSection : 2026-09-22T15:53:38.505Z
+2026-09-22T15:53:38.536Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:53:38.538Z info: ListeAuteursSection finished
+2026-09-22T15:53:44.047Z info: ListeAuteursSection : 2026-09-22T15:53:44.046Z
+2026-09-22T15:53:44.058Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:53:44.060Z info: ListeAuteursSection finished
+2026-09-22T15:54:55.433Z info: ListeAuteursSection : 2026-09-22T15:54:55.433Z
+2026-09-22T15:54:55.443Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-09-22T15:54:55.444Z info: ListeAuteursSection finished
+2026-09-22T15:54:58.073Z info: ListeAuteursSection : 2026-09-22T15:54:58.073Z
+2026-09-22T15:54:58.083Z info: Auth status: Status:[OK] - [Redaction/1]

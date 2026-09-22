@@ -1,4 +1,4 @@
-// import { encode, decode } from '@msgpack/msgpack'
+import { decode } from '@msgpack/msgpack'
 
 import { Operation } from '../src-fw/operation'
 import { Registry, topCl } from '../src-fw/registry'
@@ -6,6 +6,7 @@ import { Log } from '../src-fw/log'
 import { DocStatus } from '../src-fw/document'
 import { DocDescriptor } from '../src-fw/docDescriptor'
 import { AS2$Auteur } from '../src-as2/documents'
+import { filter } from '../src-fw/iDbGeneric'
 
 export function loadingOA () {
   Log.info('app operations loading: ' + Registry.sizeOp())
@@ -60,7 +61,8 @@ class MajAuteur extends Operation {
   async phase2 () {
     this.requireAuth()
     // const pk = DocDescriptor.get('AS2$Auteur').pkValue({ autid: this._autid })
-    this.getCredRef('Auteur', this._autpk)
+    let c = this.getCredRef('Auteur', this._autpk, true)
+    if (!c) this.getCredRef('Redaction', '1')
     const aut = await this.cache.getDoc('AS2$Auteur', { pk: this._autpk }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false
@@ -77,3 +79,33 @@ class MajAuteur extends Operation {
   }
 }
 Registry.registerOp(MajAuteur)
+
+class ListeAuteursSection extends Operation {
+  _section: string
+  init () {
+    super.init()
+    this._section = this.stringValue('section', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    const c = this.getCredRef('Redaction', '1')
+    const dd = DocDescriptor.get('AS2$Auteur')
+    const v = dd.getCollId( { section: this._section }, 'section')
+    const lst = []   
+    await this.db.selectDocs('AS2$Auteur', 'section', filter.EQ, v[0], '', 0, 
+      (bin: Uint8Array) => {
+        try {
+          const a: any = decode(bin)
+          lst.push({ 
+            nomAuteur: a.nomAuteur, 
+            section: a.section,
+            autid: a.autid
+          })
+        } catch (e) {
+          console.log(e)
+        }
+      })
+    this.setRes('lst', lst)
+  }
+}
+Registry.registerOp(ListeAuteursSection)
