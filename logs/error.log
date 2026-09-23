@@ -907,3 +907,21 @@ SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND 
 2026-09-22T14:40:25.154Z error: ListeAuteursSection : 2026-09-22T14:39:54.676Z : TypeError: SQLite3 can only bind numbers, strings, bigints, buffers, and null
 2026-09-22T14:40:25.173Z error: AppExc: 105:service_unexpected_exception["SQLite3 can only bind numbers, strings, bigints, buffers, and null"]
 2026-09-22T15:00:51.205Z error: ListeAuteursSection : 2026-09-22T15:00:47.731Z : AppExc: 103:missing_credential@ListeAuteursSection:["ListeAuteursSection","AS2","doda","AS2$Auteur","1"]
+2026-09-23T08:13:37.728Z error: FW$setSubscription : 2026-09-23T08:13:37.717Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-23T08:13:37.730Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-23T08:37:47.345Z error: FW$setSubscription : 2026-09-23T08:36:57.356Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-23T08:37:47.368Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-23T08:39:09.866Z error: FW$setSubscription : 2026-09-23T08:38:42.423Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-23T08:39:09.871Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-23T08:41:09.461Z error: FW$setSubscription : 2026-09-23T08:40:46.772Z : SqliteError: UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk
+2026-09-23T08:41:09.465Z error: AppExc: 105:service_unexpected_exception["UNIQUE constraint failed: AS2$SUBS.org, AS2$SUBS.pk"]
+2026-09-23T09:19:17.970Z error: ADMIN$getAllStatus : 2026-09-23T09:18:44.229Z : TypeError: Cannot read properties of null (reading 'init')
+2026-09-23T09:19:17.973Z error: AppExc: 105:service_unexpected_exception["Cannot read properties of null (reading 'init')"]
+2026-09-23T13:02:13.422Z error: FW$Sync : 2026-09-23T13:02:13.330Z : SqliteError: no such table: AS2$REDACTION
+2026-09-23T13:02:13.432Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]
+2026-09-23T13:13:07.965Z error: FW$Sync : 2026-09-23T13:13:07.949Z : SqliteError: no such table: AS2$REDACTION
+2026-09-23T13:13:07.986Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]
+2026-09-23T13:13:46.354Z error: FW$Sync : 2026-09-23T13:13:46.341Z : SqliteError: no such table: AS2$REDACTION
+2026-09-23T13:13:46.356Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]
+2026-09-23T13:18:24.584Z error: FW$Sync : 2026-09-23T13:14:31.291Z : SqliteError: no such table: AS2$REDACTION
+2026-09-23T13:18:24.586Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]

@@ -458,7 +458,7 @@ export class FW$Sync extends Operation {
 
   async sync0 (def: string, v: number, clazz: string) : Promise<void> {
     if (!this.checker.check0()) this.syncs[def] = { v: -1 }
-    const vdatas = await this.db.allRowsData(clazz, v)
+    const vdatas = this.dd.virtual ? null : await this.db.allRowsData(clazz, v)
     this.syncs[def] = vdatas
   }
 

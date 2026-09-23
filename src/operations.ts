@@ -96,10 +96,14 @@ class ListeAuteursSection extends Operation {
       (bin: Uint8Array) => {
         try {
           const a: any = decode(bin)
+          const creds = {}
+          for(const credId in a.embedCreds)
+            creds[credId] = a.embedCreds[credId].props
           lst.push({ 
             nomAuteur: a.nomAuteur, 
             section: a.section,
-            autid: a.autid
+            autid: a.autid,
+            creds
           })
         } catch (e) {
           console.log(e)

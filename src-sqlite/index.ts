@@ -711,7 +711,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     if (org) row._org = org
     if (!rdb.data || (rdb.ttl && (rdb.ttl * 60000 < this.op.now))) {
       row.deleted = true
-      row.data = encode({ deleted: true, v: rdb.v, _pk: rdb.pk, _clazz: clazz })
+      row.data = encode({ deleted: true, v: rdb.v, pk: rdb.pk, _clazz: clazz })
     } else {
       if (rdb.ttl) rdb.maxLife = rdb.ttl
       row.data = Crypt.syncDecrypt(this.key, Buffer.from(rdb.data))
@@ -914,8 +914,12 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const adm = clazz.startsWith('ADMIN$')
     const w = ' WHERE ' + (adm ? '' : 'org = @org AND ') + 'pk = @pk' + (!v ? ';' : ' AND v > @v ;')
     const stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) + w)
-    const doc = stmt.get({org: this.org, v : v || 0, pk })
-    return !doc ? null : this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
+    const doc = stmt.get({org: this.org, v : v || 0, pk }) as rowDB
+    if (!doc) return null
+    if (!doc.data || (doc.ttl && (doc.ttl * 60000 < this.op.now)))
+      this.deleteRow(clazz, pk)
+    const row = this.rowToAPP(clazz, doc, adm ? '' : this.org)
+    return row
   }
 
   async oneRowByAlias (clazz: string, alias: string, value: string) : Promise<row | null> {
@@ -924,6 +928,8 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       ' WHERE ' + (adm ? '' :  'org = @org AND ') + alias + '= @value')
     const doc = stmt.get({org: this.org, value: value })
     if (!doc) return null
+    if (!doc.data || (doc.ttl && (doc.ttl * 60000 < this.op.now)))
+      this.deleteRow(clazz, doc.pk)
     const row = this.rowToAPP(clazz, doc as rowDB, adm ? '' : this.org)
     return !row.deleted ? row : null
   }
