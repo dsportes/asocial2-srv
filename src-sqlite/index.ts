@@ -1012,9 +1012,9 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
     const comp = opFilter[filter]
     if (comp === 'IN') {
       const l = []
-      for (const x of col) l.push(x)
-      const y = l.length ? '$' + l.join('$') : ''
-      const z = colName + ' IN (\'' + y  + '\')'
+      for (const x of col) l.push('\'' + x + '\'')
+      const y = l.length ? l.join(', ') : ''
+      const z = colName + ' IN (' + y  + ')'
       return z
     }
     if (!comp.startsWith('CONT')) return colName + ' ' + comp + ' @col'
