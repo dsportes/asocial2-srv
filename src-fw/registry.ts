@@ -29,6 +29,15 @@ export class Registry {
   static classes : Map<string, Function> = new Map()
   static managers : Set<string> = new Set()
 
+  static managersOfSvc (svc: string) : Set<string> {
+    const s: Set<string> = new Set()
+    for(const x of Registry.managers) {
+      const i = x.indexOf('_')
+      if (x.substring(0, i) === svc) s.add(x.substring(i + 1))
+    }
+    return s
+  }
+
   static allClasses () : string[] { return Array.from(Registry.classes.keys()) }
 
   static regOp = new Map()

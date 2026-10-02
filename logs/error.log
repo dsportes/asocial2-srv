@@ -925,3 +925,5 @@ SELECT * FROM "AS2$SUBS" WHERE org = 'doda' AND pk = '-53wTBNZ71DvGOWxGcqR' AND 
 2026-09-23T13:13:46.356Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]
 2026-09-23T13:18:24.584Z error: FW$Sync : 2026-09-23T13:14:31.291Z : SqliteError: no such table: AS2$REDACTION
 2026-09-23T13:18:24.586Z error: AppExc: 105:service_unexpected_exception["no such table: AS2$REDACTION"]
+2026-10-02T14:59:52.015Z error: UpdateCredentialRedaction : 2026-10-02T14:59:23.132Z : TypeError: doc.embedCreds.has is not a function
+2026-10-02T14:59:52.018Z error: AppExc: 105:service_unexpected_exception["doc.embedCreds.has is not a function"]

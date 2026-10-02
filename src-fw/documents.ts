@@ -250,8 +250,8 @@ export class $Credential extends $Document {
     let doc
     if (dt.embedCreds) {
       doc = await op.cache.getDoc(op.svc + '$' + docCl, { pk: docPk }) as $Document
-      if (!doc || !doc.embedCreds || !doc.embedCreds.has(credId)) return null
-      const cred = doc.embedCreds.get(credId)
+      if (!doc || !doc.embedCreds || !doc.embedCreds[credId]) return null
+      const cred = doc.embedCreds[credId]
       cred.props = props
     } else {
       doc = await op.cache.getDoc(op.svc + '$Credential', { credId, docCl }) as $Credential

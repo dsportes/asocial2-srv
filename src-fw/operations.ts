@@ -999,9 +999,11 @@ class UpdateCredential extends Operation {
     this._props = this.objectValue('props', true)
   }
   async phase2 () {
-    this.requireAuth()
-    const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
-    this.setRes('status', doc ? 0 : 1)
+    if (Registry.managersOfSvc(this.svc).has(this._docCl)) {
+      this.requireAdmin()
+      const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
+      this.setRes('status', doc ? 0 : 1)
+    }
   }
 }
 Registry.registerOp(UpdateCredential)

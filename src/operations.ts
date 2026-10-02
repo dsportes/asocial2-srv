@@ -2,6 +2,7 @@ import { decode } from '@msgpack/msgpack'
 
 import { Operation } from '../src-fw/operation'
 import { Registry, topCl } from '../src-fw/registry'
+import { $Credential } from '../src-fw/documents'
 import { Log } from '../src-fw/log'
 import { DocStatus } from '../src-fw/document'
 import { DocDescriptor } from '../src-fw/docDescriptor'
@@ -113,3 +114,29 @@ class ListeAuteursSection extends Operation {
   }
 }
 Registry.registerOp(ListeAuteursSection)
+
+class UpdateCredentialRedaction extends Operation {
+  _credId: string
+  _docCl: string
+  _docPk: string
+  _props: Object
+  init () {
+    super.init()
+    this._credId = this.stringValue('credId', true)
+    this._docCl = this.stringValue('docCl', true)
+    this._docPk = this.stringValue('docPk', true)
+    this._props = this.objectValue('props', true)
+  }
+  async phase2 () {
+    this.requireAuth()
+    let status = 0
+    const cr = this.getCredRef('Redaction', '1')
+    if (this._docCl !== 'Auteur') status = 1
+    else {
+      const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
+      if (!doc) status = 2
+    }
+    this.setRes('status', status)
+  }
+}
+Registry.registerOp(UpdateCredentialRedaction)

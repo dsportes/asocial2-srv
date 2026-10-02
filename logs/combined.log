@@ -36647,3 +36647,234 @@ Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-09-26T14:47:34.080Z info: ListManagers finished
 2026-09-26T14:50:42.853Z info: ListManagers : 2026-09-26T14:50:42.853Z
 2026-09-26T15:02:49.257Z info: ListManagers finished
+2026-10-02T08:20:53.209Z info: Configuration pre-loaded
+2026-10-02T08:20:57.971Z info: FW document descriptors:2 forms descriptors:2
+2026-10-02T08:20:57.978Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-02T08:20:58.139Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-02T08:20:58.140Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-02T08:20:58.141Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-02T08:20:58.146Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-02T08:20:58.147Z info: fw documents loading: 2
+2026-10-02T08:20:58.151Z info: app operations loading: 12
+2026-10-02T08:20:58.152Z info: fw operations loading: 73
+2026-10-02T08:20:58.155Z info: app operations loading: 73
+2026-10-02T08:20:58.156Z info: safe operations loading: 73
+2026-10-02T08:20:58.157Z info: masterdir operations loading: 73
+2026-10-02T08:20:58.158Z info: Configuration completed
+2026-10-02T08:20:58.171Z info: Server started
+2026-10-02T08:20:58.174Z info: HTTP listen [8091]
+2026-10-02T08:21:28.892Z info: $OpenSafeByPin finished
+2026-10-02T08:21:28.935Z info: $GetSafe finished
+2026-10-02T08:21:28.953Z info: $GetOrgSvc finished
+2026-10-02T08:21:33.645Z info: $GetSitesUrls finished
+2026-10-02T08:21:33.672Z info: ADMIN$getAllStatus : 2026-10-02T08:21:33.671Z
+2026-10-02T08:21:33.698Z info: ADMIN$getAllStatus finished
+2026-10-02T08:21:33.726Z info: FW$setSubscription : 2026-10-02T08:21:33.725Z
+2026-10-02T08:21:33.733Z info: FW$setSubscription finished
+2026-10-02T08:21:39.967Z info: ADMIN$getEnum : 2026-10-02T08:21:39.967Z
+2026-10-02T08:21:39.971Z info: ADMIN$getEnum finished
+2026-10-02T08:21:49.559Z info: ListeAuteursSection : 2026-10-02T08:21:49.559Z
+2026-10-02T08:21:49.574Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T08:21:49.576Z info: ListeAuteursSection finished
+2026-10-02T09:39:18.880Z info: $OpenSafeByPin finished
+2026-10-02T09:39:18.930Z info: $GetSafe finished
+2026-10-02T09:39:18.971Z info: $GetOrgSvc finished
+2026-10-02T09:39:21.159Z info: $GetSitesUrls finished
+2026-10-02T09:39:21.183Z info: ADMIN$getAllStatus : 2026-10-02T09:39:21.183Z
+2026-10-02T09:39:21.200Z info: ADMIN$getAllStatus finished
+2026-10-02T09:39:21.227Z info: FW$setSubscription : 2026-10-02T09:39:21.227Z
+2026-10-02T09:39:21.232Z info: FW$setSubscription finished
+2026-10-02T09:39:23.342Z info: ADMIN$getEnum : 2026-10-02T09:39:23.342Z
+2026-10-02T09:39:23.351Z info: ADMIN$getEnum finished
+2026-10-02T09:39:27.369Z info: ListeAuteursSection : 2026-10-02T09:39:27.369Z
+2026-10-02T09:39:27.388Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:39:27.390Z info: ListeAuteursSection finished
+2026-10-02T09:39:38.739Z info: ListeAuteursSection : 2026-10-02T09:39:38.738Z
+2026-10-02T09:39:38.749Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:39:38.752Z info: ListeAuteursSection finished
+2026-10-02T09:40:50.221Z info: $OpenSafeByPin finished
+2026-10-02T09:40:50.262Z info: $GetSafe finished
+2026-10-02T09:40:50.279Z info: $GetOrgSvc finished
+2026-10-02T09:40:51.977Z info: $GetSitesUrls finished
+2026-10-02T09:40:52.017Z info: ADMIN$getAllStatus : 2026-10-02T09:40:52.017Z
+2026-10-02T09:40:52.049Z info: ADMIN$getAllStatus finished
+2026-10-02T09:40:52.098Z info: FW$setSubscription : 2026-10-02T09:40:52.098Z
+2026-10-02T09:40:52.119Z info: FW$setSubscription finished
+2026-10-02T09:40:54.269Z info: ADMIN$getEnum : 2026-10-02T09:40:54.269Z
+2026-10-02T09:40:54.272Z info: ADMIN$getEnum finished
+2026-10-02T09:41:00.474Z info: ListeAuteursSection : 2026-10-02T09:41:00.474Z
+2026-10-02T09:41:00.483Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:41:00.484Z info: ListeAuteursSection finished
+2026-10-02T09:42:01.378Z info: ListeAuteursSection : 2026-10-02T09:42:01.378Z
+2026-10-02T09:42:01.387Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:42:01.389Z info: ListeAuteursSection finished
+2026-10-02T09:43:00.333Z info: ListeAuteursSection : 2026-10-02T09:43:00.333Z
+2026-10-02T09:43:00.344Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:43:00.345Z info: ListeAuteursSection finished
+2026-10-02T09:49:57.072Z info: $OpenSafeByPin finished
+2026-10-02T09:50:04.959Z info: $OpenSafeByPin finished
+2026-10-02T09:50:05.001Z info: $GetSafe finished
+2026-10-02T09:50:05.018Z info: $GetOrgSvc finished
+2026-10-02T09:50:07.279Z info: $GetSitesUrls finished
+2026-10-02T09:50:07.301Z info: ADMIN$getAllStatus : 2026-10-02T09:50:07.301Z
+2026-10-02T09:50:07.305Z info: ADMIN$getAllStatus finished
+2026-10-02T09:50:07.333Z info: FW$setSubscription : 2026-10-02T09:50:07.333Z
+2026-10-02T09:50:07.337Z info: FW$setSubscription finished
+2026-10-02T09:50:11.131Z info: ADMIN$getEnum : 2026-10-02T09:50:11.131Z
+2026-10-02T09:50:11.134Z info: ADMIN$getEnum finished
+2026-10-02T09:50:14.461Z info: ListeAuteursSection : 2026-10-02T09:50:14.461Z
+2026-10-02T09:50:14.471Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:50:14.473Z info: ListeAuteursSection finished
+2026-10-02T09:52:12.491Z info: ListeAuteursSection : 2026-10-02T09:52:12.491Z
+2026-10-02T09:52:12.500Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:52:12.501Z info: ListeAuteursSection finished
+2026-10-02T09:57:02.448Z info: ListeAuteursSection : 2026-10-02T09:57:02.448Z
+2026-10-02T09:57:02.461Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:57:02.463Z info: ListeAuteursSection finished
+2026-10-02T09:58:53.177Z info: ListeAuteursSection : 2026-10-02T09:58:53.177Z
+2026-10-02T09:58:53.185Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T09:58:53.187Z info: ListeAuteursSection finished
+2026-10-02T10:36:59.009Z info: $OpenSafeByPin finished
+2026-10-02T10:36:59.066Z info: $GetSafe finished
+2026-10-02T10:36:59.090Z info: $GetOrgSvc finished
+2026-10-02T10:37:01.130Z info: $GetSitesUrls finished
+2026-10-02T10:37:01.157Z info: ADMIN$getAllStatus : 2026-10-02T10:37:01.157Z
+2026-10-02T10:37:01.163Z info: ADMIN$getAllStatus finished
+2026-10-02T10:37:01.211Z info: FW$setSubscription : 2026-10-02T10:37:01.211Z
+2026-10-02T10:37:01.214Z info: FW$setSubscription finished
+2026-10-02T10:37:03.481Z info: ADMIN$getEnum : 2026-10-02T10:37:03.481Z
+2026-10-02T10:37:03.484Z info: ADMIN$getEnum finished
+2026-10-02T10:37:06.639Z info: ListeAuteursSection : 2026-10-02T10:37:06.639Z
+2026-10-02T10:37:06.653Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T10:37:06.654Z info: ListeAuteursSection finished
+2026-10-02T10:39:03.106Z info: ListeAuteursSection : 2026-10-02T10:39:03.106Z
+2026-10-02T10:39:03.115Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T10:39:03.116Z info: ListeAuteursSection finished
+2026-10-02T12:26:14.953Z info: ListeAuteursSection : 2026-10-02T12:26:14.952Z
+2026-10-02T12:26:14.976Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:26:14.977Z info: ListeAuteursSection finished
+2026-10-02T12:31:54.014Z info: $OpenSafeByPin finished
+2026-10-02T12:31:54.059Z info: $GetSafe finished
+2026-10-02T12:31:54.080Z info: $GetOrgSvc finished
+2026-10-02T12:31:56.036Z info: $GetSitesUrls finished
+2026-10-02T12:31:56.060Z info: ADMIN$getAllStatus : 2026-10-02T12:31:56.060Z
+2026-10-02T12:31:56.063Z info: ADMIN$getAllStatus finished
+2026-10-02T12:31:56.091Z info: FW$setSubscription : 2026-10-02T12:31:56.091Z
+2026-10-02T12:31:56.096Z info: FW$setSubscription finished
+2026-10-02T12:31:57.563Z info: ADMIN$getEnum : 2026-10-02T12:31:57.563Z
+2026-10-02T12:31:57.565Z info: ADMIN$getEnum finished
+2026-10-02T12:32:01.399Z info: ListeAuteursSection : 2026-10-02T12:32:01.399Z
+2026-10-02T12:32:01.409Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:32:01.410Z info: ListeAuteursSection finished
+2026-10-02T12:40:50.155Z info: $OpenSafeByPin finished
+2026-10-02T12:40:50.205Z info: $GetSafe finished
+2026-10-02T12:40:50.227Z info: $GetOrgSvc finished
+2026-10-02T12:40:52.201Z info: $GetSitesUrls finished
+2026-10-02T12:40:52.230Z info: ADMIN$getAllStatus : 2026-10-02T12:40:52.230Z
+2026-10-02T12:40:52.237Z info: ADMIN$getAllStatus finished
+2026-10-02T12:40:52.263Z info: FW$setSubscription : 2026-10-02T12:40:52.263Z
+2026-10-02T12:40:52.266Z info: FW$setSubscription finished
+2026-10-02T12:40:55.202Z info: ADMIN$getEnum : 2026-10-02T12:40:55.202Z
+2026-10-02T12:40:55.204Z info: ADMIN$getEnum finished
+2026-10-02T12:40:59.352Z info: ListeAuteursSection : 2026-10-02T12:40:59.352Z
+2026-10-02T12:40:59.363Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:40:59.364Z info: ListeAuteursSection finished
+2026-10-02T12:45:18.864Z info: ListeAuteursSection : 2026-10-02T12:45:18.864Z
+2026-10-02T12:45:18.873Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:45:18.874Z info: ListeAuteursSection finished
+2026-10-02T12:56:46.691Z info: ListeAuteursSection : 2026-10-02T12:56:46.691Z
+2026-10-02T12:56:46.699Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:56:46.701Z info: ListeAuteursSection finished
+2026-10-02T12:59:13.493Z info: ListeAuteursSection : 2026-10-02T12:59:13.493Z
+2026-10-02T12:59:13.503Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T12:59:13.504Z info: ListeAuteursSection finished
+2026-10-02T13:12:08.509Z info: ListeAuteursSection : 2026-10-02T13:12:08.509Z
+2026-10-02T13:12:08.522Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T13:12:08.524Z info: ListeAuteursSection finished
+2026-10-02T13:14:18.664Z info: ListeAuteursSection : 2026-10-02T13:14:18.664Z
+2026-10-02T13:14:18.673Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T13:14:18.674Z info: ListeAuteursSection finished
+2026-10-02T13:18:00.304Z info: $OpenSafeByPin finished
+2026-10-02T13:18:00.353Z info: $GetSafe finished
+2026-10-02T13:18:00.370Z info: $GetOrgSvc finished
+2026-10-02T13:18:02.606Z info: $GetSitesUrls finished
+2026-10-02T13:18:02.639Z info: ADMIN$getAllStatus : 2026-10-02T13:18:02.639Z
+2026-10-02T13:18:02.646Z info: ADMIN$getAllStatus finished
+2026-10-02T13:18:02.677Z info: FW$setSubscription : 2026-10-02T13:18:02.677Z
+2026-10-02T13:18:02.680Z info: FW$setSubscription finished
+2026-10-02T13:18:04.753Z info: ADMIN$getEnum : 2026-10-02T13:18:04.753Z
+2026-10-02T13:18:04.756Z info: ADMIN$getEnum finished
+2026-10-02T13:18:07.893Z info: ListeAuteursSection : 2026-10-02T13:18:07.893Z
+2026-10-02T13:18:07.908Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T13:18:07.910Z info: ListeAuteursSection finished
+2026-10-02T13:34:15.411Z info: $OpenSafeByPin finished
+2026-10-02T13:34:15.461Z info: $GetSafe finished
+2026-10-02T13:34:15.482Z info: $GetOrgSvc finished
+2026-10-02T13:34:17.435Z info: $GetSitesUrls finished
+2026-10-02T13:34:17.461Z info: ADMIN$getAllStatus : 2026-10-02T13:34:17.461Z
+2026-10-02T13:34:17.467Z info: ADMIN$getAllStatus finished
+2026-10-02T13:34:17.505Z info: FW$setSubscription : 2026-10-02T13:34:17.505Z
+2026-10-02T13:34:17.510Z info: FW$setSubscription finished
+2026-10-02T13:34:19.558Z info: ADMIN$getEnum : 2026-10-02T13:34:19.558Z
+2026-10-02T13:34:19.560Z info: ADMIN$getEnum finished
+2026-10-02T13:34:22.386Z info: ListeAuteursSection : 2026-10-02T13:34:22.386Z
+2026-10-02T13:34:22.399Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T13:34:22.400Z info: ListeAuteursSection finished
+2026-10-02T14:45:56.446Z info: Configuration pre-loaded
+2026-10-02T14:46:00.359Z info: FW document descriptors:2 forms descriptors:2
+2026-10-02T14:46:00.380Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-02T14:46:00.548Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-02T14:46:00.549Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-02T14:46:00.549Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-02T14:46:00.550Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-02T14:46:00.551Z info: fw documents loading: 2
+2026-10-02T14:46:00.551Z info: app operations loading: 12
+2026-10-02T14:46:00.552Z info: fw operations loading: 74
+2026-10-02T14:46:00.552Z info: app operations loading: 74
+2026-10-02T14:46:00.552Z info: safe operations loading: 74
+2026-10-02T14:46:00.553Z info: masterdir operations loading: 74
+2026-10-02T14:46:00.553Z info: Configuration completed
+2026-10-02T14:46:00.560Z info: Server started
+2026-10-02T14:46:00.564Z info: HTTP listen [8091]
+2026-10-02T14:46:32.522Z info: $OpenSafeByPin finished
+2026-10-02T14:46:32.565Z info: $GetSafe finished
+2026-10-02T14:46:32.586Z info: $GetOrgSvc finished
+2026-10-02T14:46:35.012Z info: $GetSitesUrls finished
+2026-10-02T14:46:35.036Z info: ADMIN$getAllStatus : 2026-10-02T14:46:35.036Z
+2026-10-02T14:46:35.045Z info: ADMIN$getAllStatus finished
+2026-10-02T14:46:35.075Z info: FW$setSubscription : 2026-10-02T14:46:35.075Z
+2026-10-02T14:46:35.082Z info: FW$setSubscription finished
+2026-10-02T14:46:37.056Z info: ADMIN$getEnum : 2026-10-02T14:46:37.056Z
+2026-10-02T14:46:37.059Z info: ADMIN$getEnum finished
+2026-10-02T14:46:40.630Z info: ListeAuteursSection : 2026-10-02T14:46:40.629Z
+2026-10-02T14:46:40.641Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:46:40.643Z info: ListeAuteursSection finished
+2026-10-02T14:48:30.796Z info: UpdateCredentialRedaction : 2026-10-02T14:48:30.796Z
+2026-10-02T14:48:30.808Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:50:33.467Z info: UpdateCredentialRedaction finished
+2026-10-02T14:54:25.433Z info: ListeAuteursSection : 2026-10-02T14:54:25.433Z
+2026-10-02T14:54:25.445Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:54:25.447Z info: ListeAuteursSection finished
+2026-10-02T14:57:16.230Z info: $OpenSafeByPin finished
+2026-10-02T14:57:16.285Z info: $GetSafe finished
+2026-10-02T14:57:16.311Z info: $GetOrgSvc finished
+2026-10-02T14:57:18.066Z info: $GetSitesUrls finished
+2026-10-02T14:57:18.095Z info: ADMIN$getAllStatus : 2026-10-02T14:57:18.095Z
+2026-10-02T14:57:18.100Z info: ADMIN$getAllStatus finished
+2026-10-02T14:57:18.127Z info: FW$setSubscription : 2026-10-02T14:57:18.127Z
+2026-10-02T14:57:18.129Z info: FW$setSubscription finished
+2026-10-02T14:57:20.179Z info: ADMIN$getEnum : 2026-10-02T14:57:20.179Z
+2026-10-02T14:57:20.181Z info: ADMIN$getEnum finished
+2026-10-02T14:57:23.219Z info: ListeAuteursSection : 2026-10-02T14:57:23.219Z
+2026-10-02T14:57:23.231Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:57:23.232Z info: ListeAuteursSection finished
+2026-10-02T14:58:25.767Z info: ListeAuteursSection : 2026-10-02T14:58:25.767Z
+2026-10-02T14:58:25.776Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:58:25.777Z info: ListeAuteursSection finished
+2026-10-02T14:59:23.132Z info: UpdateCredentialRedaction : 2026-10-02T14:59:23.132Z
+2026-10-02T14:59:23.199Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-02T14:59:52.015Z error: UpdateCredentialRedaction : 2026-10-02T14:59:23.132Z : TypeError: doc.embedCreds.has is not a function
+2026-10-02T14:59:52.017Z info: UpdateCredentialRedaction terminated on exception
+2026-10-02T14:59:52.018Z error: AppExc: 105:service_unexpected_exception["doc.embedCreds.has is not a function"]
+2026-10-02T15:01:52.530Z info: UpdateCredentialRedaction : 2026-10-02T15:01:52.530Z
+2026-10-02T15:01:52.548Z info: Auth status: Status:[OK] - [Redaction/1]
