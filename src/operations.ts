@@ -89,6 +89,7 @@ class ListeAuteursSection extends Operation {
   }
   async phase2 () {
     this.requireAuth()
+    const ml = Math.floor(this.now / 60000)
     const c = this.getCredRef('Redaction', '1')
     const dd = DocDescriptor.get('AS2$Auteur')
     const v = dd.getCollId( { section: this._section }, 'section')
@@ -98,8 +99,11 @@ class ListeAuteursSection extends Operation {
         try {
           const a: any = decode(bin)
           const creds = {}
-          for(const credId in a.embedCreds)
-            creds[credId] = a.embedCreds[credId].props
+          for(const credId in a.embedCreds) {
+            const p = a.embedCreds[credId].props
+            if (!p.limit || p.limit > ml)
+              creds[credId] = p
+          }
           lst.push({ 
             nomAuteur: a.nomAuteur, 
             section: a.section,
