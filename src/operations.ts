@@ -119,28 +119,29 @@ class ListeAuteursSection extends Operation {
 }
 Registry.registerOp(ListeAuteursSection)
 
-class UpdateCredentialRedaction extends Operation {
+class UpdateCredentialSusp extends Operation {
   _credId: string
   _docCl: string
   _docPk: string
   _props: Object
+  _reqCred: $Credential
+
   init () {
     super.init()
     this._credId = this.stringValue('credId', true)
     this._docCl = this.stringValue('docCl', true)
     this._docPk = this.stringValue('docPk', true)
     this._props = this.objectValue('props', true)
+    this._reqCred = this.objectValue('reqCred', false) as $Credential
   }
   async phase2 () {
     this.requireAuth()
+    if (!this._reqCred) this.requireAdmin()
+    else this.getCredRef(this._reqCred.docCl, this._reqCred.docPk)
     let status = 0
-    const cr = this.getCredRef('Redaction', '1')
-    if (this._docCl !== 'Auteur') status = 1
-    else {
-      const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
-      if (!doc) status = 2
-    }
+    const doc = await $Credential.update(this, this._credId, this._docCl, this._docPk, this._props)
+    if (!doc) status = 2
     this.setRes('status', status)
   }
 }
-Registry.registerOp(UpdateCredentialRedaction)
+Registry.registerOp(UpdateCredentialSusp)

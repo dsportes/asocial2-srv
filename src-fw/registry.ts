@@ -33,7 +33,7 @@ export class Registry {
     const s: Set<string> = new Set()
     for(const x of Registry.managers) {
       const i = x.indexOf('_')
-      if (x.substring(0, i) === svc) s.add(x.substring(i + 1))
+      if (x.substring(0, i) === svc + '$Credential') s.add(x.substring(i + 1))
     }
     return s
   }

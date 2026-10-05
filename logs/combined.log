@@ -37347,3 +37347,330 @@ Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-10-03T12:55:44.457Z info: ListeAuteursSection : 2026-10-03T12:55:44.457Z
 2026-10-03T12:55:44.466Z info: Auth status: Status:[OK] - [Redaction/1]
 2026-10-03T12:55:44.467Z info: ListeAuteursSection finished
+2026-10-04T12:01:27.957Z info: Configuration pre-loaded
+2026-10-04T12:01:32.709Z info: FW document descriptors:2 forms descriptors:2
+2026-10-04T12:01:32.731Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-04T12:01:33.036Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-04T12:01:33.037Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-04T12:01:33.038Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-04T12:01:33.039Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-04T12:01:33.039Z info: fw documents loading: 2
+2026-10-04T12:01:33.040Z info: app operations loading: 12
+2026-10-04T12:01:33.042Z info: fw operations loading: 74
+2026-10-04T12:01:33.044Z info: app operations loading: 74
+2026-10-04T12:01:33.044Z info: safe operations loading: 74
+2026-10-04T12:01:33.045Z info: masterdir operations loading: 74
+2026-10-04T12:01:33.046Z info: Configuration completed
+2026-10-04T12:01:33.066Z info: Server started
+2026-10-04T12:01:33.068Z info: HTTP listen [8091]
+2026-10-04T12:02:15.105Z info: $OpenSafeByPin finished
+2026-10-04T12:02:15.155Z info: $GetSafe finished
+2026-10-04T12:02:15.178Z info: $GetOrgSvc finished
+2026-10-04T12:02:17.091Z info: $GetSitesUrls finished
+2026-10-04T12:02:17.117Z info: ADMIN$getAllStatus : 2026-10-04T12:02:17.117Z
+2026-10-04T12:02:17.153Z info: ADMIN$getAllStatus finished
+2026-10-04T12:02:17.180Z info: FW$setSubscription : 2026-10-04T12:02:17.180Z
+2026-10-04T12:02:17.186Z info: FW$setSubscription finished
+2026-10-04T12:02:17.265Z info: FW$Sync : 2026-10-04T12:02:17.265Z
+2026-10-04T12:02:17.332Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T12:02:17.333Z info: FW$Sync finished
+2026-10-04T12:02:20.178Z info: $GetServicesLabels finished
+2026-10-04T12:02:20.203Z info: $IsMDAdmin finished
+2026-10-04T12:02:42.087Z info: ADMIN$isAdmin : 2026-10-04T12:02:42.087Z
+2026-10-04T12:02:42.089Z info: ADMIN$isAdmin finished
+2026-10-04T12:02:42.126Z info: ListManagers : 2026-10-04T12:02:42.126Z
+2026-10-04T12:02:42.131Z info: ListManagers finished
+2026-10-04T12:04:31.862Z info: FW$getStatus : 2026-10-04T12:04:31.861Z
+2026-10-04T12:04:31.865Z info: FW$getStatus finished
+2026-10-04T12:04:31.867Z info: ADMIN$getStatus : 2026-10-04T12:04:31.867Z
+2026-10-04T12:04:31.871Z info: ADMIN$getStatus finished
+2026-10-04T12:36:06.945Z info: $OpenSafeByPin finished
+2026-10-04T12:36:07.034Z info: $GetSafe finished
+2026-10-04T12:36:07.056Z info: $GetOrgSvc finished
+2026-10-04T12:36:09.555Z info: $GetSitesUrls finished
+2026-10-04T12:36:09.596Z info: ADMIN$getAllStatus : 2026-10-04T12:36:09.596Z
+2026-10-04T12:36:09.600Z info: ADMIN$getAllStatus finished
+2026-10-04T12:36:09.674Z info: FW$setSubscription : 2026-10-04T12:36:09.673Z
+2026-10-04T12:36:09.679Z info: FW$setSubscription finished
+2026-10-04T12:36:09.786Z info: FW$Sync : 2026-10-04T12:36:09.786Z
+2026-10-04T12:36:09.796Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T12:36:09.798Z info: FW$Sync finished
+2026-10-04T12:36:11.093Z info: $GetServicesLabels finished
+2026-10-04T12:36:11.109Z info: $IsMDAdmin finished
+2026-10-04T12:52:23.508Z info: $OpenSafeByPin finished
+2026-10-04T12:52:23.594Z info: $GetSafe finished
+2026-10-04T12:52:23.621Z info: $GetOrgSvc finished
+2026-10-04T12:52:26.321Z info: $GetSitesUrls finished
+2026-10-04T12:52:26.370Z info: ADMIN$getAllStatus : 2026-10-04T12:52:26.370Z
+2026-10-04T12:52:26.374Z info: ADMIN$getAllStatus finished
+2026-10-04T12:52:26.441Z info: FW$setSubscription : 2026-10-04T12:52:26.441Z
+2026-10-04T12:52:26.445Z info: FW$setSubscription finished
+2026-10-04T12:52:26.537Z info: FW$Sync : 2026-10-04T12:52:26.537Z
+2026-10-04T12:52:26.545Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T12:52:26.546Z info: FW$Sync finished
+2026-10-04T12:52:28.957Z info: $GetServicesLabels finished
+2026-10-04T12:52:28.972Z info: $IsMDAdmin finished
+2026-10-04T12:53:13.219Z info: $IsMDAdmin finished
+2026-10-04T12:53:24.969Z info: $IsMDAdmin finished
+2026-10-04T12:53:30.622Z info: $IsMDAdmin finished
+2026-10-04T12:54:01.250Z info: ADMIN$isAdmin : 2026-10-04T12:54:01.250Z
+2026-10-04T12:54:01.252Z info: ADMIN$isAdmin finished
+2026-10-04T13:00:00.519Z info: $OpenSafeByPin finished
+2026-10-04T13:00:00.597Z info: $GetSafe finished
+2026-10-04T13:00:00.617Z info: $GetOrgSvc finished
+2026-10-04T13:00:02.109Z info: $GetSitesUrls finished
+2026-10-04T13:00:02.178Z info: ADMIN$getAllStatus : 2026-10-04T13:00:02.178Z
+2026-10-04T13:00:02.182Z info: ADMIN$getAllStatus finished
+2026-10-04T13:00:02.254Z info: FW$setSubscription : 2026-10-04T13:00:02.254Z
+2026-10-04T13:00:02.268Z info: FW$setSubscription finished
+2026-10-04T13:00:02.410Z info: FW$Sync : 2026-10-04T13:00:02.410Z
+2026-10-04T13:00:02.420Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:00:02.421Z info: FW$Sync finished
+2026-10-04T13:00:10.903Z info: $GetServicesLabels finished
+2026-10-04T13:00:10.921Z info: $IsMDAdmin finished
+2026-10-04T13:01:17.485Z info: $IsMDAdmin finished
+2026-10-04T13:01:36.952Z info: ADMIN$isAdmin : 2026-10-04T13:01:36.952Z
+2026-10-04T13:01:36.954Z info: ADMIN$isAdmin finished
+2026-10-04T13:03:34.963Z info: $IsMDAdmin finished
+2026-10-04T13:04:04.097Z info: $OpenSafeByPin finished
+2026-10-04T13:04:04.181Z info: $GetSafe finished
+2026-10-04T13:04:04.202Z info: $GetOrgSvc finished
+2026-10-04T13:04:06.776Z info: $GetSitesUrls finished
+2026-10-04T13:04:06.817Z info: ADMIN$getAllStatus : 2026-10-04T13:04:06.817Z
+2026-10-04T13:04:06.823Z info: ADMIN$getAllStatus finished
+2026-10-04T13:04:06.893Z info: FW$setSubscription : 2026-10-04T13:04:06.893Z
+2026-10-04T13:04:06.897Z info: FW$setSubscription finished
+2026-10-04T13:04:07.006Z info: FW$Sync : 2026-10-04T13:04:07.006Z
+2026-10-04T13:04:07.018Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:04:07.019Z info: FW$Sync finished
+2026-10-04T13:04:19.149Z info: $GetServicesLabels finished
+2026-10-04T13:04:19.180Z info: $IsMDAdmin finished
+2026-10-04T13:08:13.196Z info: $IsMDAdmin finished
+2026-10-04T13:10:08.518Z info: ADMIN$isAdmin : 2026-10-04T13:10:08.518Z
+2026-10-04T13:10:08.520Z info: ADMIN$isAdmin finished
+2026-10-04T13:10:38.891Z info: $OpenSafeByPin finished
+2026-10-04T13:10:38.969Z info: $GetSafe finished
+2026-10-04T13:10:39.006Z info: $GetOrgSvc finished
+2026-10-04T13:12:17.314Z info: $GetSitesUrls finished
+2026-10-04T13:12:17.364Z info: ADMIN$getAllStatus : 2026-10-04T13:12:17.364Z
+2026-10-04T13:12:17.369Z info: ADMIN$getAllStatus finished
+2026-10-04T13:12:17.476Z info: FW$setSubscription : 2026-10-04T13:12:17.476Z
+2026-10-04T13:12:17.480Z info: FW$setSubscription finished
+2026-10-04T13:12:17.609Z info: FW$Sync : 2026-10-04T13:12:17.609Z
+2026-10-04T13:12:17.622Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:12:17.632Z info: FW$Sync finished
+2026-10-04T13:12:45.958Z info: $GetServicesLabels finished
+2026-10-04T13:12:45.970Z info: $IsMDAdmin finished
+2026-10-04T13:12:59.259Z info: ADMIN$isAdmin : 2026-10-04T13:12:59.259Z
+2026-10-04T13:12:59.261Z info: ADMIN$isAdmin finished
+2026-10-04T13:15:44.335Z info: $OpenSafeByPin finished
+2026-10-04T13:15:44.412Z info: $GetSafe finished
+2026-10-04T13:15:44.442Z info: $GetOrgSvc finished
+2026-10-04T13:15:46.257Z info: $GetSitesUrls finished
+2026-10-04T13:15:46.321Z info: ADMIN$getAllStatus : 2026-10-04T13:15:46.321Z
+2026-10-04T13:15:46.324Z info: ADMIN$getAllStatus finished
+2026-10-04T13:15:46.391Z info: FW$setSubscription : 2026-10-04T13:15:46.391Z
+2026-10-04T13:15:46.395Z info: FW$setSubscription finished
+2026-10-04T13:15:46.489Z info: FW$Sync : 2026-10-04T13:15:46.489Z
+2026-10-04T13:15:46.497Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:15:46.498Z info: FW$Sync finished
+2026-10-04T13:15:48.275Z info: $GetServicesLabels finished
+2026-10-04T13:15:48.292Z info: $IsMDAdmin finished
+2026-10-04T13:15:58.603Z info: ADMIN$isAdmin : 2026-10-04T13:15:58.603Z
+2026-10-04T13:15:58.606Z info: ADMIN$isAdmin finished
+2026-10-04T13:16:25.932Z info: ListManagers : 2026-10-04T13:16:25.931Z
+2026-10-04T13:16:25.934Z info: ListManagers finished
+2026-10-04T13:16:51.775Z info: ListManagers : 2026-10-04T13:16:51.775Z
+2026-10-04T13:16:51.778Z info: ListManagers finished
+2026-10-04T13:26:34.240Z info: $OpenSafeByPin finished
+2026-10-04T13:26:34.336Z info: $GetSafe finished
+2026-10-04T13:26:34.361Z info: $GetOrgSvc finished
+2026-10-04T13:26:36.331Z info: $GetSitesUrls finished
+2026-10-04T13:26:36.375Z info: ADMIN$getAllStatus : 2026-10-04T13:26:36.375Z
+2026-10-04T13:26:36.380Z info: ADMIN$getAllStatus finished
+2026-10-04T13:26:36.453Z info: FW$setSubscription : 2026-10-04T13:26:36.453Z
+2026-10-04T13:26:36.457Z info: FW$setSubscription finished
+2026-10-04T13:26:36.579Z info: FW$Sync : 2026-10-04T13:26:36.579Z
+2026-10-04T13:26:36.628Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:26:36.642Z info: FW$Sync finished
+2026-10-04T13:26:38.859Z info: $GetServicesLabels finished
+2026-10-04T13:26:38.876Z info: $IsMDAdmin finished
+2026-10-04T13:26:55.982Z info: ADMIN$isAdmin : 2026-10-04T13:26:55.982Z
+2026-10-04T13:26:55.984Z info: ADMIN$isAdmin finished
+2026-10-04T13:26:58.941Z info: ListManagers : 2026-10-04T13:26:58.941Z
+2026-10-04T13:26:58.944Z info: ListManagers finished
+2026-10-04T13:28:17.050Z info: ListManagers : 2026-10-04T13:28:17.050Z
+2026-10-04T13:28:17.052Z info: ListManagers finished
+2026-10-04T13:30:36.379Z info: FW$getStatus : 2026-10-04T13:30:36.378Z
+2026-10-04T13:30:36.381Z info: FW$getStatus finished
+2026-10-04T13:30:36.383Z info: ADMIN$getStatus : 2026-10-04T13:30:36.383Z
+2026-10-04T13:30:36.386Z info: ADMIN$getStatus finished
+2026-10-04T13:32:10.752Z info: $IsMDAdmin finished
+2026-10-04T13:37:59.410Z info: $OpenSafeByPin finished
+2026-10-04T13:37:59.502Z info: $GetSafe finished
+2026-10-04T13:37:59.524Z info: $GetOrgSvc finished
+2026-10-04T13:38:01.544Z info: $GetSitesUrls finished
+2026-10-04T13:38:01.610Z info: ADMIN$getAllStatus : 2026-10-04T13:38:01.610Z
+2026-10-04T13:38:01.614Z info: ADMIN$getAllStatus finished
+2026-10-04T13:38:01.684Z info: FW$setSubscription : 2026-10-04T13:38:01.684Z
+2026-10-04T13:38:01.688Z info: FW$setSubscription finished
+2026-10-04T13:38:01.782Z info: FW$Sync : 2026-10-04T13:38:01.781Z
+2026-10-04T13:38:01.790Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-04T13:38:01.791Z info: FW$Sync finished
+2026-10-04T13:38:06.273Z info: $GetServicesLabels finished
+2026-10-04T13:38:06.286Z info: $IsMDAdmin finished
+2026-10-04T13:39:06.234Z info: ADMIN$isAdmin : 2026-10-04T13:39:06.234Z
+2026-10-04T13:39:06.236Z info: ADMIN$isAdmin finished
+2026-10-04T13:39:06.287Z info: FW$getStatus : 2026-10-04T13:39:06.286Z
+2026-10-04T13:39:06.290Z info: FW$getStatus finished
+2026-10-04T13:39:06.292Z info: ADMIN$getStatus : 2026-10-04T13:39:06.292Z
+2026-10-04T13:39:06.295Z info: ADMIN$getStatus finished
+2026-10-04T13:39:36.511Z info: ADMIN$setStatus : 2026-10-04T13:39:36.510Z
+2026-10-04T13:39:36.516Z info: ADMIN$setStatus finished
+2026-10-04T13:39:58.531Z info: FW$setStatus : 2026-10-04T13:39:58.531Z
+2026-10-04T13:39:58.536Z info: FW$setStatus finished
+2026-10-04T13:41:34.936Z info: FW$getStatus : 2026-10-04T13:41:34.936Z
+2026-10-04T13:41:34.940Z info: FW$getStatus finished
+2026-10-04T13:41:34.944Z info: ADMIN$getStatus : 2026-10-04T13:41:34.944Z
+2026-10-04T13:41:35.012Z info: ADMIN$getStatus finished
+2026-10-04T13:49:43.844Z info: FW$getStatus : 2026-10-04T13:49:43.844Z
+2026-10-04T13:49:43.847Z info: FW$getStatus finished
+2026-10-04T13:49:43.852Z info: ADMIN$getStatus : 2026-10-04T13:49:43.852Z
+2026-10-04T13:49:43.858Z info: ADMIN$getStatus finished
+2026-10-04T13:50:13.141Z info: $IsMDAdmin finished
+2026-10-04T13:50:13.146Z info: FW$getStatus : 2026-10-04T13:50:13.146Z
+2026-10-04T13:50:13.150Z info: FW$getStatus finished
+2026-10-04T13:50:13.152Z info: ADMIN$getStatus : 2026-10-04T13:50:13.152Z
+2026-10-04T13:50:13.154Z info: ADMIN$getStatus finished
+2026-10-04T13:50:34.064Z info: ListManagers : 2026-10-04T13:50:34.064Z
+2026-10-04T13:50:34.067Z info: ListManagers finished
+2026-10-04T13:50:37.909Z info: FW$getStatus : 2026-10-04T13:50:37.909Z
+2026-10-04T13:50:37.911Z info: FW$getStatus finished
+2026-10-04T13:50:37.913Z info: ADMIN$getStatus : 2026-10-04T13:50:37.913Z
+2026-10-04T13:50:37.915Z info: ADMIN$getStatus finished
+2026-10-05T06:49:36.960Z info: Configuration pre-loaded
+2026-10-05T06:49:40.334Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T06:49:40.351Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T06:49:40.521Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T06:49:40.521Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T06:49:40.522Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T06:49:40.522Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T06:49:40.523Z info: fw documents loading: 2
+2026-10-05T06:49:40.523Z info: app operations loading: 12
+2026-10-05T06:49:40.523Z info: fw operations loading: 74
+2026-10-05T06:49:40.523Z info: app operations loading: 74
+2026-10-05T06:49:40.524Z info: safe operations loading: 74
+2026-10-05T06:49:40.524Z info: masterdir operations loading: 74
+2026-10-05T06:49:40.524Z info: Configuration completed
+2026-10-05T06:49:40.530Z info: Server started
+2026-10-05T06:49:40.531Z info: HTTP listen [8091]
+2026-10-05T07:04:13.512Z info: $OpenSafeByPin finished
+2026-10-05T07:04:13.559Z info: $GetSafe finished
+2026-10-05T07:04:13.582Z info: $GetOrgSvc finished
+2026-10-05T07:04:15.558Z info: $GetSitesUrls finished
+2026-10-05T07:04:15.585Z info: ADMIN$getAllStatus : 2026-10-05T07:04:15.584Z
+2026-10-05T07:04:15.614Z info: ADMIN$getAllStatus finished
+2026-10-05T07:04:15.639Z info: FW$setSubscription : 2026-10-05T07:04:15.639Z
+2026-10-05T07:04:15.646Z info: FW$setSubscription finished
+2026-10-05T07:04:15.716Z info: FW$Sync : 2026-10-05T07:04:15.716Z
+2026-10-05T07:04:15.730Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T07:04:15.732Z info: FW$Sync finished
+2026-10-05T07:04:17.935Z info: $GetServicesLabels finished
+2026-10-05T07:04:17.948Z info: $IsMDAdmin finished
+2026-10-05T07:04:27.587Z info: ADMIN$isAdmin : 2026-10-05T07:04:27.587Z
+2026-10-05T07:04:27.590Z info: ADMIN$isAdmin finished
+2026-10-05T07:04:27.613Z info: ListManagers : 2026-10-05T07:04:27.613Z
+2026-10-05T07:04:27.617Z info: ListManagers finished
+2026-10-05T07:07:17.951Z info: ListManagers : 2026-10-05T07:07:17.951Z
+2026-10-05T07:07:17.955Z info: ListManagers finished
+2026-10-05T07:15:52.035Z info: $IsMDAdmin finished
+2026-10-05T07:16:50.252Z info: ListManagers : 2026-10-05T07:16:50.252Z
+2026-10-05T07:16:50.256Z info: ListManagers finished
+2026-10-05T07:19:09.812Z info: $OpenSafeByPin finished
+2026-10-05T07:19:09.863Z info: $GetSafe finished
+2026-10-05T07:19:09.880Z info: $GetOrgSvc finished
+2026-10-05T07:19:12.076Z info: $GetSitesUrls finished
+2026-10-05T07:19:12.101Z info: ADMIN$getAllStatus : 2026-10-05T07:19:12.101Z
+2026-10-05T07:19:12.104Z info: ADMIN$getAllStatus finished
+2026-10-05T07:19:12.133Z info: FW$setSubscription : 2026-10-05T07:19:12.133Z
+2026-10-05T07:19:12.137Z info: FW$setSubscription finished
+2026-10-05T07:19:12.209Z info: FW$Sync : 2026-10-05T07:19:12.209Z
+2026-10-05T07:19:12.219Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T07:19:12.221Z info: FW$Sync finished
+2026-10-05T07:19:15.564Z info: $GetServicesLabels finished
+2026-10-05T07:19:15.577Z info: $IsMDAdmin finished
+2026-10-05T07:19:23.666Z info: ADMIN$isAdmin : 2026-10-05T07:19:23.666Z
+2026-10-05T07:19:23.668Z info: ADMIN$isAdmin finished
+2026-10-05T07:19:23.699Z info: ListManagers : 2026-10-05T07:19:23.699Z
+2026-10-05T07:19:23.702Z info: ListManagers finished
+2026-10-05T07:20:33.219Z info: UpdateCredential : 2026-10-05T07:20:33.219Z
+2026-10-05T07:20:33.222Z info: UpdateCredential finished
+2026-10-05T07:20:40.338Z info: ListManagers : 2026-10-05T07:20:40.338Z
+2026-10-05T07:20:40.341Z info: ListManagers finished
+2026-10-05T07:20:43.327Z info: ListManagers : 2026-10-05T07:20:43.327Z
+2026-10-05T07:20:43.330Z info: ListManagers finished
+2026-10-05T07:22:27.113Z info: ListManagers : 2026-10-05T07:22:27.113Z
+2026-10-05T07:22:27.116Z info: ListManagers finished
+2026-10-05T07:23:05.178Z info: UpdateCredential : 2026-10-05T07:23:05.178Z
+2026-10-05T07:24:11.787Z info: UpdateCredential finished
+2026-10-05T07:24:29.707Z info: UpdateCredential : 2026-10-05T07:24:29.707Z
+2026-10-05T07:26:41.146Z info: Configuration pre-loaded
+2026-10-05T07:26:41.808Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T07:26:41.814Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T07:26:41.877Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T07:26:41.878Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T07:26:41.879Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T07:26:41.880Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T07:26:41.882Z info: fw documents loading: 2
+2026-10-05T07:26:41.883Z info: app operations loading: 12
+2026-10-05T07:26:41.884Z info: fw operations loading: 74
+2026-10-05T07:26:41.885Z info: app operations loading: 74
+2026-10-05T07:26:41.886Z info: safe operations loading: 74
+2026-10-05T07:26:41.886Z info: masterdir operations loading: 74
+2026-10-05T07:26:41.887Z info: Configuration completed
+2026-10-05T07:26:41.894Z info: Server started
+2026-10-05T07:26:41.896Z info: HTTP listen [8091]
+2026-10-05T07:27:03.935Z info: UpdateCredential : 2026-10-05T07:27:03.935Z
+2026-10-05T07:27:03.992Z info: UpdateCredential finished
+2026-10-05T07:27:20.253Z info: ListManagers : 2026-10-05T07:27:20.253Z
+2026-10-05T07:27:20.260Z info: ListManagers finished
+2026-10-05T07:28:12.052Z info: ListManagers : 2026-10-05T07:28:12.051Z
+2026-10-05T07:28:12.058Z info: ListManagers finished
+2026-10-05T07:28:21.085Z info: UpdateCredential : 2026-10-05T07:28:21.085Z
+2026-10-05T07:28:21.095Z info: UpdateCredential finished
+2026-10-05T07:28:21.118Z info: ListManagers : 2026-10-05T07:28:21.118Z
+2026-10-05T07:28:21.122Z info: ListManagers finished
+2026-10-05T07:40:55.223Z info: $OpenSafeByPin finished
+2026-10-05T07:40:55.275Z info: $GetSafe finished
+2026-10-05T07:40:55.302Z info: $GetOrgSvc finished
+2026-10-05T07:40:57.281Z info: $GetSitesUrls finished
+2026-10-05T07:40:57.306Z info: ADMIN$getAllStatus : 2026-10-05T07:40:57.306Z
+2026-10-05T07:41:07.130Z info: ADMIN$getAllStatus finished
+2026-10-05T07:41:07.181Z info: FW$setSubscription : 2026-10-05T07:41:07.180Z
+2026-10-05T07:41:07.191Z info: FW$setSubscription finished
+2026-10-05T07:41:07.283Z info: FW$Sync : 2026-10-05T07:41:07.283Z
+2026-10-05T07:41:07.300Z info: Auth status: ADMIN
+Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T07:41:07.302Z info: FW$Sync finished
+2026-10-05T07:41:12.913Z info: $GetServicesLabels finished
+2026-10-05T07:41:12.928Z info: $IsMDAdmin finished
+2026-10-05T07:41:22.938Z info: ADMIN$isAdmin : 2026-10-05T07:41:22.938Z
+2026-10-05T07:41:22.942Z info: ADMIN$isAdmin finished
+2026-10-05T07:41:22.977Z info: ListManagers : 2026-10-05T07:41:22.976Z
+2026-10-05T07:41:22.981Z info: ListManagers finished
+2026-10-05T07:45:42.041Z info: $IsMDAdmin finished
+2026-10-05T07:45:49.587Z info: ListManagers : 2026-10-05T07:45:49.587Z
+2026-10-05T07:45:49.592Z info: ListManagers finished
+2026-10-05T07:47:38.702Z info: ListManagers : 2026-10-05T07:47:38.702Z
+2026-10-05T07:47:38.706Z info: ListManagers finished
