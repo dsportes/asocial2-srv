@@ -37674,3 +37674,489 @@ Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-10-05T07:45:49.592Z info: ListManagers finished
 2026-10-05T07:47:38.702Z info: ListManagers : 2026-10-05T07:47:38.702Z
 2026-10-05T07:47:38.706Z info: ListManagers finished
+2026-10-05T13:17:28.263Z info: Configuration pre-loaded
+2026-10-05T13:17:28.877Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T13:17:28.882Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T13:17:28.927Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:17:28.927Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:17:28.928Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T13:17:28.929Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T13:17:28.929Z info: fw documents loading: 2
+2026-10-05T13:17:28.930Z info: app operations loading: 12
+2026-10-05T13:17:28.931Z info: fw operations loading: 74
+2026-10-05T13:17:28.931Z info: app operations loading: 74
+2026-10-05T13:17:28.932Z info: safe operations loading: 74
+2026-10-05T13:17:28.932Z info: masterdir operations loading: 74
+2026-10-05T13:17:28.933Z info: Configuration completed
+2026-10-05T13:17:28.941Z info: Server started
+2026-10-05T13:17:28.944Z info: HTTP listen [8091]
+2026-10-05T13:20:23.641Z info: $OpenSafeByPin finished
+2026-10-05T13:20:23.715Z info: $GetSafe finished
+2026-10-05T13:20:23.748Z info: $GetOrgSvc finished
+2026-10-05T13:20:30.356Z info: $GetSitesUrls finished
+2026-10-05T13:20:30.409Z info: ADMIN$getAllStatus : 2026-10-05T13:20:30.408Z
+2026-10-05T13:20:30.420Z info: ADMIN$getAllStatus finished
+2026-10-05T13:20:30.486Z info: FW$setSubscription : 2026-10-05T13:20:30.486Z
+2026-10-05T13:20:30.495Z info: FW$setSubscription finished
+2026-10-05T13:20:30.615Z info: FW$Sync : 2026-10-05T13:20:30.615Z
+2026-10-05T13:20:30.630Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T13:20:30.632Z info: FW$Sync finished
+2026-10-05T13:20:30.695Z info: FW$Sync : 2026-10-05T13:20:30.695Z
+2026-10-05T13:20:30.710Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:20:30.734Z info: FW$Sync finished
+2026-10-05T13:20:32.466Z info: $IsMDAdmin finished
+2026-10-05T13:20:36.643Z info: GetCredProps : 2026-10-05T13:20:36.643Z
+2026-10-05T13:20:36.672Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T13:20:36.735Z info: GetCredProps finished
+2026-10-05T13:20:36.796Z info: GetCredProps : 2026-10-05T13:20:36.796Z
+2026-10-05T13:20:36.828Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T13:20:36.830Z info: GetCredProps finished
+2026-10-05T13:20:36.855Z info: GetCredProps : 2026-10-05T13:20:36.855Z
+2026-10-05T13:20:36.864Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:20:36.865Z info: GetCredProps finished
+2026-10-05T13:21:35.998Z info: $IsMDAdmin finished
+2026-10-05T13:21:40.478Z info: GetCredProps : 2026-10-05T13:21:40.478Z
+2026-10-05T13:21:40.487Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T13:21:40.488Z info: GetCredProps finished
+2026-10-05T13:21:40.513Z info: GetCredProps : 2026-10-05T13:21:40.513Z
+2026-10-05T13:21:40.524Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T13:21:40.525Z info: GetCredProps finished
+2026-10-05T13:21:40.542Z info: GetCredProps : 2026-10-05T13:21:40.542Z
+2026-10-05T13:21:40.552Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:21:40.554Z info: GetCredProps finished
+2026-10-05T13:22:26.110Z info: AutoRevokeCred : 2026-10-05T13:22:26.109Z
+2026-10-05T13:22:26.128Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:22:26.130Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:22:26.132Z error: AutoRevokeCred : 2026-10-05T13:22:26.109Z : AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:22:26.133Z info: AutoRevokeCred terminated on exception
+2026-10-05T13:25:47.077Z info: AutoRevokeCred : 2026-10-05T13:25:47.077Z
+2026-10-05T13:25:47.091Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:29:51.017Z info: Configuration pre-loaded
+2026-10-05T13:29:51.412Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T13:29:51.416Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T13:30:33.549Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:30:33.550Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:30:33.550Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T13:30:33.551Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T13:30:33.551Z info: fw documents loading: 2
+2026-10-05T13:30:33.552Z info: app operations loading: 12
+2026-10-05T13:30:33.553Z info: fw operations loading: 74
+2026-10-05T13:30:33.553Z info: app operations loading: 74
+2026-10-05T13:30:33.553Z info: safe operations loading: 74
+2026-10-05T13:30:33.554Z info: masterdir operations loading: 74
+2026-10-05T13:30:33.554Z info: Configuration completed
+2026-10-05T13:30:33.563Z info: Server started
+2026-10-05T13:30:33.566Z info: HTTP listen [8091]
+2026-10-05T13:31:09.387Z info: AutoRevokeCred : 2026-10-05T13:31:09.387Z
+2026-10-05T13:31:09.452Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:31:37.689Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:32:00.062Z error: AutoRevokeCred : 2026-10-05T13:31:09.387Z : AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:32:00.063Z info: AutoRevokeCred terminated on exception
+2026-10-05T13:34:01.757Z info: AutoRevokeCred : 2026-10-05T13:34:01.757Z
+2026-10-05T13:34:01.775Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:49:31.560Z info: Configuration pre-loaded
+2026-10-05T13:49:31.937Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T13:49:31.953Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T13:49:32.295Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:49:32.295Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:49:32.296Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T13:49:32.297Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T13:49:32.297Z info: fw documents loading: 2
+2026-10-05T13:49:32.298Z info: app operations loading: 12
+2026-10-05T13:49:32.298Z info: fw operations loading: 74
+2026-10-05T13:49:32.299Z info: app operations loading: 74
+2026-10-05T13:49:32.299Z info: safe operations loading: 74
+2026-10-05T13:49:32.299Z info: masterdir operations loading: 74
+2026-10-05T13:49:32.300Z info: Configuration completed
+2026-10-05T13:49:32.307Z info: Server started
+2026-10-05T13:49:32.309Z info: HTTP listen [8091]
+2026-10-05T13:49:56.099Z info: AutoRevokeCred : 2026-10-05T13:49:56.098Z
+2026-10-05T13:50:06.209Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:50:12.356Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:50:31.259Z error: AutoRevokeCred : 2026-10-05T13:49:56.098Z : AppExc: 103:invalid_class_name["Auteur"]
+2026-10-05T13:50:31.260Z info: AutoRevokeCred terminated on exception
+2026-10-05T13:51:41.943Z info: AutoRevokeCred : 2026-10-05T13:51:41.943Z
+2026-10-05T13:51:41.957Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:54:53.085Z info: Configuration pre-loaded
+2026-10-05T13:54:53.555Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T13:54:53.559Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T13:55:31.139Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:55:31.140Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:55:31.141Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T13:55:31.142Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T13:55:31.142Z info: fw documents loading: 2
+2026-10-05T13:55:31.143Z info: app operations loading: 12
+2026-10-05T13:55:31.144Z info: fw operations loading: 74
+2026-10-05T13:55:31.145Z info: app operations loading: 74
+2026-10-05T13:55:31.145Z info: safe operations loading: 74
+2026-10-05T13:55:31.146Z info: masterdir operations loading: 74
+2026-10-05T13:55:31.147Z info: Configuration completed
+2026-10-05T13:55:31.155Z info: Server started
+2026-10-05T13:55:31.158Z info: HTTP listen [8091]
+2026-10-05T13:55:59.625Z info: AutoRevokeCred : 2026-10-05T13:55:59.625Z
+2026-10-05T13:56:19.547Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T13:59:55.654Z info: Configuration pre-loaded
+2026-10-05T13:59:56.014Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T13:59:56.018Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T13:59:56.319Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:59:56.319Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T13:59:56.320Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T13:59:56.320Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T13:59:56.321Z info: fw documents loading: 2
+2026-10-05T13:59:56.321Z info: app operations loading: 12
+2026-10-05T13:59:56.322Z info: fw operations loading: 74
+2026-10-05T13:59:56.322Z info: app operations loading: 74
+2026-10-05T13:59:56.323Z info: safe operations loading: 74
+2026-10-05T13:59:56.323Z info: masterdir operations loading: 74
+2026-10-05T13:59:56.324Z info: Configuration completed
+2026-10-05T13:59:56.331Z info: Server started
+2026-10-05T13:59:56.333Z info: HTTP listen [8091]
+2026-10-05T14:00:24.419Z info: AutoRevokeCred : 2026-10-05T14:00:24.418Z
+2026-10-05T14:00:24.494Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:05:09.970Z info: Configuration pre-loaded
+2026-10-05T14:05:10.347Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:05:10.352Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:05:10.641Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:05:10.642Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:05:10.643Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:05:10.644Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:05:10.644Z info: fw documents loading: 2
+2026-10-05T14:05:10.645Z info: app operations loading: 12
+2026-10-05T14:05:10.646Z info: fw operations loading: 74
+2026-10-05T14:05:10.646Z info: app operations loading: 74
+2026-10-05T14:05:10.647Z info: safe operations loading: 74
+2026-10-05T14:05:10.647Z info: masterdir operations loading: 74
+2026-10-05T14:05:10.648Z info: Configuration completed
+2026-10-05T14:05:10.655Z info: Server started
+2026-10-05T14:05:10.657Z info: HTTP listen [8091]
+2026-10-05T14:05:24.735Z info: AutoRevokeCred : 2026-10-05T14:05:24.734Z
+2026-10-05T14:05:24.793Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:05:56.835Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:06:59.297Z error: AutoRevokeCred : 2026-10-05T14:05:24.734Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:06:59.298Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:07:18.749Z info: AutoRevokeCred : 2026-10-05T14:07:18.749Z
+2026-10-05T14:07:18.769Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:09:13.207Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:09:13.209Z error: AutoRevokeCred : 2026-10-05T14:07:18.749Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:09:13.211Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:10:55.822Z info: AutoRevokeCred : 2026-10-05T14:10:55.821Z
+2026-10-05T14:13:07.717Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:13:22.175Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:13:22.177Z error: AutoRevokeCred : 2026-10-05T14:10:55.821Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:13:22.178Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:13:57.885Z info: GetCredProps : 2026-10-05T14:13:57.885Z
+2026-10-05T14:14:30.148Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:14:30.151Z info: GetCredProps finished
+2026-10-05T14:14:30.198Z info: GetCredProps : 2026-10-05T14:14:30.198Z
+2026-10-05T14:14:56.540Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:14:56.542Z info: GetCredProps finished
+2026-10-05T14:14:56.581Z info: GetCredProps : 2026-10-05T14:14:56.581Z
+2026-10-05T14:15:09.597Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:15:09.599Z info: GetCredProps finished
+2026-10-05T14:15:22.862Z info: GetCredProps : 2026-10-05T14:15:22.861Z
+2026-10-05T14:15:36.550Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:15:36.552Z info: GetCredProps finished
+2026-10-05T14:15:36.580Z info: GetCredProps : 2026-10-05T14:15:36.580Z
+2026-10-05T14:15:36.595Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:15:36.597Z info: GetCredProps finished
+2026-10-05T14:15:36.631Z info: GetCredProps : 2026-10-05T14:15:36.631Z
+2026-10-05T14:15:36.644Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:15:36.646Z info: GetCredProps finished
+2026-10-05T14:16:17.318Z info: Configuration pre-loaded
+2026-10-05T14:16:17.666Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:16:17.670Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:16:17.735Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:16:17.737Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:16:17.738Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:16:17.739Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:16:17.740Z info: fw documents loading: 2
+2026-10-05T14:16:17.741Z info: app operations loading: 12
+2026-10-05T14:16:17.743Z info: fw operations loading: 74
+2026-10-05T14:16:17.744Z info: app operations loading: 74
+2026-10-05T14:16:17.744Z info: safe operations loading: 74
+2026-10-05T14:16:17.745Z info: masterdir operations loading: 74
+2026-10-05T14:16:17.746Z info: Configuration completed
+2026-10-05T14:16:17.755Z info: Server started
+2026-10-05T14:16:17.757Z info: HTTP listen [8091]
+2026-10-05T14:16:35.360Z info: $OpenSafeByPin finished
+2026-10-05T14:16:35.456Z info: $GetSafe finished
+2026-10-05T14:16:35.497Z info: $GetOrgSvc finished
+2026-10-05T14:16:37.779Z info: $IsMDAdmin finished
+2026-10-05T14:16:41.536Z info: $GetSitesUrls finished
+2026-10-05T14:16:41.600Z info: GetCredProps : 2026-10-05T14:16:41.600Z
+2026-10-05T14:16:41.621Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:16:41.623Z info: GetCredProps finished
+2026-10-05T14:16:41.646Z info: GetCredProps : 2026-10-05T14:16:41.646Z
+2026-10-05T14:16:41.661Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:16:41.664Z info: GetCredProps finished
+2026-10-05T14:16:41.710Z info: GetCredProps : 2026-10-05T14:16:41.710Z
+2026-10-05T14:16:41.739Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:16:41.765Z info: GetCredProps finished
+2026-10-05T14:17:00.385Z info: AutoRevokeCred : 2026-10-05T14:17:00.385Z
+2026-10-05T14:17:00.410Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:17:12.142Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:17:56.412Z error: AutoRevokeCred : 2026-10-05T14:17:00.385Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:17:56.413Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:18:16.425Z info: $OpenSafeByPin finished
+2026-10-05T14:18:16.504Z info: $GetSafe finished
+2026-10-05T14:18:16.523Z info: $GetOrgSvc finished
+2026-10-05T14:18:19.375Z info: $IsMDAdmin finished
+2026-10-05T14:18:22.947Z info: $GetSitesUrls finished
+2026-10-05T14:18:23.014Z info: GetCredProps : 2026-10-05T14:18:23.014Z
+2026-10-05T14:18:23.032Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:18:23.046Z info: GetCredProps finished
+2026-10-05T14:18:23.094Z info: GetCredProps : 2026-10-05T14:18:23.094Z
+2026-10-05T14:18:23.109Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:18:23.111Z info: GetCredProps finished
+2026-10-05T14:18:23.139Z info: GetCredProps : 2026-10-05T14:18:23.139Z
+2026-10-05T14:18:23.152Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:18:23.155Z info: GetCredProps finished
+2026-10-05T14:18:38.097Z info: AutoRevokeCred : 2026-10-05T14:18:38.097Z
+2026-10-05T14:18:38.112Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:18:58.242Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:18:58.244Z error: AutoRevokeCred : 2026-10-05T14:18:38.097Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:18:58.246Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:19:34.004Z info: $OpenSafeByPin finished
+2026-10-05T14:19:34.096Z info: $GetSafe finished
+2026-10-05T14:19:34.117Z info: $GetOrgSvc finished
+2026-10-05T14:19:36.910Z info: $IsMDAdmin finished
+2026-10-05T14:19:40.416Z info: $GetSitesUrls finished
+2026-10-05T14:19:40.477Z info: GetCredProps : 2026-10-05T14:19:40.477Z
+2026-10-05T14:19:50.580Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:19:50.582Z info: GetCredProps finished
+2026-10-05T14:19:50.620Z info: GetCredProps : 2026-10-05T14:19:50.620Z
+2026-10-05T14:19:57.852Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:19:57.854Z info: GetCredProps finished
+2026-10-05T14:19:57.885Z info: GetCredProps : 2026-10-05T14:19:57.885Z
+2026-10-05T14:20:06.634Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:20:06.636Z info: GetCredProps finished
+2026-10-05T14:20:28.884Z info: AutoRevokeCred : 2026-10-05T14:20:28.884Z
+2026-10-05T14:20:40.959Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:21:38.083Z info: Mail sent to:daniel@sportes.fr subject:op:undefined - AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:21:38.085Z error: AutoRevokeCred : 2026-10-05T14:20:28.884Z : AppExc: 103:invalid_class_name["$Auteur"]
+2026-10-05T14:21:38.099Z info: AutoRevokeCred terminated on exception
+2026-10-05T14:24:23.214Z info: Configuration pre-loaded
+2026-10-05T14:24:23.870Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:24:23.874Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:24:23.947Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:24:23.948Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:24:23.949Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:24:23.950Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:24:23.951Z info: fw documents loading: 2
+2026-10-05T14:24:23.951Z info: app operations loading: 12
+2026-10-05T14:24:23.952Z info: fw operations loading: 74
+2026-10-05T14:24:23.952Z info: app operations loading: 74
+2026-10-05T14:24:23.953Z info: safe operations loading: 74
+2026-10-05T14:24:23.953Z info: masterdir operations loading: 74
+2026-10-05T14:24:23.954Z info: Configuration completed
+2026-10-05T14:24:23.963Z info: Server started
+2026-10-05T14:24:23.966Z info: HTTP listen [8091]
+2026-10-05T14:24:41.040Z info: $OpenSafeByPin finished
+2026-10-05T14:24:41.125Z info: $GetSafe finished
+2026-10-05T14:24:41.170Z info: $GetOrgSvc finished
+2026-10-05T14:24:44.068Z info: $IsMDAdmin finished
+2026-10-05T14:24:47.047Z info: $GetSitesUrls finished
+2026-10-05T14:24:47.109Z info: GetCredProps : 2026-10-05T14:24:47.109Z
+2026-10-05T14:25:00.278Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:25:00.280Z info: GetCredProps finished
+2026-10-05T14:25:00.318Z info: GetCredProps : 2026-10-05T14:25:00.318Z
+2026-10-05T14:25:00.332Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:25:00.335Z info: GetCredProps finished
+2026-10-05T14:25:00.362Z info: GetCredProps : 2026-10-05T14:25:00.362Z
+2026-10-05T14:25:00.378Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:25:00.379Z info: GetCredProps finished
+2026-10-05T14:25:16.677Z info: AutoRevokeCred : 2026-10-05T14:25:16.677Z
+2026-10-05T14:25:16.693Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:26:24.905Z info: Configuration pre-loaded
+2026-10-05T14:26:25.292Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:26:25.296Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:26:25.355Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:26:25.355Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:26:25.356Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:26:25.356Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:26:25.357Z info: fw documents loading: 2
+2026-10-05T14:26:25.358Z info: app operations loading: 12
+2026-10-05T14:26:25.358Z info: fw operations loading: 74
+2026-10-05T14:26:25.359Z info: app operations loading: 74
+2026-10-05T14:26:25.359Z info: safe operations loading: 74
+2026-10-05T14:26:25.360Z info: masterdir operations loading: 74
+2026-10-05T14:26:25.360Z info: Configuration completed
+2026-10-05T14:26:25.372Z info: Server started
+2026-10-05T14:26:25.375Z info: HTTP listen [8091]
+2026-10-05T14:26:51.297Z info: $OpenSafeByPin finished
+2026-10-05T14:26:51.370Z info: $GetSafe finished
+2026-10-05T14:26:51.409Z info: $GetOrgSvc finished
+2026-10-05T14:26:54.089Z info: $GetSitesUrls finished
+2026-10-05T14:26:54.176Z info: ADMIN$getAllStatus : 2026-10-05T14:26:54.175Z
+2026-10-05T14:26:54.227Z info: ADMIN$getAllStatus finished
+2026-10-05T14:26:54.331Z info: FW$setSubscription : 2026-10-05T14:26:54.331Z
+2026-10-05T14:26:54.342Z info: FW$setSubscription finished
+2026-10-05T14:26:54.449Z info: FW$Sync : 2026-10-05T14:26:54.449Z
+2026-10-05T14:26:54.466Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:26:54.469Z info: FW$Sync finished
+2026-10-05T14:26:54.514Z info: FW$Sync : 2026-10-05T14:26:54.514Z
+2026-10-05T14:26:54.527Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:26:54.529Z info: FW$Sync finished
+2026-10-05T14:26:57.362Z info: $IsMDAdmin finished
+2026-10-05T14:27:01.457Z info: GetCredProps : 2026-10-05T14:27:01.457Z
+2026-10-05T14:27:01.469Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:27:01.471Z info: GetCredProps finished
+2026-10-05T14:27:01.540Z info: GetCredProps : 2026-10-05T14:27:01.540Z
+2026-10-05T14:27:01.552Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:27:01.555Z info: GetCredProps finished
+2026-10-05T14:27:01.590Z info: GetCredProps : 2026-10-05T14:27:01.590Z
+2026-10-05T14:27:01.604Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:27:01.607Z info: GetCredProps finished
+2026-10-05T14:27:16.054Z info: AutoRevokeCred : 2026-10-05T14:27:16.054Z
+2026-10-05T14:27:16.064Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:42:13.528Z info: Configuration pre-loaded
+2026-10-05T14:42:13.869Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:42:13.872Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:42:14.188Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:42:14.188Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:42:14.189Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:42:14.190Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:42:14.190Z info: fw documents loading: 2
+2026-10-05T14:42:14.191Z info: app operations loading: 12
+2026-10-05T14:42:14.191Z info: fw operations loading: 74
+2026-10-05T14:42:14.192Z info: app operations loading: 74
+2026-10-05T14:42:14.192Z info: safe operations loading: 74
+2026-10-05T14:42:14.193Z info: masterdir operations loading: 74
+2026-10-05T14:42:14.193Z info: Configuration completed
+2026-10-05T14:42:14.202Z info: Server started
+2026-10-05T14:42:14.203Z info: HTTP listen [8091]
+2026-10-05T14:42:39.600Z info: $OpenSafeByPin finished
+2026-10-05T14:42:39.684Z info: $GetSafe finished
+2026-10-05T14:42:39.717Z info: $GetOrgSvc finished
+2026-10-05T14:42:41.939Z info: $GetSitesUrls finished
+2026-10-05T14:42:41.986Z info: ADMIN$getAllStatus : 2026-10-05T14:42:41.986Z
+2026-10-05T14:42:56.281Z info: ADMIN$getAllStatus finished
+2026-10-05T14:42:56.355Z info: FW$setSubscription : 2026-10-05T14:42:56.354Z
+2026-10-05T14:43:01.783Z info: FW$setSubscription finished
+2026-10-05T14:43:01.902Z info: FW$Sync : 2026-10-05T14:43:01.902Z
+2026-10-05T14:43:01.921Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:43:01.923Z info: FW$Sync finished
+2026-10-05T14:43:01.991Z info: FW$Sync : 2026-10-05T14:43:01.991Z
+2026-10-05T14:43:02.009Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:43:02.014Z info: FW$Sync finished
+2026-10-05T14:43:08.419Z info: $IsMDAdmin finished
+2026-10-05T14:43:11.775Z info: GetCredProps : 2026-10-05T14:43:11.774Z
+2026-10-05T14:43:11.784Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:43:11.786Z info: GetCredProps finished
+2026-10-05T14:43:11.843Z info: GetCredProps : 2026-10-05T14:43:11.843Z
+2026-10-05T14:43:11.854Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:43:11.855Z info: GetCredProps finished
+2026-10-05T14:43:11.881Z info: GetCredProps : 2026-10-05T14:43:11.881Z
+2026-10-05T14:43:11.892Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:43:11.894Z info: GetCredProps finished
+2026-10-05T14:43:21.568Z info: AutoRevokeCred : 2026-10-05T14:43:21.567Z
+2026-10-05T14:43:21.596Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-05T14:44:06.338Z info: AutoRevokeCred finished
+2026-10-05T14:44:06.383Z info: $FixCreds finished
+2026-10-05T14:44:06.501Z info: GetCredProps : 2026-10-05T14:44:06.501Z
+2026-10-05T14:44:16.422Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:44:16.424Z info: GetCredProps finished
+2026-10-05T14:44:16.460Z info: GetCredProps : 2026-10-05T14:44:16.460Z
+2026-10-05T14:44:39.717Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:44:39.719Z info: GetCredProps finished
+2026-10-05T14:45:49.219Z info: Configuration pre-loaded
+2026-10-05T14:45:49.544Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:45:49.548Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:45:49.609Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:45:49.610Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:45:49.611Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:45:49.611Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:45:49.612Z info: fw documents loading: 2
+2026-10-05T14:45:49.612Z info: app operations loading: 12
+2026-10-05T14:45:49.613Z info: fw operations loading: 74
+2026-10-05T14:45:49.613Z info: app operations loading: 74
+2026-10-05T14:45:49.614Z info: safe operations loading: 74
+2026-10-05T14:45:49.614Z info: masterdir operations loading: 74
+2026-10-05T14:45:49.615Z info: Configuration completed
+2026-10-05T14:45:49.623Z info: Server started
+2026-10-05T14:45:49.626Z info: HTTP listen [8091]
+2026-10-05T14:46:11.892Z info: $OpenSafeByPin finished
+2026-10-05T14:46:11.950Z info: $GetSafe finished
+2026-10-05T14:46:11.978Z info: $GetOrgSvc finished
+2026-10-05T14:46:15.733Z info: $IsMDAdmin finished
+2026-10-05T14:46:20.064Z info: $GetSitesUrls finished
+2026-10-05T14:46:20.117Z info: GetCredProps : 2026-10-05T14:46:20.117Z
+2026-10-05T14:46:27.125Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:46:27.128Z info: GetCredProps finished
+2026-10-05T14:46:27.164Z info: GetCredProps : 2026-10-05T14:46:27.164Z
+2026-10-05T14:46:27.177Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:46:27.178Z info: GetCredProps finished
+2026-10-05T14:47:22.436Z info: Configuration pre-loaded
+2026-10-05T14:47:22.786Z info: FW document descriptors:2 forms descriptors:2
+2026-10-05T14:47:22.790Z info: AS2 document descriptors:8 forms descriptors:8
+2026-10-05T14:47:22.843Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:47:22.844Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-05T14:47:22.844Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-05T14:47:22.845Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-05T14:47:22.846Z info: fw documents loading: 2
+2026-10-05T14:47:22.846Z info: app operations loading: 12
+2026-10-05T14:47:22.847Z info: fw operations loading: 74
+2026-10-05T14:47:22.848Z info: app operations loading: 74
+2026-10-05T14:47:22.848Z info: safe operations loading: 74
+2026-10-05T14:47:22.849Z info: masterdir operations loading: 74
+2026-10-05T14:47:22.849Z info: Configuration completed
+2026-10-05T14:47:22.858Z info: Server started
+2026-10-05T14:47:22.861Z info: HTTP listen [8091]
+2026-10-05T14:47:36.944Z info: $OpenSafeByPin finished
+2026-10-05T14:47:37.025Z info: $GetSafe finished
+2026-10-05T14:47:37.054Z info: $GetOrgSvc finished
+2026-10-05T14:47:40.031Z info: $GetSitesUrls finished
+2026-10-05T14:47:40.075Z info: ADMIN$getAllStatus : 2026-10-05T14:47:40.074Z
+2026-10-05T14:47:40.084Z info: ADMIN$getAllStatus finished
+2026-10-05T14:48:05.377Z info: $OpenSafeByPin finished
+2026-10-05T14:48:05.446Z info: $GetSafe finished
+2026-10-05T14:48:05.476Z info: $GetOrgSvc finished
+2026-10-05T14:48:07.945Z info: $IsMDAdmin finished
+2026-10-05T14:48:11.894Z info: $GetSitesUrls finished
+2026-10-05T14:48:11.950Z info: GetCredProps : 2026-10-05T14:48:11.950Z
+2026-10-05T14:48:11.965Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T14:48:11.966Z info: GetCredProps finished
+2026-10-05T14:48:11.987Z info: GetCredProps : 2026-10-05T14:48:11.987Z
+2026-10-05T14:48:11.999Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T14:48:12.000Z info: GetCredProps finished
+2026-10-05T14:48:58.778Z info: ADMIN$getAllStatus : 2026-10-05T14:48:58.778Z
+2026-10-05T14:48:58.784Z info: ADMIN$getAllStatus finished
+2026-10-05T15:00:28.073Z info: ADMIN$getAllStatus : 2026-10-05T15:00:28.073Z
+2026-10-05T15:00:28.079Z info: ADMIN$getAllStatus finished
+2026-10-05T15:03:29.626Z info: $OpenSafeByPin finished
+2026-10-05T15:03:29.699Z info: $GetSafe finished
+2026-10-05T15:03:29.745Z info: $GetOrgSvc finished
+2026-10-05T15:03:31.554Z info: $GetSitesUrls finished
+2026-10-05T15:03:31.595Z info: ADMIN$getAllStatus : 2026-10-05T15:03:31.595Z
+2026-10-05T15:03:31.601Z info: ADMIN$getAllStatus finished
+2026-10-05T15:05:25.337Z info: ADMIN$getAllStatus : 2026-10-05T15:05:25.337Z
+2026-10-05T15:05:25.342Z info: ADMIN$getAllStatus finished
+2026-10-05T15:08:43.830Z info: $OpenSafeByPin finished
+2026-10-05T15:08:43.892Z info: $GetSafe finished
+2026-10-05T15:08:43.924Z info: $GetOrgSvc finished
+2026-10-05T15:08:45.932Z info: $GetSitesUrls finished
+2026-10-05T15:08:45.975Z info: ADMIN$getAllStatus : 2026-10-05T15:08:45.975Z
+2026-10-05T15:08:45.981Z info: ADMIN$getAllStatus finished
+2026-10-05T15:09:05.491Z info: FW$setSubscription : 2026-10-05T15:09:05.491Z
+2026-10-05T15:09:05.506Z info: FW$setSubscription finished
+2026-10-05T15:09:05.629Z info: FW$Sync : 2026-10-05T15:09:05.629Z
+2026-10-05T15:09:05.642Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T15:09:05.645Z info: FW$Sync finished
+2026-10-05T15:09:18.642Z info: $IsMDAdmin finished
+2026-10-05T15:09:21.472Z info: GetCredProps : 2026-10-05T15:09:21.472Z
+2026-10-05T15:09:21.482Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-05T15:09:21.483Z info: GetCredProps finished
+2026-10-05T15:09:21.529Z info: GetCredProps : 2026-10-05T15:09:21.529Z
+2026-10-05T15:09:21.539Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T15:09:21.540Z info: GetCredProps finished
+2026-10-05T15:09:49.568Z info: $OpenSafeByPin finished
+2026-10-05T15:09:49.629Z info: $GetSafe finished
+2026-10-05T15:09:49.662Z info: $GetOrgSvc finished
+2026-10-05T15:09:51.928Z info: $GetSitesUrls finished
+2026-10-05T15:09:51.966Z info: ADMIN$getAllStatus : 2026-10-05T15:09:51.966Z
+2026-10-05T15:09:51.972Z info: ADMIN$getAllStatus finished
+2026-10-05T15:09:52.041Z info: FW$setSubscription : 2026-10-05T15:09:52.041Z
+2026-10-05T15:09:52.046Z info: FW$setSubscription finished
+2026-10-05T15:09:52.132Z info: FW$Sync : 2026-10-05T15:09:52.132Z
+2026-10-05T15:09:52.143Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-05T15:09:52.145Z info: FW$Sync finished

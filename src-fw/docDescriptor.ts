@@ -86,7 +86,7 @@ export class DocDescriptor {
     const cl = i === -1 ? clazz : clazz.substring(0, i)
     const dd = this.all.get(cl)
     if (!dd) 
-      throw new AppExc(103, 'invalid_class_name', 'DocDescriptor.get', [cl])
+      throw new AppExc(103, 'invalid_class_name', 'DocDescriptor.get', [clazz])
     return dd
   }
 

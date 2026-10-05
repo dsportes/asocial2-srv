@@ -556,7 +556,7 @@ class AutoRevokeCred extends Operation {
     const credRef = this.authRecord.getCredRef(this._docCl, this._docPk, true)
     if (!credRef || credRef.cred.credId !== this._credId)
       throw new AppExc(103, 'no_cred_owner', this, [this.opName, this.args.svc || '', this.args.org || '?', this._docCl, this._docPk])
-    const dd = DocDescriptor.get(topCl(this.svc, this._docCl))
+    const dd = credRef.doc._docDescriptor
     if (dd.embedCreds) {
       const d = await this.cache.getDoc(this._docCl, { pk: this._docPk })
       const x = d.embedCreds

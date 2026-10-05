@@ -546,33 +546,34 @@ export class Cache {
   */
   static async getRow(op: Operation, clazz: string, src: Object, lazy?: number)
     : Promise<DocDescr> {
+    const topClazz = topCl(op.svc, clazz)
     const oc = Cache.orgCache(op)
     const now = Date.now()
-    const pk = DocDescriptor.get(clazz).pkValue(src)
+    const pk = DocDescriptor.get(topClazz).pkValue(src)
     const k = DocDescr.key(clazz, pk)
     let item = oc.get(k)
     if (item && lazy && ((now - item.time) < (lazy * Cache.LAZY_MS))) {
       item.lru = now
-      return new DocDescr(clazz, pk, cloneRow(item.row))
+      return new DocDescr(topClazz, pk, cloneRow(item.row))
     }
 
     if (item) { // trouvé en cache, lecture pour recherche d'un éventuel plus récent
       item.lru = now
-      const row = await op.db.oneRow(clazz, pk, item.row.v)
+      const row = await op.db.oneRow(topClazz, pk, item.row.v)
       if (row && row.v > item.row.v) { // celui lu est plus récent
         item.row = row
         if (row.deleted) return null
       }
-      return new DocDescr(clazz, pk, cloneRow(item.row))
+      return new DocDescr(topClazz, pk, cloneRow(item.row))
     }
 
     // Pas trouvé en cache - recherche en base
-    const row = await op.db.oneRow(clazz, pk, item ? item.row.v : 0)
+    const row = await op.db.oneRow(topClazz, pk, item ? item.row.v : 0)
     if (!row) return null // Pas trouvé en base
     // trouvé en base, mis en cache
     item = { lru: now, time: now, row } 
     oc.set(k, item)
-    return row.deleted ? null : new DocDescr(clazz, pk, cloneRow(row))
+    return row.deleted ? null : new DocDescr(topClazz, pk, cloneRow(row))
   }
 
   static updateCache (op: Operation, dd: DocDescr) {
@@ -622,7 +623,8 @@ export class Cache {
   - src : objet contenant les propriétés de la pk
   */
   async getDoc (clazz: string, src?: Object, assert?: string) : Promise<$Document | null> {
-    const dx = DocDescriptor.get(clazz)
+    const topClazz = topCl(this.op.svc, clazz)
+    const dx = DocDescriptor.get(topClazz)
     const pk = dx.pkValue(src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
@@ -656,7 +658,8 @@ export class Cache {
   Retourne le document.
   */
   newDoc (clazz: string, src?: Object) : $Document {
-    const pk = DocDescriptor.get(topCl('', clazz)).pkValue(src)
+    const topClazz = topCl(this.op.svc, clazz)
+    const pk = DocDescriptor.get(topClazz).pkValue(src)
     const k = DocDescr.key(clazz, pk)
     let dd = this.docs.get(k)
     if (dd) return dd.doc
