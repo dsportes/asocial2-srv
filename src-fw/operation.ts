@@ -369,6 +369,18 @@ export class CredRef {
     const p = this.cred.props
     return p && (!p.limit || (p.limit * 60000) >= Date.now())
   }
+
+  get isSuspended () {
+    const n = Date.now()
+    const p = this.cred.props
+    if (!p || !p.susp) return false
+    const d = p.susp[0] * 60000
+    const f = p.susp[1] * 60000
+    if (d === 0 && f === 0) return true
+    if (d === 0) return f >= n
+    if (f === 0) return d <= n
+    return d <= n && f >= n
+  }
   
 }
 
@@ -428,12 +440,20 @@ export class AuthRecord {
     return dd.doc['st']
   }
 
-  getCredRef (docCl: string, docPk: string, noex?: boolean) : CredRef {
+  getCredRef (docCl: string, docPk: string, noex?: boolean, checkSusp?: boolean) : CredRef {
     const cr = this.creds.get(docCl + '/' + docPk)
-    if (cr) return cr
-    if (noex) return null
-    throw new AppExc(103, 'missing_credential', this.op, 
-      [this.op.opName, this.op.args.svc || '?', this.op.args.org || '?', docCl, docPk])
+    if (!cr) {
+      if (noex) return null
+      throw new AppExc(103, 'missing_credential', this.op, 
+        [this.op.opName, this.op.args.svc || '?', this.op.args.org || '?', docCl, docPk])
+    }
+    if (!checkSusp) return cr
+    if (!cr.isSuspended) return cr
+    const su = cr.cred.props.susp
+    const s = su[0] ? new Date(su[0] * 60000).toISOString() : '2000-01-01 00:00:00'
+    const e = su[1] ? new Date(su[1] * 60000).toISOString() : '2099-31-12 23:59:59'
+    throw new AppExc(103, 'suspended_credential', this.op, 
+      [this.op.opName, this.op.args.svc || '?', this.op.args.org || '?', docCl, docPk, s, e])
   }
 
   async process () : Promise<void> {
