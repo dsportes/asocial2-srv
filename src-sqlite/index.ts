@@ -961,7 +961,7 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
   async getColl(clazz: string, colName: string, val: string, isList: boolean, vs: number) 
     : Promise<$CollData> {
     const adm = clazz.startsWith('ADMIN$')
-    const incr = vs !== 0
+    const incr = vs > 0
     const cd: $CollData = { incr, v: 0, datas: [], moved: [], deleted: [] }
     
     let stmt = this.sql.prepare('SELECT * FROM ' + this.cluc(clazz) +

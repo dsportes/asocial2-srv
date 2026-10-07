@@ -458,27 +458,31 @@ export class FW$Sync extends Operation {
 
   async sync0 (def: string, v: number, clazz: string) : Promise<void> {
     if (!this.checker.check0()) this.syncs[def] = { v: -1 }
-    const vdatas = this.dd.virtual ? null : await this.db.allRowsData(clazz, v)
-    this.syncs[def] = vdatas
+    else {
+      const vdatas = this.dd.virtual ? null : await this.db.allRowsData(clazz, v)
+      this.syncs[def] = vdatas
+    }
   }
 
   async sync1 (def: string, v: number, clazz: string, pk: string) : Promise<void> {
-    if (!this.checker.check1(pk))
-      throw new AppExc(105, 'credential_required_not_found', this, [this.svc, clazz, pk])
-    let incr = v !== 0
-    const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
-    this.syncs[def] =  row ? { incr, v: row.v, data: row.data } 
-      : { incr, v: 0, data: [] }
+    if (!this.checker.check1(pk)) this.syncs[def] = { v: -1 }
+    else {
+      let incr = v > 0
+      const row = await this.db.oneRow(this.svc + '$' + clazz, pk, v)
+      this.syncs[def] =  row ? { incr, v: row.v, data: row.data } 
+        : { incr, v: 0, data: [] }
+    }
   }
 
   async sync2 (def: string, v: number, clazz: string, colName: string, val: string) : Promise<void> {
     if (this.dd.hasColls) {
       const x = this.dd.colls.get(colName)
       if (x) {
-        if (!this.checker.check2(colName, val))
-          throw new AppExc(105, 'credential_required_not_found', this, [this.svc, colName, val])
-        const vdatas = await this.db.getColl(clazz, colName, val, x.list, v)
-        this.syncs[def] = vdatas
+        if (!this.checker.check2(colName, val)) this.syncs[def] = { v: -1 }
+        else {
+          const vdatas = await this.db.getColl(clazz, colName, val, x.list, v)
+          this.syncs[def] = vdatas
+        }
       }
     }
   }

@@ -62,8 +62,10 @@ class MajAuteur extends Operation {
   async phase2 () {
     this.requireAuth()
     // const pk = DocDescriptor.get('AS2$Auteur').pkValue({ autid: this._autid })
-    let c = this.getCredRef('Auteur', this._autpk, true)
-    if (!c) this.getCredRef('Redaction', '1')
+    let c = this.getCredRef('Redaction', '1', true)
+    if (!c || c.isSuspended) {
+      c = this.getCredRef('Auteur', this._autpk, true, true)
+    }
     const aut = await this.cache.getDoc('AS2$Auteur', { pk: this._autpk }) as AS2$Auteur
     if (!aut) { this.setRes('status', 1); return }
     let m = false

@@ -169,9 +169,9 @@ export class Operation implements OperationWC {
   et relatif à ce rôle et cet id de document.
   Si noex, retourne null plutôt que de sortir en exception si aucun n'a été trouvé.
   */
-  getCredRef (docCl: string, docPk: string, noex?: boolean) : CredRef {
+  getCredRef (docCl: string, docPk: string, noex?: boolean, checkSusp?: boolean) : CredRef {
     this.requireAuth()
-    return this.authRecord.getCredRef(docCl, docPk, noex || false)
+    return this.authRecord.getCredRef(docCl, docPk, noex || false, checkSusp || false)
   }
 
   async transac (): Promise<void> {

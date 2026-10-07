@@ -45,7 +45,8 @@ export class $CredChecker extends $ADocument {
 
   credRef (pk: string, colClass? : string) {
     const cl = colClass || this.op.dd.name
-    return this.op.getCredRef(cl, pk, true)
+    const cr = this.op.getCredRef(cl, pk, true)
+    return cr && !cr.isSuspended ? cr : null
   }
 
   check0 () : boolean {
@@ -114,7 +115,7 @@ export class $Subs extends $Document {
   static async getSessionIds (op: Operation, def: string) : Promise<Set<string>> {
     const sids : Set<string> = new Set()
     const val = Crypt.shaS(def)
-    await op.db.selectDocs(op.svc + '$Subs', 'defs', filter.IN, [val], '', 0, 
+    await op.db.selectDocs(op.svc + '$Subs', 'defs', filter.CONTAINS, [val], '', 0, 
       (data: Uint8Array) => {
         const d = decode(data)
         sids.add(d['sessionId'])
