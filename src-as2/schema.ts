@@ -49,6 +49,17 @@ try {
     ])
   )
 
+  new DocDescriptor(svc, 
+    { name: 'Publication', pk: ['pubid'], sync: true },
+    new Map<string, collection>([
+      ['sujets',  { key: ['sujets'], list: true, mutable: true, class: 'Sujet' }],
+      ['auteurs',  { key: ['auteurs'], list: true, mutable: true, class: "Auteur" }]
+    ]),
+    new Map<string, idx>([
+      ['volume',  { type: propType.INTEGER, key: ['volume'] }]
+    ])
+  ),
+
   new DocDescriptor(svc,
     { name: 'Redaction', virtual: true }
   )
