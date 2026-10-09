@@ -50,7 +50,7 @@ export interface $CollData extends $DCData{
   deleted?: [string, number][]
 }
 
-export enum filter { LT, LE, EQ, NE, GE, GT, IN, CONTAINS, CONTAINSANY }
+export enum filter { LT, LE, EQ, NE, GE, GT, IN, CONTAINS /*, CONTAINSANY */ }
 
 export enum updType { SET, CREATE, UPDATE }
 

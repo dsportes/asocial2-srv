@@ -38,6 +38,7 @@ try {
   )
 
   new DocDescriptor(svc, { name: 'Section', virtual: true, enumCred: 'Redaction' })
+  new DocDescriptor(svc, { name: 'Sujet', virtual: true, enumCred: 'CoDir' })
 
   new DocDescriptor(svc, 
     { name: 'Auteur', pk: ['autid'], sync: true, embedCreds: true },

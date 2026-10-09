@@ -173,7 +173,7 @@ export class SQLiteConnector extends DbConnector {
   }
 }
 
-const opFilter = [ '<', '<=', '=', '!=', '>=', '>', 'IN', 'CONT1', 'CONT2']
+const opFilter = [ '<', '<=', '=', '!=', '>=', '>', 'IN', 'CONTAINS']
 
 export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
 
@@ -1017,14 +1017,18 @@ export class SQLiteConnexion extends DbConnexion implements IDbGeneric {
       const z = colName + ' IN (' + y  + ')'
       return z
     }
-    if (!comp.startsWith('CONT')) return colName + ' ' + comp + ' @col'
-    const cols = col instanceof Array ? col : [col]
-    if (!cols.length) return ''
-    const x = []
-    for(const v of cols) x.push(' instr(' + colName + ', \'$' + v + '\') > 0 ')
-    return x.length ?
-      (x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) ')
-      : ''
+    if (comp === 'CONTAINS') {
+      const cols = col instanceof Array ? col : [col]
+      if (!cols.length) return ''
+      const x = []
+      for(const v of cols) x.push(' instr(' + colName + ', \'$' + v + '\') > 0 ')
+      // Si cols est une liste, l'opérateur logique est CONTAINS_ANY
+      // cad un OR de CONTAINS
+      return x.length ?
+        (x.length === 1 ? x[0] : ' ( (' + x.join(') OR (') + ') ) ')
+        : ''
+    }
+    return colName + ' ' + comp + ' @col'
   }
   
   orderBy (order: string) {
