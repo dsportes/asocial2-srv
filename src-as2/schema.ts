@@ -50,16 +50,31 @@ try {
     ])
   )
 
+  /* Publication
+  - Propriétés:
+    id : générée aléatoirement.
+    autid: ID de l'auteur.
+    sujets: liste des sujets traités par la publication.
+    resume: court de résumé de la publication.
+    fichiers: fichiers attachés et leur tailles.
+    volume: volume total des fichiers attachés.
+  - Clés _identifiantes et de synchronisation_
+    - pk: [id]
+    - auteur: autid
+    - sujets: [sujets]
+  - Index _de filtrage_
+    - volume: volume, entier
+  */
   new DocDescriptor(svc, 
     { name: 'Publication', pk: ['pubid'], sync: true },
     new Map<string, collection>([
       ['sujets',  { key: ['sujets'], list: true, mutable: true, class: 'Sujet' }],
-      ['auteurs',  { key: ['auteurs'], list: true, mutable: true, class: "Auteur" }]
+      ['auteur',  { key: ['autid'], mutable: false, class: "Auteur" }]
     ]),
     new Map<string, idx>([
       ['volume',  { type: propType.INTEGER, key: ['volume'] }]
     ])
-  ),
+  )
 
   new DocDescriptor(svc,
     { name: 'Redaction', virtual: true }

@@ -38643,3 +38643,144 @@ Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
 2026-10-09T08:13:19.518Z info: ListeAuteursSection : 2026-10-09T08:13:19.517Z
 2026-10-09T08:13:19.547Z info: Auth status: Status:[OK] - [Redaction/1]
 2026-10-09T08:13:19.550Z info: ListeAuteursSection finished
+2026-10-10T04:03:41.075Z info: Configuration pre-loaded
+2026-10-10T04:03:47.433Z info: FW document descriptors:2 forms descriptors:2
+2026-10-10T04:03:47.454Z info: AS2 document descriptors:10 forms descriptors:10
+2026-10-10T04:03:47.722Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-10T04:03:47.722Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testz.db3]
+2026-10-10T04:03:47.723Z info: SQLite  DB path= [D:\git\asocial2-srv\sqlite\testa.db3]
+2026-10-10T04:03:47.723Z info: FilesystemStorage - path:[D:\git\asocial2-srv\filestorea
+2026-10-10T04:03:47.724Z info: fw documents loading: 2
+2026-10-10T04:03:47.724Z info: app operations loading: 12
+2026-10-10T04:03:47.724Z info: fw operations loading: 74
+2026-10-10T04:03:47.725Z info: app operations loading: 74
+2026-10-10T04:03:47.725Z info: safe operations loading: 74
+2026-10-10T04:03:47.725Z info: masterdir operations loading: 74
+2026-10-10T04:03:47.725Z info: Configuration completed
+2026-10-10T04:03:47.733Z info: Server started
+2026-10-10T04:03:47.735Z info: HTTP listen [8091]
+2026-10-10T04:04:51.941Z info: $OpenSafeByPin finished
+2026-10-10T04:04:51.984Z info: $GetSafe finished
+2026-10-10T04:04:52.002Z info: $GetOrgSvc finished
+2026-10-10T04:04:53.828Z info: $GetSitesUrls finished
+2026-10-10T04:04:53.856Z info: ADMIN$getAllStatus : 2026-10-10T04:04:53.856Z
+2026-10-10T04:04:53.886Z info: ADMIN$getAllStatus finished
+2026-10-10T04:04:53.913Z info: FW$setSubscription : 2026-10-10T04:04:53.913Z
+2026-10-10T04:04:53.920Z info: FW$setSubscription finished
+2026-10-10T04:04:53.980Z info: FW$Sync : 2026-10-10T04:04:53.980Z
+2026-10-10T04:04:53.996Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-10T04:04:54.000Z info: FW$Sync finished
+2026-10-10T04:04:54.034Z info: FW$Sync : 2026-10-10T04:04:54.034Z
+2026-10-10T04:04:54.041Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-10T04:04:54.042Z info: FW$Sync finished
+2026-10-10T04:04:57.682Z info: ADMIN$getEnum : 2026-10-10T04:04:57.682Z
+2026-10-10T04:04:57.685Z info: ADMIN$getEnum finished
+2026-10-10T04:06:18.152Z info: ListeAuteursSection : 2026-10-10T04:06:18.151Z
+2026-10-10T04:06:18.164Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:06:18.168Z info: ListeAuteursSection finished
+2026-10-10T04:06:53.379Z info: ListeAuteursSection : 2026-10-10T04:06:53.379Z
+2026-10-10T04:06:53.394Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:06:53.419Z info: ListeAuteursSection finished
+2026-10-10T04:16:13.158Z info: $OpenSafeByPin finished
+2026-10-10T04:16:26.981Z info: $OpenSafeByPin finished
+2026-10-10T04:16:27.019Z info: $GetSafe finished
+2026-10-10T04:16:27.035Z info: $GetOrgSvc finished
+2026-10-10T04:16:30.908Z info: $GetSitesUrls finished
+2026-10-10T04:16:30.935Z info: ADMIN$getAllStatus : 2026-10-10T04:16:30.935Z
+2026-10-10T04:16:30.938Z info: ADMIN$getAllStatus finished
+2026-10-10T04:16:30.966Z info: FW$setSubscription : 2026-10-10T04:16:30.966Z
+2026-10-10T04:16:30.971Z info: FW$setSubscription finished
+2026-10-10T04:16:31.036Z info: FW$Sync : 2026-10-10T04:16:31.036Z
+2026-10-10T04:16:31.049Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-10T04:16:31.051Z info: FW$Sync finished
+2026-10-10T04:16:33.413Z info: ADMIN$getEnum : 2026-10-10T04:16:33.413Z
+2026-10-10T04:16:33.465Z info: ADMIN$getEnum finished
+2026-10-10T04:18:13.238Z info: ListeAuteursSection : 2026-10-10T04:18:13.238Z
+2026-10-10T04:18:13.252Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:18:13.254Z info: ListeAuteursSection finished
+2026-10-10T04:22:56.091Z info: ListeAuteursSection : 2026-10-10T04:22:56.091Z
+2026-10-10T04:22:56.119Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:22:56.121Z info: ListeAuteursSection finished
+2026-10-10T04:23:29.994Z info: ListeAuteursSection : 2026-10-10T04:23:29.994Z
+2026-10-10T04:23:30.009Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:23:30.010Z info: ListeAuteursSection finished
+2026-10-10T04:31:24.321Z info: ListeAuteursSection : 2026-10-10T04:31:24.321Z
+2026-10-10T04:31:24.331Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:31:24.333Z info: ListeAuteursSection finished
+2026-10-10T04:31:50.863Z info: ListeAuteursSection : 2026-10-10T04:31:50.863Z
+2026-10-10T04:31:50.875Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:31:50.876Z info: ListeAuteursSection finished
+2026-10-10T04:35:17.487Z info: ListeAuteursSection : 2026-10-10T04:35:17.487Z
+2026-10-10T04:35:17.500Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:35:17.502Z info: ListeAuteursSection finished
+2026-10-10T04:42:06.918Z info: ListeAuteursSection : 2026-10-10T04:42:06.918Z
+2026-10-10T04:42:06.934Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:42:06.936Z info: ListeAuteursSection finished
+2026-10-10T04:48:30.879Z info: $OpenSafeByPin finished
+2026-10-10T04:48:30.927Z info: $GetSafe finished
+2026-10-10T04:48:30.944Z info: $GetOrgSvc finished
+2026-10-10T04:48:32.813Z info: $GetSitesUrls finished
+2026-10-10T04:48:32.840Z info: ADMIN$getAllStatus : 2026-10-10T04:48:32.840Z
+2026-10-10T04:48:32.845Z info: ADMIN$getAllStatus finished
+2026-10-10T04:48:32.895Z info: FW$setSubscription : 2026-10-10T04:48:32.895Z
+2026-10-10T04:48:32.901Z info: FW$setSubscription finished
+2026-10-10T04:48:32.967Z info: FW$Sync : 2026-10-10T04:48:32.967Z
+2026-10-10T04:48:32.976Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-10T04:48:32.977Z info: FW$Sync finished
+2026-10-10T04:48:33.001Z info: FW$Sync : 2026-10-10T04:48:33.001Z
+2026-10-10T04:48:33.008Z info: Auth status: Status:[OK] - [Auteur/4VjoZ9UvTnpSubAfZ5hi]
+2026-10-10T04:48:33.009Z info: FW$Sync finished
+2026-10-10T04:48:35.226Z info: ADMIN$getEnum : 2026-10-10T04:48:35.226Z
+2026-10-10T04:48:35.228Z info: ADMIN$getEnum finished
+2026-10-10T04:48:39.489Z info: ListeAuteursSection : 2026-10-10T04:48:39.489Z
+2026-10-10T04:48:39.503Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:48:39.505Z info: ListeAuteursSection finished
+2026-10-10T04:48:46.772Z info: ListeAuteursSection : 2026-10-10T04:48:46.772Z
+2026-10-10T04:48:46.782Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:48:46.792Z info: ListeAuteursSection finished
+2026-10-10T04:48:51.211Z info: ListeAuteursSection : 2026-10-10T04:48:51.211Z
+2026-10-10T04:48:51.220Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:48:51.221Z info: ListeAuteursSection finished
+2026-10-10T04:49:21.154Z info: ListeAuteursSection : 2026-10-10T04:49:21.154Z
+2026-10-10T04:49:21.165Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:49:21.166Z info: ListeAuteursSection finished
+2026-10-10T04:49:33.051Z info: ListeAuteursSection : 2026-10-10T04:49:33.051Z
+2026-10-10T04:49:33.061Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:49:33.062Z info: ListeAuteursSection finished
+2026-10-10T04:51:10.935Z info: ListeAuteursSection : 2026-10-10T04:51:10.935Z
+2026-10-10T04:51:10.945Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:10.946Z info: ListeAuteursSection finished
+2026-10-10T04:51:17.915Z info: MajAuteur : 2026-10-10T04:51:17.915Z
+2026-10-10T04:51:17.927Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:17.933Z info: MajAuteur finished
+2026-10-10T04:51:17.958Z info: FW$Sync : 2026-10-10T04:51:17.958Z
+2026-10-10T04:51:17.970Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-10T04:51:17.971Z info: FW$Sync finished
+2026-10-10T04:51:17.980Z info: ListeAuteursSection : 2026-10-10T04:51:17.980Z
+2026-10-10T04:51:17.992Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:17.993Z info: ListeAuteursSection finished
+2026-10-10T04:51:22.941Z info: ListeAuteursSection : 2026-10-10T04:51:22.941Z
+2026-10-10T04:51:22.960Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:22.961Z info: ListeAuteursSection finished
+2026-10-10T04:51:27.991Z info: MajAuteur : 2026-10-10T04:51:27.991Z
+2026-10-10T04:51:28.003Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:28.008Z info: MajAuteur finished
+2026-10-10T04:51:28.034Z info: FW$Sync : 2026-10-10T04:51:28.033Z
+2026-10-10T04:51:28.046Z info: Auth status: Status:[OK] - [Auteur/4mKXqtRTTp-TwFmnOo9N]
+2026-10-10T04:51:28.047Z info: FW$Sync finished
+2026-10-10T04:51:28.056Z info: ListeAuteursSection : 2026-10-10T04:51:28.056Z
+2026-10-10T04:51:28.068Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:28.069Z info: ListeAuteursSection finished
+2026-10-10T04:51:32.633Z info: ListeAuteursSection : 2026-10-10T04:51:32.633Z
+2026-10-10T04:51:32.644Z info: Auth status: Status:[OK] - [Redaction/1]
+2026-10-10T04:51:32.645Z info: ListeAuteursSection finished
+2026-10-10T04:56:24.486Z info: $OpenSafeByPin finished
+2026-10-10T04:56:24.524Z info: $GetSafe finished
+2026-10-10T04:56:27.525Z info: ADMIN$getAllStatus : 2026-10-10T04:56:27.525Z
+2026-10-10T04:56:27.529Z info: ADMIN$getAllStatus finished
+2026-10-10T04:56:27.560Z info: FW$setSubscription : 2026-10-10T04:56:27.560Z
+2026-10-10T04:56:27.563Z info: FW$setSubscription finished
+2026-10-10T04:56:30.488Z info: ADMIN$getEnum : 2026-10-10T04:56:30.488Z
+2026-10-10T04:56:30.491Z info: ADMIN$getEnum finished
+2026-10-11T12:10:12.220Z info: Configuration pre-loaded
