@@ -521,7 +521,7 @@ export class $Form extends $Document {
   */
   static async filteredList (op: Operation, f: string[]) : Promise<$FormObj[]> {    
     const l: $FormObj[] = []
-    await op.db.selectDocs(op.svc + '$Form', 'creds', filter.CONTAINSANY, f, '', 0, 
+    await op.db.selectDocs(op.svc + '$Form', 'creds', filter.CONTAINS, f, '', 0, 
       async (bin) => {
       const obj = decode(bin) as $FormObj
       const f = $Form.new(obj, op.svc, op.org) as $Form
